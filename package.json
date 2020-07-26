@@ -1,0 +1,91 @@
+{
+  "name": "prisma-nestjs-graphql",
+  "version": "0.0.0-dev",
+  "license": "MIT",
+  "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
+  "main": "index.js",
+  "keywords": [
+    "nestjs",
+    "graphql",
+    "prisma",
+    "prisma-generator",
+    "nestjs-graphql"
+  ],
+  "scripts": {
+    "test": "npm run eslint && npm run tscheck && npm run test:cov && npm run typecov",
+    "mocha": "node node_modules/mocha/bin/_mocha",
+    "test:r": "mocha -r ts-node/register/transpile-only src/**/*.spec.ts",
+    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/testing/**\"  npm run test:r -- --no-timeouts",
+    "test:w": "mocha -r ts-node/register/transpile-only --watch-files src/**/*.ts --watch src/**/*.spec.ts",
+    "test:d": "node --inspect-brk -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --no-timeouts --watch-files src/**/*.ts --watch src/**/*.spec.ts",
+    "test:brk": "node --inspect-brk -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --no-timeouts src/**/*.spec.ts",
+    "typecov": "node node_modules/type-coverage/bin/type-coverage --detail",
+    "tscheck": "echo tscheck... && tsc --noEmit",
+    "tscheck:w": "npm run tscheck -- --watch",
+    "eslint:w": "watchexec -w src \"npm run eslint\"",
+    "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "npm run eslint -- --fix",
+    "build": "sh Taskfile build",
+    "bundle": "sh Taskfile bundle",
+    "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
+    "unused": "no-unused-export \"src/**/*.ts\"",
+    "prettier:format": "npx prettier src --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "precise-commits",
+      "pre-push": "npm run test",
+      "commit-msg": "sh Taskfile commit_msg"
+    }
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^2.4.1",
+    "get-relative-path": "^1.0.2",
+    "pupa": "^2.0.1",
+    "to-kebab": "^1.0.7",
+    "ts-morph": "^7.1.3"
+  },
+  "peerDependencies": {
+    "@prisma/client": "2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@nestjs/graphql": "^7.6.0",
+    "@prisma/cli": "^2.4.1",
+    "@prisma/client": "^2.4.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@types/mocha": "^8.0.1",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "c8": "^7.3.0",
+    "eslint": "^7.6.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-etc": "0.0.1-beta.36",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-only-warn": "^1.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-regexp": "^0.1.1",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-sort-class-members": "^1.7.0",
+    "eslint-plugin-total-functions": "^1.40.0",
+    "eslint-plugin-unicorn": "^21.0.0",
+    "eslint-plugin-wix-editor": "^3.2.0",
+    "git-branch-is": "^4.0.0",
+    "husky": "^4.2.5",
+    "mocha": "^8.1.1",
+    "no-unused-export": "^1.12.2",
+    "precise-commits": "^1.0.2",
+    "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1",
+    "simplytyped": "^3.3.0",
+    "ts-node": "^8.10.2",
+    "type-coverage": "^2.9.0",
+    "typescript": "~3.9.7",
+    "watchexec-bin": "^1.0.0"
+  }
+}

@@ -1,0 +1,53 @@
+#!/bin/bash
+PATH="$PWD/node_modules/.bin":$PATH
+set -e
+
+build() {
+    set -x
+    rm -rfv dist
+    cp -rfv src dist
+    cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' > dist/tsconfig.json
+    cp -fv README.md LICENSE package.json dist
+    cd dist
+    /usr/bin/find . -name '*.spec.ts' | xargs rm -rvf
+    tsc -p .
+    rm -rvf tsconfig.json
+    rm -rvf fixtures
+    /usr/bin/find . -name '*.ts' | xargs rm -rvf
+    cd ..
+    set +x
+}
+
+bundle() {
+    set -x
+    npx tsup src/index.ts --inlineDynamicImports --format cjs,esm --target es2017
+    cp -fv README.md LICENSE package.json dist
+}
+
+git_last_release_tag() {
+    result=""
+    rev=$(git rev-list --max-count=1 --tags="v[0-9]*\\.[0-9]*\\.[0-9]*")
+    if [ -n "$rev" ]; then
+        result=$(git describe --tags $rev)
+    fi
+    if [ -n "$result" ]; then
+        result=$(git rev-list --max-parents=0 HEAD)
+    fi
+    echo $result
+}
+
+commit_lint() {
+    set -x
+    from=$(git_last_release_tag)
+    commitlint --from $from
+}
+
+commit_msg() {
+    if git-branch-is -q -r "^(master)"; then
+        commitlint -E HUSKY_GIT_PARAMS
+    else
+        true
+    fi
+}
+
+"$@"
