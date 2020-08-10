@@ -4,6 +4,14 @@
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unlight/nestjs-graphql-prisma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/unlight/nestjs-graphql-prisma/issues"
+  },
+  "homepage": "https://github.com/unlight/nestjs-graphql-prisma#readme",
   "keywords": [
     "nestjs",
     "graphql",
@@ -43,7 +51,7 @@
     "get-relative-path": "^1.0.2",
     "pupa": "^2.0.1",
     "to-kebab": "^1.0.7",
-    "ts-morph": "^7.1.3"
+    "ts-morph": "^7.2.0"
   },
   "peerDependencies": {
     "@prisma/client": "2"
@@ -58,12 +66,12 @@
     "@semantic-release/git": "^9.0.0",
     "@types/mocha": "^8.0.1",
     "@types/node": "^14.0.27",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "c8": "^7.3.0",
     "eslint": "^7.6.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-etc": "0.0.1-beta.36",
+    "eslint-plugin-etc": "0.0.1-beta.38",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-only-warn": "^1.0.2",
     "eslint-plugin-prettier": "^3.1.4",
@@ -71,7 +79,7 @@
     "eslint-plugin-regexp": "^0.1.1",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-sonarjs": "^0.5.0",
-    "eslint-plugin-sort-class-members": "^1.7.0",
+    "eslint-plugin-sort-class-members": "^1.8.0",
     "eslint-plugin-total-functions": "^1.40.0",
     "eslint-plugin-unicorn": "^21.0.0",
     "eslint-plugin-wix-editor": "^3.2.0",
