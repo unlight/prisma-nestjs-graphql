@@ -15,7 +15,7 @@ npm install --save-dev prisma-nestjs-graphql
 ```prisma
 generator nestgraphql {
     provider = "prisma-nestjs-graphql"
-    output = "../src/@generated"
+    output = "../src"
 }
 ```
 
@@ -42,6 +42,4 @@ npx prisma generate
 
 ## Todo
 
--   intfilter put under name prisma
 -   enable preview features
--   get rid of utils
