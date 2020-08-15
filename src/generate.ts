@@ -4,7 +4,6 @@ import assert from 'assert';
 import { existsSync, promises as fs } from 'fs';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { createEnum } from './create-enum';
 import { generateEnum } from './generate-enum';
 import { FileType, generateFileName } from './generate-file-name';
 import { generateInput } from './generate-input';
@@ -51,12 +50,7 @@ export async function generate(args: GenerateArgs) {
         return sourceFile;
     };
     // Generate enums
-    const enums = prismaClientDmmf.schema.inputTypes
-        .flatMap((i) => i.fields)
-        .flatMap((f) => f.inputType)
-        .filter((t) => t.kind === 'enum')
-        .map<PrismaDMMF.Enum>(createEnum)
-        .concat(prismaClientDmmf.datamodel.enums);
+    const enums = [...prismaClientDmmf.schema.enums, ...prismaClientDmmf.datamodel.enums];
     for (const enumerable of enums) {
         const sourceFile = await createSourceFile({ type: 'enum', name: enumerable.name });
         generateEnum({ enumerable, sourceFile });
