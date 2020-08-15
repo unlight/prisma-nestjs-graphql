@@ -44,4 +44,6 @@ npx prisma generate
 
 ## Todo
 
--   enable preview features
+-   detect distinct XDistinctFieldEnum as feature X
+-   check why UserDistinctFieldEnum is not generated
+-   generate args
