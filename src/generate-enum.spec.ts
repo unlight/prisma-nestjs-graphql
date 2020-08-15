@@ -89,11 +89,11 @@ describe('generate enum', () => {
             registerEnumType(Role, { name: 'Role' })
             `,
         });
-        assert.equal(
+        assert.strictEqual(
             sourceText.match(/registerEnumType/g)?.length,
             2,
             'Only import and call once should exists',
         );
-        assert.equal(sourceText.match(/enum Role/g)?.length, 1);
+        assert.strictEqual(sourceText.match(/enum Role/g)?.length, 1);
     });
 });

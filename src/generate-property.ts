@@ -1,4 +1,3 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import assert from 'assert';
 import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
@@ -23,6 +22,7 @@ type GeneratePropertyArgs = {
         isId?: boolean;
         default?: any;
         isReadOnly?: boolean;
+        documentation?: string;
     };
 };
 
@@ -113,6 +113,6 @@ export function generateProperty(args: GeneratePropertyArgs) {
     setObjectProperty({
         expression: optionsExpression,
         name: 'description',
-        value: (field as any).documentation,
+        value: field.documentation,
     });
 }

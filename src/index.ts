@@ -1,13 +1,13 @@
 import { generatorHandler } from '@prisma/generator-helper';
 
 import { generate } from './generate';
+import { remove } from './remove';
 import { update } from './update';
-// import { remove } from './remove';
 
 generatorHandler({
     async onGenerate(options) {
         const project = await generate(options);
-        // await remove(project, options);
+        await remove(project, options);
         await update(project, options);
     },
     onManifest() {

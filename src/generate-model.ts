@@ -1,13 +1,5 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
-import assert from 'assert';
-import {
-    ClassDeclaration,
-    Node,
-    ObjectLiteralExpression,
-    PropertyAssignment,
-    SourceFile,
-    StructureKind,
-} from 'ts-morph';
+import { SourceFile } from 'ts-morph';
 
 import { generateClass } from './generate-class';
 import { generateProperty } from './generate-property';

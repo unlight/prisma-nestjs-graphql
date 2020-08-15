@@ -20,7 +20,7 @@ export class User {
 
     @Field(() => String, {
         nullable: false,
-        description: undefined,
+        description: "User's name",
     })
     name!: string;
 

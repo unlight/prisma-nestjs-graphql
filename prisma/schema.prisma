@@ -10,6 +10,7 @@ generator nestgraphql {
 model User {
     id               String    @id @default(cuid())
     email            String    @unique
+    /// User's name
     name             String    @unique
     password         String
     bio              String?
