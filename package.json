@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
   "main": "index.js",
+  "bin": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unlight/nestjs-graphql-prisma.git"
@@ -33,8 +34,7 @@
     "eslint:w": "watchexec -w src \"npm run eslint\"",
     "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "npm run eslint -- --fix",
-    "build": "sh Taskfile build",
-    "bundle": "sh Taskfile bundle",
+    "build": "sh Taskfile bundle",
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
     "unused": "no-unused-export \"src/**/*.ts\"",
     "prettier:format": "npx prettier src --write"
@@ -85,6 +85,7 @@
     "eslint-plugin-unicorn": "^21.0.0",
     "eslint-plugin-wix-editor": "^3.2.0",
     "git-branch-is": "^4.0.0",
+    "graphql-type-json": "^0.3.2",
     "husky": "^4.2.5",
     "mocha": "^8.1.1",
     "no-unused-export": "^1.12.2",

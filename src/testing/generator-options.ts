@@ -21,6 +21,10 @@ export async function generatorOptions(
     if (!fs.existsSync(optionsCacheFile)) {
         const schemaFile = `${cachePath}/schema-${hash}.prisma`;
         const schemaData = `
+            datasource database {
+                provider = "postgresql"
+                url = env("DATABASE_URL")
+            }
             generator client {
                 provider = "prisma-client-js"
             }

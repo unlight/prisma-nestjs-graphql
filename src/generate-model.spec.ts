@@ -1,5 +1,12 @@
 import assert from 'assert';
-import { Project, QuoteKind, SourceFile } from 'ts-morph';
+import {
+    Node,
+    ObjectLiteralExpression,
+    Project,
+    PropertyDeclaration,
+    QuoteKind,
+    SourceFile,
+} from 'ts-morph';
 
 import { generateModel } from './generate-model';
 import { generatorOptions, stringContains, stringNotContains } from './testing';
@@ -20,11 +27,11 @@ describe('generate models', () => {
         const [model] = models;
         sourceFile = project.createSourceFile('_.ts', sourceFileText);
         generateModel({ model, sourceFile, projectFilePath: () => '_.ts' });
-        return sourceFile;
+        sourceText = sourceFile.getText();
     }
 
     it('model', async () => {
-        sourceFile = await getResult(`model User {
+        await getResult(`model User {
                 id String @id
             }`);
         sourceText = sourceFile.getText();
@@ -34,7 +41,7 @@ describe('generate models', () => {
     });
 
     it('field nullable', async () => {
-        sourceFile = await getResult(`model User {
+        await getResult(`model User {
                 id Int @id
                 image String?
             }`);
@@ -47,7 +54,7 @@ describe('generate models', () => {
     });
 
     it('default value', async () => {
-        sourceFile = await getResult(`model User {
+        await getResult(`model User {
                 count Int @id @default(1)
             }`);
         const sourceText = sourceFile.getText();
@@ -58,7 +65,7 @@ describe('generate models', () => {
     });
 
     it('self relation', async () => {
-        sourceFile = await getResult(`
+        await getResult(`
             model User {
                 id  String  @id
                 following   User[]   @relation("UserFollows", references: [id])
@@ -68,7 +75,7 @@ describe('generate models', () => {
     });
 
     it('extend existing class', async () => {
-        sourceFile = await getResult(
+        await getResult(
             `model User {
                 id String @id
             }`,
@@ -79,7 +86,7 @@ describe('generate models', () => {
     });
 
     it('object type description', async () => {
-        sourceFile = await getResult(
+        await getResult(
             `/// User really
             model User {
                 id Int @id
@@ -90,7 +97,7 @@ describe('generate models', () => {
     });
 
     it('property description', async () => {
-        sourceFile = await getResult(
+        await getResult(
             `model User {
                 /// user id
                 id Int @id
@@ -104,7 +111,7 @@ describe('generate models', () => {
     });
 
     it('update description to undefined', async () => {
-        sourceFile = await getResult(
+        await getResult(
             `model User {
                 id String @id
             }`,
@@ -117,7 +124,7 @@ describe('generate models', () => {
     });
 
     it('model import scalar types', async () => {
-        sourceFile = await getResult(`model User {
+        await getResult(`model User {
                 id String @id
                 count Int
                 money Float
@@ -131,7 +138,6 @@ describe('generate models', () => {
                 .flatMap((x) => x.getNamedImports())
                 .map((x) => x.getName()),
         );
-        sourceText = sourceFile.getText();
         stringContains(
             '@Field(() => Boolean, { nullable: false, description: undefined }) humanoid!: boolean',
             sourceText,
@@ -153,5 +159,25 @@ describe('generate models', () => {
         assert(imports.has('User') === false, 'Imports should not includes User');
         assert(imports.has('Int') === true, 'Imports should includes Int');
         assert(imports.has('Float') === true, 'Imports should includes Float');
+    });
+
+    it('model scalar json', async () => {
+        await getResult(`model User {
+                id String @id
+                data Json
+            }`);
+        sourceText = sourceFile.getText();
+        const propertyDeclaration = sourceFile.getClass('User')?.getProperty('data');
+        assert(propertyDeclaration);
+        stringContains(`@Field(() => GraphQLJSON`, propertyDeclaration.getText());
+
+        const importDeclaration = sourceFile.getImportDeclaration(
+            (d) => d.getModuleSpecifier().getLiteralValue() === 'graphql-type-json',
+        );
+        assert(importDeclaration, 'import graphql-type-json should exists');
+        const importSpecifier = importDeclaration
+            .getNamedImports()
+            .find((x) => x.getName() === 'GraphQLJSON');
+        assert(importSpecifier, 'const GraphQLJSON should be imported');
     });
 });

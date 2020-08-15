@@ -20,7 +20,8 @@ describe('main generate', () => {
 
     it('smoke one', async () => {
         await getResult({
-            schema: `model User {
+            schema: `
+            model User {
               id        Int      @id
             }
             `,
