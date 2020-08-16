@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, createUnionType } from '@nestjs/graphql';
 
 import { ArticleFilter } from '../article/article-filter.input';
 import { CommentFilter } from '../comment/comment-filter.input';
@@ -6,9 +6,18 @@ import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserFilter } from './user-filter.input';
 
+export const StringFilterOrValue = createUnionType({
+    name: 'StringFilterOrValue',
+    types: () => [StringFilter, String],
+    resolveType(value) {
+        console.log('value', value);
+        return null;
+    },
+});
+
 @InputType({})
 export class UserWhereInput {
-    @Field(() => StringFilter, {
+    @Field(() => StringFilterOrValue, {
         nullable: true,
         description: undefined,
     })

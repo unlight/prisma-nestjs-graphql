@@ -10,12 +10,6 @@ type Recipe {
   ingredients: [String!]!
 }
 
-type Tag {
-  id: ID!
-  name: String!
-  articles: [Article!]
-}
-
 type Comment {
   id: ID!
   createdAt: String!
@@ -25,6 +19,12 @@ type Comment {
   authorId: String!
   article: Article
   articleId: String
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  articles: [Article!]
 }
 
 type Article {
