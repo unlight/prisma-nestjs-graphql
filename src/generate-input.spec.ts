@@ -35,53 +35,75 @@ describe('generate input', () => {
         await getResult({
             schema: `
             model User {
-              id        String      @id
-              count     Int?
+              id     String      @id
             }
             `,
             name: 'UserWhereInput',
         });
-        stringContains(
-            `@Field(() => StringFilter, {
-            nullable: true,
-            description: undefined
-        }) id?: StringFilter | null`,
-            sourceText,
+
+        const idProperty = sourceFile.getClass('UserWhereInput')?.getProperty('id');
+        assert(idProperty);
+        stringContains(`@Field(() => StringFilter`, idProperty.getText());
+        stringContains(`id?: string | StringFilter | null`, idProperty.getText());
+    });
+
+    it('user where int filters', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     String      @id
+              age    Int
+            }
+            `,
+            name: 'UserWhereInput',
+        });
+
+        const ageProperty = sourceFile.getClass('UserWhereInput')?.getProperty('age');
+        assert(ageProperty);
+        stringContains(`@Field(() => IntFilter`, ageProperty.getText());
+        stringContains(`age?: number | IntFilter | null`, ageProperty.getText());
+
+        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
         );
-        stringContains(
-            `@Field(() => NullableIntFilter, {
-            nullable: true,
-            description: undefined
-        }) count?: NullableIntFilter | null`,
-            sourceText,
-        );
-        stringContains(`import { StringFilter, NullableIntFilter } from`, sourceText);
+
+        assert(imports.find((x) => x.name === 'StringFilter' && x.specifier === './0'));
+        assert(imports.find((x) => x.name === 'IntFilter' && x.specifier === './0'));
     });
 
     it('user user create input', async () => {
         await getResult({
             schema: `
             model User {
-              id        String      @id
-              count     Int?
+              id     String      @id
+              count  Int?
             }
             `,
             name: 'UserCreateInput',
         });
-        stringContains(
-            `@Field(() => String, {
-            nullable: true,
-            description: undefined
-        }) id?: string | null`,
-            sourceText,
+
+        const idProperty = sourceFile.getClass('UserCreateInput')?.getProperty('id');
+        assert(idProperty);
+
+        stringContains(`@Field(() => String`, idProperty.getText());
+
+        const countProperty = sourceFile.getClass('UserCreateInput')?.getProperty('count');
+        assert(countProperty);
+
+        stringContains(`@Field(() => Int`, countProperty.getText());
+        stringContains(`count?: number | null`, countProperty.getText());
+
+        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
         );
-        stringContains(
-            `@Field(() => Int, {
-            nullable: true,
-            description: undefined
-        }) count?: number | null`,
-            sourceText,
-        );
-        stringContains(`import { InputType, Field, Int } from '@nestjs/graphql'`, sourceText);
+
+        assert(imports.find((x) => x.name === 'InputType' && x.specifier === '@nestjs/graphql'));
+        assert(imports.find((x) => x.name === 'Int' && x.specifier === '@nestjs/graphql'));
     });
 });

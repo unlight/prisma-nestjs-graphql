@@ -9,13 +9,13 @@ export class TagScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: StringFilter | null;
+    name?: string | StringFilter | null;
 
     @Field(() => ArticleFilter, {
         nullable: true,

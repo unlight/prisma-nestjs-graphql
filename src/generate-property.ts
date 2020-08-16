@@ -31,7 +31,9 @@ type GeneratePropertyArgs = {
  */
 export function generateProperty(args: GeneratePropertyArgs) {
     const { field, className, classType, classDeclaration, sourceFile, projectFilePath } = args;
+    // console.log('field', field);
     let propertyType = toPropertyType(field);
+    // console.log('propertyType', propertyType);
     const nullable = !field.isRequired;
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {

@@ -12,7 +12,7 @@ export class CommentWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
@@ -30,19 +30,19 @@ export class CommentWhereInput {
         nullable: true,
         description: undefined,
     })
-    body?: StringFilter | null;
+    body?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: StringFilter | null;
+    authorId?: string | StringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    articleId?: NullableStringFilter | null;
+    articleId?: string | NullableStringFilter | null;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,

@@ -12,37 +12,37 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: StringFilter | null;
+    email?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: StringFilter | null;
+    name?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: StringFilter | null;
+    password?: string | StringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    bio?: NullableStringFilter | null;
+    bio?: string | NullableStringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    image?: NullableStringFilter | null;
+    image?: string | NullableStringFilter | null;
 
     @Field(() => UserFilter, {
         nullable: true,

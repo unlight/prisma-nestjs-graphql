@@ -22,7 +22,6 @@ export function generateInput(args: GenerateInputArgs) {
 
     for (const field of inputType.fields) {
         const matchInput = findInputType(field, inputType);
-        assert(matchInput);
         generateProperty({
             field: {
                 type: String(matchInput.type),
@@ -40,15 +39,9 @@ export function generateInput(args: GenerateInputArgs) {
 }
 
 function findInputType(schemaArgument: PrismaDMMF.SchemaArg, inputType: PrismaDMMF.InputType) {
-    let result: PrismaDMMF.SchemaArgInputType | undefined;
-    if (inputType.isWhereType) {
-        result = schemaArgument.inputType.find((x) => x.kind === 'object');
-    }
-    if (!result) {
-        result = schemaArgument.inputType.find((x) => x.type === inputType.name);
-    }
-    if (!result) {
-        result = schemaArgument.inputType[0];
-    }
-    return result;
+    return (
+        (inputType.isWhereType && schemaArgument.inputType.find((x) => x.kind === 'object')) ||
+        schemaArgument.inputType.find((x) => x.type === inputType.name) ||
+        schemaArgument.inputType[0]
+    );
 }
