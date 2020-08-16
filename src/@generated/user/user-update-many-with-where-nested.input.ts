@@ -1,4 +1,5 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { UserScalarWhereInput } from './user-scalar-where.input';
 import { UserUpdateManyDataInput } from './user-update-many-data.input';
 

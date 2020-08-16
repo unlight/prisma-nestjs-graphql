@@ -13,7 +13,7 @@
     "strict": true,
     "noImplicitAny": false,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "outDir": "dist",
     "pretty": true,
     "esModuleInterop": true,

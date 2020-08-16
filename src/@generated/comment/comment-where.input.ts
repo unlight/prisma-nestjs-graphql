@@ -1,9 +1,10 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { StringFilter } from '../prisma/string-filter.input';
+import { Field, InputType } from '@nestjs/graphql';
+
+import { ArticleWhereInput } from '../article/article-where.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
-import { ArticleWhereInput } from '../article/article-where.input';
 
 @InputType({})
 export class CommentWhereInput {

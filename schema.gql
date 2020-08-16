@@ -1,0 +1,221 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Recipe {
+  id: ID!
+  title: String!
+  description: String
+  creationDate: String!
+  ingredients: [String!]!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  articles: [Article!]
+}
+
+type Comment {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  body: String!
+  author: User!
+  authorId: String!
+  article: Article
+  articleId: String
+}
+
+type Article {
+  id: ID!
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  tags: [Tag!]
+  createdAt: String!
+  updatedAt: String!
+  favoritesCount: Int!
+  author: User!
+  authorId: String!
+  favoritedBy: [User!]
+  comments: [Comment!]
+  active: Boolean
+}
+
+type User {
+  id: ID!
+  email: String!
+
+  """User's name"""
+  name: String!
+  password: String!
+  bio: String
+  image: String
+  following: [User!]
+  followers: [User!]
+  favoriteArticles: [Article!]
+  articles: [Article!]
+  comments: [Comment!]
+}
+
+type Query {
+  recipe(id: String!): Recipe!
+  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+  users(where: UserWhereInput!): [User!]!
+}
+
+input UserWhereInput {
+  id: StringFilter
+  email: StringFilter
+  name: StringFilter
+  password: StringFilter
+  bio: NullableStringFilter
+  image: NullableStringFilter
+  following: UserFilter
+  followers: UserFilter
+  favoriteArticles: ArticleFilter
+  articles: ArticleFilter
+  comments: CommentFilter
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input StringFilter {
+  equals: String
+  not: StringFilter
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input NullableStringFilter {
+  equals: String
+  not: NullableStringFilter
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input UserFilter {
+  every: UserWhereInput
+  some: UserWhereInput
+  none: UserWhereInput
+}
+
+input ArticleFilter {
+  every: ArticleWhereInput
+  some: ArticleWhereInput
+  none: ArticleWhereInput
+}
+
+input ArticleWhereInput {
+  id: StringFilter
+  slug: StringFilter
+  title: StringFilter
+  description: StringFilter
+  body: StringFilter
+  tags: TagFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  favoritesCount: IntFilter
+  authorId: StringFilter
+  favoritedBy: UserFilter
+  comments: CommentFilter
+  active: NullableBooleanFilter
+  AND: [ArticleWhereInput!]
+  OR: [ArticleWhereInput!]
+  NOT: [ArticleWhereInput!]
+  author: UserWhereInput
+}
+
+input TagFilter {
+  every: TagWhereInput
+  some: TagWhereInput
+  none: TagWhereInput
+}
+
+input TagWhereInput {
+  id: StringFilter
+  name: StringFilter
+  articles: ArticleFilter
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+}
+
+input DateTimeFilter {
+  equals: String
+  not: DateTimeFilter
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+}
+
+input IntFilter {
+  equals: Int
+  not: IntFilter
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
+
+input CommentFilter {
+  every: CommentWhereInput
+  some: CommentWhereInput
+  none: CommentWhereInput
+}
+
+input CommentWhereInput {
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  body: StringFilter
+  authorId: StringFilter
+  articleId: NullableStringFilter
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+  author: UserWhereInput
+  article: ArticleWhereInput
+}
+
+input NullableBooleanFilter {
+  equals: Boolean
+  not: NullableBooleanFilter
+}
+
+type Mutation {
+  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
+  removeRecipe(id: String!): Boolean!
+}
+
+input NewRecipeInput {
+  title: String!
+  description: String
+  ingredients: [String!]!
+}
+
+type Subscription {
+  recipeAdded: Recipe!
+}

@@ -6,6 +6,8 @@ const prisma = new PrismaClient();
     console.log('Seeding...');
     await prisma.$connect();
 
+    // await prisma.user.findMany({where: {id: '1'}})
+
     // await prisma.user.create({
     //     data: {
     //         email: 'nonphenomenal@pelobatoid.net',
