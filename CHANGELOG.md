@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.1...v1.1.2) (2020-08-16)
+
+
+### Bug Fixes
+
+* Corrected scalar property type for where type ([b9e5937](https://github.com/unlight/nestjs-graphql-prisma/commit/b9e593723e820dc6c3cd134e2270c0573f19f8b8))
+
 ## [1.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.0...v1.1.1) (2020-08-16)
 
 
