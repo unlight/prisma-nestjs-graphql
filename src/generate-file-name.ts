@@ -4,23 +4,24 @@ import { toKebab } from 'to-kebab';
 export type FileType = 'model' | 'input' | 'enum';
 
 const splitKeywords = [
-    'WhereInput',
-    'ScalarWhereInput',
-    'OrderByInput',
-    'WhereUniqueInput',
     'CreateInput',
+    'CreateMany',
+    'CreateOneWithout',
+    'CreateWithout',
+    'DistinctField',
+    'Filter',
+    'ManyWithout',
+    'OrderByInput',
+    'ScalarWhereInput',
     'UpdateInput',
+    'UpdateMany',
+    'UpdateOneRequiredWithout',
+    'UpdateOneWithout',
+    'UpdateWith',
     'UpsertWith',
     'UpsertWithout',
-    'UpdateWith',
-    'UpdateMany',
-    'CreateMany',
-    'CreateWithout',
-    'UpdateOneWithout',
-    'ManyWithout',
-    'CreateOneWithout',
-    'UpdateOneRequiredWithout',
-    'Filter',
+    'WhereInput',
+    'WhereUniqueInput',
 ].sort((a, b) => b.length - a.length);
 
 type GenerateFileNameArgs = {
@@ -42,8 +43,12 @@ export function generateFileName(args: GenerateFileNameArgs) {
         }
     }
     let dasherizedName = toKebab(name);
-    if (type === 'input' && dasherizedName.endsWith('-input')) {
-        dasherizedName = dasherizedName.slice(0, -6);
+
+    for (const suffix of ['input', 'enum']) {
+        const ending = `-${suffix}`;
+        if (type === suffix && dasherizedName.endsWith(ending)) {
+            dasherizedName = dasherizedName.slice(0, -ending.length);
+        }
     }
 
     return pupa(template, {
