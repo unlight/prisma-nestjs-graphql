@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.0...v1.1.1) (2020-08-16)
+
+
+### Bug Fixes
+
+* Generate distinct related enums with bound feature ([d055e3b](https://github.com/unlight/nestjs-graphql-prisma/commit/d055e3b4d1889c90af0bb12c6377532d71fc70cd))
+* Removed unnecessary create enum from input type ([e6774ab](https://github.com/unlight/nestjs-graphql-prisma/commit/e6774ab3b0998eee01d80d129626f8b6c3058e12))
+
 # [1.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.0.0...v1.1.0) (2020-08-15)
 
 
