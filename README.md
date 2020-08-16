@@ -44,3 +44,4 @@ npx prisma generate
 -   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 -   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
 -   Prisma 2 integration - https://github.com/MichalLytek/type-graphql/issues/476
+-   GraphQLUnionType as input type - https://github.com/graphql/graphql-js/issues/207
