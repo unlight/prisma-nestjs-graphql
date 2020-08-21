@@ -1,8 +1,7 @@
-import { Field, InputType } from '@nestjs/graphql';
-
-import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input';
-import { UserUpdateWithoutFollowersDataInput } from './user-update-without-followers-data.input';
+import { InputType, Field } from '@nestjs/graphql';
 import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserUpdateWithoutFollowersDataInput } from './user-update-without-followers-data.input';
+import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input';
 
 @InputType({})
 export class UserUpsertWithWhereUniqueWithoutFollowersInput {

@@ -1,7 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
-
-import { ArticleUpdateWithoutFavoritedByDataInput } from './article-update-without-favorited-by-data.input';
+import { InputType, Field } from '@nestjs/graphql';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleUpdateWithoutFavoritedByDataInput } from './article-update-without-favorited-by-data.input';
 
 @InputType({})
 export class ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {

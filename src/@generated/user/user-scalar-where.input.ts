@@ -1,10 +1,9 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
+import { StringFilter } from '../prisma/string-filter.input';
+import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
+import { UserFilter } from './user-filter.input';
 import { ArticleFilter } from '../article/article-filter.input';
 import { CommentFilter } from '../comment/comment-filter.input';
-import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
-import { StringFilter } from '../prisma/string-filter.input';
-import { UserFilter } from './user-filter.input';
 
 @InputType({})
 export class UserScalarWhereInput {

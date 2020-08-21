@@ -1,11 +1,10 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
-import { ArticleScalarWhereInput } from './article-scalar-where.input';
-import { ArticleUpdateManyWithWhereNestedInput } from './article-update-many-with-where-nested.input';
-import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input';
-import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input';
+import { ArticleUpdateManyWithWhereNestedInput } from './article-update-many-with-where-nested.input';
+import { ArticleScalarWhereInput } from './article-scalar-where.input';
+import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input';
 
 @InputType({})
 export class ArticleUpdateManyWithoutAuthorInput {

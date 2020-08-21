@@ -1,5 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { ArticleWhereInput } from './article-where.input';
 
 @InputType({})

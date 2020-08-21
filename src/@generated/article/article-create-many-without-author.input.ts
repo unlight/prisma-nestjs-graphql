@@ -1,5 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 

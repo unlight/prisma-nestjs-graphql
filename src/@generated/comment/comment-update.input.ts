@@ -1,7 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
-
-import { ArticleUpdateOneWithoutCommentsInput } from '../article/article-update-one-without-comments.input';
+import { InputType, Field } from '@nestjs/graphql';
 import { UserUpdateOneRequiredWithoutCommentsInput } from '../user/user-update-one-required-without-comments.input';
+import { ArticleUpdateOneWithoutCommentsInput } from '../article/article-update-one-without-comments.input';
 
 @InputType({})
 export class CommentUpdateInput {

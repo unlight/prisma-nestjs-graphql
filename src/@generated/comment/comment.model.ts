@@ -1,7 +1,6 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-
-import { Article } from '../article/article.model';
+import { ObjectType, ID, Field } from '@nestjs/graphql';
 import { User } from '../user/user.model';
+import { Article } from '../article/article.model';
 
 @ObjectType({
     description: undefined,

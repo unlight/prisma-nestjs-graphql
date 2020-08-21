@@ -1,5 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { UserCreateOneWithoutCommentsInput } from '../user/user-create-one-without-comments.input';
 
 @InputType({})

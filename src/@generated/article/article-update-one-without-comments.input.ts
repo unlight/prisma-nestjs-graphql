@@ -1,9 +1,8 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateWithoutCommentsDataInput } from './article-update-without-comments-data.input';
 import { ArticleUpsertWithoutCommentsInput } from './article-upsert-without-comments.input';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType({})
 export class ArticleUpdateOneWithoutCommentsInput {

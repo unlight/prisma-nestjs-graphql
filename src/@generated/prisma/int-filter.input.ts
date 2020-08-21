@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType({})
 export class IntFilter {

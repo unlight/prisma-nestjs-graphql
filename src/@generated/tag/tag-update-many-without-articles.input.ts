@@ -1,11 +1,10 @@
-import { Field, InputType } from '@nestjs/graphql';
-
+import { InputType, Field } from '@nestjs/graphql';
 import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input';
-import { TagScalarWhereInput } from './tag-scalar-where.input';
-import { TagUpdateManyWithWhereNestedInput } from './tag-update-many-with-where-nested.input';
-import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
-import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
+import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
+import { TagUpdateManyWithWhereNestedInput } from './tag-update-many-with-where-nested.input';
+import { TagScalarWhereInput } from './tag-scalar-where.input';
+import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
 
 @InputType({})
 export class TagUpdateManyWithoutArticlesInput {

@@ -1,7 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
-
-import { ArticleFilter } from '../article/article-filter.input';
+import { InputType, Field } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
+import { ArticleFilter } from '../article/article-filter.input';
 
 @InputType({})
 export class TagWhereInput {

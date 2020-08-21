@@ -1,10 +1,9 @@
-import { Field, InputType } from '@nestjs/graphql';
-
-import { ArticleWhereInput } from '../article/article-where.input';
+import { InputType, Field } from '@nestjs/graphql';
+import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
-import { StringFilter } from '../prisma/string-filter.input';
-import { UserWhereInput } from '../user/user-where.input';
+import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { ArticleRelationFilter } from '../article/article-relation-filter.input';
 
 @InputType({})
 export class CommentWhereInput {
@@ -62,15 +61,15 @@ export class CommentWhereInput {
     })
     NOT?: CommentWhereInput[] | null;
 
-    @Field(() => UserWhereInput, {
+    @Field(() => UserRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    author?: UserWhereInput | null;
+    author?: UserRelationFilter | null;
 
-    @Field(() => ArticleWhereInput, {
+    @Field(() => ArticleRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    article?: ArticleWhereInput | null;
+    article?: ArticleRelationFilter | null;
 }
