@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.2...v1.1.3) (2020-08-21)
+
+
+### Bug Fixes
+
+* Added new feature split keywords ([e780043](https://github.com/unlight/nestjs-graphql-prisma/commit/e780043efbc34623acf630145248ae821a0a35f5))
+
 ## [1.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.1...v1.1.2) (2020-08-16)
 
 
