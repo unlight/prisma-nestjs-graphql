@@ -16,10 +16,12 @@ type GenerateModelArgs = {
 export function generateModel(args: GenerateModelArgs) {
     const { model, sourceFile, projectFilePath } = args;
     const classDeclaration = generateClass({
-        decoratorName: 'ObjectType',
+        decorator: {
+            name: 'ObjectType',
+            properties: [{ name: 'description', value: model.documentation }],
+        },
         sourceFile,
         name: model.name,
-        properties: [{ name: 'description', value: model.documentation }],
     });
 
     model.fields

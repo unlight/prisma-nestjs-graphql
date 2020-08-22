@@ -7,17 +7,19 @@ import { setObjectProperty } from './set-object-property';
 type GenerateClassArgs = {
     sourceFile: SourceFile;
     name: string;
-    decoratorName: string; //todo :rename
-    properties: {
+    decorator: {
         name: string;
-        value: string | undefined;
-    }[];
+        properties?: {
+            name: string;
+            value?: string;
+        }[];
+    };
 };
 
 export function generateClass(args: GenerateClassArgs) {
-    const { name, sourceFile, decoratorName, properties } = args;
+    const { name, sourceFile, decorator } = args;
 
-    generateGraphqlImport({ sourceFile, name: decoratorName });
+    generateGraphqlImport({ sourceFile, name: decorator.name });
 
     let classDeclaration = sourceFile
         .getClasses()
@@ -26,21 +28,21 @@ export function generateClass(args: GenerateClassArgs) {
         classDeclaration = sourceFile.addClass({
             name,
             isExported: true,
-            decorators: [{ name: decoratorName, arguments: ['{}'] }],
+            decorators: [{ name: decorator.name, arguments: ['{}'] }],
         });
     }
-    let decorator = classDeclaration
+    let decoratorDeclaration = classDeclaration
         .getDecorators()
-        .find((decorator) => decorator.getName() === decoratorName);
-    if (!decorator) {
-        generateGraphqlImport({ name: decoratorName, sourceFile });
-        decorator = classDeclaration.addDecorator({
-            name: decoratorName,
+        .find((d) => d.getName() === decorator.name);
+    if (!decoratorDeclaration) {
+        generateGraphqlImport({ name: decorator.name, sourceFile });
+        decoratorDeclaration = classDeclaration.addDecorator({
+            name: decorator.name,
             arguments: ['{}'],
         });
     }
-    assert(decorator);
-    const callExpression = decorator.getCallExpression();
+    assert(decoratorDeclaration);
+    const callExpression = decoratorDeclaration.getCallExpression();
     assert(callExpression);
     let objectExpression = callExpression
         .getArguments()
@@ -51,7 +53,7 @@ export function generateClass(args: GenerateClassArgs) {
         [objectExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
     }
 
-    for (const property of properties) {
+    for (const property of decorator.properties || []) {
         setObjectProperty({
             expression: objectExpression,
             name: property.name,

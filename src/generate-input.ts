@@ -15,9 +15,11 @@ export function generateInput(args: GenerateInputArgs) {
     const { inputType, sourceFile, projectFilePath } = args;
     const classDeclaration = generateClass({
         sourceFile,
-        decoratorName: 'InputType',
+        decorator: {
+            name: 'InputType',
+            properties: [],
+        },
         name: inputType.name,
-        properties: [],
     });
 
     for (const field of inputType.fields) {
