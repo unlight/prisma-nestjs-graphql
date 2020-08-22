@@ -5,27 +5,27 @@ const patterns = new Map([
     [{ type: (type: string) => type === 'Int', kind: 'scalar' }, () => 'number'],
     [{ type: (type: string) => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
     [{ type: (type: string) => type === 'Json', kind: 'scalar' }, () => 'object'],
-    [
-        {
-            type: (type: string) => ['StringFilter', 'NullableStringFilter'].includes(type),
-            kind: 'object',
-        },
-        (field: { type: string }) => `string | ${field.type}`,
-    ],
-    [
-        {
-            type: (type: string) => ['IntFilter', 'NullableIntFilter'].includes(type),
-            kind: 'object',
-        },
-        (field: { type: string }) => `number | ${field.type}`,
-    ],
-    [
-        {
-            type: (type: string) => ['BooleanFilter', 'NullableBooleanFilter'].includes(type),
-            kind: 'object',
-        },
-        (field: { type: string }) => `boolean | ${field.type}`,
-    ],
+    // [
+    //     {
+    //         type: (type: string) => ['StringFilter', 'NullableStringFilter'].includes(type),
+    //         kind: 'object',
+    //     },
+    //     (field: { type: string }) => `string | ${field.type}`,
+    // ],
+    // [
+    //     {
+    //         type: (type: string) => ['IntFilter', 'NullableIntFilter'].includes(type),
+    //         kind: 'object',
+    //     },
+    //     (field: { type: string }) => `number | ${field.type}`,
+    // ],
+    // [
+    //     {
+    //         type: (type: string) => ['BooleanFilter', 'NullableBooleanFilter'].includes(type),
+    //         kind: 'object',
+    //     },
+    //     (field: { type: string }) => `boolean | ${field.type}`,
+    // ],
     [{ type: () => true, kind: 'object' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'enum' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'scalar' }, (field: { type: string }) => field.type],

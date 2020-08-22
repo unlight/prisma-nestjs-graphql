@@ -1,11 +1,12 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { StringFilter } from '../prisma/string-filter.input';
-import { TagFilter } from '../tag/tag-filter.input';
+import { Field, InputType } from '@nestjs/graphql';
+
+import { CommentFilter } from '../comment/comment-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { UserFilter } from '../user/user-filter.input';
-import { CommentFilter } from '../comment/comment-filter.input';
 import { NullableBooleanFilter } from '../prisma/nullable-boolean-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
+import { TagFilter } from '../tag/tag-filter.input';
+import { UserFilter } from '../user/user-filter.input';
 
 @InputType({})
 export class ArticleScalarWhereInput {
@@ -13,31 +14,31 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    slug?: string | StringFilter | null;
+    slug?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    title?: string | StringFilter | null;
+    title?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    description?: string | StringFilter | null;
+    description?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter | null;
+    body?: StringFilter | null;
 
     @Field(() => TagFilter, {
         nullable: true,
@@ -61,13 +62,13 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: number | IntFilter | null;
+    favoritesCount?: IntFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter | null;
+    authorId?: StringFilter | null;
 
     @Field(() => UserFilter, {
         nullable: true,
@@ -85,7 +86,7 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    active?: boolean | NullableBooleanFilter | null;
+    active?: NullableBooleanFilter | null;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,

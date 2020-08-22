@@ -1,8 +1,12 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
-import { SourceFile } from 'ts-morph';
+import { ClassDeclaration, SourceFile } from 'ts-morph';
 
-import { generateClass } from './generate-class';
-import { generateProperty } from './generate-property';
+import { generateClass, generateClassProperty } from './generate-class';
+import { generateDecorator } from './generate-decorator';
+import { generateGraphqlImport } from './generate-graphql-import';
+import { generateProjectImport } from './generate-project-import';
+import { toGraphqlImportType } from './to-graphql-import-type';
+import { toPropertyType } from './to-property-type';
 
 type GenerateModelArgs = {
     model: PrismaDMMF.Model;
@@ -23,18 +27,69 @@ export function generateModel(args: GenerateModelArgs) {
         sourceFile,
         name: model.name,
     });
-
     model.fields
         .filter((field) => !field.isGenerated)
         .forEach((field) => {
-            generateProperty({
+            generateModelProperty({
                 field,
                 sourceFile,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                classDeclaration: classDeclaration,
+                classDeclaration,
                 className: model.name,
                 projectFilePath,
                 classType: 'model',
             });
         });
+}
+
+type GeneratePropertyArgs = {
+    projectFilePath(data: { name: string; type: string }): string;
+    classDeclaration: ClassDeclaration;
+    sourceFile: SourceFile;
+    className: string;
+    classType: string;
+    field: PrismaDMMF.Field;
+};
+
+/**
+ * Generate property for model class (ObjectType).
+ */
+function generateModelProperty(args: GeneratePropertyArgs) {
+    const { field, className, classType, classDeclaration, sourceFile, projectFilePath } = args;
+    let propertyType = toPropertyType(field);
+    const nullable = !field.isRequired;
+    let fieldType = field.type;
+    if (field.isId || field.kind === 'scalar') {
+        fieldType = generateGraphqlImport({
+            name: className,
+            importType: toGraphqlImportType(field),
+            sourceFile,
+        });
+    } else if ((field.kind === 'object' && field.type !== className) || field.kind === 'enum') {
+        generateProjectImport({
+            sourceFile,
+            projectFilePath,
+            name: field.type,
+            type: field.kind === 'enum' ? 'enum' : classType,
+        });
+    }
+    if (field.isList) {
+        fieldType = `[${fieldType}]`;
+        propertyType = `${propertyType}[]`;
+    }
+    if (nullable) {
+        propertyType = `${propertyType} | null`;
+    }
+    const propertyDeclaration = generateClassProperty({
+        ...field,
+        type: propertyType,
+        classDeclaration,
+    });
+    generateGraphqlImport({ name: 'Field', sourceFile });
+    generateDecorator({
+        fieldType,
+        propertyDeclaration,
+        nullable,
+        defaultValue: field.default,
+        description: field.documentation,
+    });
 }

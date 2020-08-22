@@ -1,5 +1,5 @@
 type ToGraphqlImportTypeArgs = {
-    isId?: boolean;
+    isId: boolean;
     type: string;
     kind: string;
 };

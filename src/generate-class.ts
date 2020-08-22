@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Decorator, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
+import { ClassDeclaration, Decorator, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
 import { generateGraphqlImport } from './generate-graphql-import';
 import { setObjectProperty } from './set-object-property';
@@ -62,4 +62,31 @@ export function generateClass(args: GenerateClassArgs) {
     }
 
     return classDeclaration;
+}
+
+type GenerateClassProperty = {
+    classDeclaration: ClassDeclaration;
+    name: string;
+    type: string;
+    isRequired: boolean;
+    isReadOnly?: boolean;
+};
+
+export function generateClassProperty(args: GenerateClassProperty) {
+    const { type, isRequired, name, classDeclaration, isReadOnly } = args;
+    let propertyDeclaration = classDeclaration
+        .getProperties()
+        .find((propertyDeclaration) => propertyDeclaration.getName() === name);
+    if (!propertyDeclaration) {
+        propertyDeclaration = classDeclaration.addProperty({
+            leadingTrivia: '\n',
+            name,
+            type,
+            hasQuestionToken: !isRequired,
+            hasExclamationToken: isRequired,
+            isReadonly: isReadOnly,
+        });
+    }
+    assert(propertyDeclaration);
+    return propertyDeclaration;
 }

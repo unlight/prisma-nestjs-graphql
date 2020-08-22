@@ -1,7 +1,8 @@
-import { ObjectType, ID, Field, Int } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+
+import { Comment } from '../comment/comment.model';
 import { Tag } from '../tag/tag.model';
 import { User } from '../user/user.model';
-import { Comment } from '../comment/comment.model';
 
 @ObjectType({
     description: undefined,

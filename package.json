@@ -37,7 +37,7 @@
     "build": "sh Taskfile bundle",
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
     "prettier:format": "npx prettier src --write",
-    "regen": "rm -rf src/@generated && npm run prisma:g && npm run prettier:format",
+    "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run prettier:format",
     "start:example": "node -r ts-node/register/transpile-only src/example/main.ts"
   },
   "husky": {

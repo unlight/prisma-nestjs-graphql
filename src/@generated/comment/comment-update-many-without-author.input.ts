@@ -1,10 +1,11 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
-import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update-with-where-unique-without-author.input';
-import { CommentUpdateManyWithWhereNestedInput } from './comment-update-many-with-where-nested.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
+import { CommentUpdateManyWithWhereNestedInput } from './comment-update-many-with-where-nested.input';
+import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update-with-where-unique-without-author.input';
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType({})
 export class CommentUpdateManyWithoutAuthorInput {

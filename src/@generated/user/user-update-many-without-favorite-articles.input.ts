@@ -1,10 +1,11 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
-import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-update-with-where-unique-without-favorite-articles.input';
-import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
+import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
+import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-update-with-where-unique-without-favorite-articles.input';
 import { UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput } from './user-upsert-with-where-unique-without-favorite-articles.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType({})
 export class UserUpdateManyWithoutFavoriteArticlesInput {

@@ -1,9 +1,10 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { StringFilter } from '../prisma/string-filter.input';
-import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
-import { UserFilter } from './user-filter.input';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { ArticleFilter } from '../article/article-filter.input';
 import { CommentFilter } from '../comment/comment-filter.input';
+import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
+import { UserFilter } from './user-filter.input';
 
 @InputType({})
 export class UserScalarWhereInput {
@@ -11,37 +12,37 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: string | StringFilter | null;
+    email?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter | null;
+    name?: StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: string | StringFilter | null;
+    password?: StringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    bio?: string | NullableStringFilter | null;
+    bio?: NullableStringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    image?: string | NullableStringFilter | null;
+    image?: NullableStringFilter | null;
 
     @Field(() => UserFilter, {
         nullable: true,

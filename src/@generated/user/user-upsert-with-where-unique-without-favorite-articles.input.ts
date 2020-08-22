@@ -1,7 +1,8 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateWithoutFavoriteArticlesDataInput } from './user-update-without-favorite-articles-data.input';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
+import { UserUpdateWithoutFavoriteArticlesDataInput } from './user-update-without-favorite-articles-data.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType({})
 export class UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {

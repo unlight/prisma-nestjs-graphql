@@ -1,10 +1,11 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+
 import { UserCreateWithoutFollowingInput } from './user-create-without-following.input';
-import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-with-where-unique-without-following.input';
-import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
+import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
+import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-with-where-unique-without-following.input';
 import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType({})
 export class UserUpdateManyWithoutFollowingInput {
