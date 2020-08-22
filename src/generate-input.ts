@@ -1,13 +1,12 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import assert from 'assert';
-import { SourceFile } from 'ts-morph';
+import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { generateClass, generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
 import { generateGraphqlImport } from './generate-graphql-import';
 import { generateProjectImport } from './generate-project-import';
-import { toGraphqlImportType } from './to-graphql-import-type';
-import { toPropertyType } from './to-property-type';
+import { toGraphqlImportType, toPropertyType } from './type-utils';
 
 type GenerateInputArgs = {
     inputType: PrismaDMMF.InputType;
@@ -26,51 +25,64 @@ export function generateInput(args: GenerateInputArgs) {
         },
         name: className,
     });
-    for (const field of inputType.fields) {
-        const inputType = getMatchingInputType(field.inputType);
-        const propertyType = getPropertyType(field);
-        const propertyDeclaration = generateClassProperty({
-            name: field.name,
-            type: propertyType,
-            classDeclaration,
-            isReadOnly: false,
-            isRequired: false,
+    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
+    inputType.fields.forEach((field) => {
+        generateInputProperty({ field, classDeclaration, sourceFile, projectFilePath, className });
+    });
+}
+
+type GenerateInputPropertyArgs = {
+    field: PrismaDMMF.SchemaArg;
+    sourceFile: SourceFile;
+    projectFilePath(data: { name: string; type: string }): string;
+    className: string;
+    classDeclaration: ClassDeclaration;
+};
+
+function generateInputProperty(args: GenerateInputPropertyArgs) {
+    const { field, sourceFile, className, classDeclaration, projectFilePath } = args;
+    const inputType = getMatchingInputType(field.inputType);
+    const propertyType = getPropertyType(field);
+    const propertyDeclaration = generateClassProperty({
+        name: field.name,
+        type: propertyType,
+        classDeclaration,
+        isReadOnly: false,
+        isRequired: false,
+    });
+    let fieldType = getFieldType(inputType);
+    if (inputType.kind === 'scalar') {
+        const importType = toGraphqlImportType({
+            kind: inputType.kind,
+            type: fieldType,
+            isId: false,
         });
-        let fieldType = getFieldType(inputType);
-        if (inputType.kind === 'scalar') {
-            const importType = toGraphqlImportType({
-                kind: inputType.kind,
-                type: fieldType,
-                isId: false,
-            });
-            // Override return field type value
-            fieldType = importType.name;
-            generateGraphqlImport({
-                sourceFile,
-                ...importType,
-            });
-        } else if (inputType.kind === 'object' && inputType.type !== className) {
-            generateProjectImport({
-                name: fieldType,
-                type: 'input',
-                sourceFile,
-                projectFilePath,
-            });
-        } else if (inputType.kind === 'enum') {
-            generateProjectImport({
-                name: fieldType,
-                type: 'enum',
-                sourceFile,
-                projectFilePath,
-            });
-        }
-        generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
-        generateDecorator({
-            propertyDeclaration,
-            fieldType: inputType.isList ? `[${fieldType}]` : fieldType,
-            nullable: true,
+        // Override return field type value
+        fieldType = importType.name;
+        generateGraphqlImport({
+            sourceFile,
+            ...importType,
+        });
+    } else if (inputType.kind === 'object' && inputType.type !== className) {
+        generateProjectImport({
+            name: fieldType,
+            type: 'input',
+            sourceFile,
+            projectFilePath,
+        });
+    } else if (inputType.kind === 'enum') {
+        generateProjectImport({
+            name: fieldType,
+            type: 'enum',
+            sourceFile,
+            projectFilePath,
         });
     }
+    generateDecorator({
+        propertyDeclaration,
+        fieldType: inputType.isList ? `[${fieldType}]` : fieldType,
+        nullable: true,
+    });
 }
 
 function getPropertyType(field: PrismaDMMF.SchemaArg): string {
