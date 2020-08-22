@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.3...v1.1.4) (2020-08-22)
+
+
+### Bug Fixes
+
+* Generate enumerable filters ([9f35c9a](https://github.com/unlight/nestjs-graphql-prisma/commit/9f35c9adae6ebf51dbc5fcd975d41dfd4393ad35))
+
 ## [1.1.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.2...v1.1.3) (2020-08-21)
 
 
