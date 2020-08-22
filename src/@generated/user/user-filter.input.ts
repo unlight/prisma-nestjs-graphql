@@ -8,17 +8,17 @@ export class UserFilter {
         nullable: true,
         description: undefined,
     })
-    every?: UserWhereInput | null;
+    every?: UserWhereInput | UserWhereInput[] | null;
 
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: UserWhereInput | null;
+    some?: UserWhereInput | UserWhereInput[] | null;
 
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: UserWhereInput | null;
+    none?: UserWhereInput | UserWhereInput[] | null;
 }

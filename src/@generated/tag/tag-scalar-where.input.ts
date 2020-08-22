@@ -9,13 +9,13 @@ export class TagScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: StringFilter | null;
+    name?: string | StringFilter | null;
 
     @Field(() => ArticleFilter, {
         nullable: true,
@@ -27,17 +27,17 @@ export class TagScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: TagScalarWhereInput[] | null;
+    AND?: TagScalarWhereInput | TagScalarWhereInput[] | null;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: TagScalarWhereInput[] | null;
+    OR?: TagScalarWhereInput | TagScalarWhereInput[] | null;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: TagScalarWhereInput[] | null;
+    NOT?: TagScalarWhereInput | TagScalarWhereInput[] | null;
 }

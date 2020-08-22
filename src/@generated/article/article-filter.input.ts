@@ -8,17 +8,17 @@ export class ArticleFilter {
         nullable: true,
         description: undefined,
     })
-    every?: ArticleWhereInput | null;
+    every?: ArticleWhereInput | ArticleWhereInput[] | null;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: ArticleWhereInput | null;
+    some?: ArticleWhereInput | ArticleWhereInput[] | null;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: ArticleWhereInput | null;
+    none?: ArticleWhereInput | ArticleWhereInput[] | null;
 }

@@ -2,9 +2,9 @@ import assert from 'assert';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateInput } from './generate-input';
-import { generatorOptions, stringContains } from './testing';
+import { generatorOptions, stringContains, stringNotContains } from './testing';
 
-describe('generate input', () => {
+describe('generate inputs', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
     type Options = {
@@ -13,6 +13,7 @@ describe('generate input', () => {
         sourceFileText?: string;
         outputFilePattern?: string;
     };
+    let imports: { name: string; specifier: string }[];
     async function getResult(options: Options) {
         const { schema, name, sourceFileText, outputFilePattern } = options;
         const project = new Project({
@@ -29,6 +30,12 @@ describe('generate input', () => {
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
         generateInput({ inputType, sourceFile, projectFilePath: () => '0.ts' });
         sourceText = sourceFile.getText();
+        imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
+        );
     }
 
     it('user where input', async () => {
@@ -41,13 +48,19 @@ describe('generate input', () => {
             name: 'UserWhereInput',
         });
 
-        const idProperty = sourceFile.getClass('UserWhereInput')?.getProperty('id');
-        assert(idProperty);
-        stringContains(`@Field(() => StringFilter`, idProperty.getText());
-        stringContains(`id?: string | StringFilter | null`, idProperty.getText());
+        const structure = sourceFile.getClass('UserWhereInput')?.getProperty('id')?.getStructure();
+        assert(structure);
+        assert.strictEqual(structure.type, 'string | StringFilter | null');
+        const decoratorArguments = sourceFile
+            .getClass('UserWhereInput')
+            ?.getProperty('id')
+            ?.getDecorator('Field')
+            ?.getCallExpression()
+            ?.getArguments();
+        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => StringFilter');
     });
 
-    it('user where int filters', async () => {
+    it('user where int filter', async () => {
         await getResult({
             schema: `
             model User {
@@ -57,29 +70,28 @@ describe('generate input', () => {
             `,
             name: 'UserWhereInput',
         });
+        const structure = sourceFile.getClass('UserWhereInput')?.getProperty('age')?.getStructure();
+        assert(structure);
+        assert.strictEqual(structure.type, 'number | IntFilter | null');
 
-        const ageProperty = sourceFile.getClass('UserWhereInput')?.getProperty('age');
-        assert(ageProperty);
-        stringContains(`@Field(() => IntFilter`, ageProperty.getText());
-        stringContains(`age?: number | IntFilter | null`, ageProperty.getText());
-
-        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((i) => ({
-                name: i.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
+        const decoratorArguments = sourceFile
+            .getClass('UserWhereInput')
+            ?.getProperty('age')
+            ?.getDecorator('Field')
+            ?.getCallExpression()
+            ?.getArguments();
+        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => IntFilter');
 
         assert(imports.find((x) => x.name === 'StringFilter' && x.specifier === './0'));
         assert(imports.find((x) => x.name === 'IntFilter' && x.specifier === './0'));
     });
 
-    it('user user create input', async () => {
+    it('user create input', async () => {
         await getResult({
             schema: `
             model User {
               id     String      @id
-              count  Int?
+              countComments  Int?
             }
             `,
             name: 'UserCreateInput',
@@ -90,20 +102,47 @@ describe('generate input', () => {
 
         stringContains(`@Field(() => String`, idProperty.getText());
 
-        const countProperty = sourceFile.getClass('UserCreateInput')?.getProperty('count');
+        const countProperty = sourceFile.getClass('UserCreateInput')?.getProperty('countComments');
         assert(countProperty);
 
-        stringContains(`@Field(() => Int`, countProperty.getText());
-        stringContains(`count?: number | null`, countProperty.getText());
+        const decoratorArguments = sourceFile
+            .getClass('UserCreateInput')
+            ?.getProperty('countComments')
+            ?.getDecorator('Field')
+            ?.getCallExpression()
+            ?.getArguments();
+        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => Int');
 
-        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((i) => ({
-                name: i.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
+        const structure = sourceFile
+            .getClass('UserCreateInput')
+            ?.getProperty('countComments')
+            ?.getStructure();
+        assert(structure);
+        assert.strictEqual(structure.type, 'number | null');
 
         assert(imports.find((x) => x.name === 'InputType' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'Int' && x.specifier === '@nestjs/graphql'));
+    });
+
+    it('no datetime import', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     Int      @id
+              birth  DateTime
+              died   DateTime?
+            }
+            `,
+            name: 'DateTimeFilter',
+        });
+        sourceFile
+            .getClass('DateTimeFilter')
+            ?.getProperties()
+            ?.filter((p) => p.getName() !== 'not')
+            .flatMap((p) => p.getDecorators())
+            .forEach((d) => {
+                const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+                stringNotContains('DateTime', argument || '');
+            });
     });
 });

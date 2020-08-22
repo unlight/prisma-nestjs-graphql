@@ -12,19 +12,19 @@ export class IntFilter {
         nullable: true,
         description: undefined,
     })
-    not?: IntFilter | null;
+    not?: number | IntFilter | null;
 
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    in?: number[] | null;
+    in?: number | number[] | null;
 
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    notIn?: number[] | null;
+    notIn?: number | number[] | null;
 
     @Field(() => Int, {
         nullable: true,

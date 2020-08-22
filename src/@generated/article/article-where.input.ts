@@ -15,31 +15,31 @@ export class ArticleWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    slug?: StringFilter | null;
+    slug?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    title?: StringFilter | null;
+    title?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    description?: StringFilter | null;
+    description?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: StringFilter | null;
+    body?: string | StringFilter | null;
 
     @Field(() => TagFilter, {
         nullable: true,
@@ -51,25 +51,25 @@ export class ArticleWhereInput {
         nullable: true,
         description: undefined,
     })
-    createdAt?: DateTimeFilter | null;
+    createdAt?: string | DateTimeFilter | null;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: DateTimeFilter | null;
+    updatedAt?: string | DateTimeFilter | null;
 
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: IntFilter | null;
+    favoritesCount?: number | IntFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: StringFilter | null;
+    authorId?: string | StringFilter | null;
 
     @Field(() => UserFilter, {
         nullable: true,
@@ -87,29 +87,29 @@ export class ArticleWhereInput {
         nullable: true,
         description: undefined,
     })
-    active?: NullableBooleanFilter | null;
+    active?: boolean | NullableBooleanFilter | null;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
         description: undefined,
     })
-    AND?: ArticleWhereInput[] | null;
+    AND?: ArticleWhereInput | ArticleWhereInput[] | null;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: ArticleWhereInput[] | null;
+    OR?: ArticleWhereInput | ArticleWhereInput[] | null;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: ArticleWhereInput[] | null;
+    NOT?: ArticleWhereInput | ArticleWhereInput[] | null;
 
     @Field(() => UserRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    author?: UserRelationFilter | null;
+    author?: UserRelationFilter | UserRelationFilter[] | null;
 }

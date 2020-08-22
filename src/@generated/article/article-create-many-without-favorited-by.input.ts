@@ -9,11 +9,11 @@ export class ArticleCreateManyWithoutFavoritedByInput {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutFavoritedByInput[] | null;
+    create?: ArticleCreateWithoutFavoritedByInput | ArticleCreateWithoutFavoritedByInput[] | null;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: ArticleWhereUniqueInput[] | null;
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[] | null;
 }

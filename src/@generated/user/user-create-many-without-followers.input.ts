@@ -9,11 +9,11 @@ export class UserCreateManyWithoutFollowersInput {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutFollowersInput[] | null;
+    create?: UserCreateWithoutFollowersInput | UserCreateWithoutFollowersInput[] | null;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: UserWhereUniqueInput[] | null;
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[] | null;
 }

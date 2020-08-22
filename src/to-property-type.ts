@@ -41,5 +41,5 @@ export function toPropertyType(field: { type: string; kind: string }): string {
         }
     }
     // console.log('field', field);
-    throw new TypeError(`Cannot get type from ${field.kind}/${field.type}`);
+    throw new TypeError(`Cannot get property type from ${field.kind}/${field.type}`);
 }

@@ -36,40 +36,37 @@ export function generateModel(args: GenerateModelArgs) {
                 classDeclaration,
                 className: model.name,
                 projectFilePath,
-                classType: 'model',
             });
         });
 }
 
-type GeneratePropertyArgs = {
+type GenerateModelPropertyArgs = {
     projectFilePath(data: { name: string; type: string }): string;
     classDeclaration: ClassDeclaration;
     sourceFile: SourceFile;
     className: string;
-    classType: string;
     field: PrismaDMMF.Field;
 };
 
 /**
  * Generate property for model class (ObjectType).
  */
-function generateModelProperty(args: GeneratePropertyArgs) {
-    const { field, className, classType, classDeclaration, sourceFile, projectFilePath } = args;
+function generateModelProperty(args: GenerateModelPropertyArgs) {
+    const { field, className, classDeclaration, sourceFile, projectFilePath } = args;
     let propertyType = toPropertyType(field);
     const nullable = !field.isRequired;
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {
         fieldType = generateGraphqlImport({
-            name: className,
-            importType: toGraphqlImportType(field),
             sourceFile,
+            ...toGraphqlImportType(field),
         });
     } else if ((field.kind === 'object' && field.type !== className) || field.kind === 'enum') {
         generateProjectImport({
             sourceFile,
             projectFilePath,
             name: field.type,
-            type: field.kind === 'enum' ? 'enum' : classType,
+            type: field.kind === 'enum' ? 'enum' : 'model',
         });
     }
     if (field.isList) {
@@ -84,7 +81,7 @@ function generateModelProperty(args: GeneratePropertyArgs) {
         type: propertyType,
         classDeclaration,
     });
-    generateGraphqlImport({ name: 'Field', sourceFile });
+    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     generateDecorator({
         fieldType,
         propertyDeclaration,

@@ -48,7 +48,7 @@ export async function generatorOptions(
             const proc = exec(
                 `node node_modules/@prisma/cli/build/index.js generate --schema=${schemaFile}`,
             );
-            if (!proc || !proc.stderr) {
+            if (!proc.stderr) {
                 throw new Error('Generate error');
             }
             proc.stderr.on('data', (data) => {

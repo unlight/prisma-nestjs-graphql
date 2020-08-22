@@ -12,7 +12,7 @@ export class NestedIntFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number[] | null;
+    in?: number | number[] | null;
 
     @Field(() => Int, {
         nullable: true,

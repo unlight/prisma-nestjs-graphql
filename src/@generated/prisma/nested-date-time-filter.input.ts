@@ -12,7 +12,7 @@ export class NestedDateTimeFilter {
         nullable: true,
         description: undefined,
     })
-    in?: string[] | null;
+    in?: string | string[] | null;
 
     @Field(() => String, {
         nullable: true,

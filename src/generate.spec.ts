@@ -130,4 +130,23 @@ describe('main generate', () => {
             ?.getText()!;
         assert(sourceText);
     });
+
+    it('no nullable type', async () => {
+        await getResult({
+            schema: `
+                model User {
+                  id    Int   @id
+                  countComments Int?
+                }
+            `,
+        });
+        sourceFiles
+            .flatMap((s) => s.getClasses())
+            .flatMap((d) => d.getProperties())
+            .flatMap((p) => p.getDecorators())
+            .forEach((d) => {
+                const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+                assert.notStrictEqual(argument, '() => null');
+            });
+    });
 });

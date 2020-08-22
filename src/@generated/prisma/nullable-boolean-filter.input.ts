@@ -12,5 +12,5 @@ export class NullableBooleanFilter {
         nullable: true,
         description: undefined,
     })
-    not?: NullableBooleanFilter | null;
+    not?: boolean | null | NullableBooleanFilter;
 }

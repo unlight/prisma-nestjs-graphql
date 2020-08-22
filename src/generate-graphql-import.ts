@@ -3,21 +3,14 @@ import { SourceFile } from 'ts-morph';
 type GenerateGraphqlImportArgs = {
     name: string;
     sourceFile: SourceFile;
-    importType?: { name: string; moduleSpecifier?: string };
+    moduleSpecifier: string | undefined;
 };
 
 export function generateGraphqlImport(args: GenerateGraphqlImportArgs) {
-    const { sourceFile, importType } = args;
-    let moduleSpecifier = '@nestjs/graphql';
-    let name = args.name;
-    if (importType) {
-        name = importType.name;
-        if (!importType.moduleSpecifier) {
-            return importType.name;
-        }
-        if (importType.moduleSpecifier) {
-            moduleSpecifier = importType.moduleSpecifier;
-        }
+    const { moduleSpecifier, name, sourceFile } = args;
+    // console.log('name', name, moduleSpecifier);
+    if (!moduleSpecifier) {
+        return name;
     }
     let importDeclaration = sourceFile.getImportDeclaration(
         (importDeclaration) =>

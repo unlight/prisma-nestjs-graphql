@@ -9,11 +9,11 @@ export class ArticleCreateManyWithoutAuthorInput {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutAuthorInput[] | null;
+    create?: ArticleCreateWithoutAuthorInput | ArticleCreateWithoutAuthorInput[] | null;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: ArticleWhereUniqueInput[] | null;
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[] | null;
 }

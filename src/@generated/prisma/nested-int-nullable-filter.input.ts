@@ -1,46 +1,46 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType({})
-export class UserUpdateManyMutationInput {
-    @Field(() => String, {
+export class NestedIntNullableFilter {
+    @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    equals?: number | null;
 
-    @Field(() => String, {
+    @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    email?: string | null;
-
-    @Field(() => String, {
-        nullable: true,
-        description: undefined,
-    })
-    name?: string | null;
-
-    @Field(() => String, {
-        nullable: true,
-        description: undefined,
-    })
-    password?: string | null;
-
-    @Field(() => String, {
-        nullable: true,
-        description: undefined,
-    })
-    bio?: string | null;
-
-    @Field(() => String, {
-        nullable: true,
-        description: undefined,
-    })
-    image?: string | null;
+    in?: number | number[] | null;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    countComments?: number | null;
+    lt?: number | null;
+
+    @Field(() => Int, {
+        nullable: true,
+        description: undefined,
+    })
+    lte?: number | null;
+
+    @Field(() => Int, {
+        nullable: true,
+        description: undefined,
+    })
+    gt?: number | null;
+
+    @Field(() => Int, {
+        nullable: true,
+        description: undefined,
+    })
+    gte?: number | null;
+
+    @Field(() => NestedIntNullableFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    not?: NestedIntNullableFilter | null;
 }

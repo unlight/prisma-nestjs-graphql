@@ -19,7 +19,11 @@ type GenerateEnumArgs = {
 export function generateEnum(args: GenerateEnumArgs) {
     const { enumerable, sourceFile } = args;
 
-    generateGraphqlImport({ sourceFile, name: 'registerEnumType' });
+    generateGraphqlImport({
+        sourceFile,
+        name: 'registerEnumType',
+        moduleSpecifier: '@nestjs/graphql',
+    });
 
     if (!sourceFile.getEnum(enumerable.name)) {
         sourceFile.addEnum({

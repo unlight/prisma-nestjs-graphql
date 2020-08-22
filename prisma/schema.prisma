@@ -26,6 +26,7 @@ model User {
     favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
     articles          Article[] @relation("ArticleAuthor")
     comments          Comment[]
+    countComments    Int?
 }
 
 model Tag {

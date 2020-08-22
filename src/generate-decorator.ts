@@ -1,17 +1,7 @@
 import assert from 'assert';
-import {
-    ClassDeclaration,
-    Node,
-    ObjectLiteralExpression,
-    PropertyDeclaration,
-    SourceFile,
-} from 'ts-morph';
+import { Node, ObjectLiteralExpression, PropertyDeclaration } from 'ts-morph';
 
-import { generateGraphqlImport } from './generate-graphql-import';
-import { generateProjectImport } from './generate-project-import';
 import { setObjectProperty } from './set-object-property';
-import { toGraphqlImportType } from './to-graphql-import-type';
-import { toPropertyType } from './to-property-type';
 
 type GenerateDecoratorArgs = {
     propertyDeclaration: PropertyDeclaration;

@@ -1,12 +1,5 @@
 import assert from 'assert';
-import {
-    Node,
-    ObjectLiteralExpression,
-    Project,
-    PropertyDeclaration,
-    QuoteKind,
-    SourceFile,
-} from 'ts-morph';
+import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateModel } from './generate-model';
 import { generatorOptions, stringContains, stringNotContains } from './testing';

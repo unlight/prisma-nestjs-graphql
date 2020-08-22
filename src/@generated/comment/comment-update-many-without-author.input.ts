@@ -13,53 +13,62 @@ export class CommentUpdateManyWithoutAuthorInput {
         nullable: true,
         description: undefined,
     })
-    create?: CommentCreateWithoutAuthorInput[] | null;
+    create?: CommentCreateWithoutAuthorInput | CommentCreateWithoutAuthorInput[] | null;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: CommentWhereUniqueInput[] | null;
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[] | null;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: CommentWhereUniqueInput[] | null;
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[] | null;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: CommentWhereUniqueInput[] | null;
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[] | null;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: CommentWhereUniqueInput[] | null;
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[] | null;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
         description: undefined,
     })
-    update?: CommentUpdateWithWhereUniqueWithoutAuthorInput[] | null;
+    update?:
+        | CommentUpdateWithWhereUniqueWithoutAuthorInput
+        | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+        | null;
 
     @Field(() => [CommentUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: CommentUpdateManyWithWhereNestedInput[] | null;
+    updateMany?:
+        | CommentUpdateManyWithWhereNestedInput
+        | CommentUpdateManyWithWhereNestedInput[]
+        | null;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: CommentScalarWhereInput[] | null;
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[] | null;
 
     @Field(() => [CommentUpsertWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: CommentUpsertWithWhereUniqueWithoutAuthorInput[] | null;
+    upsert?:
+        | CommentUpsertWithWhereUniqueWithoutAuthorInput
+        | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+        | null;
 }

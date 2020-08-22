@@ -12,19 +12,19 @@ export class DateTimeFilter {
         nullable: true,
         description: undefined,
     })
-    not?: DateTimeFilter | null;
+    not?: string | DateTimeFilter | null;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    in?: string[] | null;
+    in?: string | string[] | null;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    notIn?: string[] | null;
+    notIn?: string | string[] | null;
 
     @Field(() => String, {
         nullable: true,

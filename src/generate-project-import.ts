@@ -3,7 +3,7 @@ import { SourceFile } from 'ts-morph';
 
 type GenerateProjectImportArgs = {
     name: string;
-    type: string;
+    type: 'enum' | 'model' | 'input';
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
 };

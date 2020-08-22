@@ -6,6 +6,7 @@ type ToGraphqlImportTypeArgs = {
 
 export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     const { isId, type, kind } = args;
+    // console.log('type', type, 'kind', kind);
     let name = type;
     if (isId) {
         return { name: 'ID', moduleSpecifier: '@nestjs/graphql' };

@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -72,4 +72,10 @@ export class User {
         description: undefined,
     })
     comments?: Comment[] | null;
+
+    @Field(() => Int, {
+        nullable: true,
+        description: undefined,
+    })
+    countComments?: number | null;
 }

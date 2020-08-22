@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleFilter } from '../article/article-filter.input';
 import { CommentFilter } from '../comment/comment-filter.input';
+import { NullableIntFilter } from '../prisma/nullable-int-filter.input';
 import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserFilter } from './user-filter.input';
@@ -12,37 +13,37 @@ export class UserWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: StringFilter | null;
+    email?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: StringFilter | null;
+    name?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: StringFilter | null;
+    password?: string | StringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    bio?: NullableStringFilter | null;
+    bio?: string | NullableStringFilter | null;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
         description: undefined,
     })
-    image?: NullableStringFilter | null;
+    image?: string | NullableStringFilter | null;
 
     @Field(() => UserFilter, {
         nullable: true,
@@ -74,21 +75,27 @@ export class UserWhereInput {
     })
     comments?: CommentFilter | null;
 
-    @Field(() => [UserWhereInput], {
+    @Field(() => NullableIntFilter, {
         nullable: true,
         description: undefined,
     })
-    AND?: UserWhereInput[] | null;
+    countComments?: number | NullableIntFilter | null;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: UserWhereInput[] | null;
+    AND?: UserWhereInput | UserWhereInput[] | null;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: UserWhereInput[] | null;
+    OR?: UserWhereInput | UserWhereInput[] | null;
+
+    @Field(() => [UserWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    NOT?: UserWhereInput | UserWhereInput[] | null;
 }

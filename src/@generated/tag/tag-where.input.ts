@@ -9,13 +9,13 @@ export class TagWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: StringFilter | null;
+    id?: string | StringFilter | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: StringFilter | null;
+    name?: string | StringFilter | null;
 
     @Field(() => ArticleFilter, {
         nullable: true,
@@ -27,17 +27,17 @@ export class TagWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: TagWhereInput[] | null;
+    AND?: TagWhereInput | TagWhereInput[] | null;
 
     @Field(() => [TagWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: TagWhereInput[] | null;
+    OR?: TagWhereInput | TagWhereInput[] | null;
 
     @Field(() => [TagWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: TagWhereInput[] | null;
+    NOT?: TagWhereInput | TagWhereInput[] | null;
 }
