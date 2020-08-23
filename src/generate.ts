@@ -5,7 +5,7 @@ import { existsSync, promises as fs } from 'fs';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateEnum } from './generate-enum';
-import { FileType, generateFileName } from './generate-file-name';
+import { FileType, generateFileName, getFeatureName } from './generate-file-name';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 
@@ -62,8 +62,13 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     for (const inputType of prismaClientDmmf.schema.inputTypes) {
+        let model: PrismaDMMF.Model | undefined;
+        const feature = getFeatureName({ name: inputType.name, models, fallback: '' });
+        if (feature) {
+            model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
+        }
         const sourceFile = await createSourceFile({ type: 'input', name: inputType.name });
-        generateInput({ inputType, sourceFile, projectFilePath });
+        generateInput({ inputType, sourceFile, projectFilePath, model });
     }
 
     return project;

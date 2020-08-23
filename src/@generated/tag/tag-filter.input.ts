@@ -8,17 +8,17 @@ export class TagFilter {
         nullable: true,
         description: undefined,
     })
-    every?: TagWhereInput | TagWhereInput[] | null;
+    every?: TagWhereInput;
 
     @Field(() => TagWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: TagWhereInput | TagWhereInput[] | null;
+    some?: TagWhereInput;
 
     @Field(() => TagWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: TagWhereInput | TagWhereInput[] | null;
+    none?: TagWhereInput;
 }

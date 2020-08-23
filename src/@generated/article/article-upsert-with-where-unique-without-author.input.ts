@@ -10,17 +10,17 @@ export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
         nullable: true,
         description: undefined,
     })
-    where?: ArticleWhereUniqueInput | null;
+    where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutAuthorDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutAuthorDataInput | null;
+    update?: ArticleUpdateWithoutAuthorDataInput;
 
     @Field(() => ArticleCreateWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutAuthorInput | null;
+    create?: ArticleCreateWithoutAuthorInput;
 }

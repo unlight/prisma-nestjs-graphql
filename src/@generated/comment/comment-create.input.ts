@@ -9,31 +9,31 @@ export class CommentCreateInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | null;
+    createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | null;
+    updatedAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    body?: string | null;
+    body?: string;
 
     @Field(() => UserCreateOneWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    author?: UserCreateOneWithoutCommentsInput | null;
+    author?: UserCreateOneWithoutCommentsInput;
 
     @Field(() => ArticleCreateOneWithoutCommentsInput, {
         nullable: true,

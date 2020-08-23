@@ -18,13 +18,13 @@ export class NullableStringFilter {
         nullable: true,
         description: undefined,
     })
-    in?: string | string[] | null;
+    in?: string | Array<string> | null;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    notIn?: string | string[] | null;
+    notIn?: string | Array<string> | null;
 
     @Field(() => String, {
         nullable: true,

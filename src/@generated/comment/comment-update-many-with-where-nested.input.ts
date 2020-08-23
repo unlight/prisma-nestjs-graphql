@@ -9,11 +9,11 @@ export class CommentUpdateManyWithWhereNestedInput {
         nullable: true,
         description: undefined,
     })
-    where?: CommentScalarWhereInput | null;
+    where?: CommentScalarWhereInput;
 
     @Field(() => CommentUpdateManyDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: CommentUpdateManyDataInput | null;
+    data?: CommentUpdateManyDataInput;
 }

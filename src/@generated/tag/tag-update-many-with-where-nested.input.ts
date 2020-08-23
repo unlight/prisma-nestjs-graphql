@@ -9,11 +9,11 @@ export class TagUpdateManyWithWhereNestedInput {
         nullable: true,
         description: undefined,
     })
-    where?: TagScalarWhereInput | null;
+    where?: TagScalarWhereInput;
 
     @Field(() => TagUpdateManyDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: TagUpdateManyDataInput | null;
+    data?: TagUpdateManyDataInput;
 }

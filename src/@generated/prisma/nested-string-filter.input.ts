@@ -6,55 +6,55 @@ export class NestedStringFilter {
         nullable: true,
         description: undefined,
     })
-    equals?: string | null;
+    equals?: string;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    in?: string | string[] | null;
+    in?: string | Array<string>;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    lt?: string | null;
+    lt?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    lte?: string | null;
+    lte?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    gt?: string | null;
+    gt?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    gte?: string | null;
+    gte?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    contains?: string | null;
+    contains?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    startsWith?: string | null;
+    startsWith?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    endsWith?: string | null;
+    endsWith?: string;
 
     @Field(() => NestedStringFilter, {
         nullable: true,

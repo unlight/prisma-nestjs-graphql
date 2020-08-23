@@ -9,11 +9,11 @@ export class UserUpdateWithWhereUniqueWithoutFollowersInput {
         nullable: true,
         description: undefined,
     })
-    where?: UserWhereUniqueInput | null;
+    where?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFollowersDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: UserUpdateWithoutFollowersDataInput | null;
+    data?: UserUpdateWithoutFollowersDataInput;
 }

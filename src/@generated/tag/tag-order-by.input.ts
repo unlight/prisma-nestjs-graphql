@@ -8,11 +8,11 @@ export class TagOrderByInput {
         nullable: true,
         description: undefined,
     })
-    id?: SortOrder | null;
+    id?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    name?: SortOrder | null;
+    name?: SortOrder;
 }

@@ -48,13 +48,13 @@ export class Article {
         nullable: false,
         description: undefined,
     })
-    createdAt!: string;
+    createdAt!: Date | string;
 
     @Field(() => String, {
         nullable: false,
         description: undefined,
     })
-    updatedAt!: string;
+    updatedAt!: Date | string;
 
     @Field(() => Int, {
         nullable: false,

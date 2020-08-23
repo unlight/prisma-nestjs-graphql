@@ -7,28 +7,36 @@ import { generatorOptions, stringContains, stringNotContains } from './testing';
 describe('generate inputs', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
+    let imports: { name: string; specifier: string }[];
     type Options = {
         schema: string;
         name: string;
+        model: string | undefined;
         sourceFileText?: string;
         outputFilePattern?: string;
     };
-    let imports: { name: string; specifier: string }[];
-    async function getResult(options: Options) {
-        const { schema, name, sourceFileText, outputFilePattern } = options;
+    const getResult = async (options: Options) => {
+        const { schema, model, name, sourceFileText, outputFilePattern } = options;
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
         });
         const {
             prismaClientDmmf: {
+                datamodel: { models },
                 schema: { inputTypes },
             },
         } = await generatorOptions(schema, { outputFilePattern });
+        // console.log('inputTypes', inputTypes);
         const inputType = inputTypes.find((x) => x.name === name);
-        assert(inputType);
+        assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
-        generateInput({ inputType, sourceFile, projectFilePath: () => '0.ts' });
+        generateInput({
+            model: models.find((x) => x.name === model),
+            inputType,
+            sourceFile,
+            projectFilePath: () => '0.ts',
+        });
         sourceText = sourceFile.getText();
         imports = sourceFile.getImportDeclarations().flatMap((d) =>
             d.getNamedImports().map((i) => ({
@@ -36,21 +44,27 @@ describe('generate inputs', () => {
                 specifier: d.getModuleSpecifierValue(),
             })),
         );
-    }
+    };
 
     it('user where input', async () => {
         await getResult({
             schema: `
             model User {
               id     String      @id
+              birth  DateTime
+              died   DateTime?
             }
             `,
             name: 'UserWhereInput',
+            model: 'User',
         });
-
-        const structure = sourceFile.getClass('UserWhereInput')?.getProperty('id')?.getStructure();
-        assert(structure);
-        assert.strictEqual(structure.type, 'string | StringFilter | null');
+        const struct = (n: string) =>
+            sourceFile.getClass('UserWhereInput')?.getProperty(n)?.getStructure();
+        assert.strictEqual(
+            struct('id')?.type,
+            'string | StringFilter',
+            'id is not nullable in model',
+        );
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
             ?.getProperty('id')
@@ -58,6 +72,12 @@ describe('generate inputs', () => {
             ?.getCallExpression()
             ?.getArguments();
         assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => StringFilter');
+        assert.strictEqual(
+            struct('OR')?.type,
+            'UserWhereInput[]',
+            'OR property should be array only',
+        );
+        assert.strictEqual(struct('birth')?.type, 'Date | string | DateTimeFilter');
     });
 
     it('user where int filter', async () => {
@@ -69,10 +89,11 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserWhereInput',
+            model: 'User',
         });
         const structure = sourceFile.getClass('UserWhereInput')?.getProperty('age')?.getStructure();
         assert(structure);
-        assert.strictEqual(structure.type, 'number | IntFilter | null');
+        assert.strictEqual(structure.type, 'number | IntFilter', 'Age property is not nullable');
 
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
@@ -86,6 +107,33 @@ describe('generate inputs', () => {
         assert(imports.find((x) => x.name === 'IntFilter' && x.specifier === './0'));
     });
 
+    it('user where string filter', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     String      @id
+            }
+            `,
+            name: 'StringFilter',
+            model: undefined,
+        });
+        const properties = sourceFile.getClass('StringFilter')?.getProperties();
+        const structure = (name: string) =>
+            properties?.find((x) => x.getName() === name)?.getStructure();
+
+        assert.strictEqual(structure('equals')?.type, 'string');
+        assert.strictEqual(structure('lt')?.type, 'string');
+        assert.strictEqual(structure('lte')?.type, 'string');
+        assert.strictEqual(structure('gt')?.type, 'string');
+        assert.strictEqual(structure('gte')?.type, 'string');
+        assert.strictEqual(structure('contains')?.type, 'string');
+        assert.strictEqual(structure('startsWith')?.type, 'string');
+        assert.strictEqual(structure('endsWith')?.type, 'string');
+
+        assert.strictEqual(structure('in')?.type, 'string | string[]');
+        assert.strictEqual(structure('notIn')?.type, 'string | string[]');
+    });
+
     it('user create input', async () => {
         await getResult({
             schema: `
@@ -95,6 +143,7 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserCreateInput',
+            model: 'User',
         });
 
         const idProperty = sourceFile.getClass('UserCreateInput')?.getProperty('id');
@@ -124,7 +173,7 @@ describe('generate inputs', () => {
         assert(imports.find((x) => x.name === 'Int' && x.specifier === '@nestjs/graphql'));
     });
 
-    it('no datetime import', async () => {
+    it('datetime filter', async () => {
         await getResult({
             schema: `
             model User {
@@ -134,6 +183,7 @@ describe('generate inputs', () => {
             }
             `,
             name: 'DateTimeFilter',
+            model: 'User',
         });
         sourceFile
             .getClass('DateTimeFilter')
@@ -144,5 +194,25 @@ describe('generate inputs', () => {
                 const argument = d.getCallExpression()?.getArguments()?.[0].getText();
                 stringNotContains('DateTime', argument || '');
             });
+    });
+
+    it('user filter', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     String    @id
+              following        User[]    @relation("UserFollows", references: [id])
+              followers        User[]    @relation("UserFollows", references: [id])
+            }
+            `,
+            name: 'UserFilter',
+            model: 'User',
+        });
+        const struct = (n: string) =>
+            sourceFile.getClass('UserFilter')?.getProperty(n)?.getStructure();
+
+        assert.strictEqual(struct('every')?.type, 'UserWhereInput');
+        assert.strictEqual(struct('some')?.type, 'UserWhereInput');
+        assert.strictEqual(struct('none')?.type, 'UserWhereInput');
     });
 });

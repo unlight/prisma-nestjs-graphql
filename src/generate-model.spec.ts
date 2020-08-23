@@ -7,6 +7,7 @@ import { generatorOptions, stringContains, stringNotContains } from './testing';
 describe('generate models', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
+    let imports: { name: string; specifier: string }[];
     async function getResult(schema: string, { sourceFileText }: { sourceFileText?: string } = {}) {
         const project = new Project({
             useInMemoryFileSystem: true,
@@ -21,16 +22,23 @@ describe('generate models', () => {
         sourceFile = project.createSourceFile('_.ts', sourceFileText);
         generateModel({ model, sourceFile, projectFilePath: () => '_.ts' });
         sourceText = sourceFile.getText();
+        imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
+        );
     }
 
     it('model', async () => {
         await getResult(`model User {
                 id String @id
             }`);
-        sourceText = sourceFile.getText();
+        assert(imports.find((x) => x.name === 'ObjectType' && x.specifier === '@nestjs/graphql'));
+        assert(imports.find((x) => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
+        assert(imports.find((x) => x.name === 'Field' && x.specifier === '@nestjs/graphql'));
         stringContains('@Field(() => ID, { nullable: false, description: undefined })', sourceText);
         stringContains('id!: string', sourceText);
-        stringContains(`import { ObjectType, ID, Field } from '@nestjs/graphql'`, sourceText);
     });
 
     it('field nullable', async () => {
@@ -144,7 +152,7 @@ describe('generate models', () => {
             sourceText,
         );
         stringContains(
-            '@Field(() => String, { nullable: false, description: undefined }) born!: string',
+            '@Field(() => String, { nullable: false, description: undefined }) born!: Date | string',
             sourceText,
         );
         assert(imports.has('String') === false, 'Imports should not includes String');

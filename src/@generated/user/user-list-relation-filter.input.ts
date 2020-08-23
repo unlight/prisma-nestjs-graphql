@@ -8,17 +8,17 @@ export class UserListRelationFilter {
         nullable: true,
         description: undefined,
     })
-    every?: UserWhereInput | null;
+    every?: UserWhereInput;
 
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: UserWhereInput | null;
+    some?: UserWhereInput;
 
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: UserWhereInput | null;
+    none?: UserWhereInput;
 }

@@ -13,25 +13,25 @@ export class UserWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: string | StringFilter | null;
+    email?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter | null;
+    name?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: string | StringFilter | null;
+    password?: string | StringFilter;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
@@ -85,17 +85,17 @@ export class UserWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: UserWhereInput | UserWhereInput[] | null;
+    AND?: UserWhereInput | Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: UserWhereInput | UserWhereInput[] | null;
+    OR?: Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: UserWhereInput | UserWhereInput[] | null;
+    NOT?: UserWhereInput | Array<UserWhereInput>;
 }

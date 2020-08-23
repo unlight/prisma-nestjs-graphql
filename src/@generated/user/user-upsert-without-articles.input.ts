@@ -9,11 +9,11 @@ export class UserUpsertWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutArticlesDataInput | null;
+    update?: UserUpdateWithoutArticlesDataInput;
 
     @Field(() => UserCreateWithoutArticlesInput, {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutArticlesInput | null;
+    create?: UserCreateWithoutArticlesInput;
 }

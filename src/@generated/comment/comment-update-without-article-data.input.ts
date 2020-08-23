@@ -8,29 +8,29 @@ export class CommentUpdateWithoutArticleDataInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | null;
+    createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | null;
+    updatedAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    body?: string | null;
+    body?: string;
 
     @Field(() => UserUpdateOneRequiredWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    author?: UserUpdateOneRequiredWithoutCommentsInput | null;
+    author?: UserUpdateOneRequiredWithoutCommentsInput;
 }

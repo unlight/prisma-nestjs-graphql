@@ -11,23 +11,23 @@ export class UserUpdateOneRequiredWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutArticlesInput | null;
+    create?: UserCreateWithoutArticlesInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
         description: undefined,
     })
-    connect?: UserWhereUniqueInput | null;
+    connect?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutArticlesDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutArticlesDataInput | null;
+    update?: UserUpdateWithoutArticlesDataInput;
 
     @Field(() => UserUpsertWithoutArticlesInput, {
         nullable: true,
         description: undefined,
     })
-    upsert?: UserUpsertWithoutArticlesInput | null;
+    upsert?: UserUpsertWithoutArticlesInput;
 }

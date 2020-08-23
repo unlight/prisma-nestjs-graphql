@@ -6,11 +6,11 @@ export class TagCreateWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    name?: string | null;
+    name?: string;
 }

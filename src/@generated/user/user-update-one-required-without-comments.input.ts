@@ -11,23 +11,23 @@ export class UserUpdateOneRequiredWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutCommentsInput | null;
+    create?: UserCreateWithoutCommentsInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
         description: undefined,
     })
-    connect?: UserWhereUniqueInput | null;
+    connect?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutCommentsDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutCommentsDataInput | null;
+    update?: UserUpdateWithoutCommentsDataInput;
 
     @Field(() => UserUpsertWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    upsert?: UserUpsertWithoutCommentsInput | null;
+    upsert?: UserUpsertWithoutCommentsInput;
 }

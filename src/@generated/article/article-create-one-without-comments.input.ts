@@ -9,11 +9,11 @@ export class ArticleCreateOneWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutCommentsInput | null;
+    create?: ArticleCreateWithoutCommentsInput;
 
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
         description: undefined,
     })
-    connect?: ArticleWhereUniqueInput | null;
+    connect?: ArticleWhereUniqueInput;
 }

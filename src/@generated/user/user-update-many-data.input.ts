@@ -6,25 +6,25 @@ export class UserUpdateManyDataInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    email?: string | null;
+    email?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    name?: string | null;
+    name?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    password?: string | null;
+    password?: string;
 
     @Field(() => String, {
         nullable: true,

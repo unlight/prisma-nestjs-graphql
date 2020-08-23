@@ -8,17 +8,17 @@ export class CommentFilter {
         nullable: true,
         description: undefined,
     })
-    every?: CommentWhereInput | CommentWhereInput[] | null;
+    every?: CommentWhereInput;
 
     @Field(() => CommentWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: CommentWhereInput | CommentWhereInput[] | null;
+    some?: CommentWhereInput;
 
     @Field(() => CommentWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: CommentWhereInput | CommentWhereInput[] | null;
+    none?: CommentWhereInput;
 }

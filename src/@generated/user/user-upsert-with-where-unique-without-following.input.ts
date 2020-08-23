@@ -10,17 +10,17 @@ export class UserUpsertWithWhereUniqueWithoutFollowingInput {
         nullable: true,
         description: undefined,
     })
-    where?: UserWhereUniqueInput | null;
+    where?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFollowingDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutFollowingDataInput | null;
+    update?: UserUpdateWithoutFollowingDataInput;
 
     @Field(() => UserCreateWithoutFollowingInput, {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutFollowingInput | null;
+    create?: UserCreateWithoutFollowingInput;
 }

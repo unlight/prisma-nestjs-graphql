@@ -8,17 +8,17 @@ export class ArticleListRelationFilter {
         nullable: true,
         description: undefined,
     })
-    every?: ArticleWhereInput | null;
+    every?: ArticleWhereInput;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: ArticleWhereInput | null;
+    some?: ArticleWhereInput;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: ArticleWhereInput | null;
+    none?: ArticleWhereInput;
 }

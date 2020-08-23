@@ -8,17 +8,17 @@ export class CommentListRelationFilter {
         nullable: true,
         description: undefined,
     })
-    every?: CommentWhereInput | null;
+    every?: CommentWhereInput;
 
     @Field(() => CommentWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: CommentWhereInput | null;
+    some?: CommentWhereInput;
 
     @Field(() => CommentWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: CommentWhereInput | null;
+    none?: CommentWhereInput;
 }

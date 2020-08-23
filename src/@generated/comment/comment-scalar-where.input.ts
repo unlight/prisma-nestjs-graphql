@@ -10,31 +10,31 @@ export class CommentScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: string | StringFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | DateTimeFilter | null;
+    createdAt?: Date | string | DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | DateTimeFilter | null;
+    updatedAt?: Date | string | DateTimeFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter | null;
+    body?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter | null;
+    authorId?: string | StringFilter;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
@@ -46,17 +46,17 @@ export class CommentScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: CommentScalarWhereInput | CommentScalarWhereInput[] | null;
+    AND?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: CommentScalarWhereInput | CommentScalarWhereInput[] | null;
+    OR?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[] | null;
+    NOT?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
 }

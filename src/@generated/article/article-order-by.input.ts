@@ -8,55 +8,55 @@ export class ArticleOrderByInput {
         nullable: true,
         description: undefined,
     })
-    id?: SortOrder | null;
+    id?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    slug?: SortOrder | null;
+    slug?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    title?: SortOrder | null;
+    title?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    description?: SortOrder | null;
+    description?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    body?: SortOrder | null;
+    body?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: SortOrder | null;
+    createdAt?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: SortOrder | null;
+    updatedAt?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: SortOrder | null;
+    favoritesCount?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    authorId?: SortOrder | null;
+    authorId?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,

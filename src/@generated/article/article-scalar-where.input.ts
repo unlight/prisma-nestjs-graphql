@@ -14,31 +14,31 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    slug?: string | StringFilter | null;
+    slug?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    title?: string | StringFilter | null;
+    title?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    description?: string | StringFilter | null;
+    description?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter | null;
+    body?: string | StringFilter;
 
     @Field(() => TagFilter, {
         nullable: true,
@@ -50,25 +50,25 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | DateTimeFilter | null;
+    createdAt?: Date | string | DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | DateTimeFilter | null;
+    updatedAt?: Date | string | DateTimeFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: number | IntFilter | null;
+    favoritesCount?: number | IntFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter | null;
+    authorId?: string | StringFilter;
 
     @Field(() => UserFilter, {
         nullable: true,
@@ -92,17 +92,17 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[] | null;
+    AND?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: ArticleScalarWhereInput | ArticleScalarWhereInput[] | null;
+    OR?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[] | null;
+    NOT?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 }

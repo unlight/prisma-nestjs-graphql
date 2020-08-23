@@ -12,31 +12,31 @@ export class CommentWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: string | StringFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | DateTimeFilter | null;
+    createdAt?: Date | string | DateTimeFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | DateTimeFilter | null;
+    updatedAt?: Date | string | DateTimeFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter | null;
+    body?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter | null;
+    authorId?: string | StringFilter;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
@@ -48,29 +48,29 @@ export class CommentWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: CommentWhereInput | CommentWhereInput[] | null;
+    AND?: CommentWhereInput | Array<CommentWhereInput>;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: CommentWhereInput | CommentWhereInput[] | null;
+    OR?: Array<CommentWhereInput>;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: CommentWhereInput | CommentWhereInput[] | null;
+    NOT?: CommentWhereInput | Array<CommentWhereInput>;
 
     @Field(() => UserRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    author?: UserRelationFilter | UserRelationFilter[] | null;
+    author?: UserRelationFilter;
 
     @Field(() => ArticleRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    article?: ArticleRelationFilter | ArticleRelationFilter[] | null;
+    article?: ArticleRelationFilter | null;
 }

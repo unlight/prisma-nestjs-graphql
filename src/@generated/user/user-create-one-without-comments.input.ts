@@ -9,11 +9,11 @@ export class UserCreateOneWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutCommentsInput | null;
+    create?: UserCreateWithoutCommentsInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
         description: undefined,
     })
-    connect?: UserWhereUniqueInput | null;
+    connect?: UserWhereUniqueInput;
 }

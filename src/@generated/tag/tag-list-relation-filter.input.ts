@@ -8,17 +8,17 @@ export class TagListRelationFilter {
         nullable: true,
         description: undefined,
     })
-    every?: TagWhereInput | null;
+    every?: TagWhereInput;
 
     @Field(() => TagWhereInput, {
         nullable: true,
         description: undefined,
     })
-    some?: TagWhereInput | null;
+    some?: TagWhereInput;
 
     @Field(() => TagWhereInput, {
         nullable: true,
         description: undefined,
     })
-    none?: TagWhereInput | null;
+    none?: TagWhereInput;
 }

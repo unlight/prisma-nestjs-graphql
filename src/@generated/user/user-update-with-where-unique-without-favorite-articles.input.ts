@@ -9,11 +9,11 @@ export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
         nullable: true,
         description: undefined,
     })
-    where?: UserWhereUniqueInput | null;
+    where?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFavoriteArticlesDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: UserUpdateWithoutFavoriteArticlesDataInput | null;
+    data?: UserUpdateWithoutFavoriteArticlesDataInput;
 }

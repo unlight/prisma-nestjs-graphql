@@ -17,13 +17,13 @@ export class Comment {
         nullable: false,
         description: undefined,
     })
-    createdAt!: string;
+    createdAt!: Date | string;
 
     @Field(() => String, {
         nullable: false,
         description: undefined,
     })
-    updatedAt!: string;
+    updatedAt!: Date | string;
 
     @Field(() => String, {
         nullable: false,

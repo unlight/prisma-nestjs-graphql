@@ -11,35 +11,35 @@ export class ArticleUpdateOneWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutCommentsInput | null;
+    create?: ArticleCreateWithoutCommentsInput;
 
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
         description: undefined,
     })
-    connect?: ArticleWhereUniqueInput | null;
+    connect?: ArticleWhereUniqueInput;
 
     @Field(() => Boolean, {
         nullable: true,
         description: undefined,
     })
-    disconnect?: boolean | null;
+    disconnect?: boolean;
 
     @Field(() => Boolean, {
         nullable: true,
         description: undefined,
     })
-    delete?: boolean | null;
+    delete?: boolean;
 
     @Field(() => ArticleUpdateWithoutCommentsDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutCommentsDataInput | null;
+    update?: ArticleUpdateWithoutCommentsDataInput;
 
     @Field(() => ArticleUpsertWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    upsert?: ArticleUpsertWithoutCommentsInput | null;
+    upsert?: ArticleUpsertWithoutCommentsInput;
 }

@@ -6,37 +6,37 @@ export class NestedIntFilter {
         nullable: true,
         description: undefined,
     })
-    equals?: number | null;
+    equals?: number;
 
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    in?: number | number[] | null;
+    in?: number | Array<number>;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    lt?: number | null;
+    lt?: number;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    lte?: number | null;
+    lte?: number;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    gt?: number | null;
+    gt?: number;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    gte?: number | null;
+    gte?: number;
 
     @Field(() => NestedIntFilter, {
         nullable: true,

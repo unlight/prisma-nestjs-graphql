@@ -10,17 +10,17 @@ export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
         nullable: true,
         description: undefined,
     })
-    where?: ArticleWhereUniqueInput | null;
+    where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutFavoritedByDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutFavoritedByDataInput | null;
+    update?: ArticleUpdateWithoutFavoritedByDataInput;
 
     @Field(() => ArticleCreateWithoutFavoritedByInput, {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutFavoritedByInput | null;
+    create?: ArticleCreateWithoutFavoritedByInput;
 }

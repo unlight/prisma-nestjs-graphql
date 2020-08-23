@@ -10,17 +10,17 @@ export class CommentUpsertWithWhereUniqueWithoutArticleInput {
         nullable: true,
         description: undefined,
     })
-    where?: CommentWhereUniqueInput | null;
+    where?: CommentWhereUniqueInput;
 
     @Field(() => CommentUpdateWithoutArticleDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: CommentUpdateWithoutArticleDataInput | null;
+    update?: CommentUpdateWithoutArticleDataInput;
 
     @Field(() => CommentCreateWithoutArticleInput, {
         nullable: true,
         description: undefined,
     })
-    create?: CommentCreateWithoutArticleInput | null;
+    create?: CommentCreateWithoutArticleInput;
 }

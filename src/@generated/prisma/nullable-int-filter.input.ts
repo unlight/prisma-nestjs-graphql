@@ -18,13 +18,13 @@ export class NullableIntFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number | number[] | null;
+    in?: number | Array<number> | null;
 
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    notIn?: number | number[] | null;
+    notIn?: number | Array<number> | null;
 
     @Field(() => Int, {
         nullable: true,

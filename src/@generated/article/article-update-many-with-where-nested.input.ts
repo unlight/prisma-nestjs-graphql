@@ -9,11 +9,11 @@ export class ArticleUpdateManyWithWhereNestedInput {
         nullable: true,
         description: undefined,
     })
-    where?: ArticleScalarWhereInput | null;
+    where?: ArticleScalarWhereInput;
 
     @Field(() => ArticleUpdateManyDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: ArticleUpdateManyDataInput | null;
+    data?: ArticleUpdateManyDataInput;
 }

@@ -8,25 +8,25 @@ export class UserOrderByInput {
         nullable: true,
         description: undefined,
     })
-    id?: SortOrder | null;
+    id?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    email?: SortOrder | null;
+    email?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    name?: SortOrder | null;
+    name?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    password?: SortOrder | null;
+    password?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,

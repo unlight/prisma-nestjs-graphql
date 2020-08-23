@@ -26,17 +26,16 @@ export function generateModel(args: GenerateModelArgs) {
         sourceFile,
         name: model.name,
     });
-    model.fields
-        .filter((field) => !field.isGenerated)
-        .forEach((field) => {
-            generateModelProperty({
-                field,
-                sourceFile,
-                classDeclaration,
-                className: model.name,
-                projectFilePath,
-            });
+    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
+    model.fields.forEach((field) => {
+        generateModelProperty({
+            field,
+            sourceFile,
+            classDeclaration,
+            className: model.name,
+            projectFilePath,
         });
+    });
 }
 
 type GenerateModelPropertyArgs = {
@@ -80,7 +79,6 @@ function generateModelProperty(args: GenerateModelPropertyArgs) {
         type: propertyType,
         classDeclaration,
     });
-    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     generateDecorator({
         fieldType,
         propertyDeclaration,

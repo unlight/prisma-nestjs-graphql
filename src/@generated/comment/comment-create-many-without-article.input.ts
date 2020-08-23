@@ -9,11 +9,11 @@ export class CommentCreateManyWithoutArticleInput {
         nullable: true,
         description: undefined,
     })
-    create?: CommentCreateWithoutArticleInput | CommentCreateWithoutArticleInput[] | null;
+    create?: Array<CommentCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[] | null;
+    connect?: Array<CommentWhereUniqueInput>;
 }

@@ -14,7 +14,7 @@ export class IntNullableFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number | number[] | null;
+    in?: number | Array<number> | null;
 
     @Field(() => Int, {
         nullable: true,

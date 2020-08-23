@@ -9,11 +9,11 @@ export class ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {
         nullable: true,
         description: undefined,
     })
-    where?: ArticleWhereUniqueInput | null;
+    where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutFavoritedByDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: ArticleUpdateWithoutFavoritedByDataInput | null;
+    data?: ArticleUpdateWithoutFavoritedByDataInput;
 }

@@ -13,25 +13,25 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter | null;
+    id?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: string | StringFilter | null;
+    email?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter | null;
+    name?: string | StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: string | StringFilter | null;
+    password?: string | StringFilter;
 
     @Field(() => NullableStringFilter, {
         nullable: true,
@@ -85,17 +85,17 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    AND?: UserScalarWhereInput | UserScalarWhereInput[] | null;
+    AND?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    OR?: UserScalarWhereInput | UserScalarWhereInput[] | null;
+    OR?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    NOT?: UserScalarWhereInput | UserScalarWhereInput[] | null;
+    NOT?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 }

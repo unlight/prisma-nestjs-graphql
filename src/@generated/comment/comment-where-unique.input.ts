@@ -6,5 +6,5 @@ export class CommentWhereUniqueInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 }

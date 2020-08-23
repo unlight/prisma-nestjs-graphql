@@ -10,17 +10,17 @@ export class UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
         nullable: true,
         description: undefined,
     })
-    where?: UserWhereUniqueInput | null;
+    where?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFavoriteArticlesDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutFavoriteArticlesDataInput | null;
+    update?: UserUpdateWithoutFavoriteArticlesDataInput;
 
     @Field(() => UserCreateWithoutFavoriteArticlesInput, {
         nullable: true,
         description: undefined,
     })
-    create?: UserCreateWithoutFavoriteArticlesInput | null;
+    create?: UserCreateWithoutFavoriteArticlesInput;
 }

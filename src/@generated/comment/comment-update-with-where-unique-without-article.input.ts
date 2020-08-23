@@ -9,11 +9,11 @@ export class CommentUpdateWithWhereUniqueWithoutArticleInput {
         nullable: true,
         description: undefined,
     })
-    where?: CommentWhereUniqueInput | null;
+    where?: CommentWhereUniqueInput;
 
     @Field(() => CommentUpdateWithoutArticleDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: CommentUpdateWithoutArticleDataInput | null;
+    data?: CommentUpdateWithoutArticleDataInput;
 }

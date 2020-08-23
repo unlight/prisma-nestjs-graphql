@@ -10,17 +10,17 @@ export class ArticleUpsertWithWhereUniqueWithoutTagsInput {
         nullable: true,
         description: undefined,
     })
-    where?: ArticleWhereUniqueInput | null;
+    where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutTagsDataInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutTagsDataInput | null;
+    update?: ArticleUpdateWithoutTagsDataInput;
 
     @Field(() => ArticleCreateWithoutTagsInput, {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutTagsInput | null;
+    create?: ArticleCreateWithoutTagsInput;
 }

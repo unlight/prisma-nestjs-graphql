@@ -11,49 +11,49 @@ export class ArticleCreateInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    slug?: string | null;
+    slug?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    title?: string | null;
+    title?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    description?: string | null;
+    description?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    body?: string | null;
+    body?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: string | null;
+    createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: string | null;
+    updatedAt?: Date | string;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: number | null;
+    favoritesCount?: number;
 
     @Field(() => Boolean, {
         nullable: true,
@@ -71,7 +71,7 @@ export class ArticleCreateInput {
         nullable: true,
         description: undefined,
     })
-    author?: UserCreateOneWithoutArticlesInput | null;
+    author?: UserCreateOneWithoutArticlesInput;
 
     @Field(() => UserCreateManyWithoutFavoriteArticlesInput, {
         nullable: true,

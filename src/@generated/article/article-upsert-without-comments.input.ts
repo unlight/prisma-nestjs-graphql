@@ -9,11 +9,11 @@ export class ArticleUpsertWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutCommentsDataInput | null;
+    update?: ArticleUpdateWithoutCommentsDataInput;
 
     @Field(() => ArticleCreateWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    create?: ArticleCreateWithoutCommentsInput | null;
+    create?: ArticleCreateWithoutCommentsInput;
 }

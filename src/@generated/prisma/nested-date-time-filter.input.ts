@@ -6,37 +6,37 @@ export class NestedDateTimeFilter {
         nullable: true,
         description: undefined,
     })
-    equals?: string | null;
+    equals?: Date | string;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    in?: string | string[] | null;
+    in?: Date | string | Array<Date | string>;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    lt?: string | null;
+    lt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    lte?: string | null;
+    lte?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    gt?: string | null;
+    gt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    gte?: string | null;
+    gte?: Date | string;
 
     @Field(() => NestedDateTimeFilter, {
         nullable: true,

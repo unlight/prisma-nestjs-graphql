@@ -12,7 +12,7 @@ export class NestedStringNullableFilter {
         nullable: true,
         description: undefined,
     })
-    in?: string | string[] | null;
+    in?: string | Array<string> | null;
 
     @Field(() => String, {
         nullable: true,

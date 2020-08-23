@@ -8,31 +8,31 @@ export class CommentOrderByInput {
         nullable: true,
         description: undefined,
     })
-    id?: SortOrder | null;
+    id?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: SortOrder | null;
+    createdAt?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: SortOrder | null;
+    updatedAt?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    body?: SortOrder | null;
+    body?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    authorId?: SortOrder | null;
+    authorId?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,

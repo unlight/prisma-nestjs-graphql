@@ -9,11 +9,11 @@ export class TagUpdateWithWhereUniqueWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    where?: TagWhereUniqueInput | null;
+    where?: TagWhereUniqueInput;
 
     @Field(() => TagUpdateWithoutArticlesDataInput, {
         nullable: true,
         description: undefined,
     })
-    data?: TagUpdateWithoutArticlesDataInput | null;
+    data?: TagUpdateWithoutArticlesDataInput;
 }

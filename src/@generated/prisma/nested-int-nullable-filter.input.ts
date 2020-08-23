@@ -12,7 +12,7 @@ export class NestedIntNullableFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number | number[] | null;
+    in?: number | Array<number> | null;
 
     @Field(() => Int, {
         nullable: true,

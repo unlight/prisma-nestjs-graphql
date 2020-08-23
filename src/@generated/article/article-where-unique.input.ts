@@ -6,11 +6,11 @@ export class ArticleWhereUniqueInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | null;
+    id?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    slug?: string | null;
+    slug?: string;
 }

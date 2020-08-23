@@ -11,11 +11,12 @@ import { toGraphqlImportType, toPropertyType } from './type-utils';
 type GenerateInputArgs = {
     inputType: PrismaDMMF.InputType;
     sourceFile: SourceFile;
+    model: PrismaDMMF.Model | undefined;
     projectFilePath(data: { name: string; type: string }): string;
 };
 
 export function generateInput(args: GenerateInputArgs) {
-    const { inputType, sourceFile, projectFilePath } = args;
+    const { inputType, sourceFile, projectFilePath, model } = args;
     const className = inputType.name;
     const classDeclaration = generateClass({
         sourceFile,
@@ -26,26 +27,40 @@ export function generateInput(args: GenerateInputArgs) {
         name: className,
     });
     generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
-    inputType.fields.forEach((field) => {
-        generateInputProperty({ field, classDeclaration, sourceFile, projectFilePath, className });
-    });
+    for (const field of inputType.fields) {
+        // console.log('field', field);
+        const inputType = getMatchingInputType(field.inputType);
+        const modelField = model?.fields.find((f) => f.name === field.name);
+        const nullable =
+            modelField?.isRequired !== undefined ? !modelField.isRequired : inputType.isNullable;
+        const propertyType = getPropertyType({ field, nullable });
+        generateInputProperty({
+            inputType,
+            propertyType,
+            classDeclaration,
+            sourceFile,
+            projectFilePath,
+            className,
+            name: field.name,
+        });
+    }
 }
 
 type GenerateInputPropertyArgs = {
-    field: PrismaDMMF.SchemaArg;
+    name: string;
+    inputType: PrismaDMMF.SchemaArgInputType;
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
     className: string;
     classDeclaration: ClassDeclaration;
+    propertyType: string;
 };
 
 function generateInputProperty(args: GenerateInputPropertyArgs) {
-    const { field, sourceFile, className, classDeclaration, projectFilePath } = args;
-    const inputType = getMatchingInputType(field.inputType);
-    const propertyType = getPropertyType(field);
+    const { inputType, sourceFile, className, classDeclaration, projectFilePath } = args;
     const propertyDeclaration = generateClassProperty({
-        name: field.name,
-        type: propertyType,
+        name: args.name,
+        type: args.propertyType,
         classDeclaration,
         isReadOnly: false,
         isRequired: false,
@@ -85,7 +100,13 @@ function generateInputProperty(args: GenerateInputPropertyArgs) {
     });
 }
 
-function getPropertyType(field: PrismaDMMF.SchemaArg): string {
+type GetPropertyTypeArgs = {
+    field: PrismaDMMF.SchemaArg;
+    nullable: boolean;
+};
+
+function getPropertyType(args: GetPropertyTypeArgs): string {
+    const { field, nullable } = args;
     const inputTypes = field.inputType;
     let result = inputTypes
         .map((inputType) => {
@@ -93,14 +114,17 @@ function getPropertyType(field: PrismaDMMF.SchemaArg): string {
             return toPropertyType({ kind: inputType.kind, type });
         })
         .join(' | ');
-    if (field.isRelationFilter || inputTypes.every((t) => t.isList)) {
-        assert(inputTypes.length === 1);
-        result = `${result} | ${result}[]`;
+    if (inputTypes.every((t) => t.isList)) {
+        if (['AND', 'NOT', 'in', 'notIn'].includes(field.name)) {
+            result = `${result} | Array<${result}>`;
+        } else {
+            result = `Array<${result}>`;
+        }
     }
     if (!inputTypes.find((t) => t.type === 'null')) {
-        // TODO: To make it compatible with prisma we need get model here
-        // const nullable = inputTypes.every((t) => t.isNullable);
-        result = `${result} | null`;
+        if (nullable) {
+            result = `${result} | null`;
+        }
     }
     return result;
 }
