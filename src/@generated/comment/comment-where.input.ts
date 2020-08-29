@@ -2,7 +2,6 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleRelationFilter } from '../article/article-relation-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { NullableStringFilter } from '../prisma/nullable-string-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
 
@@ -38,11 +37,11 @@ export class CommentWhereInput {
     })
     authorId?: string | StringFilter;
 
-    @Field(() => NullableStringFilter, {
+    @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    articleId?: string | NullableStringFilter | null;
+    articleId?: string | StringFilter | null;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,

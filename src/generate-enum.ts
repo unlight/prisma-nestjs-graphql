@@ -9,7 +9,7 @@ import {
 } from 'ts-morph';
 
 import { generateGraphqlImport } from './generate-graphql-import';
-import { setObjectProperty } from './set-object-property';
+import { updateObjectProperty } from './update-object-property';
 
 type GenerateEnumArgs = {
     enumerable: PrismaDMMF.Enum;
@@ -57,7 +57,7 @@ export function generateEnum(args: GenerateEnumArgs) {
         .getArguments()
         .find((x) => Node.isObjectLiteralExpression(x)) as ObjectLiteralExpression;
 
-    setObjectProperty({
+    updateObjectProperty({
         expression: objectLiteralExpression,
         name: 'description',
         value: enumerable.documentation,

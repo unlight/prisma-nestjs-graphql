@@ -2,7 +2,7 @@ import assert from 'assert';
 import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
 import { generateGraphqlImport } from './generate-graphql-import';
-import { setObjectProperty } from './set-object-property';
+import { updateObjectProperty } from './update-object-property';
 
 type GenerateClassArgs = {
     sourceFile: SourceFile;
@@ -57,7 +57,7 @@ export function generateClass(args: GenerateClassArgs) {
     }
 
     for (const property of decorator.properties || []) {
-        setObjectProperty({
+        updateObjectProperty({
             expression: objectExpression,
             name: property.name,
             value: property.value,

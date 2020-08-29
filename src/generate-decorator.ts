@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Node, ObjectLiteralExpression, PropertyDeclaration } from 'ts-morph';
 
-import { setObjectProperty } from './set-object-property';
+import { updateObjectProperty } from './update-object-property';
 
 type GenerateDecoratorArgs = {
     propertyDeclaration: PropertyDeclaration;
@@ -34,20 +34,20 @@ export function generateDecorator(args: GenerateDecoratorArgs) {
     if (!optionsExpression) {
         [optionsExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
     }
-    setObjectProperty({
+    updateObjectProperty({
         expression: optionsExpression,
         name: 'nullable',
         value: nullable,
     });
     if (['number', 'string', 'boolean'].includes(typeof defaultValue)) {
         const value = defaultValue as number | string | boolean;
-        setObjectProperty({
+        updateObjectProperty({
             expression: optionsExpression,
             name: 'defaultValue',
             value,
         });
     }
-    setObjectProperty({
+    updateObjectProperty({
         expression: optionsExpression,
         name: 'description',
         value: description,

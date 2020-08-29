@@ -13,38 +13,55 @@ import { User } from '../@generated/user/user.model';
 
 const $prisma = new PrismaClient();
 
+// {
+//     const p1 = prisma.IntFilter;
+//     const p2 = prisma.NestedIntFilter;
+//     const p3 = prisma.NullableIntFilter;
+//     const p4 = prisma.IntNullableFilter;
+// }
+
 {
-    const p: prisma.DateTimeFilter = {};
-    const n: DateTimeFilter = p;
+    const n: DateTimeFilter = {};
+    const p: prisma.DateTimeFilter = n;
 }
 {
-    const p: prisma.UserFilter = {};
-    const n: UserFilter = p;
+    // const n: ArticleFilter = {};
+    // const p: prisma.ArticleFilter = n;
+    // const n: TagWhereInput['articles'] = {};
+    // const p: prisma.TagWhereInput['articles'] = n;
+    // const n: TagWhereInput['articles'] = {};
+    // const p: prisma.TagWhereInput['articles'] = n;
+    //    const n: TagWhereInput = {};
+    // const p: prisma.TagWhereInput = n;
 }
-{
-    const p: prisma.TagWhereInput = {};
-    const n: TagWhereInput = p;
-}
-{
-    const p: prisma.UserWhereInput = {};
-    const n: UserWhereInput = p;
-}
-{
-    const p: prisma.TagFilter = {};
-    const n: TagFilter = p;
-}
-{
-    const p: prisma.ArticleFilter = {};
-    const n: ArticleFilter = p;
-}
-{
-    const p: prisma.ArticleWhereInput = {};
-    const n: ArticleWhereInput = p;
-}
-{
-    const userfindManyWhere: UserWhereInput = {};
-    $prisma.user.findMany({ where: userfindManyWhere });
-}
+// {
+//     const n: UserFilter = {};
+//     const p: prisma.UserFilter = n;
+// }
+// {
+//     const p: prisma.UserWhereInput = {};
+//     const n: UserWhereInput = p;
+// }
+// {
+//     const p: prisma.TagFilter = {};
+//     const n: TagFilter = p;
+// }
+// {
+//     const p: prisma.ArticleFilter = {};
+//     const n: ArticleFilter = p;
+// }
+// {
+//     const p: prisma.ArticleWhereInput = {};
+//     const n: ArticleWhereInput = p;
+// }
+// {
+//     const n: UserWhereInput['favoriteArticles'] = {};
+//     const p: prisma.UserWhereInput['favoriteArticles'] = n;
+// }
+// {
+//     const userfindManyWhere: UserWhereInput = {};
+//     $prisma.user.findMany({ where: userfindManyWhere });
+// }
 
 // const articleRelationFilter: ArticleRelationFilter = { is: { id: { equals: '1' } } };
 // $prisma.comment.findMany({ where: { article: articleRelationFilter } });

@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
         UserModule,
         GraphQLModule.forRoot({
             installSubscriptionHandlers: true,
-            autoSchemaFile: 'schema.gql',
+            autoSchemaFile: '~schema.gql',
         }),
     ],
 })

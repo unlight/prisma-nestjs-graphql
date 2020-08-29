@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { CommentFilter } from '../comment/comment-filter.input';
+import { BooleanFilter } from '../prisma/boolean-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { NullableBooleanFilter } from '../prisma/nullable-boolean-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { TagFilter } from '../tag/tag-filter.input';
 import { UserFilter } from '../user/user-filter.input';
@@ -82,11 +82,11 @@ export class ArticleScalarWhereInput {
     })
     comments?: CommentFilter | null;
 
-    @Field(() => NullableBooleanFilter, {
+    @Field(() => BooleanFilter, {
         nullable: true,
         description: undefined,
     })
-    active?: boolean | NullableBooleanFilter | null;
+    active?: boolean | BooleanFilter | null;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,

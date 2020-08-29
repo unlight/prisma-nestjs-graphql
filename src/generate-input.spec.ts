@@ -74,7 +74,7 @@ describe('generate inputs', () => {
         assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => StringFilter');
         assert.strictEqual(
             struct('OR')?.type,
-            'UserWhereInput[]',
+            'Array<UserWhereInput>',
             'OR property should be array only',
         );
         assert.strictEqual(struct('birth')?.type, 'Date | string | DateTimeFilter');
@@ -130,8 +130,8 @@ describe('generate inputs', () => {
         assert.strictEqual(structure('startsWith')?.type, 'string');
         assert.strictEqual(structure('endsWith')?.type, 'string');
 
-        assert.strictEqual(structure('in')?.type, 'string | string[]');
-        assert.strictEqual(structure('notIn')?.type, 'string | string[]');
+        assert.strictEqual(structure('in')?.type, 'string | Array<string>');
+        assert.strictEqual(structure('notIn')?.type, 'string | Array<string>');
     });
 
     it('user create input', async () => {
