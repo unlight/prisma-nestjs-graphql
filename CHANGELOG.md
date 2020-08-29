@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.4...v1.2.0) (2020-08-29)
+
+
+### Bug Fixes
+
+* Detection property nullable type ([2121885](https://github.com/unlight/nestjs-graphql-prisma/commit/21218858d45b9f847484e33ef07d70ed5568edd6))
+
+
+### Features
+
+* Combine zoo of nested/nullable filters ([20f965b](https://github.com/unlight/nestjs-graphql-prisma/commit/20f965bace9608f7713f235d734bf2f1bedf068e))
+
 ## [1.1.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.3...v1.1.4) (2020-08-22)
 
 
