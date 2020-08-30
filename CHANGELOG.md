@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.2.0...v1.3.0) (2020-08-30)
+
+
+### Features
+
+* Generate aggregate input types ([66239bb](https://github.com/unlight/nestjs-graphql-prisma/commit/66239bbc4238aeaea855bdbcec6ed09c523c1e30))
+
 # [1.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.1.4...v1.2.0) (2020-08-29)
 
 
