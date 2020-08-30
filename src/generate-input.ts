@@ -1,5 +1,4 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
-import assert from 'assert';
 import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { generateClass, generateClassProperty } from './generate-class';
@@ -115,16 +114,12 @@ function getPropertyType(args: GetPropertyTypeArgs): string {
         })
         .join(' | ');
     if (inputTypes.every((t) => t.isList)) {
-        if (['AND', 'NOT', 'in', 'notIn'].includes(field.name)) {
-            result = `${result} | Array<${result}>`;
-        } else {
-            result = `Array<${result}>`;
-        }
+        result = ['AND', 'NOT', 'in', 'notIn'].includes(field.name)
+            ? `${result} | Array<${result}>`
+            : `Array<${result}>`;
     }
-    if (!inputTypes.find((t) => t.type === 'null')) {
-        if (nullable) {
-            result = `${result} | null`;
-        }
+    if (!inputTypes.find((t) => t.type === 'null') && nullable) {
+        result = `${result} | null`;
     }
     return result;
 }

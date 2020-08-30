@@ -24,7 +24,13 @@ const splitKeywords = [
     'UpsertWithout',
     'WhereInput',
     'WhereUniqueInput',
+    'AvgAggregate',
+    'SumAggregate',
+    'MinAggregate',
+    'MaxAggregate',
 ].sort((a, b) => b.length - a.length);
+
+const endsWithKeywords = ['Aggregate'];
 
 type GenerateFileNameArgs = {
     type: FileType;
@@ -68,7 +74,14 @@ export function getFeatureName(args: GetFeatureNameArgs) {
         const [test] = name.split(keyword, 1);
         if (models.includes(test)) {
             result = test;
-            break;
+            return result;
+        }
+    }
+    for (const keyword of endsWithKeywords) {
+        const [test] = name.split(keyword).slice(-1);
+        if (models.includes(test)) {
+            result = test;
+            return result;
         }
     }
     return result;

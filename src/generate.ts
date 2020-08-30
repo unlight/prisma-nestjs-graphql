@@ -9,6 +9,7 @@ import { FileType, generateFileName, getFeatureName } from './generate-file-name
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { mutateScalarInputs } from './mutate-scalar-inputs';
+import { schemaOutputToInput } from './type-utils';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
@@ -65,7 +66,11 @@ export async function generate(args: GenerateArgs) {
     const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
         mutateScalarInputs(prismaClientDmmf.schema.inputTypes),
     );
-    for (const inputType of inputTypes) {
+    // Create aggregate inputs
+    const aggregateInputs = prismaClientDmmf.schema.outputTypes
+        .filter((o) => o.name.endsWith('AggregateOutputType'))
+        .map(schemaOutputToInput);
+    for (const inputType of inputTypes.concat(aggregateInputs)) {
         let model: PrismaDMMF.Model | undefined;
         const feature = getFeatureName({ name: inputType.name, models, fallback: '' });
         if (feature) {
@@ -74,6 +79,5 @@ export async function generate(args: GenerateArgs) {
         const sourceFile = await createSourceFile({ type: 'input', name: inputType.name });
         generateInput({ inputType, sourceFile, projectFilePath, model });
     }
-
     return project;
 }

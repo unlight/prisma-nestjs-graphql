@@ -6,6 +6,18 @@ const prisma = new PrismaClient();
     console.log('Seeding...');
     await prisma.$connect();
 
+    // prisma.user.aggregate({
+    //     max: { countComments: true },
+    //     min: { countComments: true },
+    // });
+
+    const data = await prisma.user.aggregate({
+        where: { id: '1' },
+        avg: { countComments: true },
+        sum: { countComments: true },
+    });
+    console.log('data', data);
+
     // await prisma.user.findMany({ where: { NOT: { id: '1' } } });
     // await prisma.user.findOne({ where: { id: '1' } });
 

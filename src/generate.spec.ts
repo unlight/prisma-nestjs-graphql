@@ -5,7 +5,7 @@ import { generate } from './generate';
 import { generatorOptions, stringContains } from './testing';
 
 describe('main generate', () => {
-    let sourceFile: SourceFile;
+    let sourceFile: SourceFile | undefined;
     let sourceFiles: SourceFile[];
     let sourceText: string;
     async function getResult(args: { schema: string } & Record<string, any>) {
@@ -148,5 +148,28 @@ describe('main generate', () => {
                 const argument = d.getCallExpression()?.getArguments()?.[0].getText();
                 assert.notStrictEqual(argument, '() => null');
             });
+    });
+
+    it('user avg aggregate input', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     String      @id
+              age    Int
+            }
+            `,
+        });
+        sourceFile = sourceFiles.find((s) =>
+            s.getFilePath().endsWith('user-avg-aggregate.input.ts'),
+        );
+        assert(sourceFile);
+        const classDeclaration = sourceFile.getClass('UserAvgAggregateInput');
+        assert(classDeclaration, 'class not found');
+        const propertyDeclaration = classDeclaration.getProperty('age');
+        assert(propertyDeclaration, 'age');
+        const decorator = propertyDeclaration.getDecorator('Field');
+        assert(decorator);
+        const struct = decorator.getStructure();
+        assert.strictEqual(struct.arguments?.[0], '() => Boolean');
     });
 });

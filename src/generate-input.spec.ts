@@ -3,6 +3,7 @@ import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateInput } from './generate-input';
 import { generatorOptions, stringContains, stringNotContains } from './testing';
+import { schemaOutputToInput } from './type-utils';
 
 describe('generate inputs', () => {
     let sourceFile: SourceFile;

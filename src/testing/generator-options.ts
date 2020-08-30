@@ -4,9 +4,8 @@ import { exec } from 'child_process';
 import crypto from 'crypto';
 import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
-import { resolve } from 'path';
 
-const cachePath = findCacheDir({ name: 'createGeneratorOptions', create: true });
+const cachePath: string = findCacheDir({ name: 'createGeneratorOptions', create: true });
 
 /**
  * Get generator options after run prisma generate.

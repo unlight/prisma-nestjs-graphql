@@ -1,3 +1,5 @@
+import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
+
 type ToGraphqlImportTypeArgs = {
     isId: boolean;
     type: string;
@@ -19,6 +21,8 @@ export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     }
     if (name === 'DateTime') {
         name = 'String';
+    } else if (name === 'true') {
+        name = 'Boolean';
     }
     return { name, moduleSpecifier: undefined };
 }
@@ -46,4 +50,32 @@ export function toPropertyType(field: { type: string; kind: string }): string {
     }
     // console.log('field', field);
     throw new TypeError(`Cannot get property type from ${field.kind}/${field.type}`);
+}
+
+/**
+ * See client/src/generation/TSClient.ts @ getAggregationTypes
+ */
+export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDMMF.InputType {
+    return {
+        name: getAggregateInputType(outputType.name),
+        fields: outputType.fields.map((field) => {
+            return {
+                ...field,
+                name: field.name,
+                inputType: [
+                    {
+                        isList: false,
+                        isNullable: false,
+                        isRequired: false,
+                        kind: 'scalar',
+                        type: 'true',
+                    },
+                ],
+            };
+        }),
+    };
+}
+
+function getAggregateInputType(aggregateOutputType: string): string {
+    return aggregateOutputType.replace(/OutputType$/, 'Input');
 }
