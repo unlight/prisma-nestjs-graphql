@@ -1,15 +1,30 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { CommentFilter } from '../comment/comment-filter.input';
 import { BooleanFilter } from '../prisma/boolean-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { TagFilter } from '../tag/tag-filter.input';
-import { UserFilter } from '../user/user-filter.input';
 
 @InputType({})
 export class ArticleScalarWhereInput {
+    @Field(() => [ArticleScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    AND?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+
+    @Field(() => [ArticleScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    OR?: Array<ArticleScalarWhereInput>;
+
+    @Field(() => [ArticleScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    NOT?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
@@ -40,12 +55,6 @@ export class ArticleScalarWhereInput {
     })
     body?: string | StringFilter;
 
-    @Field(() => TagFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    tags?: TagFilter | null;
-
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
@@ -70,39 +79,9 @@ export class ArticleScalarWhereInput {
     })
     authorId?: string | StringFilter;
 
-    @Field(() => UserFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    favoritedBy?: UserFilter | null;
-
-    @Field(() => CommentFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    comments?: CommentFilter | null;
-
     @Field(() => BooleanFilter, {
         nullable: true,
         description: undefined,
     })
     active?: boolean | BooleanFilter | null;
-
-    @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    AND?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
-
-    @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    OR?: Array<ArticleScalarWhereInput>;
-
-    @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    NOT?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 }

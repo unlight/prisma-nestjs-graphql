@@ -1,13 +1,29 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleFilter } from '../article/article-filter.input';
-import { CommentFilter } from '../comment/comment-filter.input';
+import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { UserFilter } from './user-filter.input';
 
 @InputType({})
 export class UserScalarWhereInput {
+    @Field(() => [UserScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    AND?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+
+    @Field(() => [UserScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    OR?: Array<UserScalarWhereInput>;
+
+    @Field(() => [UserScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    NOT?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
@@ -44,57 +60,15 @@ export class UserScalarWhereInput {
     })
     image?: string | StringFilter | null;
 
-    @Field(() => UserFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    following?: UserFilter | null;
-
-    @Field(() => UserFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    followers?: UserFilter | null;
-
-    @Field(() => ArticleFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    favoriteArticles?: ArticleFilter | null;
-
-    @Field(() => ArticleFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    articles?: ArticleFilter | null;
-
-    @Field(() => CommentFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    comments?: CommentFilter | null;
-
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
     countComments?: number | IntFilter | null;
 
-    @Field(() => [UserScalarWhereInput], {
+    @Field(() => FloatFilter, {
         nullable: true,
         description: undefined,
     })
-    AND?: UserScalarWhereInput | Array<UserScalarWhereInput>;
-
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    OR?: Array<UserScalarWhereInput>;
-
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    NOT?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    rating?: number | FloatFilter | null;
 }

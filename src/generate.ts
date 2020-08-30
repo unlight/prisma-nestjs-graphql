@@ -8,7 +8,7 @@ import { generateEnum } from './generate-enum';
 import { FileType, generateFileName, getFeatureName } from './generate-file-name';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
-import { transformNullableInput } from './transform-nullable';
+import { mutateScalarInputs } from './mutate-scalar-inputs';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
@@ -63,7 +63,7 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
-        transformNullableInput(prismaClientDmmf.schema.inputTypes),
+        mutateScalarInputs(prismaClientDmmf.schema.inputTypes),
     );
     for (const inputType of inputTypes) {
         let model: PrismaDMMF.Model | undefined;

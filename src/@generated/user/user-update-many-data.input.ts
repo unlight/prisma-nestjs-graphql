@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 @InputType({})
 export class UserUpdateManyDataInput {
@@ -43,4 +43,10 @@ export class UserUpdateManyDataInput {
         description: undefined,
     })
     countComments?: number | null;
+
+    @Field(() => Float, {
+        nullable: true,
+        description: undefined,
+    })
+    rating?: number | null;
 }

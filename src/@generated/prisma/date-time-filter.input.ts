@@ -8,12 +8,6 @@ export class DateTimeFilter {
     })
     equals?: Date | string;
 
-    @Field(() => DateTimeFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    not?: Date | string | DateTimeFilter;
-
     @Field(() => [String], {
         nullable: true,
         description: undefined,
@@ -49,4 +43,10 @@ export class DateTimeFilter {
         description: undefined,
     })
     gte?: Date | string;
+
+    @Field(() => DateTimeFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    not?: Date | string | DateTimeFilter | null;
 }

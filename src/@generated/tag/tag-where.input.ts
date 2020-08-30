@@ -1,28 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleFilter } from '../article/article-filter.input';
+import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType({})
 export class TagWhereInput {
-    @Field(() => StringFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    id?: string | StringFilter;
-
-    @Field(() => StringFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    name?: string | StringFilter;
-
-    @Field(() => ArticleFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    articles?: ArticleFilter | null;
-
     @Field(() => [TagWhereInput], {
         nullable: true,
         description: undefined,
@@ -40,4 +22,22 @@ export class TagWhereInput {
         description: undefined,
     })
     NOT?: TagWhereInput | Array<TagWhereInput>;
+
+    @Field(() => StringFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    id?: string | StringFilter;
+
+    @Field(() => StringFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    name?: string | StringFilter;
+
+    @Field(() => ArticleListRelationFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    articles?: ArticleListRelationFilter | null;
 }

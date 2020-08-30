@@ -1,15 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import * as prisma from '@prisma/client';
 
-import { ArticleFilter } from '../@generated/article/article-filter.input';
-import { ArticleRelationFilter } from '../@generated/article/article-relation-filter.input';
-import { ArticleWhereInput } from '../@generated/article/article-where.input';
+import { ArticleListRelationFilter } from '../@generated/article/article-list-relation-filter.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
-import { TagFilter } from '../@generated/tag/tag-filter.input';
-import { TagWhereInput } from '../@generated/tag/tag-where.input';
-import { UserFilter } from '../@generated/user/user-filter.input';
+import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
 import { UserWhereInput } from '../@generated/user/user-where.input';
-import { User } from '../@generated/user/user.model';
 
 const $prisma = new PrismaClient();
 
@@ -22,11 +17,11 @@ const $prisma = new PrismaClient();
 
 {
     const n: DateTimeFilter = {};
-    const p: prisma.DateTimeFilter = n;
+    // const p: prisma.DateTimeFilter = n;
 }
 {
-    // const n: ArticleFilter = {};
-    // const p: prisma.ArticleFilter = n;
+    // const n: ArticleListRelationFilter = {};
+    // const p: prisma.ArticleListRelationFilter = n;
     // const n: TagWhereInput['articles'] = {};
     // const p: prisma.TagWhereInput['articles'] = n;
     // const n: TagWhereInput['articles'] = {};
@@ -47,8 +42,8 @@ const $prisma = new PrismaClient();
 //     const n: TagFilter = p;
 // }
 // {
-//     const p: prisma.ArticleFilter = {};
-//     const n: ArticleFilter = p;
+//     const p: prisma.ArticleListRelationFilter = {};
+//     const n: ArticleListRelationFilter = p;
 // }
 // {
 //     const p: prisma.ArticleWhereInput = {};

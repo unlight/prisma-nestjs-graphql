@@ -38,7 +38,7 @@
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
     "prettier:format": "npx prettier src --write",
     "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run prettier:format",
-    "start:example": "node -r ts-node/register/transpile-only src/example/main.ts"
+    "example": "ts-node-dev src/example/main.ts"
   },
   "husky": {
     "hooks": {
@@ -56,7 +56,7 @@
     "typescript-equals": "^1.0.0"
   },
   "peerDependencies": {
-    "@prisma/client": "2"
+    "@prisma/client": ">=2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
@@ -65,8 +65,9 @@
     "@nestjs/core": "^7.4.2",
     "@nestjs/graphql": "^7.6.0",
     "@nestjs/platform-express": "^7.4.2",
+    "@paljs/plugins": "^1.2.6",
     "@prisma/cli": "^2.5.1",
-    "@prisma/client": "^2.4.1",
+    "@prisma/client": "^2.5.1",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/mocha": "^8.0.3",
@@ -91,6 +92,7 @@
     "eslint-plugin-total-functions": "^2.3.1",
     "eslint-plugin-unicorn": "^21.0.0",
     "eslint-plugin-wix-editor": "^3.2.0",
+    "find-cache-dir": "^3.3.1",
     "git-branch-is": "^4.0.0",
     "graphql": "^15.3.0",
     "graphql-type-json": "^0.3.2",
@@ -103,6 +105,7 @@
     "semantic-release": "^17.1.1",
     "simplytyped": "^3.3.0",
     "ts-node": "^9.0.0",
+    "ts-node-dev": "^1.0.0-pre.61",
     "typescript": "~4.0.2",
     "watchexec-bin": "^1.0.0"
   }

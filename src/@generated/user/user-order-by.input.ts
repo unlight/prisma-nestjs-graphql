@@ -45,4 +45,10 @@ export class UserOrderByInput {
         description: undefined,
     })
     countComments?: SortOrder | null;
+
+    @Field(() => SortOrder, {
+        nullable: true,
+        description: undefined,
+    })
+    rating?: SortOrder | null;
 }

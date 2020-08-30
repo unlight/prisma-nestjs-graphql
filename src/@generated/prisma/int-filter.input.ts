@@ -8,12 +8,6 @@ export class IntFilter {
     })
     equals?: number;
 
-    @Field(() => IntFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    not?: number | IntFilter;
-
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
@@ -49,4 +43,10 @@ export class IntFilter {
         description: undefined,
     })
     gte?: number;
+
+    @Field(() => IntFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    not?: number | IntFilter | null;
 }

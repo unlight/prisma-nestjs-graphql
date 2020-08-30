@@ -8,12 +8,6 @@ export class StringFilter {
     })
     equals?: string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-        description: undefined,
-    })
-    not?: string | StringFilter;
-
     @Field(() => [String], {
         nullable: true,
         description: undefined,
@@ -67,4 +61,10 @@ export class StringFilter {
         description: undefined,
     })
     endsWith?: string;
+
+    @Field(() => StringFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    not?: string | StringFilter | null;
 }

@@ -196,7 +196,7 @@ describe('generate inputs', () => {
             });
     });
 
-    it('user filter', async () => {
+    it('user scalar where input ex. user filter', async () => {
         await getResult({
             schema: `
             model User {
@@ -205,11 +205,11 @@ describe('generate inputs', () => {
               followers        User[]    @relation("UserFollows", references: [id])
             }
             `,
-            name: 'UserFilter',
+            name: 'UserListRelationFilter',
             model: 'User',
         });
         const struct = (n: string) =>
-            sourceFile.getClass('UserFilter')?.getProperty(n)?.getStructure();
+            sourceFile.getClass('UserListRelationFilter')?.getProperty(n)?.getStructure();
 
         assert.strictEqual(struct('every')?.type, 'UserWhereInput');
         assert.strictEqual(struct('some')?.type, 'UserWhereInput');

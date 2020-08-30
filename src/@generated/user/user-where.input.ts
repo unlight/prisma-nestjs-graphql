@@ -1,13 +1,32 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleFilter } from '../article/article-filter.input';
-import { CommentFilter } from '../comment/comment-filter.input';
+import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
+import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
+import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { UserFilter } from './user-filter.input';
+import { UserListRelationFilter } from './user-list-relation-filter.input';
 
 @InputType({})
 export class UserWhereInput {
+    @Field(() => [UserWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    AND?: UserWhereInput | Array<UserWhereInput>;
+
+    @Field(() => [UserWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    OR?: Array<UserWhereInput>;
+
+    @Field(() => [UserWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    NOT?: UserWhereInput | Array<UserWhereInput>;
+
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
@@ -44,35 +63,35 @@ export class UserWhereInput {
     })
     image?: string | StringFilter | null;
 
-    @Field(() => UserFilter, {
+    @Field(() => UserListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    following?: UserFilter | null;
+    following?: UserListRelationFilter | null;
 
-    @Field(() => UserFilter, {
+    @Field(() => UserListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    followers?: UserFilter | null;
+    followers?: UserListRelationFilter | null;
 
-    @Field(() => ArticleFilter, {
+    @Field(() => ArticleListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    favoriteArticles?: ArticleFilter | null;
+    favoriteArticles?: ArticleListRelationFilter | null;
 
-    @Field(() => ArticleFilter, {
+    @Field(() => ArticleListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleFilter | null;
+    articles?: ArticleListRelationFilter | null;
 
-    @Field(() => CommentFilter, {
+    @Field(() => CommentListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    comments?: CommentFilter | null;
+    comments?: CommentListRelationFilter | null;
 
     @Field(() => IntFilter, {
         nullable: true,
@@ -80,21 +99,9 @@ export class UserWhereInput {
     })
     countComments?: number | IntFilter | null;
 
-    @Field(() => [UserWhereInput], {
+    @Field(() => FloatFilter, {
         nullable: true,
         description: undefined,
     })
-    AND?: UserWhereInput | Array<UserWhereInput>;
-
-    @Field(() => [UserWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    OR?: Array<UserWhereInput>;
-
-    @Field(() => [UserWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    NOT?: UserWhereInput | Array<UserWhereInput>;
+    rating?: number | FloatFilter | null;
 }

@@ -8,6 +8,7 @@ export enum UserDistinctFieldEnum {
     bio = 'bio',
     image = 'image',
     countComments = 'countComments',
+    rating = 'rating',
 }
 
 registerEnumType(UserDistinctFieldEnum, { name: 'UserDistinctFieldEnum', description: undefined });

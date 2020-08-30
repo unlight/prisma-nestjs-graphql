@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 import { ArticleCreateManyWithoutFavoritedByInput } from '../article/article-create-many-without-favorited-by.input';
 import { CommentCreateManyWithoutAuthorInput } from '../comment/comment-create-many-without-author.input';
@@ -48,6 +48,12 @@ export class UserCreateWithoutArticlesInput {
         description: undefined,
     })
     countComments?: number | null;
+
+    @Field(() => Float, {
+        nullable: true,
+        description: undefined,
+    })
+    rating?: number | null;
 
     @Field(() => UserCreateManyWithoutFollowersInput, {
         nullable: true,

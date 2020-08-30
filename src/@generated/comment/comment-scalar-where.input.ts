@@ -5,6 +5,24 @@ import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType({})
 export class CommentScalarWhereInput {
+    @Field(() => [CommentScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    AND?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+
+    @Field(() => [CommentScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    OR?: Array<CommentScalarWhereInput>;
+
+    @Field(() => [CommentScalarWhereInput], {
+        nullable: true,
+        description: undefined,
+    })
+    NOT?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
@@ -40,22 +58,4 @@ export class CommentScalarWhereInput {
         description: undefined,
     })
     articleId?: string | StringFilter | null;
-
-    @Field(() => [CommentScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    AND?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
-
-    @Field(() => [CommentScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    OR?: Array<CommentScalarWhereInput>;
-
-    @Field(() => [CommentScalarWhereInput], {
-        nullable: true,
-        description: undefined,
-    })
-    NOT?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
 }

@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-many-without-author.input';
 import { ArticleUpdateManyWithoutFavoritedByInput } from '../article/article-update-many-without-favorited-by.input';
@@ -48,6 +48,12 @@ export class UserUpdateWithoutCommentsDataInput {
         description: undefined,
     })
     countComments?: number | null;
+
+    @Field(() => Float, {
+        nullable: true,
+        description: undefined,
+    })
+    rating?: number | null;
 
     @Field(() => UserUpdateManyWithoutFollowersInput, {
         nullable: true,

@@ -1,6 +1,12 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 
-export function transformNullableInput(inputTypes: PrismaDMMF.InputType[]) {
+export function mutateScalarInputs(inputTypes: PrismaDMMF.InputType[]) {
+    const booleanMutation = createMutation(inputTypes, [
+        'BooleanFilter',
+        'NullableBooleanFilter',
+        'BoolNullableFilter',
+        'NestedBoolNullableFilter',
+    ]);
     const intMutation = createMutation(inputTypes, [
         'IntFilter',
         'NullableIntFilter',
@@ -8,11 +14,12 @@ export function transformNullableInput(inputTypes: PrismaDMMF.InputType[]) {
         'NestedIntNullableFilter',
         'NestedIntFilter',
     ]);
-    const booleanMutation = createMutation(inputTypes, [
-        'BooleanFilter',
-        'NullableBooleanFilter',
-        'BoolNullableFilter',
-        'NestedBoolNullableFilter',
+    const floatMutation = createMutation(inputTypes, [
+        'FloatFilter',
+        'NullableFloatFilter',
+        'FloatNullableFilter',
+        'NestedFloatNullableFilter',
+        'NestedFloatFilter',
     ]);
     const stringMutation = createMutation(inputTypes, [
         'StringFilter',
@@ -31,6 +38,7 @@ export function transformNullableInput(inputTypes: PrismaDMMF.InputType[]) {
     return function (inputType: PrismaDMMF.InputType) {
         return (
             booleanMutation(inputType) &&
+            floatMutation(inputType) &&
             intMutation(inputType) &&
             stringMutation(inputType) &&
             dateTimeMutation(inputType)

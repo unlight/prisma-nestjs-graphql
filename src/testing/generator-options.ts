@@ -2,10 +2,11 @@ import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
 import crypto from 'crypto';
+import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
 import { resolve } from 'path';
 
-const cachePath = resolve('node_modules/.cache/createGeneratorOptions');
+const cachePath = findCacheDir({ name: 'createGeneratorOptions', create: true });
 
 /**
  * Get generator options after run prisma generate.
@@ -27,7 +28,6 @@ export async function generatorOptions(
             }
             generator client {
                 provider = "prisma-client-js"
-                previewFeatures = ["distinct", "aggregateApi"]
             }
             generator proxy {
                 provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
@@ -37,12 +37,7 @@ export async function generatorOptions(
             }
             ${schema}
         `;
-        try {
-            fs.writeFileSync(schemaFile, schemaData);
-        } catch {
-            fs.mkdirSync(cachePath, { recursive: true });
-            fs.writeFileSync(schemaFile, schemaData);
-        }
+        fs.writeFileSync(schemaFile, schemaData);
 
         await new Promise((resolve, reject) => {
             const proc = exec(
