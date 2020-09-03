@@ -2,6 +2,7 @@ import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import { existsSync, promises as fs } from 'fs';
+import { join } from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateEnum } from './generate-enum';
@@ -18,6 +19,8 @@ type GenerateArgs = GeneratorOptions & {
 
 export async function generate(args: GenerateArgs) {
     const { generator, otherGenerators } = args;
+    const output = generator.output;
+    assert(output, 'generator.output is empty');
     const fileExistsSync = args.fileExistsSync ?? existsSync;
     const prismaClientOutput = otherGenerators.find((x) => x.provider === 'prisma-client-js')
         ?.output;
@@ -45,8 +48,9 @@ export async function generate(args: GenerateArgs) {
             return sourceFile;
         }
         let sourceFileText = '';
-        if (fileExistsSync(filePath)) {
-            sourceFileText = await fs.readFile(filePath, { encoding: 'utf8' });
+        const localFilePath = join(output, filePath);
+        if (fileExistsSync(localFilePath)) {
+            sourceFileText = await fs.readFile(localFilePath, { encoding: 'utf8' });
         }
         sourceFile = project.createSourceFile(filePath, sourceFileText);
         return sourceFile;

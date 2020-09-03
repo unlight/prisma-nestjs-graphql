@@ -1,7 +1,8 @@
-import { Args, Info, Query, Resolver } from '@nestjs/graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
 
+import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { User } from '../../@generated/user/user.model';
 
@@ -38,5 +39,10 @@ export class UserResolver {
         const select = new PrismaSelect(info).value;
         // console.log('select', select);
         return await prisma.user.findMany({ where, ...select });
+    }
+
+    @Mutation(() => User, { nullable: true })
+    async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
+        return null;
     }
 }
