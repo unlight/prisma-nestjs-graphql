@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.3.0...v1.3.1) (2020-09-03)
+
+
+### Bug Fixes
+
+* Loading existing file ([fc19a03](https://github.com/unlight/nestjs-graphql-prisma/commit/fc19a0352c25fd16443055ac5017ddfcb9aaf126))
+
 # [1.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.2.0...v1.3.0) (2020-08-30)
 
 
