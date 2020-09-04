@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.3.1...v1.4.0) (2020-09-04)
+
+
+### Features
+
+* Option to disable atomic number operations ([3319ff9](https://github.com/unlight/nestjs-graphql-prisma/commit/3319ff9b27b0b9a45aa5f06cbd521e2f7f55a6bd))
+
 ## [1.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.3.0...v1.3.1) (2020-09-03)
 
 
