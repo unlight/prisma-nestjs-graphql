@@ -1,6 +1,7 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
+import { boolean } from 'boolean';
 import { existsSync, promises as fs } from 'fs';
 import { join } from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
@@ -9,7 +10,7 @@ import { generateEnum } from './generate-enum';
 import { FileType, generateFileName, getFeatureName } from './generate-file-name';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
-import { mutateScalarInputs } from './mutate-scalar-inputs';
+import { mutateFilters } from './mutate-filters';
 import { schemaOutputToInput } from './type-utils';
 
 type GenerateArgs = GeneratorOptions & {
@@ -68,7 +69,10 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
-        mutateScalarInputs(prismaClientDmmf.schema.inputTypes),
+        mutateFilters(prismaClientDmmf.schema.inputTypes, {
+            combineScalarFilters: boolean(generator.config.combineScalarFilters ?? true),
+            atomicNumberOperations: boolean(generator.config.atomicNumberOperations ?? false),
+        }),
     );
     // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputTypes

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { SourceFile } from 'ts-morph';
+import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
 import { generatorOptions, stringContains } from './testing';
@@ -171,5 +171,65 @@ describe('main generate', () => {
         assert(decorator);
         const struct = decorator.getStructure();
         assert.strictEqual(struct.arguments?.[0], '() => Boolean');
+    });
+
+    it('get rid of atomic number operations', async () => {
+        await getResult({
+            atomicNumberOperations: false,
+            schema: `
+            model User {
+              id String @id
+              age Int
+              rating Float?
+            }
+            `,
+        });
+
+        [
+            'float-field-update-operations.input.ts',
+            'int-field-update-operations.input.ts',
+            'string-field-update-operations.input.ts',
+        ].forEach((file) => {
+            assert(
+                !sourceFiles.find((s) => s.getFilePath().endsWith(file)),
+                `File ${file} should not exists`,
+            );
+        });
+
+        sourceFile = sourceFiles.find((s) => s.getFilePath().endsWith('user-update.input.ts'));
+        assert(sourceFile);
+
+        const classDeclaration = sourceFile.getClass('UserUpdateInput');
+        assert(classDeclaration);
+
+        const id = classDeclaration.getProperty('id')?.getStructure();
+        assert(id);
+        assert.equal(id.type, 'string');
+        let args = classDeclaration
+            .getProperty('id')
+            ?.getDecorator('Field')
+            ?.getArguments()
+            .map((a) => a.getText());
+        assert.equal(args?.[0], '() => String');
+
+        const age = classDeclaration.getProperty('age')?.getStructure();
+        assert(age);
+        assert.equal(age.type, 'number');
+        args = classDeclaration
+            .getProperty('age')
+            ?.getDecorator('Field')
+            ?.getArguments()
+            .map((a) => a.getText());
+        assert.equal(args?.[0], '() => Int');
+
+        const rating = classDeclaration.getProperty('rating')?.getStructure();
+        assert(rating);
+        assert.equal(rating.type, 'number | null');
+        args = classDeclaration
+            .getProperty('rating')
+            ?.getDecorator('Field')
+            ?.getArguments()
+            .map((a) => a.getText());
+        assert.equal(args?.[0], '() => Float');
     });
 });

@@ -27,7 +27,6 @@ export function generateInput(args: GenerateInputArgs) {
     });
     generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     for (const field of inputType.fields) {
-        // console.log('field', field);
         const inputType = getMatchingInputType(field.inputType);
         const modelField = model?.fields.find((f) => f.name === field.name);
         const nullable =

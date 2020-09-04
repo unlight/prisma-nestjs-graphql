@@ -27,12 +27,15 @@ export async function generatorOptions(
             }
             generator client {
                 provider = "prisma-client-js"
+                previewFeatures = ["atomicNumberOperations"]
             }
             generator proxy {
                 provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
                 output = "."
                 hash = "${hash}"
                 outputFilePattern = "${options?.outputFilePattern || ''}"
+                combineScalarFilters = ${JSON.stringify(options?.combineScalarFilters ?? true)}
+                atomicNumberOperations = ${JSON.stringify(options?.atomicNumberOperations ?? false)}
             }
             ${schema}
         `;

@@ -2,6 +2,13 @@
 
 Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module.
 
+## Features
+
+-   Generates only necessary imports
+-   Combines zoo of nested/nullable filters
+-   Updates source code of existing files
+-   Do not generate resolvers, since it's application specific
+
 ## Install
 
 ```sh
@@ -34,6 +41,10 @@ npx prisma generate
     -   `{name}` - name of model/input/arg
     -   `{dasherizedName}` - dashed-case name of model/input/arg without suffix
     -   `{type}` - short type name (model, input)
+-   `combineScalarFilters` - Combine nested/nullable scalar filters to single
+    (default: `true`)
+-   `atomicNumberOperations` - Atomic number operations,
+    `false` - disabled (default), `true` - enabled
 
 ## Resources
 
