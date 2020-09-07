@@ -7,7 +7,7 @@ import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
-@InputType({})
+@InputType()
 export class CommentUpdateManyWithoutAuthorInput {
     @Field(() => [CommentCreateWithoutAuthorInput], {
         nullable: true,

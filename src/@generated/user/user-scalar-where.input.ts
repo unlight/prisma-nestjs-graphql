@@ -4,7 +4,7 @@ import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
-@InputType({})
+@InputType()
 export class UserScalarWhereInput {
     @Field(() => [UserScalarWhereInput], {
         nullable: true,

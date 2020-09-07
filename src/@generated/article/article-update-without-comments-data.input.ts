@@ -4,7 +4,7 @@ import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-withou
 import { UserUpdateManyWithoutFavoriteArticlesInput } from '../user/user-update-many-without-favorite-articles.input';
 import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-one-required-without-articles.input';
 
-@InputType({})
+@InputType()
 export class ArticleUpdateWithoutCommentsDataInput {
     @Field(() => String, {
         nullable: true,

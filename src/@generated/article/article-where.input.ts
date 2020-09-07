@@ -9,7 +9,7 @@ import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
 
-@InputType({})
+@InputType()
 export class ArticleWhereInput {
     @Field(() => [ArticleWhereInput], {
         nullable: true,

@@ -7,7 +7,7 @@ import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-wi
 import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateManyWithoutFollowingInput {
     @Field(() => [UserCreateWithoutFollowingInput], {
         nullable: true,

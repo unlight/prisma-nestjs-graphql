@@ -7,7 +7,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 
-@InputType({})
+@InputType()
 export class UserWhereInput {
     @Field(() => [UserWhereInput], {
         nullable: true,

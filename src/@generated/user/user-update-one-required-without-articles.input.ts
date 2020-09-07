@@ -5,7 +5,7 @@ import { UserUpdateWithoutArticlesDataInput } from './user-update-without-articl
 import { UserUpsertWithoutArticlesInput } from './user-upsert-without-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateOneRequiredWithoutArticlesInput {
     @Field(() => UserCreateWithoutArticlesInput, {
         nullable: true,

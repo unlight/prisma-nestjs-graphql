@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { UserWhereInput } from './user-where.input';
 
-@InputType({})
+@InputType()
 export class UserRelationFilter {
     @Field(() => UserWhereInput, {
         nullable: true,

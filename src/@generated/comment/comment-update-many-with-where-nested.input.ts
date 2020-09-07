@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
 import { CommentUpdateManyDataInput } from './comment-update-many-data.input';
 
-@InputType({})
+@InputType()
 export class CommentUpdateManyWithWhereNestedInput {
     @Field(() => CommentScalarWhereInput, {
         nullable: true,

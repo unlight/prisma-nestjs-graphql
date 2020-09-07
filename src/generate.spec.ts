@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { PropertyDeclaration, SourceFile } from 'ts-morph';
+import { SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
 import { generatorOptions, stringContains } from './testing';
@@ -204,32 +204,94 @@ describe('main generate', () => {
 
         const id = classDeclaration.getProperty('id')?.getStructure();
         assert(id);
-        assert.equal(id.type, 'string');
+        assert.strictEqual(id.type, 'string');
         let args = classDeclaration
             .getProperty('id')
             ?.getDecorator('Field')
             ?.getArguments()
             .map((a) => a.getText());
-        assert.equal(args?.[0], '() => String');
+        assert.strictEqual(args?.[0], '() => String');
 
         const age = classDeclaration.getProperty('age')?.getStructure();
         assert(age);
-        assert.equal(age.type, 'number');
+        assert.strictEqual(age.type, 'number');
         args = classDeclaration
             .getProperty('age')
             ?.getDecorator('Field')
             ?.getArguments()
             .map((a) => a.getText());
-        assert.equal(args?.[0], '() => Int');
+        assert.strictEqual(args?.[0], '() => Int');
 
         const rating = classDeclaration.getProperty('rating')?.getStructure();
         assert(rating);
-        assert.equal(rating.type, 'number | null');
+        assert.strictEqual(rating.type, 'number | null');
         args = classDeclaration
             .getProperty('rating')
             ?.getDecorator('Field')
             ?.getArguments()
             .map((a) => a.getText());
-        assert.equal(args?.[0], '() => Float');
+        assert.strictEqual(args?.[0], '() => Float');
+    });
+
+    it('user args type', async () => {
+        await getResult({
+            atomicNumberOperations: false,
+            schema: `
+            model User {
+              id String @id
+              age Int
+              rating Float?
+            }
+            `,
+        });
+        ['aggregate-user.args.ts', 'find-many-user.args.ts', 'find-one-user.args.ts'].forEach(
+            (file) => {
+                assert(
+                    sourceFiles.find((s) => s.getFilePath().endsWith(file)),
+                    `File ${file} should exists`,
+                );
+            },
+        );
+
+        sourceFile = sourceFiles.find((s) => s.getFilePath().endsWith('aggregate-user.args.ts'));
+        assert(sourceFile);
+
+        const classDeclaration = sourceFile.getClass('AggregateUserArgs');
+        assert(classDeclaration);
+
+        let struct = classDeclaration.getProperty('count')?.getStructure();
+        let decoratorArguments = struct?.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => Boolean');
+
+        struct = classDeclaration.getProperty('avg')?.getStructure();
+        assert.strictEqual(struct?.type, 'UserAvgAggregateInput | null');
+        decoratorArguments = struct.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => UserAvgAggregateInput');
+
+        struct = classDeclaration.getProperty('sum')?.getStructure();
+        assert.strictEqual(struct?.type, 'UserSumAggregateInput | null');
+        decoratorArguments = struct.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => UserSumAggregateInput');
+
+        struct = classDeclaration.getProperty('min')?.getStructure();
+        assert.strictEqual(struct?.type, 'UserMinAggregateInput | null');
+        decoratorArguments = struct.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => UserMinAggregateInput');
+
+        struct = classDeclaration.getProperty('max')?.getStructure();
+        assert.strictEqual(struct?.type, 'UserMaxAggregateInput | null');
+        decoratorArguments = struct.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
+
+        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
+        );
+        assert(imports.find((x) => x.name === 'UserAvgAggregateInput'));
+        assert(imports.find((x) => x.name === 'UserSumAggregateInput'));
+        assert(imports.find((x) => x.name === 'UserMinAggregateInput'));
+        assert(imports.find((x) => x.name === 'UserMaxAggregateInput'));
     });
 });

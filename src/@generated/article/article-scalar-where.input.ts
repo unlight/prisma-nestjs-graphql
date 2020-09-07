@@ -5,7 +5,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
-@InputType({})
+@InputType()
 export class ArticleScalarWhereInput {
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,

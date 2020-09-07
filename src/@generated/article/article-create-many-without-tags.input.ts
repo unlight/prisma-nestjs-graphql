@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
-@InputType({})
+@InputType()
 export class ArticleCreateManyWithoutTagsInput {
     @Field(() => [ArticleCreateWithoutTagsInput], {
         nullable: true,

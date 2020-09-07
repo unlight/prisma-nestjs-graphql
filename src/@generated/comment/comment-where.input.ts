@@ -5,7 +5,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
 
-@InputType({})
+@InputType()
 export class CommentWhereInput {
     @Field(() => [CommentWhereInput], {
         nullable: true,

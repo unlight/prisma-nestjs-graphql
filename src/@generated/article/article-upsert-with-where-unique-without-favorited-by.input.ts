@@ -4,7 +4,7 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 import { ArticleUpdateWithoutFavoritedByDataInput } from './article-update-without-favorited-by-data.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
-@InputType({})
+@InputType()
 export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,

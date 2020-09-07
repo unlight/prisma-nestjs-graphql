@@ -7,7 +7,7 @@ import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-up
 import { UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput } from './user-upsert-with-where-unique-without-favorite-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateManyWithoutFavoriteArticlesInput {
     @Field(() => [UserCreateWithoutFavoriteArticlesInput], {
         nullable: true,

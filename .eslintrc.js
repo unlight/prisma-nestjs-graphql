@@ -114,5 +114,13 @@ module.exports = {
                 'sonarjs/no-duplicate-string': 0,
             },
         },
+        {
+            files: ['src/testing/type-tests.ts'],
+            rules: {
+                'etc/no-unused-declaration': 0,
+                '@typescript-eslint/no-unused-vars': 0,
+                '@typescript-eslint/no-unsafe-assignment': 0,
+            },
+        },
     ],
 };

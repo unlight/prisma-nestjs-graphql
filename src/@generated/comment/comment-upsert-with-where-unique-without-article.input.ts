@@ -4,7 +4,7 @@ import { CommentCreateWithoutArticleInput } from './comment-create-without-artic
 import { CommentUpdateWithoutArticleDataInput } from './comment-update-without-article-data.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
-@InputType({})
+@InputType()
 export class CommentUpsertWithWhereUniqueWithoutArticleInput {
     @Field(() => CommentWhereUniqueInput, {
         nullable: true,

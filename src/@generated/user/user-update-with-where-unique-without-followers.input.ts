@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserUpdateWithoutFollowersDataInput } from './user-update-without-followers-data.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateWithWhereUniqueWithoutFollowersInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: true,

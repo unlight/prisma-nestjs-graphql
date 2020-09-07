@@ -1,6 +1,6 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
-@InputType({})
+@InputType()
 export class UserUpdateManyMutationInput {
     @Field(() => String, {
         nullable: true,

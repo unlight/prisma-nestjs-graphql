@@ -11,7 +11,7 @@ import { FileType, generateFileName, getFeatureName } from './generate-file-name
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { mutateFilters } from './mutate-filters';
-import { schemaOutputToInput } from './type-utils';
+import { schemaFieldToArg as schemaFieldToArgument, schemaOutputToInput } from './type-utils';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
@@ -34,14 +34,14 @@ export async function generate(args: GenerateArgs) {
         manipulationSettings: { quoteKind: QuoteKind.Single },
     });
     const models = prismaClientDmmf.datamodel.models.map((x) => x.name);
-    const projectFilePath = (args: { name: string; type: FileType }) => {
+    const projectFilePath = (args: { name: string; type: FileType; feature?: string }) => {
         return generateFileName({
             ...args,
             template: generator.config.outputFilePattern,
             models,
         });
     };
-    const createSourceFile = async (args: { type: FileType; name: string }) => {
+    const createSourceFile = async (args: { type: FileType; name: string; feature?: string }) => {
         const filePath = projectFilePath(args);
         let sourceFile: SourceFile | undefined;
         sourceFile = project.getSourceFile(filePath);
@@ -84,8 +84,72 @@ export async function generate(args: GenerateArgs) {
         if (feature) {
             model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
         }
-        const sourceFile = await createSourceFile({ type: 'input', name: inputType.name });
-        generateInput({ inputType, sourceFile, projectFilePath, model });
+        const sourceFile = await createSourceFile({ type: 'input', name: inputType.name, feature });
+        generateInput({
+            inputType,
+            sourceFile,
+            projectFilePath,
+            model,
+            decorator: { name: 'InputType' },
+        });
     }
+    // Generate args
+    const otherTypes = prismaClientDmmf.schema.outputTypes
+        .filter((t) => t.name === 'Query')
+        .flatMap((t) => t.fields)
+        .map(schemaFieldToArgument);
+    for (const inputType of otherTypes) {
+        const feature = getFeatureName({ name: inputType.name, models, fallback: '' });
+        assert(feature);
+        const model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
+        if (inputType.name === `Aggregate${feature}Args`) {
+            // Aggregate args
+            inputType.fields.push({
+                name: 'count',
+                inputType: [
+                    {
+                        kind: 'scalar',
+                        type: 'true',
+                        isRequired: false,
+                        isNullable: true,
+                        isList: false,
+                    },
+                ],
+            });
+            ['Avg', 'Sum', 'Min', 'Max'].forEach((name) => {
+                const aggregateInput = aggregateInputs.find(
+                    (t) => t.name === `${feature}${name}AggregateInput`,
+                );
+                if (!aggregateInput) {
+                    return;
+                }
+                inputType.fields.push({
+                    name: name.toLowerCase(),
+                    inputType: [
+                        {
+                            kind: 'object',
+                            type: aggregateInput.name,
+                            isRequired: false,
+                            isNullable: true,
+                            isList: false,
+                        },
+                    ],
+                });
+            });
+        }
+        const sourceFile = await createSourceFile({
+            type: 'args',
+            name: inputType.name,
+            feature,
+        });
+        generateInput({
+            inputType,
+            sourceFile,
+            projectFilePath,
+            model,
+            decorator: { name: 'ArgsType' },
+        });
+    }
+
     return project;
 }

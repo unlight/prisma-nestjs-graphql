@@ -7,7 +7,7 @@ import { ArticleUpdateWithWhereUniqueWithoutTagsInput } from './article-update-w
 import { ArticleUpsertWithWhereUniqueWithoutTagsInput } from './article-upsert-with-where-unique-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
-@InputType({})
+@InputType()
 export class ArticleUpdateManyWithoutTagsInput {
     @Field(() => [ArticleCreateWithoutTagsInput], {
         nullable: true,

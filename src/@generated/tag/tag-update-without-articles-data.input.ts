@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-@InputType({})
+@InputType()
 export class TagUpdateWithoutArticlesDataInput {
     @Field(() => String, {
         nullable: true,

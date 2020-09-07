@@ -4,7 +4,7 @@ import { ArticleCreateWithoutAuthorInput } from './article-create-without-author
 import { ArticleUpdateWithoutAuthorDataInput } from './article-update-without-author-data.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
-@InputType({})
+@InputType()
 export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,

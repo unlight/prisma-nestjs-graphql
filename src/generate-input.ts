@@ -1,7 +1,7 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { ClassDeclaration, SourceFile } from 'ts-morph';
 
-import { generateClass, generateClassProperty } from './generate-class';
+import { DecoratorPropertyType, generateClass, generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
 import { generateGraphqlImport } from './generate-graphql-import';
 import { generateProjectImport } from './generate-project-import';
@@ -12,17 +12,15 @@ type GenerateInputArgs = {
     sourceFile: SourceFile;
     model: PrismaDMMF.Model | undefined;
     projectFilePath(data: { name: string; type: string }): string;
+    decorator: DecoratorPropertyType;
 };
 
 export function generateInput(args: GenerateInputArgs) {
-    const { inputType, sourceFile, projectFilePath, model } = args;
+    const { inputType, sourceFile, projectFilePath, model, decorator } = args;
     const className = inputType.name;
     const classDeclaration = generateClass({
         sourceFile,
-        decorator: {
-            name: 'InputType',
-            properties: [],
-        },
+        decorator,
         name: className,
     });
     generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });

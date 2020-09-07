@@ -4,16 +4,18 @@ import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-
 import { generateGraphqlImport } from './generate-graphql-import';
 import { updateObjectProperty } from './update-object-property';
 
+export type DecoratorPropertyType = {
+    name: string;
+    properties?: {
+        name: string;
+        value?: string;
+    }[];
+};
+
 type GenerateClassArgs = {
     sourceFile: SourceFile;
     name: string;
-    decorator: {
-        name: string;
-        properties?: {
-            name: string;
-            value?: string;
-        }[];
-    };
+    decorator: DecoratorPropertyType;
 };
 
 export function generateClass(args: GenerateClassArgs) {
@@ -32,7 +34,7 @@ export function generateClass(args: GenerateClassArgs) {
         classDeclaration = sourceFile.addClass({
             name,
             isExported: true,
-            decorators: [{ name: decorator.name, arguments: ['{}'] }],
+            decorators: [{ name: decorator.name, arguments: [] }],
         });
     }
     let decoratorDeclaration = classDeclaration
@@ -41,27 +43,29 @@ export function generateClass(args: GenerateClassArgs) {
     if (!decoratorDeclaration) {
         decoratorDeclaration = classDeclaration.addDecorator({
             name: decorator.name,
-            arguments: ['{}'],
+            arguments: [],
         });
     }
     assert(decoratorDeclaration);
     const callExpression = decoratorDeclaration.getCallExpression();
     assert(callExpression);
-    let objectExpression = callExpression
-        .getArguments()
-        .find((node) => Node.isObjectLiteralExpression(node)) as
-        | ObjectLiteralExpression
-        | undefined;
-    if (!objectExpression) {
-        [objectExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
-    }
+    if (decorator.properties) {
+        let objectExpression = callExpression
+            .getArguments()
+            .find((node) => Node.isObjectLiteralExpression(node)) as
+            | ObjectLiteralExpression
+            | undefined;
+        if (!objectExpression) {
+            [objectExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
+        }
 
-    for (const property of decorator.properties || []) {
-        updateObjectProperty({
-            expression: objectExpression,
-            name: property.name,
-            value: property.value,
-        });
+        for (const property of decorator.properties) {
+            updateObjectProperty({
+                expression: objectExpression,
+                name: property.name,
+                value: property.value,
+            });
+        }
     }
 
     return classDeclaration;

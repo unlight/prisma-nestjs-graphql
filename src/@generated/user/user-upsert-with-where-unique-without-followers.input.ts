@@ -4,7 +4,7 @@ import { UserCreateWithoutFollowersInput } from './user-create-without-followers
 import { UserUpdateWithoutFollowersDataInput } from './user-update-without-followers-data.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowersInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: true,

@@ -36,6 +36,9 @@ describe('generate inputs', () => {
             inputType,
             sourceFile,
             projectFilePath: () => '0.ts',
+            decorator: {
+                name: 'InputType',
+            },
         });
         sourceText = sourceFile.getText();
         imports = sourceFile.getImportDeclarations().flatMap((d) =>

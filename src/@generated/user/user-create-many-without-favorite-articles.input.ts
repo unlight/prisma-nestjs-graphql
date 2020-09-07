@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserCreateManyWithoutFavoriteArticlesInput {
     @Field(() => [UserCreateWithoutFavoriteArticlesInput], {
         nullable: true,

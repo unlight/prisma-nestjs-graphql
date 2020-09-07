@@ -5,7 +5,7 @@ import { ArticleUpdateManyWithoutFavoritedByInput } from '../article/article-upd
 import { UserUpdateManyWithoutFollowersInput } from './user-update-many-without-followers.input';
 import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-following.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateWithoutCommentsDataInput {
     @Field(() => String, {
         nullable: true,

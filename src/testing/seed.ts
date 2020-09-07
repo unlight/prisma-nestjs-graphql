@@ -11,6 +11,8 @@ const prisma = new PrismaClient();
     //     min: { countComments: true },
     // });
 
+    // const data = await prisma.user.findMany({});
+
     const data = await prisma.user.aggregate({
         where: { id: '1' },
         avg: { countComments: true },

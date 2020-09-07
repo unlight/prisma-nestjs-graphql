@@ -5,7 +5,7 @@ import { UserUpdateWithoutCommentsDataInput } from './user-update-without-commen
 import { UserUpsertWithoutCommentsInput } from './user-upsert-without-comments.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
-@InputType({})
+@InputType()
 export class UserUpdateOneRequiredWithoutCommentsInput {
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: true,

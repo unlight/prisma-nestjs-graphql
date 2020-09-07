@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateOneWithoutCommentsInput } from '../article/article-create-one-without-comments.input';
 
-@InputType({})
+@InputType()
 export class CommentCreateWithoutAuthorInput {
     @Field(() => String, {
         nullable: true,

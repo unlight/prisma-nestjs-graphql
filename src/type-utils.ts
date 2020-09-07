@@ -79,3 +79,9 @@ export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDM
 function getAggregateInputType(aggregateOutputType: string): string {
     return aggregateOutputType.replace(/OutputType$/, 'Input');
 }
+
+export function schemaFieldToArg(field: PrismaDMMF.SchemaField): PrismaDMMF.InputType {
+    let name = field.name;
+    name = name[0].toUpperCase() + name.slice(1) + 'Args';
+    return { name, fields: field.args };
+}

@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { SortOrder } from '../prisma/sort-order.enum';
 
-@InputType({})
+@InputType()
 export class CommentOrderByInput {
     @Field(() => SortOrder, {
         nullable: true,

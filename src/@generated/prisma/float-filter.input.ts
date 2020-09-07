@@ -1,6 +1,6 @@
 import { Field, Float, InputType } from '@nestjs/graphql';
 
-@InputType({})
+@InputType()
 export class FloatFilter {
     @Field(() => Float, {
         nullable: true,

@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-@InputType({})
+@InputType()
 export class IntFilter {
     @Field(() => Int, {
         nullable: true,

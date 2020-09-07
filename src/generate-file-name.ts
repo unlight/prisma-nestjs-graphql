@@ -1,7 +1,7 @@
 import pupa from 'pupa';
 import { toKebab } from 'to-kebab';
 
-export type FileType = 'model' | 'input' | 'enum';
+export type FileType = 'model' | 'input' | 'args' | 'enum';
 
 const splitKeywords = [
     'CreateInput',
@@ -30,23 +30,47 @@ const splitKeywords = [
     'MaxAggregate',
 ].sort((a, b) => b.length - a.length);
 
-const endsWithKeywords = ['Aggregate'];
+const endsWithKeywords = [
+    'Aggregate',
+    'aggregate',
+    'createOne',
+    'deleteMany',
+    'deleteOne',
+    'findMany',
+    'findOne',
+    'updateMany',
+    'updateOne',
+    'upsertOne',
+];
+
+const middleKeywords = [
+    ['Aggregate', 'Args'],
+    ['CreateOne', 'Args'],
+    ['DeleteMany', 'Args'],
+    ['DeleteOne', 'Args'],
+    ['FindMany', 'Args'],
+    ['FindOne', 'Args'],
+    ['UpdateMany', 'Args'],
+    ['UpdateOne', 'Args'],
+    ['UpsertOne', 'Args'],
+];
 
 type GenerateFileNameArgs = {
     type: FileType;
     name: string;
     models: string[];
     template?: string;
+    feature?: string;
 };
 
 export function generateFileName(args: GenerateFileNameArgs) {
     const { type, name, models } = args;
     const template = args.template || '{feature}/{dasherizedName}.{type}.ts';
-    let feature = getFeatureName({ models, name, fallback: 'prisma' });
+    let feature = args.feature || getFeatureName({ models, name, fallback: 'prisma' });
     feature = toKebab(feature);
     let dasherizedName = toKebab(name);
 
-    for (const suffix of ['input', 'enum']) {
+    for (const suffix of ['input', 'args', 'enum']) {
         const ending = `-${suffix}`;
         if (type === suffix && dasherizedName.endsWith(ending)) {
             dasherizedName = dasherizedName.slice(0, -ending.length);
@@ -79,6 +103,13 @@ export function getFeatureName(args: GetFeatureNameArgs) {
     }
     for (const keyword of endsWithKeywords) {
         const [test] = name.split(keyword).slice(-1);
+        if (models.includes(test)) {
+            result = test;
+            return result;
+        }
+    }
+    for (const [start, end] of middleKeywords) {
+        const test = name.slice(start.length).slice(0, -end.length);
         if (models.includes(test)) {
             result = test;
             return result;

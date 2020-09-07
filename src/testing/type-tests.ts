@@ -3,21 +3,20 @@ import * as prisma from '@prisma/client';
 
 import { ArticleListRelationFilter } from '../@generated/article/article-list-relation-filter.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
+import { IntFilter } from '../@generated/prisma/int-filter.input';
 import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
 import { UserWhereInput } from '../@generated/user/user-where.input';
 
 const $prisma = new PrismaClient();
 
-// {
-//     const p1 = prisma.IntFilter;
-//     const p2 = prisma.NestedIntFilter;
-//     const p3 = prisma.NullableIntFilter;
-//     const p4 = prisma.IntNullableFilter;
-// }
+{
+    const n: IntFilter = {};
+    const p = n as prisma.IntFilter;
+}
 
 {
     const n: DateTimeFilter = {};
-    // const p: prisma.DateTimeFilter = n;
+    const p = n as prisma.UserWhereInput;
 }
 {
     // const n: ArticleListRelationFilter = {};

@@ -5,7 +5,7 @@ import { ArticleUpdateWithoutCommentsDataInput } from './article-update-without-
 import { ArticleUpsertWithoutCommentsInput } from './article-upsert-without-comments.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
-@InputType({})
+@InputType()
 export class ArticleUpdateOneWithoutCommentsInput {
     @Field(() => ArticleCreateWithoutCommentsInput, {
         nullable: true,

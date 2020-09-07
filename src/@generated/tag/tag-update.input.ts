@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleUpdateManyWithoutTagsInput } from '../article/article-update-many-without-tags.input';
 
-@InputType({})
+@InputType()
 export class TagUpdateInput {
     @Field(() => String, {
         nullable: true,

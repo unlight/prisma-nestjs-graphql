@@ -5,7 +5,7 @@ import { CommentCreateManyWithoutAuthorInput } from '../comment/comment-create-m
 import { UserCreateManyWithoutFollowersInput } from './user-create-many-without-followers.input';
 import { UserCreateManyWithoutFollowingInput } from './user-create-many-without-following.input';
 
-@InputType({})
+@InputType()
 export class UserCreateWithoutArticlesInput {
     @Field(() => String, {
         nullable: true,
