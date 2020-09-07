@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.4.0...v1.5.0) (2020-09-07)
+
+
+### Features
+
+* Generate args types ([5015de7](https://github.com/unlight/nestjs-graphql-prisma/commit/5015de7e29d2af5b8153304b539fed8c209bbedd))
+
 # [1.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.3.1...v1.4.0) (2020-09-04)
 
 
