@@ -57,7 +57,7 @@ export function toPropertyType(field: { type: string; kind: string }): string {
  */
 export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDMMF.InputType {
     return {
-        name: getAggregateInputType(outputType.name),
+        name: outputType.name.replace(/OutputType$/, 'Input'),
         fields: outputType.fields.map((field) => {
             return {
                 ...field,
@@ -76,11 +76,11 @@ export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDM
     };
 }
 
-function getAggregateInputType(aggregateOutputType: string): string {
-    return aggregateOutputType.replace(/OutputType$/, 'Input');
+export function getOutputTypeName(name: string) {
+    return name.replace(/OutputType$/, '');
 }
 
-export function schemaFieldToArg(field: PrismaDMMF.SchemaField): PrismaDMMF.InputType {
+export function schemaFieldToArgument(field: PrismaDMMF.SchemaField): PrismaDMMF.InputType {
     let name = field.name;
     name = name[0].toUpperCase() + name.slice(1) + 'Args';
     return { name, fields: field.args };

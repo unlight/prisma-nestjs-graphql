@@ -1,17 +1,18 @@
 import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
-import { boolean } from 'boolean';
 import { existsSync, promises as fs } from 'fs';
 import { join } from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
+import { featureName } from './feature-name';
 import { generateEnum } from './generate-enum';
-import { FileType, generateFileName, getFeatureName } from './generate-file-name';
+import { generateFileName } from './generate-file-name';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
+import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
-import { schemaFieldToArg as schemaFieldToArgument, schemaOutputToInput } from './type-utils';
+import { getOutputTypeName, schemaFieldToArgument, schemaOutputToInput } from './type-utils';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
@@ -34,14 +35,14 @@ export async function generate(args: GenerateArgs) {
         manipulationSettings: { quoteKind: QuoteKind.Single },
     });
     const models = prismaClientDmmf.datamodel.models.map((x) => x.name);
-    const projectFilePath = (args: { name: string; type: FileType; feature?: string }) => {
+    const projectFilePath = (args: { name: string; type: string; feature?: string }) => {
         return generateFileName({
             ...args,
             template: generator.config.outputFilePattern,
             models,
         });
     };
-    const createSourceFile = async (args: { type: FileType; name: string; feature?: string }) => {
+    const createSourceFile = async (args: { type: string; name: string; feature?: string }) => {
         const filePath = projectFilePath(args);
         let sourceFile: SourceFile | undefined;
         sourceFile = project.getSourceFile(filePath);
@@ -70,8 +71,8 @@ export async function generate(args: GenerateArgs) {
     // Generate inputs
     const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
         mutateFilters(prismaClientDmmf.schema.inputTypes, {
-            combineScalarFilters: boolean(generator.config.combineScalarFilters ?? true),
-            atomicNumberOperations: boolean(generator.config.atomicNumberOperations ?? false),
+            combineScalarFilters: JSON.parse(generator.config.combineScalarFilters ?? 'true'),
+            atomicNumberOperations: JSON.parse(generator.config.atomicNumberOperations ?? 'false'),
         }),
     );
     // Create aggregate inputs
@@ -80,7 +81,7 @@ export async function generate(args: GenerateArgs) {
         .map(schemaOutputToInput);
     for (const inputType of inputTypes.concat(aggregateInputs)) {
         let model: PrismaDMMF.Model | undefined;
-        const feature = getFeatureName({ name: inputType.name, models, fallback: '' });
+        const feature = featureName({ name: inputType.name, models, fallback: '' });
         if (feature) {
             model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
         }
@@ -99,7 +100,7 @@ export async function generate(args: GenerateArgs) {
         .flatMap((t) => t.fields)
         .map(schemaFieldToArgument);
     for (const inputType of otherTypes) {
-        const feature = getFeatureName({ name: inputType.name, models, fallback: '' });
+        const feature = featureName({ name: inputType.name, models, fallback: '' });
         assert(feature);
         const model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
         if (inputType.name === `Aggregate${feature}Args`) {
@@ -148,6 +149,36 @@ export async function generate(args: GenerateArgs) {
             projectFilePath,
             model,
             decorator: { name: 'ArgsType' },
+        });
+    }
+
+    const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
+        (t) => !['Query', 'Mutation'].includes(t.name) && !models.find((name) => name === t.name),
+    );
+    for (const outputType of outputTypes) {
+        const name = getOutputTypeName(outputType.name);
+        if (models.find((model) => name === `Aggregate${model}`)) {
+            outputType.fields.forEach((field) => {
+                field.outputType.type = getOutputTypeName(String(field.outputType.type));
+            });
+        }
+        const sourceFile = await createSourceFile({ type: 'output', name });
+        const model = {
+            name,
+            fields: outputType.fields.map((t) => {
+                return {
+                    name: t.name,
+                    ...t.outputType,
+                    type: String(t.outputType.type),
+                    isRequired: false,
+                };
+            }),
+        };
+        generateObject({
+            classType: 'output',
+            sourceFile,
+            projectFilePath,
+            model,
         });
     }
 

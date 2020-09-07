@@ -59,10 +59,13 @@ describe('generate models', () => {
                 count Int @id @default(1)
             }`);
         const sourceText = sourceFile.getText();
-        stringContains(
-            '@Field(() => ID, { nullable: false, defaultValue: 1, description: undefined })',
-            sourceText,
-        );
+
+        const struct = sourceFile.getClass('User')?.getProperty('count')?.getStructure();
+        const args = struct?.decorators?.[0].arguments;
+        stringContains('nullable: false', args?.[1]);
+        stringContains('defaultValue: 1', args?.[1]);
+        stringContains('description: undefined', args?.[1]);
+        assert.strictEqual(args?.[0], '() => ID');
     });
 
     it('self relation', async () => {
@@ -104,11 +107,11 @@ describe('generate models', () => {
                 id Int @id
             }`,
         );
-        sourceText = sourceFile.getText();
-        stringContains(
-            `    @Field(() => ID, { nullable: false, description: "user id" }) id!: number`,
-            sourceText,
-        );
+        const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
+        const args = struct?.decorators?.[0].arguments;
+        stringContains('nullable: false', args?.[1]);
+        stringContains('description: "user id"', args?.[1]);
+        assert.strictEqual(args?.[0], '() => ID');
     });
 
     it('update description to undefined', async () => {

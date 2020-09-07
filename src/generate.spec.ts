@@ -294,4 +294,31 @@ describe('main generate', () => {
         assert(imports.find((x) => x.name === 'UserMinAggregateInput'));
         assert(imports.find((x) => x.name === 'UserMaxAggregateInput'));
     });
+
+    it('aggregate output types', async () => {
+        await getResult({
+            atomicNumberOperations: false,
+            schema: `
+            model User {
+              id String @id
+              age Int
+              rating Float?
+            }
+            `,
+        });
+        sourceFile = sourceFiles.find((s) =>
+            s.getFilePath().endsWith('user-avg-aggregate.output.ts'),
+        );
+        assert(sourceFile);
+        const classDeclaration = sourceFile.getClass('UserAvgAggregate');
+        assert(classDeclaration);
+
+        let struct = classDeclaration.getProperty('age')?.getStructure();
+        let decoratorArguments = struct?.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => Float');
+
+        struct = classDeclaration.getProperty('rating')?.getStructure();
+        decoratorArguments = struct?.decorators?.[0].arguments;
+        assert.strictEqual(decoratorArguments?.[0], '() => Float');
+    });
 });

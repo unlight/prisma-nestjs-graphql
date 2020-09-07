@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import * as Prisma from '@prisma/client';
 
 import { AggregateUserArgs } from '../../@generated/user/aggregate-user.args';
+import { AggregateUser } from '../../@generated/user/aggregate-user.output';
 import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { User } from '../../@generated/user/user.model';
@@ -48,10 +49,11 @@ export class UserResolver {
         return null;
     }
 
-    @Query(() => [User])
+    @Query(() => AggregateUser)
     async userAggregate(@Args() args: AggregateUserArgs, @Info() info) {
         console.log('args', args);
         const result = await prisma.user.aggregate(args as Prisma.AggregateUserArgs);
         console.log('result', result);
+        return result;
     }
 }

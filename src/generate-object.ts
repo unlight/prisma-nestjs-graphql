@@ -1,25 +1,24 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { SourceFile } from 'ts-morph';
 
 import { generateClass } from './generate-class';
 import { generateGraphqlImport } from './generate-graphql-import';
-import { generateProperty } from './generate-property';
+import { generateProperty, Model } from './generate-property';
 
-type GenerateModelArgs = {
-    model: PrismaDMMF.Model;
+type GenerateObjectArgs = {
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
+    model: Model;
+    classType: string;
 };
 
 /**
- * Generate model (class).
+ * Generate object type (class).
  */
-export function generateModel(args: GenerateModelArgs) {
-    const { model, sourceFile, projectFilePath } = args;
+export function generateObject(args: GenerateObjectArgs) {
+    const { model, classType, sourceFile, projectFilePath } = args;
     const classDeclaration = generateClass({
         decorator: {
             name: 'ObjectType',
-            properties: [{ name: 'description', value: model.documentation }],
         },
         sourceFile,
         name: model.name,
@@ -31,7 +30,7 @@ export function generateModel(args: GenerateModelArgs) {
             sourceFile,
             classDeclaration,
             className: model.name,
-            classType: 'model',
+            classType,
             projectFilePath,
         });
     });
