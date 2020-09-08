@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.5.0...v1.6.0) (2020-09-08)
+
+
+### Features
+
+* Generate other output types ([55e5cd5](https://github.com/unlight/nestjs-graphql-prisma/commit/55e5cd5c8172006837a5adf6a63d4b80d37952e7))
+
 # [1.5.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.4.0...v1.5.0) (2020-09-07)
 
 
