@@ -12,7 +12,7 @@ module.exports = {
     tsconfigFile: 'tsconfig.json',
     files: ['src/**/*.ts', 'package.json'],
     mutate: [
-        'src/generate.ts',
+        'src/*.ts',
         '!src/**/*.spec.ts',
         '!src/**/testing/**',
         '!src/**/@generated/**',
