@@ -1,4 +1,3 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import assert from 'assert';
 import {
     CallExpression,
@@ -9,6 +8,7 @@ import {
 } from 'ts-morph';
 
 import { generateGraphqlImport } from './generate-graphql-import';
+import { PrismaDMMF } from './types';
 import { updateObjectProperty } from './update-object-property';
 
 type GenerateEnumArgs = {

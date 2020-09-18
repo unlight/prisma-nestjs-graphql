@@ -1,9 +1,10 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
 import crypto from 'crypto';
 import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
+
+import { PrismaDMMF } from '../types';
 
 const cachePath: string = findCacheDir({ name: 'createGeneratorOptions', create: true });
 

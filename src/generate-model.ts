@@ -1,9 +1,9 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { SourceFile } from 'ts-morph';
 
 import { generateClass } from './generate-class';
 import { generateGraphqlImport } from './generate-graphql-import';
 import { generateProperty } from './generate-property';
+import { PrismaDMMF } from './types';
 
 type GenerateModelArgs = {
     model: PrismaDMMF.Model;

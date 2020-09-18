@@ -1,4 +1,4 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
+import { PrismaDMMF } from './types';
 
 type ToGraphqlImportTypeArgs = {
     isId: boolean;

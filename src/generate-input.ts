@@ -1,4 +1,3 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { DecoratorPropertyType, generateClass, generateClassProperty } from './generate-class';
@@ -6,6 +5,7 @@ import { generateDecorator } from './generate-decorator';
 import { generateGraphqlImport } from './generate-graphql-import';
 import { generateProjectImport } from './generate-project-import';
 import { toGraphqlImportType, toPropertyType } from './type-utils';
+import { PrismaDMMF } from './types';
 
 type GenerateInputArgs = {
     inputType: PrismaDMMF.InputType;

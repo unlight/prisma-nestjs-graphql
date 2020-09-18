@@ -1,4 +1,3 @@
-import { DMMF as PrismaDMMF } from '@prisma/client/runtime/dmmf-types';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import { existsSync, promises as fs } from 'fs';
@@ -13,6 +12,7 @@ import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
 import { getOutputTypeName, schemaFieldToArgument, schemaOutputToInput } from './type-utils';
+import { PrismaDMMF } from './types';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
