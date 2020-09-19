@@ -1,8 +1,8 @@
 import assert from 'assert';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
+import { generatorOptions, stringContains, stringNotContains } from '../testing';
 import { generateInput } from './generate-input';
-import { generatorOptions, stringContains, stringNotContains } from './testing';
 
 describe('generate inputs', () => {
     let sourceFile: SourceFile;

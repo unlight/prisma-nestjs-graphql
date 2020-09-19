@@ -1,8 +1,8 @@
 import assert from 'assert';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
+import { generatorOptions, stringContains } from '../testing';
 import { generateEnum } from './generate-enum';
-import { generatorOptions, stringContains } from './testing';
 
 describe('generate enum', () => {
     let sourceFile: SourceFile;

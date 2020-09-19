@@ -5,6 +5,7 @@ import { join } from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { featureName } from './feature-name';
+import { generateArgs } from './generate-args';
 import { generateEnum } from './generate-enum';
 import { generateFileName } from './generate-file-name';
 import { generateInput } from './generate-input';
@@ -103,55 +104,14 @@ export async function generate(args: GenerateArgs) {
         const feature = featureName({ name: inputType.name, models, fallback: '' });
         assert(feature);
         const model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
-        if (inputType.name === `Aggregate${feature}Args`) {
-            // Aggregate args
-            inputType.fields.push({
-                name: 'count',
-                inputType: [
-                    {
-                        kind: 'scalar',
-                        type: 'true',
-                        isRequired: false,
-                        isNullable: true,
-                        isList: false,
-                    },
-                ],
-            });
-            ['Avg', 'Sum', 'Min', 'Max'].forEach((name) => {
-                const aggregateInput = aggregateInputs.find(
-                    (t) => t.name === `${feature}${name}AggregateInput`,
-                );
-                if (!aggregateInput) {
-                    return;
-                }
-                inputType.fields.push({
-                    name: name.toLowerCase(),
-                    inputType: [
-                        {
-                            kind: 'object',
-                            type: aggregateInput.name,
-                            isRequired: false,
-                            isNullable: true,
-                            isList: false,
-                        },
-                    ],
-                });
-            });
-        }
         const sourceFile = await createSourceFile({
             type: 'args',
             name: inputType.name,
             feature,
         });
-        generateInput({
-            inputType,
-            sourceFile,
-            projectFilePath,
-            model,
-            decorator: { name: 'ArgsType' },
-        });
+        generateArgs({ model, inputType, feature, aggregateInputs, sourceFile, projectFilePath });
     }
-
+    // Generate output types
     const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
         (t) => !['Query', 'Mutation'].includes(t.name) && !models.find((name) => name === t.name),
     );

@@ -1,8 +1,7 @@
 import { generatorHandler } from '@prisma/generator-helper';
 
 import { generate } from './generate';
-import { remove } from './remove';
-import { update } from './update';
+import { remove, update } from './generator-pipelines';
 
 generatorHandler({
     async onGenerate(options) {

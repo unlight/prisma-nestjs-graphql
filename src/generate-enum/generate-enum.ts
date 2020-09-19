@@ -7,9 +7,9 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { generateGraphqlImport } from './generate-graphql-import';
-import { PrismaDMMF } from './types';
-import { updateObjectProperty } from './update-object-property';
+import { generateGraphqlImport } from '../generate-graphql-import';
+import { PrismaDMMF } from '../types';
+import { updateObjectProperty } from '../update-object-property';
 
 type GenerateEnumArgs = {
     enumerable: PrismaDMMF.Enum;

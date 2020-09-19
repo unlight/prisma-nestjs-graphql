@@ -25,8 +25,8 @@ const prisma = new PrismaClient({
 });
 
 // @ts-ignore
-prisma.$on('query', (e) => {
-    console.log(e);
+prisma.$on('query', (event) => {
+    console.log(event);
 });
 
 /**
@@ -46,7 +46,7 @@ export class UserResolver {
 
     @Mutation(() => User, { nullable: true })
     async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
-        return null;
+        return;
     }
 
     @Query(() => AggregateUser)
