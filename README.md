@@ -46,6 +46,11 @@ npx prisma generate
 -   `atomicNumberOperations` - Atomic number operations,
     `false` - disabled (default), `true` - enabled
 
+## Similar Projects
+
+-   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
+-   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
+
 ## Resources
 
 -   Todo - https://github.com/unlight/prisma-nestjs-graphql/issues/2
