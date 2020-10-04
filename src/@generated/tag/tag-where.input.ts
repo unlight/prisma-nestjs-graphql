@@ -15,7 +15,7 @@ export class TagWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<TagWhereInput>;
+    OR?: TagWhereInput | Array<TagWhereInput>;
 
     @Field(() => [TagWhereInput], {
         nullable: true,
@@ -27,17 +27,17 @@ export class TagWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter;
+    name?: StringFilter | string;
 
     @Field(() => ArticleListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleListRelationFilter | null;
+    articles?: ArticleListRelationFilter;
 }

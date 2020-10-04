@@ -42,7 +42,7 @@ export class Article {
         nullable: true,
         description: undefined,
     })
-    tags?: Tag[] | null;
+    tags?: Array<Tag>;
 
     @Field(() => String, {
         nullable: false,
@@ -79,18 +79,18 @@ export class Article {
         nullable: true,
         description: undefined,
     })
-    favoritedBy?: User[] | null;
+    favoritedBy?: Array<User>;
 
     @Field(() => [Comment], {
         nullable: true,
         description: undefined,
     })
-    comments?: Comment[] | null;
+    comments?: Array<Comment>;
 
     @Field(() => Boolean, {
         nullable: true,
         defaultValue: true,
         description: undefined,
     })
-    active?: boolean | null;
+    active?: boolean;
 }

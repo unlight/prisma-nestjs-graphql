@@ -62,5 +62,5 @@ export class ArticleOrderByInput {
         nullable: true,
         description: undefined,
     })
-    active?: SortOrder | null;
+    active?: SortOrder;
 }

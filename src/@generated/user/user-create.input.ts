@@ -60,29 +60,29 @@ export class UserCreateInput {
         nullable: true,
         description: undefined,
     })
-    following?: UserCreateManyWithoutFollowersInput | null;
+    following?: UserCreateManyWithoutFollowersInput;
 
     @Field(() => UserCreateManyWithoutFollowingInput, {
         nullable: true,
         description: undefined,
     })
-    followers?: UserCreateManyWithoutFollowingInput | null;
+    followers?: UserCreateManyWithoutFollowingInput;
 
     @Field(() => ArticleCreateManyWithoutFavoritedByInput, {
         nullable: true,
         description: undefined,
     })
-    favoriteArticles?: ArticleCreateManyWithoutFavoritedByInput | null;
+    favoriteArticles?: ArticleCreateManyWithoutFavoritedByInput;
 
     @Field(() => ArticleCreateManyWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleCreateManyWithoutAuthorInput | null;
+    articles?: ArticleCreateManyWithoutAuthorInput;
 
     @Field(() => CommentCreateManyWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    comments?: CommentCreateManyWithoutAuthorInput | null;
+    comments?: CommentCreateManyWithoutAuthorInput;
 }

@@ -6,7 +6,7 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { CommentWhereInput } from './comment-where.input';
 
 @ArgsType()
-export class AggregateCommentArgs {
+export class FindFirstCommentArgs {
     @Field(() => CommentWhereInput, {
         nullable: true,
         description: undefined,
@@ -42,10 +42,4 @@ export class AggregateCommentArgs {
         description: undefined,
     })
     distinct?: Array<CommentDistinctFieldEnum>;
-
-    @Field(() => Boolean, {
-        nullable: true,
-        description: undefined,
-    })
-    count?: true;
 }

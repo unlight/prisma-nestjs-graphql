@@ -21,7 +21,7 @@ export class AggregateUserArgs {
         nullable: true,
         description: undefined,
     })
-    orderBy?: Array<UserOrderByInput>;
+    orderBy?: Array<UserOrderByInput> | UserOrderByInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
@@ -51,29 +51,29 @@ export class AggregateUserArgs {
         nullable: true,
         description: undefined,
     })
-    count?: true | null;
+    count?: true;
 
     @Field(() => UserAvgAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    avg?: UserAvgAggregateInput | null;
+    avg?: UserAvgAggregateInput;
 
     @Field(() => UserSumAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    sum?: UserSumAggregateInput | null;
+    sum?: UserSumAggregateInput;
 
     @Field(() => UserMinAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    min?: UserMinAggregateInput | null;
+    min?: UserMinAggregateInput;
 
     @Field(() => UserMaxAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    max?: UserMaxAggregateInput | null;
+    max?: UserMaxAggregateInput;
 }

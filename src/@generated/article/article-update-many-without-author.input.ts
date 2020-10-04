@@ -13,53 +13,59 @@ export class ArticleUpdateManyWithoutAuthorInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<ArticleCreateWithoutAuthorInput>;
+    create?: ArticleCreateWithoutAuthorInput | Array<ArticleCreateWithoutAuthorInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<ArticleWhereUniqueInput>;
+    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: Array<ArticleWhereUniqueInput>;
+    set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: Array<ArticleWhereUniqueInput>;
+    disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: Array<ArticleWhereUniqueInput>;
+    delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
         description: undefined,
     })
-    update?: Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
+    update?:
+        | ArticleUpdateWithWhereUniqueWithoutAuthorInput
+        | Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: Array<ArticleUpdateManyWithWhereNestedInput> | null;
+    updateMany?:
+        | ArticleUpdateManyWithWhereNestedInput
+        | Array<ArticleUpdateManyWithWhereNestedInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: Array<ArticleScalarWhereInput>;
+    deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
+    upsert?:
+        | ArticleUpsertWithWhereUniqueWithoutAuthorInput
+        | Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 }

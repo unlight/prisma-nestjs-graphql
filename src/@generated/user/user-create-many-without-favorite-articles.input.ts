@@ -9,11 +9,11 @@ export class UserCreateManyWithoutFavoriteArticlesInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<UserCreateWithoutFavoriteArticlesInput>;
+    create?: UserCreateWithoutFavoriteArticlesInput | Array<UserCreateWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<UserWhereUniqueInput>;
+    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 }

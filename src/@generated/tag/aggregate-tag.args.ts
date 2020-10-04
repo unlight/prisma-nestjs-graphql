@@ -17,7 +17,7 @@ export class AggregateTagArgs {
         nullable: true,
         description: undefined,
     })
-    orderBy?: Array<TagOrderByInput>;
+    orderBy?: Array<TagOrderByInput> | TagOrderByInput;
 
     @Field(() => TagWhereUniqueInput, {
         nullable: true,
@@ -47,5 +47,5 @@ export class AggregateTagArgs {
         nullable: true,
         description: undefined,
     })
-    count?: true | null;
+    count?: true;
 }

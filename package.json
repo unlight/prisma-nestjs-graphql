@@ -38,7 +38,8 @@
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
     "prettier:format": "npx prettier src --write",
     "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run prettier:format",
-    "example": "ts-node-dev src/example/main.ts"
+    "example": "ts-node-dev src/example/main.ts",
+    "clean_cache": "rm -rf node_modules/.cache"
   },
   "husky": {
     "hooks": {
@@ -48,40 +49,40 @@
     }
   },
   "dependencies": {
-    "@prisma/generator-helper": "^2.7.1",
+    "@prisma/generator-helper": "^2.8.0",
     "get-relative-path": "^1.0.2",
     "pupa": "^2.0.1",
     "to-kebab": "^1.0.7",
-    "ts-morph": "^8.1.0",
+    "ts-morph": "^8.1.1",
     "typescript-equals": "^1.0.0"
   },
   "peerDependencies": {
-    "@prisma/client": ">=2.5"
+    "@prisma/client": ">=2.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@nestjs/common": "^7.4.4",
     "@nestjs/core": "^7.4.4",
-    "@nestjs/graphql": "^7.6.0",
+    "@nestjs/graphql": "^7.7.0",
     "@nestjs/platform-express": "^7.4.4",
-    "@paljs/plugins": "^1.4.0",
-    "@prisma/cli": "^2.7.1",
-    "@prisma/client": ">=2.6",
+    "@paljs/plugins": "^2.2.0",
+    "@prisma/cli": "^2.8.0",
+    "@prisma/client": "^2.8.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.11.1",
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "apollo-server-express": "^2.17.0",
-    "c8": "^7.3.0",
+    "@types/node": "^14.11.2",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "apollo-server-express": "^2.18.1",
+    "c8": "^7.3.1",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-etc": "0.0.2-beta.45",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-etc": "0.0.3-beta.48",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-only-warn": "^1.0.2",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
@@ -89,8 +90,8 @@
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-sort-class-members": "^1.8.0",
-    "eslint-plugin-total-functions": "^3.3.0",
-    "eslint-plugin-unicorn": "^21.0.0",
+    "eslint-plugin-total-functions": "^4.4.0",
+    "eslint-plugin-unicorn": "^22.0.0",
     "eslint-plugin-wix-editor": "^3.2.0",
     "find-cache-dir": "^3.3.1",
     "git-branch-is": "^4.0.0",
@@ -105,8 +106,8 @@
     "semantic-release": "^17.1.2",
     "simplytyped": "^3.3.0",
     "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.62",
-    "typescript": "~4.0.2",
+    "ts-node-dev": "^1.0.0-pre.63",
+    "typescript": "~4.0.3",
     "watchexec-bin": "^1.0.0"
   }
 }

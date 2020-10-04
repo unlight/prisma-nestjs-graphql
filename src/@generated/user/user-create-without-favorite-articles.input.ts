@@ -59,23 +59,23 @@ export class UserCreateWithoutFavoriteArticlesInput {
         nullable: true,
         description: undefined,
     })
-    following?: UserCreateManyWithoutFollowersInput | null;
+    following?: UserCreateManyWithoutFollowersInput;
 
     @Field(() => UserCreateManyWithoutFollowingInput, {
         nullable: true,
         description: undefined,
     })
-    followers?: UserCreateManyWithoutFollowingInput | null;
+    followers?: UserCreateManyWithoutFollowingInput;
 
     @Field(() => ArticleCreateManyWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleCreateManyWithoutAuthorInput | null;
+    articles?: ArticleCreateManyWithoutAuthorInput;
 
     @Field(() => CommentCreateManyWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    comments?: CommentCreateManyWithoutAuthorInput | null;
+    comments?: CommentCreateManyWithoutAuthorInput;
 }

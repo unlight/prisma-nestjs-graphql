@@ -34,22 +34,33 @@ const patterns = new Map([
     [{ type: (type: string) => type === 'Int', kind: 'scalar' }, () => 'number'],
     [{ type: (type: string) => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
     [{ type: (type: string) => type === 'Json', kind: 'scalar' }, () => 'object'],
+    [{ type: (type: string) => type === 'Null', kind: 'scalar' }, () => 'null'],
     [{ type: () => true, kind: 'object' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'enum' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'scalar' }, (field: { type: string }) => field.type],
 ]);
 
+type ToPropertyTypeArgs = {
+    type: string;
+    kind: string;
+    isList: boolean;
+};
 /**
  * Returns typescript property type.
  */
-export function toPropertyType(field: { type: string; kind: string }): string {
-    for (const [key, result] of patterns.entries()) {
-        if (key.kind === field.kind && key.type(field.type)) {
-            return result(field);
+export function toPropertyType(args: ToPropertyTypeArgs): string {
+    const { type, kind, isList } = args;
+    for (const [key, get] of patterns.entries()) {
+        if (key.kind === kind && key.type(type)) {
+            let result = get(args);
+            if (isList) {
+                result = `Array<${result}>`;
+            }
+            return result;
         }
     }
-    // console.log('field', field);
-    throw new TypeError(`Cannot get property type from ${field.kind}/${field.type}`);
+    // console.log('args', args);
+    throw new TypeError(`Cannot get property type from ${args.kind}/${args.type}`);
 }
 
 /**
@@ -58,15 +69,19 @@ export function toPropertyType(field: { type: string; kind: string }): string {
 export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDMMF.InputType {
     return {
         name: outputType.name.replace(/OutputType$/, 'Input'),
+        constraints: {
+            maxNumFields: null,
+            minNumFields: null,
+        },
         fields: outputType.fields.map((field) => {
             return {
                 ...field,
+                isNullable: false,
+                isRequired: false,
                 name: field.name,
-                inputType: [
+                inputTypes: [
                     {
                         isList: false,
-                        isNullable: false,
-                        isRequired: false,
                         kind: 'scalar',
                         type: 'true',
                     },
@@ -76,12 +91,15 @@ export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDM
     };
 }
 
-export function getOutputTypeName(name: string) {
-    return name.replace(/OutputType$/, '');
-}
-
 export function schemaFieldToArgument(field: PrismaDMMF.SchemaField): PrismaDMMF.InputType {
     let name = field.name;
     name = name[0].toUpperCase() + name.slice(1) + 'Args';
-    return { name, fields: field.args };
+    return {
+        name,
+        fields: field.args,
+        constraints: {
+            maxNumFields: null,
+            minNumFields: null,
+        },
+    };
 }

@@ -19,7 +19,7 @@ export class UserWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<UserWhereInput>;
+    OR?: UserWhereInput | Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
@@ -31,77 +31,77 @@ export class UserWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: string | StringFilter;
+    email?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter;
+    name?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: string | StringFilter;
+    password?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    bio?: string | StringFilter | null;
+    bio?: StringFilter | string | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    image?: string | StringFilter | null;
+    image?: StringFilter | string | null;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    following?: UserListRelationFilter | null;
+    following?: UserListRelationFilter;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    followers?: UserListRelationFilter | null;
+    followers?: UserListRelationFilter;
 
     @Field(() => ArticleListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    favoriteArticles?: ArticleListRelationFilter | null;
+    favoriteArticles?: ArticleListRelationFilter;
 
     @Field(() => ArticleListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleListRelationFilter | null;
+    articles?: ArticleListRelationFilter;
 
     @Field(() => CommentListRelationFilter, {
         nullable: true,
         description: undefined,
     })
-    comments?: CommentListRelationFilter | null;
+    comments?: CommentListRelationFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
-    countComments?: number | IntFilter | null;
+    countComments?: IntFilter | number | null;
 
     @Field(() => FloatFilter, {
         nullable: true,
         description: undefined,
     })
-    rating?: number | FloatFilter | null;
+    rating?: FloatFilter | number | null;
 }

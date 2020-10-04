@@ -12,13 +12,13 @@ export class DateTimeFilter {
         nullable: true,
         description: undefined,
     })
-    in?: Date | string | Array<Date | string>;
+    in?: Array<Date | string>;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    notIn?: Date | string | Array<Date | string>;
+    notIn?: Array<Date | string>;
 
     @Field(() => String, {
         nullable: true,
@@ -48,5 +48,5 @@ export class DateTimeFilter {
         nullable: true,
         description: undefined,
     })
-    not?: Date | string | DateTimeFilter | null;
+    not?: Date | string | DateTimeFilter;
 }

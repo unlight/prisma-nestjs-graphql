@@ -16,7 +16,7 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<UserScalarWhereInput>;
+    OR?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
@@ -28,47 +28,47 @@ export class UserScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    email?: string | StringFilter;
+    email?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter;
+    name?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    password?: string | StringFilter;
+    password?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    bio?: string | StringFilter | null;
+    bio?: StringFilter | string | null;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    image?: string | StringFilter | null;
+    image?: StringFilter | string | null;
 
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
-    countComments?: number | IntFilter | null;
+    countComments?: IntFilter | number | null;
 
     @Field(() => FloatFilter, {
         nullable: true,
         description: undefined,
     })
-    rating?: number | FloatFilter | null;
+    rating?: FloatFilter | number | null;
 }

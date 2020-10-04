@@ -13,53 +13,57 @@ export class TagUpdateManyWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<TagCreateWithoutArticlesInput>;
+    create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<TagWhereUniqueInput>;
+    connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: Array<TagWhereUniqueInput>;
+    set?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: Array<TagWhereUniqueInput>;
+    disconnect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: Array<TagWhereUniqueInput>;
+    delete?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
+    update?:
+        | TagUpdateWithWhereUniqueWithoutArticlesInput
+        | Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
 
     @Field(() => [TagUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: Array<TagUpdateManyWithWhereNestedInput> | null;
+    updateMany?: TagUpdateManyWithWhereNestedInput | Array<TagUpdateManyWithWhereNestedInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: Array<TagScalarWhereInput>;
+    deleteMany?: TagScalarWhereInput | Array<TagScalarWhereInput>;
 
     @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+    upsert?:
+        | TagUpsertWithWhereUniqueWithoutArticlesInput
+        | Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
 }

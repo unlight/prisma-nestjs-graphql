@@ -9,11 +9,11 @@ export class TagCreateManyWithoutArticlesInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<TagCreateWithoutArticlesInput>;
+    create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<TagWhereUniqueInput>;
+    connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 }

@@ -6,6 +6,7 @@ import { generateGraphqlImport } from '../generate-graphql-import';
 import { generateProjectImport } from '../generate-project-import';
 import { toGraphqlImportType, toPropertyType } from '../type-utils';
 import { PrismaDMMF } from '../types';
+import { getMatchingInputType } from './get-matching-input-type';
 
 type GenerateInputArgs = {
     inputType: PrismaDMMF.InputType;
@@ -25,11 +26,22 @@ export function generateInput(args: GenerateInputArgs) {
     });
     generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     for (const field of inputType.fields) {
-        const inputType = getMatchingInputType(field.inputType);
         const modelField = model?.fields.find((f) => f.name === field.name);
+        const inputType = getMatchingInputType(field.inputTypes);
         const nullable =
-            modelField?.isRequired !== undefined ? !modelField.isRequired : inputType.isNullable;
-        const propertyType = getPropertyType({ field, nullable });
+            modelField?.isRequired !== undefined ? !modelField.isRequired : field.isNullable;
+        const propertyType = getPropertyType(field.inputTypes);
+        // Additional import all objects
+        for (const inputType of field.inputTypes
+            .filter((x) => x.kind === 'object')
+            .filter((x) => x.type !== className)) {
+            generateProjectImport({
+                name: String(inputType.type),
+                type: 'input',
+                sourceFile,
+                projectFilePath,
+            });
+        }
         generateInputProperty({
             inputType,
             propertyType,
@@ -96,52 +108,19 @@ function generateInputProperty(args: GenerateInputPropertyArgs) {
     });
 }
 
-type GetPropertyTypeArgs = {
-    field: PrismaDMMF.SchemaArg;
-    nullable: boolean;
-};
-
-function getPropertyType(args: GetPropertyTypeArgs): string {
-    const { field, nullable } = args;
-    const inputTypes = field.inputType;
-    let result = inputTypes
-        .map((inputType) => {
-            const type = getTypeName(inputType);
-            return toPropertyType({ kind: inputType.kind, type });
-        })
-        .join(' | ');
-    if (inputTypes.every((t) => t.isList)) {
-        result = ['AND', 'NOT', 'in', 'notIn'].includes(field.name)
-            ? `${result} | Array<${result}>`
-            : `Array<${result}>`;
-    }
-    if (!inputTypes.find((t) => t.type === 'null') && nullable) {
-        result = `${result} | null`;
-    }
-    return result;
-}
-
-function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]) {
-    if (inputTypes.length === 1) {
-        return inputTypes[0];
-    }
-    const inputType = inputTypes.find((x) => x.kind === 'object');
-    if (inputType) {
-        return inputType;
-    }
-    if (inputTypes.every((t) => t.kind === 'scalar')) {
-        const [result] = inputTypes.filter((t) => t.type !== 'null').slice(-1);
-        return result;
-    }
-    // console.log('inputTypes', inputTypes);
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    throw new TypeError(`Cannot get matching input type from ${inputTypes.map((x) => x.type)}`);
+function getPropertyType(inputTypes: PrismaDMMF.SchemaArgInputType[]): string {
+    let types: string[] = inputTypes.map((inputType) => {
+        return toPropertyType({ ...inputType, type: String(inputType.type) });
+    });
+    types = types.sort((a, b) => {
+        if (b === 'null') {
+            return -2;
+        }
+        return 0;
+    });
+    return types.join(' | ');
 }
 
 function getFieldType(inputType: PrismaDMMF.SchemaArgInputType) {
     return String(inputType.type);
-}
-
-function getTypeName(inputType: PrismaDMMF.SchemaArgInputType) {
-    return typeof inputType.type === 'string' ? inputType.type : 'unknown';
 }

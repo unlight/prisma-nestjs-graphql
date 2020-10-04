@@ -6,7 +6,7 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleWhereInput } from './article-where.input';
 
 @ArgsType()
-export class FindManyArticleArgs {
+export class FindFirstArticleArgs {
     @Field(() => ArticleWhereInput, {
         nullable: true,
         description: undefined,

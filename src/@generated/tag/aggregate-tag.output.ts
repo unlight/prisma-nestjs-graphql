@@ -6,5 +6,5 @@ export class AggregateTag {
         nullable: true,
         description: undefined,
     })
-    count?: number | null;
+    count?: number;
 }

@@ -20,5 +20,5 @@ export class TagUpdateInput {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleUpdateManyWithoutTagsInput | null;
+    articles?: ArticleUpdateManyWithoutTagsInput;
 }

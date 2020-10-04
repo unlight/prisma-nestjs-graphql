@@ -47,11 +47,11 @@ export class Comment {
         nullable: true,
         description: undefined,
     })
-    article?: Article | null;
+    article?: Article;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    readonly articleId?: string | null;
+    readonly articleId?: string;
 }

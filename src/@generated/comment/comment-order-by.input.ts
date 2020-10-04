@@ -38,5 +38,5 @@ export class CommentOrderByInput {
         nullable: true,
         description: undefined,
     })
-    articleId?: SortOrder | null;
+    articleId?: SortOrder;
 }

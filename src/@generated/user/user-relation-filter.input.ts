@@ -8,11 +8,11 @@ export class UserRelationFilter {
         nullable: true,
         description: undefined,
     })
-    is?: UserWhereInput | null;
+    is?: UserWhereInput;
 
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,
     })
-    isNot?: UserWhereInput | null;
+    isNot?: UserWhereInput;
 }

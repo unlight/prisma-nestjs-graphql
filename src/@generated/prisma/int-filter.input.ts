@@ -12,13 +12,13 @@ export class IntFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number | Array<number>;
+    in?: Array<number>;
 
     @Field(() => [Int], {
         nullable: true,
         description: undefined,
     })
-    notIn?: number | Array<number>;
+    notIn?: Array<number>;
 
     @Field(() => Int, {
         nullable: true,
@@ -48,5 +48,5 @@ export class IntFilter {
         nullable: true,
         description: undefined,
     })
-    not?: number | IntFilter | null;
+    not?: number | IntFilter;
 }

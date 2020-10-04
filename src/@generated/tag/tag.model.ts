@@ -22,5 +22,5 @@ export class Tag {
         nullable: true,
         description: undefined,
     })
-    articles?: Article[] | null;
+    articles?: Array<Article>;
 }

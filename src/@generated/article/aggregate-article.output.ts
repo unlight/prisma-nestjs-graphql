@@ -11,29 +11,29 @@ export class AggregateArticle {
         nullable: true,
         description: undefined,
     })
-    count?: number | null;
+    count?: number;
 
     @Field(() => ArticleAvgAggregate, {
         nullable: true,
         description: undefined,
     })
-    avg?: ArticleAvgAggregate | null;
+    avg?: ArticleAvgAggregate;
 
     @Field(() => ArticleSumAggregate, {
         nullable: true,
         description: undefined,
     })
-    sum?: ArticleSumAggregate | null;
+    sum?: ArticleSumAggregate;
 
     @Field(() => ArticleMinAggregate, {
         nullable: true,
         description: undefined,
     })
-    min?: ArticleMinAggregate | null;
+    min?: ArticleMinAggregate;
 
     @Field(() => ArticleMaxAggregate, {
         nullable: true,
         description: undefined,
     })
-    max?: ArticleMaxAggregate | null;
+    max?: ArticleMaxAggregate;
 }

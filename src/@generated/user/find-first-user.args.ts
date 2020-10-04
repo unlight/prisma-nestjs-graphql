@@ -6,7 +6,7 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserWhereInput } from './user-where.input';
 
 @ArgsType()
-export class FindManyUserArgs {
+export class FindFirstUserArgs {
     @Field(() => UserWhereInput, {
         nullable: true,
         description: undefined,

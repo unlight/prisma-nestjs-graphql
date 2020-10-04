@@ -64,7 +64,7 @@ export class ArticleCreateWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    tags?: TagCreateManyWithoutArticlesInput | null;
+    tags?: TagCreateManyWithoutArticlesInput;
 
     @Field(() => UserCreateOneWithoutArticlesInput, {
         nullable: true,
@@ -76,5 +76,5 @@ export class ArticleCreateWithoutCommentsInput {
         nullable: true,
         description: undefined,
     })
-    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput | null;
+    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
 }

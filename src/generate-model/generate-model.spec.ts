@@ -51,7 +51,7 @@ describe('generate models', () => {
             '@Field(() => String, { nullable: true, description: undefined })',
             sourceText,
         );
-        stringContains('image?: string | null', sourceText);
+        stringContains('image?: string', sourceText);
     });
 
     it('default value', async () => {
@@ -183,5 +183,20 @@ describe('generate models', () => {
             .getNamedImports()
             .find((x) => x.getName() === 'GraphQLJSON');
         assert(importSpecifier, 'const GraphQLJSON should be imported');
+    });
+
+    it('with related', async () => {
+        await getResult(`
+            model User {
+              id        Int      @id
+              posts     Post[]
+            }
+            model Post {
+              id        Int      @id
+            }`);
+        sourceText = sourceFile.getText();
+        const property = sourceFile.getClass('User')?.getProperty('posts');
+        assert(property, 'Property posts should exists');
+        assert.strictEqual(property.getStructure().type, 'Array<Post>');
     });
 });

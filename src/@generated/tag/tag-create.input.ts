@@ -20,5 +20,5 @@ export class TagCreateInput {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleCreateManyWithoutTagsInput | null;
+    articles?: ArticleCreateManyWithoutTagsInput;
 }

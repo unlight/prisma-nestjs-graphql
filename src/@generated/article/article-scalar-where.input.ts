@@ -17,7 +17,7 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<ArticleScalarWhereInput>;
+    OR?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
@@ -29,59 +29,59 @@ export class ArticleScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    slug?: string | StringFilter;
+    slug?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    title?: string | StringFilter;
+    title?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    description?: string | StringFilter;
+    description?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter;
+    body?: StringFilter | string;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: Date | string | DateTimeFilter;
+    createdAt?: DateTimeFilter | Date | string;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: Date | string | DateTimeFilter;
+    updatedAt?: DateTimeFilter | Date | string;
 
     @Field(() => IntFilter, {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: number | IntFilter;
+    favoritesCount?: IntFilter | number;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter;
+    authorId?: StringFilter | string;
 
     @Field(() => BooleanFilter, {
         nullable: true,
         description: undefined,
     })
-    active?: boolean | BooleanFilter | null;
+    active?: BooleanFilter | boolean | null;
 }

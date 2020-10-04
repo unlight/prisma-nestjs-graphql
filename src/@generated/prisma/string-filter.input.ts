@@ -1,5 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { QueryMode } from './query-mode.enum';
+
 @InputType()
 export class StringFilter {
     @Field(() => String, {
@@ -12,13 +14,13 @@ export class StringFilter {
         nullable: true,
         description: undefined,
     })
-    in?: string | Array<string>;
+    in?: Array<string>;
 
     @Field(() => [String], {
         nullable: true,
         description: undefined,
     })
-    notIn?: string | Array<string>;
+    notIn?: Array<string>;
 
     @Field(() => String, {
         nullable: true,
@@ -62,9 +64,15 @@ export class StringFilter {
     })
     endsWith?: string;
 
+    @Field(() => QueryMode, {
+        nullable: true,
+        description: undefined,
+    })
+    mode?: QueryMode;
+
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    not?: string | StringFilter | null;
+    not?: string | StringFilter;
 }

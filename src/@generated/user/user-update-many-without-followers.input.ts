@@ -13,53 +13,57 @@ export class UserUpdateManyWithoutFollowersInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<UserCreateWithoutFollowersInput>;
+    create?: UserCreateWithoutFollowersInput | Array<UserCreateWithoutFollowersInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<UserWhereUniqueInput>;
+    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: Array<UserWhereUniqueInput>;
+    set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: Array<UserWhereUniqueInput>;
+    disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: Array<UserWhereUniqueInput>;
+    delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
         description: undefined,
     })
-    update?: Array<UserUpdateWithWhereUniqueWithoutFollowersInput>;
+    update?:
+        | UserUpdateWithWhereUniqueWithoutFollowersInput
+        | Array<UserUpdateWithWhereUniqueWithoutFollowersInput>;
 
     @Field(() => [UserUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: Array<UserUpdateManyWithWhereNestedInput> | null;
+    updateMany?: UserUpdateManyWithWhereNestedInput | Array<UserUpdateManyWithWhereNestedInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: Array<UserScalarWhereInput>;
+    deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
+    upsert?:
+        | UserUpsertWithWhereUniqueWithoutFollowersInput
+        | Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
 }

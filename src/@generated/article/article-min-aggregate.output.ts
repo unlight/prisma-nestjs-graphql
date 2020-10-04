@@ -6,5 +6,5 @@ export class ArticleMinAggregate {
         nullable: true,
         description: undefined,
     })
-    favoritesCount?: number | null;
+    favoritesCount?: number;
 }

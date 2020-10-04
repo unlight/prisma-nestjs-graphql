@@ -122,7 +122,7 @@ function combineScalarFilters(inputTypes: PrismaDMMF.InputType[], names: string[
     function mutateFieldsType(inputType: PrismaDMMF.InputType, names: string[]) {
         const [main] = names;
         inputType.fields.forEach((field) => {
-            field.inputType.forEach((input) => {
+            field.inputTypes.forEach((input) => {
                 if (names.includes(String(input.type))) {
                     input.type = main;
                 }
@@ -138,7 +138,7 @@ function noAtomicNumberOperations(names: string[]) {
             return false;
         }
         inputType.fields = inputType.fields.map((field) => {
-            field.inputType = field.inputType.filter((inputType) => {
+            field.inputTypes = field.inputTypes.filter((inputType) => {
                 return !names.includes(String(inputType.type));
             });
             return field;

@@ -32,23 +32,23 @@ export class UserOrderByInput {
         nullable: true,
         description: undefined,
     })
-    bio?: SortOrder | null;
+    bio?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    image?: SortOrder | null;
+    image?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    countComments?: SortOrder | null;
+    countComments?: SortOrder;
 
     @Field(() => SortOrder, {
         nullable: true,
         description: undefined,
     })
-    rating?: SortOrder | null;
+    rating?: SortOrder;
 }

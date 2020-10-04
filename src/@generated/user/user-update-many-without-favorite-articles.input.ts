@@ -13,53 +13,57 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<UserCreateWithoutFavoriteArticlesInput>;
+    create?: UserCreateWithoutFavoriteArticlesInput | Array<UserCreateWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<UserWhereUniqueInput>;
+    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: Array<UserWhereUniqueInput>;
+    set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: Array<UserWhereUniqueInput>;
+    disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: Array<UserWhereUniqueInput>;
+    delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    update?: Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
+    update?:
+        | UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput
+        | Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: Array<UserUpdateManyWithWhereNestedInput> | null;
+    updateMany?: UserUpdateManyWithWhereNestedInput | Array<UserUpdateManyWithWhereNestedInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: Array<UserScalarWhereInput>;
+    deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
+    upsert?:
+        | UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput
+        | Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
 }

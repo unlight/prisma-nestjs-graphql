@@ -13,53 +13,59 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
         nullable: true,
         description: undefined,
     })
-    create?: Array<ArticleCreateWithoutFavoritedByInput>;
+    create?: ArticleCreateWithoutFavoritedByInput | Array<ArticleCreateWithoutFavoritedByInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    connect?: Array<ArticleWhereUniqueInput>;
+    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    set?: Array<ArticleWhereUniqueInput>;
+    set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    disconnect?: Array<ArticleWhereUniqueInput>;
+    disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
         description: undefined,
     })
-    delete?: Array<ArticleWhereUniqueInput>;
+    delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,
         description: undefined,
     })
-    update?: Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
+    update?:
+        | ArticleUpdateWithWhereUniqueWithoutFavoritedByInput
+        | Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereNestedInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: Array<ArticleUpdateManyWithWhereNestedInput> | null;
+    updateMany?:
+        | ArticleUpdateManyWithWhereNestedInput
+        | Array<ArticleUpdateManyWithWhereNestedInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
         description: undefined,
     })
-    deleteMany?: Array<ArticleScalarWhereInput>;
+    deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,
         description: undefined,
     })
-    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
+    upsert?:
+        | ArticleUpsertWithWhereUniqueWithoutFavoritedByInput
+        | Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
 }

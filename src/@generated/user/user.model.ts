@@ -35,53 +35,53 @@ export class User {
         nullable: true,
         description: undefined,
     })
-    bio?: string | null;
+    bio?: string;
 
     @Field(() => String, {
         nullable: true,
         description: undefined,
     })
-    image?: string | null;
+    image?: string;
 
     @Field(() => [User], {
         nullable: true,
         description: undefined,
     })
-    following?: User[] | null;
+    following?: Array<User>;
 
     @Field(() => [User], {
         nullable: true,
         description: undefined,
     })
-    followers?: User[] | null;
+    followers?: Array<User>;
 
     @Field(() => [Article], {
         nullable: true,
         description: undefined,
     })
-    favoriteArticles?: Article[] | null;
+    favoriteArticles?: Array<Article>;
 
     @Field(() => [Article], {
         nullable: true,
         description: undefined,
     })
-    articles?: Article[] | null;
+    articles?: Array<Article>;
 
     @Field(() => [Comment], {
         nullable: true,
         description: undefined,
     })
-    comments?: Comment[] | null;
+    comments?: Array<Comment>;
 
     @Field(() => Int, {
         nullable: true,
         description: undefined,
     })
-    countComments?: number | null;
+    countComments?: number;
 
     @Field(() => Float, {
         nullable: true,
         description: undefined,
     })
-    rating?: number | null;
+    rating?: number;
 }

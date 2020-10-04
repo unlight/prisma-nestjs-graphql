@@ -39,5 +39,5 @@ export class CommentCreateInput {
         nullable: true,
         description: undefined,
     })
-    article?: ArticleCreateOneWithoutCommentsInput | null;
+    article?: ArticleCreateOneWithoutCommentsInput;
 }

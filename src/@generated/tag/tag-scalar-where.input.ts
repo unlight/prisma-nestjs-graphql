@@ -14,7 +14,7 @@ export class TagScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<TagScalarWhereInput>;
+    OR?: TagScalarWhereInput | Array<TagScalarWhereInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
@@ -26,11 +26,11 @@ export class TagScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    name?: string | StringFilter;
+    name?: StringFilter | string;
 }

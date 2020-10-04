@@ -12,7 +12,7 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
-import { getOutputTypeName, schemaFieldToArgument, schemaOutputToInput } from './type-utils';
+import { schemaFieldToArgument, schemaOutputToInput } from './type-utils';
 import { PrismaDMMF } from './types';
 
 type GenerateArgs = GeneratorOptions & {
@@ -112,6 +112,7 @@ export async function generate(args: GenerateArgs) {
         generateArgs({ model, inputType, feature, aggregateInputs, sourceFile, projectFilePath });
     }
     // Generate output types
+    const getOutputTypeName = (name: string) => name.replace(/OutputType$/, '');
     const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
         (t) => !['Query', 'Mutation'].includes(t.name) && !models.find((name) => name === t.name),
     );

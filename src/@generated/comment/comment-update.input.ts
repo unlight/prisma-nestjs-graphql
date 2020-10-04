@@ -39,5 +39,5 @@ export class CommentUpdateInput {
         nullable: true,
         description: undefined,
     })
-    article?: ArticleUpdateOneWithoutCommentsInput | null;
+    article?: ArticleUpdateOneWithoutCommentsInput;
 }

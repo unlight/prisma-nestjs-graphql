@@ -70,11 +70,11 @@ export class ArticleCreateWithoutTagsInput {
         nullable: true,
         description: undefined,
     })
-    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput | null;
+    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
 
     @Field(() => CommentCreateManyWithoutArticleInput, {
         nullable: true,
         description: undefined,
     })
-    comments?: CommentCreateManyWithoutArticleInput | null;
+    comments?: CommentCreateManyWithoutArticleInput;
 }

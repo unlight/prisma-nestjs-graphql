@@ -64,7 +64,7 @@ export class ArticleUpdateWithoutCommentsDataInput {
         nullable: true,
         description: undefined,
     })
-    tags?: TagUpdateManyWithoutArticlesInput | null;
+    tags?: TagUpdateManyWithoutArticlesInput;
 
     @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
         nullable: true,
@@ -76,5 +76,5 @@ export class ArticleUpdateWithoutCommentsDataInput {
         nullable: true,
         description: undefined,
     })
-    favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput | null;
+    favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
 }

@@ -36,8 +36,7 @@ type GeneratePropertyArgs = {
  */
 export function generateProperty(args: GeneratePropertyArgs) {
     const { field, className, classDeclaration, sourceFile, projectFilePath, classType } = args;
-    let propertyType = toPropertyType(field);
-    const nullable = !field.isRequired;
+    const propertyType = toPropertyType(field);
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {
         fieldType = generateGraphqlImport({
@@ -54,10 +53,6 @@ export function generateProperty(args: GeneratePropertyArgs) {
     }
     if (field.isList) {
         fieldType = `[${fieldType}]`;
-        propertyType = `${propertyType}[]`;
-    }
-    if (nullable) {
-        propertyType = `${propertyType} | null`;
     }
     const propertyDeclaration = generateClassProperty({
         ...field,
@@ -67,7 +62,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
     generateDecorator({
         fieldType,
         propertyDeclaration,
-        nullable,
+        nullable: !field.isRequired,
         defaultValue: field.default,
         description: field.documentation,
     });

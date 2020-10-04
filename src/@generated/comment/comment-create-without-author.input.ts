@@ -32,5 +32,5 @@ export class CommentCreateWithoutAuthorInput {
         nullable: true,
         description: undefined,
     })
-    article?: ArticleCreateOneWithoutCommentsInput | null;
+    article?: ArticleCreateOneWithoutCommentsInput;
 }

@@ -18,12 +18,12 @@ export function generateArgs(args: GenerateArgsArguments) {
         // Aggregate args
         inputType.fields.push({
             name: 'count',
-            inputType: [
+            isRequired: false,
+            isNullable: true,
+            inputTypes: [
                 {
                     kind: 'scalar',
                     type: 'true',
-                    isRequired: false,
-                    isNullable: true,
                     isList: false,
                 },
             ],
@@ -37,12 +37,12 @@ export function generateArgs(args: GenerateArgsArguments) {
             }
             inputType.fields.push({
                 name: name.toLowerCase(),
-                inputType: [
+                isRequired: false,
+                isNullable: true,
+                inputTypes: [
                     {
                         kind: 'object',
                         type: aggregateInput.name,
-                        isRequired: false,
-                        isNullable: true,
                         isList: false,
                     },
                 ],

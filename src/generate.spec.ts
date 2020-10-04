@@ -1,10 +1,11 @@
 import assert from 'assert';
-import { SourceFile } from 'ts-morph';
+import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
 import { generatorOptions, stringContains } from './testing';
 
 describe('main generate', () => {
+    let property: PropertyDeclaration | undefined;
     let sourceFile: SourceFile | undefined;
     let sourceFiles: SourceFile[];
     let sourceText: string;
@@ -73,7 +74,7 @@ describe('main generate', () => {
         assert(property, 'Property posts should exists');
 
         stringContains(`@Field(() => [Post]`, property.getText());
-        stringContains(`posts?: Post[] | null`, property.getText());
+        stringContains(`posts?: Array<Post>`, property.getText());
 
         sourceFile = sourceFiles.find((s) =>
             s.getFilePath().toLowerCase().endsWith('/post.model.ts'),
@@ -81,6 +82,46 @@ describe('main generate', () => {
         assert(sourceFile);
         sourceText = sourceFile.getText();
         stringContains(`import { User } from '../user/user.model'`, sourceText);
+    });
+
+    it('whereinput should be used in relation filter', async () => {
+        await getResult({
+            schema: `
+            model User {
+                id       String     @id
+                articles Article[]  @relation("ArticleAuthor")
+            }
+            model Article {
+                id        String @id
+                author    User   @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+                authorId  String
+            }
+            `,
+        });
+        sourceFile = sourceFiles.find((s) =>
+            s.getFilePath().toLowerCase().endsWith('/article-where.input.ts'),
+        )!;
+        assert(sourceFile, `File do not exists`);
+
+        property = sourceFile.getClass('ArticleWhereInput')?.getProperty('author');
+        assert(property, 'Property author should exists');
+
+        assert.strictEqual(
+            property.getStructure().decorators?.[0].arguments?.[0],
+            '() => UserWhereInput',
+            'Union type not yet supported, WhereInput should be used as more common',
+        );
+
+        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
+            d.getNamedImports().map((i) => ({
+                name: i.getName(),
+                specifier: d.getModuleSpecifierValue(),
+            })),
+        );
+        assert(
+            imports.find(({ name }) => name === 'UserWhereInput'),
+            'UserWhereInput should be imported',
+        );
     });
 
     it('generator option outputFilePattern', async () => {
@@ -264,22 +305,22 @@ describe('main generate', () => {
         assert.strictEqual(decoratorArguments?.[0], '() => Boolean');
 
         struct = classDeclaration.getProperty('avg')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserAvgAggregateInput | null');
+        assert.strictEqual(struct?.type, 'UserAvgAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => UserAvgAggregateInput');
 
         struct = classDeclaration.getProperty('sum')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserSumAggregateInput | null');
+        assert.strictEqual(struct?.type, 'UserSumAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => UserSumAggregateInput');
 
         struct = classDeclaration.getProperty('min')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserMinAggregateInput | null');
+        assert.strictEqual(struct?.type, 'UserMinAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => UserMinAggregateInput');
 
         struct = classDeclaration.getProperty('max')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserMaxAggregateInput | null');
+        assert.strictEqual(struct?.type, 'UserMaxAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
 

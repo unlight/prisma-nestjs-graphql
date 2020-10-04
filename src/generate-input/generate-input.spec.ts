@@ -27,7 +27,6 @@ describe('generate inputs', () => {
                 schema: { inputTypes },
             },
         } = await generatorOptions(schema, { outputFilePattern });
-        // console.log('inputTypes', inputTypes);
         const inputType = inputTypes.find((x) => x.name === name);
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
@@ -65,7 +64,7 @@ describe('generate inputs', () => {
             sourceFile.getClass('UserWhereInput')?.getProperty(n)?.getStructure();
         assert.strictEqual(
             struct('id')?.type,
-            'string | StringFilter',
+            'StringFilter | string',
             'id is not nullable in model',
         );
         const decoratorArguments = sourceFile
@@ -75,12 +74,7 @@ describe('generate inputs', () => {
             ?.getCallExpression()
             ?.getArguments();
         assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => StringFilter');
-        assert.strictEqual(
-            struct('OR')?.type,
-            'Array<UserWhereInput>',
-            'OR property should be array only',
-        );
-        assert.strictEqual(struct('birth')?.type, 'Date | string | DateTimeFilter');
+        assert.strictEqual(struct('birth')?.type, 'DateTimeFilter | Date | string');
     });
 
     it('user where int filter', async () => {
@@ -96,7 +90,7 @@ describe('generate inputs', () => {
         });
         const structure = sourceFile.getClass('UserWhereInput')?.getProperty('age')?.getStructure();
         assert(structure);
-        assert.strictEqual(structure.type, 'number | IntFilter', 'Age property is not nullable');
+        assert.strictEqual(structure.type, 'IntFilter | number', 'Age property is not nullable');
 
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
@@ -133,8 +127,8 @@ describe('generate inputs', () => {
         assert.strictEqual(structure('startsWith')?.type, 'string');
         assert.strictEqual(structure('endsWith')?.type, 'string');
 
-        assert.strictEqual(structure('in')?.type, 'string | Array<string>');
-        assert.strictEqual(structure('notIn')?.type, 'string | Array<string>');
+        assert.strictEqual(structure('in')?.type, 'Array<string>');
+        assert.strictEqual(structure('notIn')?.type, 'Array<string>');
     });
 
     it('user create input', async () => {
@@ -217,5 +211,30 @@ describe('generate inputs', () => {
         assert.strictEqual(struct('every')?.type, 'UserWhereInput');
         assert.strictEqual(struct('some')?.type, 'UserWhereInput');
         assert.strictEqual(struct('none')?.type, 'UserWhereInput');
+    });
+
+    it('relation filter property', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id        Int      @id
+              posts     Post[]
+            }
+            model Post {
+              id        Int      @id
+              author    User    @relation(fields: [authorId], references: [id])
+              authorId  Int
+            }`,
+            name: 'PostWhereInput',
+            model: 'Post',
+        });
+        sourceText = sourceFile.getText();
+        const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
+        assert(property, 'Property author should exists');
+        assert.strictEqual(property.getStructure().type, 'UserRelationFilter | UserWhereInput');
+        assert(
+            imports.find((x) => x.name === 'UserRelationFilter'),
+            'UserRelationFilter import should exists',
+        );
     });
 });

@@ -6,11 +6,11 @@ export class UserMaxAggregateInput {
         nullable: true,
         description: undefined,
     })
-    countComments?: true | null;
+    countComments?: true;
 
     @Field(() => Boolean, {
         nullable: true,
         description: undefined,
     })
-    rating?: true | null;
+    rating?: true;
 }

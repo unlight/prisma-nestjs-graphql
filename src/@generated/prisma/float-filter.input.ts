@@ -12,37 +12,37 @@ export class FloatFilter {
         nullable: true,
         description: undefined,
     })
-    in?: number | Array<number> | null;
+    in?: Array<number> | null;
 
     @Field(() => [Float], {
         nullable: true,
         description: undefined,
     })
-    notIn?: number | Array<number> | null;
+    notIn?: Array<number> | null;
 
     @Field(() => Float, {
         nullable: true,
         description: undefined,
     })
-    lt?: number | null;
+    lt?: number;
 
     @Field(() => Float, {
         nullable: true,
         description: undefined,
     })
-    lte?: number | null;
+    lte?: number;
 
     @Field(() => Float, {
         nullable: true,
         description: undefined,
     })
-    gt?: number | null;
+    gt?: number;
 
     @Field(() => Float, {
         nullable: true,
         description: undefined,
     })
-    gte?: number | null;
+    gte?: number;
 
     @Field(() => FloatFilter, {
         nullable: true,

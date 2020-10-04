@@ -6,7 +6,7 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { TagWhereInput } from './tag-where.input';
 
 @ArgsType()
-export class FindManyTagArgs {
+export class FindFirstTagArgs {
     @Field(() => TagWhereInput, {
         nullable: true,
         description: undefined,

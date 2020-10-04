@@ -15,7 +15,7 @@ export class CommentScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    OR?: Array<CommentScalarWhereInput>;
+    OR?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
@@ -27,35 +27,35 @@ export class CommentScalarWhereInput {
         nullable: true,
         description: undefined,
     })
-    id?: string | StringFilter;
+    id?: StringFilter | string;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    createdAt?: Date | string | DateTimeFilter;
+    createdAt?: DateTimeFilter | Date | string;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
         description: undefined,
     })
-    updatedAt?: Date | string | DateTimeFilter;
+    updatedAt?: DateTimeFilter | Date | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    body?: string | StringFilter;
+    body?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    authorId?: string | StringFilter;
+    authorId?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
         description: undefined,
     })
-    articleId?: string | StringFilter | null;
+    articleId?: StringFilter | string | null;
 }

@@ -21,7 +21,7 @@ export class AggregateArticleArgs {
         nullable: true,
         description: undefined,
     })
-    orderBy?: Array<ArticleOrderByInput>;
+    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
 
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
@@ -51,29 +51,29 @@ export class AggregateArticleArgs {
         nullable: true,
         description: undefined,
     })
-    count?: true | null;
+    count?: true;
 
     @Field(() => ArticleAvgAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    avg?: ArticleAvgAggregateInput | null;
+    avg?: ArticleAvgAggregateInput;
 
     @Field(() => ArticleSumAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    sum?: ArticleSumAggregateInput | null;
+    sum?: ArticleSumAggregateInput;
 
     @Field(() => ArticleMinAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    min?: ArticleMinAggregateInput | null;
+    min?: ArticleMinAggregateInput;
 
     @Field(() => ArticleMaxAggregateInput, {
         nullable: true,
         description: undefined,
     })
-    max?: ArticleMaxAggregateInput | null;
+    max?: ArticleMaxAggregateInput;
 }
