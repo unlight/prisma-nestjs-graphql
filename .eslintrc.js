@@ -96,7 +96,6 @@ module.exports = {
             },
         ],
         // etc
-        'etc/no-unused-declaration': 1,
         'etc/deprecation': 1,
         'etc/no-assign-mutated-array': 1,
     },
@@ -117,7 +116,6 @@ module.exports = {
         {
             files: ['src/testing/type-tests.ts'],
             rules: {
-                'etc/no-unused-declaration': 0,
                 '@typescript-eslint/no-unused-vars': 0,
                 '@typescript-eslint/no-unsafe-assignment': 0,
             },
