@@ -41,8 +41,8 @@ describe('generate inputs', () => {
         });
         sourceText = sourceFile.getText();
         imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((i) => ({
-                name: i.getName(),
+            d.getNamedImports().map((index) => ({
+                name: index.getName(),
                 specifier: d.getModuleSpecifierValue(),
             })),
         );

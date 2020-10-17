@@ -113,8 +113,8 @@ describe('main generate', () => {
         );
 
         const imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((i) => ({
-                name: i.getName(),
+            d.getNamedImports().map((index) => ({
+                name: index.getName(),
                 specifier: d.getModuleSpecifierValue(),
             })),
         );
@@ -325,8 +325,8 @@ describe('main generate', () => {
         assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
 
         const imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((i) => ({
-                name: i.getName(),
+            d.getNamedImports().map((index) => ({
+                name: index.getName(),
                 specifier: d.getModuleSpecifierValue(),
             })),
         );
