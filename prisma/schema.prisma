@@ -5,7 +5,6 @@ datasource database {
 
 generator client {
     provider = "prisma-client-js"
-    previewFeatures = ["atomicNumberOperations"]
 }
 
 generator nestgraphql {
