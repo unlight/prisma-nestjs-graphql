@@ -8,7 +8,11 @@ describe('generate models', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
     let imports: { name: string; specifier: string }[];
-    async function getResult(schema: string, { sourceFileText }: { sourceFileText?: string } = {}) {
+    type GetResultArgs = {
+        schema: string;
+        sourceFileText?: string;
+    } & Record<string, unknown>;
+    async function getResult({ schema, sourceFileText, ...options }: GetResultArgs) {
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
@@ -17,7 +21,7 @@ describe('generate models', () => {
             prismaClientDmmf: {
                 datamodel: { models },
             },
-        } = await generatorOptions(schema);
+        } = await generatorOptions(schema, options);
         const [model] = models;
         sourceFile = project.createSourceFile('_.ts', sourceFileText);
         generateModel({ model, sourceFile, projectFilePath: () => '_.ts' });
@@ -31,9 +35,11 @@ describe('generate models', () => {
     }
 
     it('model', async () => {
-        await getResult(`model User {
+        await getResult({
+            schema: `model User {
                 id String @id
-            }`);
+            }`,
+        });
         assert(imports.find((x) => x.name === 'ObjectType' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'Field' && x.specifier === '@nestjs/graphql'));
@@ -42,10 +48,12 @@ describe('generate models', () => {
     });
 
     it('field nullable', async () => {
-        await getResult(`model User {
+        await getResult({
+            schema: `model User {
                 id Int @id
                 image String?
-            }`);
+            }`,
+        });
         const sourceText = sourceFile.getText();
         stringContains(
             '@Field(() => String, { nullable: true, description: undefined })',
@@ -55,9 +63,11 @@ describe('generate models', () => {
     });
 
     it('default value', async () => {
-        await getResult(`model User {
+        await getResult({
+            schema: `model User {
                 count Int @id @default(1)
-            }`);
+            }`,
+        });
         const sourceText = sourceFile.getText();
 
         const struct = sourceFile.getClass('User')?.getProperty('count')?.getStructure();
@@ -69,44 +79,45 @@ describe('generate models', () => {
     });
 
     it('self relation', async () => {
-        await getResult(`
-            model User {
+        await getResult({
+            schema: `model User {
                 id  String  @id
                 following   User[]   @relation("UserFollows", references: [id])
                 followers   User[]   @relation("UserFollows", references: [id])
-            }`);
+            }`,
+        });
         stringNotContains('import { User }', sourceFile.getText());
     });
 
     it('extend existing class', async () => {
-        await getResult(
-            `model User {
+        await getResult({
+            schema: `model User {
                 id String @id
             }`,
-            { sourceFileText: `@ObjectType() export class User {}` },
-        );
+            sourceFileText: `@ObjectType() export class User {}`,
+        });
         sourceText = sourceFile.getText();
         assert.strictEqual(sourceText.match(/export class User/g)?.length, 1);
     });
 
     it('object type description', async () => {
-        await getResult(
-            `/// User really
+        await getResult({
+            schema: `/// User really
             model User {
                 id Int @id
             }`,
-        );
+        });
         sourceText = sourceFile.getText();
         stringContains(`@ObjectType({ description: "User really" })`, sourceText);
     });
 
     it('property description', async () => {
-        await getResult(
-            `model User {
+        await getResult({
+            schema: `model User {
                 /// user id
                 id Int @id
             }`,
-        );
+        });
         const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
         const args = struct?.decorators?.[0].arguments;
         stringContains('nullable: false', args?.[1]);
@@ -115,27 +126,27 @@ describe('generate models', () => {
     });
 
     it('update description to undefined', async () => {
-        await getResult(
-            `model User {
+        await getResult({
+            schema: `model User {
                 id String @id
             }`,
-            {
-                sourceFileText: `@ObjectType({ description: 'user description' }) export class User {}`,
-            },
-        );
+            sourceFileText: `@ObjectType({ description: 'user description' }) export class User {}`,
+        });
         sourceText = sourceFile.getText();
         stringContains(`@ObjectType({ description: undefined }) export class User`, sourceText);
     });
 
     it('model import scalar types', async () => {
-        await getResult(`model User {
+        await getResult({
+            schema: `model User {
                 id String @id
                 count Int
                 money Float
                 born DateTime
                 humanoid Boolean
                 // data Json
-            }`);
+            }`,
+        });
         const imports = new Set(
             sourceFile
                 .getImportDeclarations()
@@ -166,10 +177,12 @@ describe('generate models', () => {
     });
 
     it('model scalar json', async () => {
-        await getResult(`model User {
+        await getResult({
+            schema: `model User {
                 id String @id
                 data Json
-            }`);
+            }`,
+        });
         sourceText = sourceFile.getText();
         const propertyDeclaration = sourceFile.getClass('User')?.getProperty('data');
         assert(propertyDeclaration);
@@ -186,14 +199,16 @@ describe('generate models', () => {
     });
 
     it('with related', async () => {
-        await getResult(`
+        await getResult({
+            schema: `
             model User {
               id        Int      @id
               posts     Post[]
             }
             model Post {
               id        Int      @id
-            }`);
+            }`,
+        });
         sourceText = sourceFile.getText();
         const property = sourceFile.getClass('User')?.getProperty('posts');
         assert(property, 'Property posts should exists');

@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { TagUpdateWithoutArticlesDataInput } from './tag-update-without-articles-data.input';
+import { TagUpdateWithoutArticlesInput } from './tag-update-without-articles.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
@@ -11,9 +11,9 @@ export class TagUpdateWithWhereUniqueWithoutArticlesInput {
     })
     where?: TagWhereUniqueInput;
 
-    @Field(() => TagUpdateWithoutArticlesDataInput, {
+    @Field(() => TagUpdateWithoutArticlesInput, {
         nullable: true,
         description: undefined,
     })
-    data?: TagUpdateWithoutArticlesDataInput;
+    data?: TagUpdateWithoutArticlesInput;
 }

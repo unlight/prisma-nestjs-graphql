@@ -12,7 +12,7 @@ import { PrismaDMMF } from '../types';
 import { updateObjectProperty } from '../update-object-property';
 
 type GenerateEnumArgs = {
-    enumerable: PrismaDMMF.Enum;
+    enumerable: PrismaDMMF.SchemaEnum & { documentation?: string };
     sourceFile: SourceFile;
 };
 

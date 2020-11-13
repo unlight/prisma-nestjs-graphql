@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { UserCreateOrConnectWithoutarticlesInput } from './user-create-or-connect-withoutarticles.input';
 import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
@@ -16,4 +17,10 @@ export class UserCreateOneWithoutArticlesInput {
         description: undefined,
     })
     connect?: UserWhereUniqueInput;
+
+    @Field(() => UserCreateOrConnectWithoutarticlesInput, {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?: UserCreateOrConnectWithoutarticlesInput;
 }

@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { ArticleCreateOrConnectWithouttagsInput } from './article-create-or-connect-withouttags.input';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
-import { ArticleUpdateManyWithWhereNestedInput } from './article-update-many-with-where-nested.input';
+import { ArticleUpdateManyWithWhereWithoutTagsInput } from './article-update-many-with-where-without-tags.input';
 import { ArticleUpdateWithWhereUniqueWithoutTagsInput } from './article-update-with-where-unique-without-tags.input';
 import { ArticleUpsertWithWhereUniqueWithoutTagsInput } from './article-upsert-with-where-unique-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
@@ -47,13 +48,13 @@ export class ArticleUpdateManyWithoutTagsInput {
         | ArticleUpdateWithWhereUniqueWithoutTagsInput
         | Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;
 
-    @Field(() => [ArticleUpdateManyWithWhereNestedInput], {
+    @Field(() => [ArticleUpdateManyWithWhereWithoutTagsInput], {
         nullable: true,
         description: undefined,
     })
     updateMany?:
-        | ArticleUpdateManyWithWhereNestedInput
-        | Array<ArticleUpdateManyWithWhereNestedInput>;
+        | ArticleUpdateManyWithWhereWithoutTagsInput
+        | Array<ArticleUpdateManyWithWhereWithoutTagsInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
@@ -68,4 +69,12 @@ export class ArticleUpdateManyWithoutTagsInput {
     upsert?:
         | ArticleUpsertWithWhereUniqueWithoutTagsInput
         | Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
+
+    @Field(() => [ArticleCreateOrConnectWithouttagsInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | ArticleCreateOrConnectWithouttagsInput
+        | Array<ArticleCreateOrConnectWithouttagsInput>;
 }

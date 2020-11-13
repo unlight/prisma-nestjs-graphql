@@ -1,8 +1,9 @@
 import assert from 'assert';
+import { expect } from 'chai';
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
-import { generatorOptions, stringContains } from './testing';
+import { generatorOptions, getImportDeclarations, stringContains } from './testing';
 
 describe('main generate', () => {
     let property: PropertyDeclaration | undefined;
@@ -28,7 +29,7 @@ describe('main generate', () => {
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        assert.notStrictEqual(filePaths.length, 0);
+        expect(filePaths).not.to.have.property('length', 0);
     });
 
     it('smoke many', async () => {
@@ -38,6 +39,7 @@ describe('main generate', () => {
               name      String?
               profile   Profile?
               comments  Comment[]
+              role      Role
             }
             model Profile {
                 id        Int      @id
@@ -46,10 +48,13 @@ describe('main generate', () => {
             model Comment {
                 id        Int      @id
             }
+            enum Role {
+                USER
+            }
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        assert.notStrictEqual(filePaths.length, 0);
+        expect(filePaths).not.to.have.property('length', 0);
     });
 
     it('relations models', async () => {
@@ -161,10 +166,7 @@ describe('main generate', () => {
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        assert(
-            filePaths.includes('/prisma/sort-order.enum.ts'),
-            '/prisma/sort-order.enum.ts should exists',
-        );
+        expect(filePaths).to.include('/prisma/sort-order.enum.ts');
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         sourceText = sourceFiles
             .find((s) => s.getFilePath().endsWith('sort-order.enum.ts'))
@@ -361,5 +363,69 @@ describe('main generate', () => {
         struct = classDeclaration.getProperty('rating')?.getStructure();
         decoratorArguments = struct?.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => Float');
+    });
+
+    it('no combine scalar filters', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id        Int      @id
+              int       Int?
+              str       String?
+              bool      Boolean?
+              date      DateTime?
+            }
+            `,
+            combineScalarFilters: false,
+        });
+        const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
+        const userWhereInput = sourceFiles.find((s) =>
+            s.getFilePath().endsWith('user-where.input.ts'),
+        );
+        assert(userWhereInput);
+        const fileImports = new Set(getImportDeclarations(userWhereInput).map((x) => x.name));
+        assert(fileImports.has('StringNullableFilter'));
+        assert(fileImports.has('IntNullableFilter'));
+        assert(fileImports.has('DateTimeNullableFilter'));
+    });
+
+    it('combine scalar filters enabled', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id        Int      @id
+              int       Int?
+              str1       String?
+              str2       String
+              bool1      Boolean?
+              bool2      Boolean
+              date1      DateTime?
+              date2      DateTime
+              f1      Float?
+              f2      Float
+              role1      Role?
+              role2      Role
+            }
+            enum Role {
+                USER
+            }
+            `,
+            combineScalarFilters: true,
+        });
+        const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
+        for (const filePath of filePaths) {
+            assert(!filePath.includes('nullable'), `${filePath} constains nullable`);
+            assert(!filePath.includes('nested'), `${filePath} constains nested`);
+        }
+        for (const sourceFile of sourceFiles) {
+            getImportDeclarations(sourceFile).forEach((statement) => {
+                if (statement.name.includes('Nullable')) {
+                    assert.fail(`${sourceFile.getFilePath()} imports nullable ${statement.name}`);
+                }
+                if (statement.name.includes('Nested')) {
+                    assert.fail(`${sourceFile.getFilePath()} imports nested ${statement.name}`);
+                }
+            });
+        }
     });
 });

@@ -96,7 +96,7 @@ module.exports = {
             },
         ],
         // etc
-        'etc/deprecation': 1,
+        'etc/no-deprecated': 1,
         'etc/no-assign-mutated-array': 1,
     },
     overrides: [

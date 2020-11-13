@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { CommentCreateOrConnectWithoutauthorInput } from './comment-create-or-connect-withoutauthor.input';
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
-import { CommentUpdateManyWithWhereNestedInput } from './comment-update-many-with-where-nested.input';
+import { CommentUpdateManyWithWhereWithoutAuthorInput } from './comment-update-many-with-where-without-author.input';
 import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update-with-where-unique-without-author.input';
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
@@ -47,13 +48,13 @@ export class CommentUpdateManyWithoutAuthorInput {
         | CommentUpdateWithWhereUniqueWithoutAuthorInput
         | Array<CommentUpdateWithWhereUniqueWithoutAuthorInput>;
 
-    @Field(() => [CommentUpdateManyWithWhereNestedInput], {
+    @Field(() => [CommentUpdateManyWithWhereWithoutAuthorInput], {
         nullable: true,
         description: undefined,
     })
     updateMany?:
-        | CommentUpdateManyWithWhereNestedInput
-        | Array<CommentUpdateManyWithWhereNestedInput>;
+        | CommentUpdateManyWithWhereWithoutAuthorInput
+        | Array<CommentUpdateManyWithWhereWithoutAuthorInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
@@ -68,4 +69,12 @@ export class CommentUpdateManyWithoutAuthorInput {
     upsert?:
         | CommentUpsertWithWhereUniqueWithoutAuthorInput
         | Array<CommentUpsertWithWhereUniqueWithoutAuthorInput>;
+
+    @Field(() => [CommentCreateOrConnectWithoutauthorInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | CommentCreateOrConnectWithoutauthorInput
+        | Array<CommentCreateOrConnectWithoutauthorInput>;
 }

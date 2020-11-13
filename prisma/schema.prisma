@@ -1,5 +1,5 @@
 datasource database {
-    provider = "sqlite"
+    provider = "postgres"
     url = env("DATABASE_URL")
 }
 
@@ -27,6 +27,7 @@ model User {
     comments          Comment[]
     countComments    Int?
     rating           Float?
+    role             Role?
 }
 
 model Tag {
@@ -61,4 +62,8 @@ model Comment {
     authorId  String
     article   Article? @relation(fields: [articleId], references: [id])
     articleId String?
+}
+
+enum Role {
+    USER
 }

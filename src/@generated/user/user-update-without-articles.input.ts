@@ -1,12 +1,14 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
-import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-many-without-author.input';
 import { ArticleUpdateManyWithoutFavoritedByInput } from '../article/article-update-many-without-favorited-by.input';
+import { CommentUpdateManyWithoutAuthorInput } from '../comment/comment-update-many-without-author.input';
+import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
+import { Role } from '../prisma/role.enum';
 import { UserUpdateManyWithoutFollowersInput } from './user-update-many-without-followers.input';
 import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-following.input';
 
 @InputType()
-export class UserUpdateWithoutCommentsDataInput {
+export class UserUpdateWithoutArticlesInput {
     @Field(() => String, {
         nullable: true,
         description: undefined,
@@ -55,6 +57,12 @@ export class UserUpdateWithoutCommentsDataInput {
     })
     rating?: number | null;
 
+    @Field(() => EnumRoleFieldUpdateOperationsInput, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: Role | EnumRoleFieldUpdateOperationsInput | null;
+
     @Field(() => UserUpdateManyWithoutFollowersInput, {
         nullable: true,
         description: undefined,
@@ -73,9 +81,9 @@ export class UserUpdateWithoutCommentsDataInput {
     })
     favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
 
-    @Field(() => ArticleUpdateManyWithoutAuthorInput, {
+    @Field(() => CommentUpdateManyWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    articles?: ArticleUpdateManyWithoutAuthorInput;
+    comments?: CommentUpdateManyWithoutAuthorInput;
 }

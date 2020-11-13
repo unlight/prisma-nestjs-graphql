@@ -32,12 +32,13 @@ export function generateInput(args: GenerateInputArgs) {
             modelField?.isRequired !== undefined ? !modelField.isRequired : field.isNullable;
         const propertyType = getPropertyType(field.inputTypes);
         // Additional import all objects
-        for (const inputType of field.inputTypes
-            .filter((x) => x.kind === 'object')
-            .filter((x) => x.type !== className)) {
+        const inputTypes = field.inputTypes.filter(
+            (x) => ['object', 'enum'].includes(x.kind) && x.type !== className,
+        );
+        for (const inputType of inputTypes) {
             generateProjectImport({
                 name: String(inputType.type),
-                type: 'input',
+                type: inputType.kind === 'object' ? 'input' : inputType.kind,
                 sourceFile,
                 projectFilePath,
             });

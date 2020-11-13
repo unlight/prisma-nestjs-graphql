@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { TagCreateOrConnectWithoutarticlesInput } from './tag-create-or-connect-withoutarticles.input';
 import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input';
 import { TagScalarWhereInput } from './tag-scalar-where.input';
-import { TagUpdateManyWithWhereNestedInput } from './tag-update-many-with-where-nested.input';
+import { TagUpdateManyWithWhereWithoutArticlesInput } from './tag-update-many-with-where-without-articles.input';
 import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
 import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
@@ -47,11 +48,13 @@ export class TagUpdateManyWithoutArticlesInput {
         | TagUpdateWithWhereUniqueWithoutArticlesInput
         | Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
 
-    @Field(() => [TagUpdateManyWithWhereNestedInput], {
+    @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: TagUpdateManyWithWhereNestedInput | Array<TagUpdateManyWithWhereNestedInput>;
+    updateMany?:
+        | TagUpdateManyWithWhereWithoutArticlesInput
+        | Array<TagUpdateManyWithWhereWithoutArticlesInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
@@ -66,4 +69,12 @@ export class TagUpdateManyWithoutArticlesInput {
     upsert?:
         | TagUpsertWithWhereUniqueWithoutArticlesInput
         | Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+
+    @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | TagCreateOrConnectWithoutarticlesInput
+        | Array<TagCreateOrConnectWithoutarticlesInput>;
 }

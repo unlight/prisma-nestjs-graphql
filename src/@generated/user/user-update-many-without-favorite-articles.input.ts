@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { UserCreateOrConnectWithoutfavoriteArticlesInput } from './user-create-or-connect-withoutfavorite-articles.input';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
+import { UserUpdateManyWithWhereWithoutFavoriteArticlesInput } from './user-update-many-with-where-without-favorite-articles.input';
 import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-update-with-where-unique-without-favorite-articles.input';
 import { UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput } from './user-upsert-with-where-unique-without-favorite-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
@@ -47,11 +48,13 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
         | UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput
         | Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserUpdateManyWithWhereNestedInput], {
+    @Field(() => [UserUpdateManyWithWhereWithoutFavoriteArticlesInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: UserUpdateManyWithWhereNestedInput | Array<UserUpdateManyWithWhereNestedInput>;
+    updateMany?:
+        | UserUpdateManyWithWhereWithoutFavoriteArticlesInput
+        | Array<UserUpdateManyWithWhereWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
@@ -66,4 +69,12 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
     upsert?:
         | UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput
         | Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
+
+    @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | UserCreateOrConnectWithoutfavoriteArticlesInput
+        | Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
 }

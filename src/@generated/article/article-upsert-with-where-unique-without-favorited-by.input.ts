@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
-import { ArticleUpdateWithoutFavoritedByDataInput } from './article-update-without-favorited-by-data.input';
+import { ArticleUpdateWithoutFavoritedByInput } from './article-update-without-favorited-by.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
@@ -12,11 +12,11 @@ export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
     })
     where?: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutFavoritedByDataInput, {
+    @Field(() => ArticleUpdateWithoutFavoritedByInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutFavoritedByDataInput;
+    update?: ArticleUpdateWithoutFavoritedByInput;
 
     @Field(() => ArticleCreateWithoutFavoritedByInput, {
         nullable: true,

@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { UserCreateOrConnectWithoutfollowingInput } from './user-create-or-connect-withoutfollowing.input';
 import { UserCreateWithoutFollowingInput } from './user-create-without-following.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUpdateManyWithWhereNestedInput } from './user-update-many-with-where-nested.input';
+import { UserUpdateManyWithWhereWithoutFollowingInput } from './user-update-many-with-where-without-following.input';
 import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-with-where-unique-without-following.input';
 import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
@@ -47,11 +48,13 @@ export class UserUpdateManyWithoutFollowingInput {
         | UserUpdateWithWhereUniqueWithoutFollowingInput
         | Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => [UserUpdateManyWithWhereNestedInput], {
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {
         nullable: true,
         description: undefined,
     })
-    updateMany?: UserUpdateManyWithWhereNestedInput | Array<UserUpdateManyWithWhereNestedInput>;
+    updateMany?:
+        | UserUpdateManyWithWhereWithoutFollowingInput
+        | Array<UserUpdateManyWithWhereWithoutFollowingInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
@@ -66,4 +69,12 @@ export class UserUpdateManyWithoutFollowingInput {
     upsert?:
         | UserUpsertWithWhereUniqueWithoutFollowingInput
         | Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
+
+    @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | UserCreateOrConnectWithoutfollowingInput
+        | Array<UserCreateOrConnectWithoutfollowingInput>;
 }

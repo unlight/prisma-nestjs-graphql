@@ -1,19 +1,19 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUpdateManyDataInput } from './user-update-many-data.input';
+import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 
 @InputType()
-export class UserUpdateManyWithWhereNestedInput {
+export class UserUpdateManyWithWhereWithoutFollowersInput {
     @Field(() => UserScalarWhereInput, {
         nullable: true,
         description: undefined,
     })
     where?: UserScalarWhereInput;
 
-    @Field(() => UserUpdateManyDataInput, {
+    @Field(() => UserUpdateManyMutationInput, {
         nullable: true,
         description: undefined,
     })
-    data?: UserUpdateManyDataInput;
+    data?: UserUpdateManyMutationInput;
 }

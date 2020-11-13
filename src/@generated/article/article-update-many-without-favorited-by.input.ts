@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { ArticleCreateOrConnectWithoutfavoritedByInput } from './article-create-or-connect-withoutfavorited-by.input';
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
-import { ArticleUpdateManyWithWhereNestedInput } from './article-update-many-with-where-nested.input';
+import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-update-many-with-where-without-favorited-by.input';
 import { ArticleUpdateWithWhereUniqueWithoutFavoritedByInput } from './article-update-with-where-unique-without-favorited-by.input';
 import { ArticleUpsertWithWhereUniqueWithoutFavoritedByInput } from './article-upsert-with-where-unique-without-favorited-by.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
@@ -47,13 +48,13 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
         | ArticleUpdateWithWhereUniqueWithoutFavoritedByInput
         | Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleUpdateManyWithWhereNestedInput], {
+    @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], {
         nullable: true,
         description: undefined,
     })
     updateMany?:
-        | ArticleUpdateManyWithWhereNestedInput
-        | Array<ArticleUpdateManyWithWhereNestedInput>;
+        | ArticleUpdateManyWithWhereWithoutFavoritedByInput
+        | Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
@@ -68,4 +69,12 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     upsert?:
         | ArticleUpsertWithWhereUniqueWithoutFavoritedByInput
         | Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
+
+    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | ArticleCreateOrConnectWithoutfavoritedByInput
+        | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

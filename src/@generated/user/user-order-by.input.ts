@@ -51,4 +51,10 @@ export class UserOrderByInput {
         description: undefined,
     })
     rating?: SortOrder;
+
+    @Field(() => SortOrder, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: SortOrder;
 }

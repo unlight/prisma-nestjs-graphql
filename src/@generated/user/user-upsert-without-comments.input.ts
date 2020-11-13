@@ -1,15 +1,15 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
-import { UserUpdateWithoutCommentsDataInput } from './user-update-without-comments-data.input';
+import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.input';
 
 @InputType()
 export class UserUpsertWithoutCommentsInput {
-    @Field(() => UserUpdateWithoutCommentsDataInput, {
+    @Field(() => UserUpdateWithoutCommentsInput, {
         nullable: true,
         description: undefined,
     })
-    update?: UserUpdateWithoutCommentsDataInput;
+    update?: UserUpdateWithoutCommentsInput;
 
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: true,

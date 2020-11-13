@@ -17,11 +17,6 @@ const prisma = new PrismaClient({
             level: 'query',
         },
     ],
-    datasources: {
-        database: {
-            url: 'file:~data.db',
-        },
-    },
 });
 
 // @ts-ignore

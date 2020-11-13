@@ -1,7 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
+import { Role } from '../prisma/role.enum';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -71,4 +73,10 @@ export class UserScalarWhereInput {
         description: undefined,
     })
     rating?: FloatFilter | number | null;
+
+    @Field(() => EnumRoleFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: EnumRoleFilter | Role | null;
 }

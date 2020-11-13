@@ -1,13 +1,18 @@
 import assert from 'assert';
+import { expect } from 'chai';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { generatorOptions, stringContains, stringNotContains } from '../testing';
+import {
+    generatorOptions,
+    getImportDeclarations,
+    stringContains,
+    stringNotContains,
+} from '../testing';
 import { generateInput } from './generate-input';
 
 describe('generate inputs', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
-    let imports: { name: string; specifier: string }[];
     type Options = {
         schema: string;
         name: string;
@@ -16,7 +21,7 @@ describe('generate inputs', () => {
         outputFilePattern?: string;
     };
     const getResult = async (options: Options) => {
-        const { schema, model, name, sourceFileText, outputFilePattern } = options;
+        const { schema, model, name, sourceFileText, ...optionsArgs } = options;
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
@@ -26,7 +31,7 @@ describe('generate inputs', () => {
                 datamodel: { models },
                 schema: { inputTypes },
             },
-        } = await generatorOptions(schema, { outputFilePattern });
+        } = await generatorOptions(schema, optionsArgs);
         const inputType = inputTypes.find((x) => x.name === name);
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
@@ -34,18 +39,11 @@ describe('generate inputs', () => {
             model: models.find((x) => x.name === model),
             inputType,
             sourceFile,
-            projectFilePath: () => '0.ts',
+            projectFilePath: (args) => `${args.name}.${args.type}.ts`,
             decorator: {
                 name: 'InputType',
             },
         });
-        sourceText = sourceFile.getText();
-        imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((index) => ({
-                name: index.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
     };
 
     it('user where input', async () => {
@@ -89,8 +87,9 @@ describe('generate inputs', () => {
             model: 'User',
         });
         const structure = sourceFile.getClass('UserWhereInput')?.getProperty('age')?.getStructure();
+        expect(structure).to.be.ok;
         assert(structure);
-        assert.strictEqual(structure.type, 'IntFilter | number', 'Age property is not nullable');
+        expect(structure.type).to.equal('IntFilter | number');
 
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
@@ -98,10 +97,15 @@ describe('generate inputs', () => {
             ?.getDecorator('Field')
             ?.getCallExpression()
             ?.getArguments();
-        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => IntFilter');
+        expect(decoratorArguments?.[0]?.getText()).to.equal('() => IntFilter');
 
-        assert(imports.find((x) => x.name === 'StringFilter' && x.specifier === './0'));
-        assert(imports.find((x) => x.name === 'IntFilter' && x.specifier === './0'));
+        const imports = getImportDeclarations(sourceFile);
+
+        expect(imports).to.deep.include({
+            name: 'StringFilter',
+            specifier: './StringFilter.input',
+        });
+        expect(imports).to.deep.include({ name: 'IntFilter', specifier: './IntFilter.input' });
     });
 
     it('user where string filter', async () => {
@@ -166,8 +170,10 @@ describe('generate inputs', () => {
         assert(structure);
         assert.strictEqual(structure.type, 'number | null');
 
-        assert(imports.find((x) => x.name === 'InputType' && x.specifier === '@nestjs/graphql'));
-        assert(imports.find((x) => x.name === 'Int' && x.specifier === '@nestjs/graphql'));
+        const imports = getImportDeclarations(sourceFile);
+
+        expect(imports).to.deep.include({ name: 'InputType', specifier: '@nestjs/graphql' });
+        expect(imports).to.deep.include({ name: 'Int', specifier: '@nestjs/graphql' });
     });
 
     it('datetime filter', async () => {
@@ -228,13 +234,35 @@ describe('generate inputs', () => {
             name: 'PostWhereInput',
             model: 'Post',
         });
-        sourceText = sourceFile.getText();
         const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
         assert.strictEqual(property.getStructure().type, 'UserRelationFilter | UserWhereInput');
-        assert(
-            imports.find((x) => x.name === 'UserRelationFilter'),
-            'UserRelationFilter import should exists',
-        );
+
+        const imports = getImportDeclarations(sourceFile);
+        const importNames = imports.map((x) => x.name);
+
+        expect(importNames).to.include('UserRelationFilter');
+    });
+
+    it('enum filter should include enum import', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id     String      @id
+              role   Role
+            }
+            enum Role {
+                USER
+            }
+            `,
+            name: 'UserWhereInput',
+            model: 'User',
+        });
+        const imports = getImportDeclarations(sourceFile);
+        expect(imports).to.deep.include({
+            name: 'EnumRoleFilter',
+            specifier: './EnumRoleFilter.input',
+        });
+        expect(imports).to.deep.include({ name: 'Role', specifier: './Role.enum' });
     });
 });

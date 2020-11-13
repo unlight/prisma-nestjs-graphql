@@ -1,19 +1,19 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { TagScalarWhereInput } from './tag-scalar-where.input';
-import { TagUpdateManyDataInput } from './tag-update-many-data.input';
+import { TagUpdateManyMutationInput } from './tag-update-many-mutation.input';
 
 @InputType()
-export class TagUpdateManyWithWhereNestedInput {
+export class TagUpdateManyWithWhereWithoutArticlesInput {
     @Field(() => TagScalarWhereInput, {
         nullable: true,
         description: undefined,
     })
     where?: TagScalarWhereInput;
 
-    @Field(() => TagUpdateManyDataInput, {
+    @Field(() => TagUpdateManyMutationInput, {
         nullable: true,
         description: undefined,
     })
-    data?: TagUpdateManyDataInput;
+    data?: TagUpdateManyMutationInput;
 }

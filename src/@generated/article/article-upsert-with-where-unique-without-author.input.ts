@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
-import { ArticleUpdateWithoutAuthorDataInput } from './article-update-without-author-data.input';
+import { ArticleUpdateWithoutAuthorInput } from './article-update-without-author.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
@@ -12,11 +12,11 @@ export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
     })
     where?: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutAuthorDataInput, {
+    @Field(() => ArticleUpdateWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    update?: ArticleUpdateWithoutAuthorDataInput;
+    update?: ArticleUpdateWithoutAuthorInput;
 
     @Field(() => ArticleCreateWithoutAuthorInput, {
         nullable: true,

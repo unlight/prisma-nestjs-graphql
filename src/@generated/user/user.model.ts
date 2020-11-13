@@ -2,6 +2,7 @@ import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
+import { Role } from '../prisma/role.enum';
 
 @ObjectType({
     description: undefined,
@@ -84,4 +85,10 @@ export class User {
         description: undefined,
     })
     rating?: number;
+
+    @Field(() => Role, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: Role;
 }

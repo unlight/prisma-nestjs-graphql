@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { CommentCreateOrConnectWithoutarticleInput } from './comment-create-or-connect-withoutarticle.input';
 import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
-import { CommentUpdateManyWithWhereNestedInput } from './comment-update-many-with-where-nested.input';
+import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-many-with-where-without-article.input';
 import { CommentUpdateWithWhereUniqueWithoutArticleInput } from './comment-update-with-where-unique-without-article.input';
 import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
@@ -47,13 +48,13 @@ export class CommentUpdateManyWithoutArticleInput {
         | CommentUpdateWithWhereUniqueWithoutArticleInput
         | Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
 
-    @Field(() => [CommentUpdateManyWithWhereNestedInput], {
+    @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], {
         nullable: true,
         description: undefined,
     })
     updateMany?:
-        | CommentUpdateManyWithWhereNestedInput
-        | Array<CommentUpdateManyWithWhereNestedInput>;
+        | CommentUpdateManyWithWhereWithoutArticleInput
+        | Array<CommentUpdateManyWithWhereWithoutArticleInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
@@ -68,4 +69,12 @@ export class CommentUpdateManyWithoutArticleInput {
     upsert?:
         | CommentUpsertWithWhereUniqueWithoutArticleInput
         | Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
+
+    @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | CommentCreateOrConnectWithoutarticleInput
+        | Array<CommentCreateOrConnectWithoutarticleInput>;
 }

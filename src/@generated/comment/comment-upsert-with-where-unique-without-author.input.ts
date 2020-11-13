@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
-import { CommentUpdateWithoutAuthorDataInput } from './comment-update-without-author-data.input';
+import { CommentUpdateWithoutAuthorInput } from './comment-update-without-author.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
@@ -12,11 +12,11 @@ export class CommentUpsertWithWhereUniqueWithoutAuthorInput {
     })
     where?: CommentWhereUniqueInput;
 
-    @Field(() => CommentUpdateWithoutAuthorDataInput, {
+    @Field(() => CommentUpdateWithoutAuthorInput, {
         nullable: true,
         description: undefined,
     })
-    update?: CommentUpdateWithoutAuthorDataInput;
+    update?: CommentUpdateWithoutAuthorInput;
 
     @Field(() => CommentCreateWithoutAuthorInput, {
         nullable: true,

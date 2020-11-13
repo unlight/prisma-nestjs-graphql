@@ -1,7 +1,11 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
+import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
+import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-without-articles.input';
+import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-one-required-without-articles.input';
+
 @InputType()
-export class ArticleUpdateManyDataInput {
+export class ArticleUpdateWithoutFavoritedByInput {
     @Field(() => String, {
         nullable: true,
         description: undefined,
@@ -55,4 +59,22 @@ export class ArticleUpdateManyDataInput {
         description: undefined,
     })
     active?: boolean | null;
+
+    @Field(() => TagUpdateManyWithoutArticlesInput, {
+        nullable: true,
+        description: undefined,
+    })
+    tags?: TagUpdateManyWithoutArticlesInput;
+
+    @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
+        nullable: true,
+        description: undefined,
+    })
+    author?: UserUpdateOneRequiredWithoutArticlesInput;
+
+    @Field(() => CommentUpdateManyWithoutArticleInput, {
+        nullable: true,
+        description: undefined,
+    })
+    comments?: CommentUpdateManyWithoutArticleInput;
 }

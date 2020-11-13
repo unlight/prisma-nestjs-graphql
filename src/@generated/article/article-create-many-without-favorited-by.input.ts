@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { ArticleCreateOrConnectWithoutfavoritedByInput } from './article-create-or-connect-withoutfavorited-by.input';
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
@@ -16,4 +17,12 @@ export class ArticleCreateManyWithoutFavoritedByInput {
         description: undefined,
     })
     connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+
+    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
+        nullable: true,
+        description: undefined,
+    })
+    connectOrCreate?:
+        | ArticleCreateOrConnectWithoutfavoritedByInput
+        | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

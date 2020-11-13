@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserUpdateOneRequiredWithoutCommentsInput } from '../user/user-update-one-required-without-comments.input';
 
 @InputType()
-export class CommentUpdateWithoutArticleDataInput {
+export class CommentUpdateWithoutArticleInput {
     @Field(() => String, {
         nullable: true,
         description: undefined,

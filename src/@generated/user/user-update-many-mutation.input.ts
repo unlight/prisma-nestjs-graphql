@@ -1,5 +1,8 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
+import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
+import { Role } from '../prisma/role.enum';
+
 @InputType()
 export class UserUpdateManyMutationInput {
     @Field(() => String, {
@@ -49,4 +52,10 @@ export class UserUpdateManyMutationInput {
         description: undefined,
     })
     rating?: number | null;
+
+    @Field(() => EnumRoleFieldUpdateOperationsInput, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: Role | EnumRoleFieldUpdateOperationsInput | null;
 }

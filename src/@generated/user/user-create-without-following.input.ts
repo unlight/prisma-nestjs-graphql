@@ -3,6 +3,7 @@ import { Field, Float, InputType, Int } from '@nestjs/graphql';
 import { ArticleCreateManyWithoutAuthorInput } from '../article/article-create-many-without-author.input';
 import { ArticleCreateManyWithoutFavoritedByInput } from '../article/article-create-many-without-favorited-by.input';
 import { CommentCreateManyWithoutAuthorInput } from '../comment/comment-create-many-without-author.input';
+import { Role } from '../prisma/role.enum';
 import { UserCreateManyWithoutFollowingInput } from './user-create-many-without-following.input';
 
 @InputType()
@@ -54,6 +55,12 @@ export class UserCreateWithoutFollowingInput {
         description: undefined,
     })
     rating?: number | null;
+
+    @Field(() => Role, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: Role | null;
 
     @Field(() => UserCreateManyWithoutFollowingInput, {
         nullable: true,

@@ -35,6 +35,7 @@ const splitKeywords = [
     'CreateInput',
     'CreateMany',
     'CreateOneWithout',
+    'CreateOrConnect',
     'CreateWithout',
     'DistinctField',
     'Filter',

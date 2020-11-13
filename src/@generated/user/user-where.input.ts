@@ -2,8 +2,10 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
+import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
+import { Role } from '../prisma/role.enum';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 
@@ -104,4 +106,10 @@ export class UserWhereInput {
         description: undefined,
     })
     rating?: FloatFilter | number | null;
+
+    @Field(() => EnumRoleFilter, {
+        nullable: true,
+        description: undefined,
+    })
+    role?: EnumRoleFilter | Role | null;
 }
