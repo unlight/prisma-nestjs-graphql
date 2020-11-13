@@ -39,13 +39,19 @@
     "prettier:format": "npx prettier src --write",
     "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run prettier:format",
     "example": "ts-node-dev src/example/main.ts",
-    "clean_cache": "rm -rf node_modules/.cache"
+    "clean_cache": "rm -rf node_modules/.cache",
+    "commit": "cz"
   },
   "husky": {
     "hooks": {
       "pre-commit": "precise-commits",
       "pre-push": "npm run test",
       "commit-msg": "sh Taskfile commit_msg"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
     }
   },
   "dependencies": {
@@ -79,6 +85,8 @@
     "c8": "^7.3.5",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
+    "commitizen": "^4.2.2",
+    "cz-customizable": "^6.3.0",
     "eslint": "^7.13.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-etc": "1.1.6",
