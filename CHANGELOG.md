@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.0.0...v2.0.1) (2020-11-13)
+
+
+### Bug Fixes
+
+* Missing enum import type with enum filter object ([a5356c3](https://github.com/unlight/nestjs-graphql-prisma/commit/a5356c3a24ea37daddfbaa3f0207c1baf6d152a8)), closes [#3](https://github.com/unlight/nestjs-graphql-prisma/issues/3)
+
 # [2.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v1.6.0...v2.0.0) (2020-10-04)
 
 
