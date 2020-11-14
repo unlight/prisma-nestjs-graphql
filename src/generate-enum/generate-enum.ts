@@ -9,7 +9,7 @@ import {
 
 import { generateGraphqlImport } from '../generate-graphql-import';
 import { PrismaDMMF } from '../types';
-import { updateObjectProperty } from '../update-object-property';
+import { updateObjectProperty } from '../utils';
 
 type GenerateEnumArgs = {
     enumerable: PrismaDMMF.SchemaEnum & { documentation?: string };

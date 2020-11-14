@@ -428,4 +428,49 @@ describe('main generate', () => {
             });
         }
     });
+
+    it('option atomicNumberOperations false', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id        String      @id
+              int1      Int
+              int2      Int?
+              f1        Float?
+              f2        Float
+              role1     Role?
+              role2     Role
+            }
+            enum Role {
+                USER
+            }
+            `,
+            atomicNumberOperations: false,
+        });
+        expect(sourceFiles.length).to.be.greaterThan(0);
+        for (const sourceFile of sourceFiles) {
+            sourceFile.getClasses().forEach((classDeclaration) => {
+                if (classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')) {
+                    assert.fail(`Class should not exists ${classDeclaration.getName()!}`);
+                }
+            });
+        }
+        sourceFiles
+            .flatMap((s) => s.getClasses())
+            .filter((c) =>
+                ['UserUpdateInput', 'UserUpdateManyMutationInput'].includes(c.getName()!),
+            )
+            .flatMap((c) => c.getProperties())
+            .map((p) => p.getStructure())
+            .map(({ name, type }) => ({
+                name,
+                type,
+                types: (type as string).split('|').map((s) => s.trim()),
+            }))
+            .forEach((struct) => {
+                if (struct.types.find((s) => s.endsWith('FieldUpdateOperationsInput'))) {
+                    expect.fail(`Property ${struct.name} typed ${struct.type}`);
+                }
+            });
+    });
 });

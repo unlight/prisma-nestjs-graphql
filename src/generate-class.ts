@@ -2,7 +2,7 @@ import assert from 'assert';
 import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
 import { generateGraphqlImport } from './generate-graphql-import';
-import { updateObjectProperty } from './update-object-property';
+import { updateObjectProperty } from './utils';
 
 export type DecoratorPropertyType = {
     name: string;

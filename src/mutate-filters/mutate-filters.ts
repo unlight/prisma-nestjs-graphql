@@ -9,20 +9,8 @@ type MutateFiltersOptions = {
 
 export function mutateFilters(inputTypes: PrismaDMMF.InputType[], options: MutateFiltersOptions) {
     const mutations = [
-        options.combineScalarFilters && [combineScalarFilters(inputTypes)],
-        !options.atomicNumberOperations &&
-            noAtomicNumberOperations([
-                'StringFieldUpdateOperationsInput',
-                'NullableStringFieldUpdateOperationsInput',
-                'IntFieldUpdateOperationsInput',
-                'NullableIntFieldUpdateOperationsInput',
-                'FloatFieldUpdateOperationsInput',
-                'NullableFloatFieldUpdateOperationsInput',
-                'BoolFieldUpdateOperationsInput',
-                'NullableBoolFieldUpdateOperationsInput',
-                'DateTimeFieldUpdateOperationsInput',
-                'NullableDateTimeFieldUpdateOperationsInput',
-            ]),
+        options.combineScalarFilters && combineScalarFilters(inputTypes),
+        !options.atomicNumberOperations && noAtomicNumberOperations(),
     ];
 
     return function (inputType: PrismaDMMF.InputType) {

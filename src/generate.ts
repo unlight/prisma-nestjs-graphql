@@ -77,14 +77,15 @@ export async function generate(args: GenerateArgs) {
         generateModel({ model, sourceFile, projectFilePath });
     }
     // Generate inputs
-    const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
-        mutateFilters(prismaClientDmmf.schema.inputTypes, {
+    let inputTypes = prismaClientDmmf.schema.inputTypes;
+    inputTypes = inputTypes.filter(
+        mutateFilters(inputTypes, {
             combineScalarFilters: JSON.parse(
                 (generator.config.combineScalarFilters as string | undefined) ?? 'true',
-            ),
+            ) as boolean,
             atomicNumberOperations: JSON.parse(
                 (generator.config.atomicNumberOperations as string | undefined) ?? 'false',
-            ),
+            ) as boolean,
         }),
     );
     // Create aggregate inputs

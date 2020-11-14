@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Node, ObjectLiteralExpression, PropertyDeclaration } from 'ts-morph';
 
-import { updateObjectProperty } from './update-object-property';
+import { updateObjectProperty } from './utils';
 
 type GenerateDecoratorArgs = {
     propertyDeclaration: PropertyDeclaration;

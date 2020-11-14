@@ -6,6 +6,10 @@ import fs from 'fs';
 
 import { PrismaDMMF } from '../types';
 
+const {
+    dependencies: { '@prisma/generator-helper': generatorVersion },
+} = require('../../package.json');
+
 const cachePath: string = findCacheDir({ name: 'createGeneratorOptions', create: true });
 
 /**
@@ -16,7 +20,7 @@ export async function generatorOptions(
     options?: Record<string, any>,
 ): Promise<GeneratorOptions & { prismaClientDmmf: PrismaDMMF.Document }> {
     // eslint-disable-next-line prefer-rest-params
-    const data = JSON.stringify(arguments);
+    const data = JSON.stringify([generatorVersion, arguments]);
     const hash = crypto.createHash('md5').update(data).digest('hex');
     const optionsCacheFile = `${cachePath}/options-${hash}.js`;
     if (!fs.existsSync(optionsCacheFile)) {

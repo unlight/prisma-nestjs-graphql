@@ -1,16 +1,20 @@
 import { PrismaDMMF } from '../types';
 
-export function noAtomicNumberOperations(names: string[]) {
+export function noAtomicNumberOperations() {
     return (inputType: PrismaDMMF.InputType) => {
-        if (names.includes(inputType.name)) {
+        if (isAtomicOperation(inputType.name)) {
             return false;
         }
         inputType.fields = inputType.fields.map((field) => {
             field.inputTypes = field.inputTypes.filter((inputType) => {
-                return !names.includes(String(inputType.type));
+                return !isAtomicOperation(String(inputType.type));
             });
             return field;
         });
         return inputType;
     };
+}
+
+function isAtomicOperation(name: string) {
+    return name.endsWith('FieldUpdateOperationsInput');
 }
