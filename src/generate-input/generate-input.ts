@@ -2,8 +2,7 @@ import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { DecoratorPropertyType, generateClass, generateClassProperty } from '../generate-class';
 import { generateDecorator } from '../generate-decorator';
-import { generateGraphqlImport } from '../generate-graphql-import';
-import { generateProjectImport } from '../generate-project-import';
+import { generateImport, generateProjectImport } from '../generate-import';
 import { PrismaDMMF } from '../types';
 import { toGraphqlImportType, toPropertyType } from '../utils';
 import { getMatchingInputType } from './get-matching-input-type';
@@ -23,10 +22,12 @@ export function generateInput(args: GenerateInputArgs) {
         decorator,
         name: className,
     });
-    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
+    generateImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     for (const field of inputType.fields) {
         const inputType = getMatchingInputType(field.inputTypes);
-        const propertyType = getPropertyType(field.inputTypes);
+        const propertyTypes = field.inputTypes.map((t) =>
+            toPropertyType({ ...t, type: String(t.type) }),
+        );
         // Additional import all objects
         const inputTypes = field.inputTypes.filter(
             (x) => ['object', 'enum'].includes(x.kind) && x.type !== className,
@@ -41,7 +42,7 @@ export function generateInput(args: GenerateInputArgs) {
         }
         generateInputProperty({
             inputType,
-            propertyType,
+            propertyTypes,
             classDeclaration,
             sourceFile,
             projectFilePath,
@@ -58,19 +59,31 @@ type GenerateInputPropertyArgs = {
     projectFilePath(data: { name: string; type: string }): string;
     className: string;
     classDeclaration: ClassDeclaration;
-    propertyType: string;
+    propertyTypes: string[];
 };
 
 function generateInputProperty(args: GenerateInputPropertyArgs) {
-    const { inputType, sourceFile, className, classDeclaration, projectFilePath } = args;
+    const {
+        inputType,
+        sourceFile,
+        className,
+        classDeclaration,
+        propertyTypes,
+        projectFilePath,
+    } = args;
     const propertyDeclaration = generateClassProperty({
         name: args.name,
-        type: args.propertyType,
+        type: propertyTypes.join(' | '),
         classDeclaration,
         isReadOnly: false,
         isRequired: false,
     });
-    let fieldType = getFieldType(inputType);
+    // TODO: Do import for custom typescript type
+    // if (propertyTypes.includes('Decimal')) {
+    //     generateImport({sourceFile, name: 'Decimal', moduleSpecifier: 'decimal.js'});
+    // }
+    // Get field type
+    let fieldType = String(inputType.type);
     if (inputType.kind === 'scalar') {
         const importType = toGraphqlImportType({
             kind: inputType.kind,
@@ -79,21 +92,14 @@ function generateInputProperty(args: GenerateInputPropertyArgs) {
         });
         // Override return field type value
         fieldType = importType.name;
-        generateGraphqlImport({
+        generateImport({
             sourceFile,
             ...importType,
         });
-    } else if (inputType.kind === 'object' && inputType.type !== className) {
+    } else if (['object', 'enum'].includes(inputType.kind) && inputType.type !== className) {
         generateProjectImport({
             name: fieldType,
-            type: 'input',
-            sourceFile,
-            projectFilePath,
-        });
-    } else if (inputType.kind === 'enum') {
-        generateProjectImport({
-            name: fieldType,
-            type: 'enum',
+            type: inputType.kind === 'object' ? 'input' : inputType.kind,
             sourceFile,
             projectFilePath,
         });
@@ -103,21 +109,4 @@ function generateInputProperty(args: GenerateInputPropertyArgs) {
         fieldType: inputType.isList ? `[${fieldType}]` : fieldType,
         nullable: true,
     });
-}
-
-function getPropertyType(inputTypes: PrismaDMMF.SchemaArgInputType[]): string {
-    const types: string[] = inputTypes.map((inputType) => {
-        return toPropertyType({ ...inputType, type: String(inputType.type) });
-    });
-    types.sort((a, b) => {
-        if (b === 'null') {
-            return -2;
-        }
-        return 0;
-    });
-    return types.join(' | ');
-}
-
-function getFieldType(inputType: PrismaDMMF.SchemaArgInputType) {
-    return String(inputType.type);
 }

@@ -7,7 +7,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { generateGraphqlImport } from '../generate-graphql-import';
+import { generateImport } from '../generate-import';
 import { PrismaDMMF } from '../types';
 import { updateObjectProperty } from '../utils';
 
@@ -19,7 +19,7 @@ type GenerateEnumArgs = {
 export function generateEnum(args: GenerateEnumArgs) {
     const { enumerable, sourceFile } = args;
 
-    generateGraphqlImport({
+    generateImport({
         sourceFile,
         name: 'registerEnumType',
         moduleSpecifier: '@nestjs/graphql',

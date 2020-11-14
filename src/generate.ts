@@ -4,16 +4,20 @@ import { existsSync, promises as fs } from 'fs';
 import path from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { featureName } from './feature-name';
 import { generateArgs } from './generate-args';
 import { generateEnum } from './generate-enum';
-import { generateFileName } from './generate-file-name';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
 import { PrismaDMMF } from './types';
-import { getOutputTypeName, schemaFieldToArgument, schemaOutputToInput } from './utils';
+import {
+    featureName,
+    getOutputTypeName,
+    schemaFieldToArgument,
+    schemaOutputToInput,
+} from './utils';
+import { generateFileName } from './utils/generate-file-name';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;

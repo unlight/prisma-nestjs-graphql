@@ -36,8 +36,8 @@
     "eslint:fix": "npm run eslint -- --fix",
     "build": "sh Taskfile bundle",
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
-    "prettier:format": "npx prettier src --write",
-    "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run prettier:format",
+    "format": "npx prettier src --write",
+    "regen": "rm -rf src/@generated && npm run prisma:g && npm run eslint:fix && npm run format",
     "example": "ts-node-dev src/example/main.ts",
     "clean_cache": "rm -rf node_modules/.cache",
     "commit": "cz"

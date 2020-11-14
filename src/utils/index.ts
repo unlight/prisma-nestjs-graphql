@@ -1,6 +1,8 @@
+export { featureName } from './feature-name';
+
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
-import { PrismaDMMF } from './types';
+import { PrismaDMMF } from '../types';
 
 type ToGraphqlImportTypeArgs = {
     isId: boolean;

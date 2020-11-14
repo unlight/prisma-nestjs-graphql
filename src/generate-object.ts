@@ -1,7 +1,7 @@
 import { SourceFile } from 'ts-morph';
 
 import { generateClass } from './generate-class';
-import { generateGraphqlImport } from './generate-graphql-import';
+import { generateImport } from './generate-import';
 import { generateProperty, Model } from './generate-property';
 
 type GenerateObjectArgs = {
@@ -23,7 +23,7 @@ export function generateObject(args: GenerateObjectArgs) {
         sourceFile,
         name: model.name,
     });
-    generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
+    generateImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     model.fields.forEach((field) => {
         generateProperty({
             field,

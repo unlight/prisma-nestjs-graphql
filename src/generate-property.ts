@@ -2,8 +2,7 @@ import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
-import { generateGraphqlImport } from './generate-graphql-import';
-import { generateProjectImport } from './generate-project-import';
+import { generateImport, generateProjectImport } from './generate-import';
 import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
@@ -39,7 +38,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
     const propertyType = toPropertyType(field);
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {
-        fieldType = generateGraphqlImport({
+        fieldType = generateImport({
             sourceFile,
             ...toGraphqlImportType({ ...field, isId: Boolean(field.isId) }),
         });

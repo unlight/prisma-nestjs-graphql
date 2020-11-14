@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
-import { generateGraphqlImport } from './generate-graphql-import';
+import { generateImport } from './generate-import';
 import { updateObjectProperty } from './utils';
 
 export type DecoratorPropertyType = {
@@ -21,7 +21,7 @@ type GenerateClassArgs = {
 export function generateClass(args: GenerateClassArgs) {
     const { name, sourceFile, decorator } = args;
 
-    generateGraphqlImport({
+    generateImport({
         name: decorator.name,
         sourceFile,
         moduleSpecifier: '@nestjs/graphql',
