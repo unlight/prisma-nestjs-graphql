@@ -15,15 +15,16 @@ export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     if (isId) {
         return { name: 'ID', moduleSpecifier: '@nestjs/graphql' };
     }
-    if (name === 'Int' || name === 'Float') {
+    if (['Int', 'Float'].includes(name)) {
         return { name, moduleSpecifier: '@nestjs/graphql' };
     }
     if (kind === 'scalar' && type === 'Json') {
         return { name: 'GraphQLJSON', moduleSpecifier: 'graphql-type-json' };
     }
-    if (name === 'DateTime') {
-        name = 'String';
-    } else if (name === 'true') {
+    if (['DateTime', 'Decimal', 'BigInt', 'Bytes'].includes(name)) {
+        return { name: 'String', moduleSpecifier: undefined };
+    }
+    if (name === 'true') {
         name = 'Boolean';
     }
     return { name, moduleSpecifier: undefined };
@@ -37,6 +38,9 @@ const patterns = new Map([
     [{ type: (type: string) => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
     [{ type: (type: string) => type === 'Json', kind: 'scalar' }, () => 'object'],
     [{ type: (type: string) => type === 'Null', kind: 'scalar' }, () => 'null'],
+    [{ type: (type: string) => type === 'Decimal', kind: 'scalar' }, () => 'string'],
+    [{ type: (type: string) => type === 'Bytes', kind: 'scalar' }, () => 'Buffer'],
+    [{ type: (type: string) => type === 'BigInt', kind: 'scalar' }, () => 'BigInt'],
     [{ type: () => true, kind: 'object' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'enum' }, (field: { type: string }) => field.type],
     [{ type: () => true, kind: 'scalar' }, (field: { type: string }) => field.type],

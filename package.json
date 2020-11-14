@@ -89,6 +89,7 @@
     "class-validator": "^0.12.2",
     "commitizen": "^4.2.2",
     "cz-customizable": "^6.3.0",
+    "decimal.js": "^10.2.1",
     "eslint": "^7.13.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-etc": "^1.1.6",

@@ -1,7 +1,7 @@
 import { PrismaDMMF } from '../types';
 
 export function replacementTypeName(name: string) {
-    const pattern = /^(Nested|Nullable)?(String|Int|Float|DateTime|Boolean|Enum\w+?)(Nullable)?(Filter|Input)$/;
+    const pattern = /^(Nested|Nullable)?(String|Int|Float|DateTime|Boolean|Decimal|Json|BigInt|Bytes|Enum\w+?)(Nullable)?(Filter|Input)$/;
     const match = pattern.exec(name);
     if (match) {
         return match
@@ -19,11 +19,11 @@ export function replacementTypeName(name: string) {
 }
 
 export function combineScalarFilters(inputTypes: PrismaDMMF.InputType[]) {
-    const replacements: Record<string, string> = Object.fromEntries(
+    const replacements = Object.fromEntries(
         inputTypes
             .map((t) => [t.name, replacementTypeName(t.name)])
             .filter(({ 0: a, 1: b }) => a !== b),
-    );
+    ) as Record<string, string>;
 
     return (inputType: PrismaDMMF.InputType) => {
         const newTypeName = replacements[inputType.name];

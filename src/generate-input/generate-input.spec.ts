@@ -12,7 +12,6 @@ import { generateInput } from './generate-input';
 
 describe('generate inputs', () => {
     let sourceFile: SourceFile;
-    let sourceText: string;
     type Options = {
         schema: string;
         name: string;
@@ -45,6 +44,8 @@ describe('generate inputs', () => {
             },
         });
     };
+    const struct = (className: string, property: string) =>
+        sourceFile.getClass(className)?.getProperty(property)?.getStructure();
 
     it('user where input', async () => {
         await getResult({
@@ -211,12 +212,10 @@ describe('generate inputs', () => {
             name: 'UserListRelationFilter',
             model: 'User',
         });
-        const struct = (n: string) =>
-            sourceFile.getClass('UserListRelationFilter')?.getProperty(n)?.getStructure();
 
-        assert.strictEqual(struct('every')?.type, 'UserWhereInput');
-        assert.strictEqual(struct('some')?.type, 'UserWhereInput');
-        assert.strictEqual(struct('none')?.type, 'UserWhereInput');
+        expect(struct('UserListRelationFilter', 'every')?.type).to.equal('UserWhereInput');
+        expect(struct('UserListRelationFilter', 'some')?.type).to.equal('UserWhereInput');
+        expect(struct('UserListRelationFilter', 'none')?.type).to.equal('UserWhereInput');
     });
 
     it('relation filter property', async () => {

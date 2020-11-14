@@ -1,8 +1,9 @@
 import assert from 'assert';
+import { expect } from 'chai';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateModel } from '../generate-model';
-import { generatorOptions, stringContains, stringNotContains } from '../testing';
+import { generatorOptions, stringContains } from '../testing';
 
 describe('generate models', () => {
     let sourceFile: SourceFile;
@@ -68,14 +69,12 @@ describe('generate models', () => {
                 count Int @id @default(1)
             }`,
         });
-        const sourceText = sourceFile.getText();
-
         const struct = sourceFile.getClass('User')?.getProperty('count')?.getStructure();
         const args = struct?.decorators?.[0].arguments;
-        stringContains('nullable: false', args?.[1]);
-        stringContains('defaultValue: 1', args?.[1]);
-        stringContains('description: undefined', args?.[1]);
-        assert.strictEqual(args?.[0], '() => ID');
+        expect(args?.[1]).to.contain('nullable: false');
+        expect(args?.[1]).to.contain('defaultValue: 1');
+        expect(args?.[1]).to.contain('description: undefined');
+        expect(args?.[0]).to.equal('() => ID');
     });
 
     it('self relation', async () => {
@@ -86,7 +85,7 @@ describe('generate models', () => {
                 followers   User[]   @relation("UserFollows", references: [id])
             }`,
         });
-        stringNotContains('import { User }', sourceFile.getText());
+        expect(sourceFile.getText()).not.contains('import { User }');
     });
 
     it('extend existing class', async () => {

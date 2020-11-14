@@ -5,6 +5,7 @@ datasource database {
 
 generator client {
     provider = "prisma-client-js"
+    previewFeatures = ["nativeTypes"]
 }
 
 generator nestgraphql {
@@ -66,4 +67,12 @@ model Comment {
 
 enum Role {
     USER
+}
+
+model Dummy {
+    id String @id
+    bytes Bytes?
+    decimal Decimal?
+    bigInt BigInt?
+    json Json?
 }
