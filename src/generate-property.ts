@@ -4,7 +4,7 @@ import { generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
 import { generateGraphqlImport } from './generate-graphql-import';
 import { generateProjectImport } from './generate-project-import';
-import { toGraphqlImportType, toPropertyType } from './type-utils';
+import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
     name: string;

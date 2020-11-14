@@ -70,7 +70,9 @@ export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDM
     return {
         name: outputType.name.replace(/OutputType$/, 'Input'),
         constraints: {
+            // eslint-disable-next-line unicorn/no-null
             maxNumFields: null,
+            // eslint-disable-next-line unicorn/no-null
             minNumFields: null,
         },
         fields: outputType.fields.map((field) => {
@@ -98,8 +100,14 @@ export function schemaFieldToArgument(field: PrismaDMMF.SchemaField): PrismaDMMF
         name,
         fields: field.args,
         constraints: {
+            // eslint-disable-next-line unicorn/no-null
             maxNumFields: null,
+            // eslint-disable-next-line unicorn/no-null
             minNumFields: null,
         },
     };
+}
+
+export function getOutputTypeName(name: string) {
+    return name.replace(/OutputType$/, '');
 }

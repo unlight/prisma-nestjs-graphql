@@ -1,7 +1,7 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import { existsSync, promises as fs } from 'fs';
-import { join } from 'path';
+import path from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { featureName } from './feature-name';
@@ -12,8 +12,8 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
-import { schemaFieldToArgument, schemaOutputToInput } from './type-utils';
 import { PrismaDMMF } from './types';
+import { getOutputTypeName, schemaFieldToArgument, schemaOutputToInput } from './utils';
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
@@ -51,7 +51,7 @@ export async function generate(args: GenerateArgs) {
             return sourceFile;
         }
         let sourceFileText = '';
-        const localFilePath = join(output, filePath);
+        const localFilePath = path.join(output, filePath);
         if (fileExistsSync(localFilePath)) {
             sourceFileText = await fs.readFile(localFilePath, { encoding: 'utf8' });
         }
@@ -79,14 +79,18 @@ export async function generate(args: GenerateArgs) {
     // Generate inputs
     const inputTypes = prismaClientDmmf.schema.inputTypes.filter(
         mutateFilters(prismaClientDmmf.schema.inputTypes, {
-            combineScalarFilters: JSON.parse(generator.config.combineScalarFilters ?? 'true'),
-            atomicNumberOperations: JSON.parse(generator.config.atomicNumberOperations ?? 'false'),
+            combineScalarFilters: JSON.parse(
+                (generator.config.combineScalarFilters as string | undefined) ?? 'true',
+            ),
+            atomicNumberOperations: JSON.parse(
+                (generator.config.atomicNumberOperations as string | undefined) ?? 'false',
+            ),
         }),
     );
     // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputTypes
         .filter((o) => o.name.endsWith('AggregateOutputType'))
-        .map(schemaOutputToInput);
+        .map((o) => schemaOutputToInput(o));
     for (const inputType of inputTypes.concat(aggregateInputs)) {
         let model: PrismaDMMF.Model | undefined;
         const feature = featureName({ name: inputType.name, models, fallback: '' });
@@ -106,7 +110,7 @@ export async function generate(args: GenerateArgs) {
     const otherTypes = prismaClientDmmf.schema.outputTypes
         .filter((t) => t.name === 'Query')
         .flatMap((t) => t.fields)
-        .map(schemaFieldToArgument);
+        .map((field) => schemaFieldToArgument(field));
     for (const inputType of otherTypes) {
         const feature = featureName({ name: inputType.name, models, fallback: '' });
         assert(feature);
@@ -119,7 +123,6 @@ export async function generate(args: GenerateArgs) {
         generateArgs({ model, inputType, feature, aggregateInputs, sourceFile, projectFilePath });
     }
     // Generate output types
-    const getOutputTypeName = (name: string) => name.replace(/OutputType$/, '');
     const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
         (t) => !['Query', 'Mutation'].includes(t.name) && !models.find((name) => name === t.name),
     );

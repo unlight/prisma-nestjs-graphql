@@ -4,8 +4,8 @@ import { DecoratorPropertyType, generateClass, generateClassProperty } from '../
 import { generateDecorator } from '../generate-decorator';
 import { generateGraphqlImport } from '../generate-graphql-import';
 import { generateProjectImport } from '../generate-project-import';
-import { toGraphqlImportType, toPropertyType } from '../type-utils';
 import { PrismaDMMF } from '../types';
+import { toGraphqlImportType, toPropertyType } from '../utils';
 import { getMatchingInputType } from './get-matching-input-type';
 
 type GenerateInputArgs = {
@@ -17,7 +17,7 @@ type GenerateInputArgs = {
 };
 
 export function generateInput(args: GenerateInputArgs) {
-    const { inputType, sourceFile, projectFilePath, model, decorator } = args;
+    const { inputType, sourceFile, projectFilePath, decorator } = args;
     const className = inputType.name;
     const classDeclaration = generateClass({
         sourceFile,
@@ -26,10 +26,7 @@ export function generateInput(args: GenerateInputArgs) {
     });
     generateGraphqlImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
     for (const field of inputType.fields) {
-        const modelField = model?.fields.find((f) => f.name === field.name);
         const inputType = getMatchingInputType(field.inputTypes);
-        const nullable =
-            modelField?.isRequired !== undefined ? !modelField.isRequired : field.isNullable;
         const propertyType = getPropertyType(field.inputTypes);
         // Additional import all objects
         const inputTypes = field.inputTypes.filter(
@@ -110,10 +107,10 @@ function generateInputProperty(args: GenerateInputPropertyArgs) {
 }
 
 function getPropertyType(inputTypes: PrismaDMMF.SchemaArgInputType[]): string {
-    let types: string[] = inputTypes.map((inputType) => {
+    const types: string[] = inputTypes.map((inputType) => {
         return toPropertyType({ ...inputType, type: String(inputType.type) });
     });
-    types = types.sort((a, b) => {
+    types.sort((a, b) => {
         if (b === 'null') {
             return -2;
         }
