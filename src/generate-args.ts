@@ -5,7 +5,6 @@ import { PrismaDMMF } from './types';
 
 type GenerateArgsArguments = {
     feature: string;
-    model?: PrismaDMMF.Model;
     inputType: PrismaDMMF.InputType;
     aggregateInputs: PrismaDMMF.InputType[];
     sourceFile: SourceFile;
@@ -13,7 +12,7 @@ type GenerateArgsArguments = {
 };
 
 export function generateArgs(args: GenerateArgsArguments) {
-    const { inputType, feature, model, aggregateInputs, sourceFile, projectFilePath } = args;
+    const { inputType, feature, aggregateInputs, sourceFile, projectFilePath } = args;
     if (inputType.name === `Aggregate${feature}Args`) {
         // Aggregate args
         inputType.fields.push({
@@ -53,7 +52,6 @@ export function generateArgs(args: GenerateArgsArguments) {
         inputType,
         sourceFile,
         projectFilePath,
-        model,
         decorator: { name: 'ArgsType' },
     });
 }

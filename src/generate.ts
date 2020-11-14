@@ -93,17 +93,12 @@ export async function generate(args: GenerateArgs) {
         .filter((o) => o.name.endsWith('AggregateOutputType'))
         .map((o) => schemaOutputToInput(o));
     for (const inputType of inputTypes.concat(aggregateInputs)) {
-        let model: PrismaDMMF.Model | undefined;
         const feature = featureName({ name: inputType.name, models, fallback: '' });
-        if (feature) {
-            model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
-        }
         const sourceFile = await createSourceFile({ type: 'input', name: inputType.name, feature });
         generateInput({
             inputType,
             sourceFile,
             projectFilePath,
-            model,
             decorator: { name: 'InputType' },
         });
     }
@@ -115,13 +110,12 @@ export async function generate(args: GenerateArgs) {
     for (const inputType of otherTypes) {
         const feature = featureName({ name: inputType.name, models, fallback: '' });
         assert(feature);
-        const model = prismaClientDmmf.datamodel.models.find((m) => m.name === feature);
         const sourceFile = await createSourceFile({
             type: 'args',
             name: inputType.name,
             feature,
         });
-        generateArgs({ model, inputType, feature, aggregateInputs, sourceFile, projectFilePath });
+        generateArgs({ inputType, feature, aggregateInputs, sourceFile, projectFilePath });
     }
     // Generate output types
     const outputTypes = prismaClientDmmf.schema.outputTypes.filter(

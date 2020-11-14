@@ -44,8 +44,13 @@ describe('generate models', () => {
         assert(imports.find((x) => x.name === 'ObjectType' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'Field' && x.specifier === '@nestjs/graphql'));
-        stringContains('@Field(() => ID, { nullable: false, description: undefined })', sourceText);
-        stringContains('id!: string', sourceText);
+
+        const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
+        assert(struct);
+        expect(struct.hasExclamationToken).to.be.true;
+        const fieldArgument = struct.decorators?.[0].arguments?.[1] as string;
+        expect(fieldArgument).to.contain('nullable: false');
+        expect(fieldArgument).to.contain('description: undefined');
     });
 
     it('field nullable', async () => {
@@ -60,7 +65,7 @@ describe('generate models', () => {
             '@Field(() => String, { nullable: true, description: undefined })',
             sourceText,
         );
-        stringContains('image?: string', sourceText);
+        expect(sourceText).to.contain('image?: string');
     });
 
     it('default value', async () => {
@@ -96,7 +101,7 @@ describe('generate models', () => {
             sourceFileText: `@ObjectType() export class User {}`,
         });
         sourceText = sourceFile.getText();
-        assert.strictEqual(sourceText.match(/export class User/g)?.length, 1);
+        expect(sourceText.match(/export class User/g)?.length).to.equal(1);
     });
 
     it('object type description', async () => {
@@ -106,8 +111,11 @@ describe('generate models', () => {
                 id Int @id
             }`,
         });
-        sourceText = sourceFile.getText();
-        stringContains(`@ObjectType({ description: "User really" })`, sourceText);
+
+        const decoratorArgument = sourceFile.getClass('User')?.getDecorators()[0].getStructure()
+            ?.arguments?.[0] as string | undefined;
+        assert(decoratorArgument);
+        expect(decoratorArgument).to.contain(`description: "User really"`);
     });
 
     it('property description', async () => {

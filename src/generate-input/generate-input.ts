@@ -11,7 +11,6 @@ import { getMatchingInputType } from './get-matching-input-type';
 type GenerateInputArgs = {
     inputType: PrismaDMMF.InputType;
     sourceFile: SourceFile;
-    model: PrismaDMMF.Model | undefined;
     projectFilePath(data: { name: string; type: string }): string;
     decorator: DecoratorPropertyType;
 };

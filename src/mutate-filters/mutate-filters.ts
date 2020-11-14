@@ -14,7 +14,7 @@ export function mutateFilters(inputTypes: PrismaDMMF.InputType[], options: Mutat
     ];
 
     return function (inputType: PrismaDMMF.InputType) {
-        for (const mutation of mutations.filter(Boolean).flat()) {
+        for (const mutation of mutations.filter(Boolean)) {
             const result = mutation && mutation(inputType);
             if (!result) {
                 return false;

@@ -16,7 +16,7 @@ export function generateFileName(args: GenerateFileNameArgs) {
     const template = args.template || '{feature}/{dasherizedName}.{type}.ts';
     let feature = args.feature || featureName({ models, name, fallback: 'prisma' });
     feature = toKebab(feature);
-    let dasherizedName = toKebab(name);
+    let dasherizedName = toKebab(name) as string;
 
     for (const suffix of ['input', 'args', 'enum']) {
         const ending = `-${suffix}`;

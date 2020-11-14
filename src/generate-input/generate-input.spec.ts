@@ -20,14 +20,13 @@ describe('generate inputs', () => {
         outputFilePattern?: string;
     };
     const getResult = async (options: Options) => {
-        const { schema, model, name, sourceFileText, ...optionsArgs } = options;
+        const { schema, name, sourceFileText, ...optionsArgs } = options;
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
         });
         const {
             prismaClientDmmf: {
-                datamodel: { models },
                 schema: { inputTypes },
             },
         } = await generatorOptions(schema, optionsArgs);
@@ -35,7 +34,6 @@ describe('generate inputs', () => {
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
         generateInput({
-            model: models.find((x) => x.name === model),
             inputType,
             sourceFile,
             projectFilePath: (args) => `${args.name}.${args.type}.ts`,
