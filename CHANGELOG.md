@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.0.1...v2.0.2) (2020-11-14)
+
+
+### Bug Fixes
+
+* Enum atomic operation are not processed ([43a2506](https://github.com/unlight/nestjs-graphql-prisma/commit/43a25067da8deaa76921e90d043280bd6bcbdf6a))
+
 ## [2.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.0.0...v2.0.1) (2020-11-13)
 
 
