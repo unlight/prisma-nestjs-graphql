@@ -45,6 +45,10 @@ npx prisma generate
     (default: `true`)
 -   `atomicNumberOperations` - Atomic number operations,
     `false` - disabled (default), `true` - enabled
+-   `customPropertyTypes` - comma separated configured stringified record, tells
+    how to map prisma type to TypeScript property, each record must be separated by colon
+    in format: `prisma_type:typescript_type:import_from`
+    Example: `Decimal:Decimal:decimal.js` produces a `d: Decimal`
 
 ## Similar Projects
 
