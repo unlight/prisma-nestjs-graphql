@@ -4,13 +4,14 @@ import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
 import { generatorOptions, getImportDeclarations, stringContains } from './testing';
+import { GeneratorConfigurationOptions } from './types';
 
 describe('main generate', () => {
     let property: PropertyDeclaration | undefined;
     let sourceFile: SourceFile | undefined;
     let sourceFiles: SourceFile[];
     let sourceText: string;
-    async function getResult(args: { schema: string } & Record<string, any>) {
+    async function getResult(args: { schema: string } & GeneratorConfigurationOptions) {
         const { schema, ...options } = args;
         const generateOptions = {
             ...(await generatorOptions(schema, options)),
@@ -218,7 +219,7 @@ describe('main generate', () => {
 
     it('get rid of atomic number operations', async () => {
         await getResult({
-            atomicNumberOperations: false,
+            atomicNumberOperations: 'false',
             schema: `
             model User {
               id String @id
@@ -278,7 +279,7 @@ describe('main generate', () => {
 
     it('user args type', async () => {
         await getResult({
-            atomicNumberOperations: false,
+            atomicNumberOperations: 'false',
             schema: `
             model User {
               id String @id
@@ -326,12 +327,8 @@ describe('main generate', () => {
         decoratorArguments = struct.decorators?.[0].arguments;
         assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
 
-        const imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((index) => ({
-                name: index.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
+        const imports = getImportDeclarations(sourceFile);
+
         assert(imports.find((x) => x.name === 'UserAvgAggregateInput'));
         assert(imports.find((x) => x.name === 'UserSumAggregateInput'));
         assert(imports.find((x) => x.name === 'UserMinAggregateInput'));
@@ -340,7 +337,7 @@ describe('main generate', () => {
 
     it('aggregate output types', async () => {
         await getResult({
-            atomicNumberOperations: false,
+            atomicNumberOperations: 'false',
             schema: `
             model User {
               id String @id
@@ -376,7 +373,7 @@ describe('main generate', () => {
               date      DateTime?
             }
             `,
-            combineScalarFilters: false,
+            combineScalarFilters: 'false',
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
         const userWhereInput = sourceFiles.find((s) =>
@@ -410,7 +407,7 @@ describe('main generate', () => {
                 USER
             }
             `,
-            combineScalarFilters: true,
+            combineScalarFilters: 'true',
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
         for (const filePath of filePaths) {
@@ -445,13 +442,13 @@ describe('main generate', () => {
                 USER
             }
             `,
-            atomicNumberOperations: false,
+            atomicNumberOperations: 'false',
         });
         expect(sourceFiles.length).to.be.greaterThan(0);
         for (const sourceFile of sourceFiles) {
             sourceFile.getClasses().forEach((classDeclaration) => {
                 if (classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')) {
-                    assert.fail(`Class should not exists ${classDeclaration.getName()!}`);
+                    expect.fail(`Class should not exists ${classDeclaration.getName()!}`);
                 }
             });
         }
@@ -469,8 +466,29 @@ describe('main generate', () => {
             }))
             .forEach((struct) => {
                 if (struct.types.find((s) => s.endsWith('FieldUpdateOperationsInput'))) {
-                    expect.fail(`Property ${struct.name} typed ${struct.type}`);
+                    expect.fail(`Property ${struct.name} typed ${String(struct.type)}`);
                 }
             });
+    });
+
+    it('custom property mapping', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id String @id
+              d Decimal
+            }
+            `,
+            customPropertyTypes: 'Decimal:MyDec:decimal.js',
+        });
+        const sourceFile = sourceFiles.find((s) => s.getFilePath().endsWith('user.model.ts'));
+        assert(sourceFile);
+        const property = sourceFile.getClasses()[0]?.getProperty('d')?.getStructure();
+        expect(property?.type).to.equal('MyDec');
+        const imports = getImportDeclarations(sourceFile);
+        expect(imports).to.deep.contain({
+            name: 'MyDec',
+            specifier: 'decimal.js',
+        });
     });
 });

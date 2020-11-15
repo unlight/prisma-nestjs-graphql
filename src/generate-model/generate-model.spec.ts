@@ -2,8 +2,10 @@ import assert from 'assert';
 import { expect } from 'chai';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
+import { createConfig } from '../generate';
 import { generateModel } from '../generate-model';
 import { generatorOptions, stringContains } from '../testing';
+import { GeneratorConfiguration } from '../types';
 
 describe('generate models', () => {
     let sourceFile: SourceFile;
@@ -19,13 +21,20 @@ describe('generate models', () => {
             manipulationSettings: { quoteKind: QuoteKind.Single },
         });
         const {
+            generator,
             prismaClientDmmf: {
                 datamodel: { models },
             },
         } = await generatorOptions(schema, options);
         const [model] = models;
         sourceFile = project.createSourceFile('_.ts', sourceFileText);
-        generateModel({ model, sourceFile, projectFilePath: () => '_.ts' });
+        const config = createConfig(generator.config);
+        generateModel({
+            model,
+            sourceFile,
+            config,
+            projectFilePath: () => '_.ts',
+        });
         sourceText = sourceFile.getText();
         imports = sourceFile.getImportDeclarations().flatMap((d) =>
             d.getNamedImports().map((index) => ({

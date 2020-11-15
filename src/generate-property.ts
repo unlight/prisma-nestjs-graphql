@@ -3,6 +3,7 @@ import { ClassDeclaration, SourceFile } from 'ts-morph';
 import { generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
 import { generateImport, generateProjectImport } from './generate-import';
+import { GeneratorConfiguration } from './types';
 import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
@@ -28,14 +29,33 @@ type GeneratePropertyArgs = {
     className: string;
     field: Field;
     classType: string;
+    config: GeneratorConfiguration;
 };
 
 /**
  * Generate property for class.
  */
 export function generateProperty(args: GeneratePropertyArgs) {
-    const { field, className, classDeclaration, sourceFile, projectFilePath, classType } = args;
-    const propertyType = toPropertyType(field);
+    const {
+        field,
+        className,
+        classDeclaration,
+        sourceFile,
+        projectFilePath,
+        classType,
+        config,
+    } = args;
+    const customType = config.customPropertyTypes[field.type] as
+        | { name: string; specifier: string }
+        | undefined;
+    if (customType) {
+        generateImport({
+            sourceFile,
+            name: customType.name,
+            moduleSpecifier: customType.specifier,
+        });
+    }
+    const propertyType = customType?.name || toPropertyType(field);
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {
         fieldType = generateImport({

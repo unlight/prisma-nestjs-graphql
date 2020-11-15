@@ -3,19 +3,20 @@ import { SourceFile } from 'ts-morph';
 import { generateClass } from '../generate-class';
 import { generateImport } from '../generate-import';
 import { generateProperty } from '../generate-property';
-import { PrismaDMMF } from '../types';
+import { GeneratorConfiguration, PrismaDMMF } from '../types';
 
 type GenerateModelArgs = {
     model: PrismaDMMF.Model;
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
+    config: GeneratorConfiguration;
 };
 
 /**
  * Generate model (class).
  */
 export function generateModel(args: GenerateModelArgs) {
-    const { model, sourceFile, projectFilePath } = args;
+    const { model, sourceFile, projectFilePath, config } = args;
     const classDeclaration = generateClass({
         decorator: {
             name: 'ObjectType',
@@ -33,6 +34,7 @@ export function generateModel(args: GenerateModelArgs) {
             className: model.name,
             classType: 'model',
             projectFilePath,
+            config,
         });
     });
 }

@@ -10,7 +10,7 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
-import { PrismaDMMF } from './types';
+import { GeneratorConfiguration, PrismaDMMF } from './types';
 import {
     featureName,
     getOutputTypeName,
@@ -19,6 +19,25 @@ import {
 } from './utils';
 import { generateFileName } from './utils/generate-file-name';
 
+export function createConfig(data: Record<string, string | undefined>): GeneratorConfiguration {
+    return {
+        outputFilePattern: data.outputFilePattern || `{feature}/{dasherizedName}.{type}.ts`,
+        combineScalarFilters: ['true', '1'].includes(data.combineScalarFilters ?? 'true'),
+        atomicNumberOperations: ['true', '1'].includes(data.atomicNumberOperations ?? 'false'),
+        customPropertyTypes: Object.fromEntries(
+            (data.customPropertyTypes || '')
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean)
+                .map((kv) => kv.split(':'))
+                .map(({ 0: key, 1: name, 2: specifier }) => [
+                    key,
+                    { name: name || key, specifier },
+                ]),
+        ),
+    };
+}
+
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
     fileExistsSync?: typeof existsSync;
@@ -26,8 +45,8 @@ type GenerateArgs = GeneratorOptions & {
 
 export async function generate(args: GenerateArgs) {
     const { generator, otherGenerators } = args;
-    const output = generator.output;
-    assert(output, 'generator.output is empty');
+    const config = createConfig(generator.config);
+    assert(generator.output, 'generator.output is empty');
     const fileExistsSync = args.fileExistsSync ?? existsSync;
     const prismaClientOutput = otherGenerators.find((x) => x.provider === 'prisma-client-js')
         ?.output;
@@ -43,7 +62,7 @@ export async function generate(args: GenerateArgs) {
     const projectFilePath = (args: { name: string; type: string; feature?: string }) => {
         return generateFileName({
             ...args,
-            template: generator.config.outputFilePattern,
+            template: config.outputFilePattern,
             models,
         });
     };
@@ -55,7 +74,7 @@ export async function generate(args: GenerateArgs) {
             return sourceFile;
         }
         let sourceFileText = '';
-        const localFilePath = path.join(output, filePath);
+        const localFilePath = path.join(generator.output!, filePath);
         if (fileExistsSync(localFilePath)) {
             sourceFileText = await fs.readFile(localFilePath, { encoding: 'utf8' });
         }
@@ -78,18 +97,14 @@ export async function generate(args: GenerateArgs) {
     // Generate models
     for (const model of prismaClientDmmf.datamodel.models) {
         const sourceFile = await createSourceFile({ type: 'model', name: model.name });
-        generateModel({ model, sourceFile, projectFilePath });
+        generateModel({ model, sourceFile, projectFilePath, config });
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputTypes;
     inputTypes = inputTypes.filter(
         mutateFilters(inputTypes, {
-            combineScalarFilters: JSON.parse(
-                (generator.config.combineScalarFilters as string | undefined) ?? 'true',
-            ) as boolean,
-            atomicNumberOperations: JSON.parse(
-                (generator.config.atomicNumberOperations as string | undefined) ?? 'false',
-            ) as boolean,
+            combineScalarFilters: config.combineScalarFilters,
+            atomicNumberOperations: config.atomicNumberOperations,
         }),
     );
     // Create aggregate inputs
@@ -149,6 +164,7 @@ export async function generate(args: GenerateArgs) {
             sourceFile,
             projectFilePath,
             model,
+            config,
         });
     }
 
