@@ -29,6 +29,7 @@ type GeneratePropertyArgs = {
     className: string;
     field: Field;
     classType: string;
+    propertyTypes?: string[];
     config: GeneratorConfiguration;
 };
 
@@ -43,6 +44,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
         sourceFile,
         projectFilePath,
         classType,
+        propertyTypes = [toPropertyType(field)],
         config,
     } = args;
     const customType = config.customPropertyTypes[field.type] as
@@ -55,7 +57,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
             moduleSpecifier: customType.specifier,
         });
     }
-    const propertyType = customType?.name || toPropertyType(field);
+    const propertyType = customType?.name || propertyTypes.join(' | ') || 'unknown';
     let fieldType = field.type;
     if (field.isId || field.kind === 'scalar') {
         fieldType = generateImport({

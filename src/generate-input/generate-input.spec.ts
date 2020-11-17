@@ -2,6 +2,7 @@ import assert from 'assert';
 import { expect } from 'chai';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
+import { createConfig } from '../generate';
 import {
     generatorOptions,
     getImportDeclarations,
@@ -26,6 +27,7 @@ describe('generate inputs', () => {
             manipulationSettings: { quoteKind: QuoteKind.Single },
         });
         const {
+            generator,
             prismaClientDmmf: {
                 schema: { inputTypes },
             },
@@ -40,6 +42,7 @@ describe('generate inputs', () => {
             decorator: {
                 name: 'InputType',
             },
+            config: createConfig(generator.config),
         });
     };
     const struct = (className: string, property: string) =>
@@ -233,7 +236,7 @@ describe('generate inputs', () => {
         });
         const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
-        assert.strictEqual(property.getStructure().type, 'UserRelationFilter | UserWhereInput');
+        expect(property.getStructure().type).to.equal('UserRelationFilter | UserWhereInput');
 
         const imports = getImportDeclarations(sourceFile);
         const importNames = imports.map((x) => x.name);

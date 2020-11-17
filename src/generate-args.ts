@@ -1,7 +1,7 @@
 import { SourceFile } from 'ts-morph';
 
 import { generateInput } from './generate-input';
-import { PrismaDMMF } from './types';
+import { GeneratorConfiguration, PrismaDMMF } from './types';
 
 type GenerateArgsArguments = {
     feature: string;
@@ -9,10 +9,11 @@ type GenerateArgsArguments = {
     aggregateInputs: PrismaDMMF.InputType[];
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
+    config: GeneratorConfiguration;
 };
 
 export function generateArgs(args: GenerateArgsArguments) {
-    const { inputType, feature, aggregateInputs, sourceFile, projectFilePath } = args;
+    const { inputType, feature, aggregateInputs, sourceFile, projectFilePath, config } = args;
     if (inputType.name === `Aggregate${feature}Args`) {
         // Aggregate args
         inputType.fields.push({
@@ -53,5 +54,6 @@ export function generateArgs(args: GenerateArgsArguments) {
         sourceFile,
         projectFilePath,
         decorator: { name: 'ArgsType' },
+        config,
     });
 }

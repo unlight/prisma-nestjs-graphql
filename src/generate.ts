@@ -119,6 +119,7 @@ export async function generate(args: GenerateArgs) {
             sourceFile,
             projectFilePath,
             decorator: { name: 'InputType' },
+            config,
         });
     }
     // Generate args
@@ -134,7 +135,7 @@ export async function generate(args: GenerateArgs) {
             name: inputType.name,
             feature,
         });
-        generateArgs({ inputType, feature, aggregateInputs, sourceFile, projectFilePath });
+        generateArgs({ inputType, feature, aggregateInputs, sourceFile, projectFilePath, config });
     }
     // Generate output types
     const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
