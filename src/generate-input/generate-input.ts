@@ -1,11 +1,10 @@
-import { ClassDeclaration, SourceFile } from 'ts-morph';
+import { SourceFile } from 'ts-morph';
 
-import { DecoratorPropertyType, generateClass, generateClassProperty } from '../generate-class';
-import { generateDecorator } from '../generate-decorator';
+import { DecoratorPropertyType, generateClass } from '../generate-class';
 import { generateImport, generateProjectImport } from '../generate-import';
 import { Field, generateProperty } from '../generate-property';
 import { GeneratorConfiguration, PrismaDMMF } from '../types';
-import { toGraphqlImportType, toPropertyType } from '../utils';
+import { toPropertyType } from '../utils';
 import { getMatchingInputType } from './get-matching-input-type';
 
 type GenerateInputArgs = {

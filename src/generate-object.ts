@@ -4,7 +4,6 @@ import { generateClass } from './generate-class';
 import { generateImport } from './generate-import';
 import { generateProperty, Model } from './generate-property';
 import { GeneratorConfiguration } from './types';
-import { toPropertyType } from './utils';
 
 type GenerateObjectArgs = {
     sourceFile: SourceFile;

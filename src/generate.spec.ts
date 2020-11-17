@@ -375,7 +375,6 @@ describe('main generate', () => {
             `,
             combineScalarFilters: 'false',
         });
-        const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
         const userWhereInput = sourceFiles.find((s) =>
             s.getFilePath().endsWith('user-where.input.ts'),
         );

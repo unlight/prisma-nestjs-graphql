@@ -1,5 +1,5 @@
+import { kebabCase } from 'lodash';
 import pupa from 'pupa';
-import { toKebab } from 'to-kebab';
 
 import { featureName } from './feature-name';
 
@@ -15,8 +15,8 @@ export function generateFileName(args: GenerateFileNameArgs) {
     const { type, name, models } = args;
     const template = args.template || '{feature}/{dasherizedName}.{type}.ts';
     let feature = args.feature || featureName({ models, name, fallback: 'prisma' });
-    feature = toKebab(feature);
-    let dasherizedName = toKebab(name) as string;
+    feature = kebabCase(feature);
+    let dasherizedName = kebabCase(name);
 
     for (const suffix of ['input', 'args', 'enum']) {
         const ending = `-${suffix}`;
