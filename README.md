@@ -87,5 +87,3 @@ npx prisma generate
 -   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
 -   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 -   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
-
-import { GraphQLJSON } from 'graphql-type-json';
