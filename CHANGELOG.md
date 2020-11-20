@@ -1,3 +1,21 @@
+# [2.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.0.2...v2.1.0) (2020-11-20)
+
+
+### Bug Fixes
+
+* Adapt new native types ([f1ba6bc](https://github.com/unlight/nestjs-graphql-prisma/commit/f1ba6bcd65df22608cde55a2304ed4bf94d94fb9))
+
+
+### Features
+
+* Custom graphql field mapping ([10fb039](https://github.com/unlight/nestjs-graphql-prisma/commit/10fb039a1a64a6a8dba82eab30a40acc7c703863))
+* Custom property mapping ([f8cc54d](https://github.com/unlight/nestjs-graphql-prisma/commit/f8cc54d42a42e44f1b1904646380a08d9729a156))
+
+
+### Performance Improvements
+
+* Removed unused code ([28f8784](https://github.com/unlight/nestjs-graphql-prisma/commit/28f8784d83fde5aa68cdbc7140058063f32ce17f))
+
 ## [2.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.0.1...v2.0.2) (2020-11-14)
 
 
