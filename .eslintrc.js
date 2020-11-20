@@ -71,7 +71,7 @@ module.exports = {
         // import
         'import/max-dependencies': [1, { max: 15 }],
         // simple-import-sort with recomended settings
-        'simple-import-sort/sort': 1,
+        'simple-import-sort/imports': 1,
         'sort-imports': 'off',
         'import/order': 'off',
         // typescript-eslint
