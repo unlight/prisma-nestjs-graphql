@@ -2,8 +2,8 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { UserDistinctFieldEnum } from './user-distinct-field.enum';
 import { UserOrderByInput } from './user-order-by.input';
-import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserWhereInput } from './user-where.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class FindManyUserArgs {

@@ -42,6 +42,7 @@ describe('generate models', () => {
                 id String @id
             }`,
         });
+        const imports = getImportDeclarations(sourceFile);
         assert(imports.find((x) => x.name === 'ObjectType' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'Field' && x.specifier === '@nestjs/graphql'));
@@ -152,15 +153,12 @@ describe('generate models', () => {
                 money Float
                 born DateTime
                 humanoid Boolean
-                // data Json
+                data Json
             }`,
         });
-        const imports = new Set(
-            sourceFile
-                .getImportDeclarations()
-                .flatMap((x) => x.getNamedImports())
-                .map((x) => x.getName()),
-        );
+        const imports = getImportDeclarations(sourceFile).map((x) => x.name);
+        sourceText = sourceFile.getText();
+
         stringContains(
             '@Field(() => Boolean, { nullable: false, description: undefined }) humanoid!: boolean',
             sourceText,
@@ -177,11 +175,11 @@ describe('generate models', () => {
             '@Field(() => String, { nullable: false, description: undefined }) born!: Date | string',
             sourceText,
         );
-        assert(imports.has('String') === false, 'Imports should not includes String');
-        assert(imports.has('Boolean') === false, 'Imports should not includes Boolean');
-        assert(imports.has('User') === false, 'Imports should not includes User');
-        assert(imports.has('Int') === true, 'Imports should includes Int');
-        assert(imports.has('Float') === true, 'Imports should includes Float');
+        expect(imports).not.toContain('String');
+        expect(imports).not.toContain('Boolean');
+        expect(imports).not.toContain('User');
+        expect(imports).toContain('Int');
+        expect(imports).toContain('Float');
     });
 
     it('model scalar json', async () => {
@@ -194,7 +192,7 @@ describe('generate models', () => {
         sourceText = sourceFile.getText();
         const propertyDeclaration = sourceFile.getClass('User')?.getProperty('data');
         assert(propertyDeclaration);
-        stringContains(`@Field(() => GraphQLJSON`, propertyDeclaration.getText());
+        expect(propertyDeclaration.getText()).toContain('@Field(() => GraphQLJSON');
 
         const importDeclaration = sourceFile.getImportDeclaration(
             (d) => d.getModuleSpecifier().getLiteralValue() === 'graphql-type-json',
@@ -232,8 +230,8 @@ describe('generate models', () => {
             }
             `,
             options: [
-                `languageTypes_Decimal_name = MyDec`,
-                `languageTypes_Decimal_specifier = "decimal.js"`,
+                `types_Decimal_fieldType = MyDec`,
+                `types_Decimal_fieldModule = "decimal.js"`,
             ],
         });
         const property = sourceFile.getClasses()[0]?.getProperty('d')?.getStructure();

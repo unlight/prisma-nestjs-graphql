@@ -7,11 +7,11 @@ export class JsonFilter {
         nullable: true,
         description: undefined,
     })
-    equals?: object | null;
+    equals?: object;
 
     @Field(() => GraphQLJSON, {
         nullable: true,
         description: undefined,
     })
-    not?: object | null;
+    not?: object;
 }

@@ -6,8 +6,8 @@ import { UserMaxAggregateInput } from './user-max-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
 import { UserOrderByInput } from './user-order-by.input';
 import { UserSumAggregateInput } from './user-sum-aggregate.input';
-import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserWhereInput } from './user-where.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class AggregateUserArgs {

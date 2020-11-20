@@ -2,8 +2,8 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { CommentDistinctFieldEnum } from './comment-distinct-field.enum';
 import { CommentOrderByInput } from './comment-order-by.input';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { CommentWhereInput } from './comment-where.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @ArgsType()
 export class AggregateCommentArgs {

@@ -45,24 +45,32 @@ npx prisma generate
     (default: `true`)
 -   `atomicNumberOperations` - Atomic number operations,
     `false` - disabled (default), `true` - enabled
--   `languageTypes` - [flatten](https://github.com/hughsk/flat) map of typescript types
+-   `types_*` - [flatten](https://github.com/hughsk/flat) map of types
 
-    -   `languageTypes_{type}_name` - type name
-    -   `languageTypes_{type}_specifier` - module to import
-        Example:
+    -   `types_{type}_fieldType` - TypeScript type name
+    -   `types_{type}_fieldModule` - Module to import
+    -   `types_{type}_graphqlType` - GraphQL type name
+    -   `types_{type}_graphqlModule` - Module to import
 
-    ```ts
-    languageTypes_Decimal_name = Decimal;
-    languageTypes_Decimal_specifier = 'decimal.js';
+    Where `{type}` is prisma type in schema
+
+    Example:
+
+    ```prisma
+    types_Decimal_fieldType = "Decimal"
+    types_Decimal_fieldModule = "decimal.js"
+    types_Decimal_graphqlType = "GraphQLDecimal"
+    types_Decimal_graphqlModule = "graphql-type-decimal"
     ```
 
     Generates field:
 
     ```ts
+    import { GraphQLDecimal } from 'graphql-type-decimal';
     import { Decimal } from 'decimal.js';
     ...
-    @Field(() => ...)
-    d: Decimal;
+    @Field(() => GraphQLDecimal)
+    field: Decimal;
     ```
 
 ## Similar Projects
@@ -79,3 +87,5 @@ npx prisma generate
 -   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
 -   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 -   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
+
+import { GraphQLJSON } from 'graphql-type-json';

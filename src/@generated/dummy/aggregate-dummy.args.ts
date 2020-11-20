@@ -6,8 +6,8 @@ import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
 import { DummyOrderByInput } from './dummy-order-by.input';
 import { DummySumAggregateInput } from './dummy-sum-aggregate.input';
-import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 import { DummyWhereInput } from './dummy-where.input';
+import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 
 @ArgsType()
 export class AggregateDummyArgs {

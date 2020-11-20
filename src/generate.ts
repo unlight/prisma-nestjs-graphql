@@ -56,6 +56,7 @@ export async function generate(args: GenerateArgs) {
             return sourceFile;
         }
         let sourceFileText = '';
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const localFilePath = path.join(generator.output!, filePath);
         if (fileExistsSync(localFilePath)) {
             sourceFileText = await fs.readFile(localFilePath, { encoding: 'utf8' });

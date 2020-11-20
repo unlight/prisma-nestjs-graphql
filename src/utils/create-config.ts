@@ -1,22 +1,27 @@
 import { unflatten } from 'flat';
+import { merge } from 'lodash';
+import { Nullable } from 'simplytyped';
 
-import { GeneratorConfiguration } from '../types';
+import { GeneratorConfiguration, TypeRecord } from '../types';
 
 export function createConfig(data: Record<string, string | undefined>): GeneratorConfiguration {
-    data = unflatten(data, { delimiter: '_' });
+    const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<string, unknown>;
     return {
-        outputFilePattern: data.outputFilePattern || `{feature}/{dasherizedName}.{type}.ts`,
-        combineScalarFilters: ['true', '1', 'on'].includes(data.combineScalarFilters ?? 'true'),
-        atomicNumberOperations: ['true', '1', 'on'].includes(
-            data.atomicNumberOperations ?? 'false',
+        outputFilePattern: String(
+            config.outputFilePattern || `{feature}/{dasherizedName}.{type}.ts`,
         ),
-        languageTypes: ((data.languageTypes || {}) as unknown) as Record<
-            string,
-            { name: string; specifier: string }
-        >,
-        graphqlTypes: ((data.graphqlTypes || {}) as unknown) as Record<
-            string,
-            { name: string; specifier: string }
-        >,
+        combineScalarFilters: ['true', '1', 'on'].includes(
+            (config.combineScalarFilters as Nullable<string>) ?? 'true',
+        ),
+        atomicNumberOperations: ['true', '1', 'on'].includes(
+            (config.atomicNumberOperations as Nullable<string>) ?? 'false',
+        ),
+        types: merge(config.types || {}, {
+            Json: {
+                fieldType: 'object',
+                graphqlType: 'GraphQLJSON',
+                graphqlModule: 'graphql-type-json',
+            } as TypeRecord,
+        }),
     };
 }

@@ -31,5 +31,5 @@ export class DummyUpdateManyMutationInput {
         nullable: true,
         description: undefined,
     })
-    json?: object | null;
+    json?: object;
 }

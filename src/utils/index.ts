@@ -3,34 +3,31 @@ export { createConfig } from './create-config';
 
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
-import { PrismaDMMF } from '../types';
+import { PrismaDMMF, TypeRecord } from '../types';
 export { generateFileName } from './generate-file-name';
 
 type ToGraphqlImportTypeArgs = {
     isId: boolean;
     type: string;
     kind: string;
+    customType?: TypeRecord | null;
 };
 
 export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
-    const { isId, type, kind } = args;
-    let name = type;
+    const { isId, type: name, customType } = args;
+    if (customType && customType.graphqlType) {
+        return { name: customType.graphqlType, moduleSpecifier: customType.graphqlModule };
+    }
     if (isId) {
         return { name: 'ID', moduleSpecifier: '@nestjs/graphql' };
     }
     if (['Int', 'Float'].includes(name)) {
         return { name, moduleSpecifier: '@nestjs/graphql' };
     }
-    if (kind === 'scalar' && type === 'Json') {
-        return { name: 'GraphQLJSON', moduleSpecifier: 'graphql-type-json' };
+    if (['true', 'Boolean'].includes(name)) {
+        return { name: 'Boolean', moduleSpecifier: undefined };
     }
-    if (['DateTime', 'Decimal', 'BigInt', 'Bytes'].includes(name)) {
-        return { name: 'String', moduleSpecifier: undefined };
-    }
-    if (name === 'true') {
-        name = 'Boolean';
-    }
-    return { name, moduleSpecifier: undefined };
+    return { name: 'String', moduleSpecifier: undefined };
 }
 
 const patterns = new Map([
@@ -68,7 +65,6 @@ export function toPropertyType(args: ToPropertyTypeArgs): string {
             return result;
         }
     }
-    // console.log('args', args);
     throw new TypeError(`Cannot get property type from ${args.kind}/${args.type}`);
 }
 

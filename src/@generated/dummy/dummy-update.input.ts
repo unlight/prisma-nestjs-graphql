@@ -31,5 +31,5 @@ export class DummyUpdateInput {
         nullable: true,
         description: undefined,
     })
-    json?: object | null;
+    json?: object;
 }

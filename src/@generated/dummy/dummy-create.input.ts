@@ -31,5 +31,5 @@ export class DummyCreateInput {
         nullable: true,
         description: undefined,
     })
-    json?: object | null;
+    json?: object;
 }

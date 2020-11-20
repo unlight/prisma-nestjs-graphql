@@ -2,8 +2,8 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { TagDistinctFieldEnum } from './tag-distinct-field.enum';
 import { TagOrderByInput } from './tag-order-by.input';
-import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { TagWhereInput } from './tag-where.input';
+import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class FindFirstTagArgs {

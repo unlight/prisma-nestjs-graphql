@@ -6,8 +6,8 @@ import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 import { ArticleMinAggregateInput } from './article-min-aggregate.input';
 import { ArticleOrderByInput } from './article-order-by.input';
 import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleWhereInput } from './article-where.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class AggregateArticleArgs {

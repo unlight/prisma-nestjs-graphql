@@ -1,9 +1,10 @@
+import { Nullable } from 'simplytyped';
 import { ClassDeclaration, SourceFile } from 'ts-morph';
 
 import { generateClassProperty } from './generate-class';
 import { generateDecorator } from './generate-decorator';
 import { generateImport, generateProjectImport } from './generate-import';
-import { GeneratorConfiguration } from './types';
+import { GeneratorConfiguration, TypeRecord } from './types';
 import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
@@ -47,24 +48,22 @@ export function generateProperty(args: GeneratePropertyArgs) {
         propertyTypes = [toPropertyType(field)],
         config,
     } = args;
-    const customType = config.languageTypes[field.type] as
-        | { name: string; specifier: string }
-        | undefined;
+    const customType = config.types[field.type] as Nullable<TypeRecord>;
     if (customType) {
         generateImport({
             sourceFile,
-            name: customType.name,
-            moduleSpecifier: customType.specifier,
+            name: customType.fieldType || 'unknown',
+            moduleSpecifier: customType.fieldModule,
         });
     }
-    const propertyType = customType?.name || propertyTypes.join(' | ') || 'unknown';
+    const propertyType = customType?.fieldType || propertyTypes.join(' | ') || 'unknown';
     let fieldType = field.type;
-    if (field.isId || field.kind === 'scalar') {
+    if (field.isId || 'scalar' === field.kind) {
         fieldType = generateImport({
             sourceFile,
-            ...toGraphqlImportType({ ...field, isId: Boolean(field.isId) }),
+            ...toGraphqlImportType({ ...field, customType, isId: Boolean(field.isId) }),
         });
-    } else if ((field.kind === 'object' && field.type !== className) || field.kind === 'enum') {
+    } else if (['object', 'enum'].includes(field.kind) && field.type !== className) {
         generateProjectImport({
             sourceFile,
             projectFilePath,
