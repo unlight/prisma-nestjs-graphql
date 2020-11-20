@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
 
-import { GeneratorConfigurationOptions, PrismaDMMF } from '../types';
+import { PrismaDMMF } from '../types';
 
 const {
     dependencies: { '@prisma/generator-helper': generatorVersion },
@@ -17,7 +17,7 @@ const cachePath: string = findCacheDir({ name: 'createGeneratorOptions', create:
  */
 export async function generatorOptions(
     schema: string,
-    options?: GeneratorConfigurationOptions,
+    options?: string[],
 ): Promise<GeneratorOptions & { prismaClientDmmf: PrismaDMMF.Document }> {
     // eslint-disable-next-line prefer-rest-params
     const data = JSON.stringify([generatorVersion, arguments]);
@@ -38,10 +38,7 @@ export async function generatorOptions(
                 provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
                 output = "."
                 hash = "${hash}"
-                outputFilePattern = "${options?.outputFilePattern || ''}"
-                combineScalarFilters = ${JSON.stringify(options?.combineScalarFilters ?? true)}
-                atomicNumberOperations = ${JSON.stringify(options?.atomicNumberOperations ?? false)}
-                customPropertyTypes = "${options?.customPropertyTypes || ''}"
+                ${options?.join('\n') || ''}
             }
             ${schema}
         `;

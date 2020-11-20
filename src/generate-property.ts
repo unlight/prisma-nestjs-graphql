@@ -47,7 +47,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
         propertyTypes = [toPropertyType(field)],
         config,
     } = args;
-    const customType = config.customPropertyTypes[field.type] as
+    const customType = config.languageTypes[field.type] as
         | { name: string; specifier: string }
         | undefined;
     if (customType) {

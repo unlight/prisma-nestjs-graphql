@@ -1,18 +1,17 @@
 import assert from 'assert';
-import { expect } from 'chai';
+import expect from 'expect';
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
 import { generatorOptions, getImportDeclarations, stringContains } from './testing';
-import { GeneratorConfigurationOptions } from './types';
 
 describe('main generate', () => {
     let property: PropertyDeclaration | undefined;
     let sourceFile: SourceFile | undefined;
     let sourceFiles: SourceFile[];
     let sourceText: string;
-    async function getResult(args: { schema: string } & GeneratorConfigurationOptions) {
-        const { schema, ...options } = args;
+    async function getResult(args: { schema: string; options?: string[] }) {
+        const { schema, options } = args;
         const generateOptions = {
             ...(await generatorOptions(schema, options)),
             fileExistsSync: () => false,
@@ -30,7 +29,7 @@ describe('main generate', () => {
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        expect(filePaths).not.to.have.property('length', 0);
+        expect(filePaths).not.toHaveLength(0);
     });
 
     it('smoke many', async () => {
@@ -55,7 +54,7 @@ describe('main generate', () => {
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        expect(filePaths).not.to.have.property('length', 0);
+        expect(filePaths).not.toHaveLength(0);
     });
 
     it('relations models', async () => {
@@ -135,10 +134,10 @@ describe('main generate', () => {
             schema: `model User {
                     id Int @id
                 }`,
-            outputFilePattern: 'data/{name}.{type}.ts',
+            options: [`outputFilePattern = "data/{name}.{type}.ts"`],
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        assert(filePaths.includes('/data/User.model.ts'), '/data/User.model.ts should exists');
+        expect(filePaths).toContainEqual(expect.stringContaining('/data/User.model.ts'));
     });
 
     it('output group by feature', async () => {
@@ -167,7 +166,7 @@ describe('main generate', () => {
             `,
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        expect(filePaths).to.include('/prisma/sort-order.enum.ts');
+        expect(filePaths).toContain('/prisma/sort-order.enum.ts');
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         sourceText = sourceFiles
             .find((s) => s.getFilePath().endsWith('sort-order.enum.ts'))
@@ -219,7 +218,6 @@ describe('main generate', () => {
 
     it('get rid of atomic number operations', async () => {
         await getResult({
-            atomicNumberOperations: 'false',
             schema: `
             model User {
               id String @id
@@ -227,8 +225,8 @@ describe('main generate', () => {
               rating Float?
             }
             `,
+            options: [`atomicNumberOperations = false`],
         });
-
         [
             'float-field-update-operations.input.ts',
             'int-field-update-operations.input.ts',
@@ -279,7 +277,6 @@ describe('main generate', () => {
 
     it('user args type', async () => {
         await getResult({
-            atomicNumberOperations: 'false',
             schema: `
             model User {
               id String @id
@@ -287,6 +284,7 @@ describe('main generate', () => {
               rating Float?
             }
             `,
+            options: [`atomicNumberOperations = false`],
         });
         ['aggregate-user.args.ts', 'find-many-user.args.ts', 'find-one-user.args.ts'].forEach(
             (file) => {
@@ -337,7 +335,7 @@ describe('main generate', () => {
 
     it('aggregate output types', async () => {
         await getResult({
-            atomicNumberOperations: 'false',
+            options: [`atomicNumberOperations = false`],
             schema: `
             model User {
               id String @id
@@ -373,7 +371,7 @@ describe('main generate', () => {
               date      DateTime?
             }
             `,
-            combineScalarFilters: 'false',
+            options: [`combineScalarFilters = false`],
         });
         const userWhereInput = sourceFiles.find((s) =>
             s.getFilePath().endsWith('user-where.input.ts'),
@@ -406,7 +404,7 @@ describe('main generate', () => {
                 USER
             }
             `,
-            combineScalarFilters: 'true',
+            options: [`combineScalarFilters = true`],
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
         for (const filePath of filePaths) {
@@ -441,13 +439,13 @@ describe('main generate', () => {
                 USER
             }
             `,
-            atomicNumberOperations: 'false',
+            options: [`atomicNumberOperations = false`],
         });
-        expect(sourceFiles.length).to.be.greaterThan(0);
+        expect(sourceFiles.length).toBeGreaterThan(0);
         for (const sourceFile of sourceFiles) {
             sourceFile.getClasses().forEach((classDeclaration) => {
                 if (classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')) {
-                    expect.fail(`Class should not exists ${classDeclaration.getName()!}`);
+                    throw new Error(`Class should not exists ${classDeclaration.getName()!}`);
                 }
             });
         }
@@ -465,29 +463,8 @@ describe('main generate', () => {
             }))
             .forEach((struct) => {
                 if (struct.types.find((s) => s.endsWith('FieldUpdateOperationsInput'))) {
-                    expect.fail(`Property ${struct.name} typed ${String(struct.type)}`);
+                    throw new Error(`Property ${struct.name} typed ${String(struct.type)}`);
                 }
             });
-    });
-
-    it('custom property mapping', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id String @id
-              d Decimal
-            }
-            `,
-            customPropertyTypes: 'Decimal:MyDec:decimal.js',
-        });
-        const sourceFile = sourceFiles.find((s) => s.getFilePath().endsWith('user.model.ts'));
-        assert(sourceFile);
-        const property = sourceFile.getClasses()[0]?.getProperty('d')?.getStructure();
-        expect(property?.type).to.equal('MyDec');
-        const imports = getImportDeclarations(sourceFile);
-        expect(imports).to.deep.contain({
-            name: 'MyDec',
-            specifier: 'decimal.js',
-        });
     });
 });

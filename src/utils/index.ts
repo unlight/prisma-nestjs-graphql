@@ -1,8 +1,10 @@
 export { featureName } from './feature-name';
+export { createConfig } from './create-config';
 
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
 import { PrismaDMMF } from '../types';
+export { generateFileName } from './generate-file-name';
 
 type ToGraphqlImportTypeArgs = {
     isId: boolean;
@@ -12,7 +14,6 @@ type ToGraphqlImportTypeArgs = {
 
 export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     const { isId, type, kind } = args;
-    // console.log('type', type, 'kind', kind);
     let name = type;
     if (isId) {
         return { name: 'ID', moduleSpecifier: '@nestjs/graphql' };

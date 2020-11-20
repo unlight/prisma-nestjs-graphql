@@ -45,10 +45,25 @@ npx prisma generate
     (default: `true`)
 -   `atomicNumberOperations` - Atomic number operations,
     `false` - disabled (default), `true` - enabled
--   `customPropertyTypes` - comma separated configured stringified record, tells
-    how to map prisma type to TypeScript property, each record must be separated by colon
-    in format: `prisma_type:typescript_type:import_from`
-    Example: `Decimal:Decimal:decimal.js` produces a `d: Decimal`
+-   `languageTypes` - [flatten](https://github.com/hughsk/flat) map of typescript types
+
+    -   `languageTypes_{type}_name` - type name
+    -   `languageTypes_{type}_specifier` - module to import
+        Example:
+
+    ```ts
+    languageTypes_Decimal_name = Decimal;
+    languageTypes_Decimal_specifier = 'decimal.js';
+    ```
+
+    Generates field:
+
+    ```ts
+    import { Decimal } from 'decimal.js';
+    ...
+    @Field(() => ...)
+    d: Decimal;
+    ```
 
 ## Similar Projects
 

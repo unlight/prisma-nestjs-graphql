@@ -1,14 +1,14 @@
 import assert from 'assert';
-import { expect } from 'chai';
+import expect from 'expect';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { createConfig } from '../generate';
 import {
     generatorOptions,
     getImportDeclarations,
     stringContains,
     stringNotContains,
 } from '../testing';
+import { createConfig } from '../utils';
 import { generateInput } from './generate-input';
 
 describe('generate inputs', () => {
@@ -18,10 +18,9 @@ describe('generate inputs', () => {
         name: string;
         model: string | undefined;
         sourceFileText?: string;
-        outputFilePattern?: string;
     };
     const getResult = async (options: Options) => {
-        const { schema, name, sourceFileText, ...optionsArgs } = options;
+        const { schema, name, sourceFileText } = options;
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
@@ -31,7 +30,7 @@ describe('generate inputs', () => {
             prismaClientDmmf: {
                 schema: { inputTypes },
             },
-        } = await generatorOptions(schema, optionsArgs);
+        } = await generatorOptions(schema);
         const inputType = inputTypes.find((x) => x.name === name);
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
@@ -89,9 +88,9 @@ describe('generate inputs', () => {
             model: 'User',
         });
         const structure = sourceFile.getClass('UserWhereInput')?.getProperty('age')?.getStructure();
-        expect(structure).to.be.ok;
+        expect(structure).toBeTruthy();
         assert(structure);
-        expect(structure.type).to.equal('IntFilter | number');
+        expect(structure.type).toEqual('IntFilter | number');
 
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
@@ -99,15 +98,15 @@ describe('generate inputs', () => {
             ?.getDecorator('Field')
             ?.getCallExpression()
             ?.getArguments();
-        expect(decoratorArguments?.[0]?.getText()).to.equal('() => IntFilter');
+        expect(decoratorArguments?.[0]?.getText()).toEqual('() => IntFilter');
 
         const imports = getImportDeclarations(sourceFile);
 
-        expect(imports).to.deep.include({
+        expect(imports).toContainEqual({
             name: 'StringFilter',
             specifier: './StringFilter.input',
         });
-        expect(imports).to.deep.include({ name: 'IntFilter', specifier: './IntFilter.input' });
+        expect(imports).toContainEqual({ name: 'IntFilter', specifier: './IntFilter.input' });
     });
 
     it('user where string filter', async () => {
@@ -174,8 +173,8 @@ describe('generate inputs', () => {
 
         const imports = getImportDeclarations(sourceFile);
 
-        expect(imports).to.deep.include({ name: 'InputType', specifier: '@nestjs/graphql' });
-        expect(imports).to.deep.include({ name: 'Int', specifier: '@nestjs/graphql' });
+        expect(imports).toContainEqual({ name: 'InputType', specifier: '@nestjs/graphql' });
+        expect(imports).toContainEqual({ name: 'Int', specifier: '@nestjs/graphql' });
     });
 
     it('datetime filter', async () => {
@@ -214,9 +213,9 @@ describe('generate inputs', () => {
             model: 'User',
         });
 
-        expect(struct('UserListRelationFilter', 'every')?.type).to.equal('UserWhereInput');
-        expect(struct('UserListRelationFilter', 'some')?.type).to.equal('UserWhereInput');
-        expect(struct('UserListRelationFilter', 'none')?.type).to.equal('UserWhereInput');
+        expect(struct('UserListRelationFilter', 'every')?.type).toEqual('UserWhereInput');
+        expect(struct('UserListRelationFilter', 'some')?.type).toEqual('UserWhereInput');
+        expect(struct('UserListRelationFilter', 'none')?.type).toEqual('UserWhereInput');
     });
 
     it('relation filter property', async () => {
@@ -236,12 +235,12 @@ describe('generate inputs', () => {
         });
         const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
-        expect(property.getStructure().type).to.equal('UserRelationFilter | UserWhereInput');
+        expect(property.getStructure().type).toEqual('UserRelationFilter | UserWhereInput');
 
         const imports = getImportDeclarations(sourceFile);
         const importNames = imports.map((x) => x.name);
 
-        expect(importNames).to.include('UserRelationFilter');
+        expect(importNames).toContain('UserRelationFilter');
     });
 
     it('enum filter should include enum import', async () => {
@@ -259,10 +258,10 @@ describe('generate inputs', () => {
             model: 'User',
         });
         const imports = getImportDeclarations(sourceFile);
-        expect(imports).to.deep.include({
+        expect(imports).toContainEqual({
             name: 'EnumRoleFilter',
             specifier: './EnumRoleFilter.input',
         });
-        expect(imports).to.deep.include({ name: 'Role', specifier: './Role.enum' });
+        expect(imports).toContainEqual({ name: 'Role', specifier: './Role.enum' });
     });
 });

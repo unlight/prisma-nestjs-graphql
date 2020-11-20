@@ -10,33 +10,15 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
 import { mutateFilters } from './mutate-filters';
-import { GeneratorConfiguration, PrismaDMMF } from './types';
+import { PrismaDMMF } from './types';
 import {
+    createConfig,
     featureName,
+    generateFileName,
     getOutputTypeName,
     schemaFieldToArgument,
     schemaOutputToInput,
 } from './utils';
-import { generateFileName } from './utils/generate-file-name';
-
-export function createConfig(data: Record<string, string | undefined>): GeneratorConfiguration {
-    return {
-        outputFilePattern: data.outputFilePattern || `{feature}/{dasherizedName}.{type}.ts`,
-        combineScalarFilters: ['true', '1'].includes(data.combineScalarFilters ?? 'true'),
-        atomicNumberOperations: ['true', '1'].includes(data.atomicNumberOperations ?? 'false'),
-        customPropertyTypes: Object.fromEntries(
-            (data.customPropertyTypes || '')
-                .split(',')
-                .map((s) => s.trim())
-                .filter(Boolean)
-                .map((kv) => kv.split(':'))
-                .map(({ 0: key, 1: name, 2: specifier }) => [
-                    key,
-                    { name: name || key, specifier },
-                ]),
-        ),
-    };
-}
 
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;

@@ -1,21 +1,20 @@
 import assert from 'assert';
-import { expect } from 'chai';
+import expect from 'expect';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { createConfig } from '../generate';
 import { generateModel } from '../generate-model';
-import { generatorOptions, stringContains } from '../testing';
-import { GeneratorConfiguration } from '../types';
+import { generatorOptions, getImportDeclarations, stringContains } from '../testing';
+import { createConfig } from '../utils';
 
 describe('generate models', () => {
     let sourceFile: SourceFile;
     let sourceText: string;
-    let imports: { name: string; specifier: string }[];
     type GetResultArgs = {
         schema: string;
         sourceFileText?: string;
-    } & Record<string, unknown>;
-    async function getResult({ schema, sourceFileText, ...options }: GetResultArgs) {
+        options?: string[];
+    };
+    async function getResult({ schema, sourceFileText, options }: GetResultArgs) {
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
@@ -35,13 +34,6 @@ describe('generate models', () => {
             config,
             projectFilePath: () => '_.ts',
         });
-        sourceText = sourceFile.getText();
-        imports = sourceFile.getImportDeclarations().flatMap((d) =>
-            d.getNamedImports().map((index) => ({
-                name: index.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
     }
 
     it('model', async () => {
@@ -56,10 +48,10 @@ describe('generate models', () => {
 
         const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
         assert(struct);
-        expect(struct.hasExclamationToken).to.be.true;
+        expect(struct.hasExclamationToken).toBeTruthy();
         const fieldArgument = struct.decorators?.[0].arguments?.[1] as string;
-        expect(fieldArgument).to.contain('nullable: false');
-        expect(fieldArgument).to.contain('description: undefined');
+        expect(fieldArgument).toContain('nullable: false');
+        expect(fieldArgument).toContain('description: undefined');
     });
 
     it('field nullable', async () => {
@@ -74,7 +66,7 @@ describe('generate models', () => {
             '@Field(() => String, { nullable: true, description: undefined })',
             sourceText,
         );
-        expect(sourceText).to.contain('image?: string');
+        expect(sourceText).toContain('image?: string');
     });
 
     it('default value', async () => {
@@ -85,10 +77,10 @@ describe('generate models', () => {
         });
         const struct = sourceFile.getClass('User')?.getProperty('count')?.getStructure();
         const args = struct?.decorators?.[0].arguments;
-        expect(args?.[1]).to.contain('nullable: false');
-        expect(args?.[1]).to.contain('defaultValue: 1');
-        expect(args?.[1]).to.contain('description: undefined');
-        expect(args?.[0]).to.equal('() => ID');
+        expect(args?.[1]).toContain('nullable: false');
+        expect(args?.[1]).toContain('defaultValue: 1');
+        expect(args?.[1]).toContain('description: undefined');
+        expect(args?.[0]).toEqual('() => ID');
     });
 
     it('self relation', async () => {
@@ -99,7 +91,7 @@ describe('generate models', () => {
                 followers   User[]   @relation("UserFollows", references: [id])
             }`,
         });
-        expect(sourceFile.getText()).not.contains('import { User }');
+        expect(sourceFile.getText()).not.toContain('import { User }');
     });
 
     it('extend existing class', async () => {
@@ -110,7 +102,7 @@ describe('generate models', () => {
             sourceFileText: `@ObjectType() export class User {}`,
         });
         sourceText = sourceFile.getText();
-        expect(sourceText.match(/export class User/g)?.length).to.equal(1);
+        expect(sourceText.match(/export class User/g)?.length).toEqual(1);
     });
 
     it('object type description', async () => {
@@ -124,7 +116,7 @@ describe('generate models', () => {
         const decoratorArgument = sourceFile.getClass('User')?.getDecorators()[0].getStructure()
             ?.arguments?.[0] as string | undefined;
         assert(decoratorArgument);
-        expect(decoratorArgument).to.contain(`description: "User really"`);
+        expect(decoratorArgument).toContain(`description: "User really"`);
     });
 
     it('property description', async () => {
@@ -229,5 +221,27 @@ describe('generate models', () => {
         const property = sourceFile.getClass('User')?.getProperty('posts');
         assert(property, 'Property posts should exists');
         assert.strictEqual(property.getStructure().type, 'Array<Post>');
+    });
+
+    it('custom language type', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id String @id
+              d Decimal
+            }
+            `,
+            options: [
+                `languageTypes_Decimal_name = MyDec`,
+                `languageTypes_Decimal_specifier = "decimal.js"`,
+            ],
+        });
+        const property = sourceFile.getClasses()[0]?.getProperty('d')?.getStructure();
+        expect(property?.type).toEqual('MyDec');
+        const imports = getImportDeclarations(sourceFile);
+        expect(imports).toContainEqual({
+            name: 'MyDec',
+            specifier: 'decimal.js',
+        });
     });
 });
