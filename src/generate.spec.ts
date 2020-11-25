@@ -213,7 +213,7 @@ describe('main generate', () => {
         const decorator = propertyDeclaration.getDecorator('Field');
         assert(decorator);
         const struct = decorator.getStructure();
-        assert.strictEqual(struct.arguments?.[0], '() => Boolean');
+        expect(struct.arguments?.[0]).toEqual('() => Boolean');
     });
 
     it('get rid of atomic number operations', async () => {

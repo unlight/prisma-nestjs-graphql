@@ -9,7 +9,7 @@ import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
     name: string;
-    kind: string;
+    kind: 'scalar' | 'object' | 'enum';
     type: string;
     isList: boolean;
     isRequired: boolean;
@@ -59,6 +59,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
     const propertyType = customType?.fieldType || propertyTypes.join(' | ') || 'unknown';
     let fieldType = field.type;
     if (field.isId || 'scalar' === field.kind) {
+        // Allow override graphql field type
         fieldType = generateImport({
             sourceFile,
             ...toGraphqlImportType({ ...field, customType, isId: Boolean(field.isId) }),

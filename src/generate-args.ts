@@ -22,7 +22,7 @@ export function generateArgs(args: GenerateArgsArguments) {
             isNullable: true,
             inputTypes: [
                 {
-                    kind: 'scalar',
+                    location: 'scalar',
                     type: 'true',
                     isList: false,
                 },
@@ -41,7 +41,7 @@ export function generateArgs(args: GenerateArgsArguments) {
                 isNullable: true,
                 inputTypes: [
                     {
-                        kind: 'object',
+                        location: 'inputObjectTypes',
                         type: aggregateInput.name,
                         isList: false,
                     },

@@ -7,8 +7,8 @@ describe('get matching input type', () => {
     let inputTypes: PrismaDMMF.SchemaArgInputType[] = [];
     it('mixed types', () => {
         inputTypes = [
-            { type: 'StringFilter', kind: 'object', isList: false },
-            { type: 'String', kind: 'scalar', isList: false },
+            { type: 'StringFilter', location: 'inputObjectTypes', isList: false },
+            { type: 'String', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
         assert.deepStrictEqual(result.type, 'StringFilter');
@@ -16,17 +16,21 @@ describe('get matching input type', () => {
 
     it('several kind objects xor list', () => {
         inputTypes = [
-            { type: 'UserWhereInput', kind: 'object', isList: false },
-            { type: 'UserWhereInput', kind: 'object', isList: true },
+            { type: 'UserWhereInput', location: 'inputObjectTypes', isList: false },
+            { type: 'UserWhereInput', location: 'inputObjectTypes', isList: true },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result, { type: 'UserWhereInput', kind: 'object', isList: true });
+        assert.deepStrictEqual(result, {
+            type: 'UserWhereInput',
+            location: 'inputObjectTypes',
+            isList: true,
+        });
     });
 
     it('whereinput over relationfilter', () => {
         inputTypes = [
-            { type: 'UserRelationFilter', kind: 'object', isList: false },
-            { type: 'UserWhereInput', kind: 'object', isList: false },
+            { type: 'UserRelationFilter', location: 'inputObjectTypes', isList: false },
+            { type: 'UserWhereInput', location: 'inputObjectTypes', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
         assert.deepStrictEqual(result.type, 'UserWhereInput');
@@ -34,9 +38,9 @@ describe('get matching input type', () => {
 
     it('mixed objects with null', () => {
         inputTypes = [
-            { type: 'UserRelationFilter', kind: 'object', isList: false },
-            { type: 'UserWhereInput', kind: 'object', isList: false },
-            { type: 'Null', kind: 'scalar', isList: false },
+            { type: 'UserRelationFilter', location: 'inputObjectTypes', isList: false },
+            { type: 'UserWhereInput', location: 'inputObjectTypes', isList: false },
+            { type: 'Null', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
         assert.deepStrictEqual(result.type, 'UserWhereInput');
@@ -44,9 +48,9 @@ describe('get matching input type', () => {
 
     it('mixed with null', () => {
         inputTypes = [
-            { type: 'IntFilter', kind: 'object', isList: false },
-            { type: 'Int', kind: 'scalar', isList: false },
-            { type: 'Null', kind: 'scalar', isList: false },
+            { type: 'IntFilter', location: 'inputObjectTypes', isList: false },
+            { type: 'Int', location: 'scalar', isList: false },
+            { type: 'Null', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
         assert.deepStrictEqual(result.type, 'IntFilter');

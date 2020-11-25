@@ -89,8 +89,8 @@ export function schemaOutputToInput(outputType: PrismaDMMF.OutputType): PrismaDM
                 inputTypes: [
                     {
                         isList: false,
-                        kind: 'scalar',
                         type: 'true',
+                        location: 'scalar',
                     },
                 ],
             };
@@ -140,4 +140,15 @@ export function updateObjectProperty(args: UpdateObjectPropertyArgs) {
             JSON.stringify(value) ||
             (defaultValue !== undefined ? String(defaultValue) : 'undefined'),
     });
+}
+
+export function fieldLocationToKind(fieldLocation: PrismaDMMF.FieldLocation) {
+    switch (fieldLocation) {
+        case 'inputObjectTypes':
+        case 'outputObjectTypes':
+            return 'object';
+        case 'enumTypes':
+            return 'enum';
+    }
+    return fieldLocation;
 }

@@ -20,11 +20,12 @@ describe('generate enum', () => {
         });
         const {
             prismaClientDmmf: {
-                schema: { enums },
+                schema: { enumTypes },
             },
         } = await generatorOptions(schema);
+        const enums = [...(enumTypes.model || []), ...enumTypes.prisma];
         const enumerable = enums.find((x) => x.name === name);
-        assert(enumerable);
+        assert(enumerable, `Cannot find ${name} enumerable`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
         generateEnum({ enumerable, sourceFile });
         sourceText = sourceFile.getText();

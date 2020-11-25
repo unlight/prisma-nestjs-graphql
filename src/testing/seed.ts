@@ -13,12 +13,12 @@ const prisma = new PrismaClient();
 
     // const data = await prisma.user.findMany({});
 
-    const data = await prisma.user.aggregate({
-        where: { id: '1' },
-        avg: { countComments: true },
-        sum: { countComments: true },
-    });
-    console.log('data', data);
+    // const data = await prisma.user.aggregate({
+    //     where: { id: '1' },
+    //     avg: { countComments: true },
+    //     sum: { countComments: true },
+    // });
+    // console.log('data', data);
 
     // await prisma.user.findMany({ where: { NOT: { id: '1' } } });
     // await prisma.user.findOne({ where: { id: '1' } });

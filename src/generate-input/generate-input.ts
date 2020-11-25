@@ -4,7 +4,7 @@ import { DecoratorPropertyType, generateClass } from '../generate-class';
 import { generateImport, generateProjectImport } from '../generate-import';
 import { Field, generateProperty } from '../generate-property';
 import { GeneratorConfiguration, PrismaDMMF } from '../types';
-import { toPropertyType } from '../utils';
+import { fieldLocationToKind, toPropertyType } from '../utils';
 import { getMatchingInputType } from './get-matching-input-type';
 
 type GenerateInputArgs = {
@@ -27,22 +27,31 @@ export function generateInput(args: GenerateInputArgs) {
     for (const field of inputType.fields) {
         // Additional import all objects
         field.inputTypes
-            .filter((x) => ['object', 'enum'].includes(x.kind) && x.type !== className)
+            .filter(
+                (x) =>
+                    ['object', 'enum'].includes(fieldLocationToKind(x.location)) &&
+                    x.type !== className,
+            )
             .forEach((inputType) => {
+                const kind = fieldLocationToKind(inputType.location);
                 generateProjectImport({
                     name: String(inputType.type),
-                    type: inputType.kind === 'object' ? 'input' : inputType.kind,
+                    type: kind === 'object' ? 'input' : kind,
                     sourceFile,
                     projectFilePath,
                 });
             });
-        const propertyTypes = field.inputTypes.map((t) =>
-            toPropertyType({ ...t, type: String(t.type) }),
-        );
+        const propertyTypes = field.inputTypes.map((t) => {
+            return toPropertyType({
+                ...t,
+                type: String(t.type),
+                kind: fieldLocationToKind(t.location),
+            });
+        });
         const inputType = getMatchingInputType(field.inputTypes);
         const fieldStructure: Field = {
             ...field,
-            kind: inputType.kind,
+            kind: fieldLocationToKind(inputType.location),
             type: String(inputType.type),
             isList: field.inputTypes.some((t) => t.isList),
             isRequired: false,

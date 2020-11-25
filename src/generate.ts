@@ -9,11 +9,13 @@ import { generateEnum } from './generate-enum';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { generateObject } from './generate-object';
+import { Model } from './generate-property';
 import { mutateFilters } from './mutate-filters';
 import { PrismaDMMF } from './types';
 import {
     createConfig,
     featureName,
+    fieldLocationToKind,
     generateFileName,
     getOutputTypeName,
     schemaFieldToArgument,
@@ -66,7 +68,9 @@ export async function generate(args: GenerateArgs) {
     };
     // Generate enums
     const enums = [
-        ...prismaClientDmmf.schema.enums,
+        ...(prismaClientDmmf.schema.enumTypes.model || []),
+        ...prismaClientDmmf.schema.enumTypes.prisma,
+        // todo: test
         ...prismaClientDmmf.datamodel.enums.map((x) => ({
             name: x.name,
             values: x.values.map((v) => v.name),
@@ -83,7 +87,7 @@ export async function generate(args: GenerateArgs) {
         generateModel({ model, sourceFile, projectFilePath, config });
     }
     // Generate inputs
-    let inputTypes = prismaClientDmmf.schema.inputTypes;
+    let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
     inputTypes = inputTypes.filter(
         mutateFilters(inputTypes, {
             combineScalarFilters: config.combineScalarFilters,
@@ -91,7 +95,7 @@ export async function generate(args: GenerateArgs) {
         }),
     );
     // Create aggregate inputs
-    const aggregateInputs = prismaClientDmmf.schema.outputTypes
+    const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter((o) => o.name.endsWith('AggregateOutputType'))
         .map((o) => schemaOutputToInput(o));
     for (const inputType of inputTypes.concat(aggregateInputs)) {
@@ -106,7 +110,7 @@ export async function generate(args: GenerateArgs) {
         });
     }
     // Generate args
-    const otherTypes = prismaClientDmmf.schema.outputTypes
+    const otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter((t) => t.name === 'Query')
         .flatMap((t) => t.fields)
         .map((field) => schemaFieldToArgument(field));
@@ -121,7 +125,7 @@ export async function generate(args: GenerateArgs) {
         generateArgs({ inputType, feature, aggregateInputs, sourceFile, projectFilePath, config });
     }
     // Generate output types
-    const outputTypes = prismaClientDmmf.schema.outputTypes.filter(
+    const outputTypes = prismaClientDmmf.schema.outputObjectTypes.prisma.filter(
         (t) => !['Query', 'Mutation'].includes(t.name) && !models.find((name) => name === t.name),
     );
     for (const outputType of outputTypes) {
@@ -132,7 +136,7 @@ export async function generate(args: GenerateArgs) {
             });
         }
         const sourceFile = await createSourceFile({ type: 'output', name });
-        const model = {
+        const model: Model = {
             name,
             fields: outputType.fields.map((t) => {
                 return {
@@ -140,6 +144,7 @@ export async function generate(args: GenerateArgs) {
                     ...t.outputType,
                     type: String(t.outputType.type),
                     isRequired: false,
+                    kind: fieldLocationToKind(t.outputType.location),
                 };
             }),
         };

@@ -28,9 +28,10 @@ describe('generate inputs', () => {
         const {
             generator,
             prismaClientDmmf: {
-                schema: { inputTypes },
+                schema: { inputObjectTypes },
             },
         } = await generatorOptions(schema);
+        const inputTypes = [...(inputObjectTypes.model || []), ...inputObjectTypes.prisma];
         const inputType = inputTypes.find((x) => x.name === name);
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
@@ -59,21 +60,15 @@ describe('generate inputs', () => {
             name: 'UserWhereInput',
             model: 'User',
         });
-        const struct = (n: string) =>
-            sourceFile.getClass('UserWhereInput')?.getProperty(n)?.getStructure();
-        assert.strictEqual(
-            struct('id')?.type,
-            'StringFilter | string',
-            'id is not nullable in model',
-        );
+        expect(struct('UserWhereInput', 'id')?.type).toEqual('StringFilter | string');
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
             ?.getProperty('id')
             ?.getDecorator('Field')
             ?.getCallExpression()
             ?.getArguments();
-        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => StringFilter');
-        assert.strictEqual(struct('birth')?.type, 'DateTimeFilter | Date | string');
+        expect(decoratorArguments?.[0]?.getText()).toEqual('() => StringFilter');
+        expect(struct('UserWhereInput', 'birth')?.type).toEqual('DateTimeFilter | Date | string');
     });
 
     it('user where int filter', async () => {

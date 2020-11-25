@@ -1,4 +1,5 @@
 import { PrismaDMMF } from '../types';
+import { fieldLocationToKind } from '../utils';
 
 /**
  * Find input type for graphql field decorator.
@@ -9,8 +10,8 @@ export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]
     }
     inputTypes = inputTypes.filter((t) => !['null', 'Null'].includes(String(t.type)));
     let result =
-        inputTypes.every((x) => x.kind === 'object') &&
-        (inputTypes.find((x) => x.kind === 'object' && x.isList) ||
+        inputTypes.every((x) => fieldLocationToKind(x.location) === 'object') &&
+        (inputTypes.find((x) => fieldLocationToKind(x.location) === 'object' && x.isList) ||
             inputTypes.find((x) => String(x.type).endsWith('WhereInput')));
     if (result) {
         return result;
@@ -18,7 +19,7 @@ export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]
     if (inputTypes.length === 1) {
         return inputTypes[0];
     }
-    result = inputTypes.find((x) => x.kind === 'object');
+    result = inputTypes.find((x) => fieldLocationToKind(x.location) === 'object');
     if (result) {
         return result;
     }
