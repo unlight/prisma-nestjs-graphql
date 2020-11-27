@@ -1,3 +1,20 @@
+# [4.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v3.0.0...v4.0.0) (2020-11-27)
+
+
+### Bug Fixes
+
+* Generator options: dasherizedName renamed to name ([c537340](https://github.com/unlight/nestjs-graphql-prisma/commit/c537340632477165692389fe47028166095d5a23))
+
+
+### Features
+
+* New token `{plural.type}` for outputFilePattern generator options ([51cc938](https://github.com/unlight/nestjs-graphql-prisma/commit/51cc93872a73538c9aa9fb5a14a37764575f5729))
+
+
+### BREAKING CHANGES
+
+* Generator options: dasherizedName renamed to name
+
 # [3.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v2.1.0...v3.0.0) (2020-11-26)
 
 
