@@ -13,22 +13,20 @@ type GenerateFileNameArgs = {
 
 export function generateFileName(args: GenerateFileNameArgs) {
     const { type, name, models } = args;
-    const template = args.template || '{feature}/{dasherizedName}.{type}.ts';
-    let feature = args.feature || featureName({ models, name, fallback: 'prisma' });
-    feature = kebabCase(feature);
-    let dasherizedName = kebabCase(name);
+    const template = args.template || '{feature}/{name}.{type}.ts';
+    const feature = kebabCase(args.feature || featureName({ models, name, fallback: 'prisma' }));
+    let basename = kebabCase(name);
 
     for (const suffix of ['input', 'args', 'enum']) {
         const ending = `-${suffix}`;
-        if (type === suffix && dasherizedName.endsWith(ending)) {
-            dasherizedName = dasherizedName.slice(0, -ending.length);
+        if (type === suffix && basename.endsWith(ending)) {
+            basename = basename.slice(0, -ending.length);
         }
     }
 
     return pupa(template, {
         feature,
         type,
-        name,
-        dasherizedName,
+        name: basename,
     });
 }

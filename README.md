@@ -35,11 +35,10 @@ npx prisma generate
 ## Generator options
 
 -   `output` Output folder relative to this schema file
--   `outputFilePattern` File pattern (default: `{feature}/{dasherizedName}.{type}.ts`)  
+-   `outputFilePattern` File pattern (default: `{feature}/{name}.{type}.ts`)  
     Possible tokens:
     -   `{feature}` - model name in dashed case or 'prisma' if unknown
-    -   `{name}` - name of model/input/arg
-    -   `{dasherizedName}` - dashed-case name of model/input/arg without suffix
+    -   `{name}` - dashed-case name of model/input/arg without suffix
     -   `{type}` - short type name (model, input, args, output)
 -   `combineScalarFilters` - Combine nested/nullable scalar filters to single
     (default: `true`)

@@ -134,10 +134,10 @@ describe('main generate', () => {
             schema: `model User {
                     id Int @id
                 }`,
-            options: [`outputFilePattern = "data/{name}.{type}.ts"`],
+            options: [`outputFilePattern = "data/{type}/{name}.ts"`],
         });
         const filePaths = sourceFiles.map((s) => String(s.getFilePath()));
-        expect(filePaths).toContainEqual(expect.stringContaining('/data/User.model.ts'));
+        expect(filePaths).toContainEqual(expect.stringContaining('/data/model/user.ts'));
     });
 
     it('output group by feature', async () => {
@@ -147,14 +147,8 @@ describe('main generate', () => {
                 }`,
         });
         const filePaths = new Set(sourceFiles.map((s) => String(s.getFilePath())));
-        assert(
-            filePaths.has('/user/user-where.input.ts'),
-            '/user/user-where.input.ts should exists',
-        );
-        assert(
-            filePaths.has('/prisma/int-filter.input.ts'),
-            '/prisma/int-filter.input.ts should exists',
-        );
+        expect(filePaths).toContainEqual('/user/user-where.input.ts');
+        expect(filePaths).toContainEqual('/prisma/int-filter.input.ts');
     });
 
     it('generate enum file', async () => {
