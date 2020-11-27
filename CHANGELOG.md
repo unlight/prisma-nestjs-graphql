@@ -1,3 +1,15 @@
+## [4.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v4.0.0...v4.0.1) (2020-11-27)
+
+
+### Bug Fixes
+
+* Do not generate undefined properties ([c7127a4](https://github.com/unlight/nestjs-graphql-prisma/commit/c7127a4a97d98d245dd214507c7bc2486d0edba4))
+
+
+### Performance Improvements
+
+* Removed unused code ([da6dbc0](https://github.com/unlight/nestjs-graphql-prisma/commit/da6dbc0a9f5373072c203c42c755afe10401ec5e))
+
 # [4.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v3.0.0...v4.0.0) (2020-11-27)
 
 
