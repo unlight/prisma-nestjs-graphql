@@ -40,6 +40,7 @@ npx prisma generate
     -   `{feature}` - model name in dashed case or 'prisma' if unknown
     -   `{name}` - dashed-case name of model/input/arg without suffix
     -   `{type}` - short type name (model, input, args, output)
+    -   `{plural.type}` - plural short type name (models, inputs, enums)
 -   `combineScalarFilters` - Combine nested/nullable scalar filters to single
     (default: `true`)
 -   `atomicNumberOperations` - Atomic number operations,
