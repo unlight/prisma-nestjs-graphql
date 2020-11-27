@@ -97,7 +97,11 @@ describe('generate models', () => {
                 count Int @id @default(1)
             }`,
         });
-        const args = getFieldArguments({ sourceFile, className: 'User', property: 'count' });
+        const args = getFieldArguments({
+            sourceFile,
+            className: 'User',
+            property: 'count',
+        });
         expect(args?.[1]).toContain('nullable: false');
         expect(args?.[1]).toContain('defaultValue: 1');
         expect(args?.[1]).not.toContain('description: undefined');
@@ -151,7 +155,7 @@ describe('generate models', () => {
         const args = struct?.decorators?.[0].arguments;
         stringContains('nullable: false', args?.[1]);
         stringContains('description: "user id"', args?.[1]);
-        assert.strictEqual(args?.[0], '() => ID');
+        expect(args?.[0]).toEqual('() => ID');
     });
 
     it('remove description', async () => {
@@ -236,7 +240,7 @@ describe('generate models', () => {
         sourceText = sourceFile.getText();
         const property = sourceFile.getClass('User')?.getProperty('posts');
         assert(property, 'Property posts should exists');
-        assert.strictEqual(property.getStructure().type, 'Array<Post>');
+        expect(property.getStructure().type).toEqual('Array<Post>');
     });
 
     it('custom language type', async () => {
@@ -252,7 +256,11 @@ describe('generate models', () => {
                 `types_Decimal_fieldModule = "decimal.js"`,
             ],
         });
-        const property = sourceFile.getClasses()[0]?.getProperty('d')?.getStructure();
+        const property = getStructure({
+            sourceFile,
+            className: 'User',
+            property: 'd',
+        });
         expect(property?.type).toEqual('MyDec');
         const imports = getImportDeclarations(sourceFile);
         expect(imports).toContainEqual({

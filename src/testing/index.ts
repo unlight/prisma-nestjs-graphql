@@ -26,7 +26,7 @@ export function getImportDeclarations(sourceFile: SourceFile) {
 }
 
 export function getFieldArguments(args: GetStructuredArguments & { index?: number }) {
-    let result: any = getStructure(args)?.decorators?.[0]?.arguments;
+    let result = getStructure(args)?.decorators?.[0]?.arguments;
     if (args.index !== undefined) {
         result = result?.[args.index];
     }

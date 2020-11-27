@@ -70,12 +70,6 @@ export async function generate(args: GenerateArgs) {
     const enums = [
         ...(prismaClientDmmf.schema.enumTypes.model || []),
         ...prismaClientDmmf.schema.enumTypes.prisma,
-        // todo: test
-        ...prismaClientDmmf.datamodel.enums.map((x) => ({
-            name: x.name,
-            values: x.values.map((v) => v.name),
-            documentation: x.documentation,
-        })),
     ];
     for (const enumerable of enums) {
         const sourceFile = await createSourceFile({ type: 'enum', name: enumerable.name });

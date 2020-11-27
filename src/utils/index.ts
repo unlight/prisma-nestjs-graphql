@@ -142,9 +142,7 @@ export function updateObjectProperty(args: UpdateObjectPropertyArgs) {
         }) as PropertyAssignment;
     }
 
-    propertyAssignment.setInitializer(
-        JSON.stringify(value) || (value !== undefined ? String(value) : 'undefined'),
-    );
+    propertyAssignment.setInitializer(JSON.stringify(value));
 }
 
 export function fieldLocationToKind(fieldLocation: PrismaDMMF.FieldLocation) {

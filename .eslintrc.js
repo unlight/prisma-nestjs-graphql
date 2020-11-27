@@ -109,15 +109,10 @@ module.exports = {
                 '@typescript-eslint/no-floating-promises': 0,
                 '@typescript-eslint/no-non-null-assertion': 0,
                 '@typescript-eslint/camelcase': 0,
+                '@typescript-eslint/no-unsafe-assignment': 0,
+                '@typescript-eslint/no-unused-vars': 0,
                 'import/max-dependencies': 0,
                 'sonarjs/no-duplicate-string': 0,
-            },
-        },
-        {
-            files: ['src/testing/type-tests.ts'],
-            rules: {
-                '@typescript-eslint/no-unused-vars': 0,
-                '@typescript-eslint/no-unsafe-assignment': 0,
             },
         },
     ],

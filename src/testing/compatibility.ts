@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import * as prisma from '@prisma/client';
+import { Prisma,PrismaClient } from '@prisma/client';
 
 import { ArticleListRelationFilter } from '../@generated/article/article-list-relation-filter.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
@@ -10,13 +9,13 @@ import { UserWhereInput } from '../@generated/user/user-where.input';
 const $prisma = new PrismaClient();
 
 {
-    const n: IntFilter = {};
-    const p = n as prisma.IntFilter;
+    // let x: IntFilter = {};
+    // let p: Prisma.IntFilter = {};
+    // p = x;
 }
-
 {
-    const n: DateTimeFilter = {};
-    const p = n as prisma.UserWhereInput;
+    // const n: DateTimeFilter = {};
+    // const p = n as Prisma.UserWhereInput;
 }
 {
     // const n: ArticleListRelationFilter = {};
