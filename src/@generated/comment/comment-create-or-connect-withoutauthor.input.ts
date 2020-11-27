@@ -7,13 +7,11 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 export class CommentCreateOrConnectWithoutauthorInput {
     @Field(() => CommentWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: CommentWhereUniqueInput;
 
     @Field(() => CommentCreateWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     create?: CommentCreateWithoutAuthorInput;
 }

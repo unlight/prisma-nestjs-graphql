@@ -24,3 +24,22 @@ export function getImportDeclarations(sourceFile: SourceFile) {
         })),
     );
 }
+
+export function getFieldArguments(args: GetStructuredArguments & { index?: number }) {
+    let result: any = getStructure(args)?.decorators?.[0]?.arguments;
+    if (args.index !== undefined) {
+        result = result?.[args.index];
+    }
+    return result;
+}
+
+type GetStructuredArguments = {
+    sourceFile: SourceFile;
+    className: string;
+    property: string;
+};
+
+export function getStructure(args: GetStructuredArguments) {
+    const { sourceFile, className, property } = args;
+    return sourceFile.getClass(className)?.getProperty(property)?.getStructure();
+}

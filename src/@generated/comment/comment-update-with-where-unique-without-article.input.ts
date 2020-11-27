@@ -7,13 +7,11 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 export class CommentUpdateWithWhereUniqueWithoutArticleInput {
     @Field(() => CommentWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: CommentWhereUniqueInput;
 
     @Field(() => CommentUpdateWithoutArticleInput, {
         nullable: true,
-        description: undefined,
     })
     data?: CommentUpdateWithoutArticleInput;
 }

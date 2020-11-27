@@ -7,13 +7,11 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleCreateOrConnectWithoutfavoritedByInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleCreateWithoutFavoritedByInput, {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutFavoritedByInput;
 }

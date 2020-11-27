@@ -7,13 +7,11 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 export class UserCreateOrConnectWithoutfavoriteArticlesInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: UserWhereUniqueInput;
 
     @Field(() => UserCreateWithoutFavoriteArticlesInput, {
         nullable: true,
-        description: undefined,
     })
     create?: UserCreateWithoutFavoriteArticlesInput;
 }

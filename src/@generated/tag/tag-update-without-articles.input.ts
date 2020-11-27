@@ -4,13 +4,11 @@ import { Field, InputType } from '@nestjs/graphql';
 export class TagUpdateWithoutArticlesInput {
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     id?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     name?: string;
 }

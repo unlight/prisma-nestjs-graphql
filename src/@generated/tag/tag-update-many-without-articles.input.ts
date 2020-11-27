@@ -12,37 +12,31 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 export class TagUpdateManyWithoutArticlesInput {
     @Field(() => [TagCreateWithoutArticlesInput], {
         nullable: true,
-        description: undefined,
     })
     create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     set?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     disconnect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     delete?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
     @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
-        description: undefined,
     })
     update?:
         | TagUpdateWithWhereUniqueWithoutArticlesInput
@@ -50,7 +44,6 @@ export class TagUpdateManyWithoutArticlesInput {
 
     @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], {
         nullable: true,
-        description: undefined,
     })
     updateMany?:
         | TagUpdateManyWithWhereWithoutArticlesInput
@@ -58,13 +51,11 @@ export class TagUpdateManyWithoutArticlesInput {
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
-        description: undefined,
     })
     deleteMany?: TagScalarWhereInput | Array<TagScalarWhereInput>;
 
     @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {
         nullable: true,
-        description: undefined,
     })
     upsert?:
         | TagUpsertWithWhereUniqueWithoutArticlesInput
@@ -72,7 +63,6 @@ export class TagUpdateManyWithoutArticlesInput {
 
     @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | TagCreateOrConnectWithoutarticlesInput

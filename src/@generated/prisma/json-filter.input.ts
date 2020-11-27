@@ -5,13 +5,11 @@ import { GraphQLJSON } from 'graphql-type-json';
 export class JsonFilter {
     @Field(() => GraphQLJSON, {
         nullable: true,
-        description: undefined,
     })
     equals?: object;
 
     @Field(() => GraphQLJSON, {
         nullable: true,
-        description: undefined,
     })
     not?: object;
 }

@@ -6,7 +6,6 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 export class FindOneDummyArgs {
     @Field(() => DummyWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: DummyWhereUniqueInput;
 }

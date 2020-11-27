@@ -8,19 +8,16 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 export class UserCreateOneWithoutCommentsInput {
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: true,
-        description: undefined,
     })
     create?: UserCreateWithoutCommentsInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     connect?: UserWhereUniqueInput;
 
     @Field(() => UserCreateOrConnectWithoutcommentsInput, {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?: UserCreateOrConnectWithoutcommentsInput;
 }

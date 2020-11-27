@@ -14,103 +14,86 @@ import { UserWhereInput } from '../user/user-where.input';
 export class ArticleWhereInput {
     @Field(() => [ArticleWhereInput], {
         nullable: true,
-        description: undefined,
     })
     AND?: ArticleWhereInput | Array<ArticleWhereInput>;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
-        description: undefined,
     })
     OR?: ArticleWhereInput | Array<ArticleWhereInput>;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,
-        description: undefined,
     })
     NOT?: ArticleWhereInput | Array<ArticleWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     id?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     slug?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     title?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     description?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     body?: StringFilter | string;
 
     @Field(() => TagListRelationFilter, {
         nullable: true,
-        description: undefined,
     })
     tags?: TagListRelationFilter;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
-        description: undefined,
     })
     createdAt?: DateTimeFilter | Date | string;
 
     @Field(() => DateTimeFilter, {
         nullable: true,
-        description: undefined,
     })
     updatedAt?: DateTimeFilter | Date | string;
 
     @Field(() => IntFilter, {
         nullable: true,
-        description: undefined,
     })
     favoritesCount?: IntFilter | number;
 
     @Field(() => UserWhereInput, {
         nullable: true,
-        description: undefined,
     })
     author?: UserRelationFilter | UserWhereInput;
 
     @Field(() => StringFilter, {
         nullable: true,
-        description: undefined,
     })
     authorId?: StringFilter | string;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,
-        description: undefined,
     })
     favoritedBy?: UserListRelationFilter;
 
     @Field(() => CommentListRelationFilter, {
         nullable: true,
-        description: undefined,
     })
     comments?: CommentListRelationFilter;
 
     @Field(() => BooleanFilter, {
         nullable: true,
-        description: undefined,
     })
     active?: BooleanFilter | boolean | null;
 }

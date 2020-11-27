@@ -12,37 +12,31 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 export class UserUpdateManyWithoutFollowersInput {
     @Field(() => [UserCreateWithoutFollowersInput], {
         nullable: true,
-        description: undefined,
     })
     create?: UserCreateWithoutFollowersInput | Array<UserCreateWithoutFollowersInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
-        description: undefined,
     })
     update?:
         | UserUpdateWithWhereUniqueWithoutFollowersInput
@@ -50,7 +44,6 @@ export class UserUpdateManyWithoutFollowersInput {
 
     @Field(() => [UserUpdateManyWithWhereWithoutFollowersInput], {
         nullable: true,
-        description: undefined,
     })
     updateMany?:
         | UserUpdateManyWithWhereWithoutFollowersInput
@@ -58,13 +51,11 @@ export class UserUpdateManyWithoutFollowersInput {
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
-        description: undefined,
     })
     deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
-        description: undefined,
     })
     upsert?:
         | UserUpsertWithWhereUniqueWithoutFollowersInput
@@ -72,7 +63,6 @@ export class UserUpdateManyWithoutFollowersInput {
 
     @Field(() => [UserCreateOrConnectWithoutfollowersInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | UserCreateOrConnectWithoutfollowersInput

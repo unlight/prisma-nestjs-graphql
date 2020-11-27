@@ -7,13 +7,11 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleUpdateWithWhereUniqueWithoutTagsInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutTagsInput, {
         nullable: true,
-        description: undefined,
     })
     data?: ArticleUpdateWithoutTagsInput;
 }

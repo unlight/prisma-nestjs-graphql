@@ -13,7 +13,4 @@ export enum ArticleDistinctFieldEnum {
     active = 'active',
 }
 
-registerEnumType(ArticleDistinctFieldEnum, {
-    name: 'ArticleDistinctFieldEnum',
-    description: undefined,
-});
+registerEnumType(ArticleDistinctFieldEnum, { name: 'ArticleDistinctFieldEnum' });

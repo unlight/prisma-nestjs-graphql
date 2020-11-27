@@ -5,4 +5,4 @@ export enum TagDistinctFieldEnum {
     name = 'name',
 }
 
-registerEnumType(TagDistinctFieldEnum, { name: 'TagDistinctFieldEnum', description: undefined });
+registerEnumType(TagDistinctFieldEnum, { name: 'TagDistinctFieldEnum' });

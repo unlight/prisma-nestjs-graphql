@@ -7,13 +7,11 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 export class UserCreateOrConnectWithoutfollowersInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: UserWhereUniqueInput;
 
     @Field(() => UserCreateWithoutFollowersInput, {
         nullable: true,
-        description: undefined,
     })
     create?: UserCreateWithoutFollowersInput;
 }

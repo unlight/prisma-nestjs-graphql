@@ -1,7 +1,8 @@
 import assert from 'assert';
+import expect from 'expect';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
-import { generatorOptions, stringContains } from '../testing';
+import { generatorOptions } from '../testing';
 import { generateEnum } from './generate-enum';
 
 describe('generate enum', () => {
@@ -45,12 +46,20 @@ describe('generate enum', () => {
             `,
             name: 'SortOrder',
         });
-        stringContains(`import { registerEnumType } from '@nestjs/graphql'`, sourceText);
-        stringContains(
-            `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
-            sourceText,
+        expect(sourceText).toContain(`import { registerEnumType } from '@nestjs/graphql'`);
+        expect(sourceText).toContain(`registerEnumType(SortOrder, { name: 'SortOrder' })`);
+        expect(sourceFile.getEnum('SortOrder')?.getStructure()?.members).toContainEqual(
+            expect.objectContaining({
+                name: 'asc',
+                initializer: '"asc"',
+            }),
         );
-        stringContains(`export enum SortOrder { asc = "asc", desc = "desc" }`, sourceText);
+        expect(sourceFile.getEnum('SortOrder')?.getStructure()?.members).toContainEqual(
+            expect.objectContaining({
+                name: 'desc',
+                initializer: '"desc"',
+            }),
+        );
     });
 
     it('enum role', async () => {
@@ -67,10 +76,7 @@ describe('generate enum', () => {
             `,
             name: 'Role',
         });
-        stringContains(
-            `registerEnumType(Role, { name: 'Role', description: undefined })`,
-            sourceText,
-        );
+        expect(sourceText).toContain(`registerEnumType(Role, { name: 'Role' })`);
     });
 
     it('enum with exists source', async () => {

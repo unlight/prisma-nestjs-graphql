@@ -12,37 +12,31 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleUpdateManyWithoutAuthorInput {
     @Field(() => [ArticleCreateWithoutAuthorInput], {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutAuthorInput | Array<ArticleCreateWithoutAuthorInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
-        description: undefined,
     })
     update?:
         | ArticleUpdateWithWhereUniqueWithoutAuthorInput
@@ -50,7 +44,6 @@ export class ArticleUpdateManyWithoutAuthorInput {
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], {
         nullable: true,
-        description: undefined,
     })
     updateMany?:
         | ArticleUpdateManyWithWhereWithoutAuthorInput
@@ -58,13 +51,11 @@ export class ArticleUpdateManyWithoutAuthorInput {
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
-        description: undefined,
     })
     deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
-        description: undefined,
     })
     upsert?:
         | ArticleUpsertWithWhereUniqueWithoutAuthorInput
@@ -72,7 +63,6 @@ export class ArticleUpdateManyWithoutAuthorInput {
 
     @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | ArticleCreateOrConnectWithoutauthorInput

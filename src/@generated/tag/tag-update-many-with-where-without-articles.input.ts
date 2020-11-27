@@ -7,13 +7,11 @@ import { TagUpdateManyMutationInput } from './tag-update-many-mutation.input';
 export class TagUpdateManyWithWhereWithoutArticlesInput {
     @Field(() => TagScalarWhereInput, {
         nullable: true,
-        description: undefined,
     })
     where?: TagScalarWhereInput;
 
     @Field(() => TagUpdateManyMutationInput, {
         nullable: true,
-        description: undefined,
     })
     data?: TagUpdateManyMutationInput;
 }

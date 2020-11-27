@@ -10,79 +10,66 @@ import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-
 export class UserUpdateWithoutFavoriteArticlesInput {
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     id?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     email?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     name?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     password?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     bio?: string | null;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     image?: string | null;
 
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     countComments?: number | null;
 
     @Field(() => Float, {
         nullable: true,
-        description: undefined,
     })
     rating?: number | null;
 
     @Field(() => Role, {
         nullable: true,
-        description: undefined,
     })
     role?: Role | null;
 
     @Field(() => UserUpdateManyWithoutFollowersInput, {
         nullable: true,
-        description: undefined,
     })
     following?: UserUpdateManyWithoutFollowersInput;
 
     @Field(() => UserUpdateManyWithoutFollowingInput, {
         nullable: true,
-        description: undefined,
     })
     followers?: UserUpdateManyWithoutFollowingInput;
 
     @Field(() => ArticleUpdateManyWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     articles?: ArticleUpdateManyWithoutAuthorInput;
 
     @Field(() => CommentUpdateManyWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     comments?: CommentUpdateManyWithoutAuthorInput;
 }

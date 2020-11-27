@@ -8,19 +8,16 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleCreateManyWithoutAuthorInput {
     @Field(() => [ArticleCreateWithoutAuthorInput], {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutAuthorInput | Array<ArticleCreateWithoutAuthorInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | ArticleCreateOrConnectWithoutauthorInput

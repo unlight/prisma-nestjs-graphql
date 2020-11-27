@@ -13,67 +13,56 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 export class AggregateDummyArgs {
     @Field(() => DummyWhereInput, {
         nullable: true,
-        description: undefined,
     })
     where?: DummyWhereInput;
 
     @Field(() => [DummyOrderByInput], {
         nullable: true,
-        description: undefined,
     })
     orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
 
     @Field(() => DummyWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     cursor?: DummyWhereUniqueInput;
 
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     take?: number;
 
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     skip?: number;
 
     @Field(() => [DummyDistinctFieldEnum], {
         nullable: true,
-        description: undefined,
     })
     distinct?: Array<DummyDistinctFieldEnum>;
 
     @Field(() => Boolean, {
         nullable: true,
-        description: undefined,
     })
     count?: true;
 
     @Field(() => DummyAvgAggregateInput, {
         nullable: true,
-        description: undefined,
     })
     avg?: DummyAvgAggregateInput;
 
     @Field(() => DummySumAggregateInput, {
         nullable: true,
-        description: undefined,
     })
     sum?: DummySumAggregateInput;
 
     @Field(() => DummyMinAggregateInput, {
         nullable: true,
-        description: undefined,
     })
     min?: DummyMinAggregateInput;
 
     @Field(() => DummyMaxAggregateInput, {
         nullable: true,
-        description: undefined,
     })
     max?: DummyMaxAggregateInput;
 }

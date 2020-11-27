@@ -7,37 +7,31 @@ import { UserUpdateOneRequiredWithoutCommentsInput } from '../user/user-update-o
 export class CommentUpdateInput {
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     id?: string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     updatedAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     body?: string;
 
     @Field(() => UserUpdateOneRequiredWithoutCommentsInput, {
         nullable: true,
-        description: undefined,
     })
     author?: UserUpdateOneRequiredWithoutCommentsInput;
 
     @Field(() => ArticleUpdateOneWithoutCommentsInput, {
         nullable: true,
-        description: undefined,
     })
     article?: ArticleUpdateOneWithoutCommentsInput;
 }

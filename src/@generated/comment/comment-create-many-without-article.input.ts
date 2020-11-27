@@ -8,19 +8,16 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 export class CommentCreateManyWithoutArticleInput {
     @Field(() => [CommentCreateWithoutArticleInput], {
         nullable: true,
-        description: undefined,
     })
     create?: CommentCreateWithoutArticleInput | Array<CommentCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | CommentCreateOrConnectWithoutarticleInput

@@ -6,13 +6,11 @@ import { UserWhereInput } from './user-where.input';
 export class UserRelationFilter {
     @Field(() => UserWhereInput, {
         nullable: true,
-        description: undefined,
     })
     is?: UserWhereInput;
 
     @Field(() => UserWhereInput, {
         nullable: true,
-        description: undefined,
     })
     isNot?: UserWhereInput;
 }

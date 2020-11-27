@@ -7,13 +7,11 @@ import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comm
 export class ArticleUpsertWithoutCommentsInput {
     @Field(() => ArticleUpdateWithoutCommentsInput, {
         nullable: true,
-        description: undefined,
     })
     update?: ArticleUpdateWithoutCommentsInput;
 
     @Field(() => ArticleCreateWithoutCommentsInput, {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutCommentsInput;
 }

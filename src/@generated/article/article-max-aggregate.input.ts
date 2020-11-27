@@ -4,7 +4,6 @@ import { Field, InputType } from '@nestjs/graphql';
 export class ArticleMaxAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
-        description: undefined,
     })
     favoritesCount?: true;
 }

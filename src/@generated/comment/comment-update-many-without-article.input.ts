@@ -12,37 +12,31 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 export class CommentUpdateManyWithoutArticleInput {
     @Field(() => [CommentCreateWithoutArticleInput], {
         nullable: true,
-        description: undefined,
     })
     create?: CommentCreateWithoutArticleInput | Array<CommentCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     set?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     disconnect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
-        description: undefined,
     })
     delete?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], {
         nullable: true,
-        description: undefined,
     })
     update?:
         | CommentUpdateWithWhereUniqueWithoutArticleInput
@@ -50,7 +44,6 @@ export class CommentUpdateManyWithoutArticleInput {
 
     @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], {
         nullable: true,
-        description: undefined,
     })
     updateMany?:
         | CommentUpdateManyWithWhereWithoutArticleInput
@@ -58,13 +51,11 @@ export class CommentUpdateManyWithoutArticleInput {
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
-        description: undefined,
     })
     deleteMany?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentUpsertWithWhereUniqueWithoutArticleInput], {
         nullable: true,
-        description: undefined,
     })
     upsert?:
         | CommentUpsertWithWhereUniqueWithoutArticleInput
@@ -72,7 +63,6 @@ export class CommentUpdateManyWithoutArticleInput {
 
     @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
         nullable: true,
-        description: undefined,
     })
     connectOrCreate?:
         | CommentCreateOrConnectWithoutarticleInput

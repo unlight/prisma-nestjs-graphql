@@ -4,7 +4,6 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 export class ArticleMaxAggregate {
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     favoritesCount?: number;
 }

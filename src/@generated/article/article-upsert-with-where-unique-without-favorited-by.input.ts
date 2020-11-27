@@ -8,19 +8,16 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutFavoritedByInput, {
         nullable: true,
-        description: undefined,
     })
     update?: ArticleUpdateWithoutFavoritedByInput;
 
     @Field(() => ArticleCreateWithoutFavoritedByInput, {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutFavoritedByInput;
 }

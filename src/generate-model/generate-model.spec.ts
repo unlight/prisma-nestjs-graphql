@@ -3,7 +3,13 @@ import expect from 'expect';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateModel } from '../generate-model';
-import { generatorOptions, getImportDeclarations, stringContains } from '../testing';
+import {
+    generatorOptions,
+    getFieldArguments,
+    getImportDeclarations,
+    getStructure,
+    stringContains,
+} from '../testing';
 import { createConfig } from '../utils';
 
 describe('generate models', () => {
@@ -36,7 +42,7 @@ describe('generate models', () => {
         });
     }
 
-    it('model', async () => {
+    it('model smoke', async () => {
         await getResult({
             schema: `model User {
                 id String @id
@@ -47,12 +53,17 @@ describe('generate models', () => {
         assert(imports.find((x) => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
         assert(imports.find((x) => x.name === 'Field' && x.specifier === '@nestjs/graphql'));
 
-        const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
+        const struct = getStructure({ sourceFile, className: 'User', property: 'id' });
         assert(struct);
         expect(struct.hasExclamationToken).toBeTruthy();
-        const fieldArgument = struct.decorators?.[0].arguments?.[1] as string;
+        const fieldArgument = getFieldArguments({
+            sourceFile,
+            className: 'User',
+            property: 'id',
+            index: 1,
+        });
         expect(fieldArgument).toContain('nullable: false');
-        expect(fieldArgument).toContain('description: undefined');
+        expect(fieldArgument).not.toContain('description: undefined');
     });
 
     it('field nullable', async () => {
@@ -62,12 +73,22 @@ describe('generate models', () => {
                 image String?
             }`,
         });
-        const sourceText = sourceFile.getText();
-        stringContains(
-            '@Field(() => String, { nullable: true, description: undefined })',
-            sourceText,
-        );
-        expect(sourceText).toContain('image?: string');
+        expect(
+            getFieldArguments({
+                sourceFile,
+                className: 'User',
+                property: 'image',
+                index: 1,
+            }),
+        ).toContain('nullable: true');
+
+        expect(
+            getStructure({
+                sourceFile,
+                className: 'User',
+                property: 'image',
+            })?.type,
+        ).toEqual('string');
     });
 
     it('default value', async () => {
@@ -76,11 +97,10 @@ describe('generate models', () => {
                 count Int @id @default(1)
             }`,
         });
-        const struct = sourceFile.getClass('User')?.getProperty('count')?.getStructure();
-        const args = struct?.decorators?.[0].arguments;
+        const args = getFieldArguments({ sourceFile, className: 'User', property: 'count' });
         expect(args?.[1]).toContain('nullable: false');
         expect(args?.[1]).toContain('defaultValue: 1');
-        expect(args?.[1]).toContain('description: undefined');
+        expect(args?.[1]).not.toContain('description: undefined');
         expect(args?.[0]).toEqual('() => ID');
     });
 
@@ -134,15 +154,16 @@ describe('generate models', () => {
         assert.strictEqual(args?.[0], '() => ID');
     });
 
-    it('update description to undefined', async () => {
+    it('remove description', async () => {
         await getResult({
             schema: `model User {
                 id String @id
             }`,
             sourceFileText: `@ObjectType({ description: 'user description' }) export class User {}`,
         });
-        sourceText = sourceFile.getText();
-        stringContains(`@ObjectType({ description: undefined }) export class User`, sourceText);
+        const objectTypeArgs = sourceFile.getClass('User')?.getStructure()?.decorators?.[0]
+            ?.arguments?.[0];
+        expect(objectTypeArgs).toContain('{ }');
     });
 
     it('model import scalar types', async () => {
@@ -156,30 +177,27 @@ describe('generate models', () => {
                 data Json
             }`,
         });
-        const imports = getImportDeclarations(sourceFile).map((x) => x.name);
-        sourceText = sourceFile.getText();
 
-        stringContains(
-            '@Field(() => Boolean, { nullable: false, description: undefined }) humanoid!: boolean',
-            sourceText,
-        );
-        stringContains(
-            '@Field(() => Float, { nullable: false, description: undefined }) money!: number',
-            sourceText,
-        );
-        stringContains(
-            '@Field(() => Int, { nullable: false, description: undefined }) count!: number',
-            sourceText,
-        );
-        stringContains(
-            '@Field(() => String, { nullable: false, description: undefined }) born!: Date | string',
-            sourceText,
-        );
+        const imports = getImportDeclarations(sourceFile).map((x) => x.name);
+
         expect(imports).not.toContain('String');
         expect(imports).not.toContain('Boolean');
         expect(imports).not.toContain('User');
         expect(imports).toContain('Int');
         expect(imports).toContain('Float');
+
+        const propertyOptions = {
+            sourceFile,
+            className: 'User',
+            index: 1,
+        };
+
+        expect(getStructure({ ...propertyOptions, property: 'humanoid' })?.type).toEqual('boolean');
+        expect(getStructure({ ...propertyOptions, property: 'money' })?.type).toEqual('number');
+        expect(getStructure({ ...propertyOptions, property: 'count' })?.type).toEqual('number');
+        expect(getStructure({ ...propertyOptions, property: 'born' })?.type).toEqual(
+            'Date | string',
+        );
     });
 
     it('model scalar json', async () => {

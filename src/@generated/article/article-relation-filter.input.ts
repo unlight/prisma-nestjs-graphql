@@ -6,13 +6,11 @@ import { ArticleWhereInput } from './article-where.input';
 export class ArticleRelationFilter {
     @Field(() => ArticleWhereInput, {
         nullable: true,
-        description: undefined,
     })
     is?: ArticleWhereInput | null;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
-        description: undefined,
     })
     isNot?: ArticleWhereInput | null;
 }

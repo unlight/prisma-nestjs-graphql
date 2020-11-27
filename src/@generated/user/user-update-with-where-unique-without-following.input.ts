@@ -7,13 +7,11 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 export class UserUpdateWithWhereUniqueWithoutFollowingInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFollowingInput, {
         nullable: true,
-        description: undefined,
     })
     data?: UserUpdateWithoutFollowingInput;
 }

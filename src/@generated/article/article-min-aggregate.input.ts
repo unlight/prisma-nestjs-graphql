@@ -4,7 +4,6 @@ import { Field, InputType } from '@nestjs/graphql';
 export class ArticleMinAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
-        description: undefined,
     })
     favoritesCount?: true;
 }

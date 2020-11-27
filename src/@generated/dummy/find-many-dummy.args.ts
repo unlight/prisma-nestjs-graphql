@@ -9,37 +9,31 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 export class FindManyDummyArgs {
     @Field(() => DummyWhereInput, {
         nullable: true,
-        description: undefined,
     })
     where?: DummyWhereInput;
 
     @Field(() => [DummyOrderByInput], {
         nullable: true,
-        description: undefined,
     })
     orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
 
     @Field(() => DummyWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     cursor?: DummyWhereUniqueInput;
 
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     take?: number;
 
     @Field(() => Int, {
         nullable: true,
-        description: undefined,
     })
     skip?: number;
 
     @Field(() => [DummyDistinctFieldEnum], {
         nullable: true,
-        description: undefined,
     })
     distinct?: Array<DummyDistinctFieldEnum>;
 }

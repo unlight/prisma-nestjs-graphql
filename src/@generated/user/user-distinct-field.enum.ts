@@ -12,4 +12,4 @@ export enum UserDistinctFieldEnum {
     role = 'role',
 }
 
-registerEnumType(UserDistinctFieldEnum, { name: 'UserDistinctFieldEnum', description: undefined });
+registerEnumType(UserDistinctFieldEnum, { name: 'UserDistinctFieldEnum' });

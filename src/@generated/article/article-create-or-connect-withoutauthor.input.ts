@@ -7,13 +7,11 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleCreateOrConnectWithoutauthorInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleCreateWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutAuthorInput;
 }

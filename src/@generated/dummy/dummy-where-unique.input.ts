@@ -4,7 +4,6 @@ import { Field, InputType } from '@nestjs/graphql';
 export class DummyWhereUniqueInput {
     @Field(() => String, {
         nullable: true,
-        description: undefined,
     })
     id?: string;
 }

@@ -8,7 +8,4 @@ export enum DummyDistinctFieldEnum {
     json = 'json',
 }
 
-registerEnumType(DummyDistinctFieldEnum, {
-    name: 'DummyDistinctFieldEnum',
-    description: undefined,
-});
+registerEnumType(DummyDistinctFieldEnum, { name: 'DummyDistinctFieldEnum' });

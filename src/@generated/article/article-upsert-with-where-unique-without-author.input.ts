@@ -8,19 +8,16 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     update?: ArticleUpdateWithoutAuthorInput;
 
     @Field(() => ArticleCreateWithoutAuthorInput, {
         nullable: true,
-        description: undefined,
     })
     create?: ArticleCreateWithoutAuthorInput;
 }

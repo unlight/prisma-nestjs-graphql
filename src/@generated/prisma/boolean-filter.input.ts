@@ -4,13 +4,11 @@ import { Field, InputType } from '@nestjs/graphql';
 export class BooleanFilter {
     @Field(() => Boolean, {
         nullable: true,
-        description: undefined,
     })
     equals?: boolean | null;
 
     @Field(() => BooleanFilter, {
         nullable: true,
-        description: undefined,
     })
     not?: boolean | BooleanFilter | null;
 }

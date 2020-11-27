@@ -6,7 +6,6 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 export class FindOneArticleArgs {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
-        description: undefined,
     })
     where?: ArticleWhereUniqueInput;
 }
