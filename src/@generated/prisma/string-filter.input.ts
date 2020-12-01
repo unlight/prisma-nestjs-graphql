@@ -7,17 +7,17 @@ export class StringFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: string;
+    equals?: string | null;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<string>;
+    in?: Array<string> | null;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<string>;
+    notIn?: Array<string> | null;
 
     @Field(() => String, {
         nullable: true,
@@ -54,13 +54,8 @@ export class StringFilter {
     })
     endsWith?: string;
 
-    @Field(() => QueryMode, {
-        nullable: true,
-    })
-    mode?: QueryMode;
-
     @Field(() => StringFilter, {
         nullable: true,
     })
-    not?: string | StringFilter;
+    not?: string | StringFilter | null;
 }

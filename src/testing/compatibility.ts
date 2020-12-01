@@ -1,4 +1,4 @@
-import { Prisma,PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 import { ArticleListRelationFilter } from '../@generated/article/article-list-relation-filter.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';

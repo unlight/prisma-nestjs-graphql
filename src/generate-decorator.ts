@@ -14,26 +14,23 @@ type GenerateDecoratorArgs = {
     description?: string;
 };
 
+/**
+ * Generates `@Field` decorator.
+ */
 export function generateDecorator(args: GenerateDecoratorArgs) {
     const { description, nullable, defaultValue, fieldType, propertyDeclaration } = args;
-    let decorator = propertyDeclaration.getDecorator('Field');
-    if (!decorator) {
-        decorator = propertyDeclaration.addDecorator({
-            name: 'Field',
-            arguments: [`() => ${fieldType}`, '{}'],
-        });
-    }
-    assert(decorator);
+    const decorator = propertyDeclaration.addDecorator({
+        name: 'Field',
+        arguments: [`() => ${fieldType}`, '{}'],
+    });
     const callExpression = decorator.getCallExpression();
     assert(callExpression);
-    let optionsExpression = callExpression
+    const optionsExpression = callExpression
         .getArguments()
         .find((node) => Node.isObjectLiteralExpression(node)) as
         | ObjectLiteralExpression
         | undefined;
-    if (!optionsExpression) {
-        [optionsExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
-    }
+    assert(optionsExpression);
     updateObjectProperty({
         expression: optionsExpression,
         name: 'nullable',

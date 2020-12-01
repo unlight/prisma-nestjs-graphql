@@ -5,17 +5,17 @@ export class IntFilter {
     @Field(() => Int, {
         nullable: true,
     })
-    equals?: number | null;
+    equals?: number;
 
     @Field(() => [Int], {
         nullable: true,
     })
-    in?: Array<number> | null;
+    in?: Array<number>;
 
     @Field(() => [Int], {
         nullable: true,
     })
-    notIn?: Array<number> | null;
+    notIn?: Array<number>;
 
     @Field(() => Int, {
         nullable: true,
@@ -40,5 +40,5 @@ export class IntFilter {
     @Field(() => IntFilter, {
         nullable: true,
     })
-    not?: number | IntFilter | null;
+    not?: number | IntFilter;
 }

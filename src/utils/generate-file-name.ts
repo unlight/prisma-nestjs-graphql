@@ -8,13 +8,12 @@ type GenerateFileNameArgs = {
     type: string;
     name: string;
     models: string[];
-    template?: string;
+    template: string;
     feature?: string;
 };
 
 export function generateFileName(args: GenerateFileNameArgs) {
-    const { type, name, models } = args;
-    const template = args.template || '{feature}/{name}.{type}.ts';
+    const { template, type, name, models } = args;
 
     return pupa(template, {
         type,

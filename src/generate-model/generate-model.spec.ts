@@ -167,7 +167,7 @@ describe('generate models', () => {
         });
         const objectTypeArgs = sourceFile.getClass('User')?.getStructure()?.decorators?.[0]
             ?.arguments?.[0];
-        expect(objectTypeArgs).toContain('{ }');
+        expect(objectTypeArgs).toContain('{}');
     });
 
     it('model import scalar types', async () => {

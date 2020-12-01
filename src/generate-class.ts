@@ -30,23 +30,23 @@ export function generateClass(args: GenerateClassArgs) {
     let classDeclaration = sourceFile
         .getClasses()
         .find((classDeclaration) => classDeclaration.getName() === name);
-    if (!classDeclaration) {
-        classDeclaration = sourceFile.addClass({
-            name,
-            isExported: true,
-            decorators: [{ name: decorator.name, arguments: [] }],
-        });
+
+    if (classDeclaration) {
+        classDeclaration.remove();
     }
-    let decoratorDeclaration = classDeclaration
+
+    classDeclaration = sourceFile.addClass({
+        name,
+        isExported: true,
+        decorators: [{ name: decorator.name, arguments: [] }],
+    });
+
+    const decoratorDeclaration = classDeclaration
         .getDecorators()
         .find((d) => d.getName() === decorator.name);
-    if (!decoratorDeclaration) {
-        decoratorDeclaration = classDeclaration.addDecorator({
-            name: decorator.name,
-            arguments: [],
-        });
-    }
+
     assert(decoratorDeclaration);
+
     const callExpression = decoratorDeclaration.getCallExpression();
     assert(callExpression);
     if (decorator.properties) {
@@ -81,19 +81,12 @@ type GenerateClassProperty = {
 
 export function generateClassProperty(args: GenerateClassProperty) {
     const { type, isRequired, name, classDeclaration, isReadOnly } = args;
-    let propertyDeclaration = classDeclaration
-        .getProperties()
-        .find((propertyDeclaration) => propertyDeclaration.getName() === name);
-    if (!propertyDeclaration) {
-        propertyDeclaration = classDeclaration.addProperty({
-            leadingTrivia: '\n',
-            name,
-            type,
-            hasQuestionToken: !isRequired,
-            hasExclamationToken: isRequired,
-            isReadonly: isReadOnly,
-        });
-    }
-    assert(propertyDeclaration);
-    return propertyDeclaration;
+    return classDeclaration.addProperty({
+        leadingTrivia: '\n',
+        name,
+        type,
+        hasQuestionToken: !isRequired,
+        hasExclamationToken: isRequired,
+        isReadonly: isReadOnly,
+    });
 }

@@ -6,8 +6,7 @@ Generate object types, inputs, args, etc. from prisma schema file for usage with
 
 -   Generates only necessary imports
 -   Combines zoo of nested/nullable filters
--   Updates source code of existing files
--   Do not generate resolvers, since it's application specific
+-   Does not generate resolvers, since it's application specific
 
 ## Install
 
