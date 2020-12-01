@@ -56,6 +56,7 @@ export function generateInput(args: GenerateInputArgs) {
             isList: field.inputTypes.some((t) => t.isList),
             isRequired: false,
         };
+
         generateProperty({
             projectFilePath,
             classDeclaration,

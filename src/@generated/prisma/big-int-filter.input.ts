@@ -5,17 +5,17 @@ export class BigIntFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: BigInt | null;
+    equals?: BigInt;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<BigInt> | null;
+    in?: Array<BigInt>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<BigInt> | null;
+    notIn?: Array<BigInt>;
 
     @Field(() => String, {
         nullable: true,
@@ -40,5 +40,5 @@ export class BigIntFilter {
     @Field(() => BigIntFilter, {
         nullable: true,
     })
-    not?: BigInt | BigIntFilter | null;
+    not?: BigInt | BigIntFilter;
 }

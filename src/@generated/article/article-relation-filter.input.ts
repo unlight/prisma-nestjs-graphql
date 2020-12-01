@@ -7,10 +7,10 @@ export class ArticleRelationFilter {
     @Field(() => ArticleWhereInput, {
         nullable: true,
     })
-    is?: ArticleWhereInput | null;
+    is?: ArticleWhereInput;
 
     @Field(() => ArticleWhereInput, {
         nullable: true,
     })
-    isNot?: ArticleWhereInput | null;
+    isNot?: ArticleWhereInput;
 }

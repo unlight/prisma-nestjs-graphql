@@ -30,20 +30,26 @@ export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     return { name: 'String', moduleSpecifier: undefined };
 }
 
-const patterns = new Map([
-    [{ type: (type: string) => type === 'String', kind: 'scalar' }, () => 'string'],
-    [{ type: (type: string) => type === 'DateTime', kind: 'scalar' }, () => 'Date | string'],
-    [{ type: (type: string) => type === 'Float', kind: 'scalar' }, () => 'number'],
-    [{ type: (type: string) => type === 'Int', kind: 'scalar' }, () => 'number'],
-    [{ type: (type: string) => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
-    [{ type: (type: string) => type === 'Json', kind: 'scalar' }, () => 'object'],
-    [{ type: (type: string) => type === 'Null', kind: 'scalar' }, () => 'null'],
-    [{ type: (type: string) => type === 'Decimal', kind: 'scalar' }, () => 'string'],
-    [{ type: (type: string) => type === 'Bytes', kind: 'scalar' }, () => 'Buffer'],
-    [{ type: (type: string) => type === 'BigInt', kind: 'scalar' }, () => 'BigInt'],
-    [{ type: () => true, kind: 'object' }, (field: { type: string }) => field.type],
-    [{ type: () => true, kind: 'enum' }, (field: { type: string }) => field.type],
-    [{ type: () => true, kind: 'scalar' }, (field: { type: string }) => field.type],
+type PatternKey = {
+    type: (type?: string) => boolean;
+    kind: string;
+};
+type PatternValue = (type: string) => string | string[];
+
+const patterns = new Map<PatternKey, PatternValue>([
+    [{ type: (type) => type === 'String', kind: 'scalar' }, () => 'string'],
+    [{ type: (type) => type === 'DateTime', kind: 'scalar' }, () => ['Date', 'string']],
+    [{ type: (type) => type === 'Float', kind: 'scalar' }, () => 'number'],
+    [{ type: (type) => type === 'Int', kind: 'scalar' }, () => 'number'],
+    [{ type: (type) => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
+    [{ type: (type) => type === 'Json', kind: 'scalar' }, () => 'object'],
+    [{ type: (type) => type === 'Null', kind: 'scalar' }, () => 'null'],
+    [{ type: (type) => type === 'Decimal', kind: 'scalar' }, () => 'string'],
+    [{ type: (type) => type === 'Bytes', kind: 'scalar' }, () => 'Buffer'],
+    [{ type: (type) => type === 'BigInt', kind: 'scalar' }, () => 'BigInt'],
+    [{ type: () => true, kind: 'object' }, (type) => type],
+    [{ type: () => true, kind: 'enum' }, (type) => type],
+    [{ type: () => true, kind: 'scalar' }, (type) => type],
 ]);
 
 type ToPropertyTypeArgs = {
@@ -58,11 +64,14 @@ export function toPropertyType(args: ToPropertyTypeArgs): string {
     const { type, kind, isList } = args;
     for (const [key, get] of patterns.entries()) {
         if (key.kind === kind && key.type(type)) {
-            let result = get(args);
-            if (isList) {
-                result = `Array<${result}>`;
+            let types = get(type);
+            if (!Array.isArray(types)) {
+                types = [types];
             }
-            return result;
+            if (isList) {
+                types = types.map((type) => `Array<${type}>`);
+            }
+            return types.join(' | ');
         }
     }
     throw new TypeError(`Cannot get property type from ${args.kind}/${args.type}`);

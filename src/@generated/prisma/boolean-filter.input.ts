@@ -5,10 +5,10 @@ export class BooleanFilter {
     @Field(() => Boolean, {
         nullable: true,
     })
-    equals?: boolean | null;
+    equals?: boolean;
 
     @Field(() => BooleanFilter, {
         nullable: true,
     })
-    not?: boolean | BooleanFilter | null;
+    not?: boolean | BooleanFilter;
 }

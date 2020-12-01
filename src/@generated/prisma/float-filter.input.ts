@@ -5,17 +5,17 @@ export class FloatFilter {
     @Field(() => Float, {
         nullable: true,
     })
-    equals?: number | null;
+    equals?: number;
 
     @Field(() => [Float], {
         nullable: true,
     })
-    in?: Array<number> | null;
+    in?: Array<number>;
 
     @Field(() => [Float], {
         nullable: true,
     })
-    notIn?: Array<number> | null;
+    notIn?: Array<number>;
 
     @Field(() => Float, {
         nullable: true,
@@ -40,5 +40,5 @@ export class FloatFilter {
     @Field(() => FloatFilter, {
         nullable: true,
     })
-    not?: number | FloatFilter | null;
+    not?: number | FloatFilter;
 }

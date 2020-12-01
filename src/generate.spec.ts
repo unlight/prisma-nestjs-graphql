@@ -78,8 +78,8 @@ describe('main generate', () => {
         const property = sourceFile.getClass('User')?.getProperty('posts');
         assert(property, 'Property posts should exists');
 
-        stringContains(`@Field(() => [Post]`, property.getText());
-        stringContains(`posts?: Array<Post>`, property.getText());
+        expect(property.getText()).toContain('@Field(() => [Post]');
+        expect(property.getStructure().type).toEqual('Array<Post>');
 
         sourceFile = sourceFiles.find((s) =>
             s.getFilePath().toLowerCase().endsWith('/post.model.ts'),
@@ -260,7 +260,7 @@ describe('main generate', () => {
 
         const rating = classDeclaration.getProperty('rating')?.getStructure();
         assert(rating);
-        assert.strictEqual(rating.type, 'number | null');
+        expect(rating.type).toEqual('number');
         args = classDeclaration
             .getProperty('rating')
             ?.getDecorator('Field')
@@ -460,5 +460,24 @@ describe('main generate', () => {
                     throw new Error(`Property ${struct.name} typed ${String(struct.type)}`);
                 }
             });
+    });
+
+    it('scalar filter with enabled combineScalarFilters', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id Int @id
+              p3 String?
+            }
+            `,
+            options: [`combineScalarFilters = true`],
+        });
+        expect(sourceFiles.length).toBeGreaterThan(0);
+        sourceFile = sourceFiles.find((s) =>
+            s.getFilePath().toLowerCase().endsWith('/string-filter.input.ts'),
+        )!;
+        const classFile = sourceFile.getClass('StringFilter')!;
+        const fieldEquals = classFile.getProperty('equals')!;
+        expect(fieldEquals.getStructure().type).toEqual('string');
     });
 });

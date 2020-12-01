@@ -49,7 +49,7 @@ export class ArticleUpdateWithoutAuthorInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    active?: boolean | null;
+    active?: boolean;
 
     @Field(() => TagUpdateManyWithoutArticlesInput, {
         nullable: true,

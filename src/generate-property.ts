@@ -35,7 +35,7 @@ type GeneratePropertyArgs = {
 };
 
 /**
- * Generate property for class.
+ * Generate property (field) for class.
  */
 export function generateProperty(args: GeneratePropertyArgs) {
     const {

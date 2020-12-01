@@ -1,35 +1,35 @@
-import assert from 'assert';
+import expect from 'expect';
 
 import { replacementTypeName } from './combine-scalar-filters';
 
 describe('combine scalar filters', () => {
     it('replacement type name scalars', () => {
-        assert.strictEqual(replacementTypeName('StringNullableFilter'), 'StringFilter');
-        assert.strictEqual(replacementTypeName('NullableStringFilter'), 'StringFilter');
-        assert.strictEqual(replacementTypeName('NestedStringNullableFilter'), 'StringFilter');
-        assert.strictEqual(replacementTypeName('NestedStringFilter'), 'StringFilter');
-        assert.strictEqual(replacementTypeName('IntNullableFilter'), 'IntFilter');
-        assert.strictEqual(replacementTypeName('NullableIntFilter'), 'IntFilter');
-        assert.strictEqual(replacementTypeName('NestedIntNullableFilter'), 'IntFilter');
-        assert.strictEqual(replacementTypeName('NestedIntFilter'), 'IntFilter');
-        assert.strictEqual(replacementTypeName('FloatNullableFilter'), 'FloatFilter');
-        assert.strictEqual(replacementTypeName('NullableFloatFilter'), 'FloatFilter');
-        assert.strictEqual(replacementTypeName('NestedFloatNullableFilter'), 'FloatFilter');
-        assert.strictEqual(replacementTypeName('NestedFloatFilter'), 'FloatFilter');
-        assert.strictEqual(replacementTypeName('DateTimeNullableFilter'), 'DateTimeFilter');
-        assert.strictEqual(replacementTypeName('NullableDateTimeFilter'), 'DateTimeFilter');
-        assert.strictEqual(replacementTypeName('NestedDateTimeNullableFilter'), 'DateTimeFilter');
-        assert.strictEqual(replacementTypeName('NestedDateTimeFilter'), 'DateTimeFilter');
-        assert.strictEqual(replacementTypeName('BooleanNullableFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('NullableBooleanFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('NestedBooleanNullableFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('NestedBooleanFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('BoolNullableFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('NestedBoolNullableFilter'), 'BooleanFilter');
-        assert.strictEqual(replacementTypeName('NestedBoolFilter'), 'BooleanFilter');
+        expect(replacementTypeName('StringNullableFilter')).toEqual('StringFilter');
+        expect(replacementTypeName('NullableStringFilter')).toEqual('StringFilter');
+        expect(replacementTypeName('NestedStringNullableFilter')).toEqual('StringFilter');
+        expect(replacementTypeName('NestedStringFilter')).toEqual('StringFilter');
+        expect(replacementTypeName('IntNullableFilter')).toEqual('IntFilter');
+        expect(replacementTypeName('NullableIntFilter')).toEqual('IntFilter');
+        expect(replacementTypeName('NestedIntNullableFilter')).toEqual('IntFilter');
+        expect(replacementTypeName('NestedIntFilter')).toEqual('IntFilter');
+        expect(replacementTypeName('FloatNullableFilter')).toEqual('FloatFilter');
+        expect(replacementTypeName('NullableFloatFilter')).toEqual('FloatFilter');
+        expect(replacementTypeName('NestedFloatNullableFilter')).toEqual('FloatFilter');
+        expect(replacementTypeName('NestedFloatFilter')).toEqual('FloatFilter');
+        expect(replacementTypeName('DateTimeNullableFilter')).toEqual('DateTimeFilter');
+        expect(replacementTypeName('NullableDateTimeFilter')).toEqual('DateTimeFilter');
+        expect(replacementTypeName('NestedDateTimeNullableFilter')).toEqual('DateTimeFilter');
+        expect(replacementTypeName('NestedDateTimeFilter')).toEqual('DateTimeFilter');
+        expect(replacementTypeName('BooleanNullableFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('NullableBooleanFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('NestedBooleanNullableFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('NestedBooleanFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('BoolNullableFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('NestedBoolNullableFilter')).toEqual('BooleanFilter');
+        expect(replacementTypeName('NestedBoolFilter')).toEqual('BooleanFilter');
     });
 
     it('replacement type name enum', () => {
-        assert.strictEqual(replacementTypeName('EnumRoleNullableFilter'), 'EnumRoleFilter');
+        expect(replacementTypeName('EnumRoleNullableFilter')).toEqual('EnumRoleFilter');
     });
 });

@@ -7,20 +7,20 @@ export class EnumRoleFilter {
     @Field(() => Role, {
         nullable: true,
     })
-    equals?: Role | null;
+    equals?: Role;
 
     @Field(() => [Role], {
         nullable: true,
     })
-    in?: Array<Role> | null;
+    in?: Array<Role>;
 
     @Field(() => [Role], {
         nullable: true,
     })
-    notIn?: Array<Role> | null;
+    notIn?: Array<Role>;
 
     @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    not?: Role | EnumRoleFilter | null;
+    not?: Role | EnumRoleFilter;
 }

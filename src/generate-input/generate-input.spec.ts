@@ -69,6 +69,9 @@ describe('generate inputs', () => {
             ?.getArguments();
         expect(decoratorArguments?.[0]?.getText()).toEqual('() => StringFilter');
         expect(struct('UserWhereInput', 'birth')?.type).toEqual('DateTimeFilter | Date | string');
+        expect(struct('UserWhereInput', 'AND')?.type).toEqual(
+            'UserWhereInput | Array<UserWhereInput>',
+        );
     });
 
     it('user where int filter', async () => {
@@ -118,17 +121,17 @@ describe('generate inputs', () => {
         const structure = (name: string) =>
             properties?.find((x) => x.getName() === name)?.getStructure();
 
-        assert.strictEqual(structure('equals')?.type, 'string');
-        assert.strictEqual(structure('lt')?.type, 'string');
-        assert.strictEqual(structure('lte')?.type, 'string');
-        assert.strictEqual(structure('gt')?.type, 'string');
-        assert.strictEqual(structure('gte')?.type, 'string');
-        assert.strictEqual(structure('contains')?.type, 'string');
-        assert.strictEqual(structure('startsWith')?.type, 'string');
-        assert.strictEqual(structure('endsWith')?.type, 'string');
+        expect(structure('equals')?.type).toEqual('string');
+        expect(structure('lt')?.type).toEqual('string');
+        expect(structure('lte')?.type).toEqual('string');
+        expect(structure('gt')?.type).toEqual('string');
+        expect(structure('gte')?.type).toEqual('string');
+        expect(structure('contains')?.type).toEqual('string');
+        expect(structure('startsWith')?.type).toEqual('string');
+        expect(structure('endsWith')?.type).toEqual('string');
 
-        assert.strictEqual(structure('in')?.type, 'Array<string>');
-        assert.strictEqual(structure('notIn')?.type, 'Array<string>');
+        expect(structure('in')?.type).toEqual('Array<string>');
+        expect(structure('notIn')?.type).toEqual('Array<string>');
     });
 
     it('user create input', async () => {
@@ -258,5 +261,21 @@ describe('generate inputs', () => {
             specifier: './EnumRoleFilter.input',
         });
         expect(imports).toContainEqual({ name: 'Role', specifier: './Role.enum' });
+    });
+
+    it('compatiblity datetime filter', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id Int @id
+              da DateTime
+            }
+            `,
+            name: 'DateTimeFilter',
+            model: 'User',
+        });
+        const classFile = sourceFile.getClass('DateTimeFilter')!;
+        const fieldIn = classFile.getProperty('in')!;
+        expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
     });
 });

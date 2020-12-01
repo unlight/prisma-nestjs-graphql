@@ -10,12 +10,12 @@ export class DateTimeFilter {
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<Date | string>;
+    in?: Array<Date> | Array<string>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<Date | string>;
+    notIn?: Array<Date> | Array<string>;
 
     @Field(() => String, {
         nullable: true,

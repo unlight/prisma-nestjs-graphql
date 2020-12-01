@@ -46,25 +46,25 @@ export class UserScalarWhereInput {
     @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringFilter | string | null;
+    bio?: StringFilter | string;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringFilter | string | null;
+    image?: StringFilter | string;
 
     @Field(() => IntFilter, {
         nullable: true,
     })
-    countComments?: IntFilter | number | null;
+    countComments?: IntFilter | number;
 
     @Field(() => FloatFilter, {
         nullable: true,
     })
-    rating?: FloatFilter | number | null;
+    rating?: FloatFilter | number;
 
     @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    role?: EnumRoleFilter | Role | null;
+    role?: EnumRoleFilter | Role;
 }

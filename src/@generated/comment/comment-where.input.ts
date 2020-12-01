@@ -57,10 +57,10 @@ export class CommentWhereInput {
     @Field(() => ArticleWhereInput, {
         nullable: true,
     })
-    article?: ArticleRelationFilter | ArticleWhereInput | null;
+    article?: ArticleRelationFilter | ArticleWhereInput;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string | null;
+    articleId?: StringFilter | string;
 }

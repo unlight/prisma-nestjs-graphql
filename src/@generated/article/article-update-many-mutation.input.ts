@@ -45,5 +45,5 @@ export class ArticleUpdateManyMutationInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    active?: boolean | null;
+    active?: boolean;
 }

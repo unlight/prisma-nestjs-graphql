@@ -70,5 +70,5 @@ export class ArticleScalarWhereInput {
     @Field(() => BooleanFilter, {
         nullable: true,
     })
-    active?: BooleanFilter | boolean | null;
+    active?: BooleanFilter | boolean;
 }

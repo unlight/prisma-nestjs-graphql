@@ -49,7 +49,7 @@ export class ArticleCreateWithoutTagsInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    active?: boolean | null;
+    active?: boolean;
 
     @Field(() => UserCreateOneWithoutArticlesInput, {
         nullable: true,

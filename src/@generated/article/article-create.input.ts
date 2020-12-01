@@ -50,7 +50,7 @@ export class ArticleCreateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    active?: boolean | null;
+    active?: boolean;
 
     @Field(() => TagCreateManyWithoutArticlesInput, {
         nullable: true,

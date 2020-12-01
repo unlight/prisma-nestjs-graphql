@@ -95,5 +95,5 @@ export class ArticleWhereInput {
     @Field(() => BooleanFilter, {
         nullable: true,
     })
-    active?: BooleanFilter | boolean | null;
+    active?: BooleanFilter | boolean;
 }

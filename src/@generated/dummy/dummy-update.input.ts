@@ -11,17 +11,17 @@ export class DummyUpdateInput {
     @Field(() => String, {
         nullable: true,
     })
-    bytes?: Buffer | null;
+    bytes?: Buffer;
 
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string | null;
+    decimal?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bigInt?: BigInt | null;
+    bigInt?: BigInt;
 
     @Field(() => GraphQLJSON, {
         nullable: true,

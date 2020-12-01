@@ -48,5 +48,5 @@ export class CommentScalarWhereInput {
     @Field(() => StringFilter, {
         nullable: true,
     })
-    articleId?: StringFilter | string | null;
+    articleId?: StringFilter | string;
 }

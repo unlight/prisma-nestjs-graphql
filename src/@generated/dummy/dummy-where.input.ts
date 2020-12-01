@@ -31,17 +31,17 @@ export class DummyWhereInput {
     @Field(() => BytesFilter, {
         nullable: true,
     })
-    bytes?: BytesFilter | Buffer | null;
+    bytes?: BytesFilter | Buffer;
 
     @Field(() => DecimalFilter, {
         nullable: true,
     })
-    decimal?: DecimalFilter | string | null;
+    decimal?: DecimalFilter | string;
 
     @Field(() => BigIntFilter, {
         nullable: true,
     })
-    bigInt?: BigIntFilter | BigInt | null;
+    bigInt?: BigIntFilter | BigInt;
 
     @Field(() => JsonFilter, {
         nullable: true,

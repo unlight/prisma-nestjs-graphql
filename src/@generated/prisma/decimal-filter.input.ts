@@ -5,17 +5,17 @@ export class DecimalFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: string | null;
+    equals?: string;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<string> | null;
+    in?: Array<string>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<string> | null;
+    notIn?: Array<string>;
 
     @Field(() => String, {
         nullable: true,
@@ -40,5 +40,5 @@ export class DecimalFilter {
     @Field(() => DecimalFilter, {
         nullable: true,
     })
-    not?: string | DecimalFilter | null;
+    not?: string | DecimalFilter;
 }

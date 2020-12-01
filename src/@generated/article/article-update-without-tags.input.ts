@@ -49,7 +49,7 @@ export class ArticleUpdateWithoutTagsInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    active?: boolean | null;
+    active?: boolean;
 
     @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
         nullable: true,

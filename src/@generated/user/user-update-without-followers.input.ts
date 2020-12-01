@@ -31,27 +31,27 @@ export class UserUpdateWithoutFollowersInput {
     @Field(() => String, {
         nullable: true,
     })
-    bio?: string | null;
+    bio?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    image?: string | null;
+    image?: string;
 
     @Field(() => Int, {
         nullable: true,
     })
-    countComments?: number | null;
+    countComments?: number;
 
     @Field(() => Float, {
         nullable: true,
     })
-    rating?: number | null;
+    rating?: number;
 
     @Field(() => Role, {
         nullable: true,
     })
-    role?: Role | null;
+    role?: Role;
 
     @Field(() => UserUpdateManyWithoutFollowersInput, {
         nullable: true,
