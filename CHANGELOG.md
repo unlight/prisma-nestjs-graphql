@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.0.0...v5.0.1) (2020-12-01)
+
+
+### Bug Fixes
+
+* Scalar filters compatibility ([02acba8](https://github.com/unlight/nestjs-graphql-prisma/commit/02acba8eb9be183aa6ebcbe191cd0037aabbc53f))
+
 # [5.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v4.0.1...v5.0.0) (2020-12-01)
 
 
