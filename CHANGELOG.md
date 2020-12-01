@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v4.0.1...v5.0.0) (2020-12-01)
+
+
+### Bug Fixes
+
+* Switched to replace mode ([d04c3ef](https://github.com/unlight/nestjs-graphql-prisma/commit/d04c3ef6102969e3f5da8920be66e4378242ad22))
+
+
+### BREAKING CHANGES
+
+* Switched to replace mode generation of files, all extra field which are not exists in model will be
+removed
+
 ## [4.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v4.0.0...v4.0.1) (2020-11-27)
 
 
