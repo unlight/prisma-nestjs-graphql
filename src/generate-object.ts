@@ -4,6 +4,7 @@ import { generateClass } from './generate-class';
 import { generateImport } from './generate-import';
 import { generateProperty, Model } from './generate-property';
 import { GeneratorConfiguration } from './types';
+import { checkExport } from './utils';
 
 type GenerateObjectArgs = {
     sourceFile: SourceFile;
@@ -37,4 +38,6 @@ export function generateObject(args: GenerateObjectArgs) {
             config,
         });
     });
+
+    checkExport({ name: model.name, sourceFile, classDeclaration });
 }

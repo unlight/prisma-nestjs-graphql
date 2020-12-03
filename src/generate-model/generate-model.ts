@@ -4,6 +4,7 @@ import { generateClass } from '../generate-class';
 import { generateImport } from '../generate-import';
 import { generateProperty } from '../generate-property';
 import { GeneratorConfiguration, PrismaDMMF } from '../types';
+import { checkExport } from '../utils';
 
 type GenerateModelArgs = {
     model: PrismaDMMF.Model;
@@ -37,4 +38,5 @@ export function generateModel(args: GenerateModelArgs) {
             config,
         });
     });
+    checkExport({ name: model.name, classDeclaration, sourceFile });
 }

@@ -1,7 +1,7 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
-import * as Prisma from '@prisma/client';
+import { GraphQLResolveInfo } from 'graphql';
 
 import { AggregateUserArgs } from '../../@generated/user/aggregate-user.args';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
@@ -33,7 +33,7 @@ export class UserResolver {
      * Query for single user.
      */
     @Query(() => [User])
-    async users(@Args('where') where: UserWhereInput, @Info() info) {
+    async users(@Args('where') where: UserWhereInput, @Info() info: GraphQLResolveInfo) {
         const select = new PrismaSelect(info).value;
         // console.log('select', select);
         return await prisma.user.findMany({ where, ...select });
@@ -45,10 +45,7 @@ export class UserResolver {
     }
 
     @Query(() => AggregateUser)
-    async userAggregate(@Args() args: AggregateUserArgs, @Info() info) {
-        console.log('args', args);
-        const result = await prisma.user.aggregate(args as Prisma.AggregateUserArgs);
-        console.log('result', result);
-        return result;
+    userAggregate(@Args() args: AggregateUserArgs) {
+        return prisma.user.aggregate(args);
     }
 }

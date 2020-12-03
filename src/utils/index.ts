@@ -4,6 +4,8 @@ export { createConfig } from './create-config';
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
 import { PrismaDMMF, TypeRecord } from '../types';
+export { checkExport } from './check-export';
+
 export { generateFileName } from './generate-file-name';
 
 type ToGraphqlImportTypeArgs = {

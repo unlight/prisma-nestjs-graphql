@@ -4,7 +4,7 @@ import { DecoratorPropertyType, generateClass } from '../generate-class';
 import { generateImport, generateProjectImport } from '../generate-import';
 import { Field, generateProperty } from '../generate-property';
 import { GeneratorConfiguration, PrismaDMMF } from '../types';
-import { fieldLocationToKind, toPropertyType } from '../utils';
+import { checkExport, fieldLocationToKind, toPropertyType } from '../utils';
 import { getMatchingInputType } from './get-matching-input-type';
 
 type GenerateInputArgs = {
@@ -68,4 +68,6 @@ export function generateInput(args: GenerateInputArgs) {
             config,
         });
     }
+
+    checkExport({ name: className, sourceFile, classDeclaration });
 }

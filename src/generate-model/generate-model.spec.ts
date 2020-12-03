@@ -268,4 +268,21 @@ describe('generate models', () => {
             specifier: 'decimal.js',
         });
     });
+
+    it('generated commented class if reexport found', async () => {
+        await getResult({
+            schema: `model User {
+                id String @id
+            }`,
+            sourceFileText: `
+                export { User } from 'src/user/model'
+                export { User as UserModel } from 'src/user2/model'
+            `,
+        });
+        sourceText = sourceFile.getText();
+        const sourceClass = sourceFile.getClasses();
+        expect(sourceClass).toHaveLength(0);
+        expect(sourceText).toContain(`export { User } from 'src/user/model'`);
+        expect(sourceText).toContain(`// export class User`);
+    });
 });
