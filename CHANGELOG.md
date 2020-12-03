@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.0.1...v5.1.0) (2020-12-03)
+
+
+### Features
+
+* Generate commented class if re-export found ([dc3e268](https://github.com/unlight/nestjs-graphql-prisma/commit/dc3e268f90ef2e1436834d35b6cb45e1d87d7527))
+
 ## [5.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.0.0...v5.0.1) (2020-12-01)
 
 
