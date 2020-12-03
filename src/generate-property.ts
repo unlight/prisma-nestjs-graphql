@@ -21,6 +21,7 @@ export type Field = {
 export type Model = {
     name: string;
     fields: Field[];
+    documentation?: string;
 };
 
 type GeneratePropertyArgs = {

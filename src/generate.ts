@@ -8,7 +8,6 @@ import { generateArgs } from './generate-args';
 import { generateEnum } from './generate-enum';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
-import { generateObject } from './generate-object';
 import { Model } from './generate-property';
 import { mutateFilters } from './mutate-filters';
 import { PrismaDMMF } from './types';
@@ -78,7 +77,7 @@ export async function generate(args: GenerateArgs) {
     // Generate models
     for (const model of prismaClientDmmf.datamodel.models) {
         const sourceFile = await createSourceFile({ type: 'model', name: model.name });
-        generateModel({ model, sourceFile, projectFilePath, config });
+        generateModel({ classType: 'model', model, sourceFile, projectFilePath, config });
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
@@ -142,7 +141,7 @@ export async function generate(args: GenerateArgs) {
                 };
             }),
         };
-        generateObject({
+        generateModel({
             classType: 'output',
             sourceFile,
             projectFilePath,

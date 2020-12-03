@@ -35,6 +35,7 @@ describe('generate models', () => {
         sourceFile = project.createSourceFile('_.ts', sourceFileText);
         const config = createConfig(generator.config);
         generateModel({
+            classType: 'model',
             model,
             sourceFile,
             config,
