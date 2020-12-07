@@ -27,17 +27,20 @@ export function generateModel(args: GenerateModelArgs) {
         sourceFile,
         name: model.name,
     });
+
     generateImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
-    model.fields.forEach((field) => {
-        generateProperty({
-            field,
-            sourceFile,
-            classDeclaration,
-            className: model.name,
-            classType,
-            projectFilePath,
-            config,
+    model.fields
+        .filter((field) => !classDeclaration.getProperty(field.name))
+        .forEach((field) => {
+            generateProperty({
+                field,
+                sourceFile,
+                classDeclaration,
+                className: model.name,
+                classType,
+                projectFilePath,
+                config,
+            });
         });
-    });
     checkExport({ name: model.name, classDeclaration, sourceFile });
 }

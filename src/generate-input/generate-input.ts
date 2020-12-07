@@ -24,6 +24,7 @@ export function generateInput(args: GenerateInputArgs) {
         name: className,
     });
     generateImport({ name: 'Field', sourceFile, moduleSpecifier: '@nestjs/graphql' });
+
     for (const field of inputType.fields) {
         // Additional import all objects
         field.inputTypes

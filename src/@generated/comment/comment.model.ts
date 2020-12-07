@@ -3,7 +3,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
 import { User } from '../user/user.model';
 
-@ObjectType({})
+@ObjectType()
 export class Comment {
     @Field(() => ID, {
         nullable: false,

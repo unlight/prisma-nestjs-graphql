@@ -11,10 +11,10 @@ export function mutateFilters(inputTypes: PrismaDMMF.InputType[], options: Mutat
     const mutations = [
         options.combineScalarFilters && combineScalarFilters(inputTypes),
         !options.atomicNumberOperations && noAtomicNumberOperations(),
-    ];
+    ].filter(Boolean);
 
     return function (inputType: PrismaDMMF.InputType) {
-        for (const mutation of mutations.filter(Boolean)) {
+        for (const mutation of mutations) {
             const result = mutation && mutation(inputType);
             if (!result) {
                 return false;

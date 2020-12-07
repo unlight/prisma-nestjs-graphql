@@ -4,7 +4,7 @@ import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
 import { Role } from '../prisma/role.enum';
 
-@ObjectType({})
+@ObjectType()
 export class User {
     @Field(() => ID, {
         nullable: false,

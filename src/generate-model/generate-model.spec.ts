@@ -1,6 +1,6 @@
 import assert from 'assert';
 import expect from 'expect';
-import { Project, QuoteKind, SourceFile } from 'ts-morph';
+import { ClassDeclaration, Decorator, Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateModel } from '../generate-model';
 import {
@@ -120,17 +120,6 @@ describe('generate models', () => {
         expect(sourceFile.getText()).not.toContain('import { User }');
     });
 
-    it('extend existing class', async () => {
-        await getResult({
-            schema: `model User {
-                id String @id
-            }`,
-            sourceFileText: `@ObjectType() export class User {}`,
-        });
-        sourceText = sourceFile.getText();
-        expect(sourceText.match(/export class User/g)?.length).toEqual(1);
-    });
-
     it('object type description', async () => {
         await getResult({
             schema: `/// User really
@@ -139,9 +128,8 @@ describe('generate models', () => {
             }`,
         });
 
-        const decoratorArgument = sourceFile.getClass('User')?.getDecorators()[0].getStructure()
+        const decoratorArgument = sourceFile.getClass('User')?.getDecorators()?.[0].getStructure()
             ?.arguments?.[0] as string | undefined;
-        assert(decoratorArgument);
         expect(decoratorArgument).toContain(`description: "User really"`);
     });
 
@@ -157,18 +145,6 @@ describe('generate models', () => {
         stringContains('nullable: false', args?.[1]);
         stringContains('description: "user id"', args?.[1]);
         expect(args?.[0]).toEqual('() => ID');
-    });
-
-    it('remove description', async () => {
-        await getResult({
-            schema: `model User {
-                id String @id
-            }`,
-            sourceFileText: `@ObjectType({ description: 'user description' }) export class User {}`,
-        });
-        const objectTypeArgs = sourceFile.getClass('User')?.getStructure()?.decorators?.[0]
-            ?.arguments?.[0];
-        expect(objectTypeArgs).toContain('{}');
     });
 
     it('model import scalar types', async () => {
@@ -270,20 +246,72 @@ describe('generate models', () => {
         });
     });
 
-    it('generated commented class if reexport found', async () => {
-        await getResult({
-            schema: `model User {
+    describe('existing class', () => {
+        it('extend', async () => {
+            await getResult({
+                schema: `model User {
                 id String @id
             }`,
-            sourceFileText: `
+                sourceFileText: `@ObjectType() export class User {}`,
+            });
+            sourceText = sourceFile.getText();
+            expect(sourceText.match(/export class User/g)?.length).toEqual(1);
+        });
+
+        it('remove description', async () => {
+            await getResult({
+                schema: `model User {
+                id String @id
+            }`,
+                sourceFileText: `@ObjectType({ description: 'user description' }) export class User {}`,
+            });
+            const objectType = sourceFile.getClass('User')?.getDecorator('ObjectType')?.getText();
+            expect(objectType).toEqual('@ObjectType()');
+        });
+
+        it('generated commented class if reexport found', async () => {
+            await getResult({
+                schema: `model User {
+                id String @id
+            }`,
+                sourceFileText: `
                 export { User } from 'src/user/model'
                 export { User as UserModel } from 'src/user2/model'
             `,
+            });
+            sourceText = sourceFile.getText();
+            const sourceClass = sourceFile.getClasses();
+            expect(sourceClass).toHaveLength(0);
+            expect(sourceText).toContain(`export { User } from 'src/user/model'`);
+            expect(sourceText).toContain(`// export class User`);
         });
-        sourceText = sourceFile.getText();
-        const sourceClass = sourceFile.getClasses();
-        expect(sourceClass).toHaveLength(0);
-        expect(sourceText).toContain(`export { User } from 'src/user/model'`);
-        expect(sourceText).toContain(`// export class User`);
+
+        describe('dont add decorators', () => {
+            let userClass: ClassDeclaration;
+            let decorator: Decorator | undefined;
+
+            before(async () => {
+                await getResult({
+                    schema: `model User {
+                       id String @id
+                    }`,
+                    sourceFileText: `export class User {
+                        id: string;
+                    }`,
+                });
+                userClass = sourceFile.getClass('User')!;
+            });
+
+            it('for class', () => {
+                decorator = userClass.getDecorators().find((d) => d.getName() === 'ObjectType');
+                expect(decorator?.getText()).toBeUndefined();
+            });
+
+            it('for property', () => {
+                expect(userClass.getProperties().map((x) => x.getName())).toHaveLength(1);
+                decorator = userClass.getProperty('id')!.getDecorator('Field');
+                expect(decorator?.getText()).toBeUndefined();
+            });
+        });
     });
 });

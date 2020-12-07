@@ -1,4 +1,4 @@
-import assert from 'assert';
+import expect from 'expect';
 
 import { PrismaDMMF } from '../types';
 import { getMatchingInputType } from './get-matching-input-type';
@@ -11,7 +11,7 @@ describe('get matching input type', () => {
             { type: 'String', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result.type, 'StringFilter');
+        expect(result.type).toEqual('StringFilter');
     });
 
     it('several kind objects xor list', () => {
@@ -20,7 +20,7 @@ describe('get matching input type', () => {
             { type: 'UserWhereInput', location: 'inputObjectTypes', isList: true },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result, {
+        expect(result).toEqual({
             type: 'UserWhereInput',
             location: 'inputObjectTypes',
             isList: true,
@@ -33,7 +33,7 @@ describe('get matching input type', () => {
             { type: 'UserWhereInput', location: 'inputObjectTypes', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result.type, 'UserWhereInput');
+        expect(result.type).toEqual('UserWhereInput');
     });
 
     it('mixed objects with null', () => {
@@ -43,7 +43,7 @@ describe('get matching input type', () => {
             { type: 'Null', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result.type, 'UserWhereInput');
+        expect(result.type).toEqual('UserWhereInput');
     });
 
     it('mixed with null', () => {
@@ -53,6 +53,6 @@ describe('get matching input type', () => {
             { type: 'Null', location: 'scalar', isList: false },
         ];
         const result = getMatchingInputType(inputTypes);
-        assert.deepStrictEqual(result.type, 'IntFilter');
+        expect(result.type).toEqual('IntFilter');
     });
 });

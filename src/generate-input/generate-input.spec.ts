@@ -160,14 +160,14 @@ describe('generate inputs', () => {
             ?.getDecorator('Field')
             ?.getCallExpression()
             ?.getArguments();
-        assert.strictEqual(decoratorArguments?.[0]?.getText(), '() => Int');
+        expect(decoratorArguments?.[0]?.getText()).toEqual('() => Int');
 
         const structure = sourceFile
             .getClass('UserCreateInput')
             ?.getProperty('countComments')
             ?.getStructure();
         assert(structure);
-        assert.strictEqual(structure.type, 'number | null');
+        expect(structure.type).toEqual('number | null');
 
         const imports = getImportDeclarations(sourceFile);
 
@@ -277,5 +277,28 @@ describe('generate inputs', () => {
         const classFile = sourceFile.getClass('DateTimeFilter')!;
         const fieldIn = classFile.getProperty('in')!;
         expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
+    });
+
+    it('duplicated fields in exising file', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id Int @id
+            }
+            `,
+            name: 'UserCreateInput',
+            model: 'User',
+            sourceFileText: /* JavaScript */ `
+                @InputType()
+                export class UserCreateInput {
+                    @Field(() => String, {
+                        nullable: true,
+                    })
+                    id?: string;
+            `,
+        });
+        const classFile = sourceFile.getClass('UserCreateInput')!;
+        const names = classFile.getProperties().map((p) => p.getName());
+        expect(names).toStrictEqual(['id']);
     });
 });

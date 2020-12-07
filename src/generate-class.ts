@@ -31,40 +31,62 @@ export function generateClass(args: GenerateClassArgs) {
         .getClasses()
         .find((classDeclaration) => classDeclaration.getName() === name);
 
-    if (classDeclaration) {
-        classDeclaration.remove();
+    // Check if decorator exists, if class exists but no decorator,
+    // it means it is a base class - do not add decorator.
+    const isBaseClass =
+        classDeclaration && classDeclaration.getDecorator(decorator.name) === undefined;
+
+    if (!classDeclaration) {
+        classDeclaration = sourceFile.addClass({
+            name,
+            isExported: true,
+        });
     }
 
-    classDeclaration = sourceFile.addClass({
-        name,
-        isExported: true,
-        decorators: [{ name: decorator.name, arguments: [] }],
-    });
+    assert(classDeclaration);
 
-    const decoratorDeclaration = classDeclaration
-        .getDecorators()
-        .find((d) => d.getName() === decorator.name);
+    if (!isBaseClass) {
+        const decoratorDeclaration =
+            classDeclaration.getDecorator(decorator.name) ??
+            classDeclaration.addDecorator({
+                name: decorator.name,
+                arguments: [],
+            });
 
-    assert(decoratorDeclaration);
-
-    const callExpression = decoratorDeclaration.getCallExpression();
-    assert(callExpression);
-    if (decorator.properties) {
-        let objectExpression = callExpression
-            .getArguments()
-            .find((node) => Node.isObjectLiteralExpression(node)) as
-            | ObjectLiteralExpression
-            | undefined;
-        if (!objectExpression) {
-            [objectExpression] = callExpression.addArguments(['{}']) as ObjectLiteralExpression[];
+        while (decoratorDeclaration.getArguments().length > 0) {
+            decoratorDeclaration.removeArgument(0);
         }
 
-        for (const property of decorator.properties) {
-            updateObjectProperty({
-                expression: objectExpression,
-                name: property.name,
-                value: property.value,
+        classDeclaration
+            .getProperties()
+            .filter((p) => Boolean(p.getDecorator('Field')))
+            .forEach((p) => {
+                p.remove();
             });
+
+        const properties = decorator.properties?.filter((p) => p.value !== undefined);
+
+        if (properties && properties.length > 0) {
+            const callExpression = decoratorDeclaration.getCallExpression();
+            assert(callExpression);
+            let objectExpression = callExpression
+                .getArguments()
+                .find((node) => Node.isObjectLiteralExpression(node)) as
+                | ObjectLiteralExpression
+                | undefined;
+            if (!objectExpression) {
+                [objectExpression] = callExpression.addArguments([
+                    '{}',
+                ]) as ObjectLiteralExpression[];
+            }
+
+            for (const property of properties) {
+                updateObjectProperty({
+                    expression: objectExpression,
+                    name: property.name,
+                    value: property.value,
+                });
+            }
         }
     }
 

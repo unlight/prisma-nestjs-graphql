@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
-@ObjectType({})
+@ObjectType()
 export class Dummy {
     @Field(() => ID, {
         nullable: false,

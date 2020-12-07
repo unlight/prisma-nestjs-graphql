@@ -4,7 +4,7 @@ import { Comment } from '../comment/comment.model';
 import { Tag } from '../tag/tag.model';
 import { User } from '../user/user.model';
 
-@ObjectType({})
+@ObjectType()
 export class Article {
     @Field(() => ID, {
         nullable: false,

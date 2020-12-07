@@ -54,6 +54,11 @@ export class StringFilter {
     })
     endsWith?: string;
 
+    @Field(() => QueryMode, {
+        nullable: true,
+    })
+    mode?: QueryMode;
+
     @Field(() => StringFilter, {
         nullable: true,
     })

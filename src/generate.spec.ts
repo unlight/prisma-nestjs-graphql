@@ -480,4 +480,19 @@ describe('main generate', () => {
         const fieldEquals = classFile.getProperty('equals')!;
         expect(fieldEquals.getStructure().type).toEqual('string');
     });
+
+    it('fields are not duplicated (prevent second generation)', async () => {
+        debugger;
+        await getResult({
+            schema: `
+            model User {
+              id Int @id
+            }
+            `,
+        });
+        sourceFile = sourceFiles.find((s) => s.getFilePath().endsWith('int-filter.input.ts'));
+        const classFile = sourceFile!.getClass('IntFilter')!;
+        const names = classFile.getProperties().map((p) => p.getName());
+        expect(names).toStrictEqual([...new Set(names)]);
+    });
 });

@@ -1,6 +1,7 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import { existsSync, promises as fs } from 'fs';
+import { uniqBy } from 'lodash';
 import path from 'path';
 import { Project, QuoteKind, SourceFile } from 'ts-morph';
 
@@ -91,7 +92,9 @@ export async function generate(args: GenerateArgs) {
     const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter((o) => o.name.endsWith('AggregateOutputType'))
         .map((o) => schemaOutputToInput(o));
-    for (const inputType of inputTypes.concat(aggregateInputs)) {
+    inputTypes = inputTypes.concat(aggregateInputs);
+    inputTypes = uniqBy(inputTypes, (x) => x.name);
+    for (const inputType of inputTypes) {
         const feature = featureName({ name: inputType.name, models, fallback: '' });
         const sourceFile = await createSourceFile({ type: 'input', name: inputType.name, feature });
         generateInput({
