@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.1.0...v5.1.1) (2020-12-07)
+
+
+### Bug Fixes
+
+* Remove duplicated input types ([53d5721](https://github.com/unlight/nestjs-graphql-prisma/commit/53d57219883f0e0c7e606f683aa63d70812221b0))
+
 # [5.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.0.1...v5.1.0) (2020-12-03)
 
 
