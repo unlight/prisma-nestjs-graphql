@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { DummyDistinctFieldEnum } from './dummy-distinct-field.enum';
 import { DummyOrderByInput } from './dummy-order-by.input';
+import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
 import { DummyWhereInput } from './dummy-where.input';
 import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 
@@ -32,8 +32,8 @@ export class FindFirstDummyArgs {
     })
     skip?: number;
 
-    @Field(() => [DummyDistinctFieldEnum], {
+    @Field(() => [DummyScalarFieldEnum], {
         nullable: true,
     })
-    distinct?: Array<DummyDistinctFieldEnum>;
+    distinct?: Array<DummyScalarFieldEnum>;
 }

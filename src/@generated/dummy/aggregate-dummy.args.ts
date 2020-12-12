@@ -1,7 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { DummyAvgAggregateInput } from './dummy-avg-aggregate.input';
-import { DummyDistinctFieldEnum } from './dummy-distinct-field.enum';
 import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
 import { DummyOrderByInput } from './dummy-order-by.input';
@@ -35,11 +34,6 @@ export class AggregateDummyArgs {
         nullable: true,
     })
     skip?: number;
-
-    @Field(() => [DummyDistinctFieldEnum], {
-        nullable: true,
-    })
-    distinct?: Array<DummyDistinctFieldEnum>;
 
     @Field(() => Boolean, {
         nullable: true,

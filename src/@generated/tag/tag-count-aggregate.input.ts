@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class DummyMaxAggregateInput {
+export class TagCountAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
@@ -10,20 +10,10 @@ export class DummyMaxAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    bytes?: true;
+    name?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    decimal?: true;
-
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    bigInt?: true;
-
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    json?: true;
+    _all?: true;
 }

@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { CommentDistinctFieldEnum } from './comment-distinct-field.enum';
 import { CommentOrderByInput } from './comment-order-by.input';
+import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
 import { CommentWhereInput } from './comment-where.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
@@ -32,8 +32,8 @@ export class FindFirstCommentArgs {
     })
     skip?: number;
 
-    @Field(() => [CommentDistinctFieldEnum], {
+    @Field(() => [CommentScalarFieldEnum], {
         nullable: true,
     })
-    distinct?: Array<CommentDistinctFieldEnum>;
+    distinct?: Array<CommentScalarFieldEnum>;
 }

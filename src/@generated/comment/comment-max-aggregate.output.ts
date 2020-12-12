@@ -1,8 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
-export class DummyMinAggregate {
+export class CommentMaxAggregate {
     @Field(() => String, {
         nullable: true,
     })
@@ -11,20 +10,25 @@ export class DummyMinAggregate {
     @Field(() => String, {
         nullable: true,
     })
-    bytes?: Buffer;
+    createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string;
+    updatedAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bigInt?: BigInt;
+    body?: string;
 
-    @Field(() => GraphQLJSON, {
+    @Field(() => String, {
         nullable: true,
     })
-    json?: object;
+    authorId?: string;
+
+    @Field(() => String, {
+        nullable: true,
+    })
+    articleId?: string;
 }

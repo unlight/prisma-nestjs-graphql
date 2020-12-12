@@ -57,6 +57,8 @@ const splitKeywords = [
     'SumAggregate',
     'MinAggregate',
     'MaxAggregate',
+    'CountAggregate',
+    'ScalarField',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [

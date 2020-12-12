@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class UserMinAggregateInput {
+export class UserCountAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
@@ -46,4 +46,9 @@ export class UserMinAggregateInput {
         nullable: true,
     })
     role?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    _all?: true;
 }

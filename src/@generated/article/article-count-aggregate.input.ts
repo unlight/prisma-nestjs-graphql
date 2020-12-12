@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class UserMinAggregateInput {
+export class ArticleCountAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
@@ -10,40 +10,50 @@ export class UserMinAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
-    email?: true;
+    slug?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    name?: true;
+    title?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    password?: true;
+    description?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    bio?: true;
+    body?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    image?: true;
+    createdAt?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    countComments?: true;
+    updatedAt?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    rating?: true;
+    favoritesCount?: true;
 
     @Field(() => Boolean, {
         nullable: true,
     })
-    role?: true;
+    authorId?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    active?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    _all?: true;
 }

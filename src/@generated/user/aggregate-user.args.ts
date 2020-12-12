@@ -1,7 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { UserAvgAggregateInput } from './user-avg-aggregate.input';
-import { UserDistinctFieldEnum } from './user-distinct-field.enum';
 import { UserMaxAggregateInput } from './user-max-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
 import { UserOrderByInput } from './user-order-by.input';
@@ -35,11 +34,6 @@ export class AggregateUserArgs {
         nullable: true,
     })
     skip?: number;
-
-    @Field(() => [UserDistinctFieldEnum], {
-        nullable: true,
-    })
-    distinct?: Array<UserDistinctFieldEnum>;
 
     @Field(() => Boolean, {
         nullable: true,

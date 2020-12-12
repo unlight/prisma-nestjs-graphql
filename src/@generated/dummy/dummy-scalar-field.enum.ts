@@ -1,6 +1,6 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum DummyDistinctFieldEnum {
+export enum DummyScalarFieldEnum {
     id = 'id',
     bytes = 'bytes',
     decimal = 'decimal',
@@ -8,4 +8,4 @@ export enum DummyDistinctFieldEnum {
     json = 'json',
 }
 
-registerEnumType(DummyDistinctFieldEnum, { name: 'DummyDistinctFieldEnum' });
+registerEnumType(DummyScalarFieldEnum, { name: 'DummyScalarFieldEnum' });

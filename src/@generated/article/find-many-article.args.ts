@@ -1,7 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { ArticleDistinctFieldEnum } from './article-distinct-field.enum';
 import { ArticleOrderByInput } from './article-order-by.input';
+import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
 import { ArticleWhereInput } from './article-where.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
@@ -32,8 +32,8 @@ export class FindManyArticleArgs {
     })
     skip?: number;
 
-    @Field(() => [ArticleDistinctFieldEnum], {
+    @Field(() => [ArticleScalarFieldEnum], {
         nullable: true,
     })
-    distinct?: Array<ArticleDistinctFieldEnum>;
+    distinct?: Array<ArticleScalarFieldEnum>;
 }
