@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.0...v6.0.1) (2020-12-12)
+
+
+### Bug Fixes
+
+* Remove unused imports in generated files ([96ef374](https://github.com/unlight/nestjs-graphql-prisma/commit/96ef37458dab58205e5928c72f9ef43ee60aeed8))
+
 # [6.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.1.1...v6.0.0) (2020-12-12)
 
 
