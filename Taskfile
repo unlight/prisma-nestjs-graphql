@@ -6,7 +6,7 @@ build() {
     set -x
     rm -rfv dist
     cp -rfv src dist
-    cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' > dist/tsconfig.json
+    cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' >dist/tsconfig.json
     cp -fv README.md LICENSE package.json dist
     cd dist
     /usr/bin/find . -name '*.spec.ts' | xargs rm -rvf
@@ -20,7 +20,7 @@ build() {
 
 bundle() {
     set -x
-    npx tsup src/index.ts --inlineDynamicImports --format cjs,esm --target es2017
+    npx tsup src/index.ts --inlineDynamicImports --format cjs --target es2017
     cp -fv README.md LICENSE package.json dist
 }
 
