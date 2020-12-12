@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.1.1...v6.0.0) (2020-12-12)
+
+
+### Bug Fixes
+
+* **prisma:** Adapt generator to Prisma v2.13 ([d1ae8b1](https://github.com/unlight/nestjs-graphql-prisma/commit/d1ae8b1dbb097bbe19b8a8e1ca5dccf1a3549d61))
+
+
+### BREAKING CHANGES
+
+* **prisma:** Adapt generator to Prisma v2.13
+
 ## [5.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v5.1.0...v5.1.1) (2020-12-07)
 
 
