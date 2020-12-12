@@ -71,4 +71,5 @@ export function generateInput(args: GenerateInputArgs) {
     }
 
     checkExport({ name: className, sourceFile, classDeclaration });
+    sourceFile.organizeImports({ ensureNewLineAtEndOfFile: true });
 }

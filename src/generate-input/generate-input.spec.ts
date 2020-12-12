@@ -288,7 +288,7 @@ describe('generate inputs', () => {
             `,
             name: 'UserCreateInput',
             model: 'User',
-            sourceFileText: /* JavaScript */ `
+            sourceFileText: `
                 @InputType()
                 export class UserCreateInput {
                     @Field(() => String, {
@@ -300,5 +300,24 @@ describe('generate inputs', () => {
         const classFile = sourceFile.getClass('UserCreateInput')!;
         const names = classFile.getProperties().map((p) => p.getName());
         expect(names).toStrictEqual(['id']);
+    });
+
+    it('remove unused import', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id Int @id
+            }
+            `,
+            name: 'UserCreateInput',
+            model: 'User',
+            sourceFileText: `
+                import { a } from 'b';
+                import { x } from 'y';
+            `,
+        });
+        const imports = getImportDeclarations(sourceFile).map((x) => x.name);
+        expect(imports).not.toContain('a');
+        expect(imports).not.toContain('x');
     });
 });

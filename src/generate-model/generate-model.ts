@@ -42,5 +42,7 @@ export function generateModel(args: GenerateModelArgs) {
                 config,
             });
         });
+
     checkExport({ name: model.name, classDeclaration, sourceFile });
+    sourceFile.organizeImports({ ensureNewLineAtEndOfFile: true });
 }

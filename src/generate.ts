@@ -40,7 +40,10 @@ export async function generate(args: GenerateArgs) {
         args.prismaClientDmmf ?? ((await import(prismaClientOutput)).dmmf as PrismaDMMF.Document);
     const project = new Project({
         useInMemoryFileSystem: true,
-        manipulationSettings: { quoteKind: QuoteKind.Single },
+        manipulationSettings: {
+            quoteKind: QuoteKind.Single,
+            useTrailingCommas: true,
+        },
     });
     const models = prismaClientDmmf.datamodel.models.map((x) => x.name);
     const projectFilePath = (args: { name: string; type: string; feature?: string }) => {

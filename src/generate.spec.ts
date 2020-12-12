@@ -482,7 +482,6 @@ describe('main generate', () => {
     });
 
     it('fields are not duplicated (prevent second generation)', async () => {
-        debugger;
         await getResult({
             schema: `
             model User {
