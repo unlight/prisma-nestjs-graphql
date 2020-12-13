@@ -5,13 +5,13 @@ import { UserUpdateWithoutArticlesInput } from './user-update-without-articles.i
 
 @InputType()
 export class UserUpsertWithoutArticlesInput {
-    @Field(() => UserUpdateWithoutArticlesInput, {
-        nullable: true,
-    })
-    update?: UserUpdateWithoutArticlesInput;
+  @Field(() => UserUpdateWithoutArticlesInput, {
+    nullable: true,
+  })
+  update?: UserUpdateWithoutArticlesInput;
 
-    @Field(() => UserCreateWithoutArticlesInput, {
-        nullable: true,
-    })
-    create?: UserCreateWithoutArticlesInput;
+  @Field(() => UserCreateWithoutArticlesInput, {
+    nullable: true,
+  })
+  create?: UserCreateWithoutArticlesInput;
 }

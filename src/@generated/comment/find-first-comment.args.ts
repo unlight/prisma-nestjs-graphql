@@ -7,33 +7,33 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @ArgsType()
 export class FindFirstCommentArgs {
-    @Field(() => CommentWhereInput, {
-        nullable: true,
-    })
-    where?: CommentWhereInput;
+  @Field(() => CommentWhereInput, {
+    nullable: true,
+  })
+  where?: CommentWhereInput;
 
-    @Field(() => [CommentOrderByInput], {
-        nullable: true,
-    })
-    orderBy?: Array<CommentOrderByInput> | CommentOrderByInput;
+  @Field(() => [CommentOrderByInput], {
+    nullable: true,
+  })
+  orderBy?: Array<CommentOrderByInput> | CommentOrderByInput;
 
-    @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
-    })
-    cursor?: CommentWhereUniqueInput;
+  @Field(() => CommentWhereUniqueInput, {
+    nullable: true,
+  })
+  cursor?: CommentWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    take?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    skip?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  skip?: number;
 
-    @Field(() => [CommentScalarFieldEnum], {
-        nullable: true,
-    })
-    distinct?: Array<CommentScalarFieldEnum>;
+  @Field(() => [CommentScalarFieldEnum], {
+    nullable: true,
+  })
+  distinct?: Array<CommentScalarFieldEnum>;
 }

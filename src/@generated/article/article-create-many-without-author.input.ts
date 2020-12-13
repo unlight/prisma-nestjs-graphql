@@ -6,20 +6,22 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateManyWithoutAuthorInput {
-    @Field(() => [ArticleCreateWithoutAuthorInput], {
-        nullable: true,
-    })
-    create?: ArticleCreateWithoutAuthorInput | Array<ArticleCreateWithoutAuthorInput>;
+  @Field(() => [ArticleCreateWithoutAuthorInput], {
+    nullable: true,
+  })
+  create?:
+    | ArticleCreateWithoutAuthorInput
+    | Array<ArticleCreateWithoutAuthorInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+  @Field(() => [ArticleWhereUniqueInput], {
+    nullable: true,
+  })
+  connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
-        nullable: true,
-    })
-    connectOrCreate?:
-        | ArticleCreateOrConnectWithoutauthorInput
-        | Array<ArticleCreateOrConnectWithoutauthorInput>;
+  @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
+    nullable: true,
+  })
+  connectOrCreate?:
+    | ArticleCreateOrConnectWithoutauthorInput
+    | Array<ArticleCreateOrConnectWithoutauthorInput>;
 }

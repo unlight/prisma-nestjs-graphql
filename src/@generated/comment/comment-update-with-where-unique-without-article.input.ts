@@ -5,13 +5,13 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
 export class CommentUpdateWithWhereUniqueWithoutArticleInput {
-    @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: CommentWhereUniqueInput;
+  @Field(() => CommentWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: CommentWhereUniqueInput;
 
-    @Field(() => CommentUpdateWithoutArticleInput, {
-        nullable: true,
-    })
-    data?: CommentUpdateWithoutArticleInput;
+  @Field(() => CommentUpdateWithoutArticleInput, {
+    nullable: true,
+  })
+  data?: CommentUpdateWithoutArticleInput;
 }

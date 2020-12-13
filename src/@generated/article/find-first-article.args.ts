@@ -7,33 +7,33 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class FindFirstArticleArgs {
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
-    where?: ArticleWhereInput;
+  @Field(() => ArticleWhereInput, {
+    nullable: true,
+  })
+  where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByInput], {
-        nullable: true,
-    })
-    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
+  @Field(() => [ArticleOrderByInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
 
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
-    cursor?: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, {
+    nullable: true,
+  })
+  cursor?: ArticleWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    take?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    skip?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  skip?: number;
 
-    @Field(() => [ArticleScalarFieldEnum], {
-        nullable: true,
-    })
-    distinct?: Array<ArticleScalarFieldEnum>;
+  @Field(() => [ArticleScalarFieldEnum], {
+    nullable: true,
+  })
+  distinct?: Array<ArticleScalarFieldEnum>;
 }

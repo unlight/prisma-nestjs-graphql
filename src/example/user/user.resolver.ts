@@ -10,18 +10,18 @@ import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 
 const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
+  errorFormat: 'colorless',
+  log: [
+    {
+      emit: 'event',
+      level: 'query',
+    },
+  ],
 });
 
 // @ts-ignore
 prisma.$on('query', (event) => {
-    console.log(event);
+  console.log(event);
 });
 
 /**
@@ -29,23 +29,26 @@ prisma.$on('query', (event) => {
  */
 @Resolver(() => User)
 export class UserResolver {
-    /**
-     * Query for single user.
-     */
-    @Query(() => [User])
-    async users(@Args('where') where: UserWhereInput, @Info() info: GraphQLResolveInfo) {
-        const select = new PrismaSelect(info).value;
-        // console.log('select', select);
-        return await prisma.user.findMany({ where, ...select });
-    }
+  /**
+   * Query for single user.
+   */
+  @Query(() => [User])
+  async users(
+    @Args('where') where: UserWhereInput,
+    @Info() info: GraphQLResolveInfo,
+  ) {
+    const select = new PrismaSelect(info).value;
+    // console.log('select', select);
+    return await prisma.user.findMany({ where, ...select });
+  }
 
-    @Mutation(() => User, { nullable: true })
-    async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
-        return;
-    }
+  @Mutation(() => User, { nullable: true })
+  async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
+    return;
+  }
 
-    @Query(() => AggregateUser)
-    userAggregate(@Args() args: AggregateUserArgs) {
-        return prisma.user.aggregate(args);
-    }
+  @Query(() => AggregateUser)
+  userAggregate(@Args() args: AggregateUserArgs) {
+    return prisma.user.aggregate(args);
+  }
 }

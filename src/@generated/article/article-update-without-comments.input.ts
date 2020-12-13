@@ -6,63 +6,63 @@ import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-o
 
 @InputType()
 export class ArticleUpdateWithoutCommentsInput {
-    @Field(() => String, {
-        nullable: true,
-    })
-    id?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  id?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    slug?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  slug?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    title?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  title?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    description?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    body?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  body?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    createdAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  createdAt?: Date | string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    updatedAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  updatedAt?: Date | string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    favoritesCount?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  favoritesCount?: number;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    active?: boolean;
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  active?: boolean;
 
-    @Field(() => TagUpdateManyWithoutArticlesInput, {
-        nullable: true,
-    })
-    tags?: TagUpdateManyWithoutArticlesInput;
+  @Field(() => TagUpdateManyWithoutArticlesInput, {
+    nullable: true,
+  })
+  tags?: TagUpdateManyWithoutArticlesInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
-        nullable: true,
-    })
-    author?: UserUpdateOneRequiredWithoutArticlesInput;
+  @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
+    nullable: true,
+  })
+  author?: UserUpdateOneRequiredWithoutArticlesInput;
 
-    @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
-    favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
+  @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, {
+    nullable: true,
+  })
+  favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
 }

@@ -6,20 +6,22 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateManyWithoutFavoriteArticlesInput {
-    @Field(() => [UserCreateWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
-    create?: UserCreateWithoutFavoriteArticlesInput | Array<UserCreateWithoutFavoriteArticlesInput>;
+  @Field(() => [UserCreateWithoutFavoriteArticlesInput], {
+    nullable: true,
+  })
+  create?:
+    | UserCreateWithoutFavoriteArticlesInput
+    | Array<UserCreateWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], {
+    nullable: true,
+  })
+  connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
-        nullable: true,
-    })
-    connectOrCreate?:
-        | UserCreateOrConnectWithoutfavoriteArticlesInput
-        | Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
+  @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
+    nullable: true,
+  })
+  connectOrCreate?:
+    | UserCreateOrConnectWithoutfavoriteArticlesInput
+    | Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
 }

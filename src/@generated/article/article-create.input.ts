@@ -7,68 +7,68 @@ import { UserCreateOneWithoutArticlesInput } from '../user/user-create-one-witho
 
 @InputType()
 export class ArticleCreateInput {
-    @Field(() => String, {
-        nullable: true,
-    })
-    id?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  id?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    slug?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  slug?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    title?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  title?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    description?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    body?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  body?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    createdAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  createdAt?: Date | string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    updatedAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  updatedAt?: Date | string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    favoritesCount?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  favoritesCount?: number;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    active?: boolean;
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  active?: boolean;
 
-    @Field(() => TagCreateManyWithoutArticlesInput, {
-        nullable: true,
-    })
-    tags?: TagCreateManyWithoutArticlesInput;
+  @Field(() => TagCreateManyWithoutArticlesInput, {
+    nullable: true,
+  })
+  tags?: TagCreateManyWithoutArticlesInput;
 
-    @Field(() => UserCreateOneWithoutArticlesInput, {
-        nullable: true,
-    })
-    author?: UserCreateOneWithoutArticlesInput;
+  @Field(() => UserCreateOneWithoutArticlesInput, {
+    nullable: true,
+  })
+  author?: UserCreateOneWithoutArticlesInput;
 
-    @Field(() => UserCreateManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
-    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
+  @Field(() => UserCreateManyWithoutFavoriteArticlesInput, {
+    nullable: true,
+  })
+  favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
 
-    @Field(() => CommentCreateManyWithoutArticleInput, {
-        nullable: true,
-    })
-    comments?: CommentCreateManyWithoutArticleInput;
+  @Field(() => CommentCreateManyWithoutArticleInput, {
+    nullable: true,
+  })
+  comments?: CommentCreateManyWithoutArticleInput;
 }

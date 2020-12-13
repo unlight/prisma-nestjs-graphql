@@ -5,13 +5,13 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
 export class CommentCreateOrConnectWithoutauthorInput {
-    @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: CommentWhereUniqueInput;
+  @Field(() => CommentWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: CommentWhereUniqueInput;
 
-    @Field(() => CommentCreateWithoutAuthorInput, {
-        nullable: true,
-    })
-    create?: CommentCreateWithoutAuthorInput;
+  @Field(() => CommentCreateWithoutAuthorInput, {
+    nullable: true,
+  })
+  create?: CommentCreateWithoutAuthorInput;
 }

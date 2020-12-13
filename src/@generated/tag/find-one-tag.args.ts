@@ -4,8 +4,8 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class FindOneTagArgs {
-    @Field(() => TagWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: TagWhereUniqueInput;
+  @Field(() => TagWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: TagWhereUniqueInput;
 }

@@ -4,28 +4,28 @@ import { UserCreateOneWithoutCommentsInput } from '../user/user-create-one-witho
 
 @InputType()
 export class CommentCreateWithoutArticleInput {
-    @Field(() => String, {
-        nullable: true,
-    })
-    id?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  id?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    createdAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  createdAt?: Date | string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    updatedAt?: Date | string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  updatedAt?: Date | string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    body?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  body?: string;
 
-    @Field(() => UserCreateOneWithoutCommentsInput, {
-        nullable: true,
-    })
-    author?: UserCreateOneWithoutCommentsInput;
+  @Field(() => UserCreateOneWithoutCommentsInput, {
+    nullable: true,
+  })
+  author?: UserCreateOneWithoutCommentsInput;
 }

@@ -6,18 +6,18 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutTagsInput {
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutTagsInput, {
-        nullable: true,
-    })
-    update?: ArticleUpdateWithoutTagsInput;
+  @Field(() => ArticleUpdateWithoutTagsInput, {
+    nullable: true,
+  })
+  update?: ArticleUpdateWithoutTagsInput;
 
-    @Field(() => ArticleCreateWithoutTagsInput, {
-        nullable: true,
-    })
-    create?: ArticleCreateWithoutTagsInput;
+  @Field(() => ArticleCreateWithoutTagsInput, {
+    nullable: true,
+  })
+  create?: ArticleCreateWithoutTagsInput;
 }

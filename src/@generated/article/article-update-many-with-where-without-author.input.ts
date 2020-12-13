@@ -5,13 +5,13 @@ import { ArticleUpdateManyMutationInput } from './article-update-many-mutation.i
 
 @InputType()
 export class ArticleUpdateManyWithWhereWithoutAuthorInput {
-    @Field(() => ArticleScalarWhereInput, {
-        nullable: true,
-    })
-    where?: ArticleScalarWhereInput;
+  @Field(() => ArticleScalarWhereInput, {
+    nullable: true,
+  })
+  where?: ArticleScalarWhereInput;
 
-    @Field(() => ArticleUpdateManyMutationInput, {
-        nullable: true,
-    })
-    data?: ArticleUpdateManyMutationInput;
+  @Field(() => ArticleUpdateManyMutationInput, {
+    nullable: true,
+  })
+  data?: ArticleUpdateManyMutationInput;
 }

@@ -11,88 +11,88 @@ import { UserListRelationFilter } from './user-list-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
-    @Field(() => [UserWhereInput], {
-        nullable: true,
-    })
-    AND?: UserWhereInput | Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], {
+    nullable: true,
+  })
+  AND?: UserWhereInput | Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], {
-        nullable: true,
-    })
-    OR?: UserWhereInput | Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], {
+    nullable: true,
+  })
+  OR?: UserWhereInput | Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], {
-        nullable: true,
-    })
-    NOT?: UserWhereInput | Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], {
+    nullable: true,
+  })
+  NOT?: UserWhereInput | Array<UserWhereInput>;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    id?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  id?: StringFilter | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    email?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  email?: StringFilter | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    name?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  name?: StringFilter | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    password?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  password?: StringFilter | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    bio?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  bio?: StringFilter | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    image?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  image?: StringFilter | string;
 
-    @Field(() => UserListRelationFilter, {
-        nullable: true,
-    })
-    following?: UserListRelationFilter;
+  @Field(() => UserListRelationFilter, {
+    nullable: true,
+  })
+  following?: UserListRelationFilter;
 
-    @Field(() => UserListRelationFilter, {
-        nullable: true,
-    })
-    followers?: UserListRelationFilter;
+  @Field(() => UserListRelationFilter, {
+    nullable: true,
+  })
+  followers?: UserListRelationFilter;
 
-    @Field(() => ArticleListRelationFilter, {
-        nullable: true,
-    })
-    favoriteArticles?: ArticleListRelationFilter;
+  @Field(() => ArticleListRelationFilter, {
+    nullable: true,
+  })
+  favoriteArticles?: ArticleListRelationFilter;
 
-    @Field(() => ArticleListRelationFilter, {
-        nullable: true,
-    })
-    articles?: ArticleListRelationFilter;
+  @Field(() => ArticleListRelationFilter, {
+    nullable: true,
+  })
+  articles?: ArticleListRelationFilter;
 
-    @Field(() => CommentListRelationFilter, {
-        nullable: true,
-    })
-    comments?: CommentListRelationFilter;
+  @Field(() => CommentListRelationFilter, {
+    nullable: true,
+  })
+  comments?: CommentListRelationFilter;
 
-    @Field(() => IntFilter, {
-        nullable: true,
-    })
-    countComments?: IntFilter | number;
+  @Field(() => IntFilter, {
+    nullable: true,
+  })
+  countComments?: IntFilter | number;
 
-    @Field(() => FloatFilter, {
-        nullable: true,
-    })
-    rating?: FloatFilter | number;
+  @Field(() => FloatFilter, {
+    nullable: true,
+  })
+  rating?: FloatFilter | number;
 
-    @Field(() => EnumRoleFilter, {
-        nullable: true,
-    })
-    role?: EnumRoleFilter | Role;
+  @Field(() => EnumRoleFilter, {
+    nullable: true,
+  })
+  role?: EnumRoleFilter | Role;
 }

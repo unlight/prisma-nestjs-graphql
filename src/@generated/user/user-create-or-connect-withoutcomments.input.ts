@@ -5,13 +5,13 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateOrConnectWithoutcommentsInput {
-    @Field(() => UserWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: UserWhereUniqueInput;
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: UserWhereUniqueInput;
 
-    @Field(() => UserCreateWithoutCommentsInput, {
-        nullable: true,
-    })
-    create?: UserCreateWithoutCommentsInput;
+  @Field(() => UserCreateWithoutCommentsInput, {
+    nullable: true,
+  })
+  create?: UserCreateWithoutCommentsInput;
 }

@@ -9,58 +9,58 @@ import { UserWhereInput } from '../user/user-where.input';
 
 @InputType()
 export class CommentWhereInput {
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
-    AND?: CommentWhereInput | Array<CommentWhereInput>;
+  @Field(() => [CommentWhereInput], {
+    nullable: true,
+  })
+  AND?: CommentWhereInput | Array<CommentWhereInput>;
 
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
-    OR?: CommentWhereInput | Array<CommentWhereInput>;
+  @Field(() => [CommentWhereInput], {
+    nullable: true,
+  })
+  OR?: CommentWhereInput | Array<CommentWhereInput>;
 
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
-    NOT?: CommentWhereInput | Array<CommentWhereInput>;
+  @Field(() => [CommentWhereInput], {
+    nullable: true,
+  })
+  NOT?: CommentWhereInput | Array<CommentWhereInput>;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    id?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  id?: StringFilter | string;
 
-    @Field(() => DateTimeFilter, {
-        nullable: true,
-    })
-    createdAt?: DateTimeFilter | Date | string;
+  @Field(() => DateTimeFilter, {
+    nullable: true,
+  })
+  createdAt?: DateTimeFilter | Date | string;
 
-    @Field(() => DateTimeFilter, {
-        nullable: true,
-    })
-    updatedAt?: DateTimeFilter | Date | string;
+  @Field(() => DateTimeFilter, {
+    nullable: true,
+  })
+  updatedAt?: DateTimeFilter | Date | string;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    body?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  body?: StringFilter | string;
 
-    @Field(() => UserWhereInput, {
-        nullable: true,
-    })
-    author?: UserRelationFilter | UserWhereInput;
+  @Field(() => UserWhereInput, {
+    nullable: true,
+  })
+  author?: UserRelationFilter | UserWhereInput;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    authorId?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  authorId?: StringFilter | string;
 
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
-    article?: ArticleRelationFilter | ArticleWhereInput;
+  @Field(() => ArticleWhereInput, {
+    nullable: true,
+  })
+  article?: ArticleRelationFilter | ArticleWhereInput;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
-    articleId?: StringFilter | string;
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  articleId?: StringFilter | string;
 }

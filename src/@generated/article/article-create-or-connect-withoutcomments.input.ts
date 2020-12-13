@@ -5,13 +5,13 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateOrConnectWithoutcommentsInput {
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleCreateWithoutCommentsInput, {
-        nullable: true,
-    })
-    create?: ArticleCreateWithoutCommentsInput;
+  @Field(() => ArticleCreateWithoutCommentsInput, {
+    nullable: true,
+  })
+  create?: ArticleCreateWithoutCommentsInput;
 }

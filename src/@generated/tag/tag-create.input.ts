@@ -4,18 +4,18 @@ import { ArticleCreateManyWithoutTagsInput } from '../article/article-create-man
 
 @InputType()
 export class TagCreateInput {
-    @Field(() => String, {
-        nullable: true,
-    })
-    id?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  id?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    name?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string;
 
-    @Field(() => ArticleCreateManyWithoutTagsInput, {
-        nullable: true,
-    })
-    articles?: ArticleCreateManyWithoutTagsInput;
+  @Field(() => ArticleCreateManyWithoutTagsInput, {
+    nullable: true,
+  })
+  articles?: ArticleCreateManyWithoutTagsInput;
 }

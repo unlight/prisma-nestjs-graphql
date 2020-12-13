@@ -6,18 +6,18 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
-    where?: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, {
+    nullable: true,
+  })
+  where?: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutFavoritedByInput, {
-        nullable: true,
-    })
-    update?: ArticleUpdateWithoutFavoritedByInput;
+  @Field(() => ArticleUpdateWithoutFavoritedByInput, {
+    nullable: true,
+  })
+  update?: ArticleUpdateWithoutFavoritedByInput;
 
-    @Field(() => ArticleCreateWithoutFavoritedByInput, {
-        nullable: true,
-    })
-    create?: ArticleCreateWithoutFavoritedByInput;
+  @Field(() => ArticleCreateWithoutFavoritedByInput, {
+    nullable: true,
+  })
+  create?: ArticleCreateWithoutFavoritedByInput;
 }

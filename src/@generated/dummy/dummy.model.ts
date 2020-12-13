@@ -3,28 +3,28 @@ import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
 export class Dummy {
-    @Field(() => ID, {
-        nullable: false,
-    })
-    id!: string;
+  @Field(() => ID, {
+    nullable: false,
+  })
+  id!: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    bytes?: Buffer;
+  @Field(() => String, {
+    nullable: true,
+  })
+  bytes?: Buffer;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    decimal?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  decimal?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    bigInt?: BigInt;
+  @Field(() => String, {
+    nullable: true,
+  })
+  bigInt?: BigInt;
 
-    @Field(() => GraphQLJSON, {
-        nullable: true,
-    })
-    json?: object;
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  json?: object;
 }

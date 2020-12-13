@@ -10,61 +10,63 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUpdateManyWithoutFollowingInput {
-    @Field(() => [UserCreateWithoutFollowingInput], {
-        nullable: true,
-    })
-    create?: UserCreateWithoutFollowingInput | Array<UserCreateWithoutFollowingInput>;
+  @Field(() => [UserCreateWithoutFollowingInput], {
+    nullable: true,
+  })
+  create?:
+    | UserCreateWithoutFollowingInput
+    | Array<UserCreateWithoutFollowingInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], {
+    nullable: true,
+  })
+  connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], {
+    nullable: true,
+  })
+  set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], {
+    nullable: true,
+  })
+  disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], {
+    nullable: true,
+  })
+  delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
 
-    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
-    update?:
-        | UserUpdateWithWhereUniqueWithoutFollowingInput
-        | Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
+  @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {
+    nullable: true,
+  })
+  update?:
+    | UserUpdateWithWhereUniqueWithoutFollowingInput
+    | Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {
-        nullable: true,
-    })
-    updateMany?:
-        | UserUpdateManyWithWhereWithoutFollowingInput
-        | Array<UserUpdateManyWithWhereWithoutFollowingInput>;
+  @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {
+    nullable: true,
+  })
+  updateMany?:
+    | UserUpdateManyWithWhereWithoutFollowingInput
+    | Array<UserUpdateManyWithWhereWithoutFollowingInput>;
 
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-    })
-    deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+  @Field(() => [UserScalarWhereInput], {
+    nullable: true,
+  })
+  deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
 
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {
-        nullable: true,
-    })
-    upsert?:
-        | UserUpsertWithWhereUniqueWithoutFollowingInput
-        | Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
+  @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {
+    nullable: true,
+  })
+  upsert?:
+    | UserUpsertWithWhereUniqueWithoutFollowingInput
+    | Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
-        nullable: true,
-    })
-    connectOrCreate?:
-        | UserCreateOrConnectWithoutfollowingInput
-        | Array<UserCreateOrConnectWithoutfollowingInput>;
+  @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
+    nullable: true,
+  })
+  connectOrCreate?:
+    | UserCreateOrConnectWithoutfollowingInput
+    | Array<UserCreateOrConnectWithoutfollowingInput>;
 }

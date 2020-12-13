@@ -8,68 +8,68 @@ import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-
 
 @InputType()
 export class UserUpdateWithoutFollowingInput {
-    @Field(() => String, {
-        nullable: true,
-    })
-    id?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  id?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    email?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  email?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    name?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    password?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  password?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    bio?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  bio?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
-    image?: string;
+  @Field(() => String, {
+    nullable: true,
+  })
+  image?: string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
-    countComments?: number;
+  @Field(() => Int, {
+    nullable: true,
+  })
+  countComments?: number;
 
-    @Field(() => Float, {
-        nullable: true,
-    })
-    rating?: number;
+  @Field(() => Float, {
+    nullable: true,
+  })
+  rating?: number;
 
-    @Field(() => Role, {
-        nullable: true,
-    })
-    role?: Role;
+  @Field(() => Role, {
+    nullable: true,
+  })
+  role?: Role;
 
-    @Field(() => UserUpdateManyWithoutFollowingInput, {
-        nullable: true,
-    })
-    followers?: UserUpdateManyWithoutFollowingInput;
+  @Field(() => UserUpdateManyWithoutFollowingInput, {
+    nullable: true,
+  })
+  followers?: UserUpdateManyWithoutFollowingInput;
 
-    @Field(() => ArticleUpdateManyWithoutFavoritedByInput, {
-        nullable: true,
-    })
-    favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
+  @Field(() => ArticleUpdateManyWithoutFavoritedByInput, {
+    nullable: true,
+  })
+  favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
 
-    @Field(() => ArticleUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
-    articles?: ArticleUpdateManyWithoutAuthorInput;
+  @Field(() => ArticleUpdateManyWithoutAuthorInput, {
+    nullable: true,
+  })
+  articles?: ArticleUpdateManyWithoutAuthorInput;
 
-    @Field(() => CommentUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
-    comments?: CommentUpdateManyWithoutAuthorInput;
+  @Field(() => CommentUpdateManyWithoutAuthorInput, {
+    nullable: true,
+  })
+  comments?: CommentUpdateManyWithoutAuthorInput;
 }

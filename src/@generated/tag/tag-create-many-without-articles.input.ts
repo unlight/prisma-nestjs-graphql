@@ -6,20 +6,20 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
 export class TagCreateManyWithoutArticlesInput {
-    @Field(() => [TagCreateWithoutArticlesInput], {
-        nullable: true,
-    })
-    create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
+  @Field(() => [TagCreateWithoutArticlesInput], {
+    nullable: true,
+  })
+  create?: TagCreateWithoutArticlesInput | Array<TagCreateWithoutArticlesInput>;
 
-    @Field(() => [TagWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], {
+    nullable: true,
+  })
+  connect?: TagWhereUniqueInput | Array<TagWhereUniqueInput>;
 
-    @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
-        nullable: true,
-    })
-    connectOrCreate?:
-        | TagCreateOrConnectWithoutarticlesInput
-        | Array<TagCreateOrConnectWithoutarticlesInput>;
+  @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
+    nullable: true,
+  })
+  connectOrCreate?:
+    | TagCreateOrConnectWithoutarticlesInput
+    | Array<TagCreateOrConnectWithoutarticlesInput>;
 }
