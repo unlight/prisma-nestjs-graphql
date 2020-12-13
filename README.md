@@ -83,10 +83,8 @@ npx prisma generate
   Generated fields:
 
   ```ts
-  @Field(() => GraphQLISODateTime, {
-    nullable: true,
-  })
-  updatedAt?: Date;
+  @Field(() => GraphQLISODateTime)
+  field: Date;
   ```
 
 ## Similar Projects
