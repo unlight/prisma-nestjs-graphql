@@ -53,7 +53,7 @@ npx prisma generate
 
   Where `{type}` is prisma type in schema
 
-  Example:
+  Example (Decimal):
 
   ```prisma
   types_Decimal_fieldType = "Decimal"
@@ -70,6 +70,23 @@ npx prisma generate
   ...
   @Field(() => GraphQLDecimal)
   field: Decimal;
+  ```
+
+  Example (DateTime):
+
+  ```prisma
+  types_DateTime_fieldType = "Date"
+  types_DateTime_graphqlType = "GraphQLISODateTime"
+  types_DateTime_graphqlModule = "@nestjs/graphql"
+  ```
+
+  Generated fields:
+
+  ```ts
+  @Field(() => GraphQLISODateTime, {
+    nullable: true,
+  })
+  updatedAt?: Date;
   ```
 
 ## Similar Projects
