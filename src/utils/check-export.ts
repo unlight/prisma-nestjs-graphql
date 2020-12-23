@@ -1,4 +1,4 @@
-import { ClassDeclaration, SourceFile } from 'ts-morph';
+import { ClassDeclaration, CommentStatement, SourceFile } from 'ts-morph';
 
 type CommentArgs = {
     sourceFile: SourceFile;
@@ -14,6 +14,14 @@ export function checkExport(args: CommentArgs) {
         );
     });
     if (exportDeclaration) {
+        let commentStatement: CommentStatement | undefined;
+        while (
+            (commentStatement = sourceFile.getStatementByKind(
+                2 /* SingleLineCommentTrivia */,
+            ))
+        ) {
+            commentStatement.remove();
+        }
         const commentedText = classDeclaration
             .getText()
             .split('\n')

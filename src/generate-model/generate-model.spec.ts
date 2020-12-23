@@ -336,6 +336,23 @@ describe('generate models', () => {
             expect(sourceText).toContain(`// export class User`);
         });
 
+        it('no generate another commented class', async () => {
+            await getResult({
+                schema: `model User {
+                id String @id
+            }`,
+                sourceFileText: `
+                export { User } from 'src/user/model'
+
+                // @ObjectType()
+                // export class User { }
+            `,
+            });
+            sourceText = sourceFile.getText();
+            expect(sourceText.match(/export class User/g)).toHaveLength(1);
+            expect(sourceText).toContain('// export class User');
+        });
+
         describe('dont add decorators', () => {
             let userClass: ClassDeclaration;
             let decorator: Decorator | undefined;

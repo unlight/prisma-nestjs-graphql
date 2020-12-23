@@ -4,23 +4,23 @@ set -e
 
 build() {
     set -x
-    rm -rfv dist
-    cp -rfv src dist
+    rm -rf dist
+    cp -rf src dist
     cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' >dist/tsconfig.json
     cp -fv README.md LICENSE package.json dist
     cd dist
-    /usr/bin/find . -name '*.spec.ts' | xargs rm -rvf
+    /usr/bin/find . -name '*.spec.ts' | xargs rm -rf
+    rm -rf fixtures testing example @generated
     tsc -p .
-    rm -rvf tsconfig.json
-    rm -rvf fixtures
-    /usr/bin/find . -name '*.ts' | xargs rm -rvf
+    rm -rf tsconfig.json
+    /usr/bin/find . -name '*.ts' | xargs rm -rf
     cd ..
     set +x
 }
 
 bundle() {
     set -x
-    npx tsup src/index.ts --inlineDynamicImports --format cjs --target es2017
+    npx tsup src/index.ts --format cjs --target es2017
     cp -fv README.md LICENSE package.json dist
 }
 
