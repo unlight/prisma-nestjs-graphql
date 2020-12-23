@@ -1,3 +1,11 @@
+## [6.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.1...v6.0.2) (2020-12-23)
+
+
+### Bug Fixes
+
+* Custom field types array ([ead56a4](https://github.com/unlight/nestjs-graphql-prisma/commit/ead56a4eb93e1678f87404c05c32fad5f2906f6f))
+* Generate another commented class ([cc08dee](https://github.com/unlight/nestjs-graphql-prisma/commit/cc08deeafde6a7d7540481f5812ffbdbf25bf979))
+
 ## [6.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.0...v6.0.1) (2020-12-12)
 
 
