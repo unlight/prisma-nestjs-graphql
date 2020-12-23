@@ -46,7 +46,6 @@ export function generateProperty(args: GeneratePropertyArgs) {
         sourceFile,
         projectFilePath,
         classType,
-        propertyTypes = [toPropertyType(field)],
         config,
     } = args;
     const customType = config.types[field.type] as Nullable<TypeRecord>;
@@ -57,8 +56,12 @@ export function generateProperty(args: GeneratePropertyArgs) {
             moduleSpecifier: customType.fieldModule,
         });
     }
-    const propertyType =
-        customType?.fieldType || propertyTypes.join(' | ') || 'unknown';
+    const propertyTypes = customType?.fieldType
+        ?.split('|')
+        .map(type => type.trim())
+        .map(type => (field.isList ? `Array<${type}>` : type)) ||
+        args.propertyTypes || [toPropertyType(field)];
+    const propertyType = propertyTypes.join(' | ') || 'unknown';
     let fieldType = field.type;
     if (field.isId || 'scalar' === field.kind) {
         // Allow override graphql field type

@@ -36,13 +36,13 @@ describe('generate inputs', () => {
             ...(inputObjectTypes.model || []),
             ...inputObjectTypes.prisma,
         ];
-        const inputType = inputTypes.find((x) => x.name === name);
+        const inputType = inputTypes.find(x => x.name === name);
         assert(inputType, `Failed to find ${name}`);
         sourceFile = project.createSourceFile('0.ts', sourceFileText);
         generateInput({
             inputType,
             sourceFile,
-            projectFilePath: (args) => `${args.name}.${args.type}.ts`,
+            projectFilePath: args => `${args.name}.${args.type}.ts`,
             decorator: {
                 name: 'InputType',
             },
@@ -135,7 +135,7 @@ describe('generate inputs', () => {
         });
         const properties = sourceFile.getClass('StringFilter')?.getProperties();
         const structure = (name: string) =>
-            properties?.find((x) => x.getName() === name)?.getStructure();
+            properties?.find(x => x.getName() === name)?.getStructure();
 
         expect(structure('equals')?.type).toEqual('string');
         expect(structure('lt')?.type).toEqual('string');
@@ -216,9 +216,9 @@ describe('generate inputs', () => {
         sourceFile
             .getClass('DateTimeFilter')
             ?.getProperties()
-            ?.filter((p) => p.getName() !== 'not')
-            .flatMap((p) => p.getDecorators())
-            .forEach((d) => {
+            ?.filter(p => p.getName() !== 'not')
+            .flatMap(p => p.getDecorators())
+            .forEach(d => {
                 const argument = d
                     .getCallExpression()
                     ?.getArguments()?.[0]
@@ -239,7 +239,7 @@ describe('generate inputs', () => {
             name: 'DateTimeFilter',
             model: 'User',
             options: [
-                `types_DateTime_fieldType = "Date | string"`,
+                `types_DateTime_fieldType = "string | Date"`,
                 `types_DateTime_graphqlType = "Date"`,
             ],
         });
@@ -249,8 +249,8 @@ describe('generate inputs', () => {
         assert(property);
         const argument = property.getDecorators()[0]?.getArguments()[0];
         expect(argument.getText()).toEqual('() => [Date]');
-        expect(property.getType().getText()).toEqual(
-            'Array<Date> | Array<string>',
+        expect(property.getStructure().type).toEqual(
+            'Array<string> | Array<Date>',
         );
     });
 
@@ -302,7 +302,7 @@ describe('generate inputs', () => {
         );
 
         const imports = getImportDeclarations(sourceFile);
-        const importNames = imports.map((x) => x.name);
+        const importNames = imports.map(x => x.name);
 
         expect(importNames).toContain('UserRelationFilter');
     });
@@ -369,7 +369,7 @@ describe('generate inputs', () => {
             `,
         });
         const classFile = sourceFile.getClass('UserCreateInput')!;
-        const names = classFile.getProperties().map((p) => p.getName());
+        const names = classFile.getProperties().map(p => p.getName());
         expect(names).toStrictEqual(['id']);
     });
 
@@ -387,7 +387,7 @@ describe('generate inputs', () => {
                 import { x } from 'y';
             `,
         });
-        const imports = getImportDeclarations(sourceFile).map((x) => x.name);
+        const imports = getImportDeclarations(sourceFile).map(x => x.name);
         expect(imports).not.toContain('a');
         expect(imports).not.toContain('x');
     });
