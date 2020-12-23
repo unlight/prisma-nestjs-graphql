@@ -4,8 +4,8 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class FindOneArticleArgs {
-  @Field(() => ArticleWhereUniqueInput, {
-    nullable: true,
-  })
-  where?: ArticleWhereUniqueInput;
+    @Field(() => ArticleWhereUniqueInput, {
+        nullable: true,
+    })
+    where?: ArticleWhereUniqueInput;
 }

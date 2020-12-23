@@ -5,13 +5,13 @@ import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comm
 
 @InputType()
 export class ArticleUpsertWithoutCommentsInput {
-  @Field(() => ArticleUpdateWithoutCommentsInput, {
-    nullable: true,
-  })
-  update?: ArticleUpdateWithoutCommentsInput;
+    @Field(() => ArticleUpdateWithoutCommentsInput, {
+        nullable: true,
+    })
+    update?: ArticleUpdateWithoutCommentsInput;
 
-  @Field(() => ArticleCreateWithoutCommentsInput, {
-    nullable: true,
-  })
-  create?: ArticleCreateWithoutCommentsInput;
+    @Field(() => ArticleCreateWithoutCommentsInput, {
+        nullable: true,
+    })
+    create?: ArticleCreateWithoutCommentsInput;
 }

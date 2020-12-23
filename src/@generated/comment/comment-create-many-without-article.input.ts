@@ -6,22 +6,22 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
 export class CommentCreateManyWithoutArticleInput {
-  @Field(() => [CommentCreateWithoutArticleInput], {
-    nullable: true,
-  })
-  create?:
-    | CommentCreateWithoutArticleInput
-    | Array<CommentCreateWithoutArticleInput>;
+    @Field(() => [CommentCreateWithoutArticleInput], {
+        nullable: true,
+    })
+    create?:
+        | CommentCreateWithoutArticleInput
+        | Array<CommentCreateWithoutArticleInput>;
 
-  @Field(() => [CommentWhereUniqueInput], {
-    nullable: true,
-  })
-  connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    @Field(() => [CommentWhereUniqueInput], {
+        nullable: true,
+    })
+    connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
 
-  @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
-    nullable: true,
-  })
-  connectOrCreate?:
-    | CommentCreateOrConnectWithoutarticleInput
-    | Array<CommentCreateOrConnectWithoutarticleInput>;
+    @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
+        nullable: true,
+    })
+    connectOrCreate?:
+        | CommentCreateOrConnectWithoutarticleInput
+        | Array<CommentCreateOrConnectWithoutarticleInput>;
 }

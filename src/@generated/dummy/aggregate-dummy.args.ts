@@ -10,53 +10,53 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 
 @ArgsType()
 export class AggregateDummyArgs {
-  @Field(() => DummyWhereInput, {
-    nullable: true,
-  })
-  where?: DummyWhereInput;
+    @Field(() => DummyWhereInput, {
+        nullable: true,
+    })
+    where?: DummyWhereInput;
 
-  @Field(() => [DummyOrderByInput], {
-    nullable: true,
-  })
-  orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
+    @Field(() => [DummyOrderByInput], {
+        nullable: true,
+    })
+    orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
 
-  @Field(() => DummyWhereUniqueInput, {
-    nullable: true,
-  })
-  cursor?: DummyWhereUniqueInput;
+    @Field(() => DummyWhereUniqueInput, {
+        nullable: true,
+    })
+    cursor?: DummyWhereUniqueInput;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  take?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    take?: number;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  skip?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    skip?: number;
 
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  count?: true;
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    count?: true;
 
-  @Field(() => DummyAvgAggregateInput, {
-    nullable: true,
-  })
-  avg?: DummyAvgAggregateInput;
+    @Field(() => DummyAvgAggregateInput, {
+        nullable: true,
+    })
+    avg?: DummyAvgAggregateInput;
 
-  @Field(() => DummySumAggregateInput, {
-    nullable: true,
-  })
-  sum?: DummySumAggregateInput;
+    @Field(() => DummySumAggregateInput, {
+        nullable: true,
+    })
+    sum?: DummySumAggregateInput;
 
-  @Field(() => DummyMinAggregateInput, {
-    nullable: true,
-  })
-  min?: DummyMinAggregateInput;
+    @Field(() => DummyMinAggregateInput, {
+        nullable: true,
+    })
+    min?: DummyMinAggregateInput;
 
-  @Field(() => DummyMaxAggregateInput, {
-    nullable: true,
-  })
-  max?: DummyMaxAggregateInput;
+    @Field(() => DummyMaxAggregateInput, {
+        nullable: true,
+    })
+    max?: DummyMaxAggregateInput;
 }

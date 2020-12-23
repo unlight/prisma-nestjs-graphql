@@ -4,18 +4,18 @@ import { ArticleUpdateManyWithoutTagsInput } from '../article/article-update-man
 
 @InputType()
 export class TagUpdateInput {
-  @Field(() => String, {
-    nullable: true,
-  })
-  id?: string;
+    @Field(() => String, {
+        nullable: true,
+    })
+    id?: string;
 
-  @Field(() => String, {
-    nullable: true,
-  })
-  name?: string;
+    @Field(() => String, {
+        nullable: true,
+    })
+    name?: string;
 
-  @Field(() => ArticleUpdateManyWithoutTagsInput, {
-    nullable: true,
-  })
-  articles?: ArticleUpdateManyWithoutTagsInput;
+    @Field(() => ArticleUpdateManyWithoutTagsInput, {
+        nullable: true,
+    })
+    articles?: ArticleUpdateManyWithoutTagsInput;
 }

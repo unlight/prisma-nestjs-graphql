@@ -8,38 +8,38 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleUpdateOneWithoutCommentsInput {
-  @Field(() => ArticleCreateWithoutCommentsInput, {
-    nullable: true,
-  })
-  create?: ArticleCreateWithoutCommentsInput;
+    @Field(() => ArticleCreateWithoutCommentsInput, {
+        nullable: true,
+    })
+    create?: ArticleCreateWithoutCommentsInput;
 
-  @Field(() => ArticleWhereUniqueInput, {
-    nullable: true,
-  })
-  connect?: ArticleWhereUniqueInput;
+    @Field(() => ArticleWhereUniqueInput, {
+        nullable: true,
+    })
+    connect?: ArticleWhereUniqueInput;
 
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  disconnect?: boolean;
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    disconnect?: boolean;
 
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  delete?: boolean;
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    delete?: boolean;
 
-  @Field(() => ArticleUpdateWithoutCommentsInput, {
-    nullable: true,
-  })
-  update?: ArticleUpdateWithoutCommentsInput;
+    @Field(() => ArticleUpdateWithoutCommentsInput, {
+        nullable: true,
+    })
+    update?: ArticleUpdateWithoutCommentsInput;
 
-  @Field(() => ArticleUpsertWithoutCommentsInput, {
-    nullable: true,
-  })
-  upsert?: ArticleUpsertWithoutCommentsInput;
+    @Field(() => ArticleUpsertWithoutCommentsInput, {
+        nullable: true,
+    })
+    upsert?: ArticleUpsertWithoutCommentsInput;
 
-  @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
-    nullable: true,
-  })
-  connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
+    @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
+        nullable: true,
+    })
+    connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
 }

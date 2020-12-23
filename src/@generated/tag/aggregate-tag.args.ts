@@ -8,43 +8,43 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class AggregateTagArgs {
-  @Field(() => TagWhereInput, {
-    nullable: true,
-  })
-  where?: TagWhereInput;
+    @Field(() => TagWhereInput, {
+        nullable: true,
+    })
+    where?: TagWhereInput;
 
-  @Field(() => [TagOrderByInput], {
-    nullable: true,
-  })
-  orderBy?: Array<TagOrderByInput> | TagOrderByInput;
+    @Field(() => [TagOrderByInput], {
+        nullable: true,
+    })
+    orderBy?: Array<TagOrderByInput> | TagOrderByInput;
 
-  @Field(() => TagWhereUniqueInput, {
-    nullable: true,
-  })
-  cursor?: TagWhereUniqueInput;
+    @Field(() => TagWhereUniqueInput, {
+        nullable: true,
+    })
+    cursor?: TagWhereUniqueInput;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  take?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    take?: number;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  skip?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    skip?: number;
 
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  count?: true;
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    count?: true;
 
-  @Field(() => TagMinAggregateInput, {
-    nullable: true,
-  })
-  min?: TagMinAggregateInput;
+    @Field(() => TagMinAggregateInput, {
+        nullable: true,
+    })
+    min?: TagMinAggregateInput;
 
-  @Field(() => TagMaxAggregateInput, {
-    nullable: true,
-  })
-  max?: TagMaxAggregateInput;
+    @Field(() => TagMaxAggregateInput, {
+        nullable: true,
+    })
+    max?: TagMaxAggregateInput;
 }

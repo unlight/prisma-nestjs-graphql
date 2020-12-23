@@ -5,13 +5,13 @@ import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 
 @InputType()
 export class UserUpdateManyWithWhereWithoutFollowersInput {
-  @Field(() => UserScalarWhereInput, {
-    nullable: true,
-  })
-  where?: UserScalarWhereInput;
+    @Field(() => UserScalarWhereInput, {
+        nullable: true,
+    })
+    where?: UserScalarWhereInput;
 
-  @Field(() => UserUpdateManyMutationInput, {
-    nullable: true,
-  })
-  data?: UserUpdateManyMutationInput;
+    @Field(() => UserUpdateManyMutationInput, {
+        nullable: true,
+    })
+    data?: UserUpdateManyMutationInput;
 }

@@ -12,88 +12,88 @@ import { UserWhereInput } from '../user/user-where.input';
 
 @InputType()
 export class ArticleWhereInput {
-  @Field(() => [ArticleWhereInput], {
-    nullable: true,
-  })
-  AND?: ArticleWhereInput | Array<ArticleWhereInput>;
+    @Field(() => [ArticleWhereInput], {
+        nullable: true,
+    })
+    AND?: ArticleWhereInput | Array<ArticleWhereInput>;
 
-  @Field(() => [ArticleWhereInput], {
-    nullable: true,
-  })
-  OR?: ArticleWhereInput | Array<ArticleWhereInput>;
+    @Field(() => [ArticleWhereInput], {
+        nullable: true,
+    })
+    OR?: ArticleWhereInput | Array<ArticleWhereInput>;
 
-  @Field(() => [ArticleWhereInput], {
-    nullable: true,
-  })
-  NOT?: ArticleWhereInput | Array<ArticleWhereInput>;
+    @Field(() => [ArticleWhereInput], {
+        nullable: true,
+    })
+    NOT?: ArticleWhereInput | Array<ArticleWhereInput>;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  id?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    id?: StringFilter | string;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  slug?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    slug?: StringFilter | string;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  title?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    title?: StringFilter | string;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  description?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    description?: StringFilter | string;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  body?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    body?: StringFilter | string;
 
-  @Field(() => TagListRelationFilter, {
-    nullable: true,
-  })
-  tags?: TagListRelationFilter;
+    @Field(() => TagListRelationFilter, {
+        nullable: true,
+    })
+    tags?: TagListRelationFilter;
 
-  @Field(() => DateTimeFilter, {
-    nullable: true,
-  })
-  createdAt?: DateTimeFilter | Date | string;
+    @Field(() => DateTimeFilter, {
+        nullable: true,
+    })
+    createdAt?: DateTimeFilter | Date | string;
 
-  @Field(() => DateTimeFilter, {
-    nullable: true,
-  })
-  updatedAt?: DateTimeFilter | Date | string;
+    @Field(() => DateTimeFilter, {
+        nullable: true,
+    })
+    updatedAt?: DateTimeFilter | Date | string;
 
-  @Field(() => IntFilter, {
-    nullable: true,
-  })
-  favoritesCount?: IntFilter | number;
+    @Field(() => IntFilter, {
+        nullable: true,
+    })
+    favoritesCount?: IntFilter | number;
 
-  @Field(() => UserWhereInput, {
-    nullable: true,
-  })
-  author?: UserRelationFilter | UserWhereInput;
+    @Field(() => UserWhereInput, {
+        nullable: true,
+    })
+    author?: UserRelationFilter | UserWhereInput;
 
-  @Field(() => StringFilter, {
-    nullable: true,
-  })
-  authorId?: StringFilter | string;
+    @Field(() => StringFilter, {
+        nullable: true,
+    })
+    authorId?: StringFilter | string;
 
-  @Field(() => UserListRelationFilter, {
-    nullable: true,
-  })
-  favoritedBy?: UserListRelationFilter;
+    @Field(() => UserListRelationFilter, {
+        nullable: true,
+    })
+    favoritedBy?: UserListRelationFilter;
 
-  @Field(() => CommentListRelationFilter, {
-    nullable: true,
-  })
-  comments?: CommentListRelationFilter;
+    @Field(() => CommentListRelationFilter, {
+        nullable: true,
+    })
+    comments?: CommentListRelationFilter;
 
-  @Field(() => BooleanFilter, {
-    nullable: true,
-  })
-  active?: BooleanFilter | boolean;
+    @Field(() => BooleanFilter, {
+        nullable: true,
+    })
+    active?: BooleanFilter | boolean;
 }

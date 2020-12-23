@@ -5,13 +5,13 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutFollowersInput {
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  where?: UserWhereUniqueInput;
+    @Field(() => UserWhereUniqueInput, {
+        nullable: true,
+    })
+    where?: UserWhereUniqueInput;
 
-  @Field(() => UserUpdateWithoutFollowersInput, {
-    nullable: true,
-  })
-  data?: UserUpdateWithoutFollowersInput;
+    @Field(() => UserUpdateWithoutFollowersInput, {
+        nullable: true,
+    })
+    data?: UserUpdateWithoutFollowersInput;
 }

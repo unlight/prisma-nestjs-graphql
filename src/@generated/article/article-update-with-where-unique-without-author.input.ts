@@ -5,13 +5,13 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleUpdateWithWhereUniqueWithoutAuthorInput {
-  @Field(() => ArticleWhereUniqueInput, {
-    nullable: true,
-  })
-  where?: ArticleWhereUniqueInput;
+    @Field(() => ArticleWhereUniqueInput, {
+        nullable: true,
+    })
+    where?: ArticleWhereUniqueInput;
 
-  @Field(() => ArticleUpdateWithoutAuthorInput, {
-    nullable: true,
-  })
-  data?: ArticleUpdateWithoutAuthorInput;
+    @Field(() => ArticleUpdateWithoutAuthorInput, {
+        nullable: true,
+    })
+    data?: ArticleUpdateWithoutAuthorInput;
 }

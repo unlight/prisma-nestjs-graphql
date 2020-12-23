@@ -7,33 +7,33 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 
 @ArgsType()
 export class FindFirstDummyArgs {
-  @Field(() => DummyWhereInput, {
-    nullable: true,
-  })
-  where?: DummyWhereInput;
+    @Field(() => DummyWhereInput, {
+        nullable: true,
+    })
+    where?: DummyWhereInput;
 
-  @Field(() => [DummyOrderByInput], {
-    nullable: true,
-  })
-  orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
+    @Field(() => [DummyOrderByInput], {
+        nullable: true,
+    })
+    orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
 
-  @Field(() => DummyWhereUniqueInput, {
-    nullable: true,
-  })
-  cursor?: DummyWhereUniqueInput;
+    @Field(() => DummyWhereUniqueInput, {
+        nullable: true,
+    })
+    cursor?: DummyWhereUniqueInput;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  take?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    take?: number;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  skip?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    skip?: number;
 
-  @Field(() => [DummyScalarFieldEnum], {
-    nullable: true,
-  })
-  distinct?: Array<DummyScalarFieldEnum>;
+    @Field(() => [DummyScalarFieldEnum], {
+        nullable: true,
+    })
+    distinct?: Array<DummyScalarFieldEnum>;
 }

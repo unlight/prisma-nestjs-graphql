@@ -6,22 +6,22 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateManyWithoutFavoritedByInput {
-  @Field(() => [ArticleCreateWithoutFavoritedByInput], {
-    nullable: true,
-  })
-  create?:
-    | ArticleCreateWithoutFavoritedByInput
-    | Array<ArticleCreateWithoutFavoritedByInput>;
+    @Field(() => [ArticleCreateWithoutFavoritedByInput], {
+        nullable: true,
+    })
+    create?:
+        | ArticleCreateWithoutFavoritedByInput
+        | Array<ArticleCreateWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleWhereUniqueInput], {
-    nullable: true,
-  })
-  connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    @Field(() => [ArticleWhereUniqueInput], {
+        nullable: true,
+    })
+    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
-    nullable: true,
-  })
-  connectOrCreate?:
-    | ArticleCreateOrConnectWithoutfavoritedByInput
-    | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
+        nullable: true,
+    })
+    connectOrCreate?:
+        | ArticleCreateOrConnectWithoutfavoritedByInput
+        | Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
 }

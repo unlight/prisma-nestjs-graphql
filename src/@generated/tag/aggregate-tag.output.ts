@@ -6,18 +6,18 @@ import { TagMinAggregate } from './tag-min-aggregate.output';
 
 @ObjectType()
 export class AggregateTag {
-  @Field(() => TagCountAggregate, {
-    nullable: true,
-  })
-  count?: TagCountAggregate;
+    @Field(() => TagCountAggregate, {
+        nullable: true,
+    })
+    count?: TagCountAggregate;
 
-  @Field(() => TagMinAggregate, {
-    nullable: true,
-  })
-  min?: TagMinAggregate;
+    @Field(() => TagMinAggregate, {
+        nullable: true,
+    })
+    min?: TagMinAggregate;
 
-  @Field(() => TagMaxAggregate, {
-    nullable: true,
-  })
-  max?: TagMaxAggregate;
+    @Field(() => TagMaxAggregate, {
+        nullable: true,
+    })
+    max?: TagMaxAggregate;
 }

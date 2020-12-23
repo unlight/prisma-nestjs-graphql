@@ -10,53 +10,53 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class AggregateArticleArgs {
-  @Field(() => ArticleWhereInput, {
-    nullable: true,
-  })
-  where?: ArticleWhereInput;
+    @Field(() => ArticleWhereInput, {
+        nullable: true,
+    })
+    where?: ArticleWhereInput;
 
-  @Field(() => [ArticleOrderByInput], {
-    nullable: true,
-  })
-  orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
+    @Field(() => [ArticleOrderByInput], {
+        nullable: true,
+    })
+    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
 
-  @Field(() => ArticleWhereUniqueInput, {
-    nullable: true,
-  })
-  cursor?: ArticleWhereUniqueInput;
+    @Field(() => ArticleWhereUniqueInput, {
+        nullable: true,
+    })
+    cursor?: ArticleWhereUniqueInput;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  take?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    take?: number;
 
-  @Field(() => Int, {
-    nullable: true,
-  })
-  skip?: number;
+    @Field(() => Int, {
+        nullable: true,
+    })
+    skip?: number;
 
-  @Field(() => Boolean, {
-    nullable: true,
-  })
-  count?: true;
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    count?: true;
 
-  @Field(() => ArticleAvgAggregateInput, {
-    nullable: true,
-  })
-  avg?: ArticleAvgAggregateInput;
+    @Field(() => ArticleAvgAggregateInput, {
+        nullable: true,
+    })
+    avg?: ArticleAvgAggregateInput;
 
-  @Field(() => ArticleSumAggregateInput, {
-    nullable: true,
-  })
-  sum?: ArticleSumAggregateInput;
+    @Field(() => ArticleSumAggregateInput, {
+        nullable: true,
+    })
+    sum?: ArticleSumAggregateInput;
 
-  @Field(() => ArticleMinAggregateInput, {
-    nullable: true,
-  })
-  min?: ArticleMinAggregateInput;
+    @Field(() => ArticleMinAggregateInput, {
+        nullable: true,
+    })
+    min?: ArticleMinAggregateInput;
 
-  @Field(() => ArticleMaxAggregateInput, {
-    nullable: true,
-  })
-  max?: ArticleMaxAggregateInput;
+    @Field(() => ArticleMaxAggregateInput, {
+        nullable: true,
+    })
+    max?: ArticleMaxAggregateInput;
 }
