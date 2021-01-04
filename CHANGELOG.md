@@ -1,3 +1,16 @@
+# [7.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.2...v7.0.0) (2021-01-04)
+
+
+### Bug Fixes
+
+* Type mismatch between prisma types ([b5587cd](https://github.com/unlight/nestjs-graphql-prisma/commit/b5587cd5c70d3b83fe75734ffd0e8b47125ea50a)), closes [#4](https://github.com/unlight/nestjs-graphql-prisma/issues/4)
+
+
+### BREAKING CHANGES
+
+* Generated types tries to be compatible with Prisma types,
+nullability (optional/required) changed for input types
+
 ## [6.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.1...v6.0.2) (2020-12-23)
 
 
