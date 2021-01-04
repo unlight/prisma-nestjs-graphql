@@ -4,9 +4,9 @@ import { GraphQLJSON } from 'graphql-type-json';
 @InputType()
 export class DummyCreateInput {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
         nullable: true,

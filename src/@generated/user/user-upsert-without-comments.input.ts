@@ -6,12 +6,12 @@ import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.i
 @InputType()
 export class UserUpsertWithoutCommentsInput {
     @Field(() => UserUpdateWithoutCommentsInput, {
-        nullable: true,
+        nullable: false,
     })
-    update?: UserUpdateWithoutCommentsInput;
+    update!: UserUpdateWithoutCommentsInput;
 
     @Field(() => UserCreateWithoutCommentsInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: UserCreateWithoutCommentsInput;
+    create!: UserCreateWithoutCommentsInput;
 }

@@ -1,11 +1,7 @@
 export { featureName } from './feature-name';
 export { createConfig } from './create-config';
 
-import {
-    ObjectLiteralExpression,
-    PropertyAssignment,
-    StructureKind,
-} from 'ts-morph';
+import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
 import { PrismaDMMF, TypeRecord } from '../types';
 export { checkExport } from './check-export';
@@ -47,10 +43,7 @@ type PatternValue = (type: string) => string | string[];
 
 const patterns = new Map<PatternKey, PatternValue>([
     [{ type: type => type === 'String', kind: 'scalar' }, () => 'string'],
-    [
-        { type: type => type === 'DateTime', kind: 'scalar' },
-        () => ['Date', 'string'],
-    ],
+    [{ type: type => type === 'DateTime', kind: 'scalar' }, () => ['Date', 'string']],
     [{ type: type => type === 'Float', kind: 'scalar' }, () => 'number'],
     [{ type: type => type === 'Int', kind: 'scalar' }, () => 'number'],
     [{ type: type => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
@@ -86,9 +79,7 @@ export function toPropertyType(args: ToPropertyTypeArgs): string {
             return types.join(' | ');
         }
     }
-    throw new TypeError(
-        `Cannot get property type from ${args.kind}/${args.type}`,
-    );
+    throw new TypeError(`Cannot get property type from ${args.kind}/${args.type}`);
 }
 
 /**

@@ -7,17 +7,17 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowingInput {
     @Field(() => UserWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: UserWhereUniqueInput;
+    where!: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFollowingInput, {
-        nullable: true,
+        nullable: false,
     })
-    update?: UserUpdateWithoutFollowingInput;
+    update!: UserUpdateWithoutFollowingInput;
 
     @Field(() => UserCreateWithoutFollowingInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: UserCreateWithoutFollowingInput;
+    create!: UserCreateWithoutFollowingInput;
 }

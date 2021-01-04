@@ -16,7 +16,6 @@ describe('generate inputs', () => {
     type OptionsArgs = {
         schema: string;
         name: string;
-        model: string | undefined;
         sourceFileText?: string;
         options?: string[];
     };
@@ -29,6 +28,7 @@ describe('generate inputs', () => {
         const {
             generator,
             prismaClientDmmf: {
+                datamodel: { models },
                 schema: { inputObjectTypes },
             },
         } = await generatorOptions(schema, options);
@@ -62,20 +62,15 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserWhereInput',
-            model: 'User',
         });
-        expect(struct('UserWhereInput', 'id')?.type).toEqual(
-            'StringFilter | string',
-        );
+        expect(struct('UserWhereInput', 'id')?.type).toEqual('StringFilter | string');
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
             ?.getProperty('id')
             ?.getDecorator('Field')
             ?.getCallExpression()
             ?.getArguments();
-        expect(decoratorArguments?.[0]?.getText()).toEqual(
-            '() => StringFilter',
-        );
+        expect(decoratorArguments?.[0]?.getText()).toEqual('() => StringFilter');
         expect(struct('UserWhereInput', 'birth')?.type).toEqual(
             'DateTimeFilter | Date | string',
         );
@@ -93,7 +88,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserWhereInput',
-            model: 'User',
         });
         const structure = sourceFile
             .getClass('UserWhereInput')
@@ -131,7 +125,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'StringFilter',
-            model: undefined,
         });
         const properties = sourceFile.getClass('StringFilter')?.getProperties();
         const structure = (name: string) =>
@@ -159,12 +152,9 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserCreateInput',
-            model: 'User',
         });
 
-        const idProperty = sourceFile
-            .getClass('UserCreateInput')
-            ?.getProperty('id');
+        const idProperty = sourceFile.getClass('UserCreateInput')?.getProperty('id');
         assert(idProperty);
 
         stringContains(`@Field(() => String`, idProperty.getText());
@@ -211,7 +201,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'DateTimeFilter',
-            model: 'User',
         });
         sourceFile
             .getClass('DateTimeFilter')
@@ -219,10 +208,7 @@ describe('generate inputs', () => {
             ?.filter(p => p.getName() !== 'not')
             .flatMap(p => p.getDecorators())
             .forEach(d => {
-                const argument = d
-                    .getCallExpression()
-                    ?.getArguments()?.[0]
-                    .getText();
+                const argument = d.getCallExpression()?.getArguments()?.[0].getText();
                 stringNotContains('DateTime', argument || '');
             });
     });
@@ -237,21 +223,16 @@ describe('generate inputs', () => {
             }
             `,
             name: 'DateTimeFilter',
-            model: 'User',
             options: [
                 `types_DateTime_fieldType = "string | Date"`,
                 `types_DateTime_graphqlType = "Date"`,
             ],
         });
-        const property = sourceFile
-            .getClass('DateTimeFilter')
-            ?.getProperty('in');
+        const property = sourceFile.getClass('DateTimeFilter')?.getProperty('in');
         assert(property);
         const argument = property.getDecorators()[0]?.getArguments()[0];
         expect(argument.getText()).toEqual('() => [Date]');
-        expect(property.getStructure().type).toEqual(
-            'Array<string> | Array<Date>',
-        );
+        expect(property.getStructure().type).toEqual('Array<string> | Array<Date>');
     });
 
     it('user scalar where input ex. user filter', async () => {
@@ -264,7 +245,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserListRelationFilter',
-            model: 'User',
         });
 
         expect(struct('UserListRelationFilter', 'every')?.type).toEqual(
@@ -291,11 +271,8 @@ describe('generate inputs', () => {
               authorId  Int
             }`,
             name: 'PostWhereInput',
-            model: 'Post',
         });
-        const property = sourceFile
-            .getClass('PostWhereInput')
-            ?.getProperty('author');
+        const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
         expect(property.getStructure().type).toEqual(
             'UserRelationFilter | UserWhereInput',
@@ -319,7 +296,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserWhereInput',
-            model: 'User',
         });
         const imports = getImportDeclarations(sourceFile);
         expect(imports).toContainEqual({
@@ -341,13 +317,10 @@ describe('generate inputs', () => {
             }
             `,
             name: 'DateTimeFilter',
-            model: 'User',
         });
         const classFile = sourceFile.getClass('DateTimeFilter')!;
         const fieldIn = classFile.getProperty('in')!;
-        expect(fieldIn.getStructure().type).toEqual(
-            'Array<Date> | Array<string>',
-        );
+        expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
     });
 
     it('duplicated fields in exising file', async () => {
@@ -358,7 +331,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserCreateInput',
-            model: 'User',
             sourceFileText: `
                 @InputType()
                 export class UserCreateInput {
@@ -381,7 +353,6 @@ describe('generate inputs', () => {
             }
             `,
             name: 'UserCreateInput',
-            model: 'User',
             sourceFileText: `
                 import { a } from 'b';
                 import { x } from 'y';
@@ -390,5 +361,38 @@ describe('generate inputs', () => {
         const imports = getImportDeclarations(sourceFile).map(x => x.name);
         expect(imports).not.toContain('a');
         expect(imports).not.toContain('x');
+    });
+
+    it('user create without posts input', async () => {
+        await getResult({
+            schema: `
+            model User {
+              id        Int      @id
+              name      String
+              bio       String?
+              posts     Post[]
+            }
+            model Post {
+              id        Int      @id
+              author    User    @relation(fields: [authorId], references: [id])
+              authorId  Int
+            }`,
+            name: 'UserCreateWithoutPostsInput',
+        });
+        const classDeclaration = sourceFile.getClass('UserCreateWithoutPostsInput');
+
+        const nameStructure = classDeclaration!.getProperty('name')?.getStructure()!;
+        expect(nameStructure.type).toEqual('string');
+        expect(nameStructure.hasExclamationToken).toEqual(true);
+        expect(nameStructure.decorators?.[0].arguments?.[0]).toEqual('() => String');
+        expect(nameStructure.decorators?.[0].arguments?.[1]).toContain(
+            'nullable: false',
+        );
+
+        const bioStructure = classDeclaration!.getProperty('bio')?.getStructure()!;
+        expect(bioStructure.type).toEqual('string | null');
+        expect(bioStructure.hasQuestionToken).toEqual(true);
+        expect(bioStructure.decorators?.[0].arguments?.[0]).toEqual('() => String');
+        expect(bioStructure.decorators?.[0].arguments?.[1]).toContain('nullable: true');
     });
 });

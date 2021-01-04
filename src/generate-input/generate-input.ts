@@ -23,6 +23,7 @@ export function generateInput(args: GenerateInputArgs) {
         decorator,
         name: className,
     });
+
     generateImport({
         name: 'Field',
         sourceFile,
@@ -34,9 +35,8 @@ export function generateInput(args: GenerateInputArgs) {
         field.inputTypes
             .filter(
                 x =>
-                    ['object', 'enum'].includes(
-                        fieldLocationToKind(x.location),
-                    ) && x.type !== className,
+                    ['object', 'enum'].includes(fieldLocationToKind(x.location)) &&
+                    x.type !== className,
             )
             .forEach(inputType => {
                 const kind = fieldLocationToKind(inputType.location);
@@ -60,7 +60,6 @@ export function generateInput(args: GenerateInputArgs) {
             kind: fieldLocationToKind(inputType.location),
             type: String(inputType.type),
             isList: field.inputTypes.some(t => t.isList),
-            isRequired: false,
         };
 
         generateProperty({

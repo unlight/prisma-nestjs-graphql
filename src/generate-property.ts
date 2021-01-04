@@ -73,10 +73,7 @@ export function generateProperty(args: GeneratePropertyArgs) {
                 isId: Boolean(field.isId),
             }),
         });
-    } else if (
-        ['object', 'enum'].includes(field.kind) &&
-        field.type !== className
-    ) {
+    } else if (['object', 'enum'].includes(field.kind) && field.type !== className) {
         generateProjectImport({
             sourceFile,
             projectFilePath,

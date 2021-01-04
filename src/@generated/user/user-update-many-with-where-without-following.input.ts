@@ -6,12 +6,12 @@ import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 @InputType()
 export class UserUpdateManyWithWhereWithoutFollowingInput {
     @Field(() => UserScalarWhereInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: UserScalarWhereInput;
+    where!: UserScalarWhereInput;
 
     @Field(() => UserUpdateManyMutationInput, {
-        nullable: true,
+        nullable: false,
     })
-    data?: UserUpdateManyMutationInput;
+    data!: UserUpdateManyMutationInput;
 }

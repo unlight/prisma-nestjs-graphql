@@ -60,9 +60,7 @@ export function generateEnum(args: GenerateEnumArgs) {
 
     const objectLiteralExpression = (statement.getExpression() as CallExpression)
         .getArguments()
-        .find(x =>
-            Node.isObjectLiteralExpression(x),
-        ) as ObjectLiteralExpression;
+        .find(x => Node.isObjectLiteralExpression(x)) as ObjectLiteralExpression;
 
     updateObjectProperty({
         expression: objectLiteralExpression,

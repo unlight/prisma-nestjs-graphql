@@ -6,12 +6,12 @@ import { CommentUpdateManyMutationInput } from './comment-update-many-mutation.i
 @InputType()
 export class CommentUpdateManyWithWhereWithoutArticleInput {
     @Field(() => CommentScalarWhereInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: CommentScalarWhereInput;
+    where!: CommentScalarWhereInput;
 
     @Field(() => CommentUpdateManyMutationInput, {
-        nullable: true,
+        nullable: false,
     })
-    data?: CommentUpdateManyMutationInput;
+    data!: CommentUpdateManyMutationInput;
 }

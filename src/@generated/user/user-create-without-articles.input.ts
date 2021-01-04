@@ -14,19 +14,19 @@ export class UserCreateWithoutArticlesInput {
     id?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    email?: string;
+    email!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    password?: string;
+    password!: string;
 
     @Field(() => String, {
         nullable: true,

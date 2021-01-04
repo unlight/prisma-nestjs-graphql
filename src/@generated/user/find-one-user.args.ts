@@ -5,7 +5,7 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 @ArgsType()
 export class FindOneUserArgs {
     @Field(() => UserWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: UserWhereUniqueInput;
+    where!: UserWhereUniqueInput;
 }

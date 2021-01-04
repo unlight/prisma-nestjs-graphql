@@ -32,9 +32,7 @@ export function combineScalarFilters(inputTypes: PrismaDMMF.InputType[]) {
         }
 
         inputType.fields.forEach(field => {
-            field.inputTypes = field.inputTypes.filter(
-                input => input.type !== 'Null',
-            );
+            field.inputTypes = field.inputTypes.filter(input => input.type !== 'Null');
             field.inputTypes.forEach(input => {
                 const name = String(input.type);
                 const newTypeName = replacements[name];

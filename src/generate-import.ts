@@ -50,8 +50,7 @@ export function generateProjectImport(args: GenerateProjectImportArgs) {
     );
     let importDeclaration = sourceFile.getImportDeclaration(
         importDeclaration =>
-            importDeclaration.getModuleSpecifier().getLiteralValue() ===
-            filePath,
+            importDeclaration.getModuleSpecifier().getLiteralValue() === filePath,
     );
     if (!importDeclaration) {
         importDeclaration = sourceFile.addImportDeclaration({

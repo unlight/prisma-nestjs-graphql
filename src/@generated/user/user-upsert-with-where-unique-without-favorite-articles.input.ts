@@ -7,17 +7,17 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
     @Field(() => UserWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: UserWhereUniqueInput;
+    where!: UserWhereUniqueInput;
 
     @Field(() => UserUpdateWithoutFavoriteArticlesInput, {
-        nullable: true,
+        nullable: false,
     })
-    update?: UserUpdateWithoutFavoriteArticlesInput;
+    update!: UserUpdateWithoutFavoriteArticlesInput;
 
     @Field(() => UserCreateWithoutFavoriteArticlesInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: UserCreateWithoutFavoriteArticlesInput;
+    create!: UserCreateWithoutFavoriteArticlesInput;
 }

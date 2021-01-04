@@ -7,17 +7,17 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 @InputType()
 export class TagUpsertWithWhereUniqueWithoutArticlesInput {
     @Field(() => TagWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: TagWhereUniqueInput;
+    where!: TagWhereUniqueInput;
 
     @Field(() => TagUpdateWithoutArticlesInput, {
-        nullable: true,
+        nullable: false,
     })
-    update?: TagUpdateWithoutArticlesInput;
+    update!: TagUpdateWithoutArticlesInput;
 
     @Field(() => TagCreateWithoutArticlesInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: TagCreateWithoutArticlesInput;
+    create!: TagCreateWithoutArticlesInput;
 }

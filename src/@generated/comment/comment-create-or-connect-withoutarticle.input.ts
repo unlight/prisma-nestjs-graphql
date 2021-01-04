@@ -6,12 +6,12 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 @InputType()
 export class CommentCreateOrConnectWithoutarticleInput {
     @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: CommentWhereUniqueInput;
+    where!: CommentWhereUniqueInput;
 
     @Field(() => CommentCreateWithoutArticleInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: CommentCreateWithoutArticleInput;
+    create!: CommentCreateWithoutArticleInput;
 }

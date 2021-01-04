@@ -20,9 +20,9 @@ export class CommentCreateWithoutAuthorInput {
     updatedAt?: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => ArticleCreateOneWithoutCommentsInput, {
         nullable: true,

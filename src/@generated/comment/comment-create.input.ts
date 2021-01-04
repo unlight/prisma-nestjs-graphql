@@ -21,14 +21,14 @@ export class CommentCreateInput {
     updatedAt?: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => UserCreateOneWithoutCommentsInput, {
-        nullable: true,
+        nullable: false,
     })
-    author?: UserCreateOneWithoutCommentsInput;
+    author!: UserCreateOneWithoutCommentsInput;
 
     @Field(() => ArticleCreateOneWithoutCommentsInput, {
         nullable: true,

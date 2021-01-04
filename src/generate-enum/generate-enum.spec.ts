@@ -52,17 +52,13 @@ describe('generate enum', () => {
         expect(sourceText).toContain(
             `registerEnumType(SortOrder, { name: 'SortOrder' })`,
         );
-        expect(
-            sourceFile.getEnum('SortOrder')?.getStructure()?.members,
-        ).toContainEqual(
+        expect(sourceFile.getEnum('SortOrder')?.getStructure()?.members).toContainEqual(
             expect.objectContaining({
                 name: 'asc',
                 initializer: '"asc"',
             }),
         );
-        expect(
-            sourceFile.getEnum('SortOrder')?.getStructure()?.members,
-        ).toContainEqual(
+        expect(sourceFile.getEnum('SortOrder')?.getStructure()?.members).toContainEqual(
             expect.objectContaining({
                 name: 'desc',
                 initializer: '"desc"',
@@ -84,9 +80,7 @@ describe('generate enum', () => {
             `,
             name: 'Role',
         });
-        expect(sourceText).toContain(
-            `registerEnumType(Role, { name: 'Role' })`,
-        );
+        expect(sourceText).toContain(`registerEnumType(Role, { name: 'Role' })`);
     });
 
     it('enum with exists source', async () => {

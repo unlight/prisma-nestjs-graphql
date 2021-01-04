@@ -1,10 +1,5 @@
 import assert from 'assert';
-import {
-    ClassDeclaration,
-    Node,
-    ObjectLiteralExpression,
-    SourceFile,
-} from 'ts-morph';
+import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
 import { generateImport } from './generate-import';
 import { updateObjectProperty } from './utils';
@@ -39,8 +34,7 @@ export function generateClass(args: GenerateClassArgs) {
     // Check if decorator exists, if class exists but no decorator,
     // it means it is a base class - do not add decorator.
     const isBaseClass =
-        classDeclaration &&
-        classDeclaration.getDecorator(decorator.name) === undefined;
+        classDeclaration && classDeclaration.getDecorator(decorator.name) === undefined;
 
     if (!classDeclaration) {
         classDeclaration = sourceFile.addClass({
@@ -70,9 +64,7 @@ export function generateClass(args: GenerateClassArgs) {
                 p.remove();
             });
 
-        const properties = decorator.properties?.filter(
-            p => p.value !== undefined,
-        );
+        const properties = decorator.properties?.filter(p => p.value !== undefined);
 
         if (properties && properties.length > 0) {
             const callExpression = decoratorDeclaration.getCallExpression();

@@ -7,17 +7,17 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 @InputType()
 export class CommentUpsertWithWhereUniqueWithoutAuthorInput {
     @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: CommentWhereUniqueInput;
+    where!: CommentWhereUniqueInput;
 
     @Field(() => CommentUpdateWithoutAuthorInput, {
-        nullable: true,
+        nullable: false,
     })
-    update?: CommentUpdateWithoutAuthorInput;
+    update!: CommentUpdateWithoutAuthorInput;
 
     @Field(() => CommentCreateWithoutAuthorInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: CommentCreateWithoutAuthorInput;
+    create!: CommentCreateWithoutAuthorInput;
 }

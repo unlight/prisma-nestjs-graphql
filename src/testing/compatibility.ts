@@ -6,6 +6,8 @@ import { FloatFilter } from '../@generated/prisma/float-filter.input';
 import { IntFilter } from '../@generated/prisma/int-filter.input';
 import { StringFilter } from '../@generated/prisma/string-filter.input';
 import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
+import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
+import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
 import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
 import { UserWhereInput } from '../@generated/user/user-where.input';
 
@@ -51,4 +53,36 @@ const $prisma = new PrismaClient();
     let p: Prisma.FindManyUserArgs = {};
     p = x;
     $prisma.user.findMany(x);
+}
+{
+    const x: UserCreateWithoutArticlesInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
+    let p: Prisma.UserCreateWithoutArticlesInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
+    p = x;
+    $prisma.user.create({
+        data: x,
+    });
+}
+{
+    const x: UserCreateWithoutCommentsInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
+    let p: Prisma.UserCreateWithoutCommentsInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
+    p = x;
+    $prisma.user.create({
+        data: x,
+    });
 }

@@ -9,9 +9,7 @@ export class CommentCreateManyWithoutAuthorInput {
     @Field(() => [CommentCreateWithoutAuthorInput], {
         nullable: true,
     })
-    create?:
-        | CommentCreateWithoutAuthorInput
-        | Array<CommentCreateWithoutAuthorInput>;
+    create?: CommentCreateWithoutAuthorInput | Array<CommentCreateWithoutAuthorInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,

@@ -3,11 +3,7 @@ import expect from 'expect';
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
-import {
-    generatorOptions,
-    getImportDeclarations,
-    stringContains,
-} from './testing';
+import { generatorOptions, getImportDeclarations, stringContains } from './testing';
 
 describe('main generate', () => {
     let property: PropertyDeclaration | undefined;
@@ -112,9 +108,7 @@ describe('main generate', () => {
         )!;
         assert(sourceFile, `File do not exists`);
 
-        property = sourceFile
-            .getClass('ArticleWhereInput')
-            ?.getProperty('author');
+        property = sourceFile.getClass('ArticleWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
 
         assert.strictEqual(
@@ -154,9 +148,7 @@ describe('main generate', () => {
                     id Int @id
                 }`,
         });
-        const filePaths = new Set(
-            sourceFiles.map(s => String(s.getFilePath())),
-        );
+        const filePaths = new Set(sourceFiles.map(s => String(s.getFilePath())));
         expect(filePaths).toContainEqual('/user/user-where.input.ts');
         expect(filePaths).toContainEqual('/prisma/int-filter.input.ts');
     });
@@ -192,10 +184,7 @@ describe('main generate', () => {
             .flatMap(d => d.getProperties())
             .flatMap(p => p.getDecorators())
             .forEach(d => {
-                const argument = d
-                    .getCallExpression()
-                    ?.getArguments()?.[0]
-                    .getText();
+                const argument = d.getCallExpression()?.getArguments()?.[0].getText();
                 assert.notStrictEqual(argument, '() => null');
             });
     });
@@ -321,34 +310,22 @@ describe('main generate', () => {
         struct = classDeclaration.getProperty('avg')?.getStructure();
         assert.strictEqual(struct?.type, 'UserAvgAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(
-            decoratorArguments?.[0],
-            '() => UserAvgAggregateInput',
-        );
+        assert.strictEqual(decoratorArguments?.[0], '() => UserAvgAggregateInput');
 
         struct = classDeclaration.getProperty('sum')?.getStructure();
         assert.strictEqual(struct?.type, 'UserSumAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(
-            decoratorArguments?.[0],
-            '() => UserSumAggregateInput',
-        );
+        assert.strictEqual(decoratorArguments?.[0], '() => UserSumAggregateInput');
 
         struct = classDeclaration.getProperty('min')?.getStructure();
         assert.strictEqual(struct?.type, 'UserMinAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(
-            decoratorArguments?.[0],
-            '() => UserMinAggregateInput',
-        );
+        assert.strictEqual(decoratorArguments?.[0], '() => UserMinAggregateInput');
 
         struct = classDeclaration.getProperty('max')?.getStructure();
         assert.strictEqual(struct?.type, 'UserMaxAggregateInput');
         decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(
-            decoratorArguments?.[0],
-            '() => UserMaxAggregateInput',
-        );
+        assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
 
         const imports = getImportDeclarations(sourceFile);
 
@@ -435,14 +412,8 @@ describe('main generate', () => {
         });
         const filePaths = sourceFiles.map(s => String(s.getFilePath()));
         for (const filePath of filePaths) {
-            assert(
-                !filePath.includes('nullable'),
-                `${filePath} constains nullable`,
-            );
-            assert(
-                !filePath.includes('nested'),
-                `${filePath} constains nested`,
-            );
+            assert(!filePath.includes('nullable'), `${filePath} constains nullable`);
+            assert(!filePath.includes('nested'), `${filePath} constains nested`);
         }
         for (const sourceFile of sourceFiles) {
             getImportDeclarations(sourceFile).forEach(statement => {
@@ -455,9 +426,7 @@ describe('main generate', () => {
                 }
                 if (statement.name.includes('Nested')) {
                     assert.fail(
-                        `${sourceFile.getFilePath()} imports nested ${
-                            statement.name
-                        }`,
+                        `${sourceFile.getFilePath()} imports nested ${statement.name}`,
                     );
                 }
             });
@@ -486,9 +455,7 @@ describe('main generate', () => {
         for (const sourceFile of sourceFiles) {
             sourceFile.getClasses().forEach(classDeclaration => {
                 if (
-                    classDeclaration
-                        .getName()
-                        ?.endsWith('FieldUpdateOperationsInput')
+                    classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')
                 ) {
                     throw new Error(
                         `Class should not exists ${classDeclaration.getName()!}`,
@@ -511,11 +478,7 @@ describe('main generate', () => {
                 types: (type as string).split('|').map(s => s.trim()),
             }))
             .forEach(struct => {
-                if (
-                    struct.types.find(s =>
-                        s.endsWith('FieldUpdateOperationsInput'),
-                    )
-                ) {
+                if (struct.types.find(s => s.endsWith('FieldUpdateOperationsInput'))) {
                     throw new Error(
                         `Property ${struct.name} typed ${String(struct.type)}`,
                     );

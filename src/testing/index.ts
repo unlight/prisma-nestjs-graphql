@@ -28,9 +28,7 @@ export function getImportDeclarations(sourceFile: SourceFile) {
     );
 }
 
-export function getFieldArguments(
-    args: GetStructuredArguments & { index?: number },
-) {
+export function getFieldArguments(args: GetStructuredArguments & { index?: number }) {
     let result = getStructure(args)?.decorators?.[0]?.arguments;
     if (args.index !== undefined) {
         result = result?.[args.index];
@@ -46,8 +44,5 @@ type GetStructuredArguments = {
 
 export function getStructure(args: GetStructuredArguments) {
     const { sourceFile, className, property } = args;
-    return sourceFile
-        .getClass(className)
-        ?.getProperty(property)
-        ?.getStructure();
+    return sourceFile.getClass(className)?.getProperty(property)?.getStructure();
 }

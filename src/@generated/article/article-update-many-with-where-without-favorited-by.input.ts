@@ -6,12 +6,12 @@ import { ArticleUpdateManyMutationInput } from './article-update-many-mutation.i
 @InputType()
 export class ArticleUpdateManyWithWhereWithoutFavoritedByInput {
     @Field(() => ArticleScalarWhereInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: ArticleScalarWhereInput;
+    where!: ArticleScalarWhereInput;
 
     @Field(() => ArticleUpdateManyMutationInput, {
-        nullable: true,
+        nullable: false,
     })
-    data?: ArticleUpdateManyMutationInput;
+    data!: ArticleUpdateManyMutationInput;
 }

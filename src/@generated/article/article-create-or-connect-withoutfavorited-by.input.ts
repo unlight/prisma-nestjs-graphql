@@ -6,12 +6,12 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 @InputType()
 export class ArticleCreateOrConnectWithoutfavoritedByInput {
     @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: ArticleWhereUniqueInput;
+    where!: ArticleWhereUniqueInput;
 
     @Field(() => ArticleCreateWithoutFavoritedByInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: ArticleCreateWithoutFavoritedByInput;
+    create!: ArticleCreateWithoutFavoritedByInput;
 }

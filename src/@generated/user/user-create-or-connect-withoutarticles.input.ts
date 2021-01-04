@@ -6,12 +6,12 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 @InputType()
 export class UserCreateOrConnectWithoutarticlesInput {
     @Field(() => UserWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: UserWhereUniqueInput;
+    where!: UserWhereUniqueInput;
 
     @Field(() => UserCreateWithoutArticlesInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: UserCreateWithoutArticlesInput;
+    create!: UserCreateWithoutArticlesInput;
 }

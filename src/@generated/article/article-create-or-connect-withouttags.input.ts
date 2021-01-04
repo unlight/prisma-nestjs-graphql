@@ -6,12 +6,12 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 @InputType()
 export class ArticleCreateOrConnectWithouttagsInput {
     @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
+        nullable: false,
     })
-    where?: ArticleWhereUniqueInput;
+    where!: ArticleWhereUniqueInput;
 
     @Field(() => ArticleCreateWithoutTagsInput, {
-        nullable: true,
+        nullable: false,
     })
-    create?: ArticleCreateWithoutTagsInput;
+    create!: ArticleCreateWithoutTagsInput;
 }

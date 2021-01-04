@@ -1,12 +1,6 @@
 import assert from 'assert';
 import expect from 'expect';
-import {
-    ClassDeclaration,
-    Decorator,
-    Project,
-    QuoteKind,
-    SourceFile,
-} from 'ts-morph';
+import { ClassDeclaration, Decorator, Project, QuoteKind, SourceFile } from 'ts-morph';
 
 import { generateModel } from '../generate-model';
 import {
@@ -26,11 +20,7 @@ describe('generate models', () => {
         sourceFileText?: string;
         options?: string[];
     };
-    async function getResult({
-        schema,
-        sourceFileText,
-        options,
-    }: GetResultArgs) {
+    async function getResult({ schema, sourceFileText, options }: GetResultArgs) {
         const project = new Project({
             useInMemoryFileSystem: true,
             manipulationSettings: { quoteKind: QuoteKind.Single },
@@ -62,20 +52,12 @@ describe('generate models', () => {
         const imports = getImportDeclarations(sourceFile);
         assert(
             imports.find(
-                x =>
-                    x.name === 'ObjectType' &&
-                    x.specifier === '@nestjs/graphql',
+                x => x.name === 'ObjectType' && x.specifier === '@nestjs/graphql',
             ),
         );
+        assert(imports.find(x => x.name === 'ID' && x.specifier === '@nestjs/graphql'));
         assert(
-            imports.find(
-                x => x.name === 'ID' && x.specifier === '@nestjs/graphql',
-            ),
-        );
-        assert(
-            imports.find(
-                x => x.name === 'Field' && x.specifier === '@nestjs/graphql',
-            ),
+            imports.find(x => x.name === 'Field' && x.specifier === '@nestjs/graphql'),
         );
 
         const struct = getStructure({
@@ -170,10 +152,7 @@ describe('generate models', () => {
                 id Int @id
             }`,
         });
-        const struct = sourceFile
-            .getClass('User')
-            ?.getProperty('id')
-            ?.getStructure();
+        const struct = sourceFile.getClass('User')?.getProperty('id')?.getStructure();
         const args = struct?.decorators?.[0].arguments;
         stringContains('nullable: false', args?.[1]);
         stringContains('description: "user id"', args?.[1]);
@@ -209,15 +188,15 @@ describe('generate models', () => {
         expect(
             getStructure({ ...propertyOptions, property: 'humanoid' })?.type,
         ).toEqual('boolean');
-        expect(
-            getStructure({ ...propertyOptions, property: 'money' })?.type,
-        ).toEqual('number');
-        expect(
-            getStructure({ ...propertyOptions, property: 'count' })?.type,
-        ).toEqual('number');
-        expect(
-            getStructure({ ...propertyOptions, property: 'born' })?.type,
-        ).toEqual('Date | string');
+        expect(getStructure({ ...propertyOptions, property: 'money' })?.type).toEqual(
+            'number',
+        );
+        expect(getStructure({ ...propertyOptions, property: 'count' })?.type).toEqual(
+            'number',
+        );
+        expect(getStructure({ ...propertyOptions, property: 'born' })?.type).toEqual(
+            'Date | string',
+        );
     });
 
     it('model scalar json', async () => {
@@ -228,18 +207,12 @@ describe('generate models', () => {
             }`,
         });
         sourceText = sourceFile.getText();
-        const propertyDeclaration = sourceFile
-            .getClass('User')
-            ?.getProperty('data');
+        const propertyDeclaration = sourceFile.getClass('User')?.getProperty('data');
         assert(propertyDeclaration);
-        expect(propertyDeclaration.getText()).toContain(
-            '@Field(() => GraphQLJSON',
-        );
+        expect(propertyDeclaration.getText()).toContain('@Field(() => GraphQLJSON');
 
         const importDeclaration = sourceFile.getImportDeclaration(
-            d =>
-                d.getModuleSpecifier().getLiteralValue() ===
-                'graphql-type-json',
+            d => d.getModuleSpecifier().getLiteralValue() === 'graphql-type-json',
         );
         assert(importDeclaration, 'import graphql-type-json should exists');
         const importSpecifier = importDeclaration
@@ -330,9 +303,7 @@ describe('generate models', () => {
             sourceText = sourceFile.getText();
             const sourceClass = sourceFile.getClasses();
             expect(sourceClass).toHaveLength(0);
-            expect(sourceText).toContain(
-                `export { User } from 'src/user/model'`,
-            );
+            expect(sourceText).toContain(`export { User } from 'src/user/model'`);
             expect(sourceText).toContain(`// export class User`);
         });
 
@@ -377,9 +348,7 @@ describe('generate models', () => {
             });
 
             it('for property', () => {
-                expect(
-                    userClass.getProperties().map(x => x.getName()),
-                ).toHaveLength(1);
+                expect(userClass.getProperties().map(x => x.getName())).toHaveLength(1);
                 decorator = userClass.getProperty('id')!.getDecorator('Field');
                 expect(decorator?.getText()).toBeUndefined();
             });
