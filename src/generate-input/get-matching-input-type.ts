@@ -9,7 +9,8 @@ export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]
         return inputTypes[0];
     }
     inputTypes = inputTypes.filter(t => !['null', 'Null'].includes(String(t.type)));
-    let result =
+    let result: false | PrismaDMMF.SchemaArgInputType | undefined;
+    result =
         inputTypes.every(x => fieldLocationToKind(x.location) === 'object') &&
         (inputTypes.find(
             x => fieldLocationToKind(x.location) === 'object' && x.isList,
@@ -20,6 +21,13 @@ export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]
     }
     if (inputTypes.length === 1) {
         return inputTypes[0];
+    }
+
+    result =
+        inputTypes.every(x => fieldLocationToKind(x.location) === 'enum') &&
+        inputTypes.find(x => fieldLocationToKind(x.location) === 'enum' && x.isList);
+    if (result) {
+        return result;
     }
     result = inputTypes.find(x => fieldLocationToKind(x.location) === 'object');
     if (result) {

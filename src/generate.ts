@@ -175,22 +175,18 @@ export async function generate(args: GenerateArgs) {
     );
     for (const outputType of outputTypes) {
         const name = getOutputTypeName(outputType.name);
-        if (models.find(model => name === `Aggregate${model}`)) {
-            outputType.fields.forEach(field => {
-                field.outputType.type = getOutputTypeName(
-                    String(field.outputType.type),
-                );
-            });
-        }
+        outputType.fields.forEach(field => {
+            field.outputType.type = getOutputTypeName(String(field.outputType.type));
+        });
         const sourceFile = await createSourceFile({ type: 'output', name });
         const model: Model = {
             name,
             fields: outputType.fields.map(t => {
                 return {
                     name: t.name,
+                    isRequired: t.isRequired,
                     ...t.outputType,
                     type: String(t.outputType.type),
-                    isRequired: false,
                     kind: fieldLocationToKind(t.outputType.location),
                 };
             }),

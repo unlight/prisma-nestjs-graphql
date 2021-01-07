@@ -59,10 +59,12 @@ const splitKeywords = [
     'MaxAggregate',
     'CountAggregate',
     'ScalarField',
+    'GroupBy',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [
     'Aggregate',
+    'GroupBy',
     'aggregate',
     'createOne',
     'deleteMany',
@@ -86,4 +88,5 @@ const middleKeywords = [
     ['UpdateMany', 'Args'],
     ['UpdateOne', 'Args'],
     ['UpsertOne', 'Args'],
+    ['GroupBy', 'Args'],
 ];

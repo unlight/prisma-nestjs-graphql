@@ -28,7 +28,7 @@ export class DummyCountAggregate {
     json?: number;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    _all?: number;
+    _all!: number;
 }

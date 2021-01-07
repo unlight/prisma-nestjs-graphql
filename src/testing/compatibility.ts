@@ -5,10 +5,14 @@ import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
 import { FloatFilter } from '../@generated/prisma/float-filter.input';
 import { IntFilter } from '../@generated/prisma/int-filter.input';
 import { StringFilter } from '../@generated/prisma/string-filter.input';
+import { AggregateUserArgs } from '../@generated/user/aggregate-user.args';
 import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
+import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
 import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
 import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
+import { UserGroupBy } from '../@generated/user/user-group-by.output';
 import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
+import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
 import { UserWhereInput } from '../@generated/user/user-where.input';
 
 const $prisma = new PrismaClient();
@@ -85,4 +89,18 @@ const $prisma = new PrismaClient();
     $prisma.user.create({
         data: x,
     });
+}
+{
+    const x: AggregateUserArgs = {};
+    let p: Prisma.AggregateUserArgs = {};
+    p = x;
+}
+{
+    const x: GroupByUserArgs = {
+        by: ['id'] as UserScalarFieldEnum[],
+    };
+    let p: Prisma.GroupByUserArgs = {
+        by: ['id'] as UserScalarFieldEnum[],
+    };
+    p = x;
 }

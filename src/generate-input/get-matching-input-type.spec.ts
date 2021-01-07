@@ -83,4 +83,28 @@ describe('get matching input type', () => {
         const result = getMatchingInputType(inputTypes);
         expect(result.type).toEqual('IntFilter');
     });
+
+    it('by', () => {
+        inputTypes = [
+            {
+                type: 'UserScalarFieldEnum',
+                namespace: 'prisma',
+                location: 'enumTypes',
+                isList: true,
+            },
+            {
+                type: 'UserScalarFieldEnum',
+                namespace: 'prisma',
+                location: 'enumTypes',
+                isList: false,
+            },
+        ];
+        const result = getMatchingInputType(inputTypes);
+        expect(result).toEqual(
+            expect.objectContaining({
+                type: 'UserScalarFieldEnum',
+                isList: true,
+            }),
+        );
+    });
 });

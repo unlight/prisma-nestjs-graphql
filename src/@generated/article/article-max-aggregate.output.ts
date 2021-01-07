@@ -38,9 +38,9 @@ export class ArticleMaxAggregate {
     updatedAt?: Date | string;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    favoritesCount?: number;
+    favoritesCount!: number;
 
     @Field(() => String, {
         nullable: true,

@@ -21,21 +21,34 @@ export function generateArgs(args: GenerateArgsArguments) {
         projectFilePath,
         config,
     } = args;
-    if (inputType.name === `Aggregate${feature}Args`) {
+    if ([`Aggregate${feature}Args`, `GroupBy${feature}Args`].includes(inputType.name)) {
         // Aggregate args
-        inputType.fields.push({
-            name: 'count',
-            isRequired: false,
-            isNullable: true,
-            inputTypes: [
-                {
-                    location: 'scalar',
-                    type: 'true',
-                    isList: false,
-                },
-            ],
-        });
-        ['Avg', 'Sum', 'Min', 'Max'].forEach(name => {
+        if (`Aggregate${feature}Args` === inputType.name) {
+            inputType.fields.push({
+                name: 'count',
+                isRequired: false,
+                isNullable: true,
+                inputTypes: [
+                    {
+                        location: 'scalar',
+                        type: 'true',
+                        isList: false,
+                    },
+                ],
+            });
+        }
+        const names = ['Avg', 'Sum', 'Min', 'Max'];
+        if (`GroupBy${feature}Args` === inputType.name) {
+            names.unshift('Count');
+            // Make `by` property array only, noEnumerable
+            const byField = inputType.fields.find(f => f.name === 'by');
+            if (byField?.inputTypes) {
+                byField.inputTypes = byField.inputTypes.filter(
+                    inputType => inputType.isList,
+                );
+            }
+        }
+        names.forEach(name => {
             const aggregateInput = aggregateInputs.find(
                 t => t.name === `${feature}${name}AggregateInput`,
             );

@@ -33,7 +33,7 @@ export class CommentCountAggregate {
     articleId?: number;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    _all?: number;
+    _all!: number;
 }
