@@ -12,4 +12,5 @@ export type GeneratorConfiguration = {
     combineScalarFilters: boolean;
     atomicNumberOperations: boolean;
     types: Record<string, TypeRecord>;
+    reExportAll: boolean;
 };

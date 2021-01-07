@@ -1,11 +1,19 @@
-import { generatorHandler } from '@prisma/generator-helper';
+import { generatorHandler, GeneratorOptions } from '@prisma/generator-helper';
 
 import { generate } from './generate';
-import { remove, update } from './generator-pipelines';
+import { reexport, remove, update } from './generator-pipelines';
+import { createConfig } from './utils';
 
 generatorHandler({
-    async onGenerate(options) {
-        const project = await generate(options);
+    async onGenerate(options: GeneratorOptions) {
+        const config = createConfig(options.generator.config);
+        const project = await generate({
+            ...options,
+            config,
+        });
+        if (config.reExportAll) {
+            await reexport(project);
+        }
         await remove(project, options);
         await update(project, options);
     },

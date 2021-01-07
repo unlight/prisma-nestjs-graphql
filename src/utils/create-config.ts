@@ -28,5 +28,8 @@ export function createConfig(
                 graphqlModule: 'graphql-type-json',
             } as TypeRecord,
         }),
+        reExportAll: ['true', '1', 'on'].includes(
+            (config.reExportAll as Nullable<string>) ?? 'false',
+        ),
     };
 }

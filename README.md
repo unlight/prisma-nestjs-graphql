@@ -44,6 +44,8 @@ npx prisma generate
     (default: `true`)
 -   `atomicNumberOperations` - Atomic number operations,
     `false` - disabled (default), `true` - enabled
+-   `reExportAll` - create `index.ts` files for each directory with re-export,
+    `false` - disabled (default), `true` - enabled
 -   `types_*` - [flatten](https://github.com/hughsk/flat) map of types
 
     -   `types_{type}_fieldType` - TypeScript type name

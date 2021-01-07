@@ -11,7 +11,7 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { Model } from './generate-property';
 import { mutateFilters } from './mutate-filters';
-import { PrismaDMMF } from './types';
+import { GeneratorConfiguration, PrismaDMMF } from './types';
 import {
     createConfig,
     featureName,
@@ -25,11 +25,12 @@ import {
 type GenerateArgs = GeneratorOptions & {
     prismaClientDmmf?: PrismaDMMF.Document;
     fileExistsSync?: typeof existsSync;
+    config?: GeneratorConfiguration;
 };
 
 export async function generate(args: GenerateArgs) {
     const { generator, otherGenerators } = args;
-    const config = createConfig(generator.config);
+    const config = args.config ?? createConfig(generator.config);
     assert(generator.output, 'generator.output is empty');
     const fileExistsSync = args.fileExistsSync ?? existsSync;
     const prismaClientOutput = otherGenerators.find(

@@ -1,8 +1,9 @@
 import assert from 'assert';
 import expect from 'expect';
-import { PropertyDeclaration, SourceFile } from 'ts-morph';
+import { Project, PropertyDeclaration, SourceFile } from 'ts-morph';
 
 import { generate } from './generate';
+import { reexport } from './generator-pipelines';
 import { generatorOptions, getImportDeclarations, stringContains } from './testing';
 
 describe('main generate', () => {
@@ -10,13 +11,15 @@ describe('main generate', () => {
     let sourceFile: SourceFile | undefined;
     let sourceFiles: SourceFile[];
     let sourceText: string;
+    let project: Project;
+    let resultGeneratorOptions: any;
     async function getResult(args: { schema: string; options?: string[] }) {
         const { schema, options } = args;
-        const generateOptions = {
+        resultGeneratorOptions = {
             ...(await generatorOptions(schema, options)),
             fileExistsSync: () => false,
         };
-        const project = await generate(generateOptions);
+        project = await generate(resultGeneratorOptions);
         sourceFiles = project.getSourceFiles();
     }
 
@@ -519,5 +522,47 @@ describe('main generate', () => {
         const classFile = sourceFile!.getClass('IntFilter')!;
         const names = classFile.getProperties().map(p => p.getName());
         expect(names).toStrictEqual([...new Set(names)]);
+    });
+
+    it('export all from index', async () => {
+        const checkpoints: any[] = [];
+        await getResult({
+            schema: `
+            model User {
+              id        Int      @id
+              posts     Post[]
+            }
+            model Post {
+              id        Int      @id
+              author    User?    @relation(fields: [authorId], references: [id])
+              authorId  Int?
+            }`,
+        });
+        await reexport(project);
+
+        sourceFile = project.getSourceFile('/user/index.ts')!;
+        expect(sourceFile.getText()).toContain(
+            `export { AggregateUser } from './aggregate-user.output'`,
+        );
+        expect(sourceFile.getText()).toContain(`export { User } from './user.model'`);
+        expect(sourceFile.getText()).toContain(
+            `export { UserCreateInput } from './user-create.input'`,
+        );
+
+        sourceFile = project.getSourceFile('/post/index.ts')!;
+        expect(sourceFile.getText()).toContain(
+            `export { AggregatePost } from './aggregate-post.output'`,
+        );
+        expect(sourceFile.getText()).toContain(`export { Post } from './post.model'`);
+        expect(sourceFile.getText()).toContain(
+            `export { PostCreateInput } from './post-create.input'`,
+        );
+
+        sourceFile = project.getSourceFile('/index.ts')!;
+        expect(sourceFile.getText()).toContain(
+            `export { BatchPayload, IntFilter, SortOrder } from './prisma'`,
+        );
+        expect(sourceFile.getText()).toContain(`from './user'`);
+        expect(sourceFile.getText()).toContain(`from './post'`);
     });
 });
