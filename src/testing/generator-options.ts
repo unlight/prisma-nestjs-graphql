@@ -8,12 +8,13 @@ import { PrismaDMMF } from '../types';
 
 const {
     dependencies: { '@prisma/generator-helper': generatorVersion },
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('../../package.json');
 
 const cachePath: string = findCacheDir({
     name: 'createGeneratorOptions',
     create: true,
-});
+}) as string;
 
 /**
  * Get generator options after run prisma generate.

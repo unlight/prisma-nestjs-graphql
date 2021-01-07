@@ -78,6 +78,7 @@
     "@prisma/client": ">=2.13",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
+    "@types/find-cache-dir": "^3.2.0",
     "@types/flat": "^5.0.1",
     "@types/lodash": "^4.14.167",
     "@types/mocha": "^8.2.0",

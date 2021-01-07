@@ -171,7 +171,7 @@ export async function generate(args: GenerateArgs) {
     const outputTypes = prismaClientDmmf.schema.outputObjectTypes.prisma.filter(
         t =>
             !['Query', 'Mutation'].includes(t.name) &&
-            !models.find(name => name === t.name),
+            !models.some(name => name === t.name),
     );
     for (const outputType of outputTypes) {
         const name = getOutputTypeName(outputType.name);

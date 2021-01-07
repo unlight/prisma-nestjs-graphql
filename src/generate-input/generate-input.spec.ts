@@ -379,20 +379,22 @@ describe('generate inputs', () => {
             }`,
             name: 'UserCreateWithoutPostsInput',
         });
-        const classDeclaration = sourceFile.getClass('UserCreateWithoutPostsInput');
+        const classDeclaration = sourceFile.getClass('UserCreateWithoutPostsInput')!;
 
-        const nameStructure = classDeclaration!.getProperty('name')?.getStructure()!;
-        expect(nameStructure.type).toEqual('string');
-        expect(nameStructure.hasExclamationToken).toEqual(true);
-        expect(nameStructure.decorators?.[0].arguments?.[0]).toEqual('() => String');
-        expect(nameStructure.decorators?.[0].arguments?.[1]).toContain(
+        const nameStructure = classDeclaration.getProperty('name')?.getStructure();
+        expect(nameStructure?.type).toEqual('string');
+        expect(nameStructure?.hasExclamationToken).toEqual(true);
+        expect(nameStructure?.decorators?.[0].arguments?.[0]).toEqual('() => String');
+        expect(nameStructure?.decorators?.[0].arguments?.[1]).toContain(
             'nullable: false',
         );
 
-        const bioStructure = classDeclaration!.getProperty('bio')?.getStructure()!;
-        expect(bioStructure.type).toEqual('string | null');
-        expect(bioStructure.hasQuestionToken).toEqual(true);
-        expect(bioStructure.decorators?.[0].arguments?.[0]).toEqual('() => String');
-        expect(bioStructure.decorators?.[0].arguments?.[1]).toContain('nullable: true');
+        const bioStructure = classDeclaration.getProperty('bio')?.getStructure();
+        expect(bioStructure?.type).toEqual('string | null');
+        expect(bioStructure?.hasQuestionToken).toEqual(true);
+        expect(bioStructure?.decorators?.[0].arguments?.[0]).toEqual('() => String');
+        expect(bioStructure?.decorators?.[0].arguments?.[1]).toContain(
+            'nullable: true',
+        );
     });
 });

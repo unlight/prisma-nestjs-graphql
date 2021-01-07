@@ -232,7 +232,7 @@ describe('main generate', () => {
             'string-field-update-operations.input.ts',
         ].forEach(file => {
             assert(
-                !sourceFiles.find(s => s.getFilePath().endsWith(file)),
+                !sourceFiles.some(s => s.getFilePath().endsWith(file)),
                 `File ${file} should not exists`,
             );
         });
@@ -481,7 +481,7 @@ describe('main generate', () => {
                 types: (type as string).split('|').map(s => s.trim()),
             }))
             .forEach(struct => {
-                if (struct.types.find(s => s.endsWith('FieldUpdateOperationsInput'))) {
+                if (struct.types.some(s => s.endsWith('FieldUpdateOperationsInput'))) {
                     throw new Error(
                         `Property ${struct.name} typed ${String(struct.type)}`,
                     );

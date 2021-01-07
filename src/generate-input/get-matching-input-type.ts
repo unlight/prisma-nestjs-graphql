@@ -33,8 +33,8 @@ export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]
     if (result) {
         return result;
     }
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     throw new TypeError(
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         `Cannot get matching input type from ${inputTypes.map(x => x.type)}`,
     );
 }

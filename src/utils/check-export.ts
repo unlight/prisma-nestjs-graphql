@@ -9,9 +9,7 @@ type CommentArgs = {
 export function checkExport(args: CommentArgs) {
     const { sourceFile, name, classDeclaration } = args;
     const exportDeclaration = sourceFile.getExportDeclaration(d => {
-        return Boolean(
-            d.getNamedExports().find(x => x.getNameNode().getText() === name),
-        );
+        return d.getNamedExports().some(x => x.getNameNode().getText() === name);
     });
     if (exportDeclaration) {
         let commentStatement: CommentStatement | undefined;
