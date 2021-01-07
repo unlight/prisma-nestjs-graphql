@@ -1,3 +1,11 @@
+# [7.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v7.0.0...v7.1.0) (2021-01-07)
+
+
+### Features
+
+* Adapted generator to Prisma 2.14 ([26a23c4](https://github.com/unlight/nestjs-graphql-prisma/commit/26a23c45c62a08724e866b15b2c93aea70b094c3))
+* Export all classes from one file ([92ca651](https://github.com/unlight/nestjs-graphql-prisma/commit/92ca651ea931e406e954eb419bb4ec1458fb57f1)), closes [#5](https://github.com/unlight/nestjs-graphql-prisma/issues/5)
+
 # [7.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v6.0.2...v7.0.0) (2021-01-04)
 
 
