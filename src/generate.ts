@@ -175,16 +175,16 @@ export async function generate(args: GenerateArgs) {
     );
     for (const outputType of outputTypes) {
         const name = getOutputTypeName(outputType.name);
-        outputType.fields.forEach(field => {
+        for (const field of outputType.fields) {
             field.outputType.type = getOutputTypeName(String(field.outputType.type));
-        });
+        }
         const sourceFile = await createSourceFile({ type: 'output', name });
         const model: Model = {
             name,
             fields: outputType.fields.map(t => {
                 return {
                     name: t.name,
-                    isRequired: t.isRequired,
+                    isRequired: !t.isNullable,
                     ...t.outputType,
                     type: String(t.outputType.type),
                     kind: fieldLocationToKind(t.outputType.location),

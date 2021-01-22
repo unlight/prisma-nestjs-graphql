@@ -7,29 +7,29 @@ import { CommentMinAggregate } from './comment-min-aggregate.output';
 @ObjectType()
 export class CommentGroupBy {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    createdAt?: Date | string;
+    createdAt!: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    updatedAt?: Date | string;
+    updatedAt!: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    authorId?: string;
+    authorId!: string;
 
     @Field(() => String, {
         nullable: true,

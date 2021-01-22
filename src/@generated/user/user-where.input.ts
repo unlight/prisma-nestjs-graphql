@@ -19,7 +19,7 @@ export class UserWhereInput {
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    OR?: UserWhereInput | Array<UserWhereInput>;
+    OR?: Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,

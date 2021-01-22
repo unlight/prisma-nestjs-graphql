@@ -57,12 +57,11 @@ export function generateClass(args: GenerateClassArgs) {
             decoratorDeclaration.removeArgument(0);
         }
 
-        classDeclaration
+        for (const p of classDeclaration
             .getProperties()
-            .filter(p => Boolean(p.getDecorator('Field')))
-            .forEach(p => {
-                p.remove();
-            });
+            .filter(p => Boolean(p.getDecorator('Field')))) {
+            p.remove();
+        }
 
         const properties = decorator.properties?.filter(p => p.value !== undefined);
 

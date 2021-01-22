@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { CommentUncheckedUpdateWithoutArticleInput } from './comment-unchecked-update-without-article.input';
 import { CommentUpdateWithoutArticleInput } from './comment-update-without-article.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
@@ -13,5 +14,5 @@ export class CommentUpdateWithWhereUniqueWithoutArticleInput {
     @Field(() => CommentUpdateWithoutArticleInput, {
         nullable: false,
     })
-    data!: CommentUpdateWithoutArticleInput;
+    data!: CommentUpdateWithoutArticleInput | CommentUncheckedUpdateWithoutArticleInput;
 }

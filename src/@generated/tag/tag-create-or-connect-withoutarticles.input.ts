@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input';
+import { TagUncheckedCreateWithoutArticlesInput } from './tag-unchecked-create-without-articles.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class TagCreateOrConnectWithoutarticlesInput {
     @Field(() => TagCreateWithoutArticlesInput, {
         nullable: false,
     })
-    create!: TagCreateWithoutArticlesInput;
+    create!: TagCreateWithoutArticlesInput | TagUncheckedCreateWithoutArticlesInput;
 }

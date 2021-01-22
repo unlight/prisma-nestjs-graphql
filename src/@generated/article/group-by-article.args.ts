@@ -6,6 +6,7 @@ import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 import { ArticleMinAggregateInput } from './article-min-aggregate.input';
 import { ArticleOrderByInput } from './article-order-by.input';
 import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
+import { ArticleScalarWhereWithAggregatesInput } from './article-scalar-where-with-aggregates.input';
 import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
 import { ArticleWhereInput } from './article-where.input';
 
@@ -25,6 +26,11 @@ export class GroupByArticleArgs {
         nullable: false,
     })
     by!: Array<ArticleScalarFieldEnum>;
+
+    @Field(() => ArticleScalarWhereWithAggregatesInput, {
+        nullable: true,
+    })
+    having?: ArticleScalarWhereWithAggregatesInput;
 
     @Field(() => Int, {
         nullable: true,

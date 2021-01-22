@@ -13,7 +13,7 @@ export class TagWhereInput {
     @Field(() => [TagWhereInput], {
         nullable: true,
     })
-    OR?: TagWhereInput | Array<TagWhereInput>;
+    OR?: Array<TagWhereInput>;
 
     @Field(() => [TagWhereInput], {
         nullable: true,

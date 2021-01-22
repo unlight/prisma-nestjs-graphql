@@ -7,14 +7,14 @@ import { TagMinAggregate } from './tag-min-aggregate.output';
 @ObjectType()
 export class TagGroupBy {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 
     @Field(() => TagCountAggregate, {
         nullable: true,

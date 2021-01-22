@@ -40,4 +40,19 @@ describe('combine scalar filters', () => {
     it('replacement type name enum', () => {
         expect(replacementTypeName('EnumRoleNullableFilter')).toEqual('EnumRoleFilter');
     });
+
+    it('nullable with aggregates', () => {
+        expect(replacementTypeName('StringNullableWithAggregatesFilter')).toEqual(
+            'StringWithAggregatesFilter',
+        );
+        expect(replacementTypeName('NestedStringWithAggregatesFilter')).toEqual(
+            'StringWithAggregatesFilter',
+        );
+        expect(replacementTypeName('NestedBoolNullableWithAggregatesFilter')).toEqual(
+            'BooleanWithAggregatesFilter',
+        );
+        expect(replacementTypeName('BoolNullableWithAggregatesFilter')).toEqual(
+            'BooleanWithAggregatesFilter',
+        );
+    });
 });

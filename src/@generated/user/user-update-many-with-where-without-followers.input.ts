@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserScalarWhereInput } from './user-scalar-where.input';
+import { UserUncheckedUpdateManyWithoutFollowingInput } from './user-unchecked-update-many-without-following.input';
 import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class UserUpdateManyWithWhereWithoutFollowersInput {
     @Field(() => UserUpdateManyMutationInput, {
         nullable: false,
     })
-    data!: UserUpdateManyMutationInput;
+    data!: UserUpdateManyMutationInput | UserUncheckedUpdateManyWithoutFollowingInput;
 }

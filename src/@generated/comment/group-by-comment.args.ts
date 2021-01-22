@@ -5,6 +5,7 @@ import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
 import { CommentMinAggregateInput } from './comment-min-aggregate.input';
 import { CommentOrderByInput } from './comment-order-by.input';
 import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
+import { CommentScalarWhereWithAggregatesInput } from './comment-scalar-where-with-aggregates.input';
 import { CommentWhereInput } from './comment-where.input';
 
 @ArgsType()
@@ -23,6 +24,11 @@ export class GroupByCommentArgs {
         nullable: false,
     })
     by!: Array<CommentScalarFieldEnum>;
+
+    @Field(() => CommentScalarWhereWithAggregatesInput, {
+        nullable: true,
+    })
+    having?: CommentScalarWhereWithAggregatesInput;
 
     @Field(() => Int, {
         nullable: true,

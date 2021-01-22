@@ -15,7 +15,7 @@ export class ArticleScalarWhereInput {
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    OR?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    OR?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,

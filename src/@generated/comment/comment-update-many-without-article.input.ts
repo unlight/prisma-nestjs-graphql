@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CommentCreateOrConnectWithoutarticleInput } from './comment-create-or-connect-withoutarticle.input';
 import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
+import { CommentUncheckedCreateWithoutArticleInput } from './comment-unchecked-create-without-article.input';
 import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-many-with-where-without-article.input';
 import { CommentUpdateWithWhereUniqueWithoutArticleInput } from './comment-update-with-where-unique-without-article.input';
 import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input';
@@ -13,7 +14,11 @@ export class CommentUpdateManyWithoutArticleInput {
     @Field(() => [CommentCreateWithoutArticleInput], {
         nullable: true,
     })
-    create?: CommentCreateWithoutArticleInput | Array<CommentCreateWithoutArticleInput>;
+    create?:
+        | CommentCreateWithoutArticleInput
+        | Array<CommentCreateWithoutArticleInput>
+        | CommentUncheckedCreateWithoutArticleInput
+        | Array<CommentUncheckedCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,

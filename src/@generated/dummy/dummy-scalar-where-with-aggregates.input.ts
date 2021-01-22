@@ -1,0 +1,54 @@
+import { Field, InputType } from '@nestjs/graphql';
+
+import { BigIntWithAggregatesFilter } from '../prisma/big-int-with-aggregates-filter.input';
+import { BytesWithAggregatesFilter } from '../prisma/bytes-with-aggregates-filter.input';
+import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input';
+import { JsonWithAggregatesFilter } from '../prisma/json-with-aggregates-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
+
+@InputType()
+export class DummyScalarWhereWithAggregatesInput {
+    @Field(() => [DummyScalarWhereWithAggregatesInput], {
+        nullable: true,
+    })
+    AND?:
+        | DummyScalarWhereWithAggregatesInput
+        | Array<DummyScalarWhereWithAggregatesInput>;
+
+    @Field(() => [DummyScalarWhereWithAggregatesInput], {
+        nullable: true,
+    })
+    OR?: Array<DummyScalarWhereWithAggregatesInput>;
+
+    @Field(() => [DummyScalarWhereWithAggregatesInput], {
+        nullable: true,
+    })
+    NOT?:
+        | DummyScalarWhereWithAggregatesInput
+        | Array<DummyScalarWhereWithAggregatesInput>;
+
+    @Field(() => StringWithAggregatesFilter, {
+        nullable: true,
+    })
+    id?: StringWithAggregatesFilter | string;
+
+    @Field(() => BytesWithAggregatesFilter, {
+        nullable: true,
+    })
+    bytes?: BytesWithAggregatesFilter | Buffer;
+
+    @Field(() => DecimalWithAggregatesFilter, {
+        nullable: true,
+    })
+    decimal?: DecimalWithAggregatesFilter | string;
+
+    @Field(() => BigIntWithAggregatesFilter, {
+        nullable: true,
+    })
+    bigInt?: BigIntWithAggregatesFilter | BigInt;
+
+    @Field(() => JsonWithAggregatesFilter, {
+        nullable: true,
+    })
+    json?: JsonWithAggregatesFilter;
+}

@@ -48,12 +48,12 @@ export function generateArgs(args: GenerateArgsArguments) {
                 );
             }
         }
-        names.forEach(name => {
+        for (const name of names) {
             const aggregateInput = aggregateInputs.find(
                 t => t.name === `${feature}${name}AggregateInput`,
             );
             if (!aggregateInput) {
-                return;
+                continue;
             }
             inputType.fields.push({
                 name: name.toLowerCase(),
@@ -67,7 +67,7 @@ export function generateArgs(args: GenerateArgsArguments) {
                     },
                 ],
             });
-        });
+        }
     }
     generateInput({
         inputType,

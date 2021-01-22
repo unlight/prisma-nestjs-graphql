@@ -13,7 +13,7 @@ export class CommentScalarWhereInput {
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    OR?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    OR?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,

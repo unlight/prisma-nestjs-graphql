@@ -5,6 +5,7 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 import { TagMinAggregateInput } from './tag-min-aggregate.input';
 import { TagOrderByInput } from './tag-order-by.input';
 import { TagScalarFieldEnum } from './tag-scalar-field.enum';
+import { TagScalarWhereWithAggregatesInput } from './tag-scalar-where-with-aggregates.input';
 import { TagWhereInput } from './tag-where.input';
 
 @ArgsType()
@@ -23,6 +24,11 @@ export class GroupByTagArgs {
         nullable: false,
     })
     by!: Array<TagScalarFieldEnum>;
+
+    @Field(() => TagScalarWhereWithAggregatesInput, {
+        nullable: true,
+    })
+    having?: TagScalarWhereWithAggregatesInput;
 
     @Field(() => Int, {
         nullable: true,

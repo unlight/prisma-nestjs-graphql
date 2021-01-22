@@ -10,24 +10,24 @@ import { UserSumAggregate } from './user-sum-aggregate.output';
 @ObjectType()
 export class UserGroupBy {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    email?: string;
+    email!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    password?: string;
+    password!: string;
 
     @Field(() => String, {
         nullable: true,

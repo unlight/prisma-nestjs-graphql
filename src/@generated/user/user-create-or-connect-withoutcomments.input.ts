@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
+import { UserUncheckedCreateWithoutCommentsInput } from './user-unchecked-create-without-comments.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class UserCreateOrConnectWithoutcommentsInput {
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: false,
     })
-    create!: UserCreateWithoutCommentsInput;
+    create!: UserCreateWithoutCommentsInput | UserUncheckedCreateWithoutCommentsInput;
 }

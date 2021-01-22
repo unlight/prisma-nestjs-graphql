@@ -12,7 +12,7 @@ export class TagScalarWhereInput {
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    OR?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    OR?: Array<TagScalarWhereInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,

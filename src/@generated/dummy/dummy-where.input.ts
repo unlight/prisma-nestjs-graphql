@@ -16,7 +16,7 @@ export class DummyWhereInput {
     @Field(() => [DummyWhereInput], {
         nullable: true,
     })
-    OR?: DummyWhereInput | Array<DummyWhereInput>;
+    OR?: Array<DummyWhereInput>;
 
     @Field(() => [DummyWhereInput], {
         nullable: true,

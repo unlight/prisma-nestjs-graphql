@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserCreateOrConnectWithoutfollowingInput } from './user-create-or-connect-withoutfollowing.input';
 import { UserCreateWithoutFollowingInput } from './user-create-without-following.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
+import { UserUncheckedCreateWithoutFollowingInput } from './user-unchecked-create-without-following.input';
 import { UserUpdateManyWithWhereWithoutFollowingInput } from './user-update-many-with-where-without-following.input';
 import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-with-where-unique-without-following.input';
 import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
@@ -13,7 +14,11 @@ export class UserUpdateManyWithoutFollowingInput {
     @Field(() => [UserCreateWithoutFollowingInput], {
         nullable: true,
     })
-    create?: UserCreateWithoutFollowingInput | Array<UserCreateWithoutFollowingInput>;
+    create?:
+        | UserCreateWithoutFollowingInput
+        | Array<UserCreateWithoutFollowingInput>
+        | UserUncheckedCreateWithoutFollowingInput
+        | Array<UserUncheckedCreateWithoutFollowingInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,

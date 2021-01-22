@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
+import { ArticleUncheckedCreateWithoutTagsInput } from './article-unchecked-create-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class ArticleCreateOrConnectWithouttagsInput {
     @Field(() => ArticleCreateWithoutTagsInput, {
         nullable: false,
     })
-    create!: ArticleCreateWithoutTagsInput;
+    create!: ArticleCreateWithoutTagsInput | ArticleUncheckedCreateWithoutTagsInput;
 }

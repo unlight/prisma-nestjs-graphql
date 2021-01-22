@@ -10,9 +10,9 @@ import { DummySumAggregate } from './dummy-sum-aggregate.output';
 @ObjectType()
 export class DummyGroupBy {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
         nullable: true,

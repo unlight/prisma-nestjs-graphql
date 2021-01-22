@@ -20,7 +20,7 @@ export class ArticleWhereInput {
     @Field(() => [ArticleWhereInput], {
         nullable: true,
     })
-    OR?: ArticleWhereInput | Array<ArticleWhereInput>;
+    OR?: Array<ArticleWhereInput>;
 
     @Field(() => [ArticleWhereInput], {
         nullable: true,

@@ -182,14 +182,13 @@ describe('main generate', () => {
                 }
             `,
         });
-        sourceFiles
+        for (const d of sourceFiles
             .flatMap(s => s.getClasses())
             .flatMap(d => d.getProperties())
-            .flatMap(p => p.getDecorators())
-            .forEach(d => {
-                const argument = d.getCallExpression()?.getArguments()?.[0].getText();
-                assert.notStrictEqual(argument, '() => null');
-            });
+            .flatMap(p => p.getDecorators())) {
+            const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+            assert.notStrictEqual(argument, '() => null');
+        }
     });
 
     it('user avg aggregate input', async () => {
@@ -226,16 +225,16 @@ describe('main generate', () => {
             `,
             options: [`atomicNumberOperations = false`],
         });
-        [
+        for (const file of [
             'float-field-update-operations.input.ts',
             'int-field-update-operations.input.ts',
             'string-field-update-operations.input.ts',
-        ].forEach(file => {
+        ]) {
             assert(
                 !sourceFiles.some(s => s.getFilePath().endsWith(file)),
                 `File ${file} should not exists`,
             );
-        });
+        }
 
         sourceFile = sourceFiles.find(s =>
             s.getFilePath().endsWith('user-update.input.ts'),
@@ -287,16 +286,16 @@ describe('main generate', () => {
             `,
             options: [`atomicNumberOperations = false`],
         });
-        [
+        for (const file of [
             'aggregate-user.args.ts',
             'find-many-user.args.ts',
             'find-one-user.args.ts',
-        ].forEach(file => {
+        ]) {
             assert(
                 sourceFiles.find(s => s.getFilePath().endsWith(file)),
                 `File ${file} should exists`,
             );
-        });
+        }
 
         sourceFile = sourceFiles.find(s =>
             s.getFilePath().endsWith('aggregate-user.args.ts'),
@@ -419,7 +418,7 @@ describe('main generate', () => {
             assert(!filePath.includes('nested'), `${filePath} constains nested`);
         }
         for (const sourceFile of sourceFiles) {
-            getImportDeclarations(sourceFile).forEach(statement => {
+            for (const statement of getImportDeclarations(sourceFile)) {
                 if (statement.name.includes('Nullable')) {
                     assert.fail(
                         `${sourceFile.getFilePath()} imports nullable ${
@@ -432,7 +431,7 @@ describe('main generate', () => {
                         `${sourceFile.getFilePath()} imports nested ${statement.name}`,
                     );
                 }
-            });
+            }
         }
     });
 
@@ -456,7 +455,7 @@ describe('main generate', () => {
         });
         expect(sourceFiles.length).toBeGreaterThan(0);
         for (const sourceFile of sourceFiles) {
-            sourceFile.getClasses().forEach(classDeclaration => {
+            for (const classDeclaration of sourceFile.getClasses()) {
                 if (
                     classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')
                 ) {
@@ -464,9 +463,9 @@ describe('main generate', () => {
                         `Class should not exists ${classDeclaration.getName()!}`,
                     );
                 }
-            });
+            }
         }
-        sourceFiles
+        for (const struct of sourceFiles
             .flatMap(s => s.getClasses())
             .filter(c =>
                 ['UserUpdateInput', 'UserUpdateManyMutationInput'].includes(
@@ -479,14 +478,11 @@ describe('main generate', () => {
                 name,
                 type,
                 types: (type as string).split('|').map(s => s.trim()),
-            }))
-            .forEach(struct => {
-                if (struct.types.some(s => s.endsWith('FieldUpdateOperationsInput'))) {
-                    throw new Error(
-                        `Property ${struct.name} typed ${String(struct.type)}`,
-                    );
-                }
-            });
+            }))) {
+            if (struct.types.some(s => s.endsWith('FieldUpdateOperationsInput'))) {
+                throw new Error(`Property ${struct.name} typed ${String(struct.type)}`);
+            }
+        }
     });
 
     it('scalar filter with enabled combineScalarFilters', async () => {
@@ -559,8 +555,9 @@ describe('main generate', () => {
         );
 
         sourceFile = project.getSourceFile('/index.ts')!;
+        expect(sourceFile.getText()).toContain(`SortOrder } from './prisma'`);
         expect(sourceFile.getText()).toContain(
-            `export { BatchPayload, IntFilter, SortOrder } from './prisma'`,
+            `export { BatchPayload, FloatFilter, IntFilter`,
         );
         expect(sourceFile.getText()).toContain(`from './user'`);
         expect(sourceFile.getText()).toContain(`from './post'`);

@@ -6,6 +6,7 @@ import { UserMaxAggregateInput } from './user-max-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
 import { UserOrderByInput } from './user-order-by.input';
 import { UserScalarFieldEnum } from './user-scalar-field.enum';
+import { UserScalarWhereWithAggregatesInput } from './user-scalar-where-with-aggregates.input';
 import { UserSumAggregateInput } from './user-sum-aggregate.input';
 import { UserWhereInput } from './user-where.input';
 
@@ -25,6 +26,11 @@ export class GroupByUserArgs {
         nullable: false,
     })
     by!: Array<UserScalarFieldEnum>;
+
+    @Field(() => UserScalarWhereWithAggregatesInput, {
+        nullable: true,
+    })
+    having?: UserScalarWhereWithAggregatesInput;
 
     @Field(() => Int, {
         nullable: true,

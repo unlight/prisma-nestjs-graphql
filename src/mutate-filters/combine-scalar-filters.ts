@@ -1,7 +1,7 @@
 import { PrismaDMMF } from '../types';
 
 export function replacementTypeName(name: string) {
-    const pattern = /^(Nested|Nullable)?(String|Int|Float|DateTime|Boolean|Decimal|Json|BigInt|Bytes|Enum\w+?)(Nullable)?(Filter|Input)$/;
+    const pattern = /^(Nested|Nullable)?(String|Int|Float|DateTime|Boolean|Decimal|Json|BigInt|Bytes|Enum\w+?)(Nullable)?(Filter|WithAggregatesFilter|Input)$/;
     const match = pattern.exec(name);
     if (match) {
         return match
@@ -14,7 +14,12 @@ export function replacementTypeName(name: string) {
         case 'NestedBoolNullableFilter':
         case 'BoolNullableFilter':
             return 'BooleanFilter';
+        case 'NestedBoolNullableWithAggregatesFilter':
+        case 'BoolNullableWithAggregatesFilter':
+        case 'NestedBoolWithAggregatesFilter':
+            return 'BooleanWithAggregatesFilter';
     }
+
     return name;
 }
 
@@ -31,16 +36,16 @@ export function combineScalarFilters(inputTypes: PrismaDMMF.InputType[]) {
             inputType.name = newTypeName;
         }
 
-        inputType.fields.forEach(field => {
+        for (const field of inputType.fields) {
             field.inputTypes = field.inputTypes.filter(input => input.type !== 'Null');
-            field.inputTypes.forEach(input => {
+            for (const input of field.inputTypes) {
                 const name = String(input.type);
                 const newTypeName = replacements[name];
                 if (newTypeName) {
                     input.type = newTypeName;
                 }
-            });
-        });
+            }
+        }
 
         return inputType;
     };

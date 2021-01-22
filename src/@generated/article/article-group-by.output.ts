@@ -9,49 +9,49 @@ import { ArticleSumAggregate } from './article-sum-aggregate.output';
 @ObjectType()
 export class ArticleGroupBy {
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    id?: string;
+    id!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    slug?: string;
+    slug!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    title?: string;
+    title!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    description?: string;
+    description!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    createdAt?: Date | string;
+    createdAt!: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    updatedAt?: Date | string;
+    updatedAt!: Date | string;
 
     @Field(() => Int, {
-        nullable: true,
+        nullable: false,
     })
-    favoritesCount?: number;
+    favoritesCount!: number;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    authorId?: string;
+    authorId!: string;
 
     @Field(() => Boolean, {
         nullable: true,

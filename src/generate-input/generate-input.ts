@@ -32,21 +32,19 @@ export function generateInput(args: GenerateInputArgs) {
 
     for (const field of inputType.fields) {
         // Additional import all objects
-        field.inputTypes
-            .filter(
-                x =>
-                    ['object', 'enum'].includes(fieldLocationToKind(x.location)) &&
-                    x.type !== className,
-            )
-            .forEach(inputType => {
-                const kind = fieldLocationToKind(inputType.location);
-                generateProjectImport({
-                    name: String(inputType.type),
-                    type: kind === 'object' ? 'input' : kind,
-                    sourceFile,
-                    projectFilePath,
-                });
+        for (const inputType of field.inputTypes.filter(
+            x =>
+                ['object', 'enum'].includes(fieldLocationToKind(x.location)) &&
+                x.type !== className,
+        )) {
+            const kind = fieldLocationToKind(inputType.location);
+            generateProjectImport({
+                name: String(inputType.type),
+                type: kind === 'object' ? 'input' : kind,
+                sourceFile,
+                projectFilePath,
             });
+        }
         const propertyTypes = field.inputTypes.map(t => {
             return toPropertyType({
                 ...t,

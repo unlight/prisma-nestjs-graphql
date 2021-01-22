@@ -6,6 +6,7 @@ import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
 import { DummyOrderByInput } from './dummy-order-by.input';
 import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
+import { DummyScalarWhereWithAggregatesInput } from './dummy-scalar-where-with-aggregates.input';
 import { DummySumAggregateInput } from './dummy-sum-aggregate.input';
 import { DummyWhereInput } from './dummy-where.input';
 
@@ -25,6 +26,11 @@ export class GroupByDummyArgs {
         nullable: false,
     })
     by!: Array<DummyScalarFieldEnum>;
+
+    @Field(() => DummyScalarWhereWithAggregatesInput, {
+        nullable: true,
+    })
+    having?: DummyScalarWhereWithAggregatesInput;
 
     @Field(() => Int, {
         nullable: true,

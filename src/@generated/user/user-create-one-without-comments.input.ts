@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { UserCreateOrConnectWithoutcommentsInput } from './user-create-or-connect-withoutcomments.input';
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
+import { UserUncheckedCreateWithoutCommentsInput } from './user-unchecked-create-without-comments.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -9,7 +10,7 @@ export class UserCreateOneWithoutCommentsInput {
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: true,
     })
-    create?: UserCreateWithoutCommentsInput;
+    create?: UserCreateWithoutCommentsInput | UserUncheckedCreateWithoutCommentsInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,

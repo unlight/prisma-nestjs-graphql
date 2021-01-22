@@ -17,7 +17,7 @@ export class CommentWhereInput {
     @Field(() => [CommentWhereInput], {
         nullable: true,
     })
-    OR?: CommentWhereInput | Array<CommentWhereInput>;
+    OR?: Array<CommentWhereInput>;
 
     @Field(() => [CommentWhereInput], {
         nullable: true,

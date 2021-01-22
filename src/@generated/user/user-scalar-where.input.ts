@@ -16,7 +16,7 @@ export class UserScalarWhereInput {
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    OR?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    OR?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,

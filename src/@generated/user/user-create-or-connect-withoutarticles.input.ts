@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input';
+import { UserUncheckedCreateWithoutArticlesInput } from './user-unchecked-create-without-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class UserCreateOrConnectWithoutarticlesInput {
     @Field(() => UserCreateWithoutArticlesInput, {
         nullable: false,
     })
-    create!: UserCreateWithoutArticlesInput;
+    create!: UserCreateWithoutArticlesInput | UserUncheckedCreateWithoutArticlesInput;
 }

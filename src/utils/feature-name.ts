@@ -60,6 +60,9 @@ const splitKeywords = [
     'CountAggregate',
     'ScalarField',
     'GroupBy',
+    'UncheckedUpdate',
+    'UncheckedCreate',
+    'ScalarWhere',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [

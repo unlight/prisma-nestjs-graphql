@@ -54,7 +54,7 @@ const $prisma = new PrismaClient();
 }
 {
     const x: FindManyUserArgs = {};
-    let p: Prisma.FindManyUserArgs = {};
+    let p: Prisma.UserFindManyArgs = {};
     p = x;
     $prisma.user.findMany(x);
 }
@@ -92,14 +92,14 @@ const $prisma = new PrismaClient();
 }
 {
     const x: AggregateUserArgs = {};
-    let p: Prisma.AggregateUserArgs = {};
+    let p: Prisma.UserAggregateArgs = {};
     p = x;
 }
 {
     const x: GroupByUserArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
-    let p: Prisma.GroupByUserArgs = {
+    let p: Prisma.UserGroupByArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
     p = x;

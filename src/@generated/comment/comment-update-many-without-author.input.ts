@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CommentCreateOrConnectWithoutauthorInput } from './comment-create-or-connect-withoutauthor.input';
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
+import { CommentUncheckedCreateWithoutAuthorInput } from './comment-unchecked-create-without-author.input';
 import { CommentUpdateManyWithWhereWithoutAuthorInput } from './comment-update-many-with-where-without-author.input';
 import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update-with-where-unique-without-author.input';
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
@@ -13,7 +14,11 @@ export class CommentUpdateManyWithoutAuthorInput {
     @Field(() => [CommentCreateWithoutAuthorInput], {
         nullable: true,
     })
-    create?: CommentCreateWithoutAuthorInput | Array<CommentCreateWithoutAuthorInput>;
+    create?:
+        | CommentCreateWithoutAuthorInput
+        | Array<CommentCreateWithoutAuthorInput>
+        | CommentUncheckedCreateWithoutAuthorInput
+        | Array<CommentUncheckedCreateWithoutAuthorInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,

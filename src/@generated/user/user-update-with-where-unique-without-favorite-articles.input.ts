@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { UserUncheckedUpdateWithoutFavoriteArticlesInput } from './user-unchecked-update-without-favorite-articles.input';
 import { UserUpdateWithoutFavoriteArticlesInput } from './user-update-without-favorite-articles.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
@@ -13,5 +14,7 @@ export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
     @Field(() => UserUpdateWithoutFavoriteArticlesInput, {
         nullable: false,
     })
-    data!: UserUpdateWithoutFavoriteArticlesInput;
+    data!:
+        | UserUpdateWithoutFavoriteArticlesInput
+        | UserUncheckedUpdateWithoutFavoriteArticlesInput;
 }
