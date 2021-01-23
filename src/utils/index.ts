@@ -79,7 +79,7 @@ export function toPropertyType(args: ToPropertyTypeArgs): string {
             return types.join(' | ');
         }
     }
-    throw new TypeError(`Cannot get property type from ${args.kind}/${args.type}`);
+    throw new TypeError(`Cannot get property type from ${kind}/${type}`);
 }
 
 /**

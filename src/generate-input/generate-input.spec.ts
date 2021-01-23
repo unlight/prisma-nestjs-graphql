@@ -42,7 +42,7 @@ describe('generate inputs', () => {
         generateInput({
             inputType,
             sourceFile,
-            projectFilePath: args => `${args.name}.${args.type}.ts`,
+            projectFilePath: ({ name, type }) => `${name}.${type}.ts`,
             decorator: {
                 name: 'InputType',
             },
