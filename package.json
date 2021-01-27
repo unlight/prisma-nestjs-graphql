@@ -32,8 +32,6 @@
     "lint:src": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
     "lint:src:w": "watchexec -w src \"npm run lint:src\"",
     "lint:src:fix": "npm run lint:src -- --fix",
-    "lint:ts": "tsc --noEmit",
-    "lint:ts:w": "npm run lint:ts -- --watch",
     "build": "sh Taskfile bundle",
     "prisma:g": "node node_modules/@prisma/cli/build/index.js generate",
     "format": "npx prettier src --write",

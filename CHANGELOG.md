@@ -1,3 +1,15 @@
+# [8.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v7.2.0...v8.0.0) (2021-01-27)
+
+
+### Bug Fixes
+
+* Typescript property type now same as graphql type ([151d380](https://github.com/unlight/nestjs-graphql-prisma/commit/151d38062cce4001b389156cae55430be34011f9))
+
+
+### BREAKING CHANGES
+
+* Typescript property type now same as graphql type
+
 # [7.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v7.1.0...v7.2.0) (2021-01-22)
 
 
