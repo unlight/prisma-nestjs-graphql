@@ -18,7 +18,7 @@ export class GroupByTagArgs {
     @Field(() => [TagOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<TagOrderByInput> | TagOrderByInput;
+    orderBy?: Array<TagOrderByInput>;
 
     @Field(() => [TagScalarFieldEnum], {
         nullable: false,

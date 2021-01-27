@@ -20,7 +20,7 @@ export class GroupByDummyArgs {
     @Field(() => [DummyOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
+    orderBy?: Array<DummyOrderByInput>;
 
     @Field(() => [DummyScalarFieldEnum], {
         nullable: false,

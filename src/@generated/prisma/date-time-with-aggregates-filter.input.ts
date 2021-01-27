@@ -43,7 +43,7 @@ export class DateTimeWithAggregatesFilter {
     @Field(() => DateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    not?: Date | string | DateTimeWithAggregatesFilter;
+    not?: DateTimeWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

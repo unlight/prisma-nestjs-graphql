@@ -20,7 +20,7 @@ export class GroupByUserArgs {
     @Field(() => [UserOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<UserOrderByInput> | UserOrderByInput;
+    orderBy?: Array<UserOrderByInput>;
 
     @Field(() => [UserScalarFieldEnum], {
         nullable: false,

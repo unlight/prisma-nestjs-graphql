@@ -40,5 +40,5 @@ export class FloatFilter {
     @Field(() => FloatFilter, {
         nullable: true,
     })
-    not?: number | FloatFilter;
+    not?: FloatFilter;
 }

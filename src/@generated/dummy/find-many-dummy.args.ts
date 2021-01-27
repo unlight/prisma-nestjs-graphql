@@ -15,7 +15,7 @@ export class FindManyDummyArgs {
     @Field(() => [DummyOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<DummyOrderByInput> | DummyOrderByInput;
+    orderBy?: Array<DummyOrderByInput>;
 
     @Field(() => DummyWhereUniqueInput, {
         nullable: true,

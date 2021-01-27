@@ -52,31 +52,40 @@ describe('generate inputs', () => {
     const struct = (className: string, property: string) =>
         sourceFile.getClass(className)?.getProperty(property)?.getStructure();
 
-    it('user where input', async () => {
-        await getResult({
-            schema: `
+    describe('user where input', () => {
+        before(async () => {
+            await getResult({
+                schema: `
             model User {
               id     String      @id
               birth  DateTime
               died   DateTime?
             }
             `,
-            name: 'UserWhereInput',
+                name: 'UserWhereInput',
+            });
         });
-        expect(struct('UserWhereInput', 'id')?.type).toEqual('StringFilter | string');
-        const decoratorArguments = sourceFile
-            .getClass('UserWhereInput')
-            ?.getProperty('id')
-            ?.getDecorator('Field')
-            ?.getCallExpression()
-            ?.getArguments();
-        expect(decoratorArguments?.[0]?.getText()).toEqual('() => StringFilter');
-        expect(struct('UserWhereInput', 'birth')?.type).toEqual(
-            'DateTimeFilter | Date | string',
-        );
-        expect(struct('UserWhereInput', 'AND')?.type).toEqual(
-            'UserWhereInput | Array<UserWhereInput>',
-        );
+
+        it('property id has one type', () => {
+            const decoratorArguments = sourceFile
+                .getClass('UserWhereInput')
+                ?.getProperty('id')
+                ?.getDecorator('Field')
+                ?.getCallExpression()
+                ?.getArguments();
+            expect(decoratorArguments?.[0]?.getText()).toEqual('() => StringFilter');
+            expect(struct('UserWhereInput', 'id')?.type).toEqual('StringFilter');
+        });
+
+        it('property AND has one type', () => {
+            expect(struct('UserWhereInput', 'AND')?.type).toEqual(
+                'Array<UserWhereInput>',
+            );
+        });
+
+        it('property birth date', async () => {
+            expect(struct('UserWhereInput', 'birth')?.type).toEqual('DateTimeFilter');
+        });
     });
 
     it('user where int filter', async () => {
@@ -95,7 +104,7 @@ describe('generate inputs', () => {
             ?.getStructure();
         expect(structure).toBeTruthy();
         assert(structure);
-        expect(structure.type).toEqual('IntFilter | number');
+        expect(structure.type).toEqual('IntFilter');
 
         const decoratorArguments = sourceFile
             .getClass('UserWhereInput')
@@ -177,7 +186,7 @@ describe('generate inputs', () => {
             ?.getProperty('countComments')
             ?.getStructure();
         assert(structure);
-        expect(structure.type).toEqual('number | null');
+        expect(structure.type).toEqual('number');
 
         const imports = getImportDeclarations(sourceFile);
 
@@ -274,14 +283,7 @@ describe('generate inputs', () => {
         });
         const property = sourceFile.getClass('PostWhereInput')?.getProperty('author');
         assert(property, 'Property author should exists');
-        expect(property.getStructure().type).toEqual(
-            'UserRelationFilter | UserWhereInput',
-        );
-
-        const imports = getImportDeclarations(sourceFile);
-        const importNames = imports.map(x => x.name);
-
-        expect(importNames).toContain('UserRelationFilter');
+        expect(property.getStructure().type).toEqual('UserWhereInput');
     });
 
     it('enum filter should include enum import', async () => {
@@ -301,10 +303,6 @@ describe('generate inputs', () => {
         expect(imports).toContainEqual({
             name: 'EnumRoleFilter',
             specifier: './EnumRoleFilter.input',
-        });
-        expect(imports).toContainEqual({
-            name: 'Role',
-            specifier: './Role.enum',
         });
     });
 
@@ -390,7 +388,7 @@ describe('generate inputs', () => {
         );
 
         const bioStructure = classDeclaration.getProperty('bio')?.getStructure();
-        expect(bioStructure?.type).toEqual('string | null');
+        expect(bioStructure?.type).toEqual('string');
         expect(bioStructure?.hasQuestionToken).toEqual(true);
         expect(bioStructure?.decorators?.[0].arguments?.[0]).toEqual('() => String');
         expect(bioStructure?.decorators?.[0].arguments?.[1]).toContain(

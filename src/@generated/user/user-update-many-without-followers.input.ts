@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserCreateOrConnectWithoutfollowersInput } from './user-create-or-connect-withoutfollowers.input';
 import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUncheckedCreateWithoutFollowersInput } from './user-unchecked-create-without-followers.input';
 import { UserUpdateManyWithWhereWithoutFollowersInput } from './user-update-many-with-where-without-followers.input';
 import { UserUpdateWithWhereUniqueWithoutFollowersInput } from './user-update-with-where-unique-without-followers.input';
 import { UserUpsertWithWhereUniqueWithoutFollowersInput } from './user-upsert-with-where-unique-without-followers.input';
@@ -14,62 +13,50 @@ export class UserUpdateManyWithoutFollowersInput {
     @Field(() => [UserCreateWithoutFollowersInput], {
         nullable: true,
     })
-    create?:
-        | UserCreateWithoutFollowersInput
-        | Array<UserCreateWithoutFollowersInput>
-        | UserUncheckedCreateWithoutFollowersInput
-        | Array<UserUncheckedCreateWithoutFollowersInput>;
+    create?: Array<UserCreateWithoutFollowersInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    connect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    set?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    disconnect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    delete?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
     })
-    update?:
-        | UserUpdateWithWhereUniqueWithoutFollowersInput
-        | Array<UserUpdateWithWhereUniqueWithoutFollowersInput>;
+    update?: Array<UserUpdateWithWhereUniqueWithoutFollowersInput>;
 
     @Field(() => [UserUpdateManyWithWhereWithoutFollowersInput], {
         nullable: true,
     })
-    updateMany?:
-        | UserUpdateManyWithWhereWithoutFollowersInput
-        | Array<UserUpdateManyWithWhereWithoutFollowersInput>;
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFollowersInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    deleteMany?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
         nullable: true,
     })
-    upsert?:
-        | UserUpsertWithWhereUniqueWithoutFollowersInput
-        | Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
 
     @Field(() => [UserCreateOrConnectWithoutfollowersInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | UserCreateOrConnectWithoutfollowersInput
-        | Array<UserCreateOrConnectWithoutfollowersInput>;
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowersInput>;
 }

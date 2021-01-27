@@ -5,7 +5,6 @@ import { CommentListRelationFilter } from '../comment/comment-list-relation-filt
 import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { Role } from '../prisma/role.enum';
 import { StringFilter } from '../prisma/string-filter.input';
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 
@@ -14,7 +13,7 @@ export class UserWhereInput {
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    AND?: UserWhereInput | Array<UserWhereInput>;
+    AND?: Array<UserWhereInput>;
 
     @Field(() => [UserWhereInput], {
         nullable: true,
@@ -24,37 +23,37 @@ export class UserWhereInput {
     @Field(() => [UserWhereInput], {
         nullable: true,
     })
-    NOT?: UserWhereInput | Array<UserWhereInput>;
+    NOT?: Array<UserWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    id?: StringFilter | string;
+    id?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    email?: StringFilter | string;
+    email?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    password?: StringFilter | string;
+    password?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringFilter | string;
+    bio?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringFilter | string;
+    image?: StringFilter;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,
@@ -84,15 +83,15 @@ export class UserWhereInput {
     @Field(() => IntFilter, {
         nullable: true,
     })
-    countComments?: IntFilter | number;
+    countComments?: IntFilter;
 
     @Field(() => FloatFilter, {
         nullable: true,
     })
-    rating?: FloatFilter | number;
+    rating?: FloatFilter;
 
     @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    role?: EnumRoleFilter | Role;
+    role?: EnumRoleFilter;
 }

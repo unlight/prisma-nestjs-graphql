@@ -31,8 +31,11 @@ export function generateInput(args: GenerateInputArgs) {
     });
 
     for (const field of inputType.fields) {
+        // Union input type is not yet ready
+        // Keep only one which same as graphql
+        const matchInputType = getMatchingInputType(field.inputTypes);
         // Additional import all objects
-        for (const inputType of field.inputTypes.filter(
+        for (const inputType of [matchInputType].filter(
             x =>
                 ['object', 'enum'].includes(fieldLocationToKind(x.location)) &&
                 x.type !== className,
@@ -45,18 +48,18 @@ export function generateInput(args: GenerateInputArgs) {
                 projectFilePath,
             });
         }
-        const propertyTypes = field.inputTypes.map(t => {
+        const propertyTypes = [matchInputType].map(t => {
             return toPropertyType({
                 ...t,
                 type: String(t.type),
                 kind: fieldLocationToKind(t.location),
             });
         });
-        const inputType = getMatchingInputType(field.inputTypes);
+
         const fieldStructure: Field = {
             ...field,
-            kind: fieldLocationToKind(inputType.location),
-            type: String(inputType.type),
+            kind: fieldLocationToKind(matchInputType.location),
+            type: String(matchInputType.type),
             isList: field.inputTypes.some(t => t.isList),
         };
 

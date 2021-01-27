@@ -43,7 +43,7 @@ export class DecimalWithAggregatesFilter {
     @Field(() => DecimalWithAggregatesFilter, {
         nullable: true,
     })
-    not?: string | DecimalWithAggregatesFilter;
+    not?: DecimalWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

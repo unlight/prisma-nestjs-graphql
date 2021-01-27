@@ -15,7 +15,7 @@ export class FindFirstArticleArgs {
     @Field(() => [ArticleOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
+    orderBy?: Array<ArticleOrderByInput>;
 
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,

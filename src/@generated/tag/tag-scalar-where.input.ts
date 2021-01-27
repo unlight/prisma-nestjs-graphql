@@ -7,7 +7,7 @@ export class TagScalarWhereInput {
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    AND?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    AND?: Array<TagScalarWhereInput>;
 
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
@@ -17,15 +17,15 @@ export class TagScalarWhereInput {
     @Field(() => [TagScalarWhereInput], {
         nullable: true,
     })
-    NOT?: TagScalarWhereInput | Array<TagScalarWhereInput>;
+    NOT?: Array<TagScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    id?: StringFilter | string;
+    id?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 }

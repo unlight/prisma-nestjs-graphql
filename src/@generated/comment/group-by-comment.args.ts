@@ -18,7 +18,7 @@ export class GroupByCommentArgs {
     @Field(() => [CommentOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<CommentOrderByInput> | CommentOrderByInput;
+    orderBy?: Array<CommentOrderByInput>;
 
     @Field(() => [CommentScalarFieldEnum], {
         nullable: false,

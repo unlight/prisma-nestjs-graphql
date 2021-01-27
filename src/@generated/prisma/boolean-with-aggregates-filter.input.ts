@@ -13,7 +13,7 @@ export class BooleanWithAggregatesFilter {
     @Field(() => BooleanWithAggregatesFilter, {
         nullable: true,
     })
-    not?: boolean | BooleanWithAggregatesFilter;
+    not?: BooleanWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

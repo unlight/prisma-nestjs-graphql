@@ -10,5 +10,5 @@ export class BooleanFilter {
     @Field(() => BooleanFilter, {
         nullable: true,
     })
-    not?: boolean | BooleanFilter;
+    not?: BooleanFilter;
 }

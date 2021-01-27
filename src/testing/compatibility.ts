@@ -1,6 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 
-import { ArticleListRelationFilter } from '../@generated/article/article-list-relation-filter.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
 import { FloatFilter } from '../@generated/prisma/float-filter.input';
 import { IntFilter } from '../@generated/prisma/int-filter.input';
@@ -10,13 +9,16 @@ import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
 import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
 import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
 import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
-import { UserGroupBy } from '../@generated/user/user-group-by.output';
 import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
 import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
 import { UserWhereInput } from '../@generated/user/user-where.input';
 
 const $prisma = new PrismaClient();
 
+{
+    const t: Array<Date> | Array<string> = [];
+    const m: Array<Date | string> = t; // t => m will fail
+}
 {
     // Scalar filter
     const x: IntFilter = {};

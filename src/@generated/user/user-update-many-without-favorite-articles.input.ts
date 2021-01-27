@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { UserCreateOrConnectWithoutfavoriteArticlesInput } from './user-create-or-connect-withoutfavorite-articles.input';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUncheckedCreateWithoutFavoriteArticlesInput } from './user-unchecked-create-without-favorite-articles.input';
 import { UserUpdateManyWithWhereWithoutFavoriteArticlesInput } from './user-update-many-with-where-without-favorite-articles.input';
 import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-update-with-where-unique-without-favorite-articles.input';
 import { UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput } from './user-upsert-with-where-unique-without-favorite-articles.input';
@@ -14,62 +13,50 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
     @Field(() => [UserCreateWithoutFavoriteArticlesInput], {
         nullable: true,
     })
-    create?:
-        | UserCreateWithoutFavoriteArticlesInput
-        | Array<UserCreateWithoutFavoriteArticlesInput>
-        | UserUncheckedCreateWithoutFavoriteArticlesInput
-        | Array<UserUncheckedCreateWithoutFavoriteArticlesInput>;
+    create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    connect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    connect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    set?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    set?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    disconnect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
-    delete?: UserWhereUniqueInput | Array<UserWhereUniqueInput>;
+    delete?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput], {
         nullable: true,
     })
-    update?:
-        | UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput
-        | Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
+    update?: Array<UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserUpdateManyWithWhereWithoutFavoriteArticlesInput], {
         nullable: true,
     })
-    updateMany?:
-        | UserUpdateManyWithWhereWithoutFavoriteArticlesInput
-        | Array<UserUpdateManyWithWhereWithoutFavoriteArticlesInput>;
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    deleteMany?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
         nullable: true,
     })
-    upsert?:
-        | UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput
-        | Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | UserCreateOrConnectWithoutfavoriteArticlesInput
-        | Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
 }

@@ -40,5 +40,5 @@ export class BigIntFilter {
     @Field(() => BigIntFilter, {
         nullable: true,
     })
-    not?: BigInt | BigIntFilter;
+    not?: BigIntFilter;
 }

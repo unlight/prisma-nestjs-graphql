@@ -22,5 +22,5 @@ export class EnumRoleFilter {
     @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    not?: Role | EnumRoleFilter;
+    not?: EnumRoleFilter;
 }

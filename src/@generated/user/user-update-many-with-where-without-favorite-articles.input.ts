@@ -1,7 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { UserScalarWhereInput } from './user-scalar-where.input';
-import { UserUncheckedUpdateManyWithoutFavoritedByInput } from './user-unchecked-update-many-without-favorited-by.input';
 import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 
 @InputType()
@@ -14,5 +13,5 @@ export class UserUpdateManyWithWhereWithoutFavoriteArticlesInput {
     @Field(() => UserUpdateManyMutationInput, {
         nullable: false,
     })
-    data!: UserUpdateManyMutationInput | UserUncheckedUpdateManyWithoutFavoritedByInput;
+    data!: UserUpdateManyMutationInput;
 }

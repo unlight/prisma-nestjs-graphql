@@ -8,9 +8,7 @@ export class CommentScalarWhereWithAggregatesInput {
     @Field(() => [CommentScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    AND?:
-        | CommentScalarWhereWithAggregatesInput
-        | Array<CommentScalarWhereWithAggregatesInput>;
+    AND?: Array<CommentScalarWhereWithAggregatesInput>;
 
     @Field(() => [CommentScalarWhereWithAggregatesInput], {
         nullable: true,
@@ -20,37 +18,35 @@ export class CommentScalarWhereWithAggregatesInput {
     @Field(() => [CommentScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    NOT?:
-        | CommentScalarWhereWithAggregatesInput
-        | Array<CommentScalarWhereWithAggregatesInput>;
+    NOT?: Array<CommentScalarWhereWithAggregatesInput>;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    id?: StringWithAggregatesFilter | string;
+    id?: StringWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeWithAggregatesFilter | Date | string;
+    createdAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    body?: StringWithAggregatesFilter | string;
+    body?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    authorId?: StringWithAggregatesFilter | string;
+    authorId?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    articleId?: StringWithAggregatesFilter | string;
+    articleId?: StringWithAggregatesFilter;
 }

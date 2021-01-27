@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { EnumRoleWithAggregatesFilter } from '../prisma/enum-role-with-aggregates-filter.input';
 import { FloatWithAggregatesFilter } from '../prisma/float-with-aggregates-filter.input';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { Role } from '../prisma/role.enum';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
@@ -11,9 +10,7 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => [UserScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    AND?:
-        | UserScalarWhereWithAggregatesInput
-        | Array<UserScalarWhereWithAggregatesInput>;
+    AND?: Array<UserScalarWhereWithAggregatesInput>;
 
     @Field(() => [UserScalarWhereWithAggregatesInput], {
         nullable: true,
@@ -23,52 +20,50 @@ export class UserScalarWhereWithAggregatesInput {
     @Field(() => [UserScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    NOT?:
-        | UserScalarWhereWithAggregatesInput
-        | Array<UserScalarWhereWithAggregatesInput>;
+    NOT?: Array<UserScalarWhereWithAggregatesInput>;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    id?: StringWithAggregatesFilter | string;
+    id?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    email?: StringWithAggregatesFilter | string;
+    email?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    name?: StringWithAggregatesFilter | string;
+    name?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    password?: StringWithAggregatesFilter | string;
+    password?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    bio?: StringWithAggregatesFilter | string;
+    bio?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    image?: StringWithAggregatesFilter | string;
+    image?: StringWithAggregatesFilter;
 
     @Field(() => IntWithAggregatesFilter, {
         nullable: true,
     })
-    countComments?: IntWithAggregatesFilter | number;
+    countComments?: IntWithAggregatesFilter;
 
     @Field(() => FloatWithAggregatesFilter, {
         nullable: true,
     })
-    rating?: FloatWithAggregatesFilter | number;
+    rating?: FloatWithAggregatesFilter;
 
     @Field(() => EnumRoleWithAggregatesFilter, {
         nullable: true,
     })
-    role?: EnumRoleWithAggregatesFilter | Role;
+    role?: EnumRoleWithAggregatesFilter;
 }

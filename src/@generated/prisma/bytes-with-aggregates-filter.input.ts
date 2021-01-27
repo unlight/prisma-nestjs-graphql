@@ -13,7 +13,7 @@ export class BytesWithAggregatesFilter {
     @Field(() => BytesWithAggregatesFilter, {
         nullable: true,
     })
-    not?: Buffer | BytesWithAggregatesFilter;
+    not?: BytesWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

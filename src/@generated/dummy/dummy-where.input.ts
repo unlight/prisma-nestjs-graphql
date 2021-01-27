@@ -11,7 +11,7 @@ export class DummyWhereInput {
     @Field(() => [DummyWhereInput], {
         nullable: true,
     })
-    AND?: DummyWhereInput | Array<DummyWhereInput>;
+    AND?: Array<DummyWhereInput>;
 
     @Field(() => [DummyWhereInput], {
         nullable: true,
@@ -21,27 +21,27 @@ export class DummyWhereInput {
     @Field(() => [DummyWhereInput], {
         nullable: true,
     })
-    NOT?: DummyWhereInput | Array<DummyWhereInput>;
+    NOT?: Array<DummyWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    id?: StringFilter | string;
+    id?: StringFilter;
 
     @Field(() => BytesFilter, {
         nullable: true,
     })
-    bytes?: BytesFilter | Buffer;
+    bytes?: BytesFilter;
 
     @Field(() => DecimalFilter, {
         nullable: true,
     })
-    decimal?: DecimalFilter | string;
+    decimal?: DecimalFilter;
 
     @Field(() => BigIntFilter, {
         nullable: true,
     })
-    bigInt?: BigIntFilter | BigInt;
+    bigInt?: BigIntFilter;
 
     @Field(() => JsonFilter, {
         nullable: true,

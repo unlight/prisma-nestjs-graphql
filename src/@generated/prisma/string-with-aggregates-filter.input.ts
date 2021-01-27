@@ -64,7 +64,7 @@ export class StringWithAggregatesFilter {
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    not?: string | StringWithAggregatesFilter;
+    not?: StringWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

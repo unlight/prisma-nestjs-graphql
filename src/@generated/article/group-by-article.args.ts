@@ -20,7 +20,7 @@ export class GroupByArticleArgs {
     @Field(() => [ArticleOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
+    orderBy?: Array<ArticleOrderByInput>;
 
     @Field(() => [ArticleScalarFieldEnum], {
         nullable: false,

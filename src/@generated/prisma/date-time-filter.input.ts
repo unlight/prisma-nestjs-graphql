@@ -40,5 +40,5 @@ export class DateTimeFilter {
     @Field(() => DateTimeFilter, {
         nullable: true,
     })
-    not?: Date | string | DateTimeFilter;
+    not?: DateTimeFilter;
 }

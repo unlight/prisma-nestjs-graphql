@@ -18,7 +18,7 @@ export class AggregateArticleArgs {
     @Field(() => [ArticleOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<ArticleOrderByInput> | ArticleOrderByInput;
+    orderBy?: Array<ArticleOrderByInput>;
 
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,

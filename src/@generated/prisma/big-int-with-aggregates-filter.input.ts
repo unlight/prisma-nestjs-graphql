@@ -44,7 +44,7 @@ export class BigIntWithAggregatesFilter {
     @Field(() => BigIntWithAggregatesFilter, {
         nullable: true,
     })
-    not?: BigInt | BigIntWithAggregatesFilter;
+    not?: BigIntWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

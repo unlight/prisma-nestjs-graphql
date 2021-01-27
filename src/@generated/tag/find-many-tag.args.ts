@@ -15,7 +15,7 @@ export class FindManyTagArgs {
     @Field(() => [TagOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<TagOrderByInput> | TagOrderByInput;
+    orderBy?: Array<TagOrderByInput>;
 
     @Field(() => TagWhereUniqueInput, {
         nullable: true,

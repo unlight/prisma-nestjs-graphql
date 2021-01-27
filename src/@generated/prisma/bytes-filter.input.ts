@@ -10,5 +10,5 @@ export class BytesFilter {
     @Field(() => BytesFilter, {
         nullable: true,
     })
-    not?: Buffer | BytesFilter;
+    not?: BytesFilter;
 }

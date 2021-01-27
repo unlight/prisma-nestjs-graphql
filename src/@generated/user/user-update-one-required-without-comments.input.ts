@@ -2,8 +2,6 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { UserCreateOrConnectWithoutcommentsInput } from './user-create-or-connect-withoutcomments.input';
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
-import { UserUncheckedCreateWithoutCommentsInput } from './user-unchecked-create-without-comments.input';
-import { UserUncheckedUpdateWithoutCommentsInput } from './user-unchecked-update-without-comments.input';
 import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.input';
 import { UserUpsertWithoutCommentsInput } from './user-upsert-without-comments.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
@@ -13,7 +11,7 @@ export class UserUpdateOneRequiredWithoutCommentsInput {
     @Field(() => UserCreateWithoutCommentsInput, {
         nullable: true,
     })
-    create?: UserCreateWithoutCommentsInput | UserUncheckedCreateWithoutCommentsInput;
+    create?: UserCreateWithoutCommentsInput;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,
@@ -23,7 +21,7 @@ export class UserUpdateOneRequiredWithoutCommentsInput {
     @Field(() => UserUpdateWithoutCommentsInput, {
         nullable: true,
     })
-    update?: UserUpdateWithoutCommentsInput | UserUncheckedUpdateWithoutCommentsInput;
+    update?: UserUpdateWithoutCommentsInput;
 
     @Field(() => UserUpsertWithoutCommentsInput, {
         nullable: true,

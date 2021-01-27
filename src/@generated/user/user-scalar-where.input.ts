@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { Role } from '../prisma/role.enum';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -11,7 +10,7 @@ export class UserScalarWhereInput {
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    AND?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    AND?: Array<UserScalarWhereInput>;
 
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
@@ -21,50 +20,50 @@ export class UserScalarWhereInput {
     @Field(() => [UserScalarWhereInput], {
         nullable: true,
     })
-    NOT?: UserScalarWhereInput | Array<UserScalarWhereInput>;
+    NOT?: Array<UserScalarWhereInput>;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    id?: StringFilter | string;
+    id?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    email?: StringFilter | string;
+    email?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    name?: StringFilter | string;
+    name?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    password?: StringFilter | string;
+    password?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringFilter | string;
+    bio?: StringFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringFilter | string;
+    image?: StringFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
     })
-    countComments?: IntFilter | number;
+    countComments?: IntFilter;
 
     @Field(() => FloatFilter, {
         nullable: true,
     })
-    rating?: FloatFilter | number;
+    rating?: FloatFilter;
 
     @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    role?: EnumRoleFilter | Role;
+    role?: EnumRoleFilter;
 }

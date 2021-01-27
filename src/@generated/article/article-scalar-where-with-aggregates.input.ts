@@ -10,9 +10,7 @@ export class ArticleScalarWhereWithAggregatesInput {
     @Field(() => [ArticleScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    AND?:
-        | ArticleScalarWhereWithAggregatesInput
-        | Array<ArticleScalarWhereWithAggregatesInput>;
+    AND?: Array<ArticleScalarWhereWithAggregatesInput>;
 
     @Field(() => [ArticleScalarWhereWithAggregatesInput], {
         nullable: true,
@@ -22,57 +20,55 @@ export class ArticleScalarWhereWithAggregatesInput {
     @Field(() => [ArticleScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    NOT?:
-        | ArticleScalarWhereWithAggregatesInput
-        | Array<ArticleScalarWhereWithAggregatesInput>;
+    NOT?: Array<ArticleScalarWhereWithAggregatesInput>;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    id?: StringWithAggregatesFilter | string;
+    id?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    slug?: StringWithAggregatesFilter | string;
+    slug?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    title?: StringWithAggregatesFilter | string;
+    title?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    description?: StringWithAggregatesFilter | string;
+    description?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    body?: StringWithAggregatesFilter | string;
+    body?: StringWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    createdAt?: DateTimeWithAggregatesFilter | Date | string;
+    createdAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => IntWithAggregatesFilter, {
         nullable: true,
     })
-    favoritesCount?: IntWithAggregatesFilter | number;
+    favoritesCount?: IntWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    authorId?: StringWithAggregatesFilter | string;
+    authorId?: StringWithAggregatesFilter;
 
     @Field(() => BooleanWithAggregatesFilter, {
         nullable: true,
     })
-    active?: BooleanWithAggregatesFilter | boolean;
+    active?: BooleanWithAggregatesFilter;
 }

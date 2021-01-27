@@ -43,7 +43,7 @@ export class IntWithAggregatesFilter {
     @Field(() => IntWithAggregatesFilter, {
         nullable: true,
     })
-    not?: number | IntWithAggregatesFilter;
+    not?: IntWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { ArticleCreateOrConnectWithoutauthorInput } from './article-create-or-connect-withoutauthor.input';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
-import { ArticleUncheckedCreateWithoutAuthorInput } from './article-unchecked-create-without-author.input';
 import { ArticleUpdateManyWithWhereWithoutAuthorInput } from './article-update-many-with-where-without-author.input';
 import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input';
 import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input';
@@ -14,62 +13,50 @@ export class ArticleUpdateManyWithoutAuthorInput {
     @Field(() => [ArticleCreateWithoutAuthorInput], {
         nullable: true,
     })
-    create?:
-        | ArticleCreateWithoutAuthorInput
-        | Array<ArticleCreateWithoutAuthorInput>
-        | ArticleUncheckedCreateWithoutAuthorInput
-        | Array<ArticleUncheckedCreateWithoutAuthorInput>;
+    create?: Array<ArticleCreateWithoutAuthorInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    connect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    set?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    disconnect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
     })
-    delete?: ArticleWhereUniqueInput | Array<ArticleWhereUniqueInput>;
+    delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
     })
-    update?:
-        | ArticleUpdateWithWhereUniqueWithoutAuthorInput
-        | Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
+    update?: Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
 
     @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], {
         nullable: true,
     })
-    updateMany?:
-        | ArticleUpdateManyWithWhereWithoutAuthorInput
-        | Array<ArticleUpdateManyWithWhereWithoutAuthorInput>;
+    updateMany?: Array<ArticleUpdateManyWithWhereWithoutAuthorInput>;
 
     @Field(() => [ArticleScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: ArticleScalarWhereInput | Array<ArticleScalarWhereInput>;
+    deleteMany?: Array<ArticleScalarWhereInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
         nullable: true,
     })
-    upsert?:
-        | ArticleUpsertWithWhereUniqueWithoutAuthorInput
-        | Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 
     @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | ArticleCreateOrConnectWithoutauthorInput
-        | Array<ArticleCreateOrConnectWithoutauthorInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutauthorInput>;
 }

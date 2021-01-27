@@ -24,7 +24,7 @@ export class EnumRoleWithAggregatesFilter {
     @Field(() => EnumRoleWithAggregatesFilter, {
         nullable: true,
     })
-    not?: Role | EnumRoleWithAggregatesFilter;
+    not?: EnumRoleWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,

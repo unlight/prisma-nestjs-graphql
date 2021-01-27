@@ -3,7 +3,6 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CommentCreateOrConnectWithoutarticleInput } from './comment-create-or-connect-withoutarticle.input';
 import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
-import { CommentUncheckedCreateWithoutArticleInput } from './comment-unchecked-create-without-article.input';
 import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-many-with-where-without-article.input';
 import { CommentUpdateWithWhereUniqueWithoutArticleInput } from './comment-update-with-where-unique-without-article.input';
 import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input';
@@ -14,62 +13,50 @@ export class CommentUncheckedUpdateManyWithoutArticleInput {
     @Field(() => [CommentCreateWithoutArticleInput], {
         nullable: true,
     })
-    create?:
-        | CommentCreateWithoutArticleInput
-        | Array<CommentCreateWithoutArticleInput>
-        | CommentUncheckedCreateWithoutArticleInput
-        | Array<CommentUncheckedCreateWithoutArticleInput>;
+    create?: Array<CommentCreateWithoutArticleInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    connect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    connect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    set?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    set?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    disconnect?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    disconnect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,
     })
-    delete?: CommentWhereUniqueInput | Array<CommentWhereUniqueInput>;
+    delete?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], {
         nullable: true,
     })
-    update?:
-        | CommentUpdateWithWhereUniqueWithoutArticleInput
-        | Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
+    update?: Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
 
     @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], {
         nullable: true,
     })
-    updateMany?:
-        | CommentUpdateManyWithWhereWithoutArticleInput
-        | Array<CommentUpdateManyWithWhereWithoutArticleInput>;
+    updateMany?: Array<CommentUpdateManyWithWhereWithoutArticleInput>;
 
     @Field(() => [CommentScalarWhereInput], {
         nullable: true,
     })
-    deleteMany?: CommentScalarWhereInput | Array<CommentScalarWhereInput>;
+    deleteMany?: Array<CommentScalarWhereInput>;
 
     @Field(() => [CommentUpsertWithWhereUniqueWithoutArticleInput], {
         nullable: true,
     })
-    upsert?:
-        | CommentUpsertWithWhereUniqueWithoutArticleInput
-        | Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
+    upsert?: Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
 
     @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
         nullable: true,
     })
-    connectOrCreate?:
-        | CommentCreateOrConnectWithoutarticleInput
-        | Array<CommentCreateOrConnectWithoutarticleInput>;
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutarticleInput>;
 }

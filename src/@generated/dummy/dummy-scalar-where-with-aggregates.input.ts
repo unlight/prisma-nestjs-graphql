@@ -11,9 +11,7 @@ export class DummyScalarWhereWithAggregatesInput {
     @Field(() => [DummyScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    AND?:
-        | DummyScalarWhereWithAggregatesInput
-        | Array<DummyScalarWhereWithAggregatesInput>;
+    AND?: Array<DummyScalarWhereWithAggregatesInput>;
 
     @Field(() => [DummyScalarWhereWithAggregatesInput], {
         nullable: true,
@@ -23,29 +21,27 @@ export class DummyScalarWhereWithAggregatesInput {
     @Field(() => [DummyScalarWhereWithAggregatesInput], {
         nullable: true,
     })
-    NOT?:
-        | DummyScalarWhereWithAggregatesInput
-        | Array<DummyScalarWhereWithAggregatesInput>;
+    NOT?: Array<DummyScalarWhereWithAggregatesInput>;
 
     @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    id?: StringWithAggregatesFilter | string;
+    id?: StringWithAggregatesFilter;
 
     @Field(() => BytesWithAggregatesFilter, {
         nullable: true,
     })
-    bytes?: BytesWithAggregatesFilter | Buffer;
+    bytes?: BytesWithAggregatesFilter;
 
     @Field(() => DecimalWithAggregatesFilter, {
         nullable: true,
     })
-    decimal?: DecimalWithAggregatesFilter | string;
+    decimal?: DecimalWithAggregatesFilter;
 
     @Field(() => BigIntWithAggregatesFilter, {
         nullable: true,
     })
-    bigInt?: BigIntWithAggregatesFilter | BigInt;
+    bigInt?: BigIntWithAggregatesFilter;
 
     @Field(() => JsonWithAggregatesFilter, {
         nullable: true,

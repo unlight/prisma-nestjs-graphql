@@ -15,7 +15,7 @@ export class FindManyCommentArgs {
     @Field(() => [CommentOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<CommentOrderByInput> | CommentOrderByInput;
+    orderBy?: Array<CommentOrderByInput>;
 
     @Field(() => CommentWhereUniqueInput, {
         nullable: true,

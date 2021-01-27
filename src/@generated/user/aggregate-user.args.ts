@@ -18,7 +18,7 @@ export class AggregateUserArgs {
     @Field(() => [UserOrderByInput], {
         nullable: true,
     })
-    orderBy?: Array<UserOrderByInput> | UserOrderByInput;
+    orderBy?: Array<UserOrderByInput>;
 
     @Field(() => UserWhereUniqueInput, {
         nullable: true,

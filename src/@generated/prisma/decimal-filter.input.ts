@@ -40,5 +40,5 @@ export class DecimalFilter {
     @Field(() => DecimalFilter, {
         nullable: true,
     })
-    not?: string | DecimalFilter;
+    not?: DecimalFilter;
 }

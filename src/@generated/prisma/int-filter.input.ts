@@ -40,5 +40,5 @@ export class IntFilter {
     @Field(() => IntFilter, {
         nullable: true,
     })
-    not?: number | IntFilter;
+    not?: IntFilter;
 }

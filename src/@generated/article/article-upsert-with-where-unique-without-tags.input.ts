@@ -1,8 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
-import { ArticleUncheckedCreateWithoutTagsInput } from './article-unchecked-create-without-tags.input';
-import { ArticleUncheckedUpdateWithoutTagsInput } from './article-unchecked-update-without-tags.input';
 import { ArticleUpdateWithoutTagsInput } from './article-update-without-tags.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
@@ -16,10 +14,10 @@ export class ArticleUpsertWithWhereUniqueWithoutTagsInput {
     @Field(() => ArticleUpdateWithoutTagsInput, {
         nullable: false,
     })
-    update!: ArticleUpdateWithoutTagsInput | ArticleUncheckedUpdateWithoutTagsInput;
+    update!: ArticleUpdateWithoutTagsInput;
 
     @Field(() => ArticleCreateWithoutTagsInput, {
         nullable: false,
     })
-    create!: ArticleCreateWithoutTagsInput | ArticleUncheckedCreateWithoutTagsInput;
+    create!: ArticleCreateWithoutTagsInput;
 }
