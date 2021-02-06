@@ -1,33 +1,31 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
-
 @InputType()
-export class ArticleUncheckedUpdateInput {
+export class ArticleCreateManyInput {
     @Field(() => String, {
         nullable: true,
     })
     id?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    slug?: string;
+    slug!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    title?: string;
+    title!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    description?: string;
+    description!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => String, {
         nullable: true,
@@ -45,17 +43,12 @@ export class ArticleUncheckedUpdateInput {
     favoritesCount?: number;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    authorId?: string;
+    authorId!: string;
 
     @Field(() => Boolean, {
         nullable: true,
     })
     active?: boolean;
-
-    @Field(() => CommentUpdateManyWithoutArticleInput, {
-        nullable: true,
-    })
-    comments?: CommentUpdateManyWithoutArticleInput;
 }

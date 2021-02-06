@@ -3,26 +3,26 @@ import { Field, Float, InputType, Int } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
 
 @InputType()
-export class UserUncheckedUpdateManyWithoutFavoritedByInput {
+export class UserCreateManyInput {
     @Field(() => String, {
         nullable: true,
     })
     id?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    email?: string;
+    email!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    password?: string;
+    password!: string;
 
     @Field(() => String, {
         nullable: true,

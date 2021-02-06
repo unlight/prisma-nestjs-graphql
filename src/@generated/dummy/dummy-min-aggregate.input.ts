@@ -21,9 +21,4 @@ export class DummyMinAggregateInput {
         nullable: true,
     })
     bigInt?: true;
-
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    json?: true;
 }

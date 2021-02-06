@@ -15,6 +15,16 @@ export class UserUpdateManyWithoutFollowersInput {
     })
     create?: Array<UserCreateWithoutFollowersInput>;
 
+    @Field(() => [UserCreateOrConnectWithoutfollowersInput], {
+        nullable: true,
+    })
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowersInput>;
+
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
+        nullable: true,
+    })
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
+
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
@@ -49,14 +59,4 @@ export class UserUpdateManyWithoutFollowersInput {
         nullable: true,
     })
     deleteMany?: Array<UserScalarWhereInput>;
-
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
-        nullable: true,
-    })
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
-
-    @Field(() => [UserCreateOrConnectWithoutfollowersInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<UserCreateOrConnectWithoutfollowersInput>;
 }

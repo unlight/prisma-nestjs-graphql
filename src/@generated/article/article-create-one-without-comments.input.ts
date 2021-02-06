@@ -11,13 +11,13 @@ export class ArticleCreateOneWithoutCommentsInput {
     })
     create?: ArticleCreateWithoutCommentsInput;
 
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
-    connect?: ArticleWhereUniqueInput;
-
     @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
         nullable: true,
     })
     connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
+
+    @Field(() => ArticleWhereUniqueInput, {
+        nullable: true,
+    })
+    connect?: ArticleWhereUniqueInput;
 }

@@ -1,8 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
-export class DummyUncheckedUpdateManyInput {
+export class CommentCreateManyAuthorInput {
     @Field(() => String, {
         nullable: true,
     })
@@ -11,20 +10,20 @@ export class DummyUncheckedUpdateManyInput {
     @Field(() => String, {
         nullable: true,
     })
-    bytes?: Buffer;
+    createdAt?: Date | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string;
+    updatedAt?: Date | string;
+
+    @Field(() => String, {
+        nullable: false,
+    })
+    body!: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bigInt?: BigInt;
-
-    @Field(() => GraphQLJSON, {
-        nullable: true,
-    })
-    json?: object;
+    articleId?: string;
 }

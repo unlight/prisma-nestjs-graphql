@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class CommentUncheckedUpdateManyWithoutCommentsInput {
+export class CommentCreateManyInput {
     @Field(() => String, {
         nullable: true,
     })
@@ -18,9 +18,14 @@ export class CommentUncheckedUpdateManyWithoutCommentsInput {
     updatedAt?: Date | string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
+
+    @Field(() => String, {
+        nullable: false,
+    })
+    authorId!: string;
 
     @Field(() => String, {
         nullable: true,

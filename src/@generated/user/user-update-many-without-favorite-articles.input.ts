@@ -15,6 +15,16 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
     })
     create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
+    @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
+        nullable: true,
+    })
+    connectOrCreate?: Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
+
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
+        nullable: true,
+    })
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
+
     @Field(() => [UserWhereUniqueInput], {
         nullable: true,
     })
@@ -49,14 +59,4 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
         nullable: true,
     })
     deleteMany?: Array<UserScalarWhereInput>;
-
-    @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
-        nullable: true,
-    })
-    upsert?: Array<UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput>;
-
-    @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
 }

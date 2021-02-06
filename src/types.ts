@@ -13,4 +13,5 @@ export type GeneratorConfiguration = {
     atomicNumberOperations: boolean;
     types: Record<string, TypeRecord>;
     reExportAll: boolean;
+    renameZooTypes: boolean;
 };

@@ -40,6 +40,7 @@ export async function generate(args: GenerateArgs) {
     const prismaClientDmmf =
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         args.prismaClientDmmf ??
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ((await import(prismaClientOutput)).dmmf as PrismaDMMF.Document);
     const project = new Project({
         useInMemoryFileSystem: true,
@@ -110,12 +111,7 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
-    inputTypes = inputTypes.filter(
-        mutateFilters(inputTypes, {
-            combineScalarFilters: config.combineScalarFilters,
-            atomicNumberOperations: config.atomicNumberOperations,
-        }),
-    );
+    inputTypes = inputTypes.filter(mutateFilters(inputTypes, config));
     // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(o => o.name.endsWith('AggregateOutputType'))

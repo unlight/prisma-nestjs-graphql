@@ -11,13 +11,13 @@ export class UserCreateOneWithoutArticlesInput {
     })
     create?: UserCreateWithoutArticlesInput;
 
-    @Field(() => UserWhereUniqueInput, {
-        nullable: true,
-    })
-    connect?: UserWhereUniqueInput;
-
     @Field(() => UserCreateOrConnectWithoutarticlesInput, {
         nullable: true,
     })
     connectOrCreate?: UserCreateOrConnectWithoutarticlesInput;
+
+    @Field(() => UserWhereUniqueInput, {
+        nullable: true,
+    })
+    connect?: UserWhereUniqueInput;
 }

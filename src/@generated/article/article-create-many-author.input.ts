@@ -1,31 +1,31 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class ArticleUncheckedUpdateManyWithoutFavoriteArticlesInput {
+export class ArticleCreateManyAuthorInput {
     @Field(() => String, {
         nullable: true,
     })
     id?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    slug?: string;
+    slug!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    title?: string;
+    title!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    description?: string;
+    description!: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    body?: string;
+    body!: string;
 
     @Field(() => String, {
         nullable: true,
@@ -41,11 +41,6 @@ export class ArticleUncheckedUpdateManyWithoutFavoriteArticlesInput {
         nullable: true,
     })
     favoritesCount?: number;
-
-    @Field(() => String, {
-        nullable: true,
-    })
-    authorId?: string;
 
     @Field(() => Boolean, {
         nullable: true,

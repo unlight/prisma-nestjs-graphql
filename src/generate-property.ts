@@ -9,7 +9,7 @@ import { toGraphqlImportType, toPropertyType } from './utils';
 
 export type Field = {
     name: string;
-    kind: 'scalar' | 'object' | 'enum';
+    kind: 'scalar' | 'object' | 'enum' | 'unsupported';
     type: string;
     isList: boolean;
     isRequired: boolean;

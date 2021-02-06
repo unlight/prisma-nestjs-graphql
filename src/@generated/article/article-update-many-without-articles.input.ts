@@ -1,9 +1,7 @@
-import { Field, Float, InputType, Int } from '@nestjs/graphql';
-
-import { Role } from '../prisma/role.enum';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class UserUncheckedUpdateManyInput {
+export class ArticleUpdateManyWithoutArticlesInput {
     @Field(() => String, {
         nullable: true,
     })
@@ -12,40 +10,40 @@ export class UserUncheckedUpdateManyInput {
     @Field(() => String, {
         nullable: true,
     })
-    email?: string;
+    slug?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    name?: string;
+    title?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    password?: string;
+    description?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bio?: string;
+    body?: string;
 
     @Field(() => String, {
         nullable: true,
     })
-    image?: string;
+    createdAt?: Date | string;
+
+    @Field(() => String, {
+        nullable: true,
+    })
+    updatedAt?: Date | string;
 
     @Field(() => Int, {
         nullable: true,
     })
-    countComments?: number;
+    favoritesCount?: number;
 
-    @Field(() => Float, {
+    @Field(() => Boolean, {
         nullable: true,
     })
-    rating?: number;
-
-    @Field(() => Role, {
-        nullable: true,
-    })
-    role?: Role;
+    active?: boolean;
 }

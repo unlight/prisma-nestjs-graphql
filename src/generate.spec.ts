@@ -414,8 +414,8 @@ describe('main generate', () => {
         });
         const filePaths = sourceFiles.map(s => String(s.getFilePath()));
         for (const filePath of filePaths) {
-            assert(!filePath.includes('nullable'), `${filePath} constains nullable`);
-            assert(!filePath.includes('nested'), `${filePath} constains nested`);
+            expect(filePath).not.toContain('nullable');
+            expect(filePath).not.toContain('nested');
         }
         for (const sourceFile of sourceFiles) {
             for (const statement of getImportDeclarations(sourceFile)) {
@@ -521,7 +521,6 @@ describe('main generate', () => {
     });
 
     it('export all from index', async () => {
-        const checkpoints: any[] = [];
         await getResult({
             schema: `
             model User {
@@ -557,7 +556,7 @@ describe('main generate', () => {
         sourceFile = project.getSourceFile('/index.ts')!;
         expect(sourceFile.getText()).toContain(`SortOrder } from './prisma'`);
         expect(sourceFile.getText()).toContain(
-            `export { BatchPayload, FloatFilter, IntFilter`,
+            `export { AffectedRows, FloatFilter, IntFilter, IntWithAggregatesFilter, SortOrder } from './prisma'`,
         );
         expect(sourceFile.getText()).toContain(`from './user'`);
         expect(sourceFile.getText()).toContain(`from './post'`);

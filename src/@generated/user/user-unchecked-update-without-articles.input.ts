@@ -1,6 +1,6 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
-import { CommentUncheckedUpdateManyWithoutAuthorInput } from '../comment/comment-unchecked-update-many-without-author.input';
+import { CommentUpdateManyWithoutAuthorInput } from '../comment/comment-update-many-without-author.input';
 import { Role } from '../prisma/role.enum';
 
 @InputType()
@@ -50,8 +50,8 @@ export class UserUncheckedUpdateWithoutArticlesInput {
     })
     role?: Role;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, {
+    @Field(() => CommentUpdateManyWithoutAuthorInput, {
         nullable: true,
     })
-    comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
+    comments?: CommentUpdateManyWithoutAuthorInput;
 }

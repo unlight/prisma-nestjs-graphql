@@ -11,13 +11,13 @@ export class ArticleCreateManyWithoutFavoritedByInput {
     })
     create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: Array<ArticleWhereUniqueInput>;
-
     @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
         nullable: true,
     })
     connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+
+    @Field(() => [ArticleWhereUniqueInput], {
+        nullable: true,
+    })
+    connect?: Array<ArticleWhereUniqueInput>;
 }

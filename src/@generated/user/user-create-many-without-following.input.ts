@@ -11,13 +11,13 @@ export class UserCreateManyWithoutFollowingInput {
     })
     create?: Array<UserCreateWithoutFollowingInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: Array<UserWhereUniqueInput>;
-
     @Field(() => [UserCreateOrConnectWithoutfollowingInput], {
         nullable: true,
     })
     connectOrCreate?: Array<UserCreateOrConnectWithoutfollowingInput>;
+
+    @Field(() => [UserWhereUniqueInput], {
+        nullable: true,
+    })
+    connect?: Array<UserWhereUniqueInput>;
 }

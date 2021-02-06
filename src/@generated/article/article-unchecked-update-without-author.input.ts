@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { CommentUncheckedUpdateManyWithoutArticleInput } from '../comment/comment-unchecked-update-many-without-article.input';
+import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
 
 @InputType()
 export class ArticleUncheckedUpdateWithoutAuthorInput {
@@ -49,8 +49,8 @@ export class ArticleUncheckedUpdateWithoutAuthorInput {
     })
     active?: boolean;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutArticleInput, {
+    @Field(() => CommentUpdateManyWithoutArticleInput, {
         nullable: true,
     })
-    comments?: CommentUncheckedUpdateManyWithoutArticleInput;
+    comments?: CommentUpdateManyWithoutArticleInput;
 }

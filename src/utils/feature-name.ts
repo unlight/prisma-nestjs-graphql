@@ -34,6 +34,7 @@ export function featureName(args: FeatureNameArgs) {
 const splitKeywords = [
     'CreateInput',
     'CreateMany',
+    'CreateNested',
     'CreateOneWithout',
     'CreateOrConnect',
     'CreateWithout',

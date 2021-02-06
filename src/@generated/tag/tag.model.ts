@@ -15,7 +15,7 @@ export class Tag {
     name!: string;
 
     @Field(() => [Article], {
-        nullable: true,
+        nullable: false,
     })
-    articles?: Array<Article>;
+    articles!: Array<Article>;
 }

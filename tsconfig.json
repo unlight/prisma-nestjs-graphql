@@ -6,7 +6,7 @@
     }
   },
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2019",
     "module": "commonjs",
     "moduleResolution": "node",
     "importHelpers": true,

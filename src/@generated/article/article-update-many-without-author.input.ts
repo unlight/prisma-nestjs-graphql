@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { ArticleCreateManyAuthorEnvelopeInput } from './article-create-many-author-envelope.input';
 import { ArticleCreateOrConnectWithoutauthorInput } from './article-create-or-connect-withoutauthor.input';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
@@ -14,6 +15,21 @@ export class ArticleUpdateManyWithoutAuthorInput {
         nullable: true,
     })
     create?: Array<ArticleCreateWithoutAuthorInput>;
+
+    @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
+        nullable: true,
+    })
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutauthorInput>;
+
+    @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
+        nullable: true,
+    })
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
+
+    @Field(() => ArticleCreateManyAuthorEnvelopeInput, {
+        nullable: true,
+    })
+    createMany?: ArticleCreateManyAuthorEnvelopeInput;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
@@ -49,14 +65,4 @@ export class ArticleUpdateManyWithoutAuthorInput {
         nullable: true,
     })
     deleteMany?: Array<ArticleScalarWhereInput>;
-
-    @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
-        nullable: true,
-    })
-    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
-
-    @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithoutauthorInput>;
 }

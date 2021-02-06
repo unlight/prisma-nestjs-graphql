@@ -13,6 +13,16 @@ export class ArticleUpdateOneWithoutCommentsInput {
     })
     create?: ArticleCreateWithoutCommentsInput;
 
+    @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
+        nullable: true,
+    })
+    connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
+
+    @Field(() => ArticleUpsertWithoutCommentsInput, {
+        nullable: true,
+    })
+    upsert?: ArticleUpsertWithoutCommentsInput;
+
     @Field(() => ArticleWhereUniqueInput, {
         nullable: true,
     })
@@ -32,14 +42,4 @@ export class ArticleUpdateOneWithoutCommentsInput {
         nullable: true,
     })
     update?: ArticleUpdateWithoutCommentsInput;
-
-    @Field(() => ArticleUpsertWithoutCommentsInput, {
-        nullable: true,
-    })
-    upsert?: ArticleUpsertWithoutCommentsInput;
-
-    @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
-        nullable: true,
-    })
-    connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
 }

@@ -1,7 +1,8 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
 
-@ObjectType()
-export class DummyMinAggregate {
+@InputType()
+export class DummyUpdateManyInput {
     @Field(() => String, {
         nullable: true,
     })
@@ -21,4 +22,9 @@ export class DummyMinAggregate {
         nullable: true,
     })
     bigInt?: BigInt;
+
+    @Field(() => GraphQLJSON, {
+        nullable: true,
+    })
+    json?: object;
 }

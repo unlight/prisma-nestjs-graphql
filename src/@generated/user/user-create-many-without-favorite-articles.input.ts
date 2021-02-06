@@ -11,13 +11,13 @@ export class UserCreateManyWithoutFavoriteArticlesInput {
     })
     create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserWhereUniqueInput], {
-        nullable: true,
-    })
-    connect?: Array<UserWhereUniqueInput>;
-
     @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
         nullable: true,
     })
     connectOrCreate?: Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
+
+    @Field(() => [UserWhereUniqueInput], {
+        nullable: true,
+    })
+    connect?: Array<UserWhereUniqueInput>;
 }

@@ -1,10 +1,12 @@
 import { PrismaDMMF } from '../types';
 import { combineScalarFilters } from './combine-scalar-filters';
 import { noAtomicNumberOperations } from './no-atomic-number-operations';
+import { renameZooTypes } from './rename-zoo-types';
 
 type MutateFiltersOptions = {
     atomicNumberOperations?: boolean;
     combineScalarFilters?: boolean;
+    renameZooTypes?: boolean;
 };
 
 export function mutateFilters(
@@ -14,6 +16,7 @@ export function mutateFilters(
     const mutations = [
         options.combineScalarFilters && combineScalarFilters(inputTypes),
         !options.atomicNumberOperations && noAtomicNumberOperations(),
+        options.renameZooTypes && renameZooTypes(inputTypes),
     ].filter(Boolean);
 
     return function (inputType: PrismaDMMF.InputType) {

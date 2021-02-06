@@ -21,9 +21,4 @@ export class DummyMaxAggregateInput {
         nullable: true,
     })
     bigInt?: true;
-
-    @Field(() => Boolean, {
-        nullable: true,
-    })
-    json?: true;
 }

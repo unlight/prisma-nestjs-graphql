@@ -1,6 +1,8 @@
 import { PrismaDMMF } from '../types';
+import { renameInputs } from './rename-inputs';
 
 export function replacementTypeName(name: string) {
+    // Scalar filters
     const pattern = /^(Nested|Nullable)?(String|Int|Float|DateTime|Boolean|Decimal|Json|BigInt|Bytes|Enum\w+?)(Nullable)?(Filter|WithAggregatesFilter|Input)$/;
     const match = pattern.exec(name);
     if (match) {
@@ -30,23 +32,5 @@ export function combineScalarFilters(inputTypes: PrismaDMMF.InputType[]) {
             .filter(({ 0: a, 1: b }) => a !== b),
     ) as Record<string, string>;
 
-    return (inputType: PrismaDMMF.InputType) => {
-        const newTypeName = replacements[inputType.name];
-        if (newTypeName) {
-            inputType.name = newTypeName;
-        }
-
-        for (const field of inputType.fields) {
-            field.inputTypes = field.inputTypes.filter(input => input.type !== 'Null');
-            for (const input of field.inputTypes) {
-                const name = String(input.type);
-                const newTypeName = replacements[name];
-                if (newTypeName) {
-                    input.type = newTypeName;
-                }
-            }
-        }
-
-        return inputType;
-    };
+    return renameInputs(replacements);
 }

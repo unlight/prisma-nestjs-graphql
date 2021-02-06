@@ -5,6 +5,9 @@ import { fieldLocationToKind } from '../utils';
  * Find input type for graphql field decorator.
  */
 export function getMatchingInputType(inputTypes: PrismaDMMF.SchemaArgInputType[]) {
+    if (inputTypes.length === 0) {
+        throw new Error('Cannot get matching input type from empty array');
+    }
     if (inputTypes.length === 1) {
         return inputTypes[0];
     }

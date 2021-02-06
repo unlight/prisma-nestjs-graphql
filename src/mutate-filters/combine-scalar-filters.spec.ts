@@ -2,7 +2,7 @@ import expect from 'expect';
 
 import { replacementTypeName } from './combine-scalar-filters';
 
-describe('combine scalar filters', () => {
+describe('combine filters', () => {
     it('replacement type name scalars', () => {
         expect(replacementTypeName('StringNullableFilter')).toEqual('StringFilter');
         expect(replacementTypeName('NullableStringFilter')).toEqual('StringFilter');

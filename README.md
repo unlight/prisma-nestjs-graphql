@@ -46,6 +46,8 @@ npx prisma generate
     `false` - disabled (default), `true` - enabled
 -   `reExportAll` - create `index.ts` files for each directory with re-export,
     `false` - disabled (default), `true` - enabled
+-   `renameZooTypes` - Remove plague words from type names ('nullabe', 'nested')
+    `true` - remove (default), `false` - do not remove
 -   `types_*` - [flatten](https://github.com/hughsk/flat) map of types
 
     -   `types_{type}_fieldType` - TypeScript type name

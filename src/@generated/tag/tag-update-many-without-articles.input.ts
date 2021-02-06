@@ -15,6 +15,16 @@ export class TagUpdateManyWithoutArticlesInput {
     })
     create?: Array<TagCreateWithoutArticlesInput>;
 
+    @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
+        nullable: true,
+    })
+    connectOrCreate?: Array<TagCreateOrConnectWithoutarticlesInput>;
+
+    @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {
+        nullable: true,
+    })
+    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+
     @Field(() => [TagWhereUniqueInput], {
         nullable: true,
     })
@@ -49,14 +59,4 @@ export class TagUpdateManyWithoutArticlesInput {
         nullable: true,
     })
     deleteMany?: Array<TagScalarWhereInput>;
-
-    @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {
-        nullable: true,
-    })
-    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
-
-    @Field(() => [TagCreateOrConnectWithoutarticlesInput], {
-        nullable: true,
-    })
-    connectOrCreate?: Array<TagCreateOrConnectWithoutarticlesInput>;
 }

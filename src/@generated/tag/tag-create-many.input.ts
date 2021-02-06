@@ -1,14 +1,14 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class TagUncheckedUpdateManyWithoutTagsInput {
+export class TagCreateManyInput {
     @Field(() => String, {
         nullable: true,
     })
     id?: string;
 
     @Field(() => String, {
-        nullable: true,
+        nullable: false,
     })
-    name?: string;
+    name!: string;
 }

@@ -36,7 +36,7 @@ export async function generatorOptions(
             }
             generator client {
                 provider = "prisma-client-js"
-                previewFeatures = ["nativeTypes", "groupBy"]
+                previewFeatures = ["nativeTypes", "groupBy", "createMany", "orderByRelation"]
             }
             generator proxy {
                 provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
@@ -50,7 +50,7 @@ export async function generatorOptions(
 
         await new Promise((resolve, reject) => {
             const proc = exec(
-                `node node_modules/@prisma/cli/build/index.js generate --schema=${schemaFile}`,
+                `node node_modules/prisma/build/index.js generate --schema=${schemaFile}`,
             );
             if (!proc.stderr) {
                 throw new Error('Generate error');
