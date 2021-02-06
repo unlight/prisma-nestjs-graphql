@@ -1,3 +1,15 @@
+# [9.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v8.0.0...v9.0.0) (2021-02-06)
+
+
+### Features
+
+* New option rename zoo types ([04cb5af](https://github.com/unlight/nestjs-graphql-prisma/commit/04cb5af95184ef30606ac480686106db585e90a0))
+
+
+### BREAKING CHANGES
+
+* Adapt generator to Prisma 2.16
+
 # [8.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v7.2.0...v8.0.0) (2021-01-27)
 
 
