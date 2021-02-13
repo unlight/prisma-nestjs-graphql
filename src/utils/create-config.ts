@@ -32,5 +32,8 @@ export function createConfig(data: Record<string, string | undefined>) {
         renameZooTypes: ['true', '1', 'on'].includes(
             (config.renameZooTypes as Nullable<string>) ?? 'true',
         ),
+        removeDuplicateTypes: ['true', '1', 'on'].includes(
+            (config.renameZooTypes as Nullable<string>) ?? 'true',
+        ),
     };
 }

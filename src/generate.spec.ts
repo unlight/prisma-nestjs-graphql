@@ -1,6 +1,7 @@
 import assert from 'assert';
 import expect from 'expect';
 import { Project, PropertyDeclaration, SourceFile } from 'ts-morph';
+import { equals } from 'typescript-equals';
 
 import { generate } from './generate';
 import { reexport } from './generator-pipelines';
@@ -560,5 +561,30 @@ describe('main generate', () => {
         );
         expect(sourceFile.getText()).toContain(`from './user'`);
         expect(sourceFile.getText()).toContain(`from './post'`);
+    });
+
+    describe('remove duplicate types', () => {
+        before(async () => {
+            await getResult({
+                schema: `
+                    model User {
+                        id Int @id
+                    }`,
+                options: ['removeDuplicateTypes = true'],
+            });
+        });
+
+        it('smoke', () => {
+            const filePaths = sourceFiles.map(s => String(s.getFilePath()));
+            const unchecked = sourceFiles.find(s =>
+                s.getFilePath().endsWith('user-unchecked-update.input.ts'),
+            );
+            unchecked?.getClass('UserUncheckedUpdateInput')?.rename('UserUpdateInput');
+            const update = sourceFiles.find(s =>
+                s.getFilePath().endsWith('user-update.input.ts'),
+            );
+            const isEqual = equals(unchecked?.getText(), update?.getText());
+            // console.log('isEqual', isEqual);
+        });
     });
 });

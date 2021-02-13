@@ -138,11 +138,12 @@ export async function generate(args: GenerateArgs) {
         });
     }
     // Generate args
-    const otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
+    let argsTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(t => t.name === 'Query')
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
-    for (const inputType of otherTypes) {
+    argsTypes = argsTypes.filter(mutateFilters(argsTypes, config));
+    for (const inputType of argsTypes) {
         const feature = featureName({
             name: inputType.name,
             models,
