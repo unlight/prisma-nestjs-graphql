@@ -9,12 +9,12 @@ export class JsonWithAggregatesFilter {
     @Field(() => GraphQLJSON, {
         nullable: true,
     })
-    equals?: object;
+    equals?: Record<string, any>;
 
     @Field(() => GraphQLJSON, {
         nullable: true,
     })
-    not?: object;
+    not?: Record<string, any>;
 
     @Field(() => IntFilter, {
         nullable: true,

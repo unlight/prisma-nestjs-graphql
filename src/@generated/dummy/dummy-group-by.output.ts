@@ -32,7 +32,7 @@ export class DummyGroupBy {
     @Field(() => GraphQLJSON, {
         nullable: true,
     })
-    json?: object;
+    json?: Record<string, any>;
 
     @Field(() => DummyCountAggregate, {
         nullable: true,

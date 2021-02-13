@@ -3,10 +3,11 @@ import { renameInputs } from './rename-inputs';
 
 export function replacementTypeName(name: string) {
     name = name
-        .replace('CreateNestedMany', 'CreateMany')
+        .replace('UncheckedCreateNestedMany', 'CreateMany')
         .replace('UncheckedCreateMany', 'CreateMany')
-        .replace('UpdateNestedMany', 'UpdateMany')
         .replace('UncheckedUpdateMany', 'UpdateMany')
+        .replace('CreateNestedMany', 'CreateMany')
+        .replace('UpdateNestedMany', 'UpdateMany')
         .replace('CreateNestedOne', 'CreateOne')
         .replace('InputEnvelope', 'EnvelopeInput');
 
