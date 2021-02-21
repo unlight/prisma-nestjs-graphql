@@ -19,13 +19,17 @@ export function createConfig(data: Record<string, string | undefined>) {
         atomicNumberOperations: ['true', '1', 'on'].includes(
             (config.atomicNumberOperations as Nullable<string>) ?? 'false',
         ),
-        types: merge(config.types || {}, {
-            Json: {
-                fieldType: 'Record<string, any>',
-                graphqlType: 'GraphQLJSON',
-                graphqlModule: 'graphql-type-json',
+        types: merge(
+            {},
+            {
+                Json: {
+                    fieldType: 'Record<string, any>',
+                    graphqlType: 'GraphQLJSON',
+                    graphqlModule: 'graphql-type-json',
+                },
             },
-        }) as Record<string, TypeRecord>,
+            config.types,
+        ) as Record<string, TypeRecord>,
         reExportAll: ['true', '1', 'on'].includes(
             (config.reExportAll as Nullable<string>) ?? 'false',
         ),

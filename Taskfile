@@ -37,17 +37,17 @@ git_last_release_tag() {
 }
 
 commit_lint() {
-    set -x
-    from=$(git_last_release_tag)
-    commitlint --from $from
-}
-
-commit_msg() {
     if git-branch-is -q -r "^(master)"; then
-        commitlint -E HUSKY_GIT_PARAMS
+        commitlint --edit
     else
         true
     fi
+}
+
+commit_check() {
+    set -x
+    from=$(git_last_release_tag)
+    commitlint --from $from
 }
 
 "$@"

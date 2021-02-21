@@ -4,7 +4,7 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
-export class ArticleCreateOrConnectWithoutfavoritedByInput {
+export class ArticleCreateOrConnectWithoutFavoritedByInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: false,
     })

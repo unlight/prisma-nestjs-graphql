@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleCreateOrConnectWithoutfavoritedByInput } from './article-create-or-connect-withoutfavorited-by.input';
+import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input';
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
 import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-update-many-with-where-without-favorited-by.input';
@@ -15,10 +15,10 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     })
     create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutfavoritedByInput], {
+    @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], {
         nullable: true,
     })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithoutfavoritedByInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,

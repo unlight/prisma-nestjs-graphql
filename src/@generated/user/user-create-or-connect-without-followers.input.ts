@@ -1,17 +1,17 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
+import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
-export class UserCreateOrConnectWithoutcommentsInput {
+export class UserCreateOrConnectWithoutFollowersInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: false,
     })
     where!: UserWhereUniqueInput;
 
-    @Field(() => UserCreateWithoutCommentsInput, {
+    @Field(() => UserCreateWithoutFollowersInput, {
         nullable: false,
     })
-    create!: UserCreateWithoutCommentsInput;
+    create!: UserCreateWithoutFollowersInput;
 }

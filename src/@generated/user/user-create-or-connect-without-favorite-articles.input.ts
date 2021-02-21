@@ -4,7 +4,7 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
-export class UserCreateOrConnectWithoutfavoriteArticlesInput {
+export class UserCreateOrConnectWithoutFavoriteArticlesInput {
     @Field(() => UserWhereUniqueInput, {
         nullable: false,
     })

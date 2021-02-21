@@ -4,7 +4,7 @@ import { ArticleCreateWithoutCommentsInput } from './article-create-without-comm
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
-export class ArticleCreateOrConnectWithoutcommentsInput {
+export class ArticleCreateOrConnectWithoutCommentsInput {
     @Field(() => ArticleWhereUniqueInput, {
         nullable: false,
     })
