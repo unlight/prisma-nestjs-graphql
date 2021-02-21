@@ -1,3 +1,5 @@
+import { createConfig } from './utils';
+
 export { DMMF as PrismaDMMF } from '@prisma/client/runtime';
 
 export type TypeRecord = Partial<{
@@ -7,11 +9,4 @@ export type TypeRecord = Partial<{
     graphqlModule: string;
 }>;
 
-export type GeneratorConfiguration = {
-    outputFilePattern: string;
-    combineScalarFilters: boolean;
-    atomicNumberOperations: boolean;
-    types: Record<string, TypeRecord>;
-    reExportAll: boolean;
-    renameZooTypes: boolean;
-};
+export type GeneratorConfiguration = ReturnType<typeof createConfig>;

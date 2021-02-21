@@ -47,7 +47,7 @@ const patterns = new Map<PatternKey, PatternValue>([
     [{ type: type => type === 'Float', kind: 'scalar' }, () => 'number'],
     [{ type: type => type === 'Int', kind: 'scalar' }, () => 'number'],
     [{ type: type => type === 'Boolean', kind: 'scalar' }, () => 'boolean'],
-    [{ type: type => type === 'Json', kind: 'scalar' }, () => 'object'],
+    [{ type: type => type === 'Json', kind: 'scalar' }, () => 'any'],
     [{ type: type => type === 'Null', kind: 'scalar' }, () => 'null'],
     [{ type: type => type === 'Decimal', kind: 'scalar' }, () => 'string'],
     [{ type: type => type === 'Bytes', kind: 'scalar' }, () => 'Buffer'],

@@ -2,11 +2,9 @@ import { unflatten } from 'flat';
 import { merge } from 'lodash';
 import { Nullable } from 'simplytyped';
 
-import { GeneratorConfiguration, TypeRecord } from '../types';
+import { TypeRecord } from '../types';
 
-export function createConfig(
-    data: Record<string, string | undefined>,
-): GeneratorConfiguration {
+export function createConfig(data: Record<string, string | undefined>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
         string,
         unknown
@@ -21,13 +19,17 @@ export function createConfig(
         atomicNumberOperations: ['true', '1', 'on'].includes(
             (config.atomicNumberOperations as Nullable<string>) ?? 'false',
         ),
-        types: merge(config.types || {}, {
-            Json: {
-                fieldType: 'object',
-                graphqlType: 'GraphQLJSON',
-                graphqlModule: 'graphql-type-json',
-            } as TypeRecord,
-        }),
+        types: merge(
+            {},
+            {
+                Json: {
+                    fieldType: 'Record<string, any>',
+                    graphqlType: 'GraphQLJSON',
+                    graphqlModule: 'graphql-type-json',
+                },
+            },
+            config.types,
+        ) as Record<string, TypeRecord>,
         reExportAll: ['true', '1', 'on'].includes(
             (config.reExportAll as Nullable<string>) ?? 'false',
         ),
