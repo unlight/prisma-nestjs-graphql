@@ -111,7 +111,7 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
-    inputTypes = inputTypes.filter(mutateFilters(inputTypes, config));
+    inputTypes = mutateFilters(inputTypes, config);
     // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(o => o.name.endsWith('AggregateOutputType'))
@@ -142,7 +142,7 @@ export async function generate(args: GenerateArgs) {
         .filter(t => t.name === 'Query')
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
-    argsTypes = argsTypes.filter(mutateFilters(argsTypes, config));
+    argsTypes = mutateFilters(argsTypes, config);
     for (const inputType of argsTypes) {
         const feature = featureName({
             name: inputType.name,

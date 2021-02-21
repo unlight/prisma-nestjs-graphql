@@ -15,21 +15,18 @@ export function mutateFilters(
     inputTypes: PrismaDMMF.InputType[],
     options: MutateFiltersOptions,
 ) {
-    const mutations = [
-        options.combineScalarFilters && combineScalarFilters(inputTypes),
-        !options.atomicNumberOperations && noAtomicNumberOperations(),
-        options.renameZooTypes && renameZooTypes(inputTypes),
-        options.removeDuplicateTypes && removeDuplicateTypes(inputTypes),
-    ].filter(Boolean);
+    if (options.combineScalarFilters) {
+        inputTypes = inputTypes.map(combineScalarFilters(inputTypes));
+    }
+    if (!options.atomicNumberOperations) {
+        inputTypes = inputTypes.filter(noAtomicNumberOperations());
+    }
+    if (options.renameZooTypes) {
+        inputTypes = inputTypes.map(renameZooTypes(inputTypes));
+    }
+    if (options.removeDuplicateTypes) {
+        inputTypes = inputTypes.filter(removeDuplicateTypes(inputTypes));
+    }
 
-    return function (inputType: PrismaDMMF.InputType) {
-        for (const mutation of mutations) {
-            const result = mutation && mutation(inputType);
-            if (!result) {
-                return false;
-            }
-            inputType = result;
-        }
-        return inputType;
-    };
+    return inputTypes;
 }

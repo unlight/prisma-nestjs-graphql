@@ -576,6 +576,7 @@ describe('main generate', () => {
 
         it('smoke', () => {
             const filePaths = sourceFiles.map(s => String(s.getFilePath()));
+            // console.log('filePaths', filePaths);
             const unchecked = sourceFiles.find(s =>
                 s.getFilePath().endsWith('user-unchecked-update.input.ts'),
             );
@@ -583,7 +584,10 @@ describe('main generate', () => {
             const update = sourceFiles.find(s =>
                 s.getFilePath().endsWith('user-update.input.ts'),
             );
-            const isEqual = equals(unchecked?.getText(), update?.getText());
+            const findOne = sourceFiles.find(s =>
+                s.getFilePath().endsWith('find-one-user.args.ts'),
+            );
+            // const isEqual = equals(unchecked?.getText(), update?.getText());
             // console.log('isEqual', isEqual);
         });
     });
