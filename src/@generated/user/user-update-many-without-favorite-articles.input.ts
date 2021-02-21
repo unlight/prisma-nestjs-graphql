@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { UserCreateOrConnectWithoutfavoriteArticlesInput } from './user-create-or-connect-withoutfavorite-articles.input';
+import { UserCreateOrConnectWithoutFavoriteArticlesInput } from './user-create-or-connect-without-favorite-articles.input';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
 import { UserScalarWhereInput } from './user-scalar-where.input';
 import { UserUpdateManyWithWhereWithoutFavoriteArticlesInput } from './user-update-many-with-where-without-favorite-articles.input';
@@ -15,10 +15,10 @@ export class UserUpdateManyWithoutFavoriteArticlesInput {
     })
     create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutfavoriteArticlesInput], {
+    @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], {
         nullable: true,
     })
-    connectOrCreate?: Array<UserCreateOrConnectWithoutfavoriteArticlesInput>;
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
 
     @Field(() => [UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput], {
         nullable: true,

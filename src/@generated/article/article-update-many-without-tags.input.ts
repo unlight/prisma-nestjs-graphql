@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleCreateOrConnectWithouttagsInput } from './article-create-or-connect-withouttags.input';
+import { ArticleCreateOrConnectWithoutTagsInput } from './article-create-or-connect-without-tags.input';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
 import { ArticleUpdateManyWithWhereWithoutTagsInput } from './article-update-many-with-where-without-tags.input';
@@ -15,10 +15,10 @@ export class ArticleUpdateManyWithoutTagsInput {
     })
     create?: Array<ArticleCreateWithoutTagsInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithouttagsInput], {
+    @Field(() => [ArticleCreateOrConnectWithoutTagsInput], {
         nullable: true,
     })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithouttagsInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutTagsInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], {
         nullable: true,

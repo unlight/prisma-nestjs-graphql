@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleCreateManyAuthorEnvelopeInput } from './article-create-many-author-envelope.input';
-import { ArticleCreateOrConnectWithoutauthorInput } from './article-create-or-connect-withoutauthor.input';
+import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
@@ -12,10 +12,10 @@ export class ArticleCreateManyWithoutAuthorInput {
     })
     create?: Array<ArticleCreateWithoutAuthorInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutauthorInput], {
+    @Field(() => [ArticleCreateOrConnectWithoutAuthorInput], {
         nullable: true,
     })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithoutauthorInput>;
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
 
     @Field(() => ArticleCreateManyAuthorEnvelopeInput, {
         nullable: true,

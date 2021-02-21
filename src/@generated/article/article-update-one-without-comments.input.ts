@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleCreateOrConnectWithoutcommentsInput } from './article-create-or-connect-withoutcomments.input';
+import { ArticleCreateOrConnectWithoutCommentsInput } from './article-create-or-connect-without-comments.input';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input';
 import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comments.input';
 import { ArticleUpsertWithoutCommentsInput } from './article-upsert-without-comments.input';
@@ -13,10 +13,10 @@ export class ArticleUpdateOneWithoutCommentsInput {
     })
     create?: ArticleCreateWithoutCommentsInput;
 
-    @Field(() => ArticleCreateOrConnectWithoutcommentsInput, {
+    @Field(() => ArticleCreateOrConnectWithoutCommentsInput, {
         nullable: true,
     })
-    connectOrCreate?: ArticleCreateOrConnectWithoutcommentsInput;
+    connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
 
     @Field(() => ArticleUpsertWithoutCommentsInput, {
         nullable: true,

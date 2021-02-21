@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { UserCreateOrConnectWithoutarticlesInput } from './user-create-or-connect-withoutarticles.input';
+import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input';
 import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input';
 import { UserUpdateWithoutArticlesInput } from './user-update-without-articles.input';
 import { UserUpsertWithoutArticlesInput } from './user-upsert-without-articles.input';
@@ -13,10 +13,10 @@ export class UserUpdateOneRequiredWithoutArticlesInput {
     })
     create?: UserCreateWithoutArticlesInput;
 
-    @Field(() => UserCreateOrConnectWithoutarticlesInput, {
+    @Field(() => UserCreateOrConnectWithoutArticlesInput, {
         nullable: true,
     })
-    connectOrCreate?: UserCreateOrConnectWithoutarticlesInput;
+    connectOrCreate?: UserCreateOrConnectWithoutArticlesInput;
 
     @Field(() => UserUpsertWithoutArticlesInput, {
         nullable: true,

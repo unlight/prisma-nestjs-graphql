@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { CommentCreateManyArticleEnvelopeInput } from './comment-create-many-article-envelope.input';
-import { CommentCreateOrConnectWithoutarticleInput } from './comment-create-or-connect-withoutarticle.input';
+import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input';
 import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
@@ -12,10 +12,10 @@ export class CommentCreateManyWithoutArticleInput {
     })
     create?: Array<CommentCreateWithoutArticleInput>;
 
-    @Field(() => [CommentCreateOrConnectWithoutarticleInput], {
+    @Field(() => [CommentCreateOrConnectWithoutArticleInput], {
         nullable: true,
     })
-    connectOrCreate?: Array<CommentCreateOrConnectWithoutarticleInput>;
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
 
     @Field(() => CommentCreateManyArticleEnvelopeInput, {
         nullable: true,

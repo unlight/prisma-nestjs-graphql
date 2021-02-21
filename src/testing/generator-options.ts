@@ -36,7 +36,7 @@ export async function generatorOptions(
             }
             generator client {
                 provider = "prisma-client-js"
-                previewFeatures = ["nativeTypes", "groupBy", "createMany", "orderByRelation"]
+                previewFeatures = ["groupBy", "createMany", "orderByRelation"]
             }
             generator proxy {
                 provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
