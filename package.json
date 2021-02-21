@@ -40,13 +40,6 @@
     "clean_cache": "rm -rf node_modules/.cache",
     "commit": "cz"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "precise-commits",
-      "pre-push": "npm run test",
-      "commit-msg": "sh Taskfile commit_msg"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
