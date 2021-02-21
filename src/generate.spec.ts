@@ -290,7 +290,7 @@ describe('main generate', () => {
         for (const file of [
             'aggregate-user.args.ts',
             'find-many-user.args.ts',
-            'find-one-user.args.ts',
+            'find-unique-user.args.ts',
         ]) {
             assert(
                 sourceFiles.find(s => s.getFilePath().endsWith(file)),
