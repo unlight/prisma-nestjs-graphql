@@ -111,12 +111,11 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
-    inputTypes = mutateFilters(inputTypes, config);
-    // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(o => o.name.endsWith('AggregateOutputType'))
         .map(o => schemaOutputToInput(o));
     inputTypes = inputTypes.concat(aggregateInputs);
+    inputTypes = mutateFilters(inputTypes, config);
     inputTypes = uniqBy(inputTypes, x => x.name);
     for (const inputType of inputTypes) {
         const feature = featureName({
