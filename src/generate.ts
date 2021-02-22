@@ -11,7 +11,7 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { Model } from './generate-property';
 import { mutateFilters, removeDuplicateTypes } from './mutate-filters';
-import { GeneratorConfiguration, PrismaDMMF } from './types';
+import { DMMF, GeneratorConfiguration } from './types';
 import {
     createConfig,
     featureName,
@@ -24,7 +24,7 @@ import {
 } from './utils';
 
 type GenerateArgs = GeneratorOptions & {
-    prismaClientDmmf?: PrismaDMMF.Document;
+    prismaClientDmmf?: DMMF.Document;
     fileExistsSync?: typeof existsSync;
     config?: GeneratorConfiguration;
 };
@@ -42,7 +42,7 @@ export async function generate(args: GenerateArgs) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         args.prismaClientDmmf ??
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        ((await import(prismaClientOutput)).dmmf as PrismaDMMF.Document);
+        ((await import(prismaClientOutput)).dmmf as DMMF.Document);
     const project = new Project({
         useInMemoryFileSystem: true,
         manipulationSettings: {
@@ -143,17 +143,17 @@ export async function generate(args: GenerateArgs) {
         });
     }
     // Generate args
-    let argsTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
+    let otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(t => t.name === 'Query')
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
-    argsTypes = mutateFilters(argsTypes, config);
+    otherTypes = mutateFilters(otherTypes, config);
 
     if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
         argsTypes = argsTypes.filter(removeDuplicateTypes(argsTypes, config));
     }
-
-    for (const inputType of argsTypes) {
+    
+    for (const inputType of otherTypes) {
         const feature = featureName({
             name: inputType.name,
             models,

@@ -17,8 +17,8 @@ export function createConfig(data: Record<string, string | undefined>) {
         combineScalarFilters: ['true', '1', 'on'].includes(
             (config.combineScalarFilters as Nullable<string>) ?? 'true',
         ),
-        atomicNumberOperations: ['true', '1', 'on'].includes(
-            (config.atomicNumberOperations as Nullable<string>) ?? 'false',
+        noAtomicNumberOperations: ['true', '1', 'on'].includes(
+            (config.atomicNumberOperations as Nullable<string>) ?? 'true',
         ),
         types: merge(
             {},

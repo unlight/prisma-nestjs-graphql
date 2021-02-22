@@ -1,10 +1,9 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
-import crypto from 'crypto';
 import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
 
-import { PrismaDMMF } from '../types';
+import { DMMF } from '../types';
 import { generateHash } from '../utils';
 
 const {
@@ -23,7 +22,7 @@ const cachePath: string = findCacheDir({
 export async function generatorOptions(
     schema: string,
     options?: string[],
-): Promise<GeneratorOptions & { prismaClientDmmf: PrismaDMMF.Document }> {
+): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
     // eslint-disable-next-line prefer-rest-params
     const hash = generateHash(generatorVersion, arguments);
     const optionsCacheFile = `${cachePath}/options-${hash}.js`;

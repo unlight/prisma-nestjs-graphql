@@ -1,11 +1,18 @@
+import crypto from 'crypto';
+
 export { featureName } from './feature-name';
 export { createConfig } from './create-config';
 
 import crypto from 'crypto';
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
-import { PrismaDMMF, TypeRecord } from '../types';
-
+import {
+    FieldLocation,
+    InputType,
+    OutputType,
+    SchemaField,
+    TypeRecord,
+} from '../types';
 export { checkExport } from './check-export';
 
 export { generateFileName } from './generate-file-name';
@@ -92,9 +99,7 @@ export function toPropertyType(args: ToPropertyTypeArgs): string {
 /**
  * See client/src/generation/TSClient.ts @ getAggregationTypes
  */
-export function schemaOutputToInput(
-    outputType: PrismaDMMF.OutputType,
-): PrismaDMMF.InputType {
+export function schemaOutputToInput(outputType: OutputType): InputType {
     return {
         name: outputType.name.replace(/OutputType$/, 'Input'),
         constraints: {
@@ -121,9 +126,7 @@ export function schemaOutputToInput(
     };
 }
 
-export function schemaFieldToArgument(
-    field: PrismaDMMF.SchemaField,
-): PrismaDMMF.InputType {
+export function schemaFieldToArgument(field: SchemaField): InputType {
     let name = field.name;
     name = name[0].toUpperCase() + name.slice(1) + 'Args';
     return {
@@ -172,7 +175,7 @@ export function updateObjectProperty(args: UpdateObjectPropertyArgs) {
     propertyAssignment.setInitializer(JSON.stringify(value));
 }
 
-export function fieldLocationToKind(fieldLocation: PrismaDMMF.FieldLocation) {
+export function fieldLocationToKind(fieldLocation: FieldLocation) {
     switch (fieldLocation) {
         case 'inputObjectTypes':
         case 'outputObjectTypes':
@@ -181,4 +184,8 @@ export function fieldLocationToKind(fieldLocation: PrismaDMMF.FieldLocation) {
             return 'enum';
     }
     return fieldLocation;
+}
+
+export function generateHash(...data: any[]) {
+    return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
 }

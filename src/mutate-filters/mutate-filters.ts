@@ -1,25 +1,17 @@
-import { InputType } from '../types';
-import { RemoveDuplicate } from '../utils';
+import { GeneratorConfiguration, InputType } from '../types';
 import { combineScalarFilters } from './combine-scalar-filters';
 import { noAtomicNumberOperations } from './no-atomic-number-operations';
 import { removeDuplicateTypes } from './remove-duplicate-types';
 import { renameZooTypes } from './rename-zoo-types';
 
-type MutateFiltersOptions = {
-    atomicNumberOperations?: boolean;
-    combineScalarFilters?: boolean;
-    renameZooTypes?: boolean;
-    removeDuplicateTypes: RemoveDuplicate;
-};
-
-export function mutateFilters(inputTypes: InputType[], options: MutateFiltersOptions) {
-    if (options.combineScalarFilters) {
+export function mutateFilters(inputTypes: InputType[], config: GeneratorConfiguration) {
+    if (config.combineScalarFilters) {
         inputTypes = inputTypes.map(combineScalarFilters(inputTypes));
     }
-    if (!options.atomicNumberOperations) {
+    if (config.noAtomicNumberOperations) {
         inputTypes = inputTypes.filter(noAtomicNumberOperations());
     }
-    if (options.renameZooTypes) {
+    if (config.renameZooTypes) {
         inputTypes = inputTypes.map(renameZooTypes(inputTypes));
     }
 
