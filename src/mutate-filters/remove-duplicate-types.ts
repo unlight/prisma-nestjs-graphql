@@ -1,11 +1,12 @@
-import { InputType } from '../types';
+import { GeneratorConfiguration, InputType } from '../types';
 import { generateHash, RemoveDuplicate } from '../utils';
 
 export function removeDuplicateTypes(
     inputTypes: InputType[],
-    { removeDuplicateTypes }: { removeDuplicateTypes: RemoveDuplicate },
+    config: GeneratorConfiguration,
 ) {
     const duplicates = new Map<string, Set<string>>();
+
     for (const inputType of inputTypes) {
         const attributes = inputType.fields.map(x => ({
             name: x.name,
@@ -17,6 +18,9 @@ export function removeDuplicateTypes(
         const hash = generateHash(attributes);
         duplicates.set(hash, (duplicates.get(hash) ?? new Set()).add(inputType.name));
     }
+
+    console.log('duplicates', duplicates);
+
     const toRemove = new Set(
         [...duplicates.values()]
             .filter(s => s.size > 1)
@@ -36,7 +40,7 @@ export function removeDuplicateTypes(
 }
 
 function getNameFromAll(names: string[]) {
-    const sorted = names.sort((a, b) => a.length - b.length);
+    const sorted = names.slice().sort((a, b) => a.length - b.length);
     return sorted[0];
 }
 

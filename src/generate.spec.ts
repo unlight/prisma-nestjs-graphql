@@ -3,7 +3,6 @@ import expect from 'expect';
 import { isEqual } from 'lodash';
 import ololog from 'ololog';
 import { Project, PropertyDeclaration, SourceFile } from 'ts-morph';
-import { equals } from 'typescript-equals';
 
 import { generate } from './generate';
 import { reexport } from './generator-pipelines';
@@ -664,15 +663,16 @@ model Comment {
             const findOne = sourceFiles.find(s =>
                 s.getFilePath().endsWith('find-one-user.args.ts'),
             );
-            // const isEqual = equals(unchecked?.getText(), update?.getText());
-            // console.log('isEqual', isEqual);
         });
 
-        it.only('find all duplicates', () => {
+        it.only('find all duplicates input', () => {
             const duplicates: any = {};
             for (const sourceFile of sourceFiles) {
-                const properties = getAttributes(sourceFile);
                 const decorator = getDecorator(sourceFile);
+                if (decorator === 'ObjectType' || !decorator) {
+                    continue;
+                }
+                const properties = getAttributes(sourceFile);
                 for (const otherSourceFile of sourceFiles) {
                     if (otherSourceFile === sourceFile) {
                         continue;
@@ -698,5 +698,7 @@ model Comment {
             }
             expect(Object.entries(duplicates)).toHaveLength(0);
         });
+
+        it('find all duplicates output');
     });
 });

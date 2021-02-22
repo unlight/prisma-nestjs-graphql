@@ -3,7 +3,6 @@ import crypto from 'crypto';
 export { featureName } from './feature-name';
 export { createConfig } from './create-config';
 
-import crypto from 'crypto';
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
 import {
@@ -24,10 +23,6 @@ type ToGraphqlImportTypeArgs = {
     kind: string;
     customType?: TypeRecord | null;
 };
-
-export function generateHash(...data: any[]) {
-    return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
-}
 
 export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     const { isId, type: name, customType } = args;

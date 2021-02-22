@@ -10,7 +10,7 @@ import { generateEnum } from './generate-enum';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { Model } from './generate-property';
-import { mutateFilters, removeDuplicateTypes } from './mutate-filters';
+import { mutateFilters } from './mutate-filters';
 import { DMMF, GeneratorConfiguration } from './types';
 import {
     createConfig,
@@ -18,7 +18,6 @@ import {
     fieldLocationToKind,
     generateFileName,
     getOutputTypeName,
-    RemoveDuplicate,
     schemaFieldToArgument,
     schemaOutputToInput,
 } from './utils';
@@ -119,10 +118,6 @@ export async function generate(args: GenerateArgs) {
     inputTypes = mutateFilters(inputTypes, config);
     inputTypes = uniqBy(inputTypes, x => x.name);
 
-    if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
-        inputTypes = inputTypes.filter(removeDuplicateTypes(inputTypes, config));
-    }
-
     for (const inputType of inputTypes) {
         const feature = featureName({
             name: inputType.name,
@@ -148,11 +143,6 @@ export async function generate(args: GenerateArgs) {
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
     otherTypes = mutateFilters(otherTypes, config);
-
-    if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
-        argsTypes = argsTypes.filter(removeDuplicateTypes(argsTypes, config));
-    }
-    
     for (const inputType of otherTypes) {
         const feature = featureName({
             name: inputType.name,
