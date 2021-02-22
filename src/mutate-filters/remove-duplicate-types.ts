@@ -1,11 +1,15 @@
+import { mapKeys } from 'lodash';
+
 import { GeneratorConfiguration, InputType } from '../types';
 import { generateHash, RemoveDuplicate } from '../utils';
+import { renameInputs } from './rename-inputs';
 
 export function removeDuplicateTypes(
     inputTypes: InputType[],
     config: GeneratorConfiguration,
 ) {
     const duplicates = new Map<string, Set<string>>();
+    const typesByName = mapKeys(inputTypes, 'name');
 
     for (const inputType of inputTypes) {
         const attributes = inputType.fields.map(x => ({
@@ -19,20 +23,37 @@ export function removeDuplicateTypes(
         duplicates.set(hash, (duplicates.get(hash) ?? new Set()).add(inputType.name));
     }
 
-    console.log('duplicates', duplicates);
+    const replacements: Record<string, string> = {};
 
-    const toRemove = new Set(
-        [...duplicates.values()]
-            .filter(s => s.size > 1)
-            .map(set => {
-                const main = getNameFromAll([...set]);
-                return [...set].filter(x => x !== main);
-            })
-            .flat(),
-    );
+    for (const [, nameSet] of duplicates) {
+        if (nameSet.size > 1) {
+            // eslint-disable-next-line unicorn/no-lonely-if
+            if (config.removeDuplicateTypes === RemoveDuplicate.All) {
+                const main = getNameFromAll([...nameSet]);
+                for (const name of nameSet) {
+                    if (main === name) continue;
+                    replacements[name] = main;
+                }
+            }
+        }
+    }
+
+    // console.log('replacements', replacements);
+
+    // for (const inputType of inputTypes) {
+    //     for (const field of inputType.fields) {
+    //         for (const input of field.inputTypes) {
+    //             const newName = replacements[String(input.type)];
+    //             if (newName) {
+    //                 console.log(input.type, '->', newName);
+    //                 input.type = newName;
+    //             }
+    //         }
+    //     }
+    // }
 
     return (inputType: InputType) => {
-        if (toRemove.has(inputType.name)) {
+        if (replacements[inputType.name]) {
             return false;
         }
         return inputType;

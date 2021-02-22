@@ -115,8 +115,11 @@ export async function generate(args: GenerateArgs) {
         .filter(o => o.name.endsWith('AggregateOutputType'))
         .map(o => schemaOutputToInput(o));
     inputTypes = inputTypes.concat(aggregateInputs);
+    console.log('inputTypes.length', inputTypes.length);
     inputTypes = mutateFilters(inputTypes, config);
+    console.log('inputTypes.length', inputTypes.length);
     inputTypes = uniqBy(inputTypes, x => x.name);
+    console.log('inputTypes.length', inputTypes.length);
 
     for (const inputType of inputTypes) {
         const feature = featureName({
@@ -142,7 +145,18 @@ export async function generate(args: GenerateArgs) {
         .filter(t => t.name === 'Query')
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
+    debugger;
+    /*
+replacements {
+  FindFirstUserArgs: 'FindManyUserArgs',
+  FindFirstTagArgs: 'FindManyTagArgs',
+  FindFirstArticleArgs: 'FindManyArticleArgs',
+  FindFirstCommentArgs: 'FindManyCommentArgs'
+}
+     */
+    console.log('otherTypes.length', otherTypes.length);
     otherTypes = mutateFilters(otherTypes, config);
+    console.log('otherTypes.length', otherTypes.length);
     for (const inputType of otherTypes) {
         const feature = featureName({
             name: inputType.name,

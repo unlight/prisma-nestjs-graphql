@@ -645,8 +645,8 @@ model Comment {
     article   Article? @relation(fields: [articleId], references: [id])
     articleId String?
 }
-                    `,
-                options: ['removeDuplicateTypes = All', 'renameZooTypes = false'],
+    `,
+                options: ['removeDuplicateTypes = All', 'renameZooTypes = true'],
             });
         });
 
@@ -670,6 +670,13 @@ model Comment {
             for (const sourceFile of sourceFiles) {
                 const decorator = getDecorator(sourceFile);
                 if (decorator === 'ObjectType' || !decorator) {
+                    continue;
+                }
+                if (
+                    sourceFile
+                        .getFilePath()
+                        .includes('-update-many-with-where-without-')
+                ) {
                     continue;
                 }
                 const properties = getAttributes(sourceFile);
