@@ -1,11 +1,23 @@
 import assert from 'assert';
 import expect from 'expect';
+import { isEqual } from 'lodash';
+import ololog from 'ololog';
 import { Project, PropertyDeclaration, SourceFile } from 'ts-morph';
 import { equals } from 'typescript-equals';
 
 import { generate } from './generate';
 import { reexport } from './generator-pipelines';
 import { generatorOptions, getImportDeclarations, stringContains } from './testing';
+
+const log = ololog.configure({
+    stringify: {
+        maxStringLength: Number.MAX_VALUE,
+        maxObjectLength: Number.MAX_VALUE,
+        maxArrayLength: Number.MAX_VALUE,
+        maxDepth: Number.MAX_VALUE,
+        maxErrorMessageLength: Number.MAX_VALUE,
+    },
+});
 
 describe('main generate', () => {
     let property: PropertyDeclaration | undefined;
@@ -564,13 +576,78 @@ describe('main generate', () => {
     });
 
     describe('remove duplicate types', () => {
+        const getAttributes = (sourceFile: SourceFile) =>
+            sourceFile
+                .getClass(x => true)
+                ?.getProperties()
+                .map(p => p.getStructure())
+                .map(s => ({
+                    name: s.name,
+                    type: s.type,
+                    hasQuestionToken: s.hasQuestionToken,
+                    // decorator: s.decorators?.[0].name,
+                }));
+        const getDecorator = (sourceFile: SourceFile) =>
+            sourceFile
+                .getClass(x => true)
+                ?.getDecorator(() => true)
+                ?.getName();
+
         before(async () => {
             await getResult({
                 schema: `
-                    model User {
-                        id Int @id
-                    }`,
-                options: ['removeDuplicateTypes = true'],
+model User {
+    id               String    @id @default(cuid())
+    email            String    @unique
+    /// User's name
+    name             String    @unique
+    password         String
+    bio              String?
+    image            String?
+    following        User[]    @relation("UserFollows", references: [id])
+    followers        User[]    @relation("UserFollows", references: [id])
+    favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
+    articles          Article[] @relation("ArticleAuthor")
+    comments          Comment[]
+    countComments    Int?
+    rating           Float?
+}
+
+model Tag {
+    id       String    @id @default(cuid())
+    name     String    @unique
+    articles Article[]
+}
+
+model Article {
+    id             String    @id @default(cuid())
+    slug           String    @unique
+    title          String
+    description    String
+    body           String
+    tags           Tag[]
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+    favoritesCount Int       @default(0)
+    author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+    authorId       String
+    favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
+    comments       Comment[]
+    active         Boolean? @default(true)
+}
+
+model Comment {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    body      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    article   Article? @relation(fields: [articleId], references: [id])
+    articleId String?
+}
+                    `,
+                options: ['removeDuplicateTypes = All', 'renameZooTypes = true'],
             });
         });
 
@@ -589,6 +666,37 @@ describe('main generate', () => {
             );
             // const isEqual = equals(unchecked?.getText(), update?.getText());
             // console.log('isEqual', isEqual);
+        });
+
+        it.only('find all duplicates', () => {
+            const duplicates: any = {};
+            for (const sourceFile of sourceFiles) {
+                const properties = getAttributes(sourceFile);
+                const decorator = getDecorator(sourceFile);
+                for (const otherSourceFile of sourceFiles) {
+                    if (otherSourceFile === sourceFile) {
+                        continue;
+                    }
+                    const otherProperties = getAttributes(otherSourceFile);
+                    const otherDecorator = getDecorator(otherSourceFile);
+                    if (
+                        properties &&
+                        isEqual(properties, otherProperties) &&
+                        decorator &&
+                        isEqual(decorator, otherDecorator)
+                    ) {
+                        const key = sourceFile.getFilePath();
+                        const otherSourceFiles = (duplicates[key] || []).concat(
+                            otherSourceFile.getFilePath(),
+                        );
+                        duplicates[key] = otherSourceFiles;
+                    }
+                }
+            }
+            // if (Object.entries(duplicates).length > 0) {
+            //     log(duplicates);
+            // }
+            expect(Object.entries(duplicates)).toHaveLength(0);
         });
     });
 });

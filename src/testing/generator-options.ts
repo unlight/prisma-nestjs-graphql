@@ -5,6 +5,7 @@ import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
 
 import { PrismaDMMF } from '../types';
+import { generateHash } from '../utils';
 
 const {
     dependencies: { '@prisma/generator-helper': generatorVersion },
@@ -24,8 +25,7 @@ export async function generatorOptions(
     options?: string[],
 ): Promise<GeneratorOptions & { prismaClientDmmf: PrismaDMMF.Document }> {
     // eslint-disable-next-line prefer-rest-params
-    const data = JSON.stringify([generatorVersion, arguments]);
-    const hash = crypto.createHash('md5').update(data).digest('hex');
+    const hash = generateHash(generatorVersion, arguments);
     const optionsCacheFile = `${cachePath}/options-${hash}.js`;
     if (!fs.existsSync(optionsCacheFile)) {
         const schemaFile = `${cachePath}/schema-${hash}.prisma`;

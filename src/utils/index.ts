@@ -1,12 +1,15 @@
 export { featureName } from './feature-name';
 export { createConfig } from './create-config';
 
+import crypto from 'crypto';
 import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
 
 import { PrismaDMMF, TypeRecord } from '../types';
+
 export { checkExport } from './check-export';
 
 export { generateFileName } from './generate-file-name';
+export { RemoveDuplicate } from './remove-duplicate';
 
 type ToGraphqlImportTypeArgs = {
     isId: boolean;
@@ -14,6 +17,10 @@ type ToGraphqlImportTypeArgs = {
     kind: string;
     customType?: TypeRecord | null;
 };
+
+export function generateHash(...data: any[]) {
+    return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
+}
 
 export function toGraphqlImportType(args: ToGraphqlImportTypeArgs) {
     const { isId, type: name, customType } = args;

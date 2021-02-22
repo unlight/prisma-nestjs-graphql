@@ -3,6 +3,7 @@ import { merge } from 'lodash';
 import { Nullable } from 'simplytyped';
 
 import { TypeRecord } from '../types';
+import { RemoveDuplicate } from './remove-duplicate';
 
 export function createConfig(data: Record<string, string | undefined>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -36,8 +37,10 @@ export function createConfig(data: Record<string, string | undefined>) {
         renameZooTypes: ['true', '1', 'on'].includes(
             (config.renameZooTypes as Nullable<string>) ?? 'true',
         ),
-        removeDuplicateTypes: ['true', '1', 'on'].includes(
-            (config.renameZooTypes as Nullable<string>) ?? 'true',
-        ),
+        removeDuplicateTypes: ([RemoveDuplicate.All, RemoveDuplicate.Group].includes(
+            config.removeDuplicateTypes as RemoveDuplicate,
+        )
+            ? config.removeDuplicateTypes
+            : RemoveDuplicate.None) as RemoveDuplicate,
     };
 }
