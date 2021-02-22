@@ -1,15 +1,20 @@
-import { isEqual } from 'lodash';
-
 import { InputType } from '../types';
 import { generateHash, RemoveDuplicate } from '../utils';
 
 export function removeDuplicateTypes(
     inputTypes: InputType[],
-    { removeDuplicate }: { removeDuplicate: RemoveDuplicate },
+    { removeDuplicateTypes }: { removeDuplicateTypes: RemoveDuplicate },
 ) {
     const duplicates = new Map<string, Set<string>>();
     for (const inputType of inputTypes) {
-        const hash = generateHash(inputType.fields);
+        const attributes = inputType.fields.map(x => ({
+            name: x.name,
+            comment: x.comment,
+            isNullable: x.isNullable,
+            isRequired: x.isRequired,
+            inputTypes: x.inputTypes,
+        }));
+        const hash = generateHash(attributes);
         duplicates.set(hash, (duplicates.get(hash) ?? new Set()).add(inputType.name));
     }
     const toRemove = new Set(

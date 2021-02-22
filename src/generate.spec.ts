@@ -589,7 +589,7 @@ describe('main generate', () => {
                 }));
         const getDecorator = (sourceFile: SourceFile) =>
             sourceFile
-                .getClass(x => true)
+                .getClass(() => true)
                 ?.getDecorator(() => true)
                 ?.getName();
 
@@ -647,7 +647,7 @@ model Comment {
     articleId String?
 }
                     `,
-                options: ['removeDuplicateTypes = All', 'renameZooTypes = true'],
+                options: ['removeDuplicateTypes = All', 'renameZooTypes = false'],
             });
         });
 
@@ -693,9 +693,9 @@ model Comment {
                     }
                 }
             }
-            // if (Object.entries(duplicates).length > 0) {
-            //     log(duplicates);
-            // }
+            if (Object.entries(duplicates).length > 0) {
+                log(duplicates);
+            }
             expect(Object.entries(duplicates)).toHaveLength(0);
         });
     });

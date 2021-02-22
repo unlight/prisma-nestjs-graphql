@@ -1,4 +1,4 @@
-import { PrismaDMMF } from '../types';
+import { InputType } from '../types';
 import { RemoveDuplicate } from '../utils';
 import { combineScalarFilters } from './combine-scalar-filters';
 import { noAtomicNumberOperations } from './no-atomic-number-operations';
@@ -12,10 +12,7 @@ type MutateFiltersOptions = {
     removeDuplicateTypes: RemoveDuplicate;
 };
 
-export function mutateFilters(
-    inputTypes: PrismaDMMF.InputType[],
-    options: MutateFiltersOptions,
-) {
+export function mutateFilters(inputTypes: InputType[], options: MutateFiltersOptions) {
     if (options.combineScalarFilters) {
         inputTypes = inputTypes.map(combineScalarFilters(inputTypes));
     }
@@ -24,13 +21,6 @@ export function mutateFilters(
     }
     if (options.renameZooTypes) {
         inputTypes = inputTypes.map(renameZooTypes(inputTypes));
-    }
-    if (options.removeDuplicateTypes !== RemoveDuplicate.None) {
-        inputTypes = inputTypes.filter(
-            removeDuplicateTypes(inputTypes, {
-                removeDuplicate: options.removeDuplicateTypes,
-            }),
-        );
     }
 
     return inputTypes;

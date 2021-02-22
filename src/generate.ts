@@ -10,7 +10,7 @@ import { generateEnum } from './generate-enum';
 import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { Model } from './generate-property';
-import { mutateFilters } from './mutate-filters';
+import { mutateFilters, removeDuplicateTypes } from './mutate-filters';
 import { GeneratorConfiguration, PrismaDMMF } from './types';
 import {
     createConfig,
@@ -18,6 +18,7 @@ import {
     fieldLocationToKind,
     generateFileName,
     getOutputTypeName,
+    RemoveDuplicate,
     schemaFieldToArgument,
     schemaOutputToInput,
 } from './utils';
@@ -117,6 +118,11 @@ export async function generate(args: GenerateArgs) {
     inputTypes = inputTypes.concat(aggregateInputs);
     inputTypes = mutateFilters(inputTypes, config);
     inputTypes = uniqBy(inputTypes, x => x.name);
+
+    if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
+        inputTypes = inputTypes.filter(removeDuplicateTypes(inputTypes, config));
+    }
+
     for (const inputType of inputTypes) {
         const feature = featureName({
             name: inputType.name,
@@ -142,6 +148,11 @@ export async function generate(args: GenerateArgs) {
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
     argsTypes = mutateFilters(argsTypes, config);
+
+    if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
+        argsTypes = argsTypes.filter(removeDuplicateTypes(argsTypes, config));
+    }
+
     for (const inputType of argsTypes) {
         const feature = featureName({
             name: inputType.name,
@@ -164,17 +175,27 @@ export async function generate(args: GenerateArgs) {
         });
     }
     // Generate output types
-    const outputTypes = prismaClientDmmf.schema.outputObjectTypes.prisma.filter(
-        t => !['Query', 'Mutation'].includes(t.name) && !models.includes(t.name),
-    );
+    const outputTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
+        .filter(
+            t => !['Query', 'Mutation'].includes(t.name) && !models.includes(t.name),
+        )
+        .map(outputType => {
+            outputType.name = getOutputTypeName(outputType.name);
+            for (const field of outputType.fields) {
+                field.outputType.type = getOutputTypeName(
+                    String(field.outputType.type),
+                );
+            }
+            return outputType;
+        });
+
     for (const outputType of outputTypes) {
-        const name = getOutputTypeName(outputType.name);
-        for (const field of outputType.fields) {
-            field.outputType.type = getOutputTypeName(String(field.outputType.type));
-        }
-        const sourceFile = await createSourceFile({ type: 'output', name });
+        const sourceFile = await createSourceFile({
+            type: 'output',
+            name: outputType.name,
+        });
         const model: Model = {
-            name,
+            name: outputType.name,
             fields: outputType.fields.map(t => {
                 return {
                     name: t.name,
