@@ -287,7 +287,7 @@ describe('main generate', () => {
         assert.strictEqual(args?.[0], '() => Float');
     });
 
-    it.only('user args type', async () => {
+    it('user args type', async () => {
         await getResult({
             schema: `
             model User {
@@ -316,8 +316,6 @@ describe('main generate', () => {
 
         const classDeclaration = sourceFile.getClass('AggregateUserArgs');
         assert(classDeclaration);
-
-        console.log('classDeclaration.getText()', classDeclaration.getText());
 
         let struct = classDeclaration.getProperty('count')?.getStructure();
         let decoratorArguments = struct?.decorators?.[0].arguments;
@@ -667,25 +665,37 @@ model Comment {
             );
         });
 
-        it.skip('find all duplicates input', () => {
-            const duplicates: any = {};
+        it.only('find all duplicates input', () => {
+            const duplicates: Record<string, string[]> = {};
             for (const sourceFile of sourceFiles) {
                 const decorator = getDecorator(sourceFile);
                 if (decorator === 'ObjectType' || !decorator) {
                     continue;
                 }
+                const filePath = sourceFile.getFilePath();
+                // Check if filePath exists in values
                 if (
-                    sourceFile
-                        .getFilePath()
-                        .includes('-update-many-with-where-without-')
+                    Object.values(duplicates).some(values => values.includes(filePath))
                 ) {
                     continue;
                 }
+
+                // if (
+                //     [
+                //         'update-many-without',
+                //         'create-without',
+                //         'update-many-with-where-without',
+                //         'update-without',
+                //     ].some(p => filePath.includes(p))
+                // ) {
+                //     continue;
+                // }
                 const properties = getAttributes(sourceFile);
                 for (const otherSourceFile of sourceFiles) {
                     if (otherSourceFile === sourceFile) {
                         continue;
                     }
+                    const otherFilePath = otherSourceFile.getFilePath();
                     const otherProperties = getAttributes(otherSourceFile);
                     const otherDecorator = getDecorator(otherSourceFile);
                     if (
@@ -694,11 +704,10 @@ model Comment {
                         decorator &&
                         isEqual(decorator, otherDecorator)
                     ) {
-                        const key = sourceFile.getFilePath();
-                        const otherSourceFiles = (duplicates[key] || []).concat(
-                            otherSourceFile.getFilePath(),
+                        const otherSourceFiles = (duplicates[filePath] || []).concat(
+                            otherFilePath,
                         );
-                        duplicates[key] = otherSourceFiles;
+                        duplicates[filePath] = otherSourceFiles;
                     }
                 }
             }

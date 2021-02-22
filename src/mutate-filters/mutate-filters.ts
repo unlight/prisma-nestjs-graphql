@@ -17,7 +17,7 @@ export function mutateFilters(inputTypes: InputType[], config: GeneratorConfigur
     }
 
     if (config.removeDuplicateTypes !== RemoveDuplicate.None) {
-        inputTypes = inputTypes.filter(removeDuplicateTypes(inputTypes, config));
+        // inputTypes = inputTypes.filter(removeDuplicateTypes(inputTypes, config));
     }
 
     return inputTypes;
