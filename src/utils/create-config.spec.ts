@@ -1,6 +1,7 @@
 import expect from 'expect';
 
 import { createConfig } from './create-config';
+import { RemoveDuplicate } from './remove-duplicate';
 
 describe('createConfig', () => {
     it('createConfig smoke', () => {
@@ -11,6 +12,7 @@ describe('createConfig', () => {
         const result = createConfig({});
         expect(result.combineScalarFilters).toEqual(true);
         expect(result.noAtomicNumberOperations).toEqual(true);
+        expect(result.removeDuplicateTypes).toEqual(RemoveDuplicate.None);
     });
 
     it('createConfig types', () => {

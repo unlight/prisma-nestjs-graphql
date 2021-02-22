@@ -11,7 +11,8 @@ generator client {
 generator nestgraphql {
     provider = "node -r ts-node/register/transpile-only src/index.ts"
     output   = "../src/@generated"
-    // renameZooTypes = false
+    removeDuplicateTypes = Group
+    renameZooTypes = true
 }
 
 model User {

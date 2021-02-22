@@ -287,7 +287,7 @@ describe('main generate', () => {
         assert.strictEqual(args?.[0], '() => Float');
     });
 
-    it('user args type', async () => {
+    it.only('user args type', async () => {
         await getResult({
             schema: `
             model User {
@@ -316,6 +316,8 @@ describe('main generate', () => {
 
         const classDeclaration = sourceFile.getClass('AggregateUserArgs');
         assert(classDeclaration);
+
+        console.log('classDeclaration.getText()', classDeclaration.getText());
 
         let struct = classDeclaration.getProperty('count')?.getStructure();
         let decoratorArguments = struct?.decorators?.[0].arguments;
@@ -646,7 +648,7 @@ model Comment {
     articleId String?
 }
     `,
-                options: ['removeDuplicateTypes = All', 'renameZooTypes = true'],
+                options: ['removeDuplicateTypes = Group', 'renameZooTypes = true'],
             });
         });
 
@@ -665,7 +667,7 @@ model Comment {
             );
         });
 
-        it.only('find all duplicates input', () => {
+        it.skip('find all duplicates input', () => {
             const duplicates: any = {};
             for (const sourceFile of sourceFiles) {
                 const decorator = getDecorator(sourceFile);

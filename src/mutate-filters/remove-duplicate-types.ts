@@ -1,15 +1,11 @@
-import { mapKeys } from 'lodash';
-
 import { GeneratorConfiguration, InputType } from '../types';
 import { generateHash, RemoveDuplicate } from '../utils';
-import { renameInputs } from './rename-inputs';
 
 export function removeDuplicateTypes(
     inputTypes: InputType[],
     config: GeneratorConfiguration,
 ) {
-    const duplicates = new Map<string, Set<string>>();
-    const typesByName = mapKeys(inputTypes, 'name');
+    let duplicates = new Map<string, Set<string>>();
 
     for (const inputType of inputTypes) {
         const attributes = inputType.fields.map(x => ({
@@ -23,13 +19,35 @@ export function removeDuplicateTypes(
         duplicates.set(hash, (duplicates.get(hash) ?? new Set()).add(inputType.name));
     }
 
+    for (const [key, value] of duplicates.entries()) {
+        if (value.size === 1) duplicates.delete(key);
+    }
+
     const replacements: Record<string, string> = {};
 
     for (const [, nameSet] of duplicates) {
-        if (nameSet.size > 1) {
-            // eslint-disable-next-line unicorn/no-lonely-if
-            if (config.removeDuplicateTypes === RemoveDuplicate.All) {
-                const main = getNameFromAll([...nameSet]);
+        if (config.removeDuplicateTypes === RemoveDuplicate.All) {
+            const main = getShortest([...nameSet]);
+            for (const name of nameSet) {
+                if (main === name) continue;
+                replacements[name] = main;
+            }
+        } else if (config.removeDuplicateTypes === RemoveDuplicate.Group) {
+            const groups = new Map<string, Set<string>>();
+            for (const name of nameSet) {
+                const groupName = getGroupName(name);
+                if (groupName) {
+                    groups.set(
+                        groupName,
+                        (groups.get(groupName) ?? new Set()).add(name),
+                    );
+                }
+            }
+            for (const nameSet of groups.values()) {
+                if (nameSet.size <= 1) {
+                    continue;
+                }
+                const main = getShortest([...nameSet]);
                 for (const name of nameSet) {
                     if (main === name) continue;
                     replacements[name] = main;
@@ -37,20 +55,6 @@ export function removeDuplicateTypes(
             }
         }
     }
-
-    // console.log('replacements', replacements);
-
-    // for (const inputType of inputTypes) {
-    //     for (const field of inputType.fields) {
-    //         for (const input of field.inputTypes) {
-    //             const newName = replacements[String(input.type)];
-    //             if (newName) {
-    //                 console.log(input.type, '->', newName);
-    //                 input.type = newName;
-    //             }
-    //         }
-    //     }
-    // }
 
     return (inputType: InputType) => {
         if (replacements[inputType.name]) {
@@ -60,14 +64,14 @@ export function removeDuplicateTypes(
     };
 }
 
-function getNameFromAll(names: string[]) {
-    const sorted = names.slice().sort((a, b) => a.length - b.length);
-    return sorted[0];
+function getShortest(names: string[]) {
+    const items = names.slice().sort((a, b) => a.length - b.length);
+    return items[0];
 }
 
-function getGroupName(type: InputType) {
+function getGroupName(typeName: string) {
     for (const group of groups) {
-        const matches = group.match(type.name);
+        const matches = group.match(typeName);
         if (matches) {
             const model = group.model(matches);
             if (model) {
@@ -87,7 +91,10 @@ const groups = [
     },
     {
         name: (model: string) => `${model}CreateInput`,
-        match: (name: string) => /(\w+?)(CreateMany)Input$/.exec(name),
+        match: (name: string) =>
+            /(\w+?)((Unchecked)?CreateWithout|UncheckedCreate|CreateMany).*Input$/.exec(
+                name,
+            ),
         model: (matches: RegExpMatchArray) => {
             return matches[1];
         },
@@ -105,6 +112,13 @@ const groups = [
             /(\w+?)(UncheckedUpdateMany|UpdateManyMutation|UncheckedUpdate|UpdateMany|Update).*Input$/.exec(
                 name,
             ),
+        model: (matches: RegExpMatchArray) => {
+            return matches[1];
+        },
+    },
+    {
+        name: (model: string) => `${model}UniqueInput`,
+        match: (name: string) => /(\w+?)(WhereUniqueInput)$/.exec(name),
         model: (matches: RegExpMatchArray) => {
             return matches[1];
         },
