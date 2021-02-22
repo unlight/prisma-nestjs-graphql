@@ -31,8 +31,8 @@ type GenerateArgs = GeneratorOptions & {
 export async function generate(args: GenerateArgs) {
     const { generator, otherGenerators } = args;
     const config = args.config ?? createConfig(generator.config);
-    assert(generator.output, 'generator.output is empty');
     const fileExistsSync = args.fileExistsSync ?? existsSync;
+    assert(generator.output, 'generator.output is empty');
     const prismaClientOutput = otherGenerators.find(
         x => x.provider === 'prisma-client-js',
     )?.output;
