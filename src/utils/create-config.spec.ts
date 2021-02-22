@@ -10,7 +10,7 @@ describe('createConfig', () => {
     it('createConfig default', () => {
         const result = createConfig({});
         expect(result.combineScalarFilters).toEqual(true);
-        expect(result.atomicNumberOperations).toEqual(false);
+        expect(result.noAtomicNumberOperations).toEqual(true);
     });
 
     it('createConfig types', () => {

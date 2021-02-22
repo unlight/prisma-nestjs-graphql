@@ -42,8 +42,8 @@ npx prisma generate
     -   `{plural.type}` - plural short type name (models, inputs, enums)
 -   `combineScalarFilters` - Combine nested/nullable scalar filters to single
     (default: `true`)
--   `atomicNumberOperations` - Atomic number operations,
-    `false` - disabled (default), `true` - enabled
+-   `noAtomicNumberOperations` - Remove atomic number operations,
+    `true` (default), `false`
 -   `reExportAll` - create `index.ts` files for each directory with re-export,
     `false` - disabled (default), `true` - enabled
 -   `renameZooTypes` - Remove plague words from type names ('nullabe', 'nested')

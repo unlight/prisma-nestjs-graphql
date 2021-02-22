@@ -1,6 +1,14 @@
+import { DMMF } from '@prisma/client/runtime';
+
 import { createConfig } from './utils';
 
-export { DMMF as PrismaDMMF } from '@prisma/client/runtime';
+export { DMMF };
+
+export type InputType = DMMF.InputType;
+export type FieldLocation = DMMF.FieldLocation;
+export type OutputType = DMMF.OutputType;
+export type SchemaField = DMMF.SchemaField;
+export type SchemaEnum = DMMF.SchemaEnum;
 
 export type TypeRecord = Partial<{
     fieldType: string;

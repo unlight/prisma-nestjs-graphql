@@ -8,11 +8,11 @@ import {
 } from 'ts-morph';
 
 import { generateImport } from '../generate-import';
-import { PrismaDMMF } from '../types';
+import { SchemaEnum } from '../types';
 import { updateObjectProperty } from '../utils';
 
 type GenerateEnumArgs = {
-    enumerable: PrismaDMMF.SchemaEnum & { documentation?: string };
+    enumerable: SchemaEnum & { documentation?: string };
     sourceFile: SourceFile;
 };
 

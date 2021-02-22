@@ -1,12 +1,12 @@
 import { SourceFile } from 'ts-morph';
 
 import { generateInput } from './generate-input';
-import { GeneratorConfiguration, PrismaDMMF } from './types';
+import { GeneratorConfiguration, InputType } from './types';
 
 type GenerateArgsArguments = {
     feature: string;
-    inputType: PrismaDMMF.InputType;
-    aggregateInputs: PrismaDMMF.InputType[];
+    inputType: InputType;
+    aggregateInputs: InputType[];
     sourceFile: SourceFile;
     projectFilePath(data: { name: string; type: string }): string;
     config: GeneratorConfiguration;

@@ -11,7 +11,7 @@ import { generateInput } from './generate-input';
 import { generateModel } from './generate-model';
 import { Model } from './generate-property';
 import { mutateFilters } from './mutate-filters';
-import { GeneratorConfiguration, PrismaDMMF } from './types';
+import { DMMF, GeneratorConfiguration } from './types';
 import {
     createConfig,
     featureName,
@@ -23,7 +23,7 @@ import {
 } from './utils';
 
 type GenerateArgs = GeneratorOptions & {
-    prismaClientDmmf?: PrismaDMMF.Document;
+    prismaClientDmmf?: DMMF.Document;
     fileExistsSync?: typeof existsSync;
     config?: GeneratorConfiguration;
 };
@@ -41,7 +41,7 @@ export async function generate(args: GenerateArgs) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         args.prismaClientDmmf ??
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        ((await import(prismaClientOutput)).dmmf as PrismaDMMF.Document);
+        ((await import(prismaClientOutput)).dmmf as DMMF.Document);
     const project = new Project({
         useInMemoryFileSystem: true,
         manipulationSettings: {
@@ -111,12 +111,11 @@ export async function generate(args: GenerateArgs) {
     }
     // Generate inputs
     let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
-    inputTypes = inputTypes.filter(mutateFilters(inputTypes, config));
-    // Create aggregate inputs
     const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(o => o.name.endsWith('AggregateOutputType'))
         .map(o => schemaOutputToInput(o));
     inputTypes = inputTypes.concat(aggregateInputs);
+    inputTypes = mutateFilters(inputTypes, config);
     inputTypes = uniqBy(inputTypes, x => x.name);
     for (const inputType of inputTypes) {
         const feature = featureName({
@@ -138,10 +137,11 @@ export async function generate(args: GenerateArgs) {
         });
     }
     // Generate args
-    const otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
+    let otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
         .filter(t => t.name === 'Query')
         .flatMap(t => t.fields)
         .map(field => schemaFieldToArgument(field));
+    otherTypes = mutateFilters(otherTypes, config);
     for (const inputType of otherTypes) {
         const feature = featureName({
             name: inputType.name,

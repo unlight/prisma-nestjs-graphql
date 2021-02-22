@@ -1,7 +1,7 @@
-import { PrismaDMMF } from '../types';
+import { InputType } from '../types';
 
 export function noAtomicNumberOperations() {
-    return (inputType: PrismaDMMF.InputType) => {
+    return (inputType: InputType) => {
         if (isAtomicOperation(inputType.name)) {
             return false;
         }

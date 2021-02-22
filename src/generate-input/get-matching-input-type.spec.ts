@@ -1,10 +1,10 @@
 import expect from 'expect';
 
-import { PrismaDMMF } from '../types';
+import { DMMF } from '../types';
 import { getMatchingInputType } from './get-matching-input-type';
 
 describe('get matching input type', () => {
-    let inputTypes: PrismaDMMF.SchemaArgInputType[] = [];
+    let inputTypes: DMMF.SchemaArgInputType[] = [];
     it('mixed types', () => {
         inputTypes = [
             {

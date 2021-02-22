@@ -1,32 +1,18 @@
-import { PrismaDMMF } from '../types';
+import { GeneratorConfiguration, InputType } from '../types';
 import { combineScalarFilters } from './combine-scalar-filters';
 import { noAtomicNumberOperations } from './no-atomic-number-operations';
 import { renameZooTypes } from './rename-zoo-types';
 
-type MutateFiltersOptions = {
-    atomicNumberOperations?: boolean;
-    combineScalarFilters?: boolean;
-    renameZooTypes?: boolean;
-};
+export function mutateFilters(inputTypes: InputType[], config: GeneratorConfiguration) {
+    if (config.combineScalarFilters) {
+        inputTypes = inputTypes.map(combineScalarFilters(inputTypes));
+    }
+    if (config.noAtomicNumberOperations) {
+        inputTypes = inputTypes.filter(noAtomicNumberOperations());
+    }
+    if (config.renameZooTypes) {
+        inputTypes = inputTypes.map(renameZooTypes(inputTypes));
+    }
 
-export function mutateFilters(
-    inputTypes: PrismaDMMF.InputType[],
-    options: MutateFiltersOptions,
-) {
-    const mutations = [
-        options.combineScalarFilters && combineScalarFilters(inputTypes),
-        !options.atomicNumberOperations && noAtomicNumberOperations(),
-        options.renameZooTypes && renameZooTypes(inputTypes),
-    ].filter(Boolean);
-
-    return function (inputType: PrismaDMMF.InputType) {
-        for (const mutation of mutations) {
-            const result = mutation && mutation(inputType);
-            if (!result) {
-                return false;
-            }
-            inputType = result;
-        }
-        return inputType;
-    };
+    return inputTypes;
 }

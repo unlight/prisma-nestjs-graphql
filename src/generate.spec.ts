@@ -223,7 +223,7 @@ describe('main generate', () => {
               rating Float?
             }
             `,
-            options: [`atomicNumberOperations = false`],
+            options: [`noAtomicNumberOperations = true`],
         });
         for (const file of [
             'float-field-update-operations.input.ts',
@@ -284,7 +284,7 @@ describe('main generate', () => {
               rating Float?
             }
             `,
-            options: [`atomicNumberOperations = false`],
+            options: [`noAtomicNumberOperations = true`],
         });
         for (const file of [
             'aggregate-user.args.ts',
@@ -339,7 +339,7 @@ describe('main generate', () => {
 
     it('aggregate output types', async () => {
         await getResult({
-            options: [`atomicNumberOperations = false`],
+            options: [`noAtomicNumberOperations = true`],
             schema: `
             model User {
               id String @id
@@ -435,7 +435,7 @@ describe('main generate', () => {
         }
     });
 
-    it('option atomicNumberOperations false', async () => {
+    it('option noAtomicNumberOperations false', async () => {
         await getResult({
             schema: `
             model User {
@@ -451,7 +451,7 @@ describe('main generate', () => {
                 USER
             }
             `,
-            options: [`atomicNumberOperations = false`],
+            options: [`noAtomicNumberOperations = false`],
         });
         expect(sourceFiles.length).toBeGreaterThan(0);
         for (const sourceFile of sourceFiles) {

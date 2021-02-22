@@ -1,4 +1,4 @@
-import { PrismaDMMF } from '../types';
+import { InputType } from '../types';
 import { renameInputs } from './rename-inputs';
 
 export function replacementTypeName(name: string) {
@@ -14,7 +14,7 @@ export function replacementTypeName(name: string) {
     return name;
 }
 
-export function renameZooTypes(inputTypes: PrismaDMMF.InputType[]) {
+export function renameZooTypes(inputTypes: InputType[]) {
     const replacements = Object.fromEntries(
         inputTypes
             .map(t => [t.name, replacementTypeName(t.name)])

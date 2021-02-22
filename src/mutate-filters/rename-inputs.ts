@@ -1,7 +1,7 @@
-import { PrismaDMMF } from '../types';
+import { InputType } from '../types';
 
 export function renameInputs(replacements: Record<string, string>) {
-    return (inputType: PrismaDMMF.InputType) => {
+    return (inputType: InputType) => {
         const newTypeName = replacements[inputType.name];
         if (newTypeName) {
             inputType.name = newTypeName;
