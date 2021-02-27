@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { CommentCreateManyWithoutArticleInput } from '../comment/comment-create-many-without-article.input';
+import { CommentUncheckedCreateNestedManyWithoutArticleInput } from '../comment/comment-unchecked-create-nested-many-without-article.input';
 
 @InputType()
 export class ArticleUncheckedCreateInput {
@@ -29,12 +29,12 @@ export class ArticleUncheckedCreateInput {
     })
     body!: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;
@@ -54,8 +54,8 @@ export class ArticleUncheckedCreateInput {
     })
     active?: boolean;
 
-    @Field(() => CommentCreateManyWithoutArticleInput, {
+    @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, {
         nullable: true,
     })
-    comments?: CommentCreateManyWithoutArticleInput;
+    comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 }

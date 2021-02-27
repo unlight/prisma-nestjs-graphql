@@ -23,8 +23,8 @@ export class DummyCreateManyInput {
     })
     bigInt?: BigInt;
 
-    @Field(() => GraphQLJSON, {
+    @Field(() => String, {
         nullable: true,
     })
-    json?: Record<string, any>;
+    json?: any;
 }

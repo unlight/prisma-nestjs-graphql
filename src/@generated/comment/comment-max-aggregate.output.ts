@@ -7,12 +7,12 @@ export class CommentMaxAggregate {
     })
     id?: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;

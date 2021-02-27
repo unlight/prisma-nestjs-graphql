@@ -1,10 +1,10 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
-import { ArticleCreateManyWithoutAuthorInput } from '../article/article-create-many-without-author.input';
-import { CommentCreateManyWithoutAuthorInput } from '../comment/comment-create-many-without-author.input';
+import { ArticleCreateNestedManyWithoutAuthorInput } from '../article/article-create-nested-many-without-author.input';
+import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input';
 import { Role } from '../prisma/role.enum';
-import { UserCreateManyWithoutFollowersInput } from './user-create-many-without-followers.input';
-import { UserCreateManyWithoutFollowingInput } from './user-create-many-without-following.input';
+import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input';
+import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input';
 
 @InputType()
 export class UserCreateWithoutFavoriteArticlesInput {
@@ -53,23 +53,23 @@ export class UserCreateWithoutFavoriteArticlesInput {
     })
     role?: Role;
 
-    @Field(() => UserCreateManyWithoutFollowersInput, {
+    @Field(() => UserCreateNestedManyWithoutFollowersInput, {
         nullable: true,
     })
-    following?: UserCreateManyWithoutFollowersInput;
+    following?: UserCreateNestedManyWithoutFollowersInput;
 
-    @Field(() => UserCreateManyWithoutFollowingInput, {
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {
         nullable: true,
     })
-    followers?: UserCreateManyWithoutFollowingInput;
+    followers?: UserCreateNestedManyWithoutFollowingInput;
 
-    @Field(() => ArticleCreateManyWithoutAuthorInput, {
+    @Field(() => ArticleCreateNestedManyWithoutAuthorInput, {
         nullable: true,
     })
-    articles?: ArticleCreateManyWithoutAuthorInput;
+    articles?: ArticleCreateNestedManyWithoutAuthorInput;
 
-    @Field(() => CommentCreateManyWithoutAuthorInput, {
+    @Field(() => CommentCreateNestedManyWithoutAuthorInput, {
         nullable: true,
     })
-    comments?: CommentCreateManyWithoutAuthorInput;
+    comments?: CommentCreateNestedManyWithoutAuthorInput;
 }

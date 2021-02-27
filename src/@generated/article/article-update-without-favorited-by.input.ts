@@ -1,55 +1,59 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
 import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
+import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-without-articles.input';
 import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-one-required-without-articles.input';
 
 @InputType()
 export class ArticleUpdateWithoutFavoritedByInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    slug?: string;
+    slug?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    title?: string;
+    title?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    description?: string;
+    description?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    body?: string;
+    body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => DateTimeFieldUpdateOperationsInput, {
         nullable: true,
     })
-    createdAt?: Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => DateTimeFieldUpdateOperationsInput, {
         nullable: true,
     })
-    updatedAt?: Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => Int, {
+    @Field(() => IntFieldUpdateOperationsInput, {
         nullable: true,
     })
-    favoritesCount?: number;
+    favoritesCount?: IntFieldUpdateOperationsInput;
 
-    @Field(() => Boolean, {
+    @Field(() => NullableBoolFieldUpdateOperationsInput, {
         nullable: true,
     })
-    active?: boolean;
+    active?: NullableBoolFieldUpdateOperationsInput;
 
     @Field(() => TagUpdateManyWithoutArticlesInput, {
         nullable: true,

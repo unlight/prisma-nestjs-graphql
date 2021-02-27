@@ -1,30 +1,35 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
+import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
+import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input';
+import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+
 @InputType()
 export class DummyUncheckedUpdateInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
+
+    @Field(() => NullableBytesFieldUpdateOperationsInput, {
+        nullable: true,
+    })
+    bytes?: NullableBytesFieldUpdateOperationsInput;
+
+    @Field(() => NullableDecimalFieldUpdateOperationsInput, {
+        nullable: true,
+    })
+    decimal?: NullableDecimalFieldUpdateOperationsInput;
+
+    @Field(() => NullableBigIntFieldUpdateOperationsInput, {
+        nullable: true,
+    })
+    bigInt?: NullableBigIntFieldUpdateOperationsInput;
 
     @Field(() => String, {
         nullable: true,
     })
-    bytes?: Buffer;
-
-    @Field(() => String, {
-        nullable: true,
-    })
-    decimal?: string;
-
-    @Field(() => String, {
-        nullable: true,
-    })
-    bigInt?: BigInt;
-
-    @Field(() => GraphQLJSON, {
-        nullable: true,
-    })
-    json?: Record<string, any>;
+    json?: any;
 }

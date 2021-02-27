@@ -1,6 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { ArticleAvgAggregateInput } from './article-avg-aggregate.input';
+import { ArticleCountAggregateInput } from './article-count-aggregate.input';
 import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 import { ArticleMinAggregateInput } from './article-min-aggregate.input';
 import { ArticleOrderByInput } from './article-order-by.input';
@@ -35,10 +36,10 @@ export class AggregateArticleArgs {
     })
     skip?: number;
 
-    @Field(() => Boolean, {
+    @Field(() => ArticleCountAggregateInput, {
         nullable: true,
     })
-    count?: true;
+    count?: ArticleCountAggregateInput;
 
     @Field(() => ArticleAvgAggregateInput, {
         nullable: true,

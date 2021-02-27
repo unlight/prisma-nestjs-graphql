@@ -10,12 +10,12 @@ export class Comment {
     })
     id!: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     createdAt!: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     updatedAt!: Date | string;
@@ -33,7 +33,7 @@ export class Comment {
     @Field(() => String, {
         nullable: false,
     })
-    readonly authorId!: string;
+    authorId!: string;
 
     @Field(() => Article, {
         nullable: true,
@@ -43,5 +43,5 @@ export class Comment {
     @Field(() => String, {
         nullable: true,
     })
-    readonly articleId?: string;
+    articleId?: string;
 }

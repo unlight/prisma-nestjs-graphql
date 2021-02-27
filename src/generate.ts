@@ -1,198 +1,101 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
-import { existsSync, promises as fs } from 'fs';
-import { uniqBy } from 'lodash';
-import path from 'path';
-import { Project, QuoteKind, SourceFile } from 'ts-morph';
+import AwaitEventEmitter from 'await-event-emitter';
+import { mapKeys } from 'lodash';
+import { Project, QuoteKind } from 'ts-morph';
 
-import { generateArgs } from './generate-args';
-import { generateEnum } from './generate-enum';
-import { generateInput } from './generate-input';
-import { generateModel } from './generate-model';
-import { Model } from './generate-property';
-import { mutateFilters } from './mutate-filters';
-import { DMMF, GeneratorConfiguration } from './types';
-import {
-    createConfig,
-    featureName,
-    fieldLocationToKind,
-    generateFileName,
-    getOutputTypeName,
-    schemaFieldToArgument,
-    schemaOutputToInput,
-} from './utils';
+import { handlers } from './handlers';
+import { createConfig } from './helpers/create-config';
+import { generateFileName } from './helpers/generate-file-name';
+import { DMMF, EventArguments, Model, OutputType } from './types';
 
-type GenerateArgs = GeneratorOptions & {
-    prismaClientDmmf?: DMMF.Document;
-    fileExistsSync?: typeof existsSync;
-    config?: GeneratorConfiguration;
-};
+export const eventEmitter = new AwaitEventEmitter();
 
-export async function generate(args: GenerateArgs) {
+// eventEmitter.on('aggregateOutput', () => console.log('>>>>>>>> aggregateOutput'));
+// eventEmitter.on('argsType', () => console.log('>>>>>>>>> argsType'));
+
+handlers(eventEmitter);
+
+export async function generate(
+    args: GeneratorOptions & {
+        prismaClientDmmf?: DMMF.Document;
+    },
+) {
     const { generator, otherGenerators } = args;
-    const config = args.config ?? createConfig(generator.config);
-    const fileExistsSync = args.fileExistsSync ?? existsSync;
+    const config = createConfig(generator.config);
     assert(generator.output, 'generator.output is empty');
     const prismaClientOutput = otherGenerators.find(
         x => x.provider === 'prisma-client-js',
     )?.output;
     assert(prismaClientOutput, 'prismaClientOutput');
     const prismaClientDmmf =
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        args.prismaClientDmmf ??
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        ((await import(prismaClientOutput)).dmmf as DMMF.Document);
+        args.prismaClientDmmf ?? (require(prismaClientOutput).dmmf as DMMF.Document);
     const project = new Project({
         useInMemoryFileSystem: true,
         manipulationSettings: {
             quoteKind: QuoteKind.Single,
-            useTrailingCommas: true,
         },
     });
-    const models = prismaClientDmmf.datamodel.models.map(x => x.name);
-    const projectFilePath = (args: {
-        name: string;
-        type: string;
-        feature?: string;
-    }) => {
-        return generateFileName({
-            ...args,
+    const models = new Map<string, Model>();
+    const modelNames: string[] = [];
+    const queryOutputTypes: OutputType[] = [];
+    const getSourceFile = (args: { type: string; name: string }) => {
+        const filePath = generateFileName({
+            modelNames,
+            name: args.name,
+            type: args.type,
             template: config.outputFilePattern,
-            models,
         });
+        return project.getSourceFile(filePath) || project.createSourceFile(filePath);
     };
-    const createSourceFile = async (args: {
-        type: string;
-        name: string;
-        feature?: string;
-    }) => {
-        const filePath = projectFilePath(args);
-        let sourceFile: SourceFile | undefined;
-        sourceFile = project.getSourceFile(filePath);
-        if (sourceFile) {
-            return sourceFile;
-        }
-        let sourceFileText = '';
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const localFilePath = path.join(generator.output!, filePath);
-        if (fileExistsSync(localFilePath)) {
-            sourceFileText = await fs.readFile(localFilePath, {
-                encoding: 'utf8',
-            });
-        }
-        sourceFile = project.createSourceFile(filePath, sourceFileText);
-        return sourceFile;
+    const {
+        datamodel,
+        schema: { inputObjectTypes, outputObjectTypes, enumTypes },
+    } = prismaClientDmmf;
+    const eventArguments: EventArguments = {
+        models,
+        config,
+        modelNames,
+        queryOutputTypes,
+        project,
+        output: generator.output,
+        getSourceFile,
+        eventEmitter,
+        typeNames: new Set<string>(),
+        enums: mapKeys(datamodel.enums, x => x.name),
     };
-    // Generate enums
-    const enums = [
-        ...(prismaClientDmmf.schema.enumTypes.model || []),
-        ...prismaClientDmmf.schema.enumTypes.prisma,
-    ];
-    for (const enumerable of enums) {
-        const sourceFile = await createSourceFile({
-            type: 'enum',
-            name: enumerable.name,
-        });
-        generateEnum({ enumerable, sourceFile });
+
+    await eventEmitter.emit('begin', eventArguments);
+
+    for (const model of datamodel.models) {
+        await eventEmitter.emit('model', model, eventArguments);
     }
-    // Generate models
-    for (const model of prismaClientDmmf.datamodel.models) {
-        const sourceFile = await createSourceFile({
-            type: 'model',
-            name: model.name,
-        });
-        generateModel({
-            classType: 'model',
-            model,
-            sourceFile,
-            projectFilePath,
-            config,
-        });
+
+    for (const enumType of enumTypes.prisma.concat(enumTypes.model || [])) {
+        await eventEmitter.emit('enumType', enumType, eventArguments);
     }
-    // Generate inputs
-    let inputTypes = prismaClientDmmf.schema.inputObjectTypes.prisma;
-    const aggregateInputs = prismaClientDmmf.schema.outputObjectTypes.prisma
-        .filter(o => o.name.endsWith('AggregateOutputType'))
-        .map(o => schemaOutputToInput(o));
-    inputTypes = inputTypes.concat(aggregateInputs);
-    inputTypes = mutateFilters(inputTypes, config);
-    inputTypes = uniqBy(inputTypes, x => x.name);
-    for (const inputType of inputTypes) {
-        const feature = featureName({
-            name: inputType.name,
-            models,
-            fallback: '',
-        });
-        const sourceFile = await createSourceFile({
-            type: 'input',
-            name: inputType.name,
-            feature,
-        });
-        generateInput({
+
+    for (const outputType of outputObjectTypes.prisma.concat(outputObjectTypes.model)) {
+        await eventEmitter.emit('outputType', outputType, eventArguments);
+    }
+
+    for (const inputType of inputObjectTypes.prisma.concat(
+        inputObjectTypes.model || [],
+    )) {
+        await eventEmitter.emit('inputType', {
+            ...eventArguments,
             inputType,
-            sourceFile,
-            projectFilePath,
-            decorator: { name: 'InputType' },
-            config,
-        });
-    }
-    // Generate args
-    let otherTypes = prismaClientDmmf.schema.outputObjectTypes.prisma
-        .filter(t => t.name === 'Query')
-        .flatMap(t => t.fields)
-        .map(field => schemaFieldToArgument(field));
-    otherTypes = mutateFilters(otherTypes, config);
-    for (const inputType of otherTypes) {
-        const feature = featureName({
-            name: inputType.name,
-            models,
-            fallback: '',
-        });
-        assert(feature);
-        const sourceFile = await createSourceFile({
-            type: 'args',
-            name: inputType.name,
-            feature,
-        });
-        generateArgs({
-            inputType,
-            feature,
-            aggregateInputs,
-            sourceFile,
-            projectFilePath,
-            config,
-        });
-    }
-    // Generate output types
-    const outputTypes = prismaClientDmmf.schema.outputObjectTypes.prisma.filter(
-        t => !['Query', 'Mutation'].includes(t.name) && !models.includes(t.name),
-    );
-    for (const outputType of outputTypes) {
-        const name = getOutputTypeName(outputType.name);
-        for (const field of outputType.fields) {
-            field.outputType.type = getOutputTypeName(String(field.outputType.type));
-        }
-        const sourceFile = await createSourceFile({ type: 'output', name });
-        const model: Model = {
-            name,
-            fields: outputType.fields.map(t => {
-                return {
-                    name: t.name,
-                    isRequired: !t.isNullable,
-                    ...t.outputType,
-                    type: String(t.outputType.type),
-                    kind: fieldLocationToKind(t.outputType.location),
-                };
-            }),
-        };
-        generateModel({
-            classType: 'output',
-            sourceFile,
-            projectFilePath,
-            model,
-            config,
+            fileType: 'input',
+            classDecoratorName: 'InputType',
         });
     }
 
-    return project;
+    for (const outputType of queryOutputTypes) {
+        for (const field of outputType.fields) {
+            await eventEmitter.emit('argsType', field, eventArguments);
+        }
+    }
+
+    await eventEmitter.emit('generateFiles', eventArguments);
+    await eventEmitter.emit('end', eventArguments);
 }

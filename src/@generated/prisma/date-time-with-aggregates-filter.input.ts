@@ -1,62 +1,63 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { DateTimeFilter } from './date-time-filter.input';
-import { IntFilter } from './int-filter.input';
+import { NestedDateTimeFilter } from './nested-date-time-filter.input';
+import { NestedDateTimeWithAggregatesFilter } from './nested-date-time-with-aggregates-filter.input';
+import { NestedIntFilter } from './nested-int-filter.input';
 
 @InputType()
 export class DateTimeWithAggregatesFilter {
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     equals?: Date | string;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     in?: Array<Date> | Array<string>;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     notIn?: Array<Date> | Array<string>;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lte?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gte?: Date | string;
 
-    @Field(() => DateTimeWithAggregatesFilter, {
+    @Field(() => NestedDateTimeWithAggregatesFilter, {
         nullable: true,
     })
-    not?: DateTimeWithAggregatesFilter;
+    not?: NestedDateTimeWithAggregatesFilter;
 
-    @Field(() => IntFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    count?: IntFilter;
+    count?: NestedIntFilter;
 
-    @Field(() => DateTimeFilter, {
+    @Field(() => NestedDateTimeFilter, {
         nullable: true,
     })
-    min?: DateTimeFilter;
+    min?: NestedDateTimeFilter;
 
-    @Field(() => DateTimeFilter, {
+    @Field(() => NestedDateTimeFilter, {
         nullable: true,
     })
-    max?: DateTimeFilter;
+    max?: NestedDateTimeFilter;
 }

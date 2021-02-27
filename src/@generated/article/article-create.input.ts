@@ -1,9 +1,9 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { CommentCreateManyWithoutArticleInput } from '../comment/comment-create-many-without-article.input';
-import { TagCreateManyWithoutArticlesInput } from '../tag/tag-create-many-without-articles.input';
-import { UserCreateManyWithoutFavoriteArticlesInput } from '../user/user-create-many-without-favorite-articles.input';
-import { UserCreateOneWithoutArticlesInput } from '../user/user-create-one-without-articles.input';
+import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-create-nested-many-without-article.input';
+import { TagCreateNestedManyWithoutArticlesInput } from '../tag/tag-create-nested-many-without-articles.input';
+import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-create-nested-many-without-favorite-articles.input';
+import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nested-one-without-articles.input';
 
 @InputType()
 export class ArticleCreateInput {
@@ -32,12 +32,12 @@ export class ArticleCreateInput {
     })
     body!: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;
@@ -52,23 +52,23 @@ export class ArticleCreateInput {
     })
     active?: boolean;
 
-    @Field(() => TagCreateManyWithoutArticlesInput, {
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, {
         nullable: true,
     })
-    tags?: TagCreateManyWithoutArticlesInput;
+    tags?: TagCreateNestedManyWithoutArticlesInput;
 
-    @Field(() => UserCreateOneWithoutArticlesInput, {
+    @Field(() => UserCreateNestedOneWithoutArticlesInput, {
         nullable: false,
     })
-    author!: UserCreateOneWithoutArticlesInput;
+    author!: UserCreateNestedOneWithoutArticlesInput;
 
-    @Field(() => UserCreateManyWithoutFavoriteArticlesInput, {
+    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
         nullable: true,
     })
-    favoritedBy?: UserCreateManyWithoutFavoriteArticlesInput;
+    favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 
-    @Field(() => CommentCreateManyWithoutArticleInput, {
+    @Field(() => CommentCreateNestedManyWithoutArticleInput, {
         nullable: true,
     })
-    comments?: CommentCreateManyWithoutArticleInput;
+    comments?: CommentCreateNestedManyWithoutArticleInput;
 }

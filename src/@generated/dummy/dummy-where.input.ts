@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { BigIntFilter } from '../prisma/big-int-filter.input';
-import { BytesFilter } from '../prisma/bytes-filter.input';
-import { DecimalFilter } from '../prisma/decimal-filter.input';
-import { JsonFilter } from '../prisma/json-filter.input';
+import { BigIntNullableFilter } from '../prisma/big-int-nullable-filter.input';
+import { BytesNullableFilter } from '../prisma/bytes-nullable-filter.input';
+import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -28,23 +28,23 @@ export class DummyWhereInput {
     })
     id?: StringFilter;
 
-    @Field(() => BytesFilter, {
+    @Field(() => BytesNullableFilter, {
         nullable: true,
     })
-    bytes?: BytesFilter;
+    bytes?: BytesNullableFilter;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => DecimalNullableFilter, {
         nullable: true,
     })
-    decimal?: DecimalFilter;
+    decimal?: DecimalNullableFilter;
 
-    @Field(() => BigIntFilter, {
+    @Field(() => BigIntNullableFilter, {
         nullable: true,
     })
-    bigInt?: BigIntFilter;
+    bigInt?: BigIntNullableFilter;
 
-    @Field(() => JsonFilter, {
+    @Field(() => JsonNullableFilter, {
         nullable: true,
     })
-    json?: JsonFilter;
+    json?: JsonNullableFilter;
 }

@@ -11,12 +11,12 @@ export class CommentGroupBy {
     })
     id!: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     createdAt!: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: false,
     })
     updatedAt!: Date | string;

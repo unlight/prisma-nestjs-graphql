@@ -1,23 +1,6 @@
-import assert from 'assert';
-import { SourceFile } from 'ts-morph';
+import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
-export { generatorOptions } from './generator-options';
-
-export function stringContains(expected: string, actual: string) {
-    expected = expected.replace(/\s+/g, ' ');
-    assert(
-        actual.replace(/\s+/g, ' ').includes(expected),
-        `Missing ${expected} in:\n${actual}`,
-    );
-}
-
-export function stringNotContains(expected: string, actual: string) {
-    expected = expected.replace(/\s+/g, ' ');
-    assert(
-        actual.replace(/\s+/g, ' ').includes(expected) === false,
-        `Exists ${expected} in:\n${actual}`,
-    );
-}
+export { createGeneratorOptions } from './create-generator-options';
 
 export function getImportDeclarations(sourceFile: SourceFile) {
     return sourceFile.getImportDeclarations().flatMap(d =>
@@ -28,12 +11,29 @@ export function getImportDeclarations(sourceFile: SourceFile) {
     );
 }
 
-export function getFieldArguments(args: GetStructuredArguments & { index?: number }) {
-    let result = getStructure(args)?.decorators?.[0]?.arguments;
-    if (args.index !== undefined) {
-        result = result?.[args.index];
+export function getFieldType(
+    sourceFile: SourceFile,
+    property: string | PropertyDeclaration,
+) {
+    let propertyDeclaration: PropertyDeclaration | undefined;
+    if (typeof property === 'string') {
+        propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
     }
-    return result;
+    const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[0];
+    return result as string;
+}
+
+export function getFieldOptions(
+    sourceFile: SourceFile,
+    property: string | PropertyDeclaration,
+) {
+    let propertyDeclaration: PropertyDeclaration | undefined;
+    if (typeof property === 'string') {
+        propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
+    }
+    const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
+    return result as string;
+    // return new Function(`return ${text}`)();
 }
 
 type GetStructuredArguments = {
@@ -45,4 +45,11 @@ type GetStructuredArguments = {
 export function getStructure(args: GetStructuredArguments) {
     const { sourceFile, className, property } = args;
     return sourceFile.getClass(className)?.getProperty(property)?.getStructure();
+}
+
+export function getPropertyStructure(sourceFile: SourceFile, name: string) {
+    return sourceFile
+        .getClass(() => true)
+        ?.getProperty(p => p.getName() === name)
+        ?.getStructure();
 }

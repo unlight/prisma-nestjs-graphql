@@ -1,18 +1,19 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleUpdateManyWithoutTagsInput } from '../article/article-update-many-without-tags.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 
 @InputType()
 export class TagUpdateInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    name?: string;
+    name?: StringFieldUpdateOperationsInput;
 
     @Field(() => ArticleUpdateManyWithoutTagsInput, {
         nullable: true,

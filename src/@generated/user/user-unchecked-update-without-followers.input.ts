@@ -1,63 +1,67 @@
-import { Field, Float, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-many-without-author.input';
-import { CommentUpdateManyWithoutAuthorInput } from '../comment/comment-update-many-without-author.input';
-import { Role } from '../prisma/role.enum';
+import { ArticleUncheckedUpdateManyWithoutAuthorInput } from '../article/article-unchecked-update-many-without-author.input';
+import { CommentUncheckedUpdateManyWithoutAuthorInput } from '../comment/comment-unchecked-update-many-without-author.input';
+import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
+import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutFollowersInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    email?: string;
+    email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    name?: string;
+    name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    password?: string;
+    password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => NullableStringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    bio?: string;
+    bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => NullableStringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    image?: string;
+    image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => Int, {
+    @Field(() => NullableIntFieldUpdateOperationsInput, {
         nullable: true,
     })
-    countComments?: number;
+    countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => Float, {
+    @Field(() => NullableFloatFieldUpdateOperationsInput, {
         nullable: true,
     })
-    rating?: number;
+    rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => Role, {
+    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {
         nullable: true,
     })
-    role?: Role;
+    role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateManyWithoutAuthorInput, {
+    @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, {
         nullable: true,
     })
-    articles?: ArticleUpdateManyWithoutAuthorInput;
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorInput;
 
-    @Field(() => CommentUpdateManyWithoutAuthorInput, {
+    @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, {
         nullable: true,
     })
-    comments?: CommentUpdateManyWithoutAuthorInput;
+    comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
 }

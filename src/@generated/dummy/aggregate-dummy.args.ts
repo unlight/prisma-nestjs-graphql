@@ -1,6 +1,7 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
 import { DummyAvgAggregateInput } from './dummy-avg-aggregate.input';
+import { DummyCountAggregateInput } from './dummy-count-aggregate.input';
 import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
 import { DummyOrderByInput } from './dummy-order-by.input';
@@ -35,10 +36,10 @@ export class AggregateDummyArgs {
     })
     skip?: number;
 
-    @Field(() => Boolean, {
+    @Field(() => DummyCountAggregateInput, {
         nullable: true,
     })
-    count?: true;
+    count?: DummyCountAggregateInput;
 
     @Field(() => DummyAvgAggregateInput, {
         nullable: true,

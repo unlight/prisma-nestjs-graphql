@@ -2,10 +2,11 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
-import { FloatFilter } from '../prisma/float-filter.input';
-import { IntFilter } from '../prisma/int-filter.input';
+import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input';
+import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 
 @InputType()
@@ -45,15 +46,15 @@ export class UserWhereInput {
     })
     password?: StringFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => StringNullableFilter, {
         nullable: true,
     })
-    bio?: StringFilter;
+    bio?: StringNullableFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => StringNullableFilter, {
         nullable: true,
     })
-    image?: StringFilter;
+    image?: StringNullableFilter;
 
     @Field(() => UserListRelationFilter, {
         nullable: true,
@@ -80,18 +81,18 @@ export class UserWhereInput {
     })
     comments?: CommentListRelationFilter;
 
-    @Field(() => IntFilter, {
+    @Field(() => IntNullableFilter, {
         nullable: true,
     })
-    countComments?: IntFilter;
+    countComments?: IntNullableFilter;
 
-    @Field(() => FloatFilter, {
+    @Field(() => FloatNullableFilter, {
         nullable: true,
     })
-    rating?: FloatFilter;
+    rating?: FloatNullableFilter;
 
-    @Field(() => EnumRoleFilter, {
+    @Field(() => EnumRoleNullableFilter, {
         nullable: true,
     })
-    role?: EnumRoleFilter;
+    role?: EnumRoleNullableFilter;
 }

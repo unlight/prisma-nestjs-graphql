@@ -40,11 +40,7 @@ module.exports = {
     rules: {
         // core
         'consistent-return': [1, { treatUndefinedAsUnspecified: true }],
-        quotes: [
-            1,
-            'single',
-            { allowTemplateLiterals: true, avoidEscape: true },
-        ],
+        quotes: [1, 'single', { allowTemplateLiterals: true, avoidEscape: true }],
         semi: [1, 'always'],
         'max-lines': [1, { max: 300 }],
         'max-params': [1, { max: 5 }],
@@ -115,6 +111,7 @@ module.exports = {
                 '@typescript-eslint/camelcase': 0,
                 '@typescript-eslint/no-unsafe-assignment': 0,
                 '@typescript-eslint/no-unused-vars': 0,
+                '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
                 'import/max-dependencies': 0,
                 'sonarjs/no-duplicate-string': 0,
             },

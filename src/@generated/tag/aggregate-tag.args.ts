@@ -1,5 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
+import { TagCountAggregateInput } from './tag-count-aggregate.input';
 import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 import { TagMinAggregateInput } from './tag-min-aggregate.input';
 import { TagOrderByInput } from './tag-order-by.input';
@@ -33,10 +34,10 @@ export class AggregateTagArgs {
     })
     skip?: number;
 
-    @Field(() => Boolean, {
+    @Field(() => TagCountAggregateInput, {
         nullable: true,
     })
-    count?: true;
+    count?: TagCountAggregateInput;
 
     @Field(() => TagMinAggregateInput, {
         nullable: true,

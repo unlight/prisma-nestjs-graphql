@@ -1,34 +1,38 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+
 @InputType()
 export class CommentUncheckedUpdateInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => DateTimeFieldUpdateOperationsInput, {
         nullable: true,
     })
-    createdAt?: Date | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => DateTimeFieldUpdateOperationsInput, {
         nullable: true,
     })
-    updatedAt?: Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    body?: string;
+    body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    authorId?: string;
+    authorId?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => NullableStringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    articleId?: string;
+    articleId?: NullableStringFieldUpdateOperationsInput;
 }

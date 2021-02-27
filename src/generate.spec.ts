@@ -1,48 +1,894 @@
-import assert from 'assert';
 import expect from 'expect';
-import { Project, PropertyDeclaration, SourceFile } from 'ts-morph';
+import {
+    ClassDeclaration,
+    Decorator,
+    EnumDeclarationStructure,
+    Project,
+    PropertyDeclaration,
+    PropertyDeclarationStructure,
+    SourceFile,
+} from 'ts-morph';
 
-import { generate } from './generate';
-import { reexport } from './generator-pipelines';
-import { generatorOptions, getImportDeclarations, stringContains } from './testing';
+import { eventEmitter, generate } from './generate';
+import {
+    createGeneratorOptions,
+    getFieldOptions,
+    getFieldType,
+    getImportDeclarations,
+    getPropertyStructure,
+} from './testing';
 
-describe('main generate', () => {
-    let property: PropertyDeclaration | undefined;
-    let sourceFile: SourceFile | undefined;
-    let sourceFiles: SourceFile[];
-    let sourceText: string;
-    let project: Project;
-    let resultGeneratorOptions: any;
-    async function getResult(args: { schema: string; options?: string[] }) {
-        const { schema, options } = args;
-        resultGeneratorOptions = {
-            ...(await generatorOptions(schema, options)),
-            fileExistsSync: () => false,
-        };
-        project = await generate(resultGeneratorOptions);
-        sourceFiles = project.getSourceFiles();
-    }
+let property: PropertyDeclaration;
+let sourceFile: SourceFile;
+let sourceFiles: SourceFile[];
+let sourceText: string;
+let project: Project;
+let propertyStructure: PropertyDeclarationStructure;
+let imports: ReturnType<typeof getImportDeclarations>;
 
-    it('smoke one', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        Int      @id
-            }
-            `,
+async function testGenerate(args: {
+    schema: string;
+    options?: string[];
+    sourceFile?: {
+        text: string;
+        path: string;
+    };
+}) {
+    const { schema, options, sourceFile } = args;
+    eventEmitter.off('generateFiles');
+    if (sourceFile) {
+        eventEmitter.once('begin', ({ project }: { project: Project }) => {
+            project.createSourceFile(sourceFile.path, sourceFile.text, {
+                overwrite: true,
+            });
         });
-        const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-        expect(filePaths).not.toHaveLength(0);
+    }
+    eventEmitter.once('end', (args: { project: Project }) => {
+        ({ project } = args);
+    });
+    await generate({
+        ...(await createGeneratorOptions(schema, options)),
     });
 
-    it('smoke many', async () => {
-        await getResult({
+    sourceFiles = project.getSourceFiles();
+    try {
+        // eslint-disable-next-line no-var
+        var emptyFiles = sourceFiles
+            .filter(s => !s.getText())
+            .map(s => s.getFilePath());
+        expect(emptyFiles).toHaveLength(0);
+    } catch {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        throw `Project should not contain empty files: ${emptyFiles}`;
+    }
+}
+
+describe('model with one id int', () => {
+    let id: PropertyDeclarationStructure;
+    before(async () => {
+        await testGenerate({
+            schema: `
+            /// User really
+            model User {
+                  /// user id
+                  id Int @id @default(1)
+                }`,
+        });
+    });
+
+    describe('model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user.model.ts'),
+            )!;
+        });
+
+        it('argument decorated id', () => {
+            expect(getFieldType(sourceFile, 'id')).toEqual('() => ID');
+        });
+
+        it('should have import graphql type id', () => {
+            expect(getImportDeclarations(sourceFile)).toContainEqual({
+                name: 'ID',
+                specifier: '@nestjs/graphql',
+            });
+        });
+
+        it('should have import field decorator', () => {
+            expect(getImportDeclarations(sourceFile)).toContainEqual({
+                name: 'Field',
+                specifier: '@nestjs/graphql',
+            });
+        });
+
+        it('should have exclamation mark for non null id field', () => {
+            id = sourceFile
+                .getClass(() => true)
+                ?.getProperty(p => p.getName() === 'id')
+                ?.getStructure()!;
+            expect(id.hasExclamationToken).toEqual(true);
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('default value', () => {
+            const argument = getFieldOptions(sourceFile, 'id');
+            expect(argument).toContain('nullable: false');
+            expect(argument).toContain('defaultValue: 1');
+            expect(argument).not.toContain('description: undefined');
+        });
+
+        it('property description', () => {
+            const argument = getFieldOptions(sourceFile, 'id');
+            expect(argument).toContain('nullable: false');
+            expect(argument).toContain('description: "user id"');
+        });
+
+        it('object type description', () => {
+            const decoratorArgument = sourceFile
+                .getClass(() => true)
+                ?.getDecorators()?.[0]
+                .getStructure()?.arguments?.[0] as string | undefined;
+            expect(decoratorArgument).toContain(`description: "User really"`);
+        });
+    });
+
+    describe('aggregate user', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('aggregate-user.output.ts'),
+            )!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('count', () => {
+            const structure = sourceFile
+                .getClass(() => true)
+                ?.getProperty(p => p.getName() === 'count')
+                ?.getStructure();
+            expect(structure?.type).toEqual('UserCountAggregate');
+            expect(structure?.hasQuestionToken).toEqual(true);
+        });
+    });
+
+    describe('user count aggregate', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-count-aggregate.output.ts'),
+            )!;
+            propertyStructure = sourceFile
+                .getClass(() => true)
+                ?.getProperty(p => p.getName() === 'id')
+                ?.getStructure()!;
+        });
+
+        it('should be number', () => {
+            expect(propertyStructure.type).toEqual('number');
+        });
+
+        it('should be not null', () => {
+            expect(propertyStructure.hasQuestionToken).toEqual(false);
+        });
+
+        it('should have import graphql type int', () => {
+            expect(getImportDeclarations(sourceFile)).toContainEqual({
+                name: 'Int',
+                specifier: '@nestjs/graphql',
+            });
+        });
+    });
+
+    describe('where input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-where.input.ts'),
+            )!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('should have id property', () => {
+            id = getPropertyStructure(sourceFile, 'id')!;
+            expect(id).toEqual(expect.objectContaining({ name: 'id' }));
+        });
+
+        it('should have type IntFilter', () => {
+            id = getPropertyStructure(sourceFile, 'id')!;
+            expect(id.type).toEqual('IntFilter');
+        });
+
+        it('field decorator returns IntFilter', () => {
+            const argument = getFieldType(sourceFile, 'id');
+            expect(argument).toEqual('() => IntFilter');
+        });
+
+        it('field decorator IntFilter nullable', () => {
+            const argument = getFieldOptions(sourceFile, 'id');
+            expect(argument).toContain('nullable: true');
+        });
+
+        it('property AND has one type', () => {
+            expect(getPropertyStructure(sourceFile, 'AND')?.type).toEqual(
+                'Array<UserWhereInput>',
+            );
+        });
+    });
+
+    describe('aggregate user args', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('aggregate-user.args.ts'),
+            )!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('no duplicated properties', () => {
+            const names = sourceFile
+                .getClass(() => true)
+                ?.getProperties()
+                .map(p => p.getName())!;
+            expect([...new Set(names).values()]).toHaveLength(names.length);
+        });
+
+        it('count', () => {
+            const count = getPropertyStructure(sourceFile, 'count');
+            expect(count?.type).toEqual('UserCountAggregateInput');
+        });
+
+        it('sum', () => {
+            const sum = getPropertyStructure(sourceFile, 'sum');
+            expect(sum?.type).toEqual('UserSumAggregateInput');
+        });
+
+        it('min', () => {
+            const min = getPropertyStructure(sourceFile, 'min');
+            expect(min?.type).toEqual('UserMinAggregateInput');
+        });
+
+        it('max', () => {
+            const max = getPropertyStructure(sourceFile, 'max');
+            expect(max?.type).toEqual('UserMaxAggregateInput');
+        });
+    });
+
+    describe('user count aggregate input', () => {
+        let id: PropertyDeclarationStructure;
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-count-aggregate.input.ts'),
+            )!;
+            id = getPropertyStructure(sourceFile, 'id')!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('property id should have true type', () => {
+            expect(id.type).toEqual('true');
+        });
+
+        it('nullable', () => {
+            expect(id.hasQuestionToken).toEqual(true);
+        });
+
+        it('decorated field type should be boolean', () => {
+            const argument = getFieldType(sourceFile, 'id');
+            expect(argument).toEqual('() => Boolean');
+        });
+    });
+});
+
+it('duplicated fields in exising file', async () => {
+    await testGenerate({
+        schema: `
+            model User {
+              id Int @id
+            }
+        `,
+        sourceFile: {
+            path: 'user/user-create.input.ts',
+            text: `
+            @InputType()
+            export class UserCreateInput {
+                @Field(() => String, {
+                    nullable: true,
+                })
+                id?: string;
+            `,
+        },
+    });
+    sourceFile = project.getSourceFile(s =>
+        s.getFilePath().endsWith('/user-create.input.ts'),
+    )!;
+    const classFile = sourceFile.getClass(() => true)!;
+    const names = classFile.getProperties().map(p => p.getName());
+    expect(names).toStrictEqual(['id']);
+});
+
+describe('one model with scalar types', () => {
+    before(async () => {
+        await testGenerate({
             schema: `model User {
+                id String @id
+                count Int
+                rating Float
+                born DateTime
+                humanoid Boolean
+                money Decimal
+                data Json
+            }`,
+        });
+    });
+
+    describe('user model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user.model.ts'),
+            )!;
+        });
+        describe('property types', () => {
+            it('boolean', () => {
+                expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toEqual(
+                    'boolean',
+                );
+            });
+
+            it('rating', () => {
+                expect(getPropertyStructure(sourceFile, 'rating')?.type).toEqual(
+                    'number',
+                );
+            });
+
+            it('count', () => {
+                expect(getPropertyStructure(sourceFile, 'count')?.type).toEqual(
+                    'number',
+                );
+            });
+
+            it('born', () => {
+                expect(getPropertyStructure(sourceFile, 'born')?.type).toEqual(
+                    'Date | string',
+                );
+            });
+        });
+
+        describe('JSON type', () => {
+            before(() => {
+                imports = getImportDeclarations(sourceFile);
+            });
+
+            it('should import graphqljson', () => {
+                expect(imports).toContainEqual({
+                    name: 'GraphQLJSON',
+                    specifier: 'graphql-type-json',
+                });
+            });
+
+            it('field decorator should return custom graphqljson type', () => {
+                expect(getFieldType(sourceFile, 'data')).toEqual('() => GraphQLJSON');
+            });
+        });
+    });
+
+    describe('datetime filter', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/date-time-filter.input.ts'),
+            )!;
+        });
+
+        // it('^\n', () => console.log(sourceFile.getText()));
+
+        it('equals field type Date', () => {
+            expect(getFieldType(sourceFile, 'equals')).toEqual('() => Date');
+        });
+
+        it('equals is optional', () => {
+            const structure = getPropertyStructure(sourceFile, 'equals');
+            expect(structure?.hasQuestionToken).toEqual(true);
+            expect(getFieldOptions(sourceFile, 'equals')).toContain('nullable: true');
+        });
+
+        it('not property should be object type', () => {
+            expect(getFieldType(sourceFile, 'not')).toContain('DateTimeFilter');
+        });
+
+        it('compatiblity datetime filter', async () => {
+            const classFile = sourceFile.getClass('DateTimeFilter')!;
+            const fieldIn = classFile.getProperty('in')!;
+            expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
+        });
+    });
+
+    describe('user where input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-where.input.ts'),
+            )!;
+            imports = getImportDeclarations(sourceFile);
+        });
+
+        it('number should have int filter', () => {
+            const structure = getPropertyStructure(sourceFile, 'count');
+            expect(structure?.type).toEqual('IntFilter');
+        });
+
+        it('decorator argument int filter', () => {
+            const p = getFieldType(sourceFile, 'count');
+            expect(p).toEqual('() => IntFilter');
+        });
+
+        it('contains scalar filters', () => {
+            expect(imports).toContainEqual({
+                name: 'StringFilter',
+                specifier: '../prisma/string-filter.input',
+            });
+            expect(imports).toContainEqual({
+                name: 'IntFilter',
+                specifier: '../prisma/int-filter.input',
+            });
+        });
+    });
+
+    describe('string filter input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/string-filter.input.ts'),
+            )!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('properties and types', () => {
+            const properties = sourceFile.getClass(() => true)?.getProperties();
+            const structure = (name: string) =>
+                properties?.find(x => x.getName() === name)?.getStructure();
+
+            expect(structure('equals')?.type).toEqual('string');
+            expect(structure('lt')?.type).toEqual('string');
+            expect(structure('lte')?.type).toEqual('string');
+            expect(structure('gt')?.type).toEqual('string');
+            expect(structure('gte')?.type).toEqual('string');
+            expect(structure('contains')?.type).toEqual('string');
+            expect(structure('startsWith')?.type).toEqual('string');
+            expect(structure('endsWith')?.type).toEqual('string');
+
+            expect(structure('in')?.type).toEqual('Array<string>');
+            expect(structure('notIn')?.type).toEqual('Array<string>');
+        });
+    });
+
+    describe('user create input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user-create.input.ts'),
+            )!;
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
+
+        it('imports', () => {
+            const imports = getImportDeclarations(sourceFile);
+            expect(imports).toContainEqual({
+                name: 'InputType',
+                specifier: '@nestjs/graphql',
+            });
+            expect(imports).toContainEqual({
+                name: 'Int',
+                specifier: '@nestjs/graphql',
+            });
+        });
+
+        it('id field type is string', () => {
+            const id = getFieldType(sourceFile, 'id');
+            expect(id).toEqual('() => String');
+        });
+
+        it('float property', () => {
+            const property = getPropertyStructure(sourceFile, 'rating');
+            expect(property?.type).toEqual('number');
+        });
+    });
+});
+
+describe('custom types', () => {
+    describe('custom type in user model', () => {
+        before(async () => {
+            await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               money Decimal
+            }`,
+                options: [
+                    `types_Decimal_fieldType = Dec`,
+                    `types_Decimal_fieldModule = "decimal.js"`,
+                ],
+            });
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user.model.ts'),
+            )!;
+        });
+
+        it('money property should have Dec type', () => {
+            const property = getPropertyStructure(sourceFile, 'money');
+            expect(property?.type).toEqual('Dec');
+        });
+
+        it('import should contain Dec', () => {
+            const imports = getImportDeclarations(sourceFile);
+            expect(imports).toContainEqual({
+                name: 'Dec',
+                specifier: 'decimal.js',
+            });
+        });
+    });
+
+    describe('custom datetime type', () => {
+        before(async () => {
+            await testGenerate({
+                schema: `
+                    model User {
+                        id     Int      @id
+                        birth  DateTime
+                        died   DateTime?
+                    }`,
+                options: [
+                    `types_DateTime_fieldType = "string | Date"`,
+                    `types_DateTime_graphqlType = "Date"`,
+                ],
+            });
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/date-time-filter.input.ts'),
+            );
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('property in', () => {
+            const property = getPropertyStructure(sourceFile, 'in');
+            expect(property.type).toEqual('Array<Date> | Array<string>');
+        });
+
+        it('decorator type should be array date', () => {
+            expect(getFieldType(sourceFile, 'in')).toEqual('() => [Date]');
+        });
+    });
+});
+
+describe('one model with id and enum', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+            /// Role really
+            enum Role {
+                  USER
+                  ADMIN
+                }
+            model User {
+                  id    Int   @id
+                  role  Role
+                }`,
+        });
+    });
+
+    describe('sort order enum', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('sort-order.enum.ts'),
+            )!;
+            sourceText = sourceFile.getText();
+        });
+
+        it('should import registerEnumType', () => {
+            expect(sourceText).toContain(
+                `import { registerEnumType } from '@nestjs/graphql'`,
+            );
+        });
+
+        it('should register SortOrder', () => {
+            expect(sourceText).toContain(
+                `registerEnumType(SortOrder, { name: 'SortOrder' })`,
+            );
+        });
+
+        describe('enum sort order', () => {
+            let structure: EnumDeclarationStructure;
+            before(() => {
+                structure = sourceFile.getEnum('SortOrder')?.getStructure()!;
+            });
+
+            it('should have asc value', () => {
+                expect(structure.members).toContainEqual(
+                    expect.objectContaining({
+                        name: 'asc',
+                        initializer: '"asc"',
+                    }),
+                );
+            });
+
+            it('should have desc value', () => {
+                expect(structure.members).toContainEqual(
+                    expect.objectContaining({
+                        name: 'desc',
+                        initializer: '"desc"',
+                    }),
+                );
+            });
+        });
+    });
+
+    describe('role enum', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('role.enum.ts'),
+            )!;
+            sourceText = sourceFile.getText();
+        });
+
+        it('should contains import registerEnumType with name role', () => {
+            expect(sourceText).toContain(`registerEnumType(Role,`);
+            expect(sourceText).toContain(`name: 'Role'`);
+        });
+
+        it('should contains', () => {
+            expect(sourceText).toContain(`description: "Role really"`);
+        });
+    });
+
+    describe('model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user.model.ts'),
+            )!;
+            sourceText = sourceFile.getText();
+            imports = getImportDeclarations(sourceFile);
+        });
+
+        // it('', () => console.log('sourceText', sourceText));
+
+        it('should import Role as enum', () => {
+            expect(imports).toContainEqual({
+                name: 'Role',
+                specifier: '../prisma/role.enum',
+            });
+        });
+    });
+});
+
+describe('one model with self reference', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `model User {
+                  id Int @id
+                  parent User
+                }`,
+        });
+    });
+
+    describe('model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user.model.ts'),
+            )!;
+            sourceText = sourceFile.getText();
+            imports = getImportDeclarations(sourceFile);
+        });
+
+        // it('', () => console.log('sourceText', sourceText));
+
+        it('should not contain import to self file', () => {
+            expect(imports).not.toContainEqual(
+                expect.objectContaining({ name: 'User' }),
+            );
+        });
+    });
+
+    describe('user list relation filter', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user-list-relation-filter.input.ts'),
+            )!;
+        });
+
+        it('every', () => {
+            const structure = getPropertyStructure(sourceFile, 'every');
+            expect(structure?.type).toEqual('UserWhereInput');
+        });
+
+        it('some', () => {
+            const structure = getPropertyStructure(sourceFile, 'some');
+            expect(structure?.type).toEqual('UserWhereInput');
+        });
+
+        it('none', () => {
+            const structure = getPropertyStructure(sourceFile, 'none');
+            expect(structure?.type).toEqual('UserWhereInput');
+        });
+    });
+});
+
+describe('two models with id only and relation', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+                model User {
+                  id        Int      @id
+                  posts     Post[]
+                }
+                model Post {
+                  id        Int      @id
+                }`,
+        });
+    });
+
+    describe('user model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user.model.ts'),
+            )!;
+        });
+
+        it('posts property', () => {
+            const p = getPropertyStructure(sourceFile, 'posts');
+            expect(p?.type).toEqual('Array<Post>');
+        });
+    });
+});
+
+it('enum with exists source', async () => {
+    await testGenerate({
+        schema: `enum Role {
+                  USER
+                }
+                model User {
+                  id    Int   @id
+                  role  Role
+                }`,
+        sourceFile: {
+            path: 'prisma/role.enum.ts',
+            text: `
+                    export enum Role { USER = "USER" }
+                    registerEnumType(Role, { name: 'Role' })
+                `,
+        },
+    });
+
+    sourceFile = project.getSourceFile(s => s.getFilePath().includes('role.enum.ts'))!;
+    sourceText = sourceFile.getText();
+
+    expect(sourceText.match(/registerEnumType/g)).toHaveLength(2);
+    expect(sourceText.match(/enum Role/g)).toHaveLength(1);
+});
+
+describe('model with one id string', () => {
+    const schema = `
+        model User {
+            id String @id
+        }
+    `;
+
+    it('extend', async () => {
+        await testGenerate({
+            schema,
+            sourceFile: {
+                path: 'user/user.model.ts',
+                text: `@ObjectType() export class User {}`,
+            },
+        });
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('user.model.ts'),
+        )!;
+        sourceText = sourceFile.getText();
+        const filePaths = project.getSourceFiles().map(s => s.getFilePath());
+        expect(sourceText.match(/export class User/g)?.length).toEqual(1);
+    });
+
+    it('remove description', async () => {
+        await testGenerate({
+            schema,
+            sourceFile: {
+                path: 'user/user.model.ts',
+                text: `@ObjectType({ description: 'user description' }) export class User {}`,
+            },
+        });
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('user.model.ts'),
+        )!;
+        const objectType = sourceFile
+            .getClass(() => true)
+            ?.getDecorator('ObjectType')
+            ?.getText();
+        expect(objectType).toEqual('@ObjectType()');
+    });
+
+    it('generated commented class if reexport found', async () => {
+        await testGenerate({
+            schema,
+            sourceFile: {
+                path: 'user/user.model.ts',
+                text: `
+                    export { User } from 'src/user/model'
+                    export { User as UserModel } from 'src/user2/model'
+                `,
+            },
+        });
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('user.model.ts'),
+        )!;
+        sourceText = sourceFile.getText();
+        const sourceClass = sourceFile.getClasses();
+        expect(sourceClass).toHaveLength(0);
+        expect(sourceText).toContain(`export { User } from 'src/user/model'`);
+        expect(sourceText).toContain(`// export class User`);
+    });
+
+    it('no generate another commented class', async () => {
+        await testGenerate({
+            schema,
+            sourceFile: {
+                path: 'user/user.model.ts',
+                text: `
+                export { User } from 'src/user/model'
+
+                // @ObjectType()
+                // export class User { }
+                `,
+            },
+        });
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('user.model.ts'),
+        )!;
+        sourceText = sourceFile.getText();
+        expect(sourceText.match(/export class User/g)).toHaveLength(1);
+        expect(sourceText).toContain('// export class User');
+    });
+
+    describe('dont add decorators', () => {
+        let userClass: ClassDeclaration;
+        let decorator: Decorator | undefined;
+
+        before(async () => {
+            await testGenerate({
+                schema,
+                sourceFile: {
+                    path: 'user/user.model.ts',
+                    text: `
+                    export class User {
+                        id: string;
+                    }
+                `,
+                },
+            });
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user.model.ts'),
+            )!;
+            userClass = sourceFile.getClass('User')!;
+        });
+
+        it('for class', () => {
+            decorator = userClass
+                .getDecorators()
+                .find(d => d.getName() === 'ObjectType');
+            expect(decorator?.getText()).toBeUndefined();
+        });
+
+        it('for property', () => {
+            expect(userClass.getProperties().map(x => x.getName())).toHaveLength(1);
+            decorator = userClass.getProperty('id')!.getDecorator('Field');
+            expect(decorator?.getText()).toBeUndefined();
+        });
+    });
+});
+
+it('smoke many', async () => {
+    await testGenerate({
+        schema: `model User {
               id        Int      @id
               name      String?
               profile   Profile?
               comments  Comment[]
-              role      Role
             }
             model Profile {
                 id        Int      @id
@@ -50,515 +896,26 @@ describe('main generate', () => {
             }
             model Comment {
                 id        Int      @id
-            }
-            enum Role {
-                USER
-            }
-            `,
-        });
-        const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-        expect(filePaths).not.toHaveLength(0);
-    });
-
-    it('relations models', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        Int      @id
-              posts     Post[]
-            }
-            model Post {
-              id        Int      @id
-              author    User?    @relation(fields: [authorId], references: [id])
-              authorId  Int?
             }`,
-        });
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().toLowerCase().endsWith('/user.model.ts'),
-        )!;
-        assert(sourceFile, `File do not exists`);
-
-        const property = sourceFile.getClass('User')?.getProperty('posts');
-        assert(property, 'Property posts should exists');
-
-        expect(property.getText()).toContain('@Field(() => [Post]');
-        expect(property.getStructure().type).toEqual('Array<Post>');
-
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().toLowerCase().endsWith('/post.model.ts'),
-        )!;
-        assert(sourceFile);
-        sourceText = sourceFile.getText();
-        stringContains(`import { User } from '../user/user.model'`, sourceText);
-    });
-
-    it('whereinput should be used in relation filter', async () => {
-        await getResult({
-            schema: `
-            model User {
-                id       String     @id
-                articles Article[]  @relation("ArticleAuthor")
-            }
-            model Article {
-                id        String @id
-                author    User   @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
-                authorId  String
-            }
-            `,
-        });
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().toLowerCase().endsWith('/article-where.input.ts'),
-        )!;
-        assert(sourceFile, `File do not exists`);
-
-        property = sourceFile.getClass('ArticleWhereInput')?.getProperty('author');
-        assert(property, 'Property author should exists');
-
-        assert.strictEqual(
-            property.getStructure().decorators?.[0].arguments?.[0],
-            '() => UserWhereInput',
-            'Union type not yet supported, WhereInput should be used as more common',
-        );
-
-        const imports = sourceFile.getImportDeclarations().flatMap(d =>
-            d.getNamedImports().map(index => ({
-                name: index.getName(),
-                specifier: d.getModuleSpecifierValue(),
-            })),
-        );
-        assert(
-            imports.find(({ name }) => name === 'UserWhereInput'),
-            'UserWhereInput should be imported',
-        );
-    });
-
-    it('generator option outputFilePattern', async () => {
-        await getResult({
-            schema: `model User {
-                    id Int @id
-                }`,
-            options: [`outputFilePattern = "data/{type}/{name}.ts"`],
-        });
-        const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-        expect(filePaths).toContainEqual(
-            expect.stringContaining('/data/model/user.ts'),
-        );
-    });
-
-    it('output group by feature', async () => {
-        await getResult({
-            schema: `model User {
-                    id Int @id
-                }`,
-        });
-        const filePaths = new Set(sourceFiles.map(s => String(s.getFilePath())));
-        expect(filePaths).toContainEqual('/user/user-where.input.ts');
-        expect(filePaths).toContainEqual('/prisma/int-filter.input.ts');
-    });
-
-    it('generate enum file', async () => {
-        await getResult({
-            schema: `
-                model User {
-                  id    Int   @id
-                }
-            `,
-        });
-        const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-        expect(filePaths).toContain('/prisma/sort-order.enum.ts');
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        sourceText = sourceFiles
-            .find(s => s.getFilePath().endsWith('sort-order.enum.ts'))
-            ?.getText()!;
-        assert(sourceText);
-    });
-
-    it('no nullable type', async () => {
-        await getResult({
-            schema: `
-                model User {
-                  id    Int   @id
-                  countComments Int?
-                }
-            `,
-        });
-        for (const d of sourceFiles
-            .flatMap(s => s.getClasses())
-            .flatMap(d => d.getProperties())
-            .flatMap(p => p.getDecorators())) {
-            const argument = d.getCallExpression()?.getArguments()?.[0].getText();
-            assert.notStrictEqual(argument, '() => null');
-        }
-    });
-
-    it('user avg aggregate input', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id     String      @id
-              age    Int
-            }
-            `,
-        });
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().endsWith('user-avg-aggregate.input.ts'),
-        );
-        assert(sourceFile);
-        const classDeclaration = sourceFile.getClass('UserAvgAggregateInput');
-        assert(classDeclaration, 'class not found');
-        const propertyDeclaration = classDeclaration.getProperty('age');
-        assert(propertyDeclaration, 'age');
-        const decorator = propertyDeclaration.getDecorator('Field');
-        assert(decorator);
-        const struct = decorator.getStructure();
-        expect(struct.arguments?.[0]).toEqual('() => Boolean');
-    });
-
-    it('get rid of atomic number operations', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id String @id
-              age Int
-              rating Float?
-            }
-            `,
-            options: [`noAtomicNumberOperations = true`],
-        });
-        for (const file of [
-            'float-field-update-operations.input.ts',
-            'int-field-update-operations.input.ts',
-            'string-field-update-operations.input.ts',
-        ]) {
-            assert(
-                !sourceFiles.some(s => s.getFilePath().endsWith(file)),
-                `File ${file} should not exists`,
-            );
-        }
-
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().endsWith('user-update.input.ts'),
-        );
-        assert(sourceFile);
-
-        const classDeclaration = sourceFile.getClass('UserUpdateInput');
-        assert(classDeclaration);
-
-        const id = classDeclaration.getProperty('id')?.getStructure();
-        assert(id);
-        assert.strictEqual(id.type, 'string');
-        let args = classDeclaration
-            .getProperty('id')
-            ?.getDecorator('Field')
-            ?.getArguments()
-            .map(a => a.getText());
-        assert.strictEqual(args?.[0], '() => String');
-
-        const age = classDeclaration.getProperty('age')?.getStructure();
-        assert(age);
-        assert.strictEqual(age.type, 'number');
-        args = classDeclaration
-            .getProperty('age')
-            ?.getDecorator('Field')
-            ?.getArguments()
-            .map(a => a.getText());
-        assert.strictEqual(args?.[0], '() => Int');
-
-        const rating = classDeclaration.getProperty('rating')?.getStructure();
-        assert(rating);
-        expect(rating.type).toEqual('number');
-        args = classDeclaration
-            .getProperty('rating')
-            ?.getDecorator('Field')
-            ?.getArguments()
-            .map(a => a.getText());
-        assert.strictEqual(args?.[0], '() => Float');
-    });
-
-    it('user args type', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id String @id
-              age Int
-              rating Float?
-            }
-            `,
-            options: [`noAtomicNumberOperations = true`],
-        });
-        for (const file of [
-            'aggregate-user.args.ts',
-            'find-many-user.args.ts',
-            'find-unique-user.args.ts',
-        ]) {
-            assert(
-                sourceFiles.find(s => s.getFilePath().endsWith(file)),
-                `File ${file} should exists`,
-            );
-        }
-
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().endsWith('aggregate-user.args.ts'),
-        );
-        assert(sourceFile);
-
-        const classDeclaration = sourceFile.getClass('AggregateUserArgs');
-        assert(classDeclaration);
-
-        let struct = classDeclaration.getProperty('count')?.getStructure();
-        let decoratorArguments = struct?.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => Boolean');
-
-        struct = classDeclaration.getProperty('avg')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserAvgAggregateInput');
-        decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => UserAvgAggregateInput');
-
-        struct = classDeclaration.getProperty('sum')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserSumAggregateInput');
-        decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => UserSumAggregateInput');
-
-        struct = classDeclaration.getProperty('min')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserMinAggregateInput');
-        decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => UserMinAggregateInput');
-
-        struct = classDeclaration.getProperty('max')?.getStructure();
-        assert.strictEqual(struct?.type, 'UserMaxAggregateInput');
-        decoratorArguments = struct.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => UserMaxAggregateInput');
-
-        const imports = getImportDeclarations(sourceFile);
-
-        assert(imports.find(x => x.name === 'UserAvgAggregateInput'));
-        assert(imports.find(x => x.name === 'UserSumAggregateInput'));
-        assert(imports.find(x => x.name === 'UserMinAggregateInput'));
-        assert(imports.find(x => x.name === 'UserMaxAggregateInput'));
-    });
-
-    it('aggregate output types', async () => {
-        await getResult({
-            options: [`noAtomicNumberOperations = true`],
-            schema: `
-            model User {
-              id String @id
-              age Int
-              rating Float?
-            }
-            `,
-        });
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().endsWith('user-avg-aggregate.output.ts'),
-        );
-        assert(sourceFile);
-        const classDeclaration = sourceFile.getClass('UserAvgAggregate');
-        assert(classDeclaration);
-
-        let struct = classDeclaration.getProperty('age')?.getStructure();
-        let decoratorArguments = struct?.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => Float');
-
-        struct = classDeclaration.getProperty('rating')?.getStructure();
-        decoratorArguments = struct?.decorators?.[0].arguments;
-        assert.strictEqual(decoratorArguments?.[0], '() => Float');
-    });
-
-    it('no combine scalar filters', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        Int      @id
-              int       Int?
-              str       String?
-              bool      Boolean?
-              date      DateTime?
-            }
-            `,
-            options: [`combineScalarFilters = false`],
-        });
-        const userWhereInput = sourceFiles.find(s =>
-            s.getFilePath().endsWith('user-where.input.ts'),
-        );
-        assert(userWhereInput);
-        const fileImports = new Set(
-            getImportDeclarations(userWhereInput).map(x => x.name),
-        );
-        assert(fileImports.has('StringNullableFilter'));
-        assert(fileImports.has('IntNullableFilter'));
-        assert(fileImports.has('DateTimeNullableFilter'));
-    });
-
-    it('combine scalar filters enabled', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        Int      @id
-              int       Int?
-              str1       String?
-              str2       String
-              bool1      Boolean?
-              bool2      Boolean
-              date1      DateTime?
-              date2      DateTime
-              f1      Float?
-              f2      Float
-              role1      Role?
-              role2      Role
-            }
-            enum Role {
-                USER
-            }
-            `,
-            options: [`combineScalarFilters = true`],
-        });
-        const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-        for (const filePath of filePaths) {
-            expect(filePath).not.toContain('nullable');
-            expect(filePath).not.toContain('nested');
-        }
-        for (const sourceFile of sourceFiles) {
-            for (const statement of getImportDeclarations(sourceFile)) {
-                if (statement.name.includes('Nullable')) {
-                    assert.fail(
-                        `${sourceFile.getFilePath()} imports nullable ${
-                            statement.name
-                        }`,
-                    );
-                }
-                if (statement.name.includes('Nested')) {
-                    assert.fail(
-                        `${sourceFile.getFilePath()} imports nested ${statement.name}`,
-                    );
-                }
-            }
-        }
-    });
-
-    it('option noAtomicNumberOperations false', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        String      @id
-              int1      Int
-              int2      Int?
-              f1        Float?
-              f2        Float
-              role1     Role?
-              role2     Role
-            }
-            enum Role {
-                USER
-            }
-            `,
-            options: [`noAtomicNumberOperations = false`],
-        });
-        expect(sourceFiles.length).toBeGreaterThan(0);
-        for (const sourceFile of sourceFiles) {
-            for (const classDeclaration of sourceFile.getClasses()) {
-                if (
-                    classDeclaration.getName()?.endsWith('FieldUpdateOperationsInput')
-                ) {
-                    throw new Error(
-                        `Class should not exists ${classDeclaration.getName()!}`,
-                    );
-                }
-            }
-        }
-        for (const struct of sourceFiles
-            .flatMap(s => s.getClasses())
-            .filter(c =>
-                ['UserUpdateInput', 'UserUpdateManyMutationInput'].includes(
-                    c.getName()!,
-                ),
-            )
-            .flatMap(c => c.getProperties())
-            .map(p => p.getStructure())
-            .map(({ name, type }) => ({
-                name,
-                type,
-                types: (type as string).split('|').map(s => s.trim()),
-            }))) {
-            if (struct.types.some(s => s.endsWith('FieldUpdateOperationsInput'))) {
-                throw new Error(`Property ${struct.name} typed ${String(struct.type)}`);
-            }
-        }
-    });
-
-    it('scalar filter with enabled combineScalarFilters', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id Int @id
-              p3 String?
-            }
-            `,
-            options: [`combineScalarFilters = true`],
-        });
-        expect(sourceFiles.length).toBeGreaterThan(0);
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().toLowerCase().endsWith('/string-filter.input.ts'),
-        )!;
-        const classFile = sourceFile.getClass('StringFilter')!;
-        const fieldEquals = classFile.getProperty('equals')!;
-        expect(fieldEquals.getStructure().type).toEqual('string');
-    });
-
-    it('fields are not duplicated (prevent second generation)', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id Int @id
-            }
-            `,
-        });
-        sourceFile = sourceFiles.find(s =>
-            s.getFilePath().endsWith('int-filter.input.ts'),
-        );
-        const classFile = sourceFile!.getClass('IntFilter')!;
-        const names = classFile.getProperties().map(p => p.getName());
-        expect(names).toStrictEqual([...new Set(names)]);
-    });
-
-    it('export all from index', async () => {
-        await getResult({
-            schema: `
-            model User {
-              id        Int      @id
-              posts     Post[]
-            }
-            model Post {
-              id        Int      @id
-              author    User?    @relation(fields: [authorId], references: [id])
-              authorId  Int?
-            }`,
-        });
-        await reexport(project);
-
-        sourceFile = project.getSourceFile('/user/index.ts')!;
-        expect(sourceFile.getText()).toContain(
-            `export { AggregateUser } from './aggregate-user.output'`,
-        );
-        expect(sourceFile.getText()).toContain(`export { User } from './user.model'`);
-        expect(sourceFile.getText()).toContain(
-            `export { UserCreateInput } from './user-create.input'`,
-        );
-
-        sourceFile = project.getSourceFile('/post/index.ts')!;
-        expect(sourceFile.getText()).toContain(
-            `export { AggregatePost } from './aggregate-post.output'`,
-        );
-        expect(sourceFile.getText()).toContain(`export { Post } from './post.model'`);
-        expect(sourceFile.getText()).toContain(
-            `export { PostCreateInput } from './post-create.input'`,
-        );
-
-        sourceFile = project.getSourceFile('/index.ts')!;
-        expect(sourceFile.getText()).toContain(`SortOrder } from './prisma'`);
-        expect(sourceFile.getText()).toContain(
-            `export { AffectedRows, FloatFilter, IntFilter, IntWithAggregatesFilter, SortOrder } from './prisma'`,
-        );
-        expect(sourceFile.getText()).toContain(`from './user'`);
-        expect(sourceFile.getText()).toContain(`from './post'`);
     });
 });
+
+// it('hide field', async () => {
+//         await getResult({
+//             schema: `
+//             model User {
+//               id String @id
+//               /// @TypeGraphQL.omit(output: true)
+//               /// Regular documentation
+//               password String
+//             }
+//             `,
+//             options: [],
+//         });
+//         const property = getStructure({
+//             sourceFile,
+//             className: 'User',
+//             property: 'password',
+//         });
+//         expect(property?.decorators?.[0]?.name).toEqual('HideField');
+//     });

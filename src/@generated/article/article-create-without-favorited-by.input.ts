@@ -1,8 +1,8 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { CommentCreateManyWithoutArticleInput } from '../comment/comment-create-many-without-article.input';
-import { TagCreateManyWithoutArticlesInput } from '../tag/tag-create-many-without-articles.input';
-import { UserCreateOneWithoutArticlesInput } from '../user/user-create-one-without-articles.input';
+import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-create-nested-many-without-article.input';
+import { TagCreateNestedManyWithoutArticlesInput } from '../tag/tag-create-nested-many-without-articles.input';
+import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nested-one-without-articles.input';
 
 @InputType()
 export class ArticleCreateWithoutFavoritedByInput {
@@ -31,12 +31,12 @@ export class ArticleCreateWithoutFavoritedByInput {
     })
     body!: string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     createdAt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     updatedAt?: Date | string;
@@ -51,18 +51,18 @@ export class ArticleCreateWithoutFavoritedByInput {
     })
     active?: boolean;
 
-    @Field(() => TagCreateManyWithoutArticlesInput, {
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, {
         nullable: true,
     })
-    tags?: TagCreateManyWithoutArticlesInput;
+    tags?: TagCreateNestedManyWithoutArticlesInput;
 
-    @Field(() => UserCreateOneWithoutArticlesInput, {
+    @Field(() => UserCreateNestedOneWithoutArticlesInput, {
         nullable: false,
     })
-    author!: UserCreateOneWithoutArticlesInput;
+    author!: UserCreateNestedOneWithoutArticlesInput;
 
-    @Field(() => CommentCreateManyWithoutArticleInput, {
+    @Field(() => CommentCreateNestedManyWithoutArticleInput, {
         nullable: true,
     })
-    comments?: CommentCreateManyWithoutArticleInput;
+    comments?: CommentCreateNestedManyWithoutArticleInput;
 }

@@ -23,8 +23,8 @@ export class DummyUncheckedCreateInput {
     })
     bigInt?: BigInt;
 
-    @Field(() => GraphQLJSON, {
+    @Field(() => String, {
         nullable: true,
     })
-    json?: Record<string, any>;
+    json?: any;
 }

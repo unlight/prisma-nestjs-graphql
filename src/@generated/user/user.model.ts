@@ -38,29 +38,29 @@ export class User {
     image?: string;
 
     @Field(() => [User], {
-        nullable: false,
+        nullable: true,
     })
-    following!: Array<User>;
+    following?: Array<User>;
 
     @Field(() => [User], {
-        nullable: false,
+        nullable: true,
     })
-    followers!: Array<User>;
+    followers?: Array<User>;
 
     @Field(() => [Article], {
-        nullable: false,
+        nullable: true,
     })
-    favoriteArticles!: Array<Article>;
+    favoriteArticles?: Array<Article>;
 
     @Field(() => [Article], {
-        nullable: false,
+        nullable: true,
     })
-    articles!: Array<Article>;
+    articles?: Array<Article>;
 
     @Field(() => [Comment], {
-        nullable: false,
+        nullable: true,
     })
-    comments!: Array<Comment>;
+    comments?: Array<Comment>;
 
     @Field(() => Int, {
         nullable: true,

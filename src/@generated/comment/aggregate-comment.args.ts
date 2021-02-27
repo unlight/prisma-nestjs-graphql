@@ -1,5 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
+import { CommentCountAggregateInput } from './comment-count-aggregate.input';
 import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
 import { CommentMinAggregateInput } from './comment-min-aggregate.input';
 import { CommentOrderByInput } from './comment-order-by.input';
@@ -33,10 +34,10 @@ export class AggregateCommentArgs {
     })
     skip?: number;
 
-    @Field(() => Boolean, {
+    @Field(() => CommentCountAggregateInput, {
         nullable: true,
     })
-    count?: true;
+    count?: CommentCountAggregateInput;
 
     @Field(() => CommentMinAggregateInput, {
         nullable: true,

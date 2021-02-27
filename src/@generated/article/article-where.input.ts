@@ -1,13 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { BooleanFilter } from '../prisma/boolean-filter.input';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
-import { UserWhereInput } from '../user/user-where.input';
+import { UserRelationFilter } from '../user/user-relation-filter.input';
 
 @InputType()
 export class ArticleWhereInput {
@@ -71,10 +71,10 @@ export class ArticleWhereInput {
     })
     favoritesCount?: IntFilter;
 
-    @Field(() => UserWhereInput, {
+    @Field(() => UserRelationFilter, {
         nullable: true,
     })
-    author?: UserWhereInput;
+    author?: UserRelationFilter;
 
     @Field(() => StringFilter, {
         nullable: true,
@@ -91,8 +91,8 @@ export class ArticleWhereInput {
     })
     comments?: CommentListRelationFilter;
 
-    @Field(() => BooleanFilter, {
+    @Field(() => BoolNullableFilter, {
         nullable: true,
     })
-    active?: BooleanFilter;
+    active?: BoolNullableFilter;
 }

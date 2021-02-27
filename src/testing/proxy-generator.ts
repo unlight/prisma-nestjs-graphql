@@ -19,7 +19,7 @@ generatorHandler({
     onManifest() {
         return {
             defaultOutput: '.',
-            prettyName: 'dummy generator',
+            prettyName: 'proxy generator',
             requiresGenerators: ['prisma-client-js'],
         };
     },

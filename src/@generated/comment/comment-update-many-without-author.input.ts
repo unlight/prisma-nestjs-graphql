@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { CommentCreateManyAuthorEnvelopeInput } from './comment-create-many-author-envelope.input';
+import { CommentCreateManyAuthorInputEnvelope } from './comment-create-many-author-input-envelope.input';
 import { CommentCreateOrConnectWithoutAuthorInput } from './comment-create-or-connect-without-author.input';
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
@@ -26,10 +26,10 @@ export class CommentUpdateManyWithoutAuthorInput {
     })
     upsert?: Array<CommentUpsertWithWhereUniqueWithoutAuthorInput>;
 
-    @Field(() => CommentCreateManyAuthorEnvelopeInput, {
+    @Field(() => CommentCreateManyAuthorInputEnvelope, {
         nullable: true,
     })
-    createMany?: CommentCreateManyAuthorEnvelopeInput;
+    createMany?: CommentCreateManyAuthorInputEnvelope;
 
     @Field(() => [CommentWhereUniqueInput], {
         nullable: true,

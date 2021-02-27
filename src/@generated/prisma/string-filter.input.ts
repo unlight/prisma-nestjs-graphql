@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { NestedStringFilter } from './nested-string-filter.input';
 import { QueryMode } from './query-mode.enum';
 
 @InputType()
@@ -59,8 +60,8 @@ export class StringFilter {
     })
     mode?: QueryMode;
 
-    @Field(() => StringFilter, {
+    @Field(() => NestedStringFilter, {
         nullable: true,
     })
-    not?: StringFilter;
+    not?: NestedStringFilter;
 }

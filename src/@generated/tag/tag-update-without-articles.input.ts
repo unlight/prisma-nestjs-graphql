@@ -1,14 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+
 @InputType()
 export class TagUpdateWithoutArticlesInput {
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    id?: string;
+    id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => StringFieldUpdateOperationsInput, {
         nullable: true,
     })
-    name?: string;
+    name?: StringFieldUpdateOperationsInput;
 }

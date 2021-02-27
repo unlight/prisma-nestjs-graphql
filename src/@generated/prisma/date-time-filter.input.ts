@@ -1,44 +1,46 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { NestedDateTimeFilter } from './nested-date-time-filter.input';
+
 @InputType()
 export class DateTimeFilter {
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     equals?: Date | string;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     in?: Array<Date> | Array<string>;
 
-    @Field(() => [String], {
+    @Field(() => [Date], {
         nullable: true,
     })
     notIn?: Array<Date> | Array<string>;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     lte?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gt?: Date | string;
 
-    @Field(() => String, {
+    @Field(() => Date, {
         nullable: true,
     })
     gte?: Date | string;
 
-    @Field(() => DateTimeFilter, {
+    @Field(() => NestedDateTimeFilter, {
         nullable: true,
     })
-    not?: DateTimeFilter;
+    not?: NestedDateTimeFilter;
 }

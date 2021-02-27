@@ -1,8 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { IntFilter } from './int-filter.input';
+import { NestedIntFilter } from './nested-int-filter.input';
+import { NestedStringFilter } from './nested-string-filter.input';
+import { NestedStringWithAggregatesFilter } from './nested-string-with-aggregates-filter.input';
 import { QueryMode } from './query-mode.enum';
-import { StringFilter } from './string-filter.input';
 
 @InputType()
 export class StringWithAggregatesFilter {
@@ -61,23 +62,23 @@ export class StringWithAggregatesFilter {
     })
     mode?: QueryMode;
 
-    @Field(() => StringWithAggregatesFilter, {
+    @Field(() => NestedStringWithAggregatesFilter, {
         nullable: true,
     })
-    not?: StringWithAggregatesFilter;
+    not?: NestedStringWithAggregatesFilter;
 
-    @Field(() => IntFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    count?: IntFilter;
+    count?: NestedIntFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => NestedStringFilter, {
         nullable: true,
     })
-    min?: StringFilter;
+    min?: NestedStringFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => NestedStringFilter, {
         nullable: true,
     })
-    max?: StringFilter;
+    max?: NestedStringFilter;
 }

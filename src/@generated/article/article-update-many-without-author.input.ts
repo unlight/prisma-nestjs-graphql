@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleCreateManyAuthorEnvelopeInput } from './article-create-many-author-envelope.input';
+import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input';
 import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
 import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
@@ -26,10 +26,10 @@ export class ArticleUpdateManyWithoutAuthorInput {
     })
     upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 
-    @Field(() => ArticleCreateManyAuthorEnvelopeInput, {
+    @Field(() => ArticleCreateManyAuthorInputEnvelope, {
         nullable: true,
     })
-    createMany?: ArticleCreateManyAuthorEnvelopeInput;
+    createMany?: ArticleCreateManyAuthorInputEnvelope;
 
     @Field(() => [ArticleWhereUniqueInput], {
         nullable: true,
