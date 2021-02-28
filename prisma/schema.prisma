@@ -13,7 +13,6 @@ generator nestgraphql {
     output   = "../src/@generated"
     noAtomicOperations = false
     combineScalarFilters = true
-    renameZooTypes = false
 }
 
 model User {

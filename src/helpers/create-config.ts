@@ -33,8 +33,5 @@ export function createConfig(data: Record<string, string | undefined>) {
         reExportAll: ['true', '1', 'on'].includes(
             (config.reExportAll as Nullable<string>) ?? 'false',
         ),
-        renameZooTypes: ['true', '1', 'on'].includes(
-            (config.renameZooTypes as Nullable<string>) ?? 'false',
-        ),
     };
 }
