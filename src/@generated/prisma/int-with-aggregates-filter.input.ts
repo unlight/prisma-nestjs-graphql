@@ -1,8 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { NestedFloatFilter } from './nested-float-filter.input';
-import { NestedIntFilter } from './nested-int-filter.input';
-import { NestedIntWithAggregatesFilter } from './nested-int-with-aggregates-filter.input';
+import { FloatFilter } from './float-filter.input';
+import { IntFilter } from './int-filter.input';
 
 @InputType()
 export class IntWithAggregatesFilter {
@@ -41,33 +40,33 @@ export class IntWithAggregatesFilter {
     })
     gte?: number;
 
-    @Field(() => NestedIntWithAggregatesFilter, {
+    @Field(() => IntWithAggregatesFilter, {
         nullable: true,
     })
-    not?: NestedIntWithAggregatesFilter;
+    not?: IntWithAggregatesFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    count?: NestedIntFilter;
+    count?: IntFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => FloatFilter, {
         nullable: true,
     })
-    avg?: NestedFloatFilter;
+    avg?: FloatFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    sum?: NestedIntFilter;
+    sum?: IntFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    min?: NestedIntFilter;
+    min?: IntFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    max?: NestedIntFilter;
+    max?: IntFilter;
 }

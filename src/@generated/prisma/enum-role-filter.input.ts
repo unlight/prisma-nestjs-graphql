@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { Role } from './role.enum';
 
 @InputType()
-export class NestedEnumRoleNullableFilter {
+export class EnumRoleFilter {
     @Field(() => Role, {
         nullable: true,
     })
@@ -19,8 +19,8 @@ export class NestedEnumRoleNullableFilter {
     })
     notIn?: Array<Role>;
 
-    @Field(() => NestedEnumRoleNullableFilter, {
+    @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    not?: NestedEnumRoleNullableFilter;
+    not?: EnumRoleFilter;
 }

@@ -1,78 +1,73 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { BigIntFilter } from './big-int-filter.input';
+import { FloatFilter } from './float-filter.input';
 import { IntFilter } from './int-filter.input';
-import { QueryMode } from './query-mode.enum';
-import { StringFilter } from './string-filter.input';
 
 @InputType()
-export class StringWithAggregatesFilter {
+export class BigIntWithAggregatesFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: string;
+    equals?: BigInt;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<string>;
+    in?: Array<BigInt>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<string>;
+    notIn?: Array<BigInt>;
 
     @Field(() => String, {
         nullable: true,
     })
-    lt?: string;
+    lt?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    lte?: string;
+    lte?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    gt?: string;
+    gt?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    gte?: string;
+    gte?: BigInt;
 
-    @Field(() => String, {
+    @Field(() => BigIntWithAggregatesFilter, {
         nullable: true,
     })
-    contains?: string;
-
-    @Field(() => String, {
-        nullable: true,
-    })
-    startsWith?: string;
-
-    @Field(() => String, {
-        nullable: true,
-    })
-    endsWith?: string;
-
-    @Field(() => StringWithAggregatesFilter, {
-        nullable: true,
-    })
-    not?: StringWithAggregatesFilter;
+    not?: BigIntWithAggregatesFilter;
 
     @Field(() => IntFilter, {
         nullable: true,
     })
     count?: IntFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => FloatFilter, {
         nullable: true,
     })
-    min?: StringFilter;
+    avg?: FloatFilter;
 
-    @Field(() => StringFilter, {
+    @Field(() => BigIntFilter, {
         nullable: true,
     })
-    max?: StringFilter;
+    sum?: BigIntFilter;
+
+    @Field(() => BigIntFilter, {
+        nullable: true,
+    })
+    min?: BigIntFilter;
+
+    @Field(() => BigIntFilter, {
+        nullable: true,
+    })
+    max?: BigIntFilter;
 }

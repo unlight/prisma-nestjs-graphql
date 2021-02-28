@@ -1,10 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input';
-import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
+import { FloatFilter } from '../prisma/float-filter.input';
+import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
 @InputType()
 export class UserScalarWhereInput {
@@ -43,28 +42,28 @@ export class UserScalarWhereInput {
     })
     password?: StringFilter;
 
-    @Field(() => StringNullableFilter, {
+    @Field(() => StringFilter, {
         nullable: true,
     })
-    bio?: StringNullableFilter;
+    bio?: StringFilter;
 
-    @Field(() => StringNullableFilter, {
+    @Field(() => StringFilter, {
         nullable: true,
     })
-    image?: StringNullableFilter;
+    image?: StringFilter;
 
-    @Field(() => IntNullableFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    countComments?: IntNullableFilter;
+    countComments?: IntFilter;
 
-    @Field(() => FloatNullableFilter, {
+    @Field(() => FloatFilter, {
         nullable: true,
     })
-    rating?: FloatNullableFilter;
+    rating?: FloatFilter;
 
-    @Field(() => EnumRoleNullableFilter, {
+    @Field(() => EnumRoleFilter, {
         nullable: true,
     })
-    role?: EnumRoleNullableFilter;
+    role?: EnumRoleFilter;
 }

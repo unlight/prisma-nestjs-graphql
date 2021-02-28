@@ -1,7 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
@@ -46,8 +45,8 @@ export class CommentScalarWhereWithAggregatesInput {
     })
     authorId?: StringWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {
+    @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    articleId?: StringNullableWithAggregatesFilter;
+    articleId?: StringWithAggregatesFilter;
 }

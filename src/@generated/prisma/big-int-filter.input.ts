@@ -1,46 +1,44 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.input';
-
 @InputType()
-export class DecimalNullableFilter {
+export class BigIntFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: string;
+    equals?: BigInt;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<string>;
+    in?: Array<BigInt>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<string>;
+    notIn?: Array<BigInt>;
 
     @Field(() => String, {
         nullable: true,
     })
-    lt?: string;
+    lt?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    lte?: string;
+    lte?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    gt?: string;
+    gt?: BigInt;
 
     @Field(() => String, {
         nullable: true,
     })
-    gte?: string;
+    gte?: BigInt;
 
-    @Field(() => NestedDecimalNullableFilter, {
+    @Field(() => BigIntFilter, {
         nullable: true,
     })
-    not?: NestedDecimalNullableFilter;
+    not?: BigIntFilter;
 }

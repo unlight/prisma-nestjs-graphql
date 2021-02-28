@@ -1,4 +1,3 @@
-/* eslint-disable import/max-dependencies */
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
@@ -6,14 +5,12 @@ import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
 import { argsType } from './handlers/args-type';
+import { combineScalarFilters } from './handlers/combine-scalar-filters';
 import { createAggregateInput } from './handlers/create-aggregate-input';
 import { generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
-import {
-    noAtomicBeforeGenerateFiles,
-    noAtomicOperations,
-} from './handlers/no-atomic-operations';
+import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
@@ -21,28 +18,13 @@ import { createConfig } from './helpers/create-config';
 import { generateFileName } from './helpers/generate-file-name';
 import { DMMF, EventArguments, Model, OutputType } from './types';
 
-export const eventEmitter = new AwaitEventEmitter();
-
-// eventEmitter.on('inputType', () => console.log('>>>>>>>>> inputType'));
-
-eventEmitter.on('model', modelData);
-eventEmitter.on('enumType', registerEnum);
-eventEmitter.on('outputType', outputType);
-eventEmitter.on('aggregateOutput', createAggregateInput);
-eventEmitter.on('inputType', inputType);
-eventEmitter.on('argsType', argsType);
-eventEmitter.on('generateFiles', generateFiles);
-eventEmitter.on('inputType', typeNames);
-
-eventEmitter.on('beforeInputType', noAtomicOperations);
-eventEmitter.on('beforeGenerateFiles', noAtomicBeforeGenerateFiles);
-
 export async function generate(
     args: GeneratorOptions & {
         prismaClientDmmf?: DMMF.Document;
+        connectCallback?: (emitter: AwaitEventEmitter) => void | Promise<void>;
     },
 ) {
-    const { generator, otherGenerators } = args;
+    const { connectCallback, generator, otherGenerators } = args;
     const config = createConfig(generator.config);
     assert(generator.output, 'generator.output is empty');
     const prismaClientOutput = otherGenerators.find(
@@ -57,6 +39,21 @@ export async function generate(
             quoteKind: QuoteKind.Single,
         },
     });
+
+    const eventEmitter = new AwaitEventEmitter();
+
+    eventEmitter.on('model', modelData);
+    eventEmitter.on('enumType', registerEnum);
+    eventEmitter.on('outputType', outputType);
+    eventEmitter.on('aggregateOutput', createAggregateInput);
+    eventEmitter.on('inputType', inputType);
+    eventEmitter.on('inputType', typeNames);
+    eventEmitter.on('argsType', argsType);
+    eventEmitter.on('generateFiles', generateFiles);
+
+    config.combineScalarFilters && combineScalarFilters(eventEmitter);
+    config.noAtomicOperations && noAtomicOperations(eventEmitter);
+
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
     const queryOutputTypes: OutputType[] = [];
@@ -84,7 +81,12 @@ export async function generate(
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
+        context: {},
     };
+
+    if (connectCallback) {
+        await connectCallback(eventEmitter);
+    }
 
     await eventEmitter.emit('begin', eventArguments);
 
@@ -122,4 +124,8 @@ export async function generate(
     await eventEmitter.emit('beforeGenerateFiles', eventArguments);
     await eventEmitter.emit('generateFiles', eventArguments);
     await eventEmitter.emit('end', eventArguments);
+
+    for (const name of Object.keys(eventEmitter._events)) {
+        eventEmitter.off(name);
+    }
 }

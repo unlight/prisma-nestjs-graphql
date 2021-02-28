@@ -1,3 +1,4 @@
+import AwaitEventEmitter from 'await-event-emitter';
 import expect from 'expect';
 import {
     ClassDeclaration,
@@ -9,7 +10,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { eventEmitter, generate } from './generate';
+import { generate } from './generate';
 import {
     createGeneratorOptions,
     getFieldOptions,
@@ -35,19 +36,22 @@ async function testGenerate(args: {
     };
 }) {
     const { schema, options, sourceFile } = args;
-    eventEmitter.off('generateFiles');
-    if (sourceFile) {
-        eventEmitter.once('begin', ({ project }: { project: Project }) => {
-            project.createSourceFile(sourceFile.path, sourceFile.text, {
-                overwrite: true,
+    const connectCallback = (emitter: AwaitEventEmitter) => {
+        emitter.off('generateFiles');
+        if (sourceFile) {
+            emitter.once('begin', ({ project }: { project: Project }) => {
+                project.createSourceFile(sourceFile.path, sourceFile.text, {
+                    overwrite: true,
+                });
             });
+        }
+        emitter.once('end', (args: { project: Project }) => {
+            ({ project } = args);
         });
-    }
-    eventEmitter.once('end', (args: { project: Project }) => {
-        ({ project } = args);
-    });
+    };
     await generate({
         ...(await createGeneratorOptions(schema, options)),
+        connectCallback,
     });
 
     sourceFiles = project.getSourceFiles();
@@ -994,6 +998,11 @@ describe('combine scalar filters', () => {
                 humanoid Boolean?
                 money Decimal?
                 data Json?
+                role Role?
+            }
+            enum Role {
+                USER
+                ADMIN
             }
             `,
             options: [
@@ -1004,10 +1013,28 @@ describe('combine scalar filters', () => {
     });
 
     it('files should not contain nested and nullable', () => {
-        const filePaths = sourceFiles.map(s => s.getFilePath().slice(1));
+        const filePaths = sourceFiles
+            .map(s => s.getFilePath().slice(1))
+            .filter(p => !p.endsWith('field-update-operations.input.ts'));
         for (const filePath of filePaths) {
             expect(filePath).not.toContain('nested');
             expect(filePath).not.toContain('nullable');
+        }
+    });
+
+    it('source file should not reference bogus type', () => {
+        for (const sourceFile of sourceFiles) {
+            const types = sourceFile
+                .getClass(() => true)
+                ?.getProperties()
+                .map(p => String(p.getStructure().type))
+                .filter((t: string) => t.endsWith('Filter') || t.endsWith('Filter>'));
+            if (types) {
+                for (const type of types) {
+                    expect(type).not.toContain('Nested');
+                    expect(type).not.toContain('Nullable');
+                }
+            }
         }
     });
 
@@ -1046,81 +1073,82 @@ describe('combine scalar filters', () => {
 
         it('humanoid', () => {
             expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toBe(
-                'BooleanFilter',
+                'BoolFilter',
+            );
+        });
+
+        it('role', () => {
+            expect(getPropertyStructure(sourceFile, 'role')?.type).toBe(
+                'EnumRoleFilter',
             );
         });
 
         // it('^', () => console.log(sourceFile.getText()));
     });
 
-    // describe('combine filters', () => {
-    //     it('replacement type name scalars', () => {
-    //         expect(replacementTypeName('StringNullableFilter')).toEqual('StringFilter');
-    //         expect(replacementTypeName('NullableStringFilter')).toEqual('StringFilter');
-    //         expect(replacementTypeName('NestedStringNullableFilter')).toEqual(
-    //             'StringFilter',
-    //         );
-    //         expect(replacementTypeName('NestedStringFilter')).toEqual('StringFilter');
-    //         expect(replacementTypeName('IntNullableFilter')).toEqual('IntFilter');
-    //         expect(replacementTypeName('NullableIntFilter')).toEqual('IntFilter');
-    //         expect(replacementTypeName('NestedIntNullableFilter')).toEqual('IntFilter');
-    //         expect(replacementTypeName('NestedIntFilter')).toEqual('IntFilter');
-    //         expect(replacementTypeName('FloatNullableFilter')).toEqual('FloatFilter');
-    //         expect(replacementTypeName('NullableFloatFilter')).toEqual('FloatFilter');
-    //         expect(replacementTypeName('NestedFloatNullableFilter')).toEqual(
-    //             'FloatFilter',
-    //         );
-    //         expect(replacementTypeName('NestedFloatFilter')).toEqual('FloatFilter');
-    //         expect(replacementTypeName('DateTimeNullableFilter')).toEqual(
-    //             'DateTimeFilter',
-    //         );
-    //         expect(replacementTypeName('NullableDateTimeFilter')).toEqual(
-    //             'DateTimeFilter',
-    //         );
-    //         expect(replacementTypeName('NestedDateTimeNullableFilter')).toEqual(
-    //             'DateTimeFilter',
-    //         );
-    //         expect(replacementTypeName('NestedDateTimeFilter')).toEqual(
-    //             'DateTimeFilter',
-    //         );
-    //         expect(replacementTypeName('BooleanNullableFilter')).toEqual(
-    //             'BooleanFilter',
-    //         );
-    //         expect(replacementTypeName('NullableBooleanFilter')).toEqual(
-    //             'BooleanFilter',
-    //         );
-    //         expect(replacementTypeName('NestedBooleanNullableFilter')).toEqual(
-    //             'BooleanFilter',
-    //         );
-    //         expect(replacementTypeName('NestedBooleanFilter')).toEqual('BooleanFilter');
-    //         expect(replacementTypeName('BoolNullableFilter')).toEqual('BooleanFilter');
-    //         expect(replacementTypeName('NestedBoolNullableFilter')).toEqual(
-    //             'BooleanFilter',
-    //         );
-    //         expect(replacementTypeName('NestedBoolFilter')).toEqual('BooleanFilter');
-    //     });
+    describe('user scalar where with aggregates', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-scalar-where-with-aggregates.input.ts'),
+            )!;
+        });
 
-    //     it('replacement type name enum', () => {
-    //         expect(replacementTypeName('EnumRoleNullableFilter')).toEqual(
-    //             'EnumRoleFilter',
-    //         );
-    //     });
+        // it('^', () => console.log(sourceFile.getText()));
 
-    //     it('nullable with aggregates', () => {
-    //         expect(replacementTypeName('StringNullableWithAggregatesFilter')).toEqual(
-    //             'StringWithAggregatesFilter',
-    //         );
-    //         expect(replacementTypeName('NestedStringWithAggregatesFilter')).toEqual(
-    //             'StringWithAggregatesFilter',
-    //         );
-    //         expect(
-    //             replacementTypeName('NestedBoolNullableWithAggregatesFilter'),
-    //         ).toEqual('BooleanWithAggregatesFilter');
-    //         expect(replacementTypeName('BoolNullableWithAggregatesFilter')).toEqual(
-    //             'BooleanWithAggregatesFilter',
-    //         );
-    //     });
-    // });
+        it('id', () => {
+            expect(getPropertyStructure(sourceFile, 'id')?.type).toBe(
+                'StringWithAggregatesFilter',
+            );
+        });
+
+        it('bio', () => {
+            expect(getPropertyStructure(sourceFile, 'bio')?.type).toBe(
+                'StringWithAggregatesFilter',
+            );
+        });
+
+        it('count', () => {
+            expect(getPropertyStructure(sourceFile, 'count')?.type).toBe(
+                'IntWithAggregatesFilter',
+            );
+        });
+
+        it('rating', () => {
+            expect(getPropertyStructure(sourceFile, 'rating')?.type).toBe(
+                'FloatWithAggregatesFilter',
+            );
+        });
+
+        it('born', () => {
+            expect(getPropertyStructure(sourceFile, 'born')?.type).toBe(
+                'DateTimeWithAggregatesFilter',
+            );
+        });
+
+        it('humanoid', () => {
+            expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toBe(
+                'BoolWithAggregatesFilter',
+            );
+        });
+
+        it('money', () => {
+            expect(getPropertyStructure(sourceFile, 'money')?.type).toBe(
+                'DecimalWithAggregatesFilter',
+            );
+        });
+
+        it('data', () => {
+            expect(getPropertyStructure(sourceFile, 'data')?.type).toBe(
+                'JsonWithAggregatesFilter',
+            );
+        });
+
+        it('role', () => {
+            expect(getPropertyStructure(sourceFile, 'role')?.type).toBe(
+                'EnumRoleWithAggregatesFilter',
+            );
+        });
+    });
 });
 
 it.skip('hide field', async () => {

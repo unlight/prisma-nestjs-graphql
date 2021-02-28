@@ -1,14 +1,14 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class NestedBoolNullableFilter {
+export class BoolFilter {
     @Field(() => Boolean, {
         nullable: true,
     })
     equals?: boolean;
 
-    @Field(() => NestedBoolNullableFilter, {
+    @Field(() => BoolFilter, {
         nullable: true,
     })
-    not?: NestedBoolNullableFilter;
+    not?: BoolFilter;
 }

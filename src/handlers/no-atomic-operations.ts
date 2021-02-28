@@ -1,10 +1,14 @@
+import AwaitEventEmitter from 'await-event-emitter';
+
 import { EventArguments, InputType } from '../types';
 
-export function noAtomicOperations(args: EventArguments & { inputType: InputType }) {
-    const { config, inputType } = args;
-    if (!config.noAtomicOperations) {
-        return;
-    }
+export function noAtomicOperations(eventEmitter: AwaitEventEmitter) {
+    eventEmitter.on('beforeInputType', beforeInputType);
+    eventEmitter.on('beforeGenerateFiles', beforeGenerateFiles);
+}
+
+function beforeInputType(args: EventArguments & { inputType: InputType }) {
+    const { inputType } = args;
 
     for (const field of inputType.fields) {
         field.inputTypes = field.inputTypes.filter(inputType => {
@@ -16,19 +20,17 @@ export function noAtomicOperations(args: EventArguments & { inputType: InputType
     }
 }
 
-function isAtomicOperation(name: string) {
-    return name.endsWith('FieldUpdateOperationsInput');
-}
+function beforeGenerateFiles(args: EventArguments) {
+    const { project } = args;
 
-export function noAtomicBeforeGenerateFiles(args: EventArguments) {
-    const { config, project } = args;
-    if (!config.noAtomicOperations) {
-        return;
-    }
     for (const sourceFile of project.getSourceFiles()) {
         const className = sourceFile.getClass(() => true)?.getName();
         if (className && isAtomicOperation(className)) {
             project.removeSourceFile(sourceFile);
         }
     }
+}
+
+function isAtomicOperation(name: string) {
+    return name.endsWith('FieldUpdateOperationsInput');
 }

@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
@@ -67,8 +67,8 @@ export class ArticleScalarWhereInput {
     })
     authorId?: StringFilter;
 
-    @Field(() => BoolNullableFilter, {
+    @Field(() => BoolFilter, {
         nullable: true,
     })
-    active?: BoolNullableFilter;
+    active?: BoolFilter;
 }

@@ -15,7 +15,14 @@ export function inputType(
         classDecoratorName: string;
     },
 ) {
-    const { inputType, fileType, classDecoratorName, getSourceFile, config } = args;
+    const {
+        inputType,
+        fileType,
+        classDecoratorName,
+        getSourceFile,
+        config,
+        eventEmitter,
+    } = args;
 
     const sourceFile = getSourceFile({
         name: inputType.name,
@@ -37,10 +44,12 @@ export function inputType(
     });
 
     for (const field of inputType.fields) {
-        const { inputTypes: fieldInputTypes } = field;
-        const graphqlInputType = getGraphqlInputType(fieldInputTypes);
-        const { isList, location } = graphqlInputType;
-        const typeName = String(graphqlInputType.type);
+        eventEmitter.emitSync('beforeGenerateField', field, args);
+
+        const { inputTypes, isRequired } = field;
+        const graphqlInputType = getGraphqlInputType(inputTypes);
+        const { isList, location, type } = graphqlInputType;
+        const typeName = String(type);
         const customType = config.types[typeName];
 
         const propertyType = getPropertyType({
@@ -51,7 +60,7 @@ export function inputType(
         const propertyDeclaration = generateProperty({
             classDeclaration,
             name: field.name,
-            isNullable: !field.isRequired,
+            isNullable: !isRequired,
             propertyType,
             isList,
         });
@@ -92,7 +101,7 @@ export function inputType(
             propertyDeclaration,
             graphqlType,
             isList,
-            isNullable: !field.isRequired,
+            isNullable: !isRequired,
         });
     }
 }

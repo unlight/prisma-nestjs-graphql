@@ -1,9 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullable-with-aggregates-filter.input';
-import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
+import { EnumRoleWithAggregatesFilter } from '../prisma/enum-role-with-aggregates-filter.input';
+import { FloatWithAggregatesFilter } from '../prisma/float-with-aggregates-filter.input';
+import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
@@ -43,28 +42,28 @@ export class UserScalarWhereWithAggregatesInput {
     })
     password?: StringWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {
+    @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    bio?: StringNullableWithAggregatesFilter;
+    bio?: StringWithAggregatesFilter;
 
-    @Field(() => StringNullableWithAggregatesFilter, {
+    @Field(() => StringWithAggregatesFilter, {
         nullable: true,
     })
-    image?: StringNullableWithAggregatesFilter;
+    image?: StringWithAggregatesFilter;
 
-    @Field(() => IntNullableWithAggregatesFilter, {
+    @Field(() => IntWithAggregatesFilter, {
         nullable: true,
     })
-    countComments?: IntNullableWithAggregatesFilter;
+    countComments?: IntWithAggregatesFilter;
 
-    @Field(() => FloatNullableWithAggregatesFilter, {
+    @Field(() => FloatWithAggregatesFilter, {
         nullable: true,
     })
-    rating?: FloatNullableWithAggregatesFilter;
+    rating?: FloatWithAggregatesFilter;
 
-    @Field(() => EnumRoleNullableWithAggregatesFilter, {
+    @Field(() => EnumRoleWithAggregatesFilter, {
         nullable: true,
     })
-    role?: EnumRoleNullableWithAggregatesFilter;
+    role?: EnumRoleWithAggregatesFilter;
 }

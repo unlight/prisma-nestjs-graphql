@@ -1,12 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { BigIntNullableFilter } from '../prisma/big-int-nullable-filter.input';
-import { BytesNullableFilter } from '../prisma/bytes-nullable-filter.input';
-import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input';
+import { BigIntFilter } from '../prisma/big-int-filter.input';
+import { BytesFilter } from '../prisma/bytes-filter.input';
+import { DecimalFilter } from '../prisma/decimal-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
-import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { IntFilter } from '../prisma/int-filter.input';
+import { JsonFilter } from '../prisma/json-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -36,33 +35,33 @@ export class DummyWhereInput {
     })
     floaty?: FloatFilter;
 
-    @Field(() => IntNullableFilter, {
+    @Field(() => IntFilter, {
         nullable: true,
     })
-    int?: IntNullableFilter;
+    int?: IntFilter;
 
-    @Field(() => FloatNullableFilter, {
+    @Field(() => FloatFilter, {
         nullable: true,
     })
-    float?: FloatNullableFilter;
+    float?: FloatFilter;
 
-    @Field(() => BytesNullableFilter, {
+    @Field(() => BytesFilter, {
         nullable: true,
     })
-    bytes?: BytesNullableFilter;
+    bytes?: BytesFilter;
 
-    @Field(() => DecimalNullableFilter, {
+    @Field(() => DecimalFilter, {
         nullable: true,
     })
-    decimal?: DecimalNullableFilter;
+    decimal?: DecimalFilter;
 
-    @Field(() => BigIntNullableFilter, {
+    @Field(() => BigIntFilter, {
         nullable: true,
     })
-    bigInt?: BigIntNullableFilter;
+    bigInt?: BigIntFilter;
 
-    @Field(() => JsonNullableFilter, {
+    @Field(() => JsonFilter, {
         nullable: true,
     })
-    json?: JsonNullableFilter;
+    json?: JsonFilter;
 }
