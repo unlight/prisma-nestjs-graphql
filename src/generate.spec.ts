@@ -51,11 +51,9 @@ async function testGenerate(args: {
     });
 
     sourceFiles = project.getSourceFiles();
+    let emptyFiles: string[] = [];
     try {
-        // eslint-disable-next-line no-var
-        var emptyFiles = sourceFiles
-            .filter(s => !s.getText())
-            .map(s => s.getFilePath());
+        emptyFiles = sourceFiles.filter(s => !s.getText()).map(s => s.getFilePath());
         expect(emptyFiles).toHaveLength(0);
     } catch {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -541,14 +539,14 @@ describe('custom types', () => {
             });
             sourceFile = project.getSourceFile(s =>
                 s.getFilePath().endsWith('/date-time-filter.input.ts'),
-            );
+            )!;
         });
 
         // it('^', () => console.log(sourceFile.getText()));
 
         it('property in', () => {
             const property = getPropertyStructure(sourceFile, 'in');
-            expect(property.type).toEqual('Array<Date> | Array<string>');
+            expect(property?.type).toEqual('Array<Date> | Array<string>');
         });
 
         it('decorator type should be array date', () => {
@@ -882,9 +880,21 @@ describe('model with one id string', () => {
     });
 });
 
-it('smoke many', async () => {
+it('generator option outputFilePattern', async () => {
     await testGenerate({
         schema: `model User {
+                    id Int @id
+                }`,
+        options: [`outputFilePattern = "data/{type}/{name}.ts"`],
+    });
+    const filePaths = sourceFiles.map(s => String(s.getFilePath()));
+    expect(filePaths).toContainEqual(expect.stringContaining('/data/model/user.ts'));
+});
+
+it('several models', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `model User {
               id        Int      @id
               name      String?
               profile   Profile?
@@ -897,25 +907,236 @@ it('smoke many', async () => {
             model Comment {
                 id        Int      @id
             }`,
+        });
+    });
+
+    it('no nullable type', () => {
+        for (const d of sourceFiles
+            .flatMap(s => s.getClasses())
+            .flatMap(d => d.getProperties())
+            .flatMap(p => p.getDecorators())) {
+            const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+            expect(argument).not.toContain('null');
+        }
     });
 });
 
-// it('hide field', async () => {
-//         await getResult({
-//             schema: `
-//             model User {
-//               id String @id
-//               /// @TypeGraphQL.omit(output: true)
-//               /// Regular documentation
-//               password String
-//             }
-//             `,
-//             options: [],
-//         });
-//         const property = getStructure({
-//             sourceFile,
-//             className: 'User',
-//             property: 'password',
-//         });
-//         expect(property?.decorators?.[0]?.name).toEqual('HideField');
-//     });
+describe('get rid of atomic number operations', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+            model User {
+              id String @id
+              age Int
+              rating Float?
+              money Decimal?
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `noAtomicOperations = true`,
+            ],
+        });
+    });
+
+    it('files should not be', () => {
+        const filePaths = sourceFiles.map(s => s.getFilePath().slice(1));
+        for (const filePath of filePaths) {
+            expect(filePath).not.toContain('field-update-operations');
+        }
+    });
+
+    describe('user update input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-update.input.ts'),
+            )!;
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('id should be regular string', () => {
+            expect(getPropertyStructure(sourceFile, 'id')?.type).toEqual('string');
+        });
+
+        it('id field type should be string', () => {
+            expect(getFieldType(sourceFile, 'id')).toEqual('() => String');
+        });
+
+        it('age should be regular string', () => {
+            expect(getPropertyStructure(sourceFile, 'age')?.type).toEqual('number');
+        });
+
+        it('age field type should be string', () => {
+            expect(getFieldType(sourceFile, 'age')).toEqual('() => Int');
+        });
+
+        it('rating should be regular string', () => {
+            expect(getPropertyStructure(sourceFile, 'rating')?.type).toEqual('number');
+        });
+
+        it('rating field type should be string', () => {
+            expect(getFieldType(sourceFile, 'rating')).toEqual('() => Float');
+        });
+    });
+});
+
+describe('combine scalar filters', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+            model User {
+                id String @id
+                bio String?
+                count Int?
+                rating Float?
+                born DateTime?
+                humanoid Boolean?
+                money Decimal?
+                data Json?
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `combineScalarFilters = true`,
+            ],
+        });
+    });
+
+    it('files should not contain nested and nullable', () => {
+        const filePaths = sourceFiles.map(s => s.getFilePath().slice(1));
+        for (const filePath of filePaths) {
+            expect(filePath).not.toContain('nested');
+            expect(filePath).not.toContain('nullable');
+        }
+    });
+
+    describe('user where input', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('user-where.input.ts'),
+            )!;
+        });
+
+        it('count', () => {
+            expect(getPropertyStructure(sourceFile, 'count')?.type).toBe('IntFilter');
+        });
+
+        it('bio', () => {
+            expect(getPropertyStructure(sourceFile, 'bio')?.type).toBe('StringFilter');
+        });
+
+        it('money', () => {
+            expect(getPropertyStructure(sourceFile, 'money')?.type).toBe(
+                'DecimalFilter',
+            );
+        });
+
+        it('rating', () => {
+            expect(getPropertyStructure(sourceFile, 'rating')?.type).toBe(
+                'FloatFilter',
+            );
+        });
+
+        it('born', () => {
+            expect(getPropertyStructure(sourceFile, 'born')?.type).toBe(
+                'DateTimeFilter',
+            );
+        });
+
+        it('humanoid', () => {
+            expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toBe(
+                'BooleanFilter',
+            );
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+    });
+
+    // describe('combine filters', () => {
+    //     it('replacement type name scalars', () => {
+    //         expect(replacementTypeName('StringNullableFilter')).toEqual('StringFilter');
+    //         expect(replacementTypeName('NullableStringFilter')).toEqual('StringFilter');
+    //         expect(replacementTypeName('NestedStringNullableFilter')).toEqual(
+    //             'StringFilter',
+    //         );
+    //         expect(replacementTypeName('NestedStringFilter')).toEqual('StringFilter');
+    //         expect(replacementTypeName('IntNullableFilter')).toEqual('IntFilter');
+    //         expect(replacementTypeName('NullableIntFilter')).toEqual('IntFilter');
+    //         expect(replacementTypeName('NestedIntNullableFilter')).toEqual('IntFilter');
+    //         expect(replacementTypeName('NestedIntFilter')).toEqual('IntFilter');
+    //         expect(replacementTypeName('FloatNullableFilter')).toEqual('FloatFilter');
+    //         expect(replacementTypeName('NullableFloatFilter')).toEqual('FloatFilter');
+    //         expect(replacementTypeName('NestedFloatNullableFilter')).toEqual(
+    //             'FloatFilter',
+    //         );
+    //         expect(replacementTypeName('NestedFloatFilter')).toEqual('FloatFilter');
+    //         expect(replacementTypeName('DateTimeNullableFilter')).toEqual(
+    //             'DateTimeFilter',
+    //         );
+    //         expect(replacementTypeName('NullableDateTimeFilter')).toEqual(
+    //             'DateTimeFilter',
+    //         );
+    //         expect(replacementTypeName('NestedDateTimeNullableFilter')).toEqual(
+    //             'DateTimeFilter',
+    //         );
+    //         expect(replacementTypeName('NestedDateTimeFilter')).toEqual(
+    //             'DateTimeFilter',
+    //         );
+    //         expect(replacementTypeName('BooleanNullableFilter')).toEqual(
+    //             'BooleanFilter',
+    //         );
+    //         expect(replacementTypeName('NullableBooleanFilter')).toEqual(
+    //             'BooleanFilter',
+    //         );
+    //         expect(replacementTypeName('NestedBooleanNullableFilter')).toEqual(
+    //             'BooleanFilter',
+    //         );
+    //         expect(replacementTypeName('NestedBooleanFilter')).toEqual('BooleanFilter');
+    //         expect(replacementTypeName('BoolNullableFilter')).toEqual('BooleanFilter');
+    //         expect(replacementTypeName('NestedBoolNullableFilter')).toEqual(
+    //             'BooleanFilter',
+    //         );
+    //         expect(replacementTypeName('NestedBoolFilter')).toEqual('BooleanFilter');
+    //     });
+
+    //     it('replacement type name enum', () => {
+    //         expect(replacementTypeName('EnumRoleNullableFilter')).toEqual(
+    //             'EnumRoleFilter',
+    //         );
+    //     });
+
+    //     it('nullable with aggregates', () => {
+    //         expect(replacementTypeName('StringNullableWithAggregatesFilter')).toEqual(
+    //             'StringWithAggregatesFilter',
+    //         );
+    //         expect(replacementTypeName('NestedStringWithAggregatesFilter')).toEqual(
+    //             'StringWithAggregatesFilter',
+    //         );
+    //         expect(
+    //             replacementTypeName('NestedBoolNullableWithAggregatesFilter'),
+    //         ).toEqual('BooleanWithAggregatesFilter');
+    //         expect(replacementTypeName('BoolNullableWithAggregatesFilter')).toEqual(
+    //             'BooleanWithAggregatesFilter',
+    //         );
+    //     });
+    // });
+});
+
+it.skip('hide field', async () => {
+    await testGenerate({
+        schema: `
+            model User {
+              id String @id
+              /// @TypeGraphQL.omit(output: true)
+              /// Regular documentation
+              password String
+            }
+            `,
+        options: [],
+    });
+    const property = getPropertyStructure(sourceFile, 'password');
+    expect(property?.decorators?.[0]?.name).toEqual('HideField');
+});
+
+// it('^', () => console.log(sourceFile.getText()));

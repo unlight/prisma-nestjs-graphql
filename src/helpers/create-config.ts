@@ -14,10 +14,10 @@ export function createConfig(data: Record<string, string | undefined>) {
             config.outputFilePattern || `{feature}/{name}.{type}.ts`,
         ),
         combineScalarFilters: ['true', '1', 'on'].includes(
-            (config.combineScalarFilters as Nullable<string>) ?? 'true',
+            (config.combineScalarFilters as Nullable<string>) ?? 'false',
         ),
-        noAtomicNumberOperations: ['true', '1', 'on'].includes(
-            (config.atomicNumberOperations as Nullable<string>) ?? 'true',
+        noAtomicOperations: ['true', '1', 'on'].includes(
+            (config.noAtomicOperations as Nullable<string>) ?? 'false',
         ),
         types: merge(
             {},
@@ -34,7 +34,7 @@ export function createConfig(data: Record<string, string | undefined>) {
             (config.reExportAll as Nullable<string>) ?? 'false',
         ),
         renameZooTypes: ['true', '1', 'on'].includes(
-            (config.renameZooTypes as Nullable<string>) ?? 'true',
+            (config.renameZooTypes as Nullable<string>) ?? 'false',
         ),
     };
 }

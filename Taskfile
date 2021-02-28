@@ -2,6 +2,20 @@
 PATH="$PWD/node_modules/.bin":$PATH
 set -e
 
+compatibilty_check() {
+    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+
+    # Enable noAtomicOperations
+    sed -i 's/noAtomicOperations = false/noAtomicOperations = true/g' prisma/schema.prisma
+    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    sed -i 's/noAtomicOperations = true/noAtomicOperations = false/g' prisma/schema.prisma
+
+    # Enable combineScalarFilters
+    sed -i 's/combineScalarFilters = false/combineScalarFilters = true/g' prisma/schema.prisma
+    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    sed -i 's/combineScalarFilters = true/combineScalarFilters = false/g' prisma/schema.prisma
+}
+
 build() {
     set -x
     rm -rf dist

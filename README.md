@@ -34,26 +34,29 @@ npx prisma generate
 ## Generator options
 
 -   `output` Output folder relative to this schema file
--   `outputFilePattern` File pattern (default: `{feature}/{name}.{type}.ts`)  
+-   `outputFilePattern` File pattern  
+    Type: `string`  
+    Default: `{feature}/{name}.{type}.ts`  
     Possible tokens:
-    -   `{feature}` - model name in dashed case or 'prisma' if unknown
-    -   `{name}` - dashed-case name of model/input/arg without suffix
-    -   `{type}` - short type name (model, input, args, output)
-    -   `{plural.type}` - plural short type name (models, inputs, enums)
--   `combineScalarFilters` - Combine nested/nullable scalar filters to single
-    (default: `true`)
--   `noAtomicNumberOperations` - Remove atomic number operations,
-    `true` (default), `false`
--   `reExportAll` - create `index.ts` files for each directory with re-export,
-    `false` - disabled (default), `true` - enabled
--   `renameZooTypes` - Remove plague words from type names ('nullabe', 'nested')
-    `true` - remove (default), `false` - do not remove
--   `types_*` - [flatten](https://github.com/hughsk/flat) map of types
+    -   `{feature}` Model name in dashed case or 'prisma' if unknown
+    -   `{name}` Dashed-case name of model/input/arg without suffix
+    -   `{type}` Short type name (model, input, args, output)
+    -   `{plural.type}` Plural short type name (models, inputs, enums)
+-   `combineScalarFilters` Combine nested/nullable scalar filters to single  
+    Type: `boolean`  
+    Default: `true`
+-   `noAtomicOperations` Remove input types for atomic operations  
+    Type: `boolean`  
+    Default: `false`
+-   `reExportAll` Create `index.ts` files for each directory with re-export  
+    Type: `boolean`  
+    Default: `false`
+-   `types_*` - Map prisma types in [flatten](https://github.com/hughsk/flat) style
 
-    -   `types_{type}_fieldType` - TypeScript type name
-    -   `types_{type}_fieldModule` - Module to import
-    -   `types_{type}_graphqlType` - GraphQL type name
-    -   `types_{type}_graphqlModule` - Module to import
+    -   `types_{type}_fieldType` TypeScript field type name
+    -   `types_{type}_fieldModule` Module to import
+    -   `types_{type}_graphqlType` GraphQL type name
+    -   `types_{type}_graphqlModule` Module to import
 
     Where `{type}` is prisma type in schema
 

@@ -8,6 +8,21 @@ export class DummyCountAggregate {
     id?: number;
 
     @Field(() => Int, {
+        nullable: false,
+    })
+    floaty!: number;
+
+    @Field(() => Int, {
+        nullable: true,
+    })
+    int?: number;
+
+    @Field(() => Int, {
+        nullable: true,
+    })
+    float?: number;
+
+    @Field(() => Int, {
         nullable: true,
     })
     bytes?: number;

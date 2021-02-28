@@ -11,9 +11,9 @@ generator client {
 generator nestgraphql {
     provider = "node -r ts-node/register/transpile-only src/index.ts"
     output   = "../src/@generated"
-    renameZooTypes = true
+    noAtomicOperations = false
     combineScalarFilters = true
-    noAtomicNumberOperations = true
+    renameZooTypes = false
 }
 
 model User {
@@ -74,6 +74,9 @@ enum Role {
 
 model Dummy {
     id String @id
+    floaty Float
+    int Int?
+    float Float?
     bytes Bytes?
     decimal Decimal?
     bigInt BigInt?

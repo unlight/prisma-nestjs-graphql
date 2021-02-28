@@ -1,20 +1,41 @@
+/* eslint-disable import/max-dependencies */
 import { GeneratorOptions } from '@prisma/generator-helper';
 import assert from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
-import { handlers } from './handlers';
+import { argsType } from './handlers/args-type';
+import { createAggregateInput } from './handlers/create-aggregate-input';
+import { generateFiles } from './handlers/generate-files';
+import { inputType } from './handlers/input-type';
+import { modelData } from './handlers/model-data';
+import {
+    noAtomicBeforeGenerateFiles,
+    noAtomicOperations,
+} from './handlers/no-atomic-operations';
+import { outputType } from './handlers/output-type';
+import { registerEnum } from './handlers/register-enum';
+import { typeNames } from './handlers/type-names';
 import { createConfig } from './helpers/create-config';
 import { generateFileName } from './helpers/generate-file-name';
 import { DMMF, EventArguments, Model, OutputType } from './types';
 
 export const eventEmitter = new AwaitEventEmitter();
 
-// eventEmitter.on('aggregateOutput', () => console.log('>>>>>>>> aggregateOutput'));
-// eventEmitter.on('argsType', () => console.log('>>>>>>>>> argsType'));
+// eventEmitter.on('inputType', () => console.log('>>>>>>>>> inputType'));
 
-handlers(eventEmitter);
+eventEmitter.on('model', modelData);
+eventEmitter.on('enumType', registerEnum);
+eventEmitter.on('outputType', outputType);
+eventEmitter.on('aggregateOutput', createAggregateInput);
+eventEmitter.on('inputType', inputType);
+eventEmitter.on('argsType', argsType);
+eventEmitter.on('generateFiles', generateFiles);
+eventEmitter.on('inputType', typeNames);
+
+eventEmitter.on('beforeInputType', noAtomicOperations);
+eventEmitter.on('beforeGenerateFiles', noAtomicBeforeGenerateFiles);
 
 export async function generate(
     args: GeneratorOptions & {
@@ -82,12 +103,14 @@ export async function generate(
     for (const inputType of inputObjectTypes.prisma.concat(
         inputObjectTypes.model || [],
     )) {
-        await eventEmitter.emit('inputType', {
+        const event = {
             ...eventArguments,
             inputType,
             fileType: 'input',
             classDecoratorName: 'InputType',
-        });
+        };
+        await eventEmitter.emit('beforeInputType', event);
+        await eventEmitter.emit('inputType', event);
     }
 
     for (const outputType of queryOutputTypes) {
@@ -96,6 +119,7 @@ export async function generate(
         }
     }
 
+    await eventEmitter.emit('beforeGenerateFiles', eventArguments);
     await eventEmitter.emit('generateFiles', eventArguments);
     await eventEmitter.emit('end', eventArguments);
 }

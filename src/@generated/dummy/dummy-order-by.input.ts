@@ -12,6 +12,21 @@ export class DummyOrderByInput {
     @Field(() => SortOrder, {
         nullable: true,
     })
+    floaty?: SortOrder;
+
+    @Field(() => SortOrder, {
+        nullable: true,
+    })
+    int?: SortOrder;
+
+    @Field(() => SortOrder, {
+        nullable: true,
+    })
+    float?: SortOrder;
+
+    @Field(() => SortOrder, {
+        nullable: true,
+    })
     bytes?: SortOrder;
 
     @Field(() => SortOrder, {

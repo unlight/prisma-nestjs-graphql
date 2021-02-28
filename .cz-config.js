@@ -10,8 +10,7 @@ module.exports = {
         },
         {
             value: 'refactor',
-            name:
-                'refactor: A code change that neither fixes a bug nor adds a feature',
+            name: 'refactor: A code change that neither fixes a bug nor adds a feature',
         },
         {
             value: 'perf',
@@ -61,14 +60,12 @@ module.exports = {
         body:
             'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
         breaking: 'List any BREAKING CHANGES (optional):\n',
-        footer:
-            'List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n',
-        confirmCommit:
-            'Are you sure you want to proceed with the commit above?',
+        footer: 'List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n',
+        confirmCommit: 'Are you sure you want to proceed with the commit above?',
     },
 
     allowCustomScopes: true,
-    allowBreakingChanges: ['feat', 'fix'],
+    allowBreakingChanges: ['feat', 'fix', 'refactor', 'chore'],
     // skip any questions you want
     skipQuestions: ['body'],
 

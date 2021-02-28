@@ -10,6 +10,21 @@ export class DummyCountAggregateInput {
     @Field(() => Boolean, {
         nullable: true,
     })
+    floaty?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    int?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
+    float?: true;
+
+    @Field(() => Boolean, {
+        nullable: true,
+    })
     bytes?: true;
 
     @Field(() => Boolean, {

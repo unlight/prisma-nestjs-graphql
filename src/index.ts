@@ -1,15 +1,10 @@
 import { generatorHandler, GeneratorOptions } from '@prisma/generator-helper';
 
 import { generate } from './generate';
-import { createConfig } from './helpers/create-config';
 
 generatorHandler({
     async onGenerate(options: GeneratorOptions) {
-        const config = createConfig(options.generator.config);
-        await generate({
-            ...options,
-            config,
-        });
+        await generate(options);
     },
     onManifest() {
         return {

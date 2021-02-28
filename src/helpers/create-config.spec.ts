@@ -9,8 +9,8 @@ describe('createConfig', () => {
 
     it('createConfig default', () => {
         const result = createConfig({});
-        expect(result.combineScalarFilters).toEqual(true);
-        expect(result.noAtomicNumberOperations).toEqual(true);
+        expect(result.combineScalarFilters).toEqual(false);
+        expect(result.noAtomicOperations).toEqual(false);
     });
 
     it('createConfig types', () => {
