@@ -54,8 +54,7 @@
     "lodash": "^4.17.21",
     "pluralize": "^8.0.0",
     "pupa": "^2.1.1",
-    "ts-morph": "^9.1.0",
-    "typescript-equals": "^1.0.0"
+    "ts-morph": "^9.1.0"
   },
   "peerDependencies": {
     "@prisma/client": ">=2.16"

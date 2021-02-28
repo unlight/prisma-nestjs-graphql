@@ -1151,6 +1151,34 @@ describe('combine scalar filters', () => {
     });
 });
 
+describe('export all from index', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+            model User {
+                id Int @id
+            }`,
+            options: ['reExportAll = true'],
+        });
+    });
+
+    it('user/index', () => {
+        sourceFile = project.getSourceFile('/user/index.ts')!;
+        expect(sourceFile).toBeTruthy();
+        expect(sourceFile.getText()).toContain(
+            `export { AggregateUser } from './aggregate-user.output'`,
+        );
+        expect(sourceFile.getText()).toContain(`export { User } from './user.model'`);
+    });
+
+    it('root index', () => {
+        sourceFile = project.getSourceFile('/index.ts')!;
+        expect(sourceFile).toBeTruthy();
+        expect(sourceFile.getText()).toContain(`SortOrder } from './prisma'`);
+        expect(sourceFile.getText()).toContain(`from './user'`);
+    });
+});
+
 it.skip('hide field', async () => {
     await testGenerate({
         schema: `

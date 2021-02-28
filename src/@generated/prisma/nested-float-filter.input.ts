@@ -1,46 +1,44 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
-
-import { NestedIntFilter } from './nested-int-filter.input';
+import { Field, Float, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class IntFilter {
-    @Field(() => Int, {
+export class NestedFloatFilter {
+    @Field(() => Float, {
         nullable: true,
     })
     equals?: number;
 
-    @Field(() => [Int], {
+    @Field(() => [Float], {
         nullable: true,
     })
     in?: Array<number>;
 
-    @Field(() => [Int], {
+    @Field(() => [Float], {
         nullable: true,
     })
     notIn?: Array<number>;
 
-    @Field(() => Int, {
+    @Field(() => Float, {
         nullable: true,
     })
     lt?: number;
 
-    @Field(() => Int, {
+    @Field(() => Float, {
         nullable: true,
     })
     lte?: number;
 
-    @Field(() => Int, {
+    @Field(() => Float, {
         nullable: true,
     })
     gt?: number;
 
-    @Field(() => Int, {
+    @Field(() => Float, {
         nullable: true,
     })
     gte?: number;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => NestedFloatFilter, {
         nullable: true,
     })
-    not?: NestedIntFilter;
+    not?: NestedFloatFilter;
 }

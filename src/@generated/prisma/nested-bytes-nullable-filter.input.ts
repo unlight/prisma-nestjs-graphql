@@ -1,14 +1,14 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class BytesFilter {
+export class NestedBytesNullableFilter {
     @Field(() => String, {
         nullable: true,
     })
     equals?: Buffer;
 
-    @Field(() => BytesFilter, {
+    @Field(() => NestedBytesNullableFilter, {
         nullable: true,
     })
-    not?: BytesFilter;
+    not?: NestedBytesNullableFilter;
 }

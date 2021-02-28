@@ -1,10 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { DecimalFilter } from './decimal-filter.input';
-import { IntFilter } from './int-filter.input';
+import { NestedIntFilter } from './nested-int-filter.input';
+import { NestedStringFilter } from './nested-string-filter.input';
 
 @InputType()
-export class DecimalWithAggregatesFilter {
+export class NestedStringWithAggregatesFilter {
     @Field(() => String, {
         nullable: true,
     })
@@ -40,33 +40,38 @@ export class DecimalWithAggregatesFilter {
     })
     gte?: string;
 
-    @Field(() => DecimalWithAggregatesFilter, {
+    @Field(() => String, {
         nullable: true,
     })
-    not?: DecimalWithAggregatesFilter;
+    contains?: string;
 
-    @Field(() => IntFilter, {
+    @Field(() => String, {
         nullable: true,
     })
-    count?: IntFilter;
+    startsWith?: string;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => String, {
         nullable: true,
     })
-    avg?: DecimalFilter;
+    endsWith?: string;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => NestedStringWithAggregatesFilter, {
         nullable: true,
     })
-    sum?: DecimalFilter;
+    not?: NestedStringWithAggregatesFilter;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    min?: DecimalFilter;
+    count?: NestedIntFilter;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => NestedStringFilter, {
         nullable: true,
     })
-    max?: DecimalFilter;
+    min?: NestedStringFilter;
+
+    @Field(() => NestedStringFilter, {
+        nullable: true,
+    })
+    max?: NestedStringFilter;
 }

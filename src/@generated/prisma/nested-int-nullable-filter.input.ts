@@ -1,9 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 
-import { NestedIntFilter } from './nested-int-filter.input';
-
 @InputType()
-export class IntFilter {
+export class NestedIntNullableFilter {
     @Field(() => Int, {
         nullable: true,
     })
@@ -39,8 +37,8 @@ export class IntFilter {
     })
     gte?: number;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => NestedIntNullableFilter, {
         nullable: true,
     })
-    not?: NestedIntFilter;
+    not?: NestedIntNullableFilter;
 }

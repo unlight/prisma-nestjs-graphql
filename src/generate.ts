@@ -12,6 +12,7 @@ import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
+import { reExportAll } from './handlers/re-export-all';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { createConfig } from './helpers/create-config';
@@ -53,6 +54,7 @@ export async function generate(
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
+    config.reExportAll && reExportAll(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];

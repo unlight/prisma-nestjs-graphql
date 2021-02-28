@@ -1,5 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { NestedDateTimeFilter } from './nested-date-time-filter.input';
+
 @InputType()
 export class DateTimeFilter {
     @Field(() => Date, {
@@ -37,8 +39,8 @@ export class DateTimeFilter {
     })
     gte?: Date | string;
 
-    @Field(() => DateTimeFilter, {
+    @Field(() => NestedDateTimeFilter, {
         nullable: true,
     })
-    not?: DateTimeFilter;
+    not?: NestedDateTimeFilter;
 }

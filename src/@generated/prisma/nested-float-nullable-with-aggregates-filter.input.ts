@@ -1,11 +1,10 @@
 import { Field, Float, InputType } from '@nestjs/graphql';
 
-import { NestedFloatFilter } from './nested-float-filter.input';
-import { NestedFloatWithAggregatesFilter } from './nested-float-with-aggregates-filter.input';
-import { NestedIntFilter } from './nested-int-filter.input';
+import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
 
 @InputType()
-export class FloatWithAggregatesFilter {
+export class NestedFloatNullableWithAggregatesFilter {
     @Field(() => Float, {
         nullable: true,
     })
@@ -41,33 +40,33 @@ export class FloatWithAggregatesFilter {
     })
     gte?: number;
 
-    @Field(() => NestedFloatWithAggregatesFilter, {
+    @Field(() => NestedFloatNullableWithAggregatesFilter, {
         nullable: true,
     })
-    not?: NestedFloatWithAggregatesFilter;
+    not?: NestedFloatNullableWithAggregatesFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => NestedIntNullableFilter, {
         nullable: true,
     })
-    count?: NestedIntFilter;
+    count?: NestedIntNullableFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedFloatNullableFilter, {
         nullable: true,
     })
-    avg?: NestedFloatFilter;
+    avg?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedFloatNullableFilter, {
         nullable: true,
     })
-    sum?: NestedFloatFilter;
+    sum?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedFloatNullableFilter, {
         nullable: true,
     })
-    min?: NestedFloatFilter;
+    min?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedFloatNullableFilter, {
         nullable: true,
     })
-    max?: NestedFloatFilter;
+    max?: NestedFloatNullableFilter;
 }

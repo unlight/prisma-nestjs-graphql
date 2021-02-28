@@ -1,11 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { BigIntWithAggregatesFilter } from '../prisma/big-int-with-aggregates-filter.input';
-import { BytesWithAggregatesFilter } from '../prisma/bytes-with-aggregates-filter.input';
-import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input';
+import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input';
+import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input';
+import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input';
+import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
 import { FloatWithAggregatesFilter } from '../prisma/float-with-aggregates-filter.input';
-import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { JsonWithAggregatesFilter } from '../prisma/json-with-aggregates-filter.input';
+import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
@@ -35,33 +36,33 @@ export class DummyScalarWhereWithAggregatesInput {
     })
     floaty?: FloatWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {
+    @Field(() => IntNullableWithAggregatesFilter, {
         nullable: true,
     })
-    int?: IntWithAggregatesFilter;
+    int?: IntNullableWithAggregatesFilter;
 
-    @Field(() => FloatWithAggregatesFilter, {
+    @Field(() => FloatNullableWithAggregatesFilter, {
         nullable: true,
     })
-    float?: FloatWithAggregatesFilter;
+    float?: FloatNullableWithAggregatesFilter;
 
-    @Field(() => BytesWithAggregatesFilter, {
+    @Field(() => BytesNullableWithAggregatesFilter, {
         nullable: true,
     })
-    bytes?: BytesWithAggregatesFilter;
+    bytes?: BytesNullableWithAggregatesFilter;
 
-    @Field(() => DecimalWithAggregatesFilter, {
+    @Field(() => DecimalNullableWithAggregatesFilter, {
         nullable: true,
     })
-    decimal?: DecimalWithAggregatesFilter;
+    decimal?: DecimalNullableWithAggregatesFilter;
 
-    @Field(() => BigIntWithAggregatesFilter, {
+    @Field(() => BigIntNullableWithAggregatesFilter, {
         nullable: true,
     })
-    bigInt?: BigIntWithAggregatesFilter;
+    bigInt?: BigIntNullableWithAggregatesFilter;
 
-    @Field(() => JsonWithAggregatesFilter, {
+    @Field(() => JsonNullableWithAggregatesFilter, {
         nullable: true,
     })
-    json?: JsonWithAggregatesFilter;
+    json?: JsonNullableWithAggregatesFilter;
 }

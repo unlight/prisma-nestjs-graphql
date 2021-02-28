@@ -14,6 +14,11 @@ compatibilty_check() {
     sed -i 's/combineScalarFilters = false/combineScalarFilters = true/g' prisma/schema.prisma
     rm -rf src/@generated && npm run prisma:g && npm run tscheck
     sed -i 's/combineScalarFilters = true/combineScalarFilters = false/g' prisma/schema.prisma
+
+    # Enable reExportAll
+    sed -i 's/reExportAll = false/reExportAll = true/g' prisma/schema.prisma
+    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    sed -i 's/reExportAll = true/reExportAll = false/g' prisma/schema.prisma
 }
 
 build() {

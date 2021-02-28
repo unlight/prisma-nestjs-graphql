@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
-export class JsonFilter {
+export class JsonNullableFilter {
     @Field(() => String, {
         nullable: true,
     })

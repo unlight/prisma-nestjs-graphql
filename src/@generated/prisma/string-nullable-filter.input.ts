@@ -1,7 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { NestedStringNullableFilter } from './nested-string-nullable-filter.input';
+import { QueryMode } from './query-mode.enum';
+
 @InputType()
-export class DecimalFilter {
+export class StringNullableFilter {
     @Field(() => String, {
         nullable: true,
     })
@@ -37,8 +40,28 @@ export class DecimalFilter {
     })
     gte?: string;
 
-    @Field(() => DecimalFilter, {
+    @Field(() => String, {
         nullable: true,
     })
-    not?: DecimalFilter;
+    contains?: string;
+
+    @Field(() => String, {
+        nullable: true,
+    })
+    startsWith?: string;
+
+    @Field(() => String, {
+        nullable: true,
+    })
+    endsWith?: string;
+
+    @Field(() => QueryMode, {
+        nullable: true,
+    })
+    mode?: QueryMode;
+
+    @Field(() => NestedStringNullableFilter, {
+        nullable: true,
+    })
+    not?: NestedStringNullableFilter;
 }

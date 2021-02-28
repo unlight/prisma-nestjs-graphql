@@ -1,50 +1,49 @@
-import { Field, Float, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 import { NestedFloatFilter } from './nested-float-filter.input';
-import { NestedFloatWithAggregatesFilter } from './nested-float-with-aggregates-filter.input';
 import { NestedIntFilter } from './nested-int-filter.input';
 
 @InputType()
-export class FloatWithAggregatesFilter {
-    @Field(() => Float, {
+export class NestedIntWithAggregatesFilter {
+    @Field(() => Int, {
         nullable: true,
     })
     equals?: number;
 
-    @Field(() => [Float], {
+    @Field(() => [Int], {
         nullable: true,
     })
     in?: Array<number>;
 
-    @Field(() => [Float], {
+    @Field(() => [Int], {
         nullable: true,
     })
     notIn?: Array<number>;
 
-    @Field(() => Float, {
+    @Field(() => Int, {
         nullable: true,
     })
     lt?: number;
 
-    @Field(() => Float, {
+    @Field(() => Int, {
         nullable: true,
     })
     lte?: number;
 
-    @Field(() => Float, {
+    @Field(() => Int, {
         nullable: true,
     })
     gt?: number;
 
-    @Field(() => Float, {
+    @Field(() => Int, {
         nullable: true,
     })
     gte?: number;
 
-    @Field(() => NestedFloatWithAggregatesFilter, {
+    @Field(() => NestedIntWithAggregatesFilter, {
         nullable: true,
     })
-    not?: NestedFloatWithAggregatesFilter;
+    not?: NestedIntWithAggregatesFilter;
 
     @Field(() => NestedIntFilter, {
         nullable: true,
@@ -56,18 +55,18 @@ export class FloatWithAggregatesFilter {
     })
     avg?: NestedFloatFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    sum?: NestedFloatFilter;
+    sum?: NestedIntFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    min?: NestedFloatFilter;
+    min?: NestedIntFilter;
 
-    @Field(() => NestedFloatFilter, {
+    @Field(() => NestedIntFilter, {
         nullable: true,
     })
-    max?: NestedFloatFilter;
+    max?: NestedIntFilter;
 }

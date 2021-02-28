@@ -1,12 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { NestedIntFilter } from './nested-int-filter.input';
-import { NestedStringFilter } from './nested-string-filter.input';
-import { NestedStringWithAggregatesFilter } from './nested-string-with-aggregates-filter.input';
-import { QueryMode } from './query-mode.enum';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
+import { NestedStringNullableFilter } from './nested-string-nullable-filter.input';
 
 @InputType()
-export class StringWithAggregatesFilter {
+export class NestedStringNullableWithAggregatesFilter {
     @Field(() => String, {
         nullable: true,
     })
@@ -57,28 +55,23 @@ export class StringWithAggregatesFilter {
     })
     endsWith?: string;
 
-    @Field(() => QueryMode, {
+    @Field(() => NestedStringNullableWithAggregatesFilter, {
         nullable: true,
     })
-    mode?: QueryMode;
+    not?: NestedStringNullableWithAggregatesFilter;
 
-    @Field(() => NestedStringWithAggregatesFilter, {
+    @Field(() => NestedIntNullableFilter, {
         nullable: true,
     })
-    not?: NestedStringWithAggregatesFilter;
+    count?: NestedIntNullableFilter;
 
-    @Field(() => NestedIntFilter, {
+    @Field(() => NestedStringNullableFilter, {
         nullable: true,
     })
-    count?: NestedIntFilter;
+    min?: NestedStringNullableFilter;
 
-    @Field(() => NestedStringFilter, {
+    @Field(() => NestedStringNullableFilter, {
         nullable: true,
     })
-    min?: NestedStringFilter;
-
-    @Field(() => NestedStringFilter, {
-        nullable: true,
-    })
-    max?: NestedStringFilter;
+    max?: NestedStringNullableFilter;
 }

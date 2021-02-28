@@ -12,7 +12,8 @@ generator nestgraphql {
     provider = "node -r ts-node/register/transpile-only src/index.ts"
     output   = "../src/@generated"
     noAtomicOperations = false
-    combineScalarFilters = true
+    combineScalarFilters = false
+    reExportAll = false
 }
 
 model User {
