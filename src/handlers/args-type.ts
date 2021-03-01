@@ -1,4 +1,4 @@
-import { featureName } from '../helpers/feature-name';
+import { getModelName } from '../helpers/get-model-name';
 import { pascalCase } from '../helpers/pascal-case';
 import { EventArguments, InputType, SchemaField } from '../types';
 
@@ -12,7 +12,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
     }
     const { eventEmitter, modelNames, typeNames } = args;
     const className = pascalCase(`${field.name}Args`);
-    const modelName = featureName({ name: className, modelNames, fallback: '' });
+    const modelName = getModelName({ name: className, modelNames, fallback: '' });
     const inputType: InputType = {
         // eslint-disable-next-line unicorn/no-null
         constraints: { maxNumFields: null, minNumFields: null },

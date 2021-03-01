@@ -11,7 +11,7 @@ export function createConfig(data: Record<string, string | undefined>) {
     >;
     return {
         outputFilePattern: String(
-            config.outputFilePattern || `{feature}/{name}.{type}.ts`,
+            config.outputFilePattern || `{model}/{name}.{type}.ts`,
         ),
         combineScalarFilters: ['true', '1', 'on'].includes(
             (config.combineScalarFilters as Nullable<string>) ?? 'false',

@@ -1,12 +1,12 @@
 import { CommentStatement } from 'ts-morph';
 
-import { featureName } from '../helpers/feature-name';
 import { generateClass } from '../helpers/generate-class';
 import { generateDecorator } from '../helpers/generate-decorator';
 import { generateImport } from '../helpers/generate-import';
 import { generateProperty } from '../helpers/generate-property';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
+import { getModelName } from '../helpers/get-model-name';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { EventArguments, OutputType } from '../types';
@@ -37,7 +37,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     const fileType = model ? 'model' : 'output';
     const connectedModelName =
         model?.name ??
-        featureName({
+        getModelName({
             name: outputType.name,
             modelNames,
             fallback: '',

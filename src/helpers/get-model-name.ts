@@ -1,4 +1,4 @@
-export function featureName(args: {
+export function getModelName(args: {
     name: string;
     modelNames: string[];
     fallback: string;

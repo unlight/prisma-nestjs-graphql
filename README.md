@@ -41,10 +41,10 @@ Output folder relative to this schema file
 
 File pattern  
 Type: `string`  
-Default: `{feature}/{name}.{type}.ts`  
+Default: `{model}/{name}.{type}.ts`  
 Possible tokens:
 
--   `{feature}` Model name in dashed case or 'prisma' if unknown
+-   `{model}` Model name in dashed case or 'prisma' if unknown
 -   `{name}` Dashed-case name of model/input/arg without suffix
 -   `{type}` Short type name (model, input, args, output)
 -   `{plural.type}` Plural short type name (models, inputs, enums)

@@ -8,7 +8,7 @@ describe('generateFileName', () => {
             modelNames: ['User'],
             name: 'User',
             type: 'model',
-            template: '{feature}/{plural.type}/{name}.{type}.ts',
+            template: '{model}/{plural.type}/{name}.{type}.ts',
         });
         expect(result).toEqual('user/models/user.model.ts');
     });
@@ -18,7 +18,7 @@ describe('generateFileName', () => {
             modelNames: ['User'],
             name: 'UserWhereInput',
             type: 'input',
-            template: '{feature}/{plural.type}/{name}.{type}.ts',
+            template: '{model}/{plural.type}/{name}.{type}.ts',
         });
         expect(result).toEqual('user/inputs/user-where.input.ts');
     });
@@ -28,7 +28,7 @@ describe('generateFileName', () => {
             modelNames: ['User'],
             name: 'Role',
             type: 'enum',
-            template: '{feature}/{plural.type}/{name}.{type}.ts',
+            template: '{model}/{plural.type}/{name}.{type}.ts',
         });
         expect(result).toEqual('prisma/enums/role.enum.ts');
     });
