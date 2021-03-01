@@ -118,7 +118,7 @@ Special directives in triple slash comments for more precise code generation.
 
 #### `@HideField()`
 
-Removes field from GraphQL schema.
+Removes field from GraphQL schema.  
 Alias: `@TypeGraphQL.omit(output: true)`
 
 Note: Field will be decorated for hide only in output types (type in schema),
@@ -148,6 +148,7 @@ export class User {
 
 -   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
 -   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
+-   https://github.com/MichalLytek/typegraphql-prisma
 
 ## Resources
 
