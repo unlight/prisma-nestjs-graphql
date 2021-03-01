@@ -33,66 +33,116 @@ npx prisma generate
 
 ## Generator options
 
--   `output` Output folder relative to this schema file
--   `outputFilePattern` File pattern  
-    Type: `string`  
-    Default: `{feature}/{name}.{type}.ts`  
-    Possible tokens:
-    -   `{feature}` Model name in dashed case or 'prisma' if unknown
-    -   `{name}` Dashed-case name of model/input/arg without suffix
-    -   `{type}` Short type name (model, input, args, output)
-    -   `{plural.type}` Plural short type name (models, inputs, enums)
--   `combineScalarFilters` Combine nested/nullable scalar filters to single  
-    Type: `boolean`  
-    Default: `true`
--   `noAtomicOperations` Remove input types for atomic operations  
-    Type: `boolean`  
-    Default: `false`
--   `reExportAll` Create `index.ts` files for each directory with re-export  
-    Type: `boolean`  
-    Default: `false`
--   `types_*` - Map prisma types in [flatten](https://github.com/hughsk/flat) style
+#### `output`
 
-    -   `types_{type}_fieldType` TypeScript field type name
-    -   `types_{type}_fieldModule` Module to import
-    -   `types_{type}_graphqlType` GraphQL type name
-    -   `types_{type}_graphqlModule` Module to import
+Output folder relative to this schema file
 
-    Where `{type}` is prisma type in schema
+#### `outputFilePattern`
 
-    Example (Decimal):
+File pattern  
+Type: `string`  
+Default: `{feature}/{name}.{type}.ts`  
+Possible tokens:
 
-    ```prisma
-    types_Decimal_fieldType = "Decimal"
-    types_Decimal_fieldModule = "decimal.js"
-    types_Decimal_graphqlType = "GraphQLDecimal"
-    types_Decimal_graphqlModule = "graphql-type-decimal"
-    ```
+-   `{feature}` Model name in dashed case or 'prisma' if unknown
+-   `{name}` Dashed-case name of model/input/arg without suffix
+-   `{type}` Short type name (model, input, args, output)
+-   `{plural.type}` Plural short type name (models, inputs, enums)
 
-    Generates field:
+#### `combineScalarFilters`
 
-    ```ts
-    import { GraphQLDecimal } from 'graphql-type-decimal';
-    import { Decimal } from 'decimal.js';
-    ...
-    @Field(() => GraphQLDecimal)
-    field: Decimal;
-    ```
+Combine nested/nullable scalar filters to single  
+Type: `boolean`  
+Default: `true`
 
-    Example (DateTime):
+#### `noAtomicOperations`
 
-    ```prisma
-    types_DateTime_fieldType = "Date"
-    types_DateTime_graphqlType = "GraphQLISODateTime"
-    types_DateTime_graphqlModule = "@nestjs/graphql"
-    ```
+Remove input types for atomic operations  
+Type: `boolean`  
+Default: `false`
 
-    Generated fields:
+#### `reExportAll`
 
-    ```ts
-    @Field(() => GraphQLISODateTime)
-    field: Date;
-    ```
+Create `index.ts` files for each directory with re-export  
+Type: `boolean`  
+Default: `false`
+
+#### `types_*`
+
+Map prisma types in [flatten](https://github.com/hughsk/flat) style
+
+-   `types_{type}_fieldType` TypeScript field type name
+-   `types_{type}_fieldModule` Module to import
+-   `types_{type}_graphqlType` GraphQL type name
+-   `types_{type}_graphqlModule` Module to import
+
+Where `{type}` is prisma type in schema
+
+Example (Decimal):
+
+```prisma
+types_Decimal_fieldType = "Decimal"
+types_Decimal_fieldModule = "decimal.js"
+types_Decimal_graphqlType = "GraphQLDecimal"
+types_Decimal_graphqlModule = "graphql-type-decimal"
+```
+
+Generates field:
+
+```ts
+import { GraphQLDecimal } from 'graphql-type-decimal';
+import { Decimal } from 'decimal.js';
+...
+@Field(() => GraphQLDecimal)
+field: Decimal;
+```
+
+Example (DateTime):
+
+```prisma
+types_DateTime_fieldType = "Date"
+types_DateTime_graphqlType = "GraphQLISODateTime"
+types_DateTime_graphqlModule = "@nestjs/graphql"
+```
+
+Generated fields:
+
+```ts
+@Field(() => GraphQLISODateTime)
+field: Date;
+```
+
+## Field Metadata
+
+Special directives in triple slash comments for more precise code generation.
+
+#### `@HideField()`
+
+Removes field from GraphQL schema.
+Alias: `@TypeGraphQL.omit(output: true)`
+
+Note: Field will be decorated for hide only in output types (type in schema),
+but not in inputs.
+
+Example:
+
+```prisma
+model User {
+    id               String    @id @default(cuid())
+    /// @HideField()
+    password         String
+}
+```
+
+Generates fields:
+
+```ts
+@ObjectType()
+export class User {
+    @HideField()
+    password: string;
+}
+```
 
 ## Similar Projects
 

@@ -1,6 +1,6 @@
-import { mapKeys } from 'lodash';
 import { CommentStatement } from 'ts-morph';
 
+import { featureName } from '../helpers/feature-name';
 import { generateClass } from '../helpers/generate-class';
 import { generateDecorator } from '../helpers/generate-decorator';
 import { generateImport } from '../helpers/generate-import';
@@ -9,10 +9,18 @@ import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
-import { DMMF, EventArguments, OutputType } from '../types';
+import { EventArguments, OutputType } from '../types';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, config, eventEmitter, queryOutputTypes } = args;
+    const {
+        getSourceFile,
+        models,
+        config,
+        eventEmitter,
+        queryOutputTypes,
+        modelFields,
+        modelNames,
+    } = args;
 
     if (['Query', 'Mutation'].includes(outputType.name)) {
         queryOutputTypes.push(outputType);
@@ -26,12 +34,14 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     }
 
     const model = models.get(outputType.name);
-    const modelFields = mapKeys(model?.fields, x => x.name) as Record<
-        string,
-        DMMF.Field | undefined
-    >;
     const fileType = model ? 'model' : 'output';
-
+    const connectedModelName =
+        model?.name ??
+        featureName({
+            name: outputType.name,
+            modelNames,
+            fallback: '',
+        });
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: fileType,
@@ -63,10 +73,19 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             continue;
         }
 
-        const { location, isList } = field.outputType;
-        const outputTypeName = getOutputTypeName(String(field.outputType.type));
-        const modelField = modelFields[field.name];
+        const { location, isList, type } = field.outputType;
+        const outputTypeName = getOutputTypeName(String(type));
+        const modelField = model && modelFields.get(model.name)?.get(field.name);
+        const fieldMeta = modelFields.get(connectedModelName)?.get(field.name)?.meta;
         const customType = config.types[outputTypeName];
+
+        // console.log({
+        //     'outputType.name': outputType.name,
+        //     connectedModelName,
+        //     outputTypeName,
+        //     'field.name': field.name,
+        //     fieldMeta,
+        // });
 
         if (location === 'outputObjectTypes') {
             field.outputType.type = outputTypeName;
@@ -86,6 +105,16 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             propertyType,
             isList,
         });
+
+        if (fieldMeta?.hideOutput) {
+            generateImport({
+                sourceFile,
+                name: 'HideField',
+                moduleSpecifier: '@nestjs/graphql',
+            });
+            propertyDeclaration.addDecorator({ name: 'HideField()' });
+            continue;
+        }
 
         const graphqlType =
             customType?.graphqlType ??
@@ -132,7 +161,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         });
     }
 
-    // Check reexport, comment generated class if found
+    // Check re-export, comment generated class if found
     if (model) {
         const exportDeclaration = sourceFile.getExportDeclaration(d => {
             return d

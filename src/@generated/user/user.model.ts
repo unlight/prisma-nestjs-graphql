@@ -1,4 +1,4 @@
-import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, HideField, ID, Int, ObjectType } from '@nestjs/graphql';
 
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -22,9 +22,7 @@ export class User {
     })
     name!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @HideField()
     password!: string;
 
     @Field(() => String, {

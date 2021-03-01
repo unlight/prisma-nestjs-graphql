@@ -6,13 +6,8 @@ import { DMMF, EventArguments, InputType } from '../types';
  * Subscribes on 'beforeInputType'
  */
 export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
-    eventEmitter.on('begin', begin);
     eventEmitter.on('beforeInputType', beforeInputType);
     eventEmitter.on('beforeGenerateField', beforeGenerateField);
-}
-
-function begin(args: EventArguments) {
-    args.context.bogusTypes = new Set();
 }
 
 function beforeInputType(
@@ -22,21 +17,11 @@ function beforeInputType(
         classDecoratorName: string;
     },
 ) {
-    const { inputType, context } = args;
-
-    // if ('EnumRoleNullableFilter' === inputType.name) {
-    //     debugger;
-    // }
+    const { inputType } = args;
 
     if (isContainBogus(inputType.name) && isScalarFilter(inputType)) {
-        // context.bogusTypes.add(inputType.name);
-        // console.log('bogus', inputType.name);
         inputType.name = replaceBogus(String(inputType.name));
-        // console.log('inputType.name', inputType.name);
     }
-    //  else {
-    //     console.log('inputType.name', inputType.name);
-    // }
 }
 
 function beforeGenerateField(field: DMMF.SchemaArg): void {
@@ -48,11 +33,6 @@ function beforeGenerateField(field: DMMF.SchemaArg): void {
         if (isContainBogus(fieldInputType)) {
             fieldInput.type = replaceBogus(fieldInputType);
         }
-        //  else {
-        //     if (fieldInputType.includes('Enum')) {
-        //         console.log('fieldInputType', fieldInputType);
-        //     }
-        // }
     }
 }
 

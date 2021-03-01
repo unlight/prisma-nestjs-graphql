@@ -1,4 +1,4 @@
-import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, HideField, Int, ObjectType } from '@nestjs/graphql';
 
 import { Role } from '../prisma/role.enum';
 import { UserAvgAggregate } from './user-avg-aggregate.output';
@@ -24,9 +24,7 @@ export class UserGroupBy {
     })
     name!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @HideField()
     password!: string;
 
     @Field(() => String, {

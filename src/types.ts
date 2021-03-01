@@ -31,6 +31,7 @@ export type GeneratorConfiguration = ReturnType<typeof createConfig>;
 export type EventArguments = {
     models: Map<string, Model>;
     modelNames: string[];
+    modelFields: Map<string, Map<string, Field>>;
     /**
      * Special output types (Mutation, Query) will be processed later
      * in generation aggregate inputs.
@@ -43,5 +44,10 @@ export type EventArguments = {
     eventEmitter: AwaitEventEmitter;
     typeNames: Set<string>;
     enums: Record<string, DMMF.DatamodelEnum | undefined>;
-    context: Record<string, any>;
 };
+
+export type FieldMeta = {
+    hideOutput: boolean;
+};
+
+export type Field = DMMF.Field & { meta: FieldMeta };

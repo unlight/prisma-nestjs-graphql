@@ -21,6 +21,7 @@ model User {
     email            String    @unique
     /// User's name
     name             String    @unique
+    /// @HideField()
     password         String
     bio              String?
     image            String?

@@ -27,6 +27,9 @@ let project: Project;
 let propertyStructure: PropertyDeclarationStructure;
 let imports: ReturnType<typeof getImportDeclarations>;
 
+const p = (name: string) => getPropertyStructure(sourceFile, name);
+const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
+
 async function testGenerate(args: {
     schema: string;
     options?: string[];
@@ -396,7 +399,7 @@ describe('one model with scalar types', () => {
             expect(getFieldType(sourceFile, 'not')).toContain('DateTimeFilter');
         });
 
-        it('compatiblity datetime filter', async () => {
+        it('compatiblity datetime filter', () => {
             const classFile = sourceFile.getClass('DateTimeFilter')!;
             const fieldIn = classFile.getProperty('in')!;
             expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
@@ -1179,20 +1182,56 @@ describe('export all from index', () => {
     });
 });
 
-it.skip('hide field', async () => {
-    await testGenerate({
-        schema: `
+describe('hide field', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
             model User {
-              id String @id
-              /// @TypeGraphQL.omit(output: true)
-              /// Regular documentation
-              password String
+                id String @id
+                /// @TypeGraphQL.omit(output: true)
+                /// Password1
+                password1 String
+                /// @HideField()
+                /// Password2
+                password2 String
             }
             `,
-        options: [],
+            options: [],
+        });
+        // const filePaths = sourceFiles.map(s => s.getFilePath());
     });
-    const property = getPropertyStructure(sourceFile, 'password');
-    expect(property?.decorators?.[0]?.name).toEqual('HideField');
+
+    describe('model', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user.model.ts'),
+            )!;
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('TypeGraphQL omit should hide password1', () => {
+            expect(d('password1')?.name).toBe('HideField');
+            expect(d('password1')?.arguments).toEqual([]);
+        });
+
+        it('HideField should hide field', () => {
+            expect(d('password2')?.name).toBe('HideField');
+            expect(d('password2')?.arguments).toEqual([]);
+        });
+    });
+
+    describe('other outputs', () => {
+        it('user-max-aggregate', () => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user-max-aggregate.output.ts'),
+            )!;
+            expect(d('password1')?.name).toBe('HideField');
+            expect(d('password1')?.arguments).toEqual([]);
+            expect(d('password2')?.name).toBe('HideField');
+            expect(d('password2')?.arguments).toEqual([]);
+        });
+    });
 });
 
 // it('^', () => console.log(sourceFile.getText()));

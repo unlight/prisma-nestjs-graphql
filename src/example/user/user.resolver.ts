@@ -20,7 +20,6 @@ const prisma = new PrismaClient({
     ],
 });
 
-// @ts-ignore
 prisma.$on('query', event => {
     console.log(event);
 });

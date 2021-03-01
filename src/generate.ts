@@ -17,7 +17,7 @@ import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { createConfig } from './helpers/create-config';
 import { generateFileName } from './helpers/generate-file-name';
-import { DMMF, EventArguments, Model, OutputType } from './types';
+import { DMMF, EventArguments, Field, Model, OutputType } from './types';
 
 export async function generate(
     args: GeneratorOptions & {
@@ -58,6 +58,7 @@ export async function generate(
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
+    const modelFields = new Map<string, Map<string, Field>>();
     const queryOutputTypes: OutputType[] = [];
     const getSourceFile = (args: { type: string; name: string }) => {
         const filePath = generateFileName({
@@ -83,7 +84,7 @@ export async function generate(
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
-        context: {},
+        modelFields,
     };
 
     if (connectCallback) {
