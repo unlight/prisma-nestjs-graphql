@@ -4,7 +4,7 @@ import { SourceFile } from 'ts-morph';
 import { EventArguments } from '../types';
 
 export function reExportAll(emitter: AwaitEventEmitter) {
-    emitter.on('beforeGenerateFiles', beforeGenerateFiles);
+    emitter.on('BeforeGenerateFiles', beforeGenerateFiles);
 }
 
 function beforeGenerateFiles(args: EventArguments) {

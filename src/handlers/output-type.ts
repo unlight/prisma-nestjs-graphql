@@ -30,7 +30,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     outputType.name = getOutputTypeName(outputType.name);
 
     if (outputType.name.endsWith('Aggregate')) {
-        eventEmitter.emitSync('aggregateOutput', { ...args, outputType });
+        eventEmitter.emitSync('AggregateOutput', { ...args, outputType });
     }
 
     const model = models.get(outputType.name);

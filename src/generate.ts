@@ -43,14 +43,14 @@ export async function generate(
 
     const eventEmitter = new AwaitEventEmitter();
 
-    eventEmitter.on('model', modelData);
-    eventEmitter.on('enumType', registerEnum);
-    eventEmitter.on('outputType', outputType);
-    eventEmitter.on('aggregateOutput', createAggregateInput);
-    eventEmitter.on('inputType', inputType);
-    eventEmitter.on('inputType', typeNames);
-    eventEmitter.on('argsType', argsType);
-    eventEmitter.on('generateFiles', generateFiles);
+    eventEmitter.on('Model', modelData);
+    eventEmitter.on('EnumType', registerEnum);
+    eventEmitter.on('OutputType', outputType);
+    eventEmitter.on('AggregateOutput', createAggregateInput);
+    eventEmitter.on('InputType', inputType);
+    eventEmitter.on('InputType', typeNames);
+    eventEmitter.on('ArgsType', argsType);
+    eventEmitter.on('GenerateFiles', generateFiles);
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
@@ -91,18 +91,18 @@ export async function generate(
         await connectCallback(eventEmitter);
     }
 
-    await eventEmitter.emit('begin', eventArguments);
+    await eventEmitter.emit('Begin', eventArguments);
 
     for (const model of datamodel.models) {
-        await eventEmitter.emit('model', model, eventArguments);
+        await eventEmitter.emit('Model', model, eventArguments);
     }
 
     for (const enumType of enumTypes.prisma.concat(enumTypes.model || [])) {
-        await eventEmitter.emit('enumType', enumType, eventArguments);
+        await eventEmitter.emit('EnumType', enumType, eventArguments);
     }
 
     for (const outputType of outputObjectTypes.prisma.concat(outputObjectTypes.model)) {
-        await eventEmitter.emit('outputType', outputType, eventArguments);
+        await eventEmitter.emit('OutputType', outputType, eventArguments);
     }
 
     for (const inputType of inputObjectTypes.prisma.concat(
@@ -114,19 +114,19 @@ export async function generate(
             fileType: 'input',
             classDecoratorName: 'InputType',
         };
-        await eventEmitter.emit('beforeInputType', event);
-        await eventEmitter.emit('inputType', event);
+        await eventEmitter.emit('BeforeInputType', event);
+        await eventEmitter.emit('InputType', event);
     }
 
     for (const outputType of queryOutputTypes) {
         for (const field of outputType.fields) {
-            await eventEmitter.emit('argsType', field, eventArguments);
+            await eventEmitter.emit('ArgsType', field, eventArguments);
         }
     }
 
-    await eventEmitter.emit('beforeGenerateFiles', eventArguments);
-    await eventEmitter.emit('generateFiles', eventArguments);
-    await eventEmitter.emit('end', eventArguments);
+    await eventEmitter.emit('BeforeGenerateFiles', eventArguments);
+    await eventEmitter.emit('GenerateFiles', eventArguments);
+    await eventEmitter.emit('End', eventArguments);
 
     for (const name of Object.keys(eventEmitter._events)) {
         eventEmitter.off(name);

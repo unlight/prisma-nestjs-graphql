@@ -3,8 +3,8 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { EventArguments, InputType } from '../types';
 
 export function noAtomicOperations(eventEmitter: AwaitEventEmitter) {
-    eventEmitter.on('beforeInputType', beforeInputType);
-    eventEmitter.on('beforeGenerateFiles', beforeGenerateFiles);
+    eventEmitter.on('BeforeInputType', beforeInputType);
+    eventEmitter.on('BeforeGenerateFiles', beforeGenerateFiles);
 }
 
 function beforeInputType(args: EventArguments & { inputType: InputType }) {

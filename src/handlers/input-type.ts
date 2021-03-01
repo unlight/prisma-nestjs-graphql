@@ -44,7 +44,7 @@ export function inputType(
     });
 
     for (const field of inputType.fields) {
-        eventEmitter.emitSync('beforeGenerateField', field, args);
+        eventEmitter.emitSync('BeforeGenerateField', field, args);
 
         const { inputTypes, isRequired } = field;
         const graphqlInputType = getGraphqlInputType(inputTypes);

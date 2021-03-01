@@ -40,15 +40,15 @@ async function testGenerate(args: {
 }) {
     const { schema, options, sourceFile } = args;
     const connectCallback = (emitter: AwaitEventEmitter) => {
-        emitter.off('generateFiles');
+        emitter.off('GenerateFiles');
         if (sourceFile) {
-            emitter.once('begin', ({ project }: { project: Project }) => {
+            emitter.once('Begin', ({ project }: { project: Project }) => {
                 project.createSourceFile(sourceFile.path, sourceFile.text, {
                     overwrite: true,
                 });
             });
         }
-        emitter.once('end', (args: { project: Project }) => {
+        emitter.once('End', (args: { project: Project }) => {
             ({ project } = args);
         });
     };

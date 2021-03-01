@@ -6,8 +6,8 @@ import { DMMF, EventArguments, InputType } from '../types';
  * Subscribes on 'beforeInputType'
  */
 export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
-    eventEmitter.on('beforeInputType', beforeInputType);
-    eventEmitter.on('beforeGenerateField', beforeGenerateField);
+    eventEmitter.on('BeforeInputType', beforeInputType);
+    eventEmitter.on('BeforeGenerateField', beforeGenerateField);
 }
 
 function beforeInputType(

@@ -4,7 +4,7 @@ import { EventArguments, InputType, SchemaField } from '../types';
 
 /**
  * See prisma client/src/generation/TSClient.ts @ getAggregationTypes
- * Subcribes on: 'argsType'
+ * Subcribes on: 'ArgsType'
  */
 export function argsType(field: SchemaField, args: EventArguments) {
     if (['queryRaw', 'executeRaw'].includes(field.name)) {
@@ -57,7 +57,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
         }
     }
 
-    eventEmitter.emitSync('inputType', {
+    eventEmitter.emitSync('InputType', {
         ...args,
         inputType,
         fileType: 'args',
