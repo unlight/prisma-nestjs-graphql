@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 
+import { DummyCreateInput } from './@generated/dummy/dummy-create.input';
 import { DateTimeFilter } from './@generated/prisma/date-time-filter.input';
 import { FloatFilter } from './@generated/prisma/float-filter.input';
 import { IntFilter } from './@generated/prisma/int-filter.input';
@@ -104,5 +105,15 @@ const $prisma = new PrismaClient();
     let p: Prisma.UserGroupByArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
+    p = x;
+}
+{
+    const x: DummyCreateInput = { id: '1', floaty: 1 };
+    let p: Prisma.DummyCreateInput = { id: '2', floaty: 2 };
+    p = x;
+}
+{
+    const x: DummyCreateInput['json'] = {};
+    let p: Prisma.DummyCreateInput['json'] = {};
     p = x;
 }

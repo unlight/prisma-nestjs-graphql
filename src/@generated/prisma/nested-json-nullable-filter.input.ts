@@ -3,12 +3,12 @@ import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class NestedJsonNullableFilter {
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     equals?: any;
 
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     not?: any;

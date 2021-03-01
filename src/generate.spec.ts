@@ -324,6 +324,7 @@ describe('one model with scalar types', () => {
                 data Json
             }`,
         });
+        // const filePaths = sourceFiles.map(s => s.getFilePath());
     });
 
     describe('user model', () => {
@@ -494,6 +495,29 @@ describe('one model with scalar types', () => {
             const property = getPropertyStructure(sourceFile, 'rating');
             expect(property?.type).toEqual('number');
         });
+
+        it('data property (json)', () => {
+            expect(getFieldType(sourceFile, 'data')).toEqual('() => GraphQLJSON');
+        });
+    });
+
+    describe('json filter', () => {
+        before(() => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/json-filter.input.ts'),
+            )!;
+        });
+
+        it('not field should be json filter', () => {
+            const not = p('not');
+            expect(not?.type).toEqual('any');
+        });
+
+        it('field type should be GraphQLJSON', () => {
+            expect(getFieldType(sourceFile, 'not')).toEqual('() => GraphQLJSON');
+        });
+
+        // it('', () => console.log(sourceFile.getText()));
     });
 });
 

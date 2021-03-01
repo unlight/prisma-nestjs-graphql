@@ -6,12 +6,12 @@ import { NestedJsonNullableFilter } from './nested-json-nullable-filter.input';
 
 @InputType()
 export class JsonNullableWithAggregatesFilter {
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     equals?: any;
 
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     not?: any;

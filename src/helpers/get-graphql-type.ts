@@ -32,6 +32,9 @@ export function getGraphqlType(args: {
         case 'true':
             result = 'Boolean';
             break;
+        case 'Json':
+            result = 'GraphQLJSON';
+            break;
     }
 
     return result;

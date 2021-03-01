@@ -23,7 +23,7 @@ export function createConfig(data: Record<string, string | undefined>) {
             {},
             {
                 Json: {
-                    fieldType: 'Record<string, any>',
+                    fieldType: 'any',
                     graphqlType: 'GraphQLJSON',
                     graphqlModule: 'graphql-type-json',
                 },

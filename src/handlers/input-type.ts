@@ -78,6 +78,7 @@ export function inputType(
             getSourceFile,
         });
 
+        // if (inputType.name === 'JsonFilter') {
         //     console.log({
         //         'inputType.name': inputType.name,
         //         'field.name': field.name,
@@ -88,6 +89,7 @@ export function inputType(
         //         graphqlType,
         //         graphqlImport,
         //     });
+        // }
 
         if (graphqlImport.name !== inputType.name && graphqlImport.specifier) {
             generateImport({

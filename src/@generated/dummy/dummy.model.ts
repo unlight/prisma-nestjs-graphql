@@ -41,5 +41,5 @@ export class Dummy {
     @Field(() => GraphQLJSON, {
         nullable: true,
     })
-    json?: Record<string, any>;
+    json?: any;
 }
