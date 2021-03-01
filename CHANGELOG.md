@@ -1,3 +1,42 @@
+# [10.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v9.0.0...v10.0.0) (2021-03-01)
+
+
+### Bug Fixes
+
+* Generate correct json graphql type ([c6d8d46](https://github.com/unlight/nestjs-graphql-prisma/commit/c6d8d46e3cb1627f07a33f2989272911283ddc01))
+* Json type changed to `Record<string, any>` ([2877be7](https://github.com/unlight/nestjs-graphql-prisma/commit/2877be7d97827215f984c95301815a905cc015c6))
+* Renamed config option ([d989cfe](https://github.com/unlight/nestjs-graphql-prisma/commit/d989cfeba9a8daac2ce21e0a3e690c5c24d42e3c))
+
+
+* refactor!: Renamed token in `outputFilePattern` template ([95d4629](https://github.com/unlight/nestjs-graphql-prisma/commit/95d4629e1ae887cb962580aa4ab3f2d300003fe8))
+* refactor!: Removed `renameZooTypes` config option ([71bfb68](https://github.com/unlight/nestjs-graphql-prisma/commit/71bfb68e1d4c86ba25148e1f5dabd80b365db0c0))
+* chore!: Renamed config option `atomicNumberOperation` to `noAtomicOperations` ([6078eb9](https://github.com/unlight/nestjs-graphql-prisma/commit/6078eb9187ef134fd8e711d5a0dd6430d5f5cee0))
+
+
+### Code Refactoring
+
+* Combine scalar filters ([789cfeb](https://github.com/unlight/nestjs-graphql-prisma/commit/789cfebe970de7e6cdfca67105e37cdea4464d08))
+
+
+### Features
+
+* Ability to hide field in schema ([a222955](https://github.com/unlight/nestjs-graphql-prisma/commit/a222955dac6fb85dce96a62c3661997a979ee2dd)), closes [#8](https://github.com/unlight/nestjs-graphql-prisma/issues/8)
+
+
+### Performance Improvements
+
+* Slightly improved ([fd88dc9](https://github.com/unlight/nestjs-graphql-prisma/commit/fd88dc965568ba511da80acb098e5a567bfb25e3))
+
+
+### BREAKING CHANGES
+
+* Renamed token `{feature}` to `{model}` in `outputFilePattern` template pattern
+* Removed `renameZooTypes` config option
+* Config option `combineScalarFilters` is false by default
+* Made all options which mutates/renames types are `false`
+* Inverted config option `atomicNumberOperations` to `noAtomicNumberOperations`
+Replace `atomicNumberOperations = false` by `noAtomicNumberOperations = true`
+
 # [9.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v8.0.0...v9.0.0) (2021-02-06)
 
 
