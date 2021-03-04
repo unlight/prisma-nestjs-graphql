@@ -5,25 +5,25 @@ export class NullableBigIntFieldUpdateOperationsInput {
     @Field(() => String, {
         nullable: true,
     })
-    set?: BigInt;
+    set?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    increment?: BigInt;
+    increment?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    decrement?: BigInt;
+    decrement?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    multiply?: BigInt;
+    multiply?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    divide?: BigInt;
+    divide?: bigint | number;
 }

@@ -323,6 +323,7 @@ describe('one model with scalar types', () => {
                 humanoid Boolean
                 money Decimal
                 data Json
+                biggy BigInt
             }`,
         });
         // const filePaths = sourceFiles.map(s => s.getFilePath());
@@ -357,6 +358,14 @@ describe('one model with scalar types', () => {
                 expect(getPropertyStructure(sourceFile, 'born')?.type).toEqual(
                     'Date | string',
                 );
+            });
+
+            it('big int', () => {
+                expect(p('biggy')?.type).toEqual('bigint | number');
+            });
+
+            it('money', () => {
+                expect(p('money')?.type).toEqual('Decimal | number | string');
             });
         });
 

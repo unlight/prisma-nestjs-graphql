@@ -10,37 +10,37 @@ export class BigIntNullableWithAggregatesFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: BigInt;
+    equals?: bigint | number;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<BigInt>;
+    in?: Array<bigint> | Array<number>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<BigInt>;
+    notIn?: Array<bigint> | Array<number>;
 
     @Field(() => String, {
         nullable: true,
     })
-    lt?: BigInt;
+    lt?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    lte?: BigInt;
+    lte?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    gt?: BigInt;
+    gt?: bigint | number;
 
     @Field(() => String, {
         nullable: true,
     })
-    gte?: BigInt;
+    gte?: bigint | number;
 
     @Field(() => NestedBigIntNullableWithAggregatesFilter, {
         nullable: true,

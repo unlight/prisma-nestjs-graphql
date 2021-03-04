@@ -30,10 +30,10 @@ export class DummyMaxAggregate {
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string;
+    decimal?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bigInt?: BigInt;
+    bigInt?: bigint | number;
 }

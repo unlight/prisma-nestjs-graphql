@@ -5,25 +5,25 @@ export class NullableDecimalFieldUpdateOperationsInput {
     @Field(() => String, {
         nullable: true,
     })
-    set?: string;
+    set?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    increment?: string;
+    increment?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    decrement?: string;
+    decrement?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    multiply?: string;
+    multiply?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    divide?: string;
+    divide?: number | string;
 }

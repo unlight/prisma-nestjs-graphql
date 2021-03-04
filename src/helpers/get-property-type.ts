@@ -23,11 +23,11 @@ export function getPropertyType(args: {
         case 'Null':
             return ['null'];
         case 'Decimal':
-            return ['string'];
+            return ['number', 'string'];
         case 'Bytes':
             return ['Buffer'];
         case 'BigInt':
-            return ['BigInt'];
+            return ['bigint', 'number'];
     }
     if (['inputObjectTypes', 'outputObjectTypes', 'enumTypes'].includes(location)) {
         return [type];

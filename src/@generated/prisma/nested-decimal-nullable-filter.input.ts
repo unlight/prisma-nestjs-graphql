@@ -5,37 +5,37 @@ export class NestedDecimalNullableFilter {
     @Field(() => String, {
         nullable: true,
     })
-    equals?: string;
+    equals?: number | string;
 
     @Field(() => [String], {
         nullable: true,
     })
-    in?: Array<string>;
+    in?: Array<number> | Array<string>;
 
     @Field(() => [String], {
         nullable: true,
     })
-    notIn?: Array<string>;
+    notIn?: Array<number> | Array<string>;
 
     @Field(() => String, {
         nullable: true,
     })
-    lt?: string;
+    lt?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    lte?: string;
+    lte?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    gt?: string;
+    gt?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    gte?: string;
+    gte?: number | string;
 
     @Field(() => NestedDecimalNullableFilter, {
         nullable: true,

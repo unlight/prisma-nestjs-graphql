@@ -37,12 +37,12 @@ export class DummyGroupBy {
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string;
+    decimal?: number | string;
 
     @Field(() => String, {
         nullable: true,
     })
-    bigInt?: BigInt;
+    bigInt?: bigint | number;
 
     @Field(() => GraphQLJSON, {
         nullable: true,

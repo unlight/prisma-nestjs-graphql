@@ -20,7 +20,7 @@ export class DummyAvgAggregate {
     @Field(() => String, {
         nullable: true,
     })
-    decimal?: string;
+    decimal?: number | string;
 
     @Field(() => Float, {
         nullable: true,
