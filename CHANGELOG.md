@@ -1,3 +1,11 @@
+## [10.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.0...v10.0.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* BigInt property type in lower ([19ace4e](https://github.com/unlight/nestjs-graphql-prisma/commit/19ace4e4342e6e60f42f863b171fc4c2953d9a16))
+* Conflict with models ending with `Output` ([a08d4c4](https://github.com/unlight/nestjs-graphql-prisma/commit/a08d4c4f782e866cbb555308f8010c050baea833)), closes [#10](https://github.com/unlight/nestjs-graphql-prisma/issues/10)
+
 # [10.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v9.0.0...v10.0.0) (2021-03-01)
 
 
