@@ -53,7 +53,7 @@ Possible tokens:
 
 Combine nested/nullable scalar filters to single  
 Type: `boolean`  
-Default: `true`
+Default: `false`
 
 #### `noAtomicOperations`
 

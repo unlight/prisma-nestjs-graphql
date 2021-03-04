@@ -46,7 +46,7 @@ export class DummyUncheckedUpdateInput {
     })
     bigInt?: NullableBigIntFieldUpdateOperationsInput;
 
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     json?: any;

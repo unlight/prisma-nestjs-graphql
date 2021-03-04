@@ -157,7 +157,7 @@ describe('model with one id int', () => {
         });
     });
 
-    describe('user count aggregate', () => {
+    describe('user count aggregate (UserCountAggregate)', () => {
         before(() => {
             sourceFile = project.getSourceFile(s =>
                 s.getFilePath().endsWith('user-count-aggregate.output.ts'),
@@ -168,8 +168,9 @@ describe('model with one id int', () => {
                 ?.getStructure()!;
         });
 
-        it('should be number', () => {
+        it('id property should be Int/number', () => {
             expect(propertyStructure.type).toEqual('number');
+            expect(d('id')?.arguments?.[0]).toEqual('() => Int');
         });
 
         it('should be not null', () => {
@@ -1257,5 +1258,46 @@ describe('hide field', () => {
         });
     });
 });
+
+it('model with prisma keyword output', async () => {
+    await testGenerate({
+        schema: `
+            model Output {
+              id Int @id
+            }
+            model Aggregate {
+              id Int @id
+              output Output
+              x XOutput
+            }
+            model XOutput {
+              id Int @id
+            }
+            `,
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
+    });
+});
+
+// const a = sourceFiles.map(s => s.getFilePath());
+// sourceFile = sourceFiles.find(s =>
+//     s.getFilePath().endsWith('aggregate.output.ts'),
+// )!;
+// console.log('sourceFile.getText()', sourceFile.getText());
+// // console.log('a', a);
+// it.only('only', async () => {
+//     await testGenerate({
+//         schema: `
+//             model BuildOutput {
+//               id String @id
+//               BuildAction BuildAction[]
+//             }
+//             model BuildAction {
+//               id String @id
+//               output BuildOutput
+//             }
+//             `,
+//         options: [],
+//     });
+// });
 
 // it('^', () => console.log(sourceFile.getText()));

@@ -1,48 +1,21 @@
+import assert from 'assert';
+import { CommentStatement } from 'ts-morph';
+
 import { generateClass } from '../helpers/generate-class';
 import { generateDecorator } from '../helpers/generate-decorator';
 import { generateImport } from '../helpers/generate-import';
 import { generateProperty } from '../helpers/generate-property';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
-import { getModelName } from '../helpers/get-model-name';
-import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { EventArguments, OutputType } from '../types';
 
-export function outputType(outputType: OutputType, args: EventArguments) {
-    const {
-        getSourceFile,
-        models,
-        config,
-        eventEmitter,
-        queryOutputTypes,
-        modelFields,
-        modelNames,
-    } = args;
+export function modelOutputType(outputType: OutputType, args: EventArguments) {
+    const { getSourceFile, models, config, modelFields } = args;
 
-    if (['Query', 'Mutation'].includes(outputType.name)) {
-        queryOutputTypes.push(outputType);
-        return;
-    }
-
-    const fileType = 'output';
-    const modelName = getModelName({
-        name: outputType.name,
-        modelNames,
-        fallback: '',
-    });
-    const model = models.get(modelName);
-    const shouldEmitAggregateOutput =
-        model &&
-        /(Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
-        String(outputType.name).startsWith(model.name);
-    // Get rid of bogus suffixes
-    outputType.name = getOutputTypeName(outputType.name);
-
-    if (shouldEmitAggregateOutput) {
-        eventEmitter.emitSync('AggregateOutput', { ...args, outputType });
-    }
-
+    const model = models.get(outputType.name);
+    assert(model);
+    const fileType = 'model';
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: fileType,
@@ -51,6 +24,12 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     const classDeclaration = generateClass({
         decorator: {
             name: 'ObjectType',
+            properties: [
+                {
+                    name: 'description',
+                    value: model.documentation,
+                },
+            ],
         },
         sourceFile,
         name: outputType.name,
@@ -63,22 +42,25 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     });
 
     for (const field of outputType.fields) {
+        // Do not generate already defined properties for model
+        if (classDeclaration.getProperty(field.name)) {
+            continue;
+        }
+
         const { location, isList, type } = field.outputType;
-        const outputTypeName = getOutputTypeName(String(type));
-        const modelField = model && modelFields.get(model.name)?.get(field.name);
+        const outputTypeName = String(type);
+        const modelField = modelFields.get(model.name)?.get(field.name);
         const fieldMeta = modelField?.meta;
         const customType = config.types[outputTypeName];
 
         // console.log({
         //     'field.outputType': field.outputType,
         //     'outputType.name': outputType.name,
-        //     connectedModelName,
+        //     'model?.name': model?.name,
         //     outputTypeName,
         //     'field.name': field.name,
         //     fieldMeta,
         // });
-
-        field.outputType.type = outputTypeName;
 
         const propertyType = customType?.fieldType
             ? [customType.fieldType]
@@ -110,14 +92,14 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             getGraphqlType({
                 location,
                 type: outputTypeName,
-                isId: false,
+                isId: modelField?.isId,
             });
 
         const graphqlImport = getGraphqlImport({
             sourceFile,
             fileType,
             location,
-            isId: false,
+            isId: modelField?.isId,
             name: graphqlType,
             customType,
             getSourceFile,
@@ -145,6 +127,29 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             graphqlType,
             isList,
             isNullable: field.isNullable,
+            defaultValue: modelField?.default,
+            description: modelField?.documentation,
         });
+    }
+
+    // Check re-export, comment generated class if found
+    const exportDeclaration = sourceFile.getExportDeclaration(d => {
+        return d.getNamedExports().some(x => x.getNameNode().getText() === model.name);
+    });
+    if (exportDeclaration) {
+        let commentStatement: CommentStatement | undefined;
+        while (
+            (commentStatement = sourceFile.getStatementByKind(
+                2 /* SingleLineCommentTrivia */,
+            ))
+        ) {
+            commentStatement.remove();
+        }
+        const commentedText = classDeclaration
+            .getText()
+            .split('\n')
+            .map(x => `// ${x}`);
+        classDeclaration.remove();
+        sourceFile.addStatements(['\n', ...commentedText]);
     }
 }

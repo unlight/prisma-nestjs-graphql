@@ -10,6 +10,7 @@ import { createAggregateInput } from './handlers/create-aggregate-input';
 import { generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
+import { modelOutputType } from './handlers/model-output-type';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
 import { reExportAll } from './handlers/re-export-all';
@@ -32,8 +33,13 @@ export async function generate(
         x => x.provider === 'prisma-client-js',
     )?.output;
     assert(prismaClientOutput, 'prismaClientOutput');
-    const prismaClientDmmf =
-        args.prismaClientDmmf ?? (require(prismaClientOutput).dmmf as DMMF.Document);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const prismaClientDmmf = JSON.parse(
+        JSON.stringify(
+            args.prismaClientDmmf ??
+                (require(prismaClientOutput).dmmf as DMMF.Document),
+        ),
+    );
     const project = new Project({
         useInMemoryFileSystem: true,
         manipulationSettings: {
@@ -46,6 +52,7 @@ export async function generate(
     eventEmitter.on('Model', modelData);
     eventEmitter.on('EnumType', registerEnum);
     eventEmitter.on('OutputType', outputType);
+    eventEmitter.on('ModelOutputType', modelOutputType);
     eventEmitter.on('AggregateOutput', createAggregateInput);
     eventEmitter.on('InputType', inputType);
     eventEmitter.on('InputType', typeNames);
@@ -101,7 +108,11 @@ export async function generate(
         await eventEmitter.emit('EnumType', enumType, eventArguments);
     }
 
-    for (const outputType of outputObjectTypes.prisma.concat(outputObjectTypes.model)) {
+    for (const outputType of outputObjectTypes.model) {
+        await eventEmitter.emit('ModelOutputType', outputType, eventArguments);
+    }
+
+    for (const outputType of outputObjectTypes.prisma) {
         await eventEmitter.emit('OutputType', outputType, eventArguments);
     }
 

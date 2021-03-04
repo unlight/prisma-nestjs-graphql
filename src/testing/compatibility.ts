@@ -1,18 +1,19 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 
-import { DummyCreateInput } from './@generated/dummy/dummy-create.input';
-import { DateTimeFilter } from './@generated/prisma/date-time-filter.input';
-import { FloatFilter } from './@generated/prisma/float-filter.input';
-import { IntFilter } from './@generated/prisma/int-filter.input';
-import { StringFilter } from './@generated/prisma/string-filter.input';
-import { AggregateUserArgs } from './@generated/user/aggregate-user.args';
-import { FindManyUserArgs } from './@generated/user/find-many-user.args';
-import { GroupByUserArgs } from './@generated/user/group-by-user.args';
-import { UserCreateWithoutArticlesInput } from './@generated/user/user-create-without-articles.input';
-import { UserCreateWithoutCommentsInput } from './@generated/user/user-create-without-comments.input';
-import { UserListRelationFilter } from './@generated/user/user-list-relation-filter.input';
-import { UserScalarFieldEnum } from './@generated/user/user-scalar-field.enum';
-import { UserWhereInput } from './@generated/user/user-where.input';
+import { DummyCreateInput } from '../@generated/dummy/dummy-create.input';
+import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
+import { FloatFilter } from '../@generated/prisma/float-filter.input';
+import { IntFilter } from '../@generated/prisma/int-filter.input';
+import { StringFilter } from '../@generated/prisma/string-filter.input';
+import { AggregateUserArgs } from '../@generated/user/aggregate-user.args';
+import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
+import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
+import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
+import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
+import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
+import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
+import { UserWhereInput } from '../@generated/user/user-where.input';
+import { UserCreateInput } from '../@generated/user/user-create.input';
 
 const $prisma = new PrismaClient();
 
@@ -115,5 +116,18 @@ const $prisma = new PrismaClient();
 {
     const x: DummyCreateInput['json'] = {};
     let p: Prisma.DummyCreateInput['json'] = {};
+    p = x;
+}
+{
+    const x: UserCreateInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
+    let p: Prisma.UserCreateInput = {
+        email: '',
+        name: '',
+        password: '',
+    };
     p = x;
 }

@@ -38,7 +38,7 @@ export class DummyCreateInput {
     })
     bigInt?: BigInt;
 
-    @Field(() => String, {
+    @Field(() => GraphQLJSON, {
         nullable: true,
     })
     json?: any;

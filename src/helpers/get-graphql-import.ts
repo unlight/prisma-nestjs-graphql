@@ -35,7 +35,7 @@ export function getGraphqlImport(args: {
             return { name: 'ID', specifier: '@nestjs/graphql' };
         }
         if (['Int', 'Float'].includes(name)) {
-            return { name: name, specifier: '@nestjs/graphql' };
+            return { name, specifier: '@nestjs/graphql' };
         }
         if (['true', 'Boolean'].includes(name)) {
             return { name: 'Boolean', specifier: undefined };
@@ -52,9 +52,14 @@ export function getGraphqlImport(args: {
         sourceFile.getFilePath(),
         getSourceFile({
             type: sourceFileType,
-            name: name,
+            name,
         }).getFilePath(),
     );
+
+    if (specifier.includes('output-count-aggregate.model')) {
+        console.trace('wrong name');
+        throw 1;
+    }
 
     return { name, specifier };
 }

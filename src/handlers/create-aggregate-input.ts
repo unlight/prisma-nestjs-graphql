@@ -3,7 +3,7 @@ import { EventArguments, InputType, OutputType } from '../types';
 /**
  * Create aggregate inputs from aggregate outputs.
  * See client/src/generation/TSClient.ts @ getAggregationTypes
- * Subcribes on: AggregateOutput
+ * Subcribes on: 'AggregateOutput'
  */
 export function createAggregateInput(
     args: EventArguments & { outputType: OutputType },
