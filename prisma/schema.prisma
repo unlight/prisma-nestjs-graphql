@@ -1,85 +1,85 @@
 datasource database {
-    provider = "postgres"
-    url = env("DATABASE_URL")
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-    provider = "prisma-client-js"
-    previewFeatures = ["groupBy", "createMany", "orderByRelation"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["groupBy", "createMany", "orderByRelation"]
 }
 
 generator nestgraphql {
-    provider = "node -r ts-node/register/transpile-only src/index.ts"
-    output   = "../src/@generated"
-    noAtomicOperations = false
-    combineScalarFilters = false
-    reExportAll = false
+  provider             = "node -r ts-node/register/transpile-only src/index.ts"
+  output               = "../src/@generated"
+  noAtomicOperations   = false
+  combineScalarFilters = false
+  reExportAll          = false
 }
 
 model User {
-    id               String    @id @default(cuid())
-    email            String    @unique
-    /// User's name
-    name             String    @unique
-    /// @HideField()
-    password         String
-    bio              String?
-    image            String?
-    following        User[]    @relation("UserFollows", references: [id])
-    followers        User[]    @relation("UserFollows", references: [id])
-    favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
-    articles          Article[] @relation("ArticleAuthor")
-    comments          Comment[]
-    countComments    Int?
-    rating           Float?
-    role             Role?
+  id               String    @id @default(cuid())
+  email            String    @unique
+  /// User's name
+  name             String    @unique
+  /// @HideField()
+  password         String
+  bio              String?
+  image            String?
+  following        User[]    @relation("UserFollows", references: [id])
+  followers        User[]    @relation("UserFollows", references: [id])
+  favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
+  articles         Article[] @relation("ArticleAuthor")
+  comments         Comment[]
+  countComments    Int?
+  rating           Float?
+  role             Role?
 }
 
 model Tag {
-    id       String    @id @default(cuid())
-    name     String    @unique
-    articles Article[]
+  id       String    @id @default(cuid())
+  name     String    @unique
+  articles Article[]
 }
 
 model Article {
-    id             String    @id @default(cuid())
-    slug           String    @unique
-    title          String
-    description    String
-    body           String
-    tags           Tag[]
-    createdAt      DateTime  @default(now())
-    updatedAt      DateTime  @updatedAt
-    favoritesCount Int       @default(0)
-    author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
-    authorId       String
-    favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
-    comments       Comment[]
-    active         Boolean? @default(true)
+  id             String    @id @default(cuid())
+  slug           String    @unique
+  title          String
+  description    String
+  body           String
+  tags           Tag[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favoritesCount Int       @default(0)
+  author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+  authorId       String
+  favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
+  comments       Comment[]
+  active         Boolean?  @default(true)
 }
 
 model Comment {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    body      String
-    author    User     @relation(fields: [authorId], references: [id])
-    authorId  String
-    article   Article? @relation(fields: [articleId], references: [id])
-    articleId String?
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  article   Article? @relation(fields: [articleId], references: [id])
+  articleId String?
 }
 
 enum Role {
-    USER
+  USER
 }
 
 model Dummy {
-    id String @id
-    floaty Float
-    int Int?
-    float Float?
-    bytes Bytes?
-    decimal Decimal?
-    bigInt BigInt?
-    json Json?
+  id      String   @id
+  floaty  Float
+  int     Int?
+  float   Float?
+  bytes   Bytes?
+  decimal Decimal?
+  bigInt  BigInt?
+  json    Json?
 }

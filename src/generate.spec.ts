@@ -364,7 +364,7 @@ describe('one model with scalar types', () => {
                 expect(p('biggy')?.type).toEqual('bigint | number');
             });
 
-            it('money', () => {
+            it.skip('money', () => {
                 expect(p('money')?.type).toEqual('Decimal | number | string');
             });
         });
@@ -700,8 +700,10 @@ describe('one model with self reference', () => {
     before(async () => {
         await testGenerate({
             schema: `model User {
-                  id Int @id
-                  parent User
+                  id     Int    @id
+                  parent User   @relation("UserToUser", fields: [userId], references: [id])
+                  User   User[] @relation("UserToUser")
+                  userId Int
                 }`,
         });
     });
@@ -753,12 +755,16 @@ describe('two models with id only and relation', () => {
         await testGenerate({
             schema: `
                 model User {
-                  id        Int      @id
-                  posts     Post[]
+                  id    Int    @id
+                  posts Post[]
                 }
+
                 model Post {
-                  id        Int      @id
-                }`,
+                  id     Int   @id
+                  User   User? @relation(fields: [userId], references: [id])
+                  userId Int?
+                }
+            `,
         });
     });
 
@@ -1272,15 +1278,21 @@ it('model with prisma keyword output', async () => {
     await testGenerate({
         schema: `
             model Output {
-              id Int @id
+              id        Int         @id
+              Aggregate Aggregate[]
             }
+
             model Aggregate {
-              id Int @id
-              output Output
-              x XOutput
+              id       Int     @id
+              outputId Int
+              output   Output  @relation(fields: [outputId], references: [id])
+              xId      Int
+              x        XOutput @relation(fields: [xId], references: [id])
             }
+
             model XOutput {
-              id Int @id
+              id        Int         @id
+              Aggregate Aggregate[]
             }
             `,
         options: [`outputFilePattern = "{name}.{type}.ts"`],
