@@ -1,3 +1,10 @@
+### [10.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.1...v10.0.2) (2021-03-13)
+
+
+### Bug Fixes
+
+* Added more keywords for detection model name ([51c836e](https://github.com/unlight/nestjs-graphql-prisma/commit/51c836e92488be8af3e73038ec63c2c2d498a629))
+
 ## [10.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.0...v10.0.1) (2021-03-04)
 
 
