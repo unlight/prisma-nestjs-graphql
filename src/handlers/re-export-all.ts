@@ -1,5 +1,5 @@
+import assert from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
-import { SourceFile } from 'ts-morph';
 
 import { EventArguments } from '../types';
 
@@ -8,34 +8,41 @@ export function reExportAll(emitter: AwaitEventEmitter) {
 }
 
 function beforeGenerateFiles(args: EventArguments) {
-    const { project } = args;
-    const nextFiles = new Set<SourceFile>();
+    const { project, output } = args;
 
-    for (const sourceFile of project.getSourceFiles()) {
-        const directoryPath = sourceFile.getDirectory().getPath();
-        const testIndexFile = `${directoryPath}/index.ts`;
-        const sourceIndexFile =
-            project.getSourceFile(testIndexFile) ||
-            project.createSourceFile(testIndexFile);
-        sourceIndexFile.addExportDeclaration({
-            namedExports: sourceFile
-                .getExportSymbols()
-                .map(s => ({ name: s.getName() })),
-            moduleSpecifier: `./${sourceFile.getBaseNameWithoutExtension()}`,
+    for (const rootDirectory of project.getRootDirectories()) {
+        const sourcesFiles = rootDirectory.getSourceFiles();
+        const sourceIndexFile = rootDirectory.createSourceFile('index.ts', '', {
+            overwrite: true,
         });
-
-        nextFiles.add(sourceIndexFile);
+        const exportDeclarations = sourcesFiles.flatMap(s => ({
+            namedExports: s
+                .getExportSymbols()
+                .flatMap(s => s.getName())
+                .map(name => ({ name })),
+            moduleSpecifier: rootDirectory.getRelativePathAsModuleSpecifierTo(s),
+        }));
+        sourceIndexFile.addExportDeclarations(exportDeclarations);
     }
 
-    const sourceIndexFile = project.createSourceFile('/index.ts');
-
-    for (const sourceFile of nextFiles) {
-        const moduleSpecifier = `.${sourceFile.getDirectory().getPath()}`;
-        sourceIndexFile.addExportDeclaration({
-            namedExports: sourceFile
-                .getExportSymbols()
-                .map(s => ({ name: s.getName() })),
-            moduleSpecifier,
+    const rootDirectory = project.getDirectory(output);
+    assert(rootDirectory, 'Cannot get project output directory');
+    const sourceIndexFile = rootDirectory.createSourceFile('index.ts', '', {
+        overwrite: true,
+    });
+    const exportDeclarations = project
+        .getRootDirectories()
+        .map(directory => directory.getSourceFile('index.ts'))
+        .map(sourcesFile => {
+            assert(sourcesFile, 'Just created index source file not found');
+            return {
+                namedExports: sourcesFile
+                    .getExportSymbols()
+                    .map(s => ({ name: s.getName() })),
+                moduleSpecifier: rootDirectory.getRelativePathAsModuleSpecifierTo(
+                    sourcesFile,
+                ),
+            };
         });
-    }
+    sourceIndexFile.addExportDeclarations(exportDeclarations);
 }

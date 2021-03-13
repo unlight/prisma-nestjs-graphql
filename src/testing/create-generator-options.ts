@@ -54,6 +54,7 @@ export async function createGeneratorOptions(
             if (!proc.stderr) {
                 throw new Error('Generate error');
             }
+            proc.stdout?.pipe(process.stdout);
             proc.stderr.on('data', data => {
                 reject(String(data));
             });

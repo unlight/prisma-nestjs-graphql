@@ -5,7 +5,6 @@ import {
     Decorator,
     EnumDeclarationStructure,
     Project,
-    PropertyDeclaration,
     PropertyDeclarationStructure,
     SourceFile,
 } from 'ts-morph';
@@ -18,8 +17,8 @@ import {
     getImportDeclarations,
     getPropertyStructure,
 } from './testing';
+import { EventArguments } from './types';
 
-let property: PropertyDeclaration;
 let sourceFile: SourceFile;
 let sourceFiles: SourceFile[];
 let sourceText: string;
@@ -33,22 +32,22 @@ const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.
 async function testGenerate(args: {
     schema: string;
     options?: string[];
-    sourceFile?: {
+    createSouceFile?: {
         text: string;
-        path: string;
+        name: string;
+        type: string;
     };
 }) {
-    const { schema, options, sourceFile } = args;
+    const { schema, options, createSouceFile } = args;
     const connectCallback = (emitter: AwaitEventEmitter) => {
         emitter.off('GenerateFiles');
-        if (sourceFile) {
-            emitter.once('Begin', ({ project }: { project: Project }) => {
-                project.createSourceFile(sourceFile.path, sourceFile.text, {
-                    overwrite: true,
-                });
+        if (createSouceFile) {
+            emitter.on('PostBegin', ({ getSourceFile }: EventArguments) => {
+                const sourceFile = getSourceFile(createSouceFile);
+                sourceFile.insertText(0, createSouceFile.text);
             });
         }
-        emitter.once('End', (args: { project: Project }) => {
+        emitter.on('End', (args: { project: Project }) => {
             ({ project } = args);
         });
     };
@@ -79,6 +78,16 @@ describe('model with one id int', () => {
                   id Int @id @default(1)
                 }`,
         });
+        // console.log('project.getSourceFiles().length', project.getSourceFiles().length);
+        // console.log(
+        //     'project.getRootDirectories().map(d => d.getPath())',
+        //     project.getRootDirectories().map(d => d.getPath()),
+        // );
+        // console.log(
+        //     'project.getSourceFiles().map(s => s.getFilePath())',
+        //     project.getSourceFiles().map(s => s.getFilePath()),
+        // );
+        // const result = project.emitSync();
     });
 
     describe('model', () => {
@@ -325,8 +334,9 @@ it('duplicated fields in exising file', async () => {
               id Int @id
             }
         `,
-        sourceFile: {
-            path: 'user/user-create.input.ts',
+        createSouceFile: {
+            type: 'input',
+            name: 'UserCreateInput',
             text: `
             import { Int } from '@nestjs/graphql';
             @InputType()
@@ -832,8 +842,9 @@ it('enum with exists source', async () => {
                   id    Int   @id
                   role  Role
                 }`,
-        sourceFile: {
-            path: 'prisma/role.enum.ts',
+        createSouceFile: {
+            name: 'Role',
+            type: 'enum',
             text: `
                     export enum Role { USER = "USER" }
                     registerEnumType(Role, { name: 'Role' })
@@ -858,8 +869,9 @@ describe('model with one id string', () => {
     it('extend', async () => {
         await testGenerate({
             schema,
-            sourceFile: {
-                path: 'user/user.model.ts',
+            createSouceFile: {
+                type: 'model',
+                name: 'User',
                 text: `@ObjectType() export class User {}`,
             },
         });
@@ -874,8 +886,9 @@ describe('model with one id string', () => {
     it('remove description', async () => {
         await testGenerate({
             schema,
-            sourceFile: {
-                path: 'user/user.model.ts',
+            createSouceFile: {
+                type: 'model',
+                name: 'User',
                 text: `@ObjectType({ description: 'user description' }) export class User {}`,
             },
         });
@@ -892,8 +905,9 @@ describe('model with one id string', () => {
     it('generated commented class if reexport found', async () => {
         await testGenerate({
             schema,
-            sourceFile: {
-                path: 'user/user.model.ts',
+            createSouceFile: {
+                type: 'model',
+                name: 'User',
                 text: `
                     export { User } from 'src/user/model'
                     export { User as UserModel } from 'src/user2/model'
@@ -913,8 +927,9 @@ describe('model with one id string', () => {
     it('no generate another commented class', async () => {
         await testGenerate({
             schema,
-            sourceFile: {
-                path: 'user/user.model.ts',
+            createSouceFile: {
+                type: 'model',
+                name: 'User',
                 text: `
                 export { User } from 'src/user/model'
 
@@ -938,8 +953,9 @@ describe('model with one id string', () => {
         before(async () => {
             await testGenerate({
                 schema,
-                sourceFile: {
-                    path: 'user/user.model.ts',
+                createSouceFile: {
+                    type: 'model',
+                    name: 'User',
                     text: `
                     export class User {
                         id: string;
@@ -1247,7 +1263,10 @@ describe('export all from index', () => {
     });
 
     it('user/index', () => {
-        sourceFile = project.getSourceFile('/user/index.ts')!;
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('/user/index.ts'),
+        )!;
+        // sourceFile = project.getSourceFile('/user/index.ts')!;
         expect(sourceFile).toBeTruthy();
         expect(sourceFile.getText()).toContain(
             `export { AggregateUser } from './aggregate-user.output'`,
@@ -1256,7 +1275,8 @@ describe('export all from index', () => {
     });
 
     it('root index', () => {
-        sourceFile = project.getSourceFile('/index.ts')!;
+        const rootDirectory = project.getRootDirectories()[0].getParent();
+        const sourceFile = rootDirectory?.getSourceFile('index.ts')!;
         expect(sourceFile).toBeTruthy();
         expect(sourceFile.getText()).toContain(`SortOrder } from './prisma'`);
         expect(sourceFile.getText()).toContain(`from './user'`);
@@ -1338,6 +1358,131 @@ it('model with prisma keyword output', async () => {
             `,
         options: [`outputFilePattern = "{name}.{type}.ts"`],
     });
+});
+
+describe.skip('custom decorators', () => {
+    before(async () => {
+        await testGenerate({
+            schema: `
+            model User {
+                id Int @id
+                /// @Validator.MaxLength(30)
+                name String
+            }`,
+        });
+    });
+    before(() => {
+        sourceFile = project.getSourceFile(s =>
+            s.getFilePath().endsWith('/user.model.ts'),
+        )!;
+    });
+
+    it.skip('create', () => {
+        const project = new Project({});
+        project.addSourceFilesFromTsConfig('./tsconfig.json');
+        const sf = project.createSourceFile(
+            '0.ts',
+            `import { MaxLength } from "class-validator";
+            MaxLength('x')`,
+        );
+        const dg = sf.getPreEmitDiagnostics().map(d => d.getMessageText());
+        console.log('dg', dg);
+        // const importDeclarations = sf.getImportDeclarations();
+        // const importDeclaration = importDeclarations[0];
+        // const ispecifier = importDeclaration
+        //     .getImportClauseOrThrow()
+        //     .getNamedImports()[0];
+        // const type = ispecifier.getType();
+        // const fnDecl = type
+        //     .getCallSignatures()
+        //     .flatMap(x => x.getDeclaration())[0] as FunctionDeclaration;
+        // console.dir(
+        //     {
+        //         getStructure: fnDecl.getStructure(),
+        //     },
+        //     { depth: null },
+        // );
+        // console.log({
+        //     getConstraint: type.getConstraint()?.getText(),
+        //     getCallSignatures: type.getCallSignatures(),
+        //     getDeclarations: type.getCallSignatures().flatMap(x => x.getDeclaration()),
+        //     getCallSignatures_getTypeParameters: type
+        //         .getCallSignatures()
+        //         .flatMap(x => x.getTypeParameters())
+        //         .map(s => ({
+        //             constraint: s.getConstraint(),
+        //             text: s.getText(),
+        //         })),
+        //     getCallSignatures_getParameters: type
+        //         .getCallSignatures()
+        //         .flatMap(x => x.getParameters())
+        //         .map(s => ({
+        //             name: s.getName(),
+        //         })),
+        // });
+        // console.log('clause.getText', clause.getType());
+        // console.log('type', type.getText(), importDeclaration.getText());
+        // const defImp = clause.getDefaultImport()!;
+        // const type = defImp.getType();
+        // console.log('type', {
+        //     text: type.getText(),
+        // });
+        // // var x = project.getSourceFiles().length;
+        // // console.log('x', x);
+        // // const fs = require('fs');
+        // // const tsfiles = require('glob').sync('node_modules/class-validator/**/*.ts');
+        // // project.createDirectory('/node_modules/class-validator');
+        // const typeChecker = project.getTypeChecker();
+        // // for (const tsfile of tsfiles) {
+        // //     const text = fs.readFileSync(tsfile, { encoding: 'utf8' });
+        // //     project.createSourceFile(tsfile, text);
+        // // }
+
+        // let symbol = importDeclarations[0].getImportClause()!.getSymbol()!;
+        // symbol = typeChecker.getAliasedSymbol(symbol)!;
+        // for (let exportSymbol of typeChecker.getExportsOfModule(symbol)) {
+        //     const name = exportSymbol.getName();
+        //     console.log('name', name);
+        // }
+
+        // const defaultImport = importDeclarations[0].getDefaultImport();
+        // if (defaultImport) {
+        //     const defaultImportType = defaultImport.getType();
+        //     for (const property of defaultImportType.getProperties()) {
+        //         console.log('property.getName()', property.getName());
+        //     }
+        // }
+
+        // // project.addSourceFilesFromTsConfig
+        // // const sf = project.createSouce(
+        // //     '/node_modules/class-validator/package.json',
+        // // );
+        // // console.log('tsfiles', tsfiles);
+        // // var x = project.getFileSystem().getCurrentDirectory();
+        // // console.log('x', x);
+    });
+
+    // it('get semantic diagnostics', () => {
+    //     project.addSourceFilesFromTsConfig(process.cwd() + '/tsconfig.json');
+    //     var x = project.getAmbientModules();
+    //     console.log('x', x);
+    //     // const diagnostics = project.getProgram().getSemanticDiagnostics(sourceFile);
+    //     // console.log('diagnostics', diagnostics);
+    // });
+
+    it('model has MaxLength decorator', () => {
+        const decorator = p('name')?.decorators?.find(d => d.name === 'MaxLength');
+        expect(decorator).toBeTruthy();
+    });
+
+    it('should have import from class-validator', () => {
+        expect(getImportDeclarations(sourceFile)).toContainEqual({
+            name: 'MaxLength',
+            specifier: 'class-validator',
+        });
+    });
+
+    it('^', () => console.log(sourceFile.getText()));
 });
 
 // const a = sourceFiles.map(s => s.getFilePath());
