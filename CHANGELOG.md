@@ -1,3 +1,21 @@
+## [10.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.1...v10.1.0) (2021-03-13)
+
+
+### Features
+
+* Allow to configure path to `tsconfig.json` ([ead4411](https://github.com/unlight/nestjs-graphql-prisma/commit/ead44117565e6654128b8209adb3046b1134ae82))
+* Validate `outputFilePattern` ([3240a73](https://github.com/unlight/nestjs-graphql-prisma/commit/3240a7344033a943b9b6433b24a8c779fe84b9f7))
+
+
+### Bug Fixes
+
+* Save files without intermediate layer ([4a07bea](https://github.com/unlight/nestjs-graphql-prisma/commit/4a07bea7d9657549f51b7a09910028e1815dbecb))
+
+
+### Performance Improvements
+
+* Generation of inputs/outputs ([4604160](https://github.com/unlight/nestjs-graphql-prisma/commit/46041608bbd7e16bae5b2464890c50ceccdaf5c6))
+
 ## [10.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.0...v10.0.1) (2021-03-04)
 
 
