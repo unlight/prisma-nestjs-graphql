@@ -4,8 +4,6 @@ import { DummyCreateInput } from './dummy-create.input';
 
 @ArgsType()
 export class CreateOneDummyArgs {
-    @Field(() => DummyCreateInput, {
-        nullable: false,
-    })
+    @Field(() => DummyCreateInput, { nullable: false })
     data!: DummyCreateInput;
 }

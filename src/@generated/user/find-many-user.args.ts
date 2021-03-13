@@ -7,33 +7,21 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class FindManyUserArgs {
-    @Field(() => UserWhereInput, {
-        nullable: true,
-    })
+    @Field(() => UserWhereInput, { nullable: true })
     where?: UserWhereInput;
 
-    @Field(() => [UserOrderByInput], {
-        nullable: true,
-    })
+    @Field(() => [UserOrderByInput], { nullable: true })
     orderBy?: Array<UserOrderByInput>;
 
-    @Field(() => UserWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => UserWhereUniqueInput, { nullable: true })
     cursor?: UserWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => [UserScalarFieldEnum], {
-        nullable: true,
-    })
+    @Field(() => [UserScalarFieldEnum], { nullable: true })
     distinct?: Array<UserScalarFieldEnum>;
 }

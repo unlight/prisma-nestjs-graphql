@@ -4,8 +4,6 @@ import { UserWhereInput } from './user-where.input';
 
 @ArgsType()
 export class DeleteManyUserArgs {
-    @Field(() => UserWhereInput, {
-        nullable: true,
-    })
+    @Field(() => UserWhereInput, { nullable: true })
     where?: UserWhereInput;
 }

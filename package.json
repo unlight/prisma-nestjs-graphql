@@ -51,6 +51,7 @@
     "await-event-emitter": "^2.0.2",
     "flat": "^5.0.2",
     "get-relative-path": "^1.0.2",
+    "json5": "^1.0.1",
     "lodash": "^4.17.21",
     "pluralize": "^8.0.0",
     "pupa": "^2.1.1",

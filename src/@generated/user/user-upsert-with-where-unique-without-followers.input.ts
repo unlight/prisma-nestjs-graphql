@@ -6,18 +6,12 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowersInput {
-    @Field(() => UserWhereUniqueInput, {
-        nullable: false,
-    })
+    @Field(() => UserWhereUniqueInput, { nullable: false })
     where!: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutFollowersInput, {
-        nullable: false,
-    })
+    @Field(() => UserUpdateWithoutFollowersInput, { nullable: false })
     update!: UserUpdateWithoutFollowersInput;
 
-    @Field(() => UserCreateWithoutFollowersInput, {
-        nullable: false,
-    })
+    @Field(() => UserCreateWithoutFollowersInput, { nullable: false })
     create!: UserCreateWithoutFollowersInput;
 }

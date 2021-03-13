@@ -5,6 +5,7 @@ import { EventArguments } from '../types';
 
 export async function generateFiles(args: EventArguments) {
     const { project, output } = args;
+
     for (const sourceFile of project.getSourceFiles()) {
         const filePath = sourceFile.getFilePath();
         const outfile = path.resolve(output, `.${filePath}`);

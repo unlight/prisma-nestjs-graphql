@@ -9,43 +9,27 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class AggregateTagArgs {
-    @Field(() => TagWhereInput, {
-        nullable: true,
-    })
+    @Field(() => TagWhereInput, { nullable: true })
     where?: TagWhereInput;
 
-    @Field(() => [TagOrderByInput], {
-        nullable: true,
-    })
+    @Field(() => [TagOrderByInput], { nullable: true })
     orderBy?: Array<TagOrderByInput>;
 
-    @Field(() => TagWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => TagWhereUniqueInput, { nullable: true })
     cursor?: TagWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => TagCountAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => TagCountAggregateInput, { nullable: true })
     count?: TagCountAggregateInput;
 
-    @Field(() => TagMinAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => TagMinAggregateInput, { nullable: true })
     min?: TagMinAggregateInput;
 
-    @Field(() => TagMaxAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => TagMaxAggregateInput, { nullable: true })
     max?: TagMaxAggregateInput;
 }

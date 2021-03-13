@@ -8,28 +8,18 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUpdateOneRequiredWithoutCommentsInput {
-    @Field(() => UserCreateWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => UserCreateWithoutCommentsInput, { nullable: true })
     create?: UserCreateWithoutCommentsInput;
 
-    @Field(() => UserCreateOrConnectWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => UserCreateOrConnectWithoutCommentsInput, { nullable: true })
     connectOrCreate?: UserCreateOrConnectWithoutCommentsInput;
 
-    @Field(() => UserUpsertWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpsertWithoutCommentsInput, { nullable: true })
     upsert?: UserUpsertWithoutCommentsInput;
 
-    @Field(() => UserWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => UserWhereUniqueInput, { nullable: true })
     connect?: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpdateWithoutCommentsInput, { nullable: true })
     update?: UserUpdateWithoutCommentsInput;
 }

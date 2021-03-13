@@ -4,13 +4,9 @@ import { TagCreateManyInput } from './tag-create-many.input';
 
 @ArgsType()
 export class CreateManyTagArgs {
-    @Field(() => [TagCreateManyInput], {
-        nullable: false,
-    })
+    @Field(() => [TagCreateManyInput], { nullable: false })
     data!: Array<TagCreateManyInput>;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
+    @Field(() => Boolean, { nullable: true })
     skipDuplicates?: boolean;
 }

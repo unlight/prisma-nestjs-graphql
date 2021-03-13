@@ -1,12 +1,13 @@
-import { generateClass } from '../helpers/generate-class';
-import { generateDecorator } from '../helpers/generate-decorator';
-import { generateImport } from '../helpers/generate-import';
-import { generateProperty } from '../helpers/generate-property';
+import JSON5 from 'json5';
+import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
+
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getModelName } from '../helpers/get-model-name';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
+import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
@@ -19,7 +20,9 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         modelFields,
         modelNames,
     } = args;
+    const importDeclarations = new ImportDeclarationMap();
 
+    // TODO: Remove from here
     if (['Query', 'Mutation'].includes(outputType.name)) {
         queryOutputTypes.push(outputType);
         return;
@@ -48,19 +51,28 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         type: fileType,
     });
 
-    const classDeclaration = generateClass({
-        decorator: {
-            name: 'ObjectType',
-        },
-        sourceFile,
+    const classStructure: ClassDeclarationStructure = {
+        kind: StructureKind.Class,
+        isExported: true,
         name: outputType.name,
-    });
+        decorators: [
+            {
+                name: 'ObjectType',
+                arguments: [],
+            },
+        ],
+        properties: [],
+    };
 
-    generateImport({
-        sourceFile,
-        name: 'Field',
-        moduleSpecifier: '@nestjs/graphql',
-    });
+    importDeclarations
+        .set('Field', {
+            namedImports: [{ name: 'Field' }],
+            moduleSpecifier: '@nestjs/graphql',
+        })
+        .set('ObjectType', {
+            namedImports: [{ name: 'ObjectType' }],
+            moduleSpecifier: '@nestjs/graphql',
+        });
 
     for (const field of outputType.fields) {
         const { location, isList, type } = field.outputType;
@@ -72,7 +84,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         // console.log({
         //     'field.outputType': field.outputType,
         //     'outputType.name': outputType.name,
-        //     connectedModelName,
         //     outputTypeName,
         //     'field.name': field.name,
         //     fieldMeta,
@@ -87,21 +98,21 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                   type: outputTypeName,
               });
 
-        const propertyDeclaration = generateProperty({
-            classDeclaration,
+        const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
             propertyType,
             isList,
         });
 
+        classStructure.properties?.push(property);
+
         if (fieldMeta?.hideOutput) {
-            generateImport({
-                sourceFile,
-                name: 'HideField',
+            importDeclarations.add('HideField', {
+                namedImports: [{ name: 'HideField' }],
                 moduleSpecifier: '@nestjs/graphql',
             });
-            propertyDeclaration.addDecorator({ name: 'HideField()' });
+            property.decorators?.push({ name: 'HideField', arguments: [] });
             continue;
         }
 
@@ -123,28 +134,43 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             getSourceFile,
         });
 
-        if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-            generateImport({
-                sourceFile,
-                name: graphqlImport.name,
+        if (
+            graphqlImport.name !== outputType.name &&
+            graphqlImport.specifier &&
+            !importDeclarations.has(graphqlImport.name)
+        ) {
+            importDeclarations.set(graphqlImport.name, {
+                namedImports: [{ name: graphqlImport.name }],
                 moduleSpecifier: graphqlImport.specifier,
             });
         }
 
         // Create import for typescript field/property type
-        if (customType && customType.fieldModule && customType.fieldType) {
-            generateImport({
-                sourceFile,
-                name: customType.fieldType,
+        if (
+            customType &&
+            customType.fieldModule &&
+            customType.fieldType &&
+            !importDeclarations.has(customType.fieldType)
+        ) {
+            importDeclarations.set(customType.fieldType, {
+                namedImports: [{ name: customType.fieldType }],
                 moduleSpecifier: customType.fieldModule,
             });
         }
 
-        generateDecorator({
-            propertyDeclaration,
-            graphqlType,
-            isList,
-            isNullable: field.isNullable,
+        // Generate `@Field()` decorator
+        property.decorators?.push({
+            name: 'Field',
+            arguments: [
+                `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                JSON5.stringify({
+                    nullable: Boolean(field.isNullable),
+                }),
+            ],
         });
     }
+
+    sourceFile.set({
+        statements: [...importDeclarations.toStatements(), classStructure],
+    });
 }

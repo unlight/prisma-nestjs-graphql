@@ -5,18 +5,12 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 
 @InputType()
 export class TagUpdateInput {
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateManyWithoutTagsInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleUpdateManyWithoutTagsInput, { nullable: true })
     articles?: ArticleUpdateManyWithoutTagsInput;
 }

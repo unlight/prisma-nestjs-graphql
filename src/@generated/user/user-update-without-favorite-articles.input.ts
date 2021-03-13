@@ -12,68 +12,42 @@ import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-
 
 @InputType()
 export class UserUpdateWithoutFavoriteArticlesInput {
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
     countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
     rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateManyWithoutFollowersInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpdateManyWithoutFollowersInput, { nullable: true })
     following?: UserUpdateManyWithoutFollowersInput;
 
-    @Field(() => UserUpdateManyWithoutFollowingInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpdateManyWithoutFollowingInput, { nullable: true })
     followers?: UserUpdateManyWithoutFollowingInput;
 
-    @Field(() => ArticleUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleUpdateManyWithoutAuthorInput, { nullable: true })
     articles?: ArticleUpdateManyWithoutAuthorInput;
 
-    @Field(() => CommentUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => CommentUpdateManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUpdateManyWithoutAuthorInput;
 }

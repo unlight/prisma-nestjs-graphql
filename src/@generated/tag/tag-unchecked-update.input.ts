@@ -4,13 +4,9 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 
 @InputType()
 export class TagUncheckedUpdateInput {
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 }

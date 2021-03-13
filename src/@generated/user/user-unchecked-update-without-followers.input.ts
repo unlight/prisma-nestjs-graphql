@@ -10,58 +10,36 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 
 @InputType()
 export class UserUncheckedUpdateWithoutFollowersInput {
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
     image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
     countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
     rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
     role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
     articles?: ArticleUncheckedUpdateManyWithoutAuthorInput;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
 }

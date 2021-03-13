@@ -10,14 +10,10 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleUpdateManyWithoutFavoritedByInput {
-    @Field(() => [ArticleCreateWithoutFavoritedByInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleCreateWithoutFavoritedByInput], { nullable: true })
     create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
     connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
 
     @Field(() => [ArticleUpsertWithWhereUniqueWithoutFavoritedByInput], {
@@ -25,24 +21,16 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     })
     upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     connect?: Array<ArticleWhereUniqueInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     set?: Array<ArticleWhereUniqueInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     disconnect?: Array<ArticleWhereUniqueInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     delete?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
@@ -55,8 +43,6 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     })
     updateMany?: Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleScalarWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleScalarWhereInput], { nullable: true })
     deleteMany?: Array<ArticleScalarWhereInput>;
 }

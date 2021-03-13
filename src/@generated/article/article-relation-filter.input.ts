@@ -4,13 +4,9 @@ import { ArticleWhereInput } from './article-where.input';
 
 @InputType()
 export class ArticleRelationFilter {
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereInput, { nullable: true })
     is?: ArticleWhereInput;
 
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereInput, { nullable: true })
     isNot?: ArticleWhereInput;
 }

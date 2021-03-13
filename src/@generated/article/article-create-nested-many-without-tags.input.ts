@@ -6,18 +6,12 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedManyWithoutTagsInput {
-    @Field(() => [ArticleCreateWithoutTagsInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleCreateWithoutTagsInput], { nullable: true })
     create?: Array<ArticleCreateWithoutTagsInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutTagsInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleCreateOrConnectWithoutTagsInput], { nullable: true })
     connectOrCreate?: Array<ArticleCreateOrConnectWithoutTagsInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     connect?: Array<ArticleWhereUniqueInput>;
 }

@@ -11,53 +11,33 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class AggregateArticleArgs {
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleOrderByInput], { nullable: true })
     orderBy?: Array<ArticleOrderByInput>;
 
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereUniqueInput, { nullable: true })
     cursor?: ArticleWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => ArticleCountAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCountAggregateInput, { nullable: true })
     count?: ArticleCountAggregateInput;
 
-    @Field(() => ArticleAvgAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleAvgAggregateInput, { nullable: true })
     avg?: ArticleAvgAggregateInput;
 
-    @Field(() => ArticleSumAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleSumAggregateInput, { nullable: true })
     sum?: ArticleSumAggregateInput;
 
-    @Field(() => ArticleMinAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleMinAggregateInput, { nullable: true })
     min?: ArticleMinAggregateInput;
 
-    @Field(() => ArticleMaxAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleMaxAggregateInput, { nullable: true })
     max?: ArticleMaxAggregateInput;
 }

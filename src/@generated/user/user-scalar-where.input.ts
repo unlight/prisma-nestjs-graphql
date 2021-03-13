@@ -8,63 +8,39 @@ import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
 @InputType()
 export class UserScalarWhereInput {
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [UserScalarWhereInput], { nullable: true })
     AND?: Array<UserScalarWhereInput>;
 
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [UserScalarWhereInput], { nullable: true })
     OR?: Array<UserScalarWhereInput>;
 
-    @Field(() => [UserScalarWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [UserScalarWhereInput], { nullable: true })
     NOT?: Array<UserScalarWhereInput>;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     id?: StringFilter;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     email?: StringFilter;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     name?: StringFilter;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     password?: StringFilter;
 
-    @Field(() => StringNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => StringNullableFilter, { nullable: true })
     bio?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => StringNullableFilter, { nullable: true })
     image?: StringNullableFilter;
 
-    @Field(() => IntNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => IntNullableFilter, { nullable: true })
     countComments?: IntNullableFilter;
 
-    @Field(() => FloatNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => FloatNullableFilter, { nullable: true })
     rating?: FloatNullableFilter;
 
-    @Field(() => EnumRoleNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => EnumRoleNullableFilter, { nullable: true })
     role?: EnumRoleNullableFilter;
 }
