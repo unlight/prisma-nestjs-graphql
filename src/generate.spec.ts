@@ -10,6 +10,7 @@ import {
 } from 'ts-morph';
 
 import { generate } from './generate';
+import { generateFileName } from './helpers/generate-file-name';
 import {
     createGeneratorOptions,
     getFieldOptions,
@@ -42,10 +43,22 @@ async function testGenerate(args: {
     const connectCallback = (emitter: AwaitEventEmitter) => {
         emitter.off('GenerateFiles');
         if (createSouceFile) {
-            emitter.on('PostBegin', ({ getSourceFile }: EventArguments) => {
-                const sourceFile = getSourceFile(createSouceFile);
-                sourceFile.insertText(0, createSouceFile.text);
-            });
+            emitter.on(
+                'PostBegin',
+                ({ config, project, output, modelNames }: EventArguments) => {
+                    const filePath = generateFileName({
+                        type: createSouceFile.type,
+                        name: createSouceFile.name,
+                        modelNames,
+                        template: config.outputFilePattern,
+                    });
+                    project.createSourceFile(
+                        `${output}/${filePath}`,
+                        createSouceFile.text,
+                        { overwrite: true },
+                    );
+                },
+            );
         }
         emitter.on('End', (args: { project: Project }) => {
             ({ project } = args);
@@ -53,6 +66,7 @@ async function testGenerate(args: {
     };
     await generate({
         ...(await createGeneratorOptions(schema, options)),
+        skipAddOutputSourceFiles: true,
         connectCallback,
     });
 

@@ -24,13 +24,19 @@ import { DMMF, EventArguments, Field, Model, OutputType } from './types';
 export async function generate(
     args: GeneratorOptions & {
         prismaClientDmmf?: DMMF.Document;
+        skipAddOutputSourceFiles?: boolean;
         connectCallback?: (
             emitter: AwaitEventEmitter,
             eventArguments: EventArguments,
         ) => void | Promise<void>;
     },
 ) {
-    const { connectCallback, generator, otherGenerators } = args;
+    const {
+        connectCallback,
+        generator,
+        otherGenerators,
+        skipAddOutputSourceFiles,
+    } = args;
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
     eventEmitter.on('Model', modelData);
@@ -59,13 +65,16 @@ export async function generate(
         ),
     );
     const project = new Project({
-        tsConfigFilePath: 'tsconfig.json',
+        tsConfigFilePath: config.tsConfigFilePath,
         skipAddingFilesFromTsConfig: true,
         skipLoadingLibFiles: true,
         manipulationSettings: {
             quoteKind: QuoteKind.Single,
         },
     });
+    if (!skipAddOutputSourceFiles) {
+        project.addSourceFilesAtPaths(`${generator.output}/**/*.ts`);
+    }
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);

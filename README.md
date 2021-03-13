@@ -49,6 +49,12 @@ Possible tokens:
 -   `{type}` Short type name (model, input, args, output)
 -   `{plural.type}` Plural short type name (models, inputs, enums)
 
+#### `tsConfigFilePath`
+
+Path to `tsconfig.json`  
+Type: `string`  
+Default: `tsconfig.json`
+
 #### `combineScalarFilters`
 
 Combine nested/nullable scalar filters to single  

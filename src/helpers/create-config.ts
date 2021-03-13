@@ -16,7 +16,10 @@ export function createConfig(data: Record<string, string | undefined>) {
         config.outputFilePattern || `{model}/{name}.{type}.ts`,
     );
 
-    let outputFilePattern = filenamify(configOutputFilePattern, { replacement: '/' })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    let outputFilePattern = filenamify(configOutputFilePattern, {
+        replacement: '/',
+    })
         .replace(/\.\./g, '/')
         .replace(/\/+/g, '/');
     outputFilePattern = trim(outputFilePattern, '/');
@@ -29,6 +32,7 @@ export function createConfig(data: Record<string, string | undefined>) {
 
     return {
         outputFilePattern,
+        tsConfigFilePath: 'tsconfig.json' as string,
         combineScalarFilters: ['true', '1', 'on'].includes(
             (config.combineScalarFilters as Nullable<string>) ?? 'false',
         ),

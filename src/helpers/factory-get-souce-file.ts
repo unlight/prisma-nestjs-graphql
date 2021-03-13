@@ -18,6 +18,7 @@ export function factoryGetSourceFile(args: {
             template: outputFilePattern,
         });
         filePath = `${output}/${filePath}`;
+
         return project.getSourceFile(filePath) || project.createSourceFile(filePath);
     };
 }
