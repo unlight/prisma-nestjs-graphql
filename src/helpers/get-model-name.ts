@@ -59,6 +59,7 @@ const splitKeywords = [
     'CountAggregate',
     'ScalarField',
     'GroupBy',
+    'OrderBy',
     'UncheckedUpdate',
     'UncheckedCreate',
     'ScalarWhere',
