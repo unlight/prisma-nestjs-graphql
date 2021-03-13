@@ -58,7 +58,6 @@ export async function generate(
                 (require(prismaClientOutput).dmmf as DMMF.Document),
         ),
     );
-    // generator.output
     const project = new Project({
         tsConfigFilePath: 'tsconfig.json',
         skipAddingFilesFromTsConfig: true,
