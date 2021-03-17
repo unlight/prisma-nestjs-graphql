@@ -1,4 +1,3 @@
-import assert from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
 
 import { EventArguments } from '../types';
@@ -9,10 +8,14 @@ export function reExportAll(emitter: AwaitEventEmitter) {
 
 function beforeGenerateFiles(args: EventArguments) {
     const { project, output } = args;
+    const rootDirectory = project.getDirectoryOrThrow(output);
 
-    for (const rootDirectory of project.getRootDirectories()) {
-        const sourcesFiles = rootDirectory.getSourceFiles();
-        const sourceIndexFile = rootDirectory.createSourceFile('index.ts', '', {
+    for (const directory of project.getRootDirectories()) {
+        if (directory === rootDirectory) {
+            continue;
+        }
+        const sourcesFiles = directory.getSourceFiles();
+        const sourceIndexFile = directory.createSourceFile('index.ts', '', {
             overwrite: true,
         });
         const exportDeclarations = sourcesFiles.flatMap(s => ({
@@ -20,21 +23,21 @@ function beforeGenerateFiles(args: EventArguments) {
                 .getExportSymbols()
                 .flatMap(s => s.getName())
                 .map(name => ({ name })),
-            moduleSpecifier: rootDirectory.getRelativePathAsModuleSpecifierTo(s),
+            moduleSpecifier: directory.getRelativePathAsModuleSpecifierTo(s),
         }));
         sourceIndexFile.addExportDeclarations(exportDeclarations);
     }
 
-    const rootDirectory = project.getDirectory(output);
-    assert(rootDirectory, 'Cannot get project output directory');
     const sourceIndexFile = rootDirectory.createSourceFile('index.ts', '', {
         overwrite: true,
     });
     const exportDeclarations = project
-        .getRootDirectories()
-        .map(directory => directory.getSourceFile('index.ts'))
+        .getDirectories()
+        .filter(d => d !== rootDirectory)
+        .map(directory => {
+            return directory.getSourceFileOrThrow('index.ts');
+        })
         .map(sourcesFile => {
-            assert(sourcesFile, 'Just created index source file not found');
             return {
                 namedExports: sourcesFile
                     .getExportSymbols()
@@ -44,5 +47,7 @@ function beforeGenerateFiles(args: EventArguments) {
                 ),
             };
         });
-    sourceIndexFile.addExportDeclarations(exportDeclarations);
+    if (exportDeclarations.length > 0) {
+        sourceIndexFile.addExportDeclarations(exportDeclarations);
+    }
 }
