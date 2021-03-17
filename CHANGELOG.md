@@ -1,3 +1,10 @@
+### [10.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.1...v10.1.2) (2021-03-17)
+
+
+### Bug Fixes
+
+* Re-export iteration process fail ([bad1034](https://github.com/unlight/nestjs-graphql-prisma/commit/bad10341f60c04fa1d57f0b59b6d10a33e93a1da))
+
 ### [10.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.0...v10.1.1) (2021-03-17)
 
 
