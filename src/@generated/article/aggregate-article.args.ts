@@ -4,7 +4,7 @@ import { ArticleAvgAggregateInput } from './article-avg-aggregate.input';
 import { ArticleCountAggregateInput } from './article-count-aggregate.input';
 import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 import { ArticleMinAggregateInput } from './article-min-aggregate.input';
-import { ArticleOrderByInput } from './article-order-by.input';
+import { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input';
 import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
 import { ArticleWhereInput } from './article-where.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
@@ -14,8 +14,8 @@ export class AggregateArticleArgs {
     @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByInput], { nullable: true })
-    orderBy?: Array<ArticleOrderByInput>;
+    @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<ArticleOrderByWithRelationInput>;
 
     @Field(() => ArticleWhereUniqueInput, { nullable: true })
     cursor?: ArticleWhereUniqueInput;

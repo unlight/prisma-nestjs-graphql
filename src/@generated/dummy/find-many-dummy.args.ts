@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { DummyOrderByInput } from './dummy-order-by.input';
+import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input';
 import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
 import { DummyWhereInput } from './dummy-where.input';
 import { DummyWhereUniqueInput } from './dummy-where-unique.input';
@@ -10,8 +10,8 @@ export class FindManyDummyArgs {
     @Field(() => DummyWhereInput, { nullable: true })
     where?: DummyWhereInput;
 
-    @Field(() => [DummyOrderByInput], { nullable: true })
-    orderBy?: Array<DummyOrderByInput>;
+    @Field(() => [DummyOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<DummyOrderByWithRelationInput>;
 
     @Field(() => DummyWhereUniqueInput, { nullable: true })
     cursor?: DummyWhereUniqueInput;

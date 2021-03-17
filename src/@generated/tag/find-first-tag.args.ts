@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { TagOrderByInput } from './tag-order-by.input';
+import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input';
 import { TagScalarFieldEnum } from './tag-scalar-field.enum';
 import { TagWhereInput } from './tag-where.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
@@ -10,8 +10,8 @@ export class FindFirstTagArgs {
     @Field(() => TagWhereInput, { nullable: true })
     where?: TagWhereInput;
 
-    @Field(() => [TagOrderByInput], { nullable: true })
-    orderBy?: Array<TagOrderByInput>;
+    @Field(() => [TagOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<TagOrderByWithRelationInput>;
 
     @Field(() => TagWhereUniqueInput, { nullable: true })
     cursor?: TagWhereUniqueInput;

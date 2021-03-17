@@ -4,7 +4,7 @@ import { UserAvgAggregateInput } from './user-avg-aggregate.input';
 import { UserCountAggregateInput } from './user-count-aggregate.input';
 import { UserMaxAggregateInput } from './user-max-aggregate.input';
 import { UserMinAggregateInput } from './user-min-aggregate.input';
-import { UserOrderByInput } from './user-order-by.input';
+import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input';
 import { UserSumAggregateInput } from './user-sum-aggregate.input';
 import { UserWhereInput } from './user-where.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
@@ -14,8 +14,8 @@ export class AggregateUserArgs {
     @Field(() => UserWhereInput, { nullable: true })
     where?: UserWhereInput;
 
-    @Field(() => [UserOrderByInput], { nullable: true })
-    orderBy?: Array<UserOrderByInput>;
+    @Field(() => [UserOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<UserOrderByWithRelationInput>;
 
     @Field(() => UserWhereUniqueInput, { nullable: true })
     cursor?: UserWhereUniqueInput;

@@ -3,34 +3,28 @@ import { Field, InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
-export class ArticleOrderByInput {
+export class DummyOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     id?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    slug?: SortOrder;
+    floaty?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    title?: SortOrder;
+    int?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    description?: SortOrder;
+    float?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    bytes?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    decimal?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    bigInt?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    favoritesCount?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    active?: SortOrder;
+    json?: SortOrder;
 }

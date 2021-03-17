@@ -1,6 +1,6 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { CommentOrderByInput } from './comment-order-by.input';
+import { CommentOrderByWithRelationInput } from './comment-order-by-with-relation.input';
 import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
 import { CommentWhereInput } from './comment-where.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
@@ -10,8 +10,8 @@ export class FindManyCommentArgs {
     @Field(() => CommentWhereInput, { nullable: true })
     where?: CommentWhereInput;
 
-    @Field(() => [CommentOrderByInput], { nullable: true })
-    orderBy?: Array<CommentOrderByInput>;
+    @Field(() => [CommentOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<CommentOrderByWithRelationInput>;
 
     @Field(() => CommentWhereUniqueInput, { nullable: true })
     cursor?: CommentWhereUniqueInput;
