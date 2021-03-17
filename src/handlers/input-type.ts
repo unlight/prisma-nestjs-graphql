@@ -1,11 +1,12 @@
-import { generateClass } from '../helpers/generate-class';
-import { generateDecorator } from '../helpers/generate-decorator';
-import { generateImport } from '../helpers/generate-import';
-import { generateProperty } from '../helpers/generate-property';
+import JSON5 from 'json5';
+import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
+
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
 import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getPropertyType } from '../helpers/get-property-type';
+import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, InputType } from '../types';
 
 export function inputType(
@@ -18,30 +19,38 @@ export function inputType(
     const {
         inputType,
         fileType,
-        classDecoratorName,
         getSourceFile,
         config,
         eventEmitter,
+        classDecoratorName,
     } = args;
-
+    const importDeclarations = new ImportDeclarationMap();
     const sourceFile = getSourceFile({
         name: inputType.name,
         type: fileType,
     });
-
-    const classDeclaration = generateClass({
-        decorator: {
-            name: classDecoratorName,
-        },
-        sourceFile,
+    const classStructure = {
+        kind: StructureKind.Class,
+        isExported: true,
         name: inputType.name,
-    });
+        decorators: [
+            {
+                name: classDecoratorName,
+                arguments: [],
+            },
+        ],
+        properties: [],
+    } as ClassDeclarationStructure;
 
-    generateImport({
-        sourceFile,
-        name: 'Field',
-        moduleSpecifier: '@nestjs/graphql',
-    });
+    importDeclarations
+        .set('Field', {
+            namedImports: [{ name: 'Field' }],
+            moduleSpecifier: '@nestjs/graphql',
+        })
+        .set(classDecoratorName, {
+            namedImports: [{ name: classDecoratorName }],
+            moduleSpecifier: '@nestjs/graphql',
+        });
 
     for (const field of inputType.fields) {
         eventEmitter.emitSync('BeforeGenerateField', field, args);
@@ -57,13 +66,14 @@ export function inputType(
             type: typeName,
         });
 
-        const propertyDeclaration = generateProperty({
-            classDeclaration,
+        const property = propertyStructure({
             name: field.name,
             isNullable: !isRequired,
             propertyType,
             isList,
         });
+
+        classStructure.properties?.push(property);
 
         const graphqlType = getGraphqlType({
             location,
@@ -91,19 +101,30 @@ export function inputType(
         //     });
         // }
 
-        if (graphqlImport.name !== inputType.name && graphqlImport.specifier) {
-            generateImport({
-                sourceFile,
-                name: graphqlImport.name,
+        if (
+            graphqlImport.name !== inputType.name &&
+            graphqlImport.specifier &&
+            !importDeclarations.has(graphqlImport.name)
+        ) {
+            importDeclarations.set(graphqlImport.name, {
+                namedImports: [{ name: graphqlImport.name }],
                 moduleSpecifier: graphqlImport.specifier,
             });
         }
 
-        generateDecorator({
-            propertyDeclaration,
-            graphqlType,
-            isList,
-            isNullable: !isRequired,
+        // Generate `@Field()` decorator
+        property.decorators?.push({
+            name: 'Field',
+            arguments: [
+                `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                JSON5.stringify({
+                    nullable: !isRequired,
+                }),
+            ],
         });
     }
+
+    sourceFile.set({
+        statements: [...importDeclarations.toStatements(), classStructure],
+    });
 }

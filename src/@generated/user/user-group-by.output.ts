@@ -9,71 +9,45 @@ import { UserSumAggregate } from './user-sum-aggregate.output';
 
 @ObjectType()
 export class UserGroupBy {
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     id!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     email!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     name!: string;
 
     @HideField()
     password!: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     bio?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     image?: string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     countComments?: number;
 
-    @Field(() => Float, {
-        nullable: true,
-    })
+    @Field(() => Float, { nullable: true })
     rating?: number;
 
-    @Field(() => Role, {
-        nullable: true,
-    })
+    @Field(() => Role, { nullable: true })
     role?: Role;
 
-    @Field(() => UserCountAggregate, {
-        nullable: true,
-    })
+    @Field(() => UserCountAggregate, { nullable: true })
     count?: UserCountAggregate;
 
-    @Field(() => UserAvgAggregate, {
-        nullable: true,
-    })
+    @Field(() => UserAvgAggregate, { nullable: true })
     avg?: UserAvgAggregate;
 
-    @Field(() => UserSumAggregate, {
-        nullable: true,
-    })
+    @Field(() => UserSumAggregate, { nullable: true })
     sum?: UserSumAggregate;
 
-    @Field(() => UserMinAggregate, {
-        nullable: true,
-    })
+    @Field(() => UserMinAggregate, { nullable: true })
     min?: UserMinAggregate;
 
-    @Field(() => UserMaxAggregate, {
-        nullable: true,
-    })
+    @Field(() => UserMaxAggregate, { nullable: true })
     max?: UserMaxAggregate;
 }

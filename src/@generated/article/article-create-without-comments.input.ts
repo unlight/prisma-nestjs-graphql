@@ -6,63 +6,39 @@ import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nes
 
 @InputType()
 export class ArticleCreateWithoutCommentsInput {
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     id?: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     slug!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     title!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     description!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => Date, {
-        nullable: true,
-    })
+    @Field(() => Date, { nullable: true })
     createdAt?: Date | string;
 
-    @Field(() => Date, {
-        nullable: true,
-    })
+    @Field(() => Date, { nullable: true })
     updatedAt?: Date | string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     favoritesCount?: number;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
+    @Field(() => Boolean, { nullable: true })
     active?: boolean;
 
-    @Field(() => TagCreateNestedManyWithoutArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
     tags?: TagCreateNestedManyWithoutArticlesInput;
 
-    @Field(() => UserCreateNestedOneWithoutArticlesInput, {
-        nullable: false,
-    })
+    @Field(() => UserCreateNestedOneWithoutArticlesInput, { nullable: false })
     author!: UserCreateNestedOneWithoutArticlesInput;
 
-    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, { nullable: true })
     favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 }

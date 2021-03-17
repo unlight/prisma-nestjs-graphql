@@ -5,13 +5,9 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
-    @Field(() => UserWhereUniqueInput, {
-        nullable: false,
-    })
+    @Field(() => UserWhereUniqueInput, { nullable: false })
     where!: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutFavoriteArticlesInput, {
-        nullable: false,
-    })
+    @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
     data!: UserUpdateWithoutFavoriteArticlesInput;
 }

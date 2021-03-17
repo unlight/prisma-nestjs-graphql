@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { ClassDeclaration, Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
+import { Node, ObjectLiteralExpression, SourceFile } from 'ts-morph';
 
 import { generateImport } from './generate-import';
 import { updateObjectProperty } from './update-object-property';

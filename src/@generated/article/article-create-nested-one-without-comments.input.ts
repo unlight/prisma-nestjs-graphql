@@ -6,18 +6,12 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedOneWithoutCommentsInput {
-    @Field(() => ArticleCreateWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCreateWithoutCommentsInput, { nullable: true })
     create?: ArticleCreateWithoutCommentsInput;
 
-    @Field(() => ArticleCreateOrConnectWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCreateOrConnectWithoutCommentsInput, { nullable: true })
     connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
 
-    @Field(() => ArticleWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereUniqueInput, { nullable: true })
     connect?: ArticleWhereUniqueInput;
 }

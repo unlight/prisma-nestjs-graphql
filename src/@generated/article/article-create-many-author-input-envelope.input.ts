@@ -4,13 +4,9 @@ import { ArticleCreateManyAuthorInput } from './article-create-many-author.input
 
 @InputType()
 export class ArticleCreateManyAuthorInputEnvelope {
-    @Field(() => [ArticleCreateManyAuthorInput], {
-        nullable: false,
-    })
+    @Field(() => [ArticleCreateManyAuthorInput], { nullable: false })
     data!: Array<ArticleCreateManyAuthorInput>;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
+    @Field(() => Boolean, { nullable: true })
     skipDuplicates?: boolean;
 }

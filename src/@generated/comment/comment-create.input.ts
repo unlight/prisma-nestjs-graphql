@@ -5,33 +5,21 @@ import { UserCreateNestedOneWithoutCommentsInput } from '../user/user-create-nes
 
 @InputType()
 export class CommentCreateInput {
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     id?: string;
 
-    @Field(() => Date, {
-        nullable: true,
-    })
+    @Field(() => Date, { nullable: true })
     createdAt?: Date | string;
 
-    @Field(() => Date, {
-        nullable: true,
-    })
+    @Field(() => Date, { nullable: true })
     updatedAt?: Date | string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => UserCreateNestedOneWithoutCommentsInput, {
-        nullable: false,
-    })
+    @Field(() => UserCreateNestedOneWithoutCommentsInput, { nullable: false })
     author!: UserCreateNestedOneWithoutCommentsInput;
 
-    @Field(() => ArticleCreateNestedOneWithoutCommentsInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCreateNestedOneWithoutCommentsInput, { nullable: true })
     article?: ArticleCreateNestedOneWithoutCommentsInput;
 }

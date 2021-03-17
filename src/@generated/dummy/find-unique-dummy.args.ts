@@ -4,8 +4,6 @@ import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 
 @ArgsType()
 export class FindUniqueDummyArgs {
-    @Field(() => DummyWhereUniqueInput, {
-        nullable: false,
-    })
+    @Field(() => DummyWhereUniqueInput, { nullable: false })
     where!: DummyWhereUniqueInput;
 }

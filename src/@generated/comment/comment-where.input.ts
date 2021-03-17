@@ -8,58 +8,36 @@ import { UserRelationFilter } from '../user/user-relation-filter.input';
 
 @InputType()
 export class CommentWhereInput {
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [CommentWhereInput], { nullable: true })
     AND?: Array<CommentWhereInput>;
 
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [CommentWhereInput], { nullable: true })
     OR?: Array<CommentWhereInput>;
 
-    @Field(() => [CommentWhereInput], {
-        nullable: true,
-    })
+    @Field(() => [CommentWhereInput], { nullable: true })
     NOT?: Array<CommentWhereInput>;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     id?: StringFilter;
 
-    @Field(() => DateTimeFilter, {
-        nullable: true,
-    })
+    @Field(() => DateTimeFilter, { nullable: true })
     createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {
-        nullable: true,
-    })
+    @Field(() => DateTimeFilter, { nullable: true })
     updatedAt?: DateTimeFilter;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     body?: StringFilter;
 
-    @Field(() => UserRelationFilter, {
-        nullable: true,
-    })
+    @Field(() => UserRelationFilter, { nullable: true })
     author?: UserRelationFilter;
 
-    @Field(() => StringFilter, {
-        nullable: true,
-    })
+    @Field(() => StringFilter, { nullable: true })
     authorId?: StringFilter;
 
-    @Field(() => ArticleRelationFilter, {
-        nullable: true,
-    })
+    @Field(() => ArticleRelationFilter, { nullable: true })
     article?: ArticleRelationFilter;
 
-    @Field(() => StringNullableFilter, {
-        nullable: true,
-    })
+    @Field(() => StringNullableFilter, { nullable: true })
     articleId?: StringNullableFilter;
 }

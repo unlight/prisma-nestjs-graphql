@@ -5,13 +5,9 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
 export class TagCreateOrConnectWithoutArticlesInput {
-    @Field(() => TagWhereUniqueInput, {
-        nullable: false,
-    })
+    @Field(() => TagWhereUniqueInput, { nullable: false })
     where!: TagWhereUniqueInput;
 
-    @Field(() => TagCreateWithoutArticlesInput, {
-        nullable: false,
-    })
+    @Field(() => TagCreateWithoutArticlesInput, { nullable: false })
     create!: TagCreateWithoutArticlesInput;
 }

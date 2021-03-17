@@ -8,68 +8,42 @@ import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-
 
 @InputType()
 export class UserCreateWithoutFavoriteArticlesInput {
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     id?: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     email!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     name!: string;
 
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     password!: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     bio?: string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     image?: string;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     countComments?: number;
 
-    @Field(() => Float, {
-        nullable: true,
-    })
+    @Field(() => Float, { nullable: true })
     rating?: number;
 
-    @Field(() => Role, {
-        nullable: true,
-    })
+    @Field(() => Role, { nullable: true })
     role?: Role;
 
-    @Field(() => UserCreateNestedManyWithoutFollowersInput, {
-        nullable: true,
-    })
+    @Field(() => UserCreateNestedManyWithoutFollowersInput, { nullable: true })
     following?: UserCreateNestedManyWithoutFollowersInput;
 
-    @Field(() => UserCreateNestedManyWithoutFollowingInput, {
-        nullable: true,
-    })
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, { nullable: true })
     followers?: UserCreateNestedManyWithoutFollowingInput;
 
-    @Field(() => ArticleCreateNestedManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
     articles?: ArticleCreateNestedManyWithoutAuthorInput;
 
-    @Field(() => CommentCreateNestedManyWithoutAuthorInput, {
-        nullable: true,
-    })
+    @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
     comments?: CommentCreateNestedManyWithoutAuthorInput;
 }

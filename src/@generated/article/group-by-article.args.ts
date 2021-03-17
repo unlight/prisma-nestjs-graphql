@@ -12,58 +12,36 @@ import { ArticleWhereInput } from './article-where.input';
 
 @ArgsType()
 export class GroupByArticleArgs {
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByInput], {
-        nullable: true,
-    })
+    @Field(() => [ArticleOrderByInput], { nullable: true })
     orderBy?: Array<ArticleOrderByInput>;
 
-    @Field(() => [ArticleScalarFieldEnum], {
-        nullable: false,
-    })
+    @Field(() => [ArticleScalarFieldEnum], { nullable: false })
     by!: Array<ArticleScalarFieldEnum>;
 
-    @Field(() => ArticleScalarWhereWithAggregatesInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleScalarWhereWithAggregatesInput, { nullable: true })
     having?: ArticleScalarWhereWithAggregatesInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => ArticleCountAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleCountAggregateInput, { nullable: true })
     count?: ArticleCountAggregateInput;
 
-    @Field(() => ArticleAvgAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleAvgAggregateInput, { nullable: true })
     avg?: ArticleAvgAggregateInput;
 
-    @Field(() => ArticleSumAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleSumAggregateInput, { nullable: true })
     sum?: ArticleSumAggregateInput;
 
-    @Field(() => ArticleMinAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleMinAggregateInput, { nullable: true })
     min?: ArticleMinAggregateInput;
 
-    @Field(() => ArticleMaxAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleMaxAggregateInput, { nullable: true })
     max?: ArticleMaxAggregateInput;
 }

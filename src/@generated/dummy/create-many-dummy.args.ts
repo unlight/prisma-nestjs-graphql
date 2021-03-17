@@ -4,13 +4,9 @@ import { DummyCreateManyInput } from './dummy-create-many.input';
 
 @ArgsType()
 export class CreateManyDummyArgs {
-    @Field(() => [DummyCreateManyInput], {
-        nullable: false,
-    })
+    @Field(() => [DummyCreateManyInput], { nullable: false })
     data!: Array<DummyCreateManyInput>;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
+    @Field(() => Boolean, { nullable: true })
     skipDuplicates?: boolean;
 }

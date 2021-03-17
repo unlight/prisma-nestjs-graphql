@@ -11,68 +11,42 @@ import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-o
 
 @InputType()
 export class ArticleUpdateInput {
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     slug?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     title?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     description?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
     favoritesCount?: IntFieldUpdateOperationsInput;
 
-    @Field(() => NullableBoolFieldUpdateOperationsInput, {
-        nullable: true,
-    })
+    @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
     active?: NullableBoolFieldUpdateOperationsInput;
 
-    @Field(() => TagUpdateManyWithoutArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => TagUpdateManyWithoutArticlesInput, { nullable: true })
     tags?: TagUpdateManyWithoutArticlesInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpdateOneRequiredWithoutArticlesInput, { nullable: true })
     author?: UserUpdateOneRequiredWithoutArticlesInput;
 
-    @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, {
-        nullable: true,
-    })
+    @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
     favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
 
-    @Field(() => CommentUpdateManyWithoutArticleInput, {
-        nullable: true,
-    })
+    @Field(() => CommentUpdateManyWithoutArticleInput, { nullable: true })
     comments?: CommentUpdateManyWithoutArticleInput;
 }

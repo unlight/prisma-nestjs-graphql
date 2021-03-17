@@ -9,43 +9,27 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @ArgsType()
 export class AggregateCommentArgs {
-    @Field(() => CommentWhereInput, {
-        nullable: true,
-    })
+    @Field(() => CommentWhereInput, { nullable: true })
     where?: CommentWhereInput;
 
-    @Field(() => [CommentOrderByInput], {
-        nullable: true,
-    })
+    @Field(() => [CommentOrderByInput], { nullable: true })
     orderBy?: Array<CommentOrderByInput>;
 
-    @Field(() => CommentWhereUniqueInput, {
-        nullable: true,
-    })
+    @Field(() => CommentWhereUniqueInput, { nullable: true })
     cursor?: CommentWhereUniqueInput;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     take?: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     skip?: number;
 
-    @Field(() => CommentCountAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => CommentCountAggregateInput, { nullable: true })
     count?: CommentCountAggregateInput;
 
-    @Field(() => CommentMinAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => CommentMinAggregateInput, { nullable: true })
     min?: CommentMinAggregateInput;
 
-    @Field(() => CommentMaxAggregateInput, {
-        nullable: true,
-    })
+    @Field(() => CommentMaxAggregateInput, { nullable: true })
     max?: CommentMaxAggregateInput;
 }

@@ -3,43 +3,27 @@ import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class DummyCreateManyInput {
-    @Field(() => String, {
-        nullable: false,
-    })
+    @Field(() => String, { nullable: false })
     id!: string;
 
-    @Field(() => Float, {
-        nullable: false,
-    })
+    @Field(() => Float, { nullable: false })
     floaty!: number;
 
-    @Field(() => Int, {
-        nullable: true,
-    })
+    @Field(() => Int, { nullable: true })
     int?: number;
 
-    @Field(() => Float, {
-        nullable: true,
-    })
+    @Field(() => Float, { nullable: true })
     float?: number;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     bytes?: Buffer;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     decimal?: number | string;
 
-    @Field(() => String, {
-        nullable: true,
-    })
+    @Field(() => String, { nullable: true })
     bigInt?: bigint | number;
 
-    @Field(() => GraphQLJSON, {
-        nullable: true,
-    })
+    @Field(() => GraphQLJSON, { nullable: true })
     json?: any;
 }

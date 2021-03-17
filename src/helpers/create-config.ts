@@ -1,5 +1,6 @@
+import filenamify from 'filenamify';
 import { unflatten } from 'flat';
-import { merge } from 'lodash';
+import { merge, trim } from 'lodash';
 import { Nullable } from 'simplytyped';
 
 import { TypeRecord } from '../types';
@@ -9,10 +10,29 @@ export function createConfig(data: Record<string, string | undefined>) {
         string,
         unknown
     >;
+    const $warnings: string[] = [];
+
+    const configOutputFilePattern = String(
+        config.outputFilePattern || `{model}/{name}.{type}.ts`,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    let outputFilePattern = filenamify(configOutputFilePattern, {
+        replacement: '/',
+    })
+        .replace(/\.\./g, '/')
+        .replace(/\/+/g, '/');
+    outputFilePattern = trim(outputFilePattern, '/');
+
+    if (outputFilePattern !== configOutputFilePattern) {
+        $warnings.push(
+            `Due to invalid filepath 'outputFilePattern' changed to '${outputFilePattern}'`,
+        );
+    }
+
     return {
-        outputFilePattern: String(
-            config.outputFilePattern || `{model}/{name}.{type}.ts`,
-        ),
+        outputFilePattern,
+        tsConfigFilePath: 'tsconfig.json' as string,
         combineScalarFilters: ['true', '1', 'on'].includes(
             (config.combineScalarFilters as Nullable<string>) ?? 'false',
         ),
@@ -33,5 +53,6 @@ export function createConfig(data: Record<string, string | undefined>) {
         reExportAll: ['true', '1', 'on'].includes(
             (config.reExportAll as Nullable<string>) ?? 'false',
         ),
+        $warnings,
     };
 }

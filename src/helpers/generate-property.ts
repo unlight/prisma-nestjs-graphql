@@ -24,23 +24,3 @@ export function generateProperty(args: {
         hasExclamationToken: !isNullable,
     });
 }
-
-// type GenerateClassProperty = {
-//     classDeclaration: ClassDeclaration;
-//     name: string;
-//     type: string;
-//     isRequired: boolean;
-//     isReadOnly?: boolean;
-// };
-
-// export function generateClassProperty(args: GenerateClassProperty) {
-//     const { type, isRequired, name, classDeclaration, isReadOnly } = args;
-//     return classDeclaration.addProperty({
-//         leadingTrivia: '\n',
-//         name,
-//         type,
-//         hasQuestionToken: !isRequired,
-//         hasExclamationToken: isRequired,
-//         isReadonly: isReadOnly,
-//     });
-// }

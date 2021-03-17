@@ -5,13 +5,9 @@ import { ArticleWhereInput } from './article-where.input';
 
 @ArgsType()
 export class UpdateManyArticleArgs {
-    @Field(() => ArticleUpdateManyMutationInput, {
-        nullable: false,
-    })
+    @Field(() => ArticleUpdateManyMutationInput, { nullable: false })
     data!: ArticleUpdateManyMutationInput;
 
-    @Field(() => ArticleWhereInput, {
-        nullable: true,
-    })
+    @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 }

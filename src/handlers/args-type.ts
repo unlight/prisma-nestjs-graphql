@@ -63,6 +63,4 @@ export function argsType(field: SchemaField, args: EventArguments) {
         fileType: 'args',
         classDecoratorName: 'ArgsType',
     });
-
-    // console.dir({ field, modelName, className }, { depth: 5 });
 }

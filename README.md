@@ -21,7 +21,7 @@ npm install --save-dev prisma-nestjs-graphql
 ```prisma
 generator nestgraphql {
     provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src"
+    output = "../src/@generated/prisma-nestjs-graphql"
 }
 ```
 
@@ -48,6 +48,12 @@ Possible tokens:
 -   `{name}` Dashed-case name of model/input/arg without suffix
 -   `{type}` Short type name (model, input, args, output)
 -   `{plural.type}` Plural short type name (models, inputs, enums)
+
+#### `tsConfigFilePath`
+
+Path to `tsconfig.json`  
+Type: `string`  
+Default: `tsconfig.json`
 
 #### `combineScalarFilters`
 
@@ -159,3 +165,13 @@ export class User {
 -   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
 -   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 -   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
+
+## TODO
+
+-   new format of custom type
+
+    ```
+    type_{schemaType}_{key} = "{value}"
+    schemaType
+
+    ```

@@ -4,13 +4,9 @@ import { CommentCreateManyInput } from './comment-create-many.input';
 
 @ArgsType()
 export class CreateManyCommentArgs {
-    @Field(() => [CommentCreateManyInput], {
-        nullable: false,
-    })
+    @Field(() => [CommentCreateManyInput], { nullable: false })
     data!: Array<CommentCreateManyInput>;
 
-    @Field(() => Boolean, {
-        nullable: true,
-    })
+    @Field(() => Boolean, { nullable: true })
     skipDuplicates?: boolean;
 }

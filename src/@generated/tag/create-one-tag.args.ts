@@ -4,8 +4,6 @@ import { TagCreateInput } from './tag-create.input';
 
 @ArgsType()
 export class CreateOneTagArgs {
-    @Field(() => TagCreateInput, {
-        nullable: false,
-    })
+    @Field(() => TagCreateInput, { nullable: false })
     data!: TagCreateInput;
 }
