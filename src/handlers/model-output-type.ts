@@ -77,16 +77,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             isList,
         });
 
-        if (fieldMeta?.hideOutput) {
-            generateImport({
-                sourceFile,
-                name: 'HideField',
-                moduleSpecifier: '@nestjs/graphql',
-            });
-            propertyDeclaration.addDecorator({ name: 'HideField()' });
-            continue;
-        }
-
         const graphqlType =
             customType?.graphqlType ??
             getGraphqlType({
@@ -122,14 +112,23 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             });
         }
 
-        generateDecorator({
-            propertyDeclaration,
-            graphqlType,
-            isList,
-            isNullable: field.isNullable,
-            defaultValue: modelField?.default,
-            description: modelField?.documentation,
-        });
+        if (fieldMeta?.hideOutput) {
+            generateImport({
+                sourceFile,
+                name: 'HideField',
+                moduleSpecifier: '@nestjs/graphql',
+            });
+            propertyDeclaration.addDecorator({ name: 'HideField()' });
+        } else {
+            generateDecorator({
+                propertyDeclaration,
+                graphqlType,
+                isList,
+                isNullable: field.isNullable,
+                defaultValue: modelField?.default,
+                description: modelField?.documentation,
+            });
+        }
     }
 
     // Check re-export, comment generated class if found

@@ -107,15 +107,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         classStructure.properties?.push(property);
 
-        if (fieldMeta?.hideOutput) {
-            importDeclarations.add('HideField', {
-                namedImports: [{ name: 'HideField' }],
-                moduleSpecifier: '@nestjs/graphql',
-            });
-            property.decorators?.push({ name: 'HideField', arguments: [] });
-            continue;
-        }
-
         const graphqlType =
             customType?.graphqlType ??
             getGraphqlType({
@@ -158,16 +149,24 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             });
         }
 
-        // Generate `@Field()` decorator
-        property.decorators?.push({
-            name: 'Field',
-            arguments: [
-                `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
-                JSON5.stringify({
-                    nullable: Boolean(field.isNullable),
-                }),
-            ],
-        });
+        if (fieldMeta?.hideOutput) {
+            importDeclarations.add('HideField', {
+                namedImports: [{ name: 'HideField' }],
+                moduleSpecifier: '@nestjs/graphql',
+            });
+            property.decorators?.push({ name: 'HideField', arguments: [] });
+        } else {
+            // Generate `@Field()` decorator
+            property.decorators?.push({
+                name: 'Field',
+                arguments: [
+                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    JSON5.stringify({
+                        nullable: Boolean(field.isNullable),
+                    }),
+                ],
+            });
+        }
     }
 
     sourceFile.set({

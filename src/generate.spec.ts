@@ -1298,9 +1298,10 @@ describe('export all from index', () => {
 });
 
 describe('hide field', () => {
-    before(async () => {
-        await testGenerate({
-            schema: `
+    describe('scalar field', () => {
+        before(async () => {
+            await testGenerate({
+                schema: `
             model User {
                 id String @id
                 /// @TypeGraphQL.omit(output: true)
@@ -1311,40 +1312,79 @@ describe('hide field', () => {
                 password2 String
             }
             `,
-            options: [],
+                options: [],
+            });
+            // const filePaths = sourceFiles.map(s => s.getFilePath());
         });
-        // const filePaths = sourceFiles.map(s => s.getFilePath());
+
+        describe('model', () => {
+            before(() => {
+                sourceFile = project.getSourceFile(s =>
+                    s.getFilePath().endsWith('/user.model.ts'),
+                )!;
+            });
+
+            // it('^', () => console.log(sourceFile.getText()));
+
+            it('TypeGraphQL omit should hide password1', () => {
+                expect(d('password1')?.name).toBe('HideField');
+                expect(d('password1')?.arguments).toEqual([]);
+            });
+
+            it('HideField should hide field', () => {
+                expect(d('password2')?.name).toBe('HideField');
+                expect(d('password2')?.arguments).toEqual([]);
+            });
+        });
+
+        describe('other outputs', () => {
+            it('user-max-aggregate', () => {
+                sourceFile = project.getSourceFile(s =>
+                    s.getFilePath().endsWith('/user-max-aggregate.output.ts'),
+                )!;
+                expect(d('password1')?.name).toBe('HideField');
+                expect(d('password1')?.arguments).toEqual([]);
+                expect(d('password2')?.name).toBe('HideField');
+                expect(d('password2')?.arguments).toEqual([]);
+            });
+        });
     });
 
-    describe('model', () => {
-        before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/user.model.ts'),
-            )!;
+    describe('hide on non scalar', () => {
+        before(async () => {
+            await testGenerate({
+                schema: `
+                    model User {
+                      id       String @id
+                      /// @HideField()
+                      secret   Secret @relation(fields: [secretId], references: [id])
+                      secretId String
+                    }
+
+                    model Secret {
+                      id    String @id
+                      users User[]
+                    }
+            `,
+                options: [],
+            });
         });
 
-        // it('^', () => console.log(sourceFile.getText()));
+        describe('model', () => {
+            before(() => {
+                sourceFile = project.getSourceFile(s =>
+                    s.getFilePath().endsWith('/user.model.ts'),
+                )!;
+            });
 
-        it('TypeGraphQL omit should hide password1', () => {
-            expect(d('password1')?.name).toBe('HideField');
-            expect(d('password1')?.arguments).toEqual([]);
-        });
+            it('type should be imported', () => {
+                const imports = getImportDeclarations(sourceFile);
+                expect(imports).toContainEqual(
+                    expect.objectContaining({ name: 'Secret' }),
+                );
+            });
 
-        it('HideField should hide field', () => {
-            expect(d('password2')?.name).toBe('HideField');
-            expect(d('password2')?.arguments).toEqual([]);
-        });
-    });
-
-    describe('other outputs', () => {
-        it('user-max-aggregate', () => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/user-max-aggregate.output.ts'),
-            )!;
-            expect(d('password1')?.name).toBe('HideField');
-            expect(d('password1')?.arguments).toEqual([]);
-            expect(d('password2')?.name).toBe('HideField');
-            expect(d('password2')?.arguments).toEqual([]);
+            // it('^', () => console.log(sourceFile.getText()));
         });
     });
 });
