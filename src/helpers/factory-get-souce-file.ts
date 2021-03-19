@@ -1,3 +1,4 @@
+import AwaitEventEmitter from 'await-event-emitter/types';
 import { Project } from 'ts-morph';
 
 import { generateFileName } from './generate-file-name';
@@ -7,6 +8,7 @@ export function factoryGetSourceFile(args: {
     outputFilePattern: string;
     project: Project;
     modelNames: string[];
+    eventEmitter: AwaitEventEmitter;
 }) {
     const { outputFilePattern, output, modelNames, project } = args;
     return function getSourceFile(args: { type: string; name: string }) {
@@ -19,6 +21,10 @@ export function factoryGetSourceFile(args: {
         });
         filePath = `${output}/${filePath}`;
 
-        return project.getSourceFile(filePath) || project.createSourceFile(filePath);
+        const sourceFile =
+            // eslint-disable-next-line sonarjs/prefer-immediate-return
+            project.getSourceFile(filePath) || project.createSourceFile(filePath);
+
+        return sourceFile;
     };
 }

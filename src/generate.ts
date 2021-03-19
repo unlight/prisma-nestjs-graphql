@@ -13,7 +13,7 @@ import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
-import { reExportAll } from './handlers/re-export-all';
+import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { warning } from './handlers/warning';
@@ -78,7 +78,7 @@ export async function generate(
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
-    config.reExportAll && reExportAll(eventEmitter);
+    config.reExport !== ReExport.None && reExport(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
@@ -89,6 +89,7 @@ export async function generate(
         project,
         modelNames,
         outputFilePattern: config.outputFilePattern,
+        eventEmitter,
     });
     const {
         datamodel,

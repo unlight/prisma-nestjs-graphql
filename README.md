@@ -67,11 +67,25 @@ Remove input types for atomic operations
 Type: `boolean`  
 Default: `false`
 
-#### `reExportAll`
+#### `reExport`
 
-Create `index.ts` files for each directory with re-export  
-Type: `boolean`  
-Default: `false`
+Create `index.ts` file with re-export.  
+Type: `enum`  
+Values:  
+`None` Default, create nothing  
+`Directories` Create index file in all root directories  
+`Single` Create single index file in output directory  
+`All` Create index file in all root directories and in output directory
+
+Example configuration:
+
+```prisma
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+    reExport = Directories
+}
+```
 
 #### `types_*`
 

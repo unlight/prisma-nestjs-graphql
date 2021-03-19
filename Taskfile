@@ -15,10 +15,10 @@ compatibilty_check() {
     rm -rf src/@generated && npm run prisma:g && npm run tscheck
     sed -i 's/combineScalarFilters = true/combineScalarFilters = false/g' prisma/schema.prisma
 
-    # Enable reExportAll
-    sed -i 's/reExportAll = false/reExportAll = true/g' prisma/schema.prisma
+    # Switching reExport
+    sed -i 's/reExport = None/reExport = All/g' prisma/schema.prisma
     rm -rf src/@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/reExportAll = true/reExportAll = false/g' prisma/schema.prisma
+    sed -i 's/reExport = All/reExport = None/g' prisma/schema.prisma
 }
 
 build() {
