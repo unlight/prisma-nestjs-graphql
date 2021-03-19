@@ -1,3 +1,10 @@
+### [10.1.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.2...v10.1.3) (2021-03-19)
+
+
+### Bug Fixes
+
+* Hide field for model type ([54571d2](https://github.com/unlight/nestjs-graphql-prisma/commit/54571d2d347c31905d8df5a62e2b057ec8dee18c))
+
 ### [10.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.1...v10.1.2) (2021-03-17)
 
 
