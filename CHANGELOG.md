@@ -1,3 +1,10 @@
+## [10.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.3...v10.2.0) (2021-03-19)
+
+
+### Features
+
+* Extend `reExport` option ([3d5475b](https://github.com/unlight/nestjs-graphql-prisma/commit/3d5475b7029e425630b8538aee7a4a249d950840))
+
 ### [10.1.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.2...v10.1.3) (2021-03-19)
 
 
