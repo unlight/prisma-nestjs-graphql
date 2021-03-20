@@ -137,15 +137,15 @@ describe('model with one id int', () => {
 
         it('default value', () => {
             const argument = getFieldOptions(sourceFile, 'id');
-            expect(argument).toContain('nullable: false');
-            expect(argument).toContain('defaultValue: 1');
-            expect(argument).not.toContain('description: undefined');
+            expect(argument).toMatch(/nullable:\s*false/);
+            expect(argument).toMatch(/defaultValue:\s*1/);
+            expect(argument).not.toMatch(/description:\s*undefined/);
         });
 
         it('property description', () => {
             const argument = getFieldOptions(sourceFile, 'id');
-            expect(argument).toContain('nullable: false');
-            expect(argument).toContain('description: "user id"');
+            expect(argument).toMatch(/nullable:\s*false/);
+            expect(argument).toMatch(/description:\s*["']user id["']/);
         });
 
         it('object type description', () => {
@@ -153,7 +153,7 @@ describe('model with one id int', () => {
                 .getClass(() => true)
                 ?.getDecorators()?.[0]
                 .getStructure()?.arguments?.[0] as string | undefined;
-            expect(decoratorArgument).toContain(`description: "User really"`);
+            expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
         });
 
         it('has import objecttype', () => {
@@ -193,7 +193,7 @@ describe('model with one id int', () => {
         });
     });
 
-    describe('user count aggregate (UserCountAggregate)', () => {
+    describe('user count aggregate (usercountaggregate)', () => {
         before(() => {
             setSourceFile('user-count-aggregate.output.ts');
             propertyStructure = sourceFile
@@ -880,7 +880,6 @@ describe('model with one id string', () => {
             s.getFilePath().endsWith('user.model.ts'),
         )!;
         sourceText = sourceFile.getText();
-        const filePaths = project.getSourceFiles().map(s => s.getFilePath());
         expect(sourceText.match(/export class User/g)?.length).toEqual(1);
     });
 
@@ -945,41 +944,6 @@ describe('model with one id string', () => {
         sourceText = sourceFile.getText();
         expect(sourceText.match(/export class User/g)).toHaveLength(1);
         expect(sourceText).toContain('// export class User');
-    });
-
-    describe('dont add decorators', () => {
-        let userClass: ClassDeclaration;
-        let decorator: Decorator | undefined;
-
-        before(async () => {
-            await testGenerate({
-                schema,
-                createSouceFile: {
-                    type: 'model',
-                    name: 'User',
-                    text: `
-                    export class User {
-                        id: string;
-                    }
-                `,
-                },
-            });
-            setSourceFile('user.model.ts');
-            userClass = sourceFile.getClass('User')!;
-        });
-
-        it('for class', () => {
-            decorator = userClass
-                .getDecorators()
-                .find(d => d.getName() === 'ObjectType');
-            expect(decorator?.getText()).toBeUndefined();
-        });
-
-        it('for property', () => {
-            expect(userClass.getProperties().map(x => x.getName())).toHaveLength(1);
-            decorator = userClass.getProperty('id')!.getDecorator('Field');
-            expect(decorator?.getText()).toBeUndefined();
-        });
     });
 });
 

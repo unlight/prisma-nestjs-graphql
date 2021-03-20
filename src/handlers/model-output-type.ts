@@ -1,14 +1,18 @@
 import assert from 'assert';
-import { CommentStatement } from 'ts-morph';
+import JSON5 from 'json5';
+import {
+    ClassDeclarationStructure,
+    CommentStatement,
+    ExportSpecifierStructure,
+    StatementStructures,
+    StructureKind,
+} from 'ts-morph';
 
-import { generateClass } from '../helpers/generate-class';
-import { generateDecorator } from '../helpers/generate-decorator';
-import { generateImport } from '../helpers/generate-import';
-import { generateProperty } from '../helpers/generate-property';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
@@ -20,29 +24,41 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         name: outputType.name,
         type: fileType,
     });
+
+    const sourceFileStructure = sourceFile.getStructure();
+
     const importDeclarations = new ImportDeclarationMap();
-    const classDeclaration = generateClass({
-        decorator: {
-            name: 'ObjectType',
-            properties: [
+    let classStructure = (sourceFileStructure.statements as StatementStructures[]).find(
+        (s: StatementStructures) => s.kind === StructureKind.Class,
+    ) as ClassDeclarationStructure | undefined;
+    if (!classStructure) {
+        classStructure = {
+            kind: StructureKind.Class,
+            isExported: true,
+            name: outputType.name,
+            decorators: [
                 {
-                    name: 'description',
-                    value: model.documentation,
+                    name: 'ObjectType',
+                    arguments: [],
                 },
             ],
-        },
-        sourceFile,
-        name: outputType.name,
-    });
+            properties: [],
+        };
+        (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
+    }
 
-    importDeclarations.set('Field', {
-        namedImports: [{ name: 'Field' }],
-        moduleSpecifier: '@nestjs/graphql',
-    });
+    const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
+    assert(decorator, 'ObjectType decorator not found');
+    decorator.arguments = model.documentation
+        ? [JSON5.stringify({ description: model.documentation })]
+        : [];
+
+    importDeclarations.add('Field', '@nestjs/graphql');
+    importDeclarations.add('ObjectType', '@nestjs/graphql');
 
     for (const field of outputType.fields) {
         // Do not generate already defined properties for model
-        if (classDeclaration.getProperty(field.name)) {
+        if (classStructure.properties?.some(p => p.name === field.name)) {
             continue;
         }
 
@@ -68,14 +84,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                   type: outputTypeName,
               });
 
-        const propertyDeclaration = generateProperty({
-            classDeclaration,
-            name: field.name,
-            isNullable: field.isNullable,
-            propertyType,
-            isList,
-        });
-
         const graphqlType =
             customType?.graphqlType ??
             getGraphqlType({
@@ -94,42 +102,59 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             getSourceFile,
         });
 
+        const property = propertyStructure({
+            name: field.name,
+            isNullable: field.isNullable,
+            propertyType,
+            isList,
+        });
+
+        classStructure.properties?.push(property);
+
         if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
             importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
         }
 
         // Create import for typescript field/property type
-        if (customType && customType.fieldModule && customType.fieldType) {
-            generateImport({
-                sourceFile,
-                name: customType.fieldType,
-                moduleSpecifier: customType.fieldModule,
-            });
+        if (customType && customType.fieldType && customType.fieldModule) {
+            importDeclarations.add(customType.fieldType, customType.fieldModule);
         }
 
         if (settings?.hideOutput) {
             importDeclarations.add('HideField', '@nestjs/graphql');
-            propertyDeclaration.addDecorator({ name: 'HideField()' });
+            property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
-            generateDecorator({
-                propertyDeclaration,
-                graphqlType,
-                isList,
-                isNullable: field.isNullable,
-                defaultValue: modelField?.default,
-                description: modelField?.documentation,
+            property.decorators?.push({
+                name: 'Field',
+                arguments: [
+                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    JSON5.stringify({
+                        nullable: Boolean(field.isNullable),
+                        defaultValue: ['number', 'string', 'boolean'].includes(
+                            typeof modelField?.default,
+                        )
+                            ? modelField?.default
+                            : undefined,
+                        description: modelField?.documentation,
+                    }),
+                ],
             });
         }
     }
 
-    sourceFile.addImportDeclarations([...importDeclarations.values()]);
+    const hasExportDeclaration = (sourceFileStructure.statements as StatementStructures[]).some(
+        structure => {
+            return (
+                structure.kind === StructureKind.ExportDeclaration &&
+                (structure.namedExports as ExportSpecifierStructure[]).some(
+                    o => (o.alias || o.name) === model.name,
+                )
+            );
+        },
+    );
 
     // Check re-export, comment generated class if found
-    const exportDeclaration = sourceFile.getExportDeclaration(d => {
-        return d.getNamedExports().some(x => x.getNameNode().getText() === model.name);
-    });
-
-    if (exportDeclaration) {
+    if (hasExportDeclaration) {
         let commentStatement: CommentStatement | undefined;
         while (
             (commentStatement = sourceFile.getStatementByKind(
@@ -138,11 +163,20 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         ) {
             commentStatement.remove();
         }
+
+        sourceFile.addStatements([classStructure]);
+        const classDeclaration = sourceFile.getClassOrThrow(model.name);
+
         const commentedText = classDeclaration
             .getText()
             .split('\n')
             .map(x => `// ${x}`);
         classDeclaration.remove();
         sourceFile.addStatements(['\n', ...commentedText]);
+    } else {
+        (sourceFileStructure.statements as StatementStructures[]).unshift(
+            ...importDeclarations.toStatements(),
+        );
+        sourceFile.set(sourceFileStructure);
     }
 }

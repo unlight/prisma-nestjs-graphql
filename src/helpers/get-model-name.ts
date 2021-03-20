@@ -28,7 +28,7 @@ export function getModelName(args: { name: string; modelNames: string[] }) {
             return test;
         }
     }
-    return undefined;
+    return;
 }
 
 const splitKeywords = [

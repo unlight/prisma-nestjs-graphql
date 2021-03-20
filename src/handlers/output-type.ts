@@ -3,7 +3,6 @@ import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
-import { getModelName } from '../helpers/get-model-name';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
@@ -17,16 +16,12 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         config,
         eventEmitter,
         fieldSettings,
-        modelNames,
+        getModelName,
     } = args;
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
-    const modelName =
-        getModelName({
-            name: outputType.name,
-            modelNames,
-        }) || '';
+    const modelName = getModelName(outputType.name) || '';
     const model = models.get(modelName);
     const shouldEmitAggregateOutput =
         model &&
