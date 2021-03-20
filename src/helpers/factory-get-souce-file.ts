@@ -7,14 +7,15 @@ export function factoryGetSourceFile(args: {
     output: string;
     outputFilePattern: string;
     project: Project;
-    modelNames: string[];
+    getModelName(name: string): string | undefined;
     eventEmitter: AwaitEventEmitter;
 }) {
-    const { outputFilePattern, output, modelNames, project } = args;
+    const { outputFilePattern, output, getModelName, project } = args;
+
     return function getSourceFile(args: { type: string; name: string }) {
         const { name, type } = args;
         let filePath = generateFileName({
-            modelNames,
+            getModelName,
             name,
             type,
             template: outputFilePattern,

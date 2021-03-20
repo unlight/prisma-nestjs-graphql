@@ -2,20 +2,18 @@ import { kebabCase } from 'lodash';
 import pluralize from 'pluralize';
 import pupa from 'pupa';
 
-import { getModelName } from './get-model-name';
-
 export function generateFileName(args: {
     type: string;
     name: string;
-    modelNames: string[];
+    getModelName(name: string): string | undefined;
     template: string;
 }) {
-    const { template, type, name, modelNames } = args;
+    const { template, type, name, getModelName } = args;
 
     return pupa(template, {
         type,
         get model() {
-            const result = getModelName({ modelNames, name, fallback: 'prisma' });
+            const result = getModelName(name) || 'prisma';
             return kebabCase(result);
         },
         get name() {

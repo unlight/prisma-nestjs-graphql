@@ -41,6 +41,7 @@ export type EventArguments = {
     eventEmitter: AwaitEventEmitter;
     typeNames: Set<string>;
     enums: Record<string, DMMF.DatamodelEnum | undefined>;
+    getModelName(name: string): string | undefined;
 };
 
 export { FieldSettings };

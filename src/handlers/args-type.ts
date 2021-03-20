@@ -12,7 +12,11 @@ export function argsType(field: SchemaField, args: EventArguments) {
     }
     const { eventEmitter, modelNames, typeNames } = args;
     const className = pascalCase(`${field.name}Args`);
-    const modelName = getModelName({ name: className, modelNames, fallback: '' });
+    const modelName =
+        getModelName({
+            name: className,
+            modelNames,
+        }) || '';
     const inputType: InputType = {
         // eslint-disable-next-line unicorn/no-null
         constraints: { maxNumFields: null, minNumFields: null },

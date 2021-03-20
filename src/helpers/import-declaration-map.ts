@@ -8,11 +8,11 @@ export class ImportDeclarationMap extends Map<
     add(name: string, value: OptionalKind<ImportDeclarationStructure>);
 
     add(name: string, value: OptionalKind<ImportDeclarationStructure> | string) {
-        const structure: OptionalKind<ImportDeclarationStructure> =
-            typeof value === 'string'
-                ? { moduleSpecifier: value, namedImports: [{ name }] }
-                : value;
         if (!this.has(name)) {
+            const structure: OptionalKind<ImportDeclarationStructure> =
+                typeof value === 'string'
+                    ? { moduleSpecifier: value, namedImports: [{ name }] }
+                    : value;
             this.set(name, structure);
         }
     }

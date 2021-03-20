@@ -22,11 +22,11 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
-    const modelName = getModelName({
-        name: outputType.name,
-        modelNames,
-        fallback: '',
-    });
+    const modelName =
+        getModelName({
+            name: outputType.name,
+            modelNames,
+        }) || '';
     const model = models.get(modelName);
     const shouldEmitAggregateOutput =
         model &&

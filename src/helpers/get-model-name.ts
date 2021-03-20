@@ -1,32 +1,34 @@
-export function getModelName(args: {
-    name: string;
-    modelNames: string[];
-    fallback: string;
-}) {
-    const { name, modelNames, fallback } = args;
-    let result = fallback;
+import { memoize } from 'lodash';
+
+export function createGetModelName(modelNames: string[]) {
+    return memoize(tryGetName);
+
+    function tryGetName(name: string): string | undefined {
+        return getModelName({ modelNames, name });
+    }
+}
+
+export function getModelName(args: { name: string; modelNames: string[] }) {
+    const { name, modelNames } = args;
     for (const keyword of splitKeywords) {
         const [test] = name.split(keyword, 1);
         if (modelNames.includes(test)) {
-            result = test;
-            return result;
+            return test;
         }
     }
     for (const keyword of endsWithKeywords) {
         const [test] = name.split(keyword).slice(-1);
         if (modelNames.includes(test)) {
-            result = test;
-            return result;
+            return test;
         }
     }
     for (const [start, end] of middleKeywords) {
         const test = name.slice(start.length).slice(0, -end.length);
         if (modelNames.includes(test)) {
-            result = test;
-            return result;
+            return test;
         }
     }
-    return result;
+    return undefined;
 }
 
 const splitKeywords = [
@@ -68,16 +70,15 @@ const splitKeywords = [
 const endsWithKeywords = [
     'Aggregate',
     'GroupBy',
-    'aggregate',
-    'createOne',
-    'deleteMany',
-    'deleteOne',
-    'findMany',
-    'findOne',
-    'findUnique',
-    'updateMany',
-    'updateOne',
-    'upsertOne',
+    'CreateOne',
+    'DeleteMany',
+    'DeleteOne',
+    'FindMany',
+    'FindOne',
+    'FindUnique',
+    'UpdateMany',
+    'UpdateOne',
+    'UpsertOne',
 ];
 
 const middleKeywords = [
@@ -86,10 +87,12 @@ const middleKeywords = [
     ['DeleteMany', 'Args'],
     ['DeleteOne', 'Args'],
     ['FindMany', 'Args'],
+    ['FindFirst', 'Args'],
     ['FindOne', 'Args'],
     ['FindUnique', 'Args'],
     ['UpdateMany', 'Args'],
     ['UpdateOne', 'Args'],
     ['UpsertOne', 'Args'],
     ['GroupBy', 'Args'],
+    ['OrderBy', 'Args'],
 ];

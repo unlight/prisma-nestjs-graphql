@@ -19,6 +19,7 @@ import { typeNames } from './handlers/type-names';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-souce-file';
+import { createGetModelName } from './helpers/get-model-name';
 import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
 
 export async function generate(
@@ -37,6 +38,9 @@ export async function generate(
         otherGenerators,
         skipAddOutputSourceFiles,
     } = args;
+
+    assert(generator.output, 'generator.output is empty');
+
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
     eventEmitter.on('Model', modelData);
@@ -48,7 +52,7 @@ export async function generate(
     eventEmitter.on('InputType', typeNames);
     eventEmitter.on('ArgsType', argsType);
     eventEmitter.on('GenerateFiles', generateFiles);
-    assert(generator.output, 'generator.output is empty');
+
     const config = createConfig(generator.config);
     for (const message of config.$warnings) {
         eventEmitter.emitSync('Warning', message);
@@ -56,7 +60,9 @@ export async function generate(
     const prismaClientOutput = otherGenerators.find(
         x => x.provider === 'prisma-client-js',
     )?.output;
+
     assert(prismaClientOutput, 'Cannot find output of prisma-client-js');
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const prismaClientDmmf: DMMF.Document = JSON.parse(
         JSON.stringify(
@@ -64,7 +70,7 @@ export async function generate(
                 (require(prismaClientOutput).dmmf as DMMF.Document),
         ),
     );
-    // generator.output
+
     const project = new Project({
         tsConfigFilePath: config.tsConfigFilePath,
         skipAddingFilesFromTsConfig: true,
@@ -85,11 +91,11 @@ export async function generate(
     const modelNames: string[] = [];
     const modelFields = new Map<string, Map<string, Field>>();
     const fieldSettings = new Map<string, Map<string, FieldSettings>>();
-    const queryOutputTypes: OutputType[] = [];
+    const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
         output: generator.output,
         project,
-        modelNames,
+        getModelName,
         outputFilePattern: config.outputFilePattern,
         eventEmitter,
     });
@@ -109,6 +115,7 @@ export async function generate(
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
+        getModelName: createGetModelName(modelNames),
     };
 
     if (connectCallback) {
@@ -130,6 +137,8 @@ export async function generate(
     for (const outputType of outputObjectTypes.model) {
         await eventEmitter.emit('ModelOutputType', outputType, eventArguments);
     }
+
+    const queryOutputTypes: OutputType[] = [];
 
     for (const outputType of outputObjectTypes.prisma) {
         if (['Query', 'Mutation'].includes(outputType.name)) {
