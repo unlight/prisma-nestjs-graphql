@@ -4,9 +4,16 @@ export class ImportDeclarationMap extends Map<
     string,
     OptionalKind<ImportDeclarationStructure>
 > {
-    add(name: string, value: OptionalKind<ImportDeclarationStructure>) {
+    add(name: string, moduleSpecifier: string);
+    add(name: string, value: OptionalKind<ImportDeclarationStructure>);
+
+    add(name: string, value: OptionalKind<ImportDeclarationStructure> | string) {
+        const structure: OptionalKind<ImportDeclarationStructure> =
+            typeof value === 'string'
+                ? { moduleSpecifier: value, namedImports: [{ name }] }
+                : value;
         if (!this.has(name)) {
-            this.set(name, value);
+            this.set(name, structure);
         }
     }
 

@@ -3,7 +3,7 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { DMMF, EventArguments, InputType } from '../types';
 
 /**
- * Subscribes on 'beforeInputType'
+ * Subscribes on 'BeforeInputType'
  */
 export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
     eventEmitter.on('BeforeInputType', beforeInputType);

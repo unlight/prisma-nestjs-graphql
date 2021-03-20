@@ -8,19 +8,19 @@ import { generateProperty } from '../helpers/generate-property';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getPropertyType } from '../helpers/get-property-type';
+import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments, OutputType } from '../types';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, config, modelFields } = args;
-
+    const { getSourceFile, models, config, modelFields, fieldSettings } = args;
     const model = models.get(outputType.name);
-    assert(model);
+    assert(model, `Cannot find model by name ${outputType.name}`);
     const fileType = 'model';
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: fileType,
     });
-
+    const importDeclarations = new ImportDeclarationMap();
     const classDeclaration = generateClass({
         decorator: {
             name: 'ObjectType',
@@ -35,9 +35,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         name: outputType.name,
     });
 
-    generateImport({
-        sourceFile,
-        name: 'Field',
+    importDeclarations.set('Field', {
+        namedImports: [{ name: 'Field' }],
         moduleSpecifier: '@nestjs/graphql',
     });
 
@@ -49,9 +48,9 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         const { location, isList, type } = field.outputType;
         const outputTypeName = String(type);
-        const modelField = modelFields.get(model.name)?.get(field.name);
-        const fieldMeta = modelField?.meta;
         const customType = config.types[outputTypeName];
+        const modelField = modelFields.get(model.name)?.get(field.name);
+        const settings = fieldSettings.get(model.name)?.get(field.name);
 
         // console.log({
         //     'field.outputType': field.outputType,
@@ -96,11 +95,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         });
 
         if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-            generateImport({
-                sourceFile,
-                name: graphqlImport.name,
-                moduleSpecifier: graphqlImport.specifier,
-            });
+            importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
         }
 
         // Create import for typescript field/property type
@@ -112,12 +107,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             });
         }
 
-        if (fieldMeta?.hideOutput) {
-            generateImport({
-                sourceFile,
-                name: 'HideField',
-                moduleSpecifier: '@nestjs/graphql',
-            });
+        if (settings?.hideOutput) {
+            importDeclarations.add('HideField', '@nestjs/graphql');
             propertyDeclaration.addDecorator({ name: 'HideField()' });
         } else {
             generateDecorator({
@@ -131,10 +122,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         }
     }
 
+    sourceFile.addImportDeclarations([...importDeclarations.values()]);
+
     // Check re-export, comment generated class if found
     const exportDeclaration = sourceFile.getExportDeclaration(d => {
         return d.getNamedExports().some(x => x.getNameNode().getText() === model.name);
     });
+
     if (exportDeclaration) {
         let commentStatement: CommentStatement | undefined;
         while (
