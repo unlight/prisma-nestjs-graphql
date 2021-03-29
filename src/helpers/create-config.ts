@@ -56,6 +56,8 @@ export function createConfig(data: Record<string, string | undefined>) {
         noAtomicOperations: toBoolean(config.noAtomicOperations),
         types,
         reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
+        emitSingle: toBoolean(config.emitSingle),
+        emitCompiled: toBoolean(config.emitCompiled),
         $warnings,
     };
 }

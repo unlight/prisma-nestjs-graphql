@@ -14,6 +14,8 @@ generator nestgraphql {
   noAtomicOperations = false
   combineScalarFilters = false
   reExport = None
+  emitSingle = false
+  emitCompiled = false
 }
 
 model User {

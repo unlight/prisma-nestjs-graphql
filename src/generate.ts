@@ -7,7 +7,7 @@ import { Project, QuoteKind } from 'ts-morph';
 import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
 import { createAggregateInput } from './handlers/create-aggregate-input';
-import { generateFiles } from './handlers/generate-files';
+import { beforeGenerateFiles, generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
@@ -51,6 +51,7 @@ export async function generate(
     eventEmitter.on('InputType', inputType);
     eventEmitter.on('InputType', typeNames);
     eventEmitter.on('ArgsType', argsType);
+    eventEmitter.on('BeforeGenerateFiles', beforeGenerateFiles);
     eventEmitter.on('GenerateFiles', generateFiles);
 
     const config = createConfig(generator.config);
@@ -74,7 +75,7 @@ export async function generate(
     const project = new Project({
         tsConfigFilePath: config.tsConfigFilePath,
         skipAddingFilesFromTsConfig: true,
-        skipLoadingLibFiles: true,
+        skipLoadingLibFiles: !config.emitCompiled,
         manipulationSettings: {
             quoteKind: QuoteKind.Single,
         },

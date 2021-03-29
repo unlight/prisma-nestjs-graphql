@@ -31,6 +31,8 @@ const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
 const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
+    sourceText = sourceFile.getText();
+    imports = getImportDeclarations(sourceFile);
 };
 
 async function testGenerate(args: {
@@ -1444,5 +1446,78 @@ describe('reexport option', () => {
                 `export { User } from './user.model'`,
             );
         });
+    });
+});
+
+describe('emit single', () => {
+    const schema = `
+        model User {
+          id    Int    @id
+          posts Post[]
+        }
+        model Post {
+          id     Int   @id
+          User   User? @relation(fields: [userId], references: [id])
+          userId Int?
+        }
+    `;
+    describe('emit single green', () => {
+        before(async () => {
+            await testGenerate({
+                schema,
+                options: [
+                    `emitSingle = true`,
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                ],
+            });
+            setSourceFile('index.ts');
+        });
+
+        it('should have one file', () => {
+            expect(project.getSourceFiles()).toHaveLength(1);
+        });
+
+        it('should not contain relative import', () => {
+            const badImport = imports.find(x => x.specifier.startsWith('.'));
+            expect(badImport).toBeUndefined();
+        });
+
+        it('should contains class user', () => {
+            expect(sourceText).toMatch(/export class User {/);
+        });
+
+        it('should contains class post', () => {
+            expect(sourceText).toMatch(/export class Post {/);
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+    });
+
+    describe('emit single second gen', () => {
+        before(async () => {
+            await testGenerate({
+                schema,
+                options: [
+                    `emitSingle = true`,
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                ],
+                onConnect(emitter) {
+                    emitter.on('PostBegin', ({ project, output }: EventArguments) => {
+                        project.createSourceFile(
+                            `${output}/index.ts`,
+                            `@ObjectType() export class User { }`,
+                            { overwrite: true },
+                        );
+                    });
+                },
+            });
+            setSourceFile('index.ts');
+        });
+
+        it('should not add to existing file', () => {
+            expect(sourceText.match(/export class User /g)).toHaveLength(1);
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
     });
 });

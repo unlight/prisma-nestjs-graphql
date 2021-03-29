@@ -8,7 +8,10 @@ export function createGetModelName(modelNames: string[]) {
     }
 }
 
-export function getModelName(args: { name: string; modelNames: string[] }) {
+export function getModelName(args: {
+    name: string;
+    modelNames: string[];
+}): string | undefined {
     const { name, modelNames } = args;
     for (const keyword of splitKeywords) {
         const [test] = name.split(keyword, 1);
@@ -28,7 +31,8 @@ export function getModelName(args: { name: string; modelNames: string[] }) {
             return test;
         }
     }
-    return;
+    // eslint-disable-next-line consistent-return, unicorn/no-useless-undefined
+    return undefined;
 }
 
 const splitKeywords = [
