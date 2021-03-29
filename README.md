@@ -69,7 +69,7 @@ Default: `false`
 
 #### `reExport`
 
-Create `index.ts` file with re-export.  
+Create `index.ts` file with re-export  
 Type: `enum`  
 Values:  
 `None` Default, create nothing  
@@ -86,6 +86,20 @@ generator nestgraphql {
     reExport = Directories
 }
 ```
+
+#### `emitSingle`
+
+Generate single file with merged classes and enums.  
+Type: `boolean`  
+Default: `false`
+
+#### `emitCompiled`
+
+Emit compiled JavaScript and definitions instead of TypeScript sources,
+files will be compiled with `emitDecoratorMetadata:false`, because there is a problem
+with temporal dead zone when generating merged file.  
+Type: `boolean`  
+Default: `false`
 
 #### `types_*`
 
