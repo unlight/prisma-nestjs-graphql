@@ -1,3 +1,10 @@
+## [10.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.2.0...v10.3.0) (2021-03-29)
+
+
+### Features
+
+* Allow generate compiled files or merged to single file ([095f975](https://github.com/unlight/nestjs-graphql-prisma/commit/095f975ceb9a6555e95efc33cd00f9ddaa33d7f9)), closes [#15](https://github.com/unlight/nestjs-graphql-prisma/issues/15)
+
 ## [10.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.3...v10.2.0) (2021-03-19)
 
 
