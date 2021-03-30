@@ -91,7 +91,9 @@ generator nestgraphql {
 
 Generate single file with merged classes and enums.  
 Type: `boolean`  
-Default: `false`
+Default: `false`  
+Note: Right now you cannot use `emitSingle` without `emitCompiled`,
+because generated classes with types references (`emitDecoratorMetadata`) fall into temporal dead zone.
 
 #### `emitCompiled`
 
