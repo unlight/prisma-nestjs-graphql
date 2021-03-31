@@ -1,3 +1,14 @@
+## [11.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.3.0...v11.0.0) (2021-03-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* Adapted to Prisma 2.20
+
+### Bug Fixes
+
+* Adapted to Prisma 2.20 ([c5f040d](https://github.com/unlight/nestjs-graphql-prisma/commit/c5f040da249681363c1e6267f83275955ad682c8)), closes [#17](https://github.com/unlight/nestjs-graphql-prisma/issues/17)
+
 ## [10.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.2.0...v10.3.0) (2021-03-29)
 
 
