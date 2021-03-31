@@ -1,3 +1,10 @@
+### [11.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.0...v11.0.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* Source file already exists error ([121a486](https://github.com/unlight/nestjs-graphql-prisma/commit/121a48626983a2a9f52f2cb6db3af3b7c865c859))
+
 ## [11.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.3.0...v11.0.0) (2021-03-31)
 
 
