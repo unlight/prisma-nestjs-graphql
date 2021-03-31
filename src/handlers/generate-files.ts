@@ -1,7 +1,6 @@
 import {
     ClassDeclarationStructure,
     ImportSpecifierStructure,
-    ScriptKind,
     StatementStructures,
     StructureKind,
 } from 'ts-morph';

@@ -22,10 +22,13 @@ compatibilty_check() {
 
     # emitSingle and emitCompiled
     sed -i 's/emitSingle = false/emitSingle = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g && npx tsc --noEmit --skipLibCheck --experimentalDecorators src/@generated/index.ts
+    rm -rf src/@generated && npm run prisma:g
+    npx tsc --noEmit --skipLibCheck --experimentalDecorators src/@generated/index.ts
+    npx ts-node src/@generated/index.ts
 
     sed -i 's/emitCompiled = false/emitCompiled = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g && node src/@generated/index.js
+    rm -rf src/@generated && npm run prisma:g
+    node src/@generated/index.js
 
     sed -i 's/emitCompiled = true/emitCompiled = false/g' prisma/schema.prisma
     sed -i 's/emitSingle = true/emitSingle = false/g' prisma/schema.prisma

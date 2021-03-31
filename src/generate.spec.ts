@@ -8,6 +8,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
+import { User } from './@generated/user/user.model';
 import { generate } from './generate';
 import { generateFileName } from './helpers/generate-file-name';
 import {
@@ -1459,7 +1460,7 @@ describe('emit single', () => {
         }
         model Post {
           id     Int   @id
-          User   User? @relation(fields: [userId], references: [id])
+          user   User? @relation(fields: [userId], references: [id])
           userId Int?
         }
     `;
@@ -1490,6 +1491,28 @@ describe('emit single', () => {
 
         it('should contains class post', () => {
             expect(sourceText).toMatch(/export class Post {/);
+        });
+
+        it('should use InstanceType trick to avoid tdz', () => {
+            const type = sourceFile
+                .getClass('Post')
+                ?.getProperty('user')
+                ?.getStructure().type;
+            expect(type).toEqual('InstanceType<typeof User>');
+        });
+
+        it('type for all properties should use InstanceType trick to avoid tdz', () => {
+            const types = sourceFile
+                .getClasses()
+                .flatMap(c => c.getProperties().map(p => ({ c, p })))
+                .map(({ c, p }) => ({ c, p, type: p.getType() }))
+                .filter(({ type }) => type.isClass())
+                .map(({ c, p }) => ({
+                    class: c.getName(),
+                    property: p.getStructure().name,
+                    type: p.getStructure().type,
+                }));
+            expect(types).toHaveLength(0);
         });
 
         // it('^', () => console.log(sourceFile.getText()));

@@ -129,6 +129,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                 ],
             });
         }
+
+        eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
     sourceFile.set({

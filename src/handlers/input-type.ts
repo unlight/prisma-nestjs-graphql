@@ -122,6 +122,8 @@ export function inputType(
                 }),
             ],
         });
+
+        eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
     sourceFile.set({

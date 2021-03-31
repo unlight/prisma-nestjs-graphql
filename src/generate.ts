@@ -7,6 +7,7 @@ import { Project, QuoteKind } from 'ts-morph';
 import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
 import { createAggregateInput } from './handlers/create-aggregate-input';
+import { emitSingle } from './handlers/emit-single';
 import { beforeGenerateFiles, generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
@@ -81,13 +82,18 @@ export async function generate(
             quoteKind: QuoteKind.Single,
         },
     });
+
     if (!skipAddOutputSourceFiles) {
-        project.addSourceFilesAtPaths(`${generatorOutputValue}/**/*.ts`);
+        project.addSourceFilesAtPaths([
+            `${generatorOutputValue}/**/*.ts`,
+            `!${generatorOutputValue}/**/*.d.ts`,
+        ]);
     }
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
     config.reExport !== ReExport.None && reExport(eventEmitter);
+    config.emitSingle && emitSingle(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];

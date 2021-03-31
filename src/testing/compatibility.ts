@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import * as P from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
 
 import { DummyCreateInput } from '../@generated/dummy/dummy-create.input';
@@ -9,6 +10,7 @@ import { StringFilter } from '../@generated/prisma/string-filter.input';
 import { AggregateUserArgs } from '../@generated/user/aggregate-user.args';
 import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
 import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
+import { User } from '../@generated/user/user.model';
 import { UserCreateInput } from '../@generated/user/user-create.input';
 import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
 import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
@@ -119,12 +121,6 @@ const $prisma = new PrismaClient();
     let p: Prisma.DummyCreateInput['json'] = {};
     p = x;
 }
-// {
-//     // todo: get property type should return ['Decimal', 'number', 'string']; where Decimal is import from
-//     const x: DummyCreateInput['decimal'] = new Decimal(1);
-//     let p: Prisma.DummyCreateInput['decimal'];
-//     p = x;
-// }
 {
     const x: UserCreateInput = {
         email: '',
@@ -138,3 +134,24 @@ const $prisma = new PrismaClient();
     };
     p = x;
 }
+// {
+//     // incompatible
+//     let x: User = {
+//         id: '',
+//         email: '',
+//         name: '',
+//         password: '',
+//     };
+//     let p: P.User = {
+//         id: '',
+//         email: '',
+//         name: '',
+//         password: '',
+//         bio: null,
+//         image: null,
+//         countComments: null,
+//         rating: null,
+//         role: null,
+//     };
+//     x = p;
+// }

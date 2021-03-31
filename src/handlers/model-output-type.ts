@@ -17,7 +17,14 @@ import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, config, modelFields, fieldSettings } = args;
+    const {
+        getSourceFile,
+        models,
+        config,
+        modelFields,
+        fieldSettings,
+        eventEmitter,
+    } = args;
     const model = models.get(outputType.name);
     assert(model, `Cannot find model by name ${outputType.name}`);
     const sourceFile = getSourceFile({
@@ -149,6 +156,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 ],
             });
         }
+
+        eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
     const hasExportDeclaration = (sourceFileStructure.statements as StatementStructures[]).some(
