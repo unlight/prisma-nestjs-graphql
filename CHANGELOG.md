@@ -1,3 +1,10 @@
+### [11.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.1...v11.0.2) (2021-03-31)
+
+
+### Bug Fixes
+
+* Emit metadata and enabled `emitSingle` cause TDZ issue ([0d89d81](https://github.com/unlight/nestjs-graphql-prisma/commit/0d89d81fa96b29df1cd23cb81deb67f73ec70975)), closes [#16](https://github.com/unlight/nestjs-graphql-prisma/issues/16)
+
 ### [11.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.0...v11.0.1) (2021-03-31)
 
 
