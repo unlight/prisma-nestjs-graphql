@@ -39,7 +39,8 @@ export async function generate(
         skipAddOutputSourceFiles,
     } = args;
 
-    assert(generator.output, 'generator.output is empty');
+    const generatorOutputValue = generator.output?.value;
+    assert(generatorOutputValue, 'generator.output.value is empty');
 
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
@@ -81,7 +82,7 @@ export async function generate(
         },
     });
     if (!skipAddOutputSourceFiles) {
-        project.addSourceFilesAtPaths(`${generator.output}/**/*.ts`);
+        project.addSourceFilesAtPaths(`${generatorOutputValue}/**/*.ts`);
     }
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
@@ -94,7 +95,7 @@ export async function generate(
     const fieldSettings = new Map<string, Map<string, FieldSettings>>();
     const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
-        output: generator.output.value,
+        output: generatorOutputValue,
         project,
         getModelName,
         outputFilePattern: config.outputFilePattern,
@@ -111,7 +112,7 @@ export async function generate(
         modelFields,
         fieldSettings,
         project,
-        output: generator.output.value,
+        output: generatorOutputValue,
         getSourceFile,
         eventEmitter,
         typeNames: new Set<string>(),
