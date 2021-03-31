@@ -10,6 +10,7 @@ import {
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlType } from '../helpers/get-graphql-type';
+import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { propertyStructure } from '../helpers/property-structure';
@@ -19,18 +20,16 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     const { getSourceFile, models, config, modelFields, fieldSettings } = args;
     const model = models.get(outputType.name);
     assert(model, `Cannot find model by name ${outputType.name}`);
-    const fileType = 'model';
     const sourceFile = getSourceFile({
         name: outputType.name,
-        type: fileType,
+        type: 'model',
     });
-
     const sourceFileStructure = sourceFile.getStructure();
-
     const importDeclarations = new ImportDeclarationMap();
     let classStructure = (sourceFileStructure.statements as StatementStructures[]).find(
         (s: StatementStructures) => s.kind === StructureKind.Class,
     ) as ClassDeclarationStructure | undefined;
+
     if (!classStructure) {
         classStructure = {
             kind: StructureKind.Class,
@@ -62,20 +61,17 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             continue;
         }
 
-        const { location, isList, type } = field.outputType;
-        const outputTypeName = String(type);
+        let fileType = 'model';
+        const { location, isList, type, namespace } = field.outputType;
+
+        let outputTypeName = String(type);
+        if (namespace !== 'model') {
+            fileType = 'output';
+            outputTypeName = getOutputTypeName(outputTypeName);
+        }
         const customType = config.types[outputTypeName];
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
-
-        // console.log({
-        //     'field.outputType': field.outputType,
-        //     'outputType.name': outputType.name,
-        //     'model?.name': model?.name,
-        //     outputTypeName,
-        //     'field.name': field.name,
-        //     fieldMeta,
-        // });
 
         const propertyType = customType?.fieldType
             ? [customType.fieldType]
@@ -101,6 +97,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             customType,
             getSourceFile,
         });
+
+        // console.log({
+        //     'field.outputType': field.outputType,
+        //     'outputType.name': outputType.name,
+        //     'model.name': model.name,
+        //     outputTypeName,
+        //     'field.name': field.name,
+        //     settings,
+        //     propertyType,
+        //     graphqlType,
+        //     graphqlImport,
+        //     location,
+        // });
 
         const property = propertyStructure({
             name: field.name,

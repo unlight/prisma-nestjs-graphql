@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 import { Article } from '../article/article.model';
+import { TagCount } from './tag-count.output';
 
 @ObjectType()
 export class Tag {
@@ -12,4 +13,7 @@ export class Tag {
 
     @Field(() => [Article], { nullable: true })
     articles?: Array<Article>;
+
+    @Field(() => TagCount, { nullable: true })
+    _count?: TagCount;
 }

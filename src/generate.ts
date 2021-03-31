@@ -59,8 +59,8 @@ export async function generate(
         eventEmitter.emitSync('Warning', message);
     }
     const prismaClientOutput = otherGenerators.find(
-        x => x.provider === 'prisma-client-js',
-    )?.output;
+        x => x.provider.value === 'prisma-client-js',
+    )?.output?.value;
 
     assert(prismaClientOutput, 'Cannot find output of prisma-client-js');
 
@@ -94,7 +94,7 @@ export async function generate(
     const fieldSettings = new Map<string, Map<string, FieldSettings>>();
     const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
-        output: generator.output,
+        output: generator.output.value,
         project,
         getModelName,
         outputFilePattern: config.outputFilePattern,
@@ -111,13 +111,15 @@ export async function generate(
         modelFields,
         fieldSettings,
         project,
-        output: generator.output,
+        output: generator.output.value,
         getSourceFile,
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
         getModelName: createGetModelName(modelNames),
     };
+
+    // console.dir(prismaClientDmmf.schema.outputObjectTypes, { depth: 4 });
 
     if (connectCallback) {
         await connectCallback(eventEmitter, eventArguments);

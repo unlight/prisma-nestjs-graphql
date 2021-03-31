@@ -2,7 +2,6 @@ import AwaitEventEmitter from 'await-event-emitter';
 import expect from 'expect';
 import {
     ClassDeclaration,
-    Decorator,
     EnumDeclarationStructure,
     Project,
     PropertyDeclarationStructure,
@@ -755,20 +754,16 @@ describe('one model with self reference', () => {
         await testGenerate({
             schema: `model User {
                   id     Int    @id
-                  parent User   @relation("UserToUser", fields: [userId], references: [id])
-                  User   User[] @relation("UserToUser")
-                  userId Int
+                  parentId Int
+                  parent User   @relation("UserToUser", fields: [parentId], references: [id])
+                  user   User[] @relation("UserToUser")
                 }`,
         });
     });
 
     describe('model', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user.model.ts'),
-            )!;
-            sourceText = sourceFile.getText();
-            imports = getImportDeclarations(sourceFile);
+            setSourceFile('user.model.ts');
         });
 
         // it('', () => console.log('sourceText', sourceText));
@@ -777,6 +772,13 @@ describe('one model with self reference', () => {
             expect(imports).not.toContainEqual(
                 expect.objectContaining({ name: 'User' }),
             );
+        });
+
+        it('imports should contain user count', () => {
+            expect(imports).toContainEqual({
+                name: 'UserCount',
+                specifier: './user-count.output',
+            });
         });
     });
 

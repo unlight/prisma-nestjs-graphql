@@ -8,7 +8,7 @@ export function createGetModelName(modelNames: string[]) {
     }
 }
 
-export function getModelName(args: {
+function getModelName(args: {
     name: string;
     modelNames: string[];
 }): string | undefined {
@@ -27,6 +27,13 @@ export function getModelName(args: {
     }
     for (const [start, end] of middleKeywords) {
         const test = name.slice(start.length).slice(0, -end.length);
+        if (modelNames.includes(test)) {
+            return test;
+        }
+    }
+    // test for {Model}Count
+    if (name.slice(-5) === 'Count') {
+        const test = name.slice(0, -5);
         if (modelNames.includes(test)) {
             return test;
         }
@@ -69,6 +76,7 @@ const splitKeywords = [
     'UncheckedUpdate',
     'UncheckedCreate',
     'ScalarWhere',
+    'CountOutputType',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [

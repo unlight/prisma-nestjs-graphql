@@ -3,6 +3,7 @@ import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Comment } from '../comment/comment.model';
 import { Tag } from '../tag/tag.model';
 import { User } from '../user/user.model';
+import { ArticleCount } from './article-count.output';
 
 @ObjectType()
 export class Article {
@@ -47,4 +48,7 @@ export class Article {
 
     @Field(() => Boolean, { nullable: true, defaultValue: true })
     active?: boolean;
+
+    @Field(() => ArticleCount, { nullable: true })
+    _count?: ArticleCount;
 }

@@ -56,10 +56,5 @@ export function getGraphqlImport(args: {
         }).getFilePath(),
     );
 
-    if (specifier.includes('output-count-aggregate.model')) {
-        console.trace('wrong name');
-        throw 1;
-    }
-
     return { name, specifier };
 }

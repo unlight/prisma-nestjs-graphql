@@ -3,6 +3,7 @@ import { Field, Float, HideField, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
 import { Role } from '../prisma/role.enum';
+import { UserCount } from './user-count.output';
 
 @ObjectType()
 export class User {
@@ -47,4 +48,7 @@ export class User {
 
     @Field(() => Role, { nullable: true })
     role?: Role;
+
+    @Field(() => UserCount, { nullable: true })
+    _count?: UserCount;
 }

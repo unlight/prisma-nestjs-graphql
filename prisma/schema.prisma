@@ -5,7 +5,7 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["groupBy", "createMany", "orderByRelation"]
+  previewFeatures = ["orderByRelation", "selectRelationCount"]
 }
 
 generator nestgraphql {
