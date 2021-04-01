@@ -1,3 +1,10 @@
+### [11.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.2...v11.0.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* Duplicate import ([2a18c19](https://github.com/unlight/nestjs-graphql-prisma/commit/2a18c194a0fd61207fe6b583c6b14ce9889e45d2)), closes [#18](https://github.com/unlight/nestjs-graphql-prisma/issues/18)
+
 ### [11.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.1...v11.0.2) (2021-03-31)
 
 
