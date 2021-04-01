@@ -1,9 +1,13 @@
 import assert from 'assert';
 import JSON5 from 'json5';
+import { remove } from 'lodash';
 import {
     ClassDeclarationStructure,
     CommentStatement,
     ExportSpecifierStructure,
+    ImportDeclarationStructure,
+    ImportSpecifierStructure,
+    OptionalKind,
     StatementStructures,
     StructureKind,
 } from 'ts-morph';
@@ -32,7 +36,21 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         type: 'model',
     });
     const sourceFileStructure = sourceFile.getStructure();
-    const importDeclarations = new ImportDeclarationMap();
+    const imports = remove(
+        sourceFileStructure.statements as StatementStructures[],
+        s => s.kind === StructureKind.ImportDeclaration,
+    ).flatMap(s => {
+        return ((s as ImportDeclarationStructure)
+            .namedImports as OptionalKind<ImportSpecifierStructure>[]).map(x => [
+            x.name || x.alias,
+            {
+                moduleSpecifier: (s as ImportDeclarationStructure).moduleSpecifier,
+                namedImports: [{ name: x.name, alias: x.alias }],
+            },
+        ]);
+    }) as Array<[string, OptionalKind<ImportDeclarationStructure>]>;
+    const importDeclarations = new ImportDeclarationMap(imports);
+
     let classStructure = (sourceFileStructure.statements as StatementStructures[]).find(
         (s: StatementStructures) => s.kind === StructureKind.Class,
     ) as ClassDeclarationStructure | undefined;

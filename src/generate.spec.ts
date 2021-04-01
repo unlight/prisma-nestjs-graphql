@@ -330,17 +330,18 @@ describe('model with one id int', () => {
     });
 });
 
-it('duplicated fields in exising file', async () => {
-    await testGenerate({
-        schema: `
-            model User {
-              id Int @id
-            }
-        `,
-        createSouceFile: {
-            type: 'input',
-            name: 'UserCreateInput',
-            text: `
+describe('duplicated', () => {
+    it('duplicated fields in exising file', async () => {
+        await testGenerate({
+            schema: `
+                model User {
+                    id Int @id
+                }
+            `,
+            createSouceFile: {
+                type: 'input',
+                name: 'UserCreateInput',
+                text: `
             import { Int } from '@nestjs/graphql';
             @InputType()
             export class UserCreateInput {
@@ -349,14 +350,41 @@ it('duplicated fields in exising file', async () => {
                 })
                 id?: string;
             `,
-        },
+            },
+        });
+        setSourceFile('/user-create.input.ts');
+        const classFile = sourceFile.getClass(() => true)!;
+        const names = classFile.getProperties().map(p => p.getName());
+        expect(names).toStrictEqual(['id']);
     });
-    sourceFile = project.getSourceFile(s =>
-        s.getFilePath().endsWith('/user-create.input.ts'),
-    )!;
-    const classFile = sourceFile.getClass(() => true)!;
-    const names = classFile.getProperties().map(p => p.getName());
-    expect(names).toStrictEqual(['id']);
+
+    it('duplicated import decorators', async () => {
+        await testGenerate({
+            schema: `
+                model User {
+                    id Int @id
+                    xl Int
+                    xs Int
+                }
+            `,
+            createSouceFile: {
+                type: 'model',
+                name: 'User',
+                text: `
+            import { Field, ObjectType } from '@nestjs/graphql';
+            import { Int, ID } from '@nestjs/graphql';
+            @ObjectType()
+            export class User {
+                @Field(() => ID) id: number;
+                @Field(() => Int) xl: number;
+                @Field(() => Int) xs: number;
+            `,
+            },
+        });
+        setSourceFile('user.model.ts');
+        expect(imports.filter(x => x.name === 'Field')).toHaveLength(1);
+        expect(imports.filter(x => x.name === 'ObjectType')).toHaveLength(1);
+    });
 });
 
 describe('one model with scalar types', () => {
