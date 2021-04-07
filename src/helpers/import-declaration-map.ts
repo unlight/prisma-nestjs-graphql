@@ -1,4 +1,9 @@
-import { ImportDeclarationStructure, OptionalKind, StructureKind } from 'ts-morph';
+import {
+    ImportDeclarationStructure,
+    ImportSpecifierStructure,
+    OptionalKind,
+    StructureKind,
+} from 'ts-morph';
 
 export class ImportDeclarationMap extends Map<
     string,
@@ -15,6 +20,29 @@ export class ImportDeclarationMap extends Map<
                     : value;
             this.set(name, structure);
         }
+    }
+
+    create(args: {
+        name: string;
+        from: string;
+        defaultImport?: string;
+        namespaceImport?: string;
+    }) {
+        const { name, from, defaultImport, namespaceImport } = args;
+        const value = {
+            moduleSpecifier: from,
+            namedImports: [] as OptionalKind<ImportSpecifierStructure>[],
+            defaultImport: undefined as string | undefined,
+            namespaceImport: undefined as string | undefined,
+        };
+        if (defaultImport) {
+            value.defaultImport = defaultImport;
+        } else if (namespaceImport) {
+            value.namespaceImport = namespaceImport;
+        } else {
+            value.namedImports = [{ name }];
+        }
+        this.add(name, value);
     }
 
     *toStatements(): Iterable<ImportDeclarationStructure> {

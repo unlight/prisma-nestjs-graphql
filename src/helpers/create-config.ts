@@ -1,10 +1,10 @@
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
-import { merge, trim } from 'lodash';
+import { Dictionary, merge, trim } from 'lodash';
 import { Nullable } from 'simplytyped';
 
 import { ReExport } from '../handlers/re-export';
-import { TypeRecord } from '../types';
+import { FieldSetting, TypeRecord } from '../types';
 
 export function createConfig(data: Record<string, string | undefined>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -49,6 +49,25 @@ export function createConfig(data: Record<string, string | undefined>) {
         config.types,
     ) as Record<string, Nullable<TypeRecord>>;
 
+    type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
+    const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
+        Object.entries<Dictionary<string | undefined>>(
+            (config.fields ?? {}) as Record<string, Dictionary<string | undefined>>,
+        )
+            .filter(({ 1: value }) => typeof value === 'object')
+            .map(([name, value]) => {
+                const fieldSetting: ConfigFieldSetting = {
+                    arguments: [],
+                    output: toBoolean(value.output),
+                    input: toBoolean(value.input),
+                    from: value.from,
+                    defaultImport: value.defaultImport,
+                    namespaceImport: value.namespaceImport,
+                };
+                return [name, fieldSetting];
+            }),
+    );
+
     return {
         outputFilePattern,
         tsConfigFilePath: 'tsconfig.json' as string,
@@ -59,6 +78,7 @@ export function createConfig(data: Record<string, string | undefined>) {
         emitSingle: toBoolean(config.emitSingle),
         emitCompiled: toBoolean(config.emitCompiled),
         $warnings,
+        fields,
     };
 }
 

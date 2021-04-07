@@ -1,8 +1,8 @@
-import { FieldSettings, parseFieldSettings } from '../helpers/field-settings';
+import { createFieldSettings, FieldSettings } from '../helpers/field-settings';
 import { DMMF, EventArguments, Field } from '../types';
 
 export function modelData(model: DMMF.Model, args: EventArguments) {
-    const { modelNames, models, modelFields, fieldSettings } = args;
+    const { config, modelNames, models, modelFields, fieldSettings } = args;
     modelNames.push(model.name);
     models.set(model.name, model);
 
@@ -14,11 +14,12 @@ export function modelData(model: DMMF.Model, args: EventArguments) {
 
     for (const field of model.fields) {
         if (field.documentation) {
-            const { documentation, ...settings } = parseFieldSettings(
-                field.documentation,
-            );
+            const { documentation, result } = createFieldSettings({
+                text: field.documentation,
+                config,
+            });
             field.documentation = documentation;
-            fieldSettingsValue.set(field.name, settings);
+            fieldSettingsValue.set(field.name, result);
         }
         modelFieldsValue.set(field.name, field);
     }
