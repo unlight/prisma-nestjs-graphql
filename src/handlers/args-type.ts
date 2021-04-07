@@ -1,4 +1,3 @@
-import { getModelName } from '../helpers/get-model-name';
 import { pascalCase } from '../helpers/pascal-case';
 import { EventArguments, InputType, SchemaField } from '../types';
 
@@ -10,9 +9,9 @@ export function argsType(field: SchemaField, args: EventArguments) {
     if (['queryRaw', 'executeRaw'].includes(field.name)) {
         return;
     }
-    const { eventEmitter, modelNames, typeNames } = args;
+    const { eventEmitter, typeNames, getModelName } = args;
     const className = pascalCase(`${field.name}Args`);
-    const modelName = getModelName({ name: className, modelNames, fallback: '' });
+    const modelName = getModelName(className) || '';
     const inputType: InputType = {
         // eslint-disable-next-line unicorn/no-null
         constraints: { maxNumFields: null, minNumFields: null },

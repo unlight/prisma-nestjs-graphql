@@ -7,19 +7,21 @@ import { Project, QuoteKind } from 'ts-morph';
 import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
 import { createAggregateInput } from './handlers/create-aggregate-input';
-import { generateFiles } from './handlers/generate-files';
+import { emitSingle } from './handlers/emit-single';
+import { beforeGenerateFiles, generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
-import { reExportAll } from './handlers/re-export-all';
+import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-souce-file';
-import { DMMF, EventArguments, Field, Model, OutputType } from './types';
+import { createGetModelName } from './helpers/get-model-name';
+import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
 
 export async function generate(
     args: GeneratorOptions & {
@@ -37,6 +39,10 @@ export async function generate(
         otherGenerators,
         skipAddOutputSourceFiles,
     } = args;
+
+    const generatorOutputValue = generator.output?.value;
+    assert(generatorOutputValue, 'generator.output.value is empty');
+
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
     eventEmitter.on('Model', modelData);
@@ -47,16 +53,19 @@ export async function generate(
     eventEmitter.on('InputType', inputType);
     eventEmitter.on('InputType', typeNames);
     eventEmitter.on('ArgsType', argsType);
+    eventEmitter.on('BeforeGenerateFiles', beforeGenerateFiles);
     eventEmitter.on('GenerateFiles', generateFiles);
-    assert(generator.output, 'generator.output is empty');
+
     const config = createConfig(generator.config);
     for (const message of config.$warnings) {
         eventEmitter.emitSync('Warning', message);
     }
     const prismaClientOutput = otherGenerators.find(
-        x => x.provider === 'prisma-client-js',
-    )?.output;
+        x => x.provider.value === 'prisma-client-js',
+    )?.output?.value;
+
     assert(prismaClientOutput, 'Cannot find output of prisma-client-js');
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const prismaClientDmmf: DMMF.Document = JSON.parse(
         JSON.stringify(
@@ -64,31 +73,39 @@ export async function generate(
                 (require(prismaClientOutput).dmmf as DMMF.Document),
         ),
     );
+
     const project = new Project({
         tsConfigFilePath: config.tsConfigFilePath,
         skipAddingFilesFromTsConfig: true,
-        skipLoadingLibFiles: true,
+        skipLoadingLibFiles: !config.emitCompiled,
         manipulationSettings: {
             quoteKind: QuoteKind.Single,
         },
     });
+
     if (!skipAddOutputSourceFiles) {
-        project.addSourceFilesAtPaths(`${generator.output}/**/*.ts`);
+        project.addSourceFilesAtPaths([
+            `${generatorOutputValue}/**/*.ts`,
+            `!${generatorOutputValue}/**/*.d.ts`,
+        ]);
     }
 
     config.combineScalarFilters && combineScalarFilters(eventEmitter);
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
-    config.reExportAll && reExportAll(eventEmitter);
+    config.reExport !== ReExport.None && reExport(eventEmitter);
+    config.emitSingle && emitSingle(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
     const modelFields = new Map<string, Map<string, Field>>();
-    const queryOutputTypes: OutputType[] = [];
+    const fieldSettings = new Map<string, Map<string, FieldSettings>>();
+    const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
-        output: generator.output,
+        output: generatorOutputValue,
         project,
-        modelNames,
+        getModelName,
         outputFilePattern: config.outputFilePattern,
+        eventEmitter,
     });
     const {
         datamodel,
@@ -98,15 +115,18 @@ export async function generate(
         models,
         config,
         modelNames,
-        queryOutputTypes,
+        modelFields,
+        fieldSettings,
         project,
-        output: generator.output,
+        output: generatorOutputValue,
         getSourceFile,
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
-        modelFields,
+        getModelName: createGetModelName(modelNames),
     };
+
+    // console.dir(prismaClientDmmf.schema.outputObjectTypes, { depth: 4 });
 
     if (connectCallback) {
         await connectCallback(eventEmitter, eventArguments);
@@ -128,7 +148,13 @@ export async function generate(
         await eventEmitter.emit('ModelOutputType', outputType, eventArguments);
     }
 
+    const queryOutputTypes: OutputType[] = [];
+
     for (const outputType of outputObjectTypes.prisma) {
+        if (['Query', 'Mutation'].includes(outputType.name)) {
+            queryOutputTypes.push(outputType);
+            continue;
+        }
         await eventEmitter.emit('OutputType', outputType, eventArguments);
     }
 

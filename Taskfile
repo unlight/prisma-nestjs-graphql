@@ -15,10 +15,23 @@ compatibilty_check() {
     rm -rf src/@generated && npm run prisma:g && npm run tscheck
     sed -i 's/combineScalarFilters = true/combineScalarFilters = false/g' prisma/schema.prisma
 
-    # Enable reExportAll
-    sed -i 's/reExportAll = false/reExportAll = true/g' prisma/schema.prisma
+    # Switching reExport
+    sed -i 's/reExport = None/reExport = All/g' prisma/schema.prisma
     rm -rf src/@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/reExportAll = true/reExportAll = false/g' prisma/schema.prisma
+    sed -i 's/reExport = All/reExport = None/g' prisma/schema.prisma
+
+    # emitSingle and emitCompiled
+    sed -i 's/emitSingle = false/emitSingle = true/g' prisma/schema.prisma
+    rm -rf src/@generated && npm run prisma:g
+    npx tsc --noEmit --skipLibCheck --experimentalDecorators src/@generated/index.ts
+    npx ts-node src/@generated/index.ts
+
+    sed -i 's/emitCompiled = false/emitCompiled = true/g' prisma/schema.prisma
+    rm -rf src/@generated && npm run prisma:g
+    node src/@generated/index.js
+
+    sed -i 's/emitCompiled = true/emitCompiled = false/g' prisma/schema.prisma
+    sed -i 's/emitSingle = true/emitSingle = false/g' prisma/schema.prisma
 }
 
 build() {

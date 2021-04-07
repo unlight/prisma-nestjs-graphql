@@ -6,9 +6,9 @@ import { relativePath } from './relative-path';
 
 export function getGraphqlImport(args: {
     sourceFile: SourceFile;
-    isId?: boolean;
     name: string;
     location: FieldLocation;
+    isId?: boolean;
     fileType?: string;
     customType?: TypeRecord | null;
     getSourceFile(args: { type: string; name: string }): SourceFile;
@@ -55,11 +55,6 @@ export function getGraphqlImport(args: {
             name,
         }).getFilePath(),
     );
-
-    if (specifier.includes('output-count-aggregate.model')) {
-        console.trace('wrong name');
-        throw 1;
-    }
 
     return { name, specifier };
 }

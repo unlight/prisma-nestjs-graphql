@@ -1,23 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql';
 
+import { ArticleOrderByWithRelationInput } from '../article/article-order-by-with-relation.input';
 import { SortOrder } from '../prisma/sort-order.enum';
+import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
 
 @InputType()
-export class ArticleOrderByInput {
+export class CommentOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     id?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    slug?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    title?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    description?: SortOrder;
-
-    @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
     createdAt?: SortOrder;
@@ -26,11 +16,17 @@ export class ArticleOrderByInput {
     updatedAt?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    favoritesCount?: SortOrder;
+    body?: SortOrder;
+
+    @Field(() => UserOrderByWithRelationInput, { nullable: true })
+    author?: UserOrderByWithRelationInput;
 
     @Field(() => SortOrder, { nullable: true })
     authorId?: SortOrder;
 
+    @Field(() => ArticleOrderByWithRelationInput, { nullable: true })
+    article?: ArticleOrderByWithRelationInput;
+
     @Field(() => SortOrder, { nullable: true })
-    active?: SortOrder;
+    articleId?: SortOrder;
 }

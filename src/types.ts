@@ -3,8 +3,11 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 
 import { createConfig } from './helpers/create-config';
+import { FieldSetting, FieldSettings } from './helpers/field-settings';
 
 export { DMMF };
+export { FieldSetting };
+export { FieldSettings };
 
 export type InputType = DMMF.InputType;
 export type FieldLocation = DMMF.FieldLocation;
@@ -32,11 +35,7 @@ export type EventArguments = {
     models: Map<string, Model>;
     modelNames: string[];
     modelFields: Map<string, Map<string, Field>>;
-    /**
-     * Special output types (Mutation, Query) will be processed later
-     * in generation aggregate inputs.
-     */
-    queryOutputTypes: OutputType[];
+    fieldSettings: Map<string, Map<string, FieldSettings>>;
     config: GeneratorConfiguration;
     project: Project;
     output: string;
@@ -44,10 +43,7 @@ export type EventArguments = {
     eventEmitter: AwaitEventEmitter;
     typeNames: Set<string>;
     enums: Record<string, DMMF.DatamodelEnum | undefined>;
+    getModelName(name: string): string | undefined;
 };
 
-export type FieldMeta = {
-    hideOutput: boolean;
-};
-
-export type Field = DMMF.Field & { meta: FieldMeta };
+export type Field = DMMF.Field;

@@ -1,9 +1,10 @@
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
-import { merge, trim } from 'lodash';
+import { Dictionary, merge, trim } from 'lodash';
 import { Nullable } from 'simplytyped';
 
-import { TypeRecord } from '../types';
+import { ReExport } from '../handlers/re-export';
+import { FieldSetting, TypeRecord } from '../types';
 
 export function createConfig(data: Record<string, string | undefined>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -30,29 +31,57 @@ export function createConfig(data: Record<string, string | undefined>) {
         );
     }
 
+    if (config.reExportAll) {
+        $warnings.push(`Option 'reExportAll' is deprecated, use 'reExport' instead`);
+        if (toBoolean(config.reExportAll)) {
+            config.reExport = 'All';
+        }
+    }
+
+    const types = merge(
+        {
+            Json: {
+                fieldType: 'any',
+                graphqlType: 'GraphQLJSON',
+                graphqlModule: 'graphql-type-json',
+            },
+        },
+        config.types,
+    ) as Record<string, Nullable<TypeRecord>>;
+
+    type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
+    const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
+        Object.entries<Dictionary<string | undefined>>(
+            (config.fields ?? {}) as Record<string, Dictionary<string | undefined>>,
+        )
+            .filter(({ 1: value }) => typeof value === 'object')
+            .map(([name, value]) => {
+                const fieldSetting: ConfigFieldSetting = {
+                    arguments: [],
+                    output: toBoolean(value.output),
+                    input: toBoolean(value.input),
+                    from: value.from,
+                    defaultImport: value.defaultImport,
+                    namespaceImport: value.namespaceImport,
+                };
+                return [name, fieldSetting];
+            }),
+    );
+
     return {
         outputFilePattern,
         tsConfigFilePath: 'tsconfig.json' as string,
-        combineScalarFilters: ['true', '1', 'on'].includes(
-            (config.combineScalarFilters as Nullable<string>) ?? 'false',
-        ),
-        noAtomicOperations: ['true', '1', 'on'].includes(
-            (config.noAtomicOperations as Nullable<string>) ?? 'false',
-        ),
-        types: merge(
-            {},
-            {
-                Json: {
-                    fieldType: 'any',
-                    graphqlType: 'GraphQLJSON',
-                    graphqlModule: 'graphql-type-json',
-                },
-            },
-            config.types,
-        ) as Record<string, Nullable<TypeRecord>>,
-        reExportAll: ['true', '1', 'on'].includes(
-            (config.reExportAll as Nullable<string>) ?? 'false',
-        ),
+        combineScalarFilters: toBoolean(config.combineScalarFilters),
+        noAtomicOperations: toBoolean(config.noAtomicOperations),
+        types,
+        reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
+        emitSingle: toBoolean(config.emitSingle),
+        emitCompiled: toBoolean(config.emitCompiled),
         $warnings,
+        fields,
     };
+}
+
+function toBoolean(value: unknown) {
+    return ['true', '1', 'on'].includes(String(value));
 }

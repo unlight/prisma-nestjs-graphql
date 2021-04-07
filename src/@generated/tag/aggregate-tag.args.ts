@@ -3,7 +3,7 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { TagCountAggregateInput } from './tag-count-aggregate.input';
 import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 import { TagMinAggregateInput } from './tag-min-aggregate.input';
-import { TagOrderByInput } from './tag-order-by.input';
+import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input';
 import { TagWhereInput } from './tag-where.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 
@@ -12,8 +12,8 @@ export class AggregateTagArgs {
     @Field(() => TagWhereInput, { nullable: true })
     where?: TagWhereInput;
 
-    @Field(() => [TagOrderByInput], { nullable: true })
-    orderBy?: Array<TagOrderByInput>;
+    @Field(() => [TagOrderByWithRelationInput], { nullable: true })
+    orderBy?: Array<TagOrderByWithRelationInput>;
 
     @Field(() => TagWhereUniqueInput, { nullable: true })
     cursor?: TagWhereUniqueInput;

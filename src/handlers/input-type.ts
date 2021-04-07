@@ -1,3 +1,4 @@
+import assert from 'assert';
 import JSON5 from 'json5';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
@@ -23,13 +24,16 @@ export function inputType(
         config,
         eventEmitter,
         classDecoratorName,
+        fieldSettings,
+        getModelName,
+        models,
     } = args;
     const importDeclarations = new ImportDeclarationMap();
     const sourceFile = getSourceFile({
         name: inputType.name,
         type: fileType,
     });
-    const classStructure = {
+    const classStructure: ClassDeclarationStructure = {
         kind: StructureKind.Class,
         isExported: true,
         name: inputType.name,
@@ -40,7 +44,9 @@ export function inputType(
             },
         ],
         properties: [],
-    } as ClassDeclarationStructure;
+    };
+    const modelName = getModelName(inputType.name) || '';
+    const model = models.get(modelName);
 
     importDeclarations
         .set('Field', {
@@ -60,6 +66,7 @@ export function inputType(
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
         const customType = config.types[typeName];
+        const settings = model && fieldSettings.get(model.name)?.get(field.name);
 
         const propertyType = getPropertyType({
             location,
@@ -75,21 +82,40 @@ export function inputType(
 
         classStructure.properties?.push(property);
 
-        const graphqlType = getGraphqlType({
-            location,
-            type: typeName,
-        });
+        let graphqlType: string;
+        const fieldType = settings?.getFieldType();
 
-        const graphqlImport = getGraphqlImport({
-            sourceFile,
-            location,
-            name: graphqlType,
-            customType,
-            getSourceFile,
-        });
+        if (fieldType) {
+            graphqlType = fieldType.name;
+            importDeclarations.create({ ...fieldType });
+        } else {
+            graphqlType = getGraphqlType({
+                location,
+                type: typeName,
+            });
 
-        // if (inputType.name === 'JsonFilter') {
-        //     console.log({
+            const graphqlImport = getGraphqlImport({
+                sourceFile,
+                location,
+                name: graphqlType,
+                customType,
+                getSourceFile,
+            });
+
+            if (
+                graphqlImport.name !== inputType.name &&
+                graphqlImport.specifier &&
+                !importDeclarations.has(graphqlImport.name)
+            ) {
+                importDeclarations.set(graphqlImport.name, {
+                    namedImports: [{ name: graphqlImport.name }],
+                    moduleSpecifier: graphqlImport.specifier,
+                });
+            }
+        }
+
+        // if (inputType.name === 'UserCreateInput') {
+        //     console.dir({
         //         'inputType.name': inputType.name,
         //         'field.name': field.name,
         //         typeName,
@@ -97,31 +123,44 @@ export function inputType(
         //         graphqlInputType,
         //         propertyType,
         //         graphqlType,
-        //         graphqlImport,
+        //         // graphqlImport,
+        //         settings,
         //     });
         // }
 
-        if (
-            graphqlImport.name !== inputType.name &&
-            graphqlImport.specifier &&
-            !importDeclarations.has(graphqlImport.name)
-        ) {
-            importDeclarations.set(graphqlImport.name, {
-                namedImports: [{ name: graphqlImport.name }],
-                moduleSpecifier: graphqlImport.specifier,
+        if (settings?.hideInput) {
+            importDeclarations.add('HideField', '@nestjs/graphql');
+            property.decorators?.push({ name: 'HideField', arguments: [] });
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            property.decorators!.push({
+                name: 'Field',
+                arguments: [
+                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    JSON5.stringify({
+                        nullable: !isRequired,
+                    }),
+                ],
             });
+
+            for (const options of settings || []) {
+                if (!options.input || options.isFieldType) {
+                    continue;
+                }
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                property.decorators!.push({
+                    name: options.name,
+                    arguments: options.arguments,
+                });
+                assert(
+                    options.from,
+                    "Missed 'from' part in configuration or field setting",
+                );
+                importDeclarations.create(options);
+            }
         }
 
-        // Generate `@Field()` decorator
-        property.decorators?.push({
-            name: 'Field',
-            arguments: [
-                `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
-                JSON5.stringify({
-                    nullable: !isRequired,
-                }),
-            ],
-        });
+        eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
     sourceFile.set({

@@ -67,15 +67,43 @@ Remove input types for atomic operations
 Type: `boolean`  
 Default: `false`
 
-#### `reExportAll`
+#### `reExport`
 
-Create `index.ts` files for each directory with re-export  
+Create `index.ts` file with re-export  
+Type: `enum`  
+Values:  
+`None` Default, create nothing  
+`Directories` Create index file in all root directories  
+`Single` Create single index file in output directory  
+`All` Create index file in all root directories and in output directory
+
+Example configuration:
+
+```prisma
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    output = "../src/@generated/prisma-nestjs-graphql"
+    reExport = Directories
+}
+```
+
+#### `emitSingle`
+
+Generate single file with merged classes and enums.  
+Type: `boolean`  
+Default: `false`
+
+#### `emitCompiled`
+
+Emit compiled JavaScript and definitions instead of TypeScript sources,
+files will be compiled with `emitDecoratorMetadata:false`, because there is a problem
+with temporal dead zone when generating merged file.  
 Type: `boolean`  
 Default: `false`
 
 #### `types_*`
 
-Map prisma types in [flatten](https://github.com/hughsk/flat) style
+Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
 
 -   `types_{type}_fieldType` TypeScript field type name
 -   `types_{type}_fieldModule` Module to import
@@ -118,7 +146,7 @@ Generated fields:
 field: Date;
 ```
 
-## Field Metadata
+## Field Settings
 
 Special directives in triple slash comments for more precise code generation.
 
@@ -127,8 +155,8 @@ Special directives in triple slash comments for more precise code generation.
 Removes field from GraphQL schema.  
 Alias: `@TypeGraphQL.omit(output: true)`
 
-Note: Field will be decorated for hide only in output types (type in schema),
-but not in inputs.
+By default field will be decorated for hide only in output types (type in schema),
+add `input: true` to hide field on input types.
 
 Example:
 
@@ -136,7 +164,9 @@ Example:
 model User {
     id               String    @id @default(cuid())
     /// @HideField()
-    password         String
+    password String
+    /// @HideField({ output: true, input: true })
+    secret String
 }
 ```
 
@@ -147,8 +177,131 @@ Generates fields:
 export class User {
     @HideField()
     password: string;
+    @HideField()
+    secret: string;
 }
 ```
+
+#### Custom Decorators
+
+To applying custom decorators requires configuration of generator.
+
+```sh
+generator nestgraphql {
+    fields_{Namespace}_from = "module specifier"
+    fields_{Namespace}_input = true | false
+    fields_{Namespace}_output = true | false
+    fields_{Namespace}_defaultImport = "default import name"
+    fields_{Namespace}_namespaceImport = "namespace import name"
+}
+```
+
+Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{Namespace}`.
+Where `{Namespace}` is a namespace used in field triple slash comment.
+
+##### `fields_{Namespace}_from`
+
+Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)
+
+##### `fields_{Namespace}_input`
+
+Optional, default: `false`. Means that it will be applied on input types (classes decorated by `InputType`)
+
+##### `fields_{Namespace}_output`
+
+Optional, default: `false`. Means that it will be applied on output types (classes decorated by `ObjectType`)
+
+##### `fields_{Namespace}_defaultImport`
+
+Default import name, if module have no namespace
+
+##### `fields_{Namespace}_namespaceImport`
+
+Optional. Import all as this namespace from module
+
+Example:
+
+```prisma
+generator nestgraphql {
+    fields_Validator_from = "class-validator"
+    fields_Validator_input = true
+}
+
+model User {
+    id Int @id
+    /// @Validator.MinLength(3)
+    name String
+}
+```
+
+May generate following class:
+
+```ts
+import { InputType, Field } from '@nestjs/graphql';
+import * as Validator from 'class-validator';
+
+@InputType()
+export class UserCreateInput {
+    @Field(() => String, { nullable: false })
+    @Validator.MinLength(3)
+    name!: string;
+}
+```
+
+#### @FieldType
+
+Allow set custom type for field
+
+```prisma
+model User {
+    id Int @id
+    /// @FieldType({ name: 'Scalars.EmailAddress', input: true, from: 'graphql-scalars' })
+    email String
+}
+```
+
+May generate class:
+
+```ts
+import { InputType, Field } from '@nestjs/graphql';
+import * as Scalars from 'graphql-scalars';
+
+@InputType()
+export class UserCreateInput {
+    @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
+    email!: string;
+}
+```
+
+And GraphQL schema:
+
+```grapqhl
+scalar EmailAddress
+
+input UserCreateInput {
+    email: EmailAddress!
+}
+```
+
+Same field type may be used in different models and it is not convenient to specify every time all options.
+There is a shortcut:
+
+```grapqhl
+generator nestgraphql {
+    fields_Scalars_from = "graphql-scalars"
+    fields_Scalars_input = true
+    fields_Scalars_output = true
+}
+
+model User {
+    id Int @id
+    /// @FieldType('Scalars.EmailAddress')
+    email String
+}
+```
+
+The result will be the same. `Scalars` is the namespace here.
+Missing field options will merged from generator configuration.
 
 ## Similar Projects
 
@@ -165,13 +318,4 @@ export class User {
 -   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
 -   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 -   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
-
-## TODO
-
--   new format of custom type
-
-    ```
-    type_{schemaType}_{key} = "{value}"
-    schemaType
-
-    ```
+-   https://github.com/wasp-lang/wasp

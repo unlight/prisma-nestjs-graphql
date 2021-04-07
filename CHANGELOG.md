@@ -1,3 +1,70 @@
+### [11.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.2...v11.0.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* Duplicate import ([2a18c19](https://github.com/unlight/nestjs-graphql-prisma/commit/2a18c194a0fd61207fe6b583c6b14ce9889e45d2)), closes [#18](https://github.com/unlight/nestjs-graphql-prisma/issues/18)
+
+### [11.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.1...v11.0.2) (2021-03-31)
+
+
+### Bug Fixes
+
+* Emit metadata and enabled `emitSingle` cause TDZ issue ([0d89d81](https://github.com/unlight/nestjs-graphql-prisma/commit/0d89d81fa96b29df1cd23cb81deb67f73ec70975)), closes [#16](https://github.com/unlight/nestjs-graphql-prisma/issues/16)
+
+### [11.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.0...v11.0.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* Source file already exists error ([121a486](https://github.com/unlight/nestjs-graphql-prisma/commit/121a48626983a2a9f52f2cb6db3af3b7c865c859))
+
+## [11.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.3.0...v11.0.0) (2021-03-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* Adapted to Prisma 2.20
+
+### Bug Fixes
+
+* Adapted to Prisma 2.20 ([c5f040d](https://github.com/unlight/nestjs-graphql-prisma/commit/c5f040da249681363c1e6267f83275955ad682c8)), closes [#17](https://github.com/unlight/nestjs-graphql-prisma/issues/17)
+
+## [10.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.2.0...v10.3.0) (2021-03-29)
+
+
+### Features
+
+* Allow generate compiled files or merged to single file ([095f975](https://github.com/unlight/nestjs-graphql-prisma/commit/095f975ceb9a6555e95efc33cd00f9ddaa33d7f9)), closes [#15](https://github.com/unlight/nestjs-graphql-prisma/issues/15)
+
+## [10.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.3...v10.2.0) (2021-03-19)
+
+
+### Features
+
+* Extend `reExport` option ([3d5475b](https://github.com/unlight/nestjs-graphql-prisma/commit/3d5475b7029e425630b8538aee7a4a249d950840))
+
+### [10.1.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.2...v10.1.3) (2021-03-19)
+
+
+### Bug Fixes
+
+* Hide field for model type ([54571d2](https://github.com/unlight/nestjs-graphql-prisma/commit/54571d2d347c31905d8df5a62e2b057ec8dee18c))
+
+### [10.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.1...v10.1.2) (2021-03-17)
+
+
+### Bug Fixes
+
+* Re-export iteration process fail ([bad1034](https://github.com/unlight/nestjs-graphql-prisma/commit/bad10341f60c04fa1d57f0b59b6d10a33e93a1da))
+
+### [10.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.1.0...v10.1.1) (2021-03-17)
+
+
+### Bug Fixes
+
+* Added more keywords for detection model name ([51c836e](https://github.com/unlight/nestjs-graphql-prisma/commit/51c836e92488be8af3e73038ec63c2c2d498a629))
+
 ## [10.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.1...v10.1.0) (2021-03-13)
 
 
@@ -15,6 +82,13 @@
 ### Performance Improvements
 
 * Generation of inputs/outputs ([4604160](https://github.com/unlight/nestjs-graphql-prisma/commit/46041608bbd7e16bae5b2464890c50ceccdaf5c6))
+
+### [10.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.1...v10.0.2) (2021-03-13)
+
+
+### Bug Fixes
+
+* Added more keywords for detection model name ([51c836e](https://github.com/unlight/nestjs-graphql-prisma/commit/51c836e92488be8af3e73038ec63c2c2d498a629))
 
 ## [10.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v10.0.0...v10.0.1) (2021-03-04)
 

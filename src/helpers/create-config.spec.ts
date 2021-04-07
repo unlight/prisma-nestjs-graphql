@@ -1,5 +1,6 @@
 import expect from 'expect';
 
+import { ReExport } from '../handlers/re-export';
 import { createConfig } from './create-config';
 
 describe('createConfig', () => {
@@ -12,6 +13,7 @@ describe('createConfig', () => {
         expect(result.combineScalarFilters).toEqual(false);
         expect(result.noAtomicOperations).toEqual(false);
         expect(result.$warnings).toEqual([]);
+        expect(result.reExport).toEqual(ReExport.None);
     });
 
     it('createConfig types', () => {
@@ -33,5 +35,10 @@ describe('createConfig', () => {
         expect(result.$warnings).toContainEqual(
             "Due to invalid filepath 'outputFilePattern' changed to '{model}/{name}.{type}.ts'",
         );
+    });
+
+    it('create config reExport', () => {
+        const result = createConfig({ reExport: 'Single' });
+        expect(result.reExport).toEqual(ReExport.Single);
     });
 });

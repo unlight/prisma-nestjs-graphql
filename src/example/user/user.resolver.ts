@@ -9,6 +9,7 @@ import { User } from '../../@generated/user/user.model';
 import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { UserDateInput } from './user-date.input';
+import { UserCreateInput } from '../../@generated/user/user-create.input';
 
 const prisma = new PrismaClient({
     errorFormat: 'colorless',
@@ -44,6 +45,11 @@ export class UserResolver {
 
     @Mutation(() => User, { nullable: true })
     async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
+        return;
+    }
+
+    @Mutation(() => User, { nullable: true })
+    async userCreate(@Args('user') user: UserCreateInput): Promise<any> {
         return;
     }
 

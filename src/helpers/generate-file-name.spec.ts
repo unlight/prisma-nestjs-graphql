@@ -5,7 +5,7 @@ import { generateFileName } from './generate-file-name';
 describe('generateFileName', () => {
     it('plural type model', () => {
         const result = generateFileName({
-            modelNames: ['User'],
+            getModelName: () => 'User',
             name: 'User',
             type: 'model',
             template: '{model}/{plural.type}/{name}.{type}.ts',
@@ -15,7 +15,7 @@ describe('generateFileName', () => {
 
     it('plural type input', () => {
         const result = generateFileName({
-            modelNames: ['User'],
+            getModelName: () => 'User',
             name: 'UserWhereInput',
             type: 'input',
             template: '{model}/{plural.type}/{name}.{type}.ts',
@@ -25,7 +25,7 @@ describe('generateFileName', () => {
 
     it('plural type enum', () => {
         const result = generateFileName({
-            modelNames: ['User'],
+            getModelName: () => 'prisma',
             name: 'Role',
             type: 'enum',
             template: '{model}/{plural.type}/{name}.{type}.ts',
