@@ -105,23 +105,35 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                   type: outputTypeName,
               });
 
-        const graphqlType =
-            customType?.graphqlType ??
-            getGraphqlType({
+        let graphqlType: string;
+        const fieldType = settings?.getFieldType();
+
+        if (fieldType) {
+            graphqlType = fieldType.name;
+            importDeclarations.create({ ...fieldType });
+        } else {
+            graphqlType =
+                customType?.graphqlType ??
+                getGraphqlType({
+                    location,
+                    type: outputTypeName,
+                    isId: modelField?.isId,
+                });
+
+            const graphqlImport = getGraphqlImport({
+                sourceFile,
+                fileType,
                 location,
-                type: outputTypeName,
                 isId: modelField?.isId,
+                name: graphqlType,
+                customType,
+                getSourceFile,
             });
 
-        const graphqlImport = getGraphqlImport({
-            sourceFile,
-            fileType,
-            location,
-            isId: modelField?.isId,
-            name: graphqlType,
-            customType,
-            getSourceFile,
-        });
+            if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
+                importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
+            }
+        }
 
         // console.log({
         //     'field.outputType': field.outputType,
@@ -144,10 +156,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         });
 
         classStructure.properties?.push(property);
-
-        if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-            importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
-        }
 
         // Create import for typescript field/property type
         if (customType && customType.fieldType && customType.fieldModule) {

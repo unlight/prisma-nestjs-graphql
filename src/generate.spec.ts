@@ -1769,6 +1769,20 @@ describe('custom decorators field custom type namespace', () => {
 
         // it('^', () => console.log(sourceFile.getText()));
     });
+
+    describe('custom type user model', () => {
+        before(() => {
+            setSourceFile('user.model.ts');
+        });
+
+        it('custom type user model email field type', () => {
+            const decorator = p('email')?.decorators?.find(d => d.name === 'Field');
+            const typeArgument = decorator?.arguments?.[0];
+            expect(typeArgument).toEqual('() => Scalars.EmailAddress');
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+    });
 });
 
 // it('^', () => console.log(sourceFile.getText()));
