@@ -1,3 +1,15 @@
+## [11.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.3...v11.1.0) (2021-04-07)
+
+
+### Features
+
+* Custom decorators ([b14f0fe](https://github.com/unlight/nestjs-graphql-prisma/commit/b14f0fee216e6d6eb025166ad30e3a2f18c2d653))
+
+
+### Bug Fixes
+
+* Custom type for output types ([c9ae9e9](https://github.com/unlight/nestjs-graphql-prisma/commit/c9ae9e91d4df358c7c0d408b10f78edddaa7686b))
+
 ### [11.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.2...v11.0.3) (2021-04-01)
 
 
