@@ -47,6 +47,7 @@ export function inputType(
     };
     const modelName = getModelName(inputType.name) || '';
     const model = models.get(modelName);
+    const modelFieldSettings = model && fieldSettings.get(model.name);
 
     importDeclarations
         .set('Field', {
@@ -66,7 +67,7 @@ export function inputType(
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
         const customType = config.types[typeName];
-        const settings = model && fieldSettings.get(model.name)?.get(field.name);
+        const settings = modelFieldSettings?.get(field.name);
 
         const propertyType = getPropertyType({
             location,
