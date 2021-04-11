@@ -1,9 +1,9 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
+import crypto from 'crypto';
 import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
 
-import { createHash } from '../helpers/create-hash';
 import { DMMF } from '../types';
 
 const {
@@ -66,4 +66,8 @@ export async function createGeneratorOptions(
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return require(cacheFile);
+}
+
+function createHash(...data: unknown[]) {
+    return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
 }
