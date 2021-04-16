@@ -1,7 +1,5 @@
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
-export { createGeneratorOptions } from './create-generator-options';
-
 export function getImportDeclarations(sourceFile: SourceFile) {
     return sourceFile.getImportDeclarations().flatMap(d =>
         d.getNamedImports().map(index => ({

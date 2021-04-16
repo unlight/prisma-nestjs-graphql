@@ -101,7 +101,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['*.spec.ts', '**/testing/**/*.ts'],
+            files: ['*.spec.ts', '**/test/**/*.ts'],
             rules: {
                 'sonarjs/no-identical-functions': 0,
                 'consistent-return': 0,

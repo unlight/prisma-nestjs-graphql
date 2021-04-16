@@ -38,7 +38,7 @@ export async function createGeneratorOptions(
                 previewFeatures = ["orderByRelation", "selectRelationCount"]
             }
             generator proxy {
-                provider = "node -r ts-node/register/transpile-only src/testing/proxy-generator.ts"
+                provider = "node -r ts-node/register/transpile-only src/test/proxy-generator.ts"
                 output = "."
                 hash = "${hash}"
                 ${options?.join('\n') || ''}

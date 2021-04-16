@@ -42,7 +42,7 @@ build() {
     cp -fv README.md LICENSE package.json dist
     cd dist
     /usr/bin/find . -name '*.spec.ts' | xargs rm -rf
-    rm -rf fixtures testing example @generated
+    rm -rf fixtures test example @generated
     tsc -p .
     rm -rf tsconfig.json
     /usr/bin/find . -name '*.ts' | xargs rm -rf

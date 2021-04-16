@@ -6,10 +6,10 @@ import { GraphQLResolveInfo } from 'graphql';
 import { AggregateUserArgs } from '../../@generated/user/aggregate-user.args';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
 import { User } from '../../@generated/user/user.model';
+import { UserCreateInput } from '../../@generated/user/user-create.input';
 import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { UserDateInput } from './user-date.input';
-import { UserCreateInput } from '../../@generated/user/user-create.input';
 
 const prisma = new PrismaClient({
     errorFormat: 'colorless',

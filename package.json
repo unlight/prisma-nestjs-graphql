@@ -24,7 +24,7 @@
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "mocha": "node node_modules/mocha/bin/_mocha",
     "test:r": "mocha -r ts-node/register/transpile-only src/**/*.spec.ts",
-    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/testing/**\"  npm run test:r -- --no-timeouts",
+    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/test/**\"  npm run test:r -- --no-timeouts",
     "test:w": "mocha -r ts-node/register/transpile-only --watch-files src/**/*.ts --no-timeouts --watch src/**/*.spec.ts",
     "test:d": "ndb -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --no-timeouts --watch-files src/**/*.ts --watch src/**/*.spec.ts",
     "tscheck": "tsc --noEmit",
