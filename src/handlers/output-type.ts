@@ -8,6 +8,8 @@ import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
+const nestjsGraphql = '@nestjs/graphql';
+
 export function outputType(outputType: OutputType, args: EventArguments) {
     const {
         getSourceFile,
@@ -51,8 +53,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         properties: [],
     };
 
-    importDeclarations.add('Field', '@nestjs/graphql');
-    importDeclarations.add('ObjectType', '@nestjs/graphql');
+    importDeclarations.add('Field', nestjsGraphql);
+    importDeclarations.add('ObjectType', nestjsGraphql);
 
     for (const field of outputType.fields) {
         const { location, isList, type } = field.outputType;
@@ -108,7 +110,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         }
 
         if (settings?.hideOutput) {
-            importDeclarations.add('HideField', '@nestjs/graphql');
+            importDeclarations.add('HideField', nestjsGraphql);
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
             // Generate `@Field()` decorator

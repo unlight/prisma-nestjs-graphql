@@ -1,4 +1,4 @@
-import { Field, GraphQLISODateTime, InputType, Int } from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class UserDateInput {

@@ -70,6 +70,7 @@ export async function generate(
     const prismaClientDmmf: DMMF.Document = JSON.parse(
         JSON.stringify(
             args.prismaClientDmmf ??
+                // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
                 (require(prismaClientOutput).dmmf as DMMF.Document),
         ),
     );

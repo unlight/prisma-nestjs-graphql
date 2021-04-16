@@ -15,6 +15,7 @@ export type FieldSetting = {
     from: string;
     defaultImport?: string | true;
     namespaceImport?: string;
+    namespace?: string;
 };
 
 export class FieldSettings extends Array<FieldSetting> {
@@ -52,34 +53,16 @@ export function createFieldSettings(args: {
             input: false,
             output: false,
             from: '',
-            defaultImport: undefined,
-            namespaceImport: undefined,
         };
         if (name === 'TypeGraphQL.omit' || name === 'HideField') {
-            Object.assign(decorator, {
-                name: 'HideField',
-                arguments: [],
-                from: '@nestjs/graphql',
-                defaultImport: false,
-                namespaceImport: false,
-            });
-            if (match.groups?.args) {
-                if (/output:\s*true/.test(match.groups.args)) {
-                    decorator.output = true;
-                }
-                if (/input:\s*true/.test(match.groups.args)) {
-                    decorator.input = true;
-                }
-            } else {
-                decorator.output = true;
-            }
+            Object.assign(decorator, hideFieldDecorator(match));
         } else if (name === 'FieldType' && match.groups?.args) {
             let options = parseArgs(match.groups.args);
             if (typeof options === 'string') {
                 options = { name: options };
             }
             const namespace = getNamespace(options.name);
-            if (options.name.includes('.')) {
+            if ((options as { name: string }).name.includes('.')) {
                 decorator.namespaceImport = namespace;
             }
             merge(decorator, config.fields[namespace], options, { isFieldType: true });
@@ -104,7 +87,28 @@ export function createFieldSettings(args: {
     };
 }
 
-function parseArgs(string: string) {
+function hideFieldDecorator(match: RegExpExecArray) {
+    const result: Partial<FieldSetting> = {
+        name: 'HideField',
+        arguments: [],
+        from: '@nestjs/graphql',
+        defaultImport: undefined,
+        namespaceImport: undefined,
+    };
+    if (match.groups?.args) {
+        if (/output:\s*true/.test(match.groups.args)) {
+            result.output = true;
+        }
+        if (/input:\s*true/.test(match.groups.args)) {
+            result.input = true;
+        }
+    } else {
+        result.output = true;
+    }
+    return result;
+}
+
+function parseArgs(string: string): Record<string, unknown> | string {
     try {
         return JSON5.parse(string);
     } catch {
