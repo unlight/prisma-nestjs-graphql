@@ -35,16 +35,17 @@ export function createFieldSettings(args: {
     text: string;
     config: GeneratorConfiguration;
 }) {
-    let { text } = args;
-    const { config } = args;
+    const { config, text } = args;
     const result: FieldSettings = new FieldSettings();
-    const matches = text.matchAll(/@(?<name>\w+(\.(\w+))?)\((?<args>.*?)\)/g);
-    for (const match of matches) {
-        text = text.slice(0, match.index);
-        const name = match.groups?.name;
-        if (!name) {
+    const textLines = text.split('\\n');
+    const documentationLines: string[] = [];
+    for (const line of textLines) {
+        const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*?)\)/.exec(line);
+        if (!match) {
+            documentationLines.push(line);
             continue;
         }
+        const name = match.groups?.name;
         const decorator: FieldSetting = {
             name: '',
             arguments: [],
@@ -99,7 +100,7 @@ export function createFieldSettings(args: {
 
     return {
         result,
-        documentation: text.split('\\n').filter(Boolean).join('\\n') || undefined,
+        documentation: documentationLines.filter(Boolean).join('\\n') || undefined,
     };
 }
 

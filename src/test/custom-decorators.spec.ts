@@ -112,6 +112,46 @@ describe('custom decorators namespace both input and output', () => {
     });
 });
 
+describe('custom decorators and description', () => {
+    let importDeclarations: any[];
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    /// user id really
+                    id Int @id
+                    /// User name really
+                    /// @Validator.Length(5, 15, "check length")
+                    name String
+                }`,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_Validator_from = "class-validator"`,
+                `fields_Validator_output = true`,
+                `fields_Validator_input = true`,
+            ],
+        }));
+    });
+
+    describe('user model output', () => {
+        before(() => setSourceFile('user.model.ts'));
+
+        it('has description', () => {
+            const data = d('name')?.arguments?.[1];
+            expect(data).toContain("description:'User name really'");
+        });
+
+        it('has decorator length', () => {
+            const decorators = p('name')?.decorators;
+            expect(decorators).toHaveLength(2);
+            expect(decorators).toContainEqual(
+                expect.objectContaining({ name: 'Length' }),
+            );
+            expect(sourceText).toContain('@Validator.Length(5, 15, "check length")');
+        });
+    });
+});
+
 describe('custom decorators default import', () => {
     let importDeclarations: any[];
 
@@ -219,7 +259,7 @@ describe('custom decorators field custom type namespace', () => {
             setSourceFile('user-create.input.ts');
         });
 
-        it('field type', () => {
+        it('email field type', () => {
             const decorator = p('email')?.decorators?.find(d => d.name === 'Field');
             const typeArgument = decorator?.arguments?.[0];
             expect(typeArgument).toEqual('() => Scalars.EmailAddress');

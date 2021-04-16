@@ -174,6 +174,21 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                     }),
                 ],
             });
+
+            for (const options of settings || []) {
+                if (!options.output || options.isFieldType) {
+                    continue;
+                }
+                property.decorators?.push({
+                    name: options.name,
+                    arguments: options.arguments,
+                });
+                assert(
+                    options.from,
+                    "Missed 'from' part in configuration or field setting",
+                );
+                importDeclarations.create(options);
+            }
         }
 
         eventEmitter.emitSync('ClassProperty', property, { location, isList });
