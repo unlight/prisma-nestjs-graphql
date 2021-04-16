@@ -1,3 +1,11 @@
+## [11.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.1.0...v11.2.0) (2021-04-16)
+
+
+### Features
+
+* Alternative default import configuration ([4ae1b82](https://github.com/unlight/nestjs-graphql-prisma/commit/4ae1b82d90e1af7b55db25f63054cf7f6630272b))
+* Apply custom decorators on models ([34196b3](https://github.com/unlight/nestjs-graphql-prisma/commit/34196b348ecb9f5a15c8add2b8a5346be85f24a3))
+
 ## [11.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.0.3...v11.1.0) (2021-04-07)
 
 
