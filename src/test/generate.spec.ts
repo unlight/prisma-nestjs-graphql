@@ -496,12 +496,8 @@ describe('one model with scalar types', () => {
 
     describe('user create input', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/user-create.input.ts'),
-            )!;
+            setSourceFile('/user-create.input.ts');
         });
-
-        // it('', () => console.log(sourceFile.getText()));
 
         it('valid imports', () => {
             const sourceText = sourceFile.getText();
@@ -532,6 +528,12 @@ describe('one model with scalar types', () => {
 
         it('data property (json)', () => {
             expect(getFieldType(sourceFile, 'data')).toEqual('() => GraphQLJSON');
+        });
+
+        it('native string should not be imported', () => {
+            expect(imports).not.toContainEqual(
+                expect.objectContaining({ name: 'String' }),
+            );
         });
 
         // it('', () => console.log(sourceFile.getText()));

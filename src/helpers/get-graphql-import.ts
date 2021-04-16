@@ -38,7 +38,6 @@ export function getGraphqlImport(args: {
         switch (typeName) {
             case 'Float':
             case 'Int':
-            case 'String':
                 return { name: typeName, specifier: '@nestjs/graphql' };
             case 'DateTime':
                 return { name: 'Date', specifier: undefined };
