@@ -13,7 +13,7 @@ export type FieldSetting = {
     input: boolean;
     output: boolean;
     from: string;
-    defaultImport?: string;
+    defaultImport?: string | true;
     namespaceImport?: string;
 };
 

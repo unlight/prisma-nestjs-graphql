@@ -25,7 +25,7 @@ export class ImportDeclarationMap extends Map<
     create(args: {
         name: string;
         from: string;
-        defaultImport?: string;
+        defaultImport?: string | true;
         namespaceImport?: string;
     }) {
         const { name, from, defaultImport, namespaceImport } = args;
@@ -36,7 +36,7 @@ export class ImportDeclarationMap extends Map<
             namespaceImport: undefined as string | undefined,
         };
         if (defaultImport) {
-            value.defaultImport = defaultImport;
+            value.defaultImport = defaultImport === true ? name : defaultImport;
         } else if (namespaceImport) {
             value.namespaceImport = namespaceImport;
         } else {

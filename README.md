@@ -191,7 +191,7 @@ generator nestgraphql {
     fields_{Namespace}_from = "module specifier"
     fields_{Namespace}_input = true | false
     fields_{Namespace}_output = true | false
-    fields_{Namespace}_defaultImport = "default import name"
+    fields_{Namespace}_defaultImport = "default import name" | true
     fields_{Namespace}_namespaceImport = "namespace import name"
 }
 ```
@@ -213,7 +213,10 @@ Optional, default: `false`. Means that it will be applied on output types (class
 
 ##### `fields_{Namespace}_defaultImport`
 
-Default import name, if module have no namespace
+Default import name, if module have no namespace.  
+Type: `undefined | string | true`  
+Default: `undefined`  
+If defined as `true` then import name will be same as `{Namespace}`
 
 ##### `fields_{Namespace}_namespaceImport`
 

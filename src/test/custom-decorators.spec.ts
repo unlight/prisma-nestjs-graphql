@@ -114,6 +114,7 @@ describe('custom decorators namespace both input and output', () => {
 
 describe('custom decorators default import', () => {
     let importDeclarations: any[];
+
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -153,6 +154,41 @@ describe('custom decorators default import', () => {
         });
 
         // it('^', () => console.log(sourceFile.getText()));
+    });
+
+    describe('default import alternative syntax', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                model User {
+                    id Int @id
+                    /// @IsEmail()
+                    name String
+                }`,
+                options: [
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                    `fields_IsEmail_from = "isvalidemail"`,
+                    `fields_IsEmail_input = true`,
+                    `fields_IsEmail_defaultImport = true`,
+                ],
+            }));
+            setSourceFile('user-create.input.ts');
+        });
+
+        it('test', () => {
+            importDeclarations = sourceFile
+                .getImportDeclarations()
+                .map(d => d.getStructure())
+                .filter(d => d.moduleSpecifier === 'isvalidemail');
+            expect(importDeclarations).toHaveLength(1);
+            expect(importDeclarations[0]).toEqual(
+                expect.objectContaining({
+                    defaultImport: 'IsEmail',
+                    namedImports: [],
+                    namespaceImport: undefined,
+                }),
+            );
+        });
     });
 });
 

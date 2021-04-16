@@ -61,7 +61,9 @@ export function createConfig(data: Record<string, string | undefined>) {
                     output: toBoolean(value.output),
                     input: toBoolean(value.input),
                     from: value.from,
-                    defaultImport: value.defaultImport,
+                    defaultImport: toBoolean(value.defaultImport)
+                        ? true
+                        : value.defaultImport,
                     namespaceImport: value.namespaceImport,
                 };
                 return [name, fieldSetting];
