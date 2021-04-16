@@ -6,7 +6,7 @@ import { relativePath } from './relative-path';
 
 export function getGraphqlImport(args: {
     sourceFile: SourceFile;
-    name: string;
+    typeName: string;
     location: FieldLocation;
     isId?: boolean;
     fileType?: string;
@@ -16,8 +16,8 @@ export function getGraphqlImport(args: {
     const {
         fileType,
         location,
+        typeName,
         isId,
-        name,
         customType,
         sourceFile,
         getSourceFile,
@@ -34,12 +34,21 @@ export function getGraphqlImport(args: {
         if (isId) {
             return { name: 'ID', specifier: '@nestjs/graphql' };
         }
-        if (['Int', 'Float'].includes(name)) {
-            return { name, specifier: '@nestjs/graphql' };
+
+        switch (typeName) {
+            case 'Float':
+            case 'Int':
+            case 'String':
+                return { name: typeName, specifier: '@nestjs/graphql' };
+            case 'DateTime':
+                return { name: 'Date', specifier: undefined };
+            case 'true':
+            case 'Boolean':
+                return { name: 'Boolean', specifier: undefined };
+            case 'Json':
+                return { name: 'GraphQLJSON', specifier: 'graphql-type-json' };
         }
-        if (['true', 'Boolean'].includes(name)) {
-            return { name: 'Boolean', specifier: undefined };
-        }
+
         return { name: 'String', specifier: undefined };
     }
 
@@ -52,9 +61,9 @@ export function getGraphqlImport(args: {
         sourceFile.getFilePath(),
         getSourceFile({
             type: sourceFileType,
-            name,
+            name: typeName,
         }).getFilePath(),
     );
 
-    return { name, specifier };
+    return { name: typeName, specifier };
 }

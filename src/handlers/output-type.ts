@@ -2,7 +2,6 @@ import JSON5 from 'json5';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
-import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
@@ -87,23 +86,17 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         classStructure.properties?.push(property);
 
-        const graphqlType =
-            customType?.graphqlType ??
-            getGraphqlType({
-                location,
-                type: outputTypeName,
-                isId: false,
-            });
-
         const graphqlImport = getGraphqlImport({
             sourceFile,
             fileType,
             location,
             isId: false,
-            name: graphqlType,
+            typeName: outputTypeName,
             customType,
             getSourceFile,
         });
+
+        const graphqlType = graphqlImport.name;
 
         if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
             importDeclarations.add(graphqlImport.name, graphqlImport.specifier);

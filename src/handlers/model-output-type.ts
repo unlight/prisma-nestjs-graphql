@@ -13,7 +13,6 @@ import {
 } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
-import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
@@ -112,23 +111,17 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {
-            graphqlType =
-                customType?.graphqlType ??
-                getGraphqlType({
-                    location,
-                    type: outputTypeName,
-                    isId: modelField?.isId,
-                });
-
             const graphqlImport = getGraphqlImport({
                 sourceFile,
                 fileType,
                 location,
                 isId: modelField?.isId,
-                name: graphqlType,
+                typeName: outputTypeName,
                 customType,
                 getSourceFile,
             });
+
+            graphqlType = graphqlImport.name;
 
             if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
                 importDeclarations.add(graphqlImport.name, graphqlImport.specifier);

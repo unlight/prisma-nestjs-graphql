@@ -4,7 +4,6 @@ import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
-import { getGraphqlType } from '../helpers/get-graphql-type';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { propertyStructure } from '../helpers/property-structure';
@@ -90,18 +89,15 @@ export function inputType(
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {
-            graphqlType = getGraphqlType({
-                location,
-                type: typeName,
-            });
-
             const graphqlImport = getGraphqlImport({
                 sourceFile,
                 location,
-                name: graphqlType,
+                typeName,
                 customType,
                 getSourceFile,
             });
+
+            graphqlType = graphqlImport.name;
 
             if (
                 graphqlImport.name !== inputType.name &&
