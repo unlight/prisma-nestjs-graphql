@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { ArticleOrderByAggregateInput } from '../article/article-order-by-aggregate.input';
-import { CommentOrderByAggregateInput } from '../comment/comment-order-by-aggregate.input';
+import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
+import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { UserOrderByAggregateInput } from './user-order-by-aggregate.input';
+import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -25,20 +25,20 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     image?: SortOrder;
 
-    @Field(() => UserOrderByAggregateInput, { nullable: true })
-    following?: UserOrderByAggregateInput;
+    @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+    following?: UserOrderByRelationAggregateInput;
 
-    @Field(() => UserOrderByAggregateInput, { nullable: true })
-    followers?: UserOrderByAggregateInput;
+    @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+    followers?: UserOrderByRelationAggregateInput;
 
-    @Field(() => ArticleOrderByAggregateInput, { nullable: true })
-    favoriteArticles?: ArticleOrderByAggregateInput;
+    @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
+    favoriteArticles?: ArticleOrderByRelationAggregateInput;
 
-    @Field(() => ArticleOrderByAggregateInput, { nullable: true })
-    articles?: ArticleOrderByAggregateInput;
+    @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
+    articles?: ArticleOrderByRelationAggregateInput;
 
-    @Field(() => CommentOrderByAggregateInput, { nullable: true })
-    comments?: CommentOrderByAggregateInput;
+    @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
+    comments?: CommentOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, { nullable: true })
     countComments?: SortOrder;

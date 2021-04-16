@@ -2,8 +2,8 @@ import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class DummySumAggregate {
-    @Field(() => Float, { nullable: false })
-    floaty!: number;
+    @Field(() => Float, { nullable: true })
+    floaty?: number;
 
     @Field(() => Int, { nullable: true })
     int?: number;

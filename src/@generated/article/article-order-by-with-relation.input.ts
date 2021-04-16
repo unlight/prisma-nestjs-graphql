@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-import { CommentOrderByAggregateInput } from '../comment/comment-order-by-aggregate.input';
+import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { TagOrderByAggregateInput } from '../tag/tag-order-by-aggregate.input';
-import { UserOrderByAggregateInput } from '../user/user-order-by-aggregate.input';
+import { TagOrderByRelationAggregateInput } from '../tag/tag-order-by-relation-aggregate.input';
+import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
 
 @InputType()
@@ -23,8 +23,8 @@ export class ArticleOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     body?: SortOrder;
 
-    @Field(() => TagOrderByAggregateInput, { nullable: true })
-    tags?: TagOrderByAggregateInput;
+    @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
+    tags?: TagOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, { nullable: true })
     createdAt?: SortOrder;
@@ -41,11 +41,11 @@ export class ArticleOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     authorId?: SortOrder;
 
-    @Field(() => UserOrderByAggregateInput, { nullable: true })
-    favoritedBy?: UserOrderByAggregateInput;
+    @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
+    favoritedBy?: UserOrderByRelationAggregateInput;
 
-    @Field(() => CommentOrderByAggregateInput, { nullable: true })
-    comments?: CommentOrderByAggregateInput;
+    @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
+    comments?: CommentOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, { nullable: true })
     active?: SortOrder;

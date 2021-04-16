@@ -3,7 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
-export class TagOrderByAggregateInput {
+export class UserOrderByRelationAggregateInput {
     @Field(() => SortOrder, { nullable: false })
     count!: SortOrder;
 }

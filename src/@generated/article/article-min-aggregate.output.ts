@@ -23,8 +23,8 @@ export class ArticleMinAggregate {
     @Field(() => Date, { nullable: true })
     updatedAt?: Date | string;
 
-    @Field(() => Int, { nullable: false })
-    favoritesCount!: number;
+    @Field(() => Int, { nullable: true })
+    favoritesCount?: number;
 
     @Field(() => String, { nullable: true })
     authorId?: string;
