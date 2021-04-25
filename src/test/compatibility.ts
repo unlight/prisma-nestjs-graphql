@@ -137,6 +137,33 @@ const $prisma = new PrismaClient();
     p = x;
 }
 {
+    // $prisma.user.groupBy({ by: ['name'], count: { _all: true } }).then(([user]) => {
+    //     user.name;
+    //     user.count;
+    // });
+}
+// {
+//     // incompatible
+//     let x: User = {
+//         id: '',
+//         email: '',
+//         name: '',
+//         password: '',
+//     };
+//     let p: P.User = {
+//         id: '',
+//         email: '',
+//         name: '',
+//         password: '',
+//         bio: null,
+//         image: null,
+//         countComments: null,
+//         rating: null,
+//         role: null,
+//     };
+//     x = p;
+// }
+{
     // OK
     // const x: RDecimal = new RDecimal(0);
     // let p: Prisma.Decimal = new Prisma.Decimal(0);
@@ -181,3 +208,4 @@ const $prisma = new PrismaClient();
     };
     p = x;
 }
+

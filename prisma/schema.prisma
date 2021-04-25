@@ -5,12 +5,12 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["orderByRelation", "selectRelationCount"]
+  previewFeatures = ["orderByRelation", "selectRelationCount", "orderByAggregateGroup"]
 }
 
 generator nestgraphql {
-  provider             = "node -r ts-node/register/transpile-only src/index.ts"
-  output               = "../src/@generated"
+  provider = "node -r ts-node/register/transpile-only src/index.ts"
+  output = "../src/@generated"
   noAtomicOperations = false
   combineScalarFilters = false
   reExport = None
