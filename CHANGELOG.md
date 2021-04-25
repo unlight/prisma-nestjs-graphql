@@ -1,3 +1,16 @@
+## [11.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.2.0...v11.3.0) (2021-04-25)
+
+
+### Features
+
+* @PropertyType() to replace types_ configuration ([4a7313d](https://github.com/unlight/nestjs-graphql-prisma/commit/4a7313dcab940093b238c050405a935c92c26248))
+
+
+### Bug Fixes
+
+* Model types mismatch ([ffe70b6](https://github.com/unlight/nestjs-graphql-prisma/commit/ffe70b69a3fa1661c5f1beed9bc490ccd2f292c4)), closes [#21](https://github.com/unlight/nestjs-graphql-prisma/issues/21)
+* Prisma client generator is optional ([4ce28f1](https://github.com/unlight/nestjs-graphql-prisma/commit/4ce28f153ef8fd9e27066a8f2a0402c27ad4d679)), closes [#25](https://github.com/unlight/nestjs-graphql-prisma/issues/25)
+
 ## [11.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.1.0...v11.2.0) (2021-04-16)
 
 
