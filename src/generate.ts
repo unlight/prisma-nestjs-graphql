@@ -27,7 +27,6 @@ import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from '.
 export async function generate(
     args: GeneratorOptions & {
         skipAddOutputSourceFiles?: boolean;
-        tsConfigFileExists?: () => boolean;
         connectCallback?: (
             emitter: AwaitEventEmitter,
             eventArguments: EventArguments,
@@ -57,11 +56,8 @@ export async function generate(
         eventEmitter.emitSync('Warning', message);
     }
 
-    const tsConfigFileExists =
-        args.tsConfigFileExists ?? (() => existsSync(config.tsConfigFilePath));
-
     const project = new Project({
-        tsConfigFilePath: tsConfigFileExists() ? config.tsConfigFilePath : undefined,
+        tsConfigFilePath: config.tsConfigFilePath,
         skipAddingFilesFromTsConfig: true,
         skipLoadingLibFiles: !config.emitCompiled,
         manipulationSettings: {

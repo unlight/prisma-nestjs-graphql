@@ -65,8 +65,8 @@ Possible tokens:
 #### `tsConfigFilePath`
 
 Path to `tsconfig.json`  
-Type: `string`  
-Default: `tsconfig.json`
+Type: `string | undefined`  
+Default: `undefined`
 
 #### `combineScalarFilters`
 

@@ -69,7 +69,7 @@ export function createConfig(data: Record<string, string | undefined>) {
 
     return {
         outputFilePattern,
-        tsConfigFilePath: 'tsconfig.json' as string,
+        tsConfigFilePath: undefined as string | undefined,
         combineScalarFilters: toBoolean(config.combineScalarFilters),
         noAtomicOperations: toBoolean(config.noAtomicOperations),
         /**

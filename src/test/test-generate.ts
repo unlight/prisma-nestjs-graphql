@@ -48,7 +48,6 @@ export async function testGenerate(args: {
     await generate({
         ...(await createGeneratorOptions(schema, options)),
         skipAddOutputSourceFiles: true,
-        tsConfigFileExists: () => true,
         connectCallback,
     });
 
