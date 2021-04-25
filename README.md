@@ -31,6 +31,18 @@ generator nestgraphql {
 npx prisma generate
 ```
 
+3. If your models have `Decimal` and `Json` types, you need install:
+
+```sh
+npm install graphql-type-json prisma-graphql-type-decimal
+
+```
+
+-   [graphql-type-json](https://github.com/taion/graphql-type-json)
+-   [prisma-graphql-type-decimal](https://github.com/unlight/prisma-graphql-type-decimal)
+
+Or write you own graphql scalar types, [read more on docs.nestjs.com](https://docs.nestjs.com/graphql/scalars).
+
 ## Generator options
 
 #### `output`
@@ -102,7 +114,7 @@ with temporal dead zone when generating merged file.
 Type: `boolean`  
 Default: `false`
 
-#### `types_*`
+#### `types_*` (deprecated)
 
 Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
 
