@@ -1,3 +1,10 @@
+### [11.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.3.0...v11.3.1) (2021-04-25)
+
+
+### Bug Fixes
+
+* Existence check of tsconfig ([4d523d2](https://github.com/unlight/nestjs-graphql-prisma/commit/4d523d2d99b5ab73a7de680a4ee603748a17c325)), closes [#23](https://github.com/unlight/nestjs-graphql-prisma/issues/23)
+
 ## [11.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.2.0...v11.3.0) (2021-04-25)
 
 
