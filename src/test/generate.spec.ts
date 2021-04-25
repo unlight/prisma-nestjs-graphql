@@ -26,6 +26,12 @@ let sourceFiles: SourceFile[];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
+const f = (name: string) =>
+    getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
+        ?.arguments;
+const t = (name: string) =>
+    getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
+        ?.arguments[0];
 const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
     classFile = sourceFile.getClass(() => true)!;
@@ -601,7 +607,7 @@ describe('nullish compatibility', () => {
         });
     });
 
-    it('', () => console.log(sourceFile.getText()));
+    // it('', () => console.log(sourceFile.getText()));
 });
 
 describe('one model with id and enum', () => {
@@ -956,6 +962,7 @@ describe('get rid of atomic number operations', () => {
               age Int
               rating Float?
               money Decimal?
+              born DateTime
             }
             `,
             options: [
@@ -974,9 +981,7 @@ describe('get rid of atomic number operations', () => {
 
     describe('user update input', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-update.input.ts'),
-            )!;
+            setSourceFile('user-update.input.ts');
         });
 
         // it('^', () => console.log(sourceFile.getText()));
@@ -1004,6 +1009,21 @@ describe('get rid of atomic number operations', () => {
         it('rating field type should be string', () => {
             expect(getFieldType(sourceFile, 'rating')).toEqual('() => Float');
         });
+    });
+
+    describe('date field files', () => {
+        const dateFieldFiles = [
+            'user-create.input.ts',
+            'user-unchecked-update.input.ts',
+        ];
+
+        for (const file of dateFieldFiles) {
+            it(`date field files ${file}`, () => {
+                setSourceFile(file);
+                expect(p('born')?.type).toEqual('Date | string');
+                expect(t('born')).toEqual('() => Date');
+            });
+        }
     });
 });
 
