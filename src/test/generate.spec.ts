@@ -31,7 +31,7 @@ const f = (name: string) =>
         ?.arguments;
 const t = (name: string) =>
     getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
-        ?.arguments[0];
+        ?.arguments?.[0];
 const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
     classFile = sourceFile.getClass(() => true)!;

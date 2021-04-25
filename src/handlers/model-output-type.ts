@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { ok } from 'assert';
 import JSON5 from 'json5';
 import { castArray, remove, trim } from 'lodash';
 import {
@@ -31,7 +31,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         eventEmitter,
     } = args;
     const model = models.get(outputType.name);
-    assert(model, `Cannot find model by name ${outputType.name}`);
+    ok(model, `Cannot find model by name ${outputType.name}`);
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: 'model',
@@ -73,7 +73,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
-    assert(decorator, 'ObjectType decorator not found');
+    ok(decorator, 'ObjectType decorator not found');
     decorator.arguments = model.documentation
         ? [JSON5.stringify({ description: model.documentation })]
         : [];
@@ -204,7 +204,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                     name: options.name,
                     arguments: options.arguments,
                 });
-                assert(
+                ok(
                     options.from,
                     "Missed 'from' part in configuration or field setting",
                 );

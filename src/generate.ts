@@ -1,6 +1,7 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
-import assert from 'assert';
+import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
+import { existsSync } from 'fs';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
@@ -26,6 +27,7 @@ import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from '.
 export async function generate(
     args: GeneratorOptions & {
         skipAddOutputSourceFiles?: boolean;
+        tsConfigFileExists?: () => boolean;
         connectCallback?: (
             emitter: AwaitEventEmitter,
             eventArguments: EventArguments,
@@ -35,7 +37,7 @@ export async function generate(
     const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
 
     const generatorOutputValue = generator.output?.value;
-    assert(generatorOutputValue, 'generator.output.value is empty');
+    ok(generatorOutputValue, 'Missing generator configuration: output');
 
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
@@ -55,8 +57,11 @@ export async function generate(
         eventEmitter.emitSync('Warning', message);
     }
 
+    const tsConfigFileExists =
+        args.tsConfigFileExists ?? (() => existsSync(config.tsConfigFilePath));
+
     const project = new Project({
-        tsConfigFilePath: config.tsConfigFilePath,
+        tsConfigFilePath: tsConfigFileExists() ? config.tsConfigFilePath : undefined,
         skipAddingFilesFromTsConfig: true,
         skipLoadingLibFiles: !config.emitCompiled,
         manipulationSettings: {

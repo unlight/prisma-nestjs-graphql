@@ -8,6 +8,9 @@ export class DummyMinOrderByAggregateInput {
     id?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
+    created?: SortOrder;
+
+    @Field(() => SortOrder, { nullable: true })
     floaty?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })

@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { ok } from 'assert';
 import JSON5 from 'json5';
 import { castArray, trim } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
@@ -142,7 +142,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                     name: options.name,
                     arguments: options.arguments,
                 });
-                assert(
+                ok(
                     options.from,
                     "Missed 'from' part in configuration or field setting",
                 );
