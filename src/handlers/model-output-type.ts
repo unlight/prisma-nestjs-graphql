@@ -121,13 +121,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             propertyType.push('null');
         }
 
-        // For model we keep only one type
-        propertyType.splice(1, propertyType.length);
-
-        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
-            propertyType.push('null');
-        }
-
         let graphqlType: string;
 
         if (fieldType) {
