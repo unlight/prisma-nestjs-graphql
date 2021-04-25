@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input';
 import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input';
+import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
 import { FloatWithAggregatesFilter } from '../prisma/float-with-aggregates-filter.input';
@@ -22,6 +23,9 @@ export class DummyScalarWhereWithAggregatesInput {
 
     @Field(() => StringWithAggregatesFilter, { nullable: true })
     id?: StringWithAggregatesFilter;
+
+    @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
+    created?: DateTimeWithAggregatesFilter;
 
     @Field(() => FloatWithAggregatesFilter, { nullable: true })
     floaty?: FloatWithAggregatesFilter;

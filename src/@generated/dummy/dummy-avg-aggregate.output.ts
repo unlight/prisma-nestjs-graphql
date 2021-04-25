@@ -1,4 +1,5 @@
 import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
 export class DummyAvgAggregate {
@@ -11,8 +12,8 @@ export class DummyAvgAggregate {
     @Field(() => Float, { nullable: true })
     float?: number;
 
-    @Field(() => String, { nullable: true })
-    decimal?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    decimal?: any;
 
     @Field(() => Float, { nullable: true })
     bigInt?: number;

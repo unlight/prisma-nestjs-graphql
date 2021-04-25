@@ -1,10 +1,14 @@
 import { Field, Float, InputType, Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @InputType()
 export class DummyCreateManyInput {
     @Field(() => String, { nullable: false })
     id!: string;
+
+    @Field(() => Date, { nullable: true })
+    created?: Date | string;
 
     @Field(() => Float, { nullable: false })
     floaty!: number;
@@ -18,8 +22,8 @@ export class DummyCreateManyInput {
     @Field(() => String, { nullable: true })
     bytes?: Buffer;
 
-    @Field(() => String, { nullable: true })
-    decimal?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    decimal?: any;
 
     @Field(() => String, { nullable: true })
     bigInt?: bigint | number;

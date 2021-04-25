@@ -1,7 +1,9 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
+import { Decimal } from 'decimal.js';
 
+import { Comment } from '../@generated/comment/comment.model';
+import { Dummy } from '../@generated/dummy/dummy.model';
 import { DummyCreateInput } from '../@generated/dummy/dummy-create.input';
 import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
 import { FloatFilter } from '../@generated/prisma/float-filter.input';
@@ -134,24 +136,48 @@ const $prisma = new PrismaClient();
     };
     p = x;
 }
-// {
-//     // incompatible
-//     let x: User = {
-//         id: '',
-//         email: '',
-//         name: '',
-//         password: '',
-//     };
-//     let p: P.User = {
-//         id: '',
-//         email: '',
-//         name: '',
-//         password: '',
-//         bio: null,
-//         image: null,
-//         countComments: null,
-//         rating: null,
-//         role: null,
-//     };
-//     x = p;
-// }
+{
+    // OK
+    // const x: RDecimal = new RDecimal(0);
+    // let p: Prisma.Decimal = new Prisma.Decimal(0);
+    // p = x;
+}
+{
+    // Fails
+    // const x: Decimal = new Decimal(0);
+    // let p: Prisma.Decimal = new Prisma.Decimal(0);
+    // p = x;
+}
+{
+    // Fails
+    // const x: Prisma.Decimal = new Prisma.Decimal(0);
+    // let p: Decimal = new Decimal(0);
+    // p = x;
+}
+{
+    const x: Dummy = {
+        id: '',
+        created: new Date(),
+        floaty: 1,
+        int: 1,
+        float: 1,
+        bytes: Buffer.from('b'),
+        // eslint-disable-next-line unicorn/no-null
+        decimal: '0.1',
+        bigInt: BigInt('1'),
+        json: {},
+    };
+    let p: P.Dummy = {
+        id: '',
+        created: new Date(),
+        floaty: 1,
+        int: 1,
+        float: 1,
+        bytes: Buffer.from('b'),
+        // eslint-disable-next-line unicorn/no-null
+        decimal: new Prisma.Decimal(0),
+        bigInt: BigInt('1'),
+        json: {},
+    };
+    p = x;
+}

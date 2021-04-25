@@ -38,7 +38,7 @@ export function createFieldSettings(args: {
 }) {
     const { config, text } = args;
     const result: FieldSettings = new FieldSettings();
-    const textLines = text.split('\\n');
+    const textLines = text.split('\n');
     const documentationLines: string[] = [];
     for (const line of textLines) {
         const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*?)\)/.exec(line);

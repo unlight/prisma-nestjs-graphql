@@ -44,6 +44,11 @@ export function getGraphqlImport(args: {
             case 'true':
             case 'Boolean':
                 return { name: 'Boolean', specifier: undefined };
+            case 'Decimal':
+                return {
+                    name: 'GraphQLDecimal',
+                    specifier: 'prisma-graphql-type-decimal',
+                };
             case 'Json':
                 return { name: 'GraphQLJSON', specifier: 'graphql-type-json' };
         }

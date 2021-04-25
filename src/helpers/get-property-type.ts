@@ -18,12 +18,11 @@ export function getPropertyType(args: {
             return ['boolean'];
         case 'DateTime':
             return ['Date', 'string'];
+        case 'Decimal':
         case 'Json':
             return ['any'];
         case 'Null':
             return ['null'];
-        case 'Decimal':
-            return ['number', 'string'];
         case 'Bytes':
             return ['Buffer'];
         case 'BigInt':

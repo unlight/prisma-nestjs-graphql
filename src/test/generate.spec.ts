@@ -374,17 +374,15 @@ describe('one model with scalar types', () => {
             });
 
             it('born', () => {
-                expect(getPropertyStructure(sourceFile, 'born')?.type).toEqual(
-                    'Date | string',
-                );
+                expect(getPropertyStructure(sourceFile, 'born')?.type).toEqual('Date');
             });
 
             it('big int', () => {
-                expect(p('biggy')?.type).toEqual('bigint | number');
+                expect(p('biggy')?.type).toEqual('bigint');
             });
 
-            it.skip('money', () => {
-                expect(p('money')?.type).toEqual('Decimal | number | string');
+            it('money', () => {
+                expect(p('money')?.type).toEqual('any');
             });
         });
 
@@ -559,69 +557,51 @@ describe('one model with scalar types', () => {
     });
 });
 
-describe('custom types', () => {
-    describe('custom type in user model', () => {
-        before(async () => {
-            ({ project, sourceFiles } = await testGenerate({
-                schema: `
-            model User {
-               id String @id
-               money Decimal
+describe('nullish compatibility', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `model User {
+                id String @id
+                count Int?
+                rating Float?
+                born DateTime?
+                humanoid Boolean?
+                money Decimal?
+                data Json?
+                biggy BigInt?
             }`,
-                options: [
-                    `types_Decimal_fieldType = Dec`,
-                    `types_Decimal_fieldModule = "decimal.js"`,
-                ],
-            }));
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/user.model.ts'),
-            )!;
-        });
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+        setSourceFile('user.model.ts');
+    });
 
-        it('money property should have Dec type', () => {
-            const property = getPropertyStructure(sourceFile, 'money');
-            expect(property?.type).toEqual('Dec');
-        });
+    // datetime have only Date
 
-        it('import should contain Dec', () => {
-            const imports = getImportDeclarations(sourceFile);
-            expect(imports).toContainEqual({
-                name: 'Dec',
-                specifier: 'decimal.js',
-            });
+    it('number', () => {
+        expect(p('count')?.type).toEqual('number | null');
+    });
+
+    it('born', () => {
+        expect(p('born')?.type).toEqual('Date | null');
+    });
+
+    it('money', () => {
+        expect(p('money')?.type).toEqual('any | null');
+        expect(imports).toContainEqual({
+            name: 'GraphQLDecimal',
+            specifier: 'prisma-graphql-type-decimal',
         });
     });
 
-    describe('custom datetime type', () => {
-        before(async () => {
-            ({ project, sourceFiles } = await testGenerate({
-                schema: `
-                    model User {
-                        id     Int      @id
-                        birth  DateTime
-                        died   DateTime?
-                    }`,
-                options: [
-                    `types_DateTime_fieldType = "string | Date"`,
-                    `types_DateTime_graphqlType = "Date"`,
-                ],
-            }));
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/date-time-filter.input.ts'),
-            )!;
-        });
-
-        // it('^', () => console.log(sourceFile.getText()));
-
-        it('property in', () => {
-            const property = getPropertyStructure(sourceFile, 'in');
-            expect(property?.type).toEqual('Array<Date> | Array<string>');
-        });
-
-        it('decorator type should be array date', () => {
-            expect(getFieldType(sourceFile, 'in')).toEqual('() => [Date]');
+    it('data', () => {
+        expect(p('data')?.type).toEqual('any | null');
+        expect(imports).toContainEqual({
+            name: 'GraphQLJSON',
+            specifier: 'graphql-type-json',
         });
     });
+
+    it('', () => console.log(sourceFile.getText()));
 });
 
 describe('one model with id and enum', () => {

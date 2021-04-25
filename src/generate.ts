@@ -25,7 +25,6 @@ import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from '.
 
 export async function generate(
     args: GeneratorOptions & {
-        prismaClientDmmf?: DMMF.Document;
         skipAddOutputSourceFiles?: boolean;
         connectCallback?: (
             emitter: AwaitEventEmitter,
@@ -33,12 +32,7 @@ export async function generate(
         ) => void | Promise<void>;
     },
 ) {
-    const {
-        connectCallback,
-        generator,
-        otherGenerators,
-        skipAddOutputSourceFiles,
-    } = args;
+    const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
 
     const generatorOutputValue = generator.output?.value;
     assert(generatorOutputValue, 'generator.output.value is empty');
@@ -60,20 +54,6 @@ export async function generate(
     for (const message of config.$warnings) {
         eventEmitter.emitSync('Warning', message);
     }
-    const prismaClientOutput = otherGenerators.find(
-        x => x.provider.value === 'prisma-client-js',
-    )?.output?.value;
-
-    assert(prismaClientOutput, 'Cannot find output of prisma-client-js');
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const prismaClientDmmf: DMMF.Document = JSON.parse(
-        JSON.stringify(
-            args.prismaClientDmmf ??
-                // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-                (require(prismaClientOutput).dmmf as DMMF.Document),
-        ),
-    );
 
     const project = new Project({
         tsConfigFilePath: config.tsConfigFilePath,
@@ -111,7 +91,7 @@ export async function generate(
     const {
         datamodel,
         schema: { inputObjectTypes, outputObjectTypes, enumTypes },
-    } = prismaClientDmmf;
+    } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
     const eventArguments: EventArguments = {
         models,
         config,

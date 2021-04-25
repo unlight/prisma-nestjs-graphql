@@ -1,29 +1,33 @@
 import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
 export class Dummy {
     @Field(() => ID, { nullable: false })
     id!: string;
 
+    @Field(() => Date, { nullable: false })
+    created!: Date;
+
     @Field(() => Float, { nullable: false })
     floaty!: number;
 
     @Field(() => Int, { nullable: true })
-    int?: number;
+    int!: number | null;
 
     @Field(() => Float, { nullable: true })
-    float?: number;
+    float!: number | null;
 
     @Field(() => String, { nullable: true })
-    bytes?: Buffer;
+    bytes!: Buffer | null;
+
+    @Field(() => GraphQLDecimal, { nullable: true })
+    decimal!: any | null;
 
     @Field(() => String, { nullable: true })
-    decimal?: number | string;
-
-    @Field(() => String, { nullable: true })
-    bigInt?: bigint | number;
+    bigInt!: bigint | null;
 
     @Field(() => GraphQLJSON, { nullable: true })
-    json?: any;
+    json!: any | null;
 }

@@ -8,8 +8,17 @@ export function propertyStructure(args: {
     isList: boolean;
     name: string;
     isNullable?: boolean;
+    hasQuestionToken?: boolean;
+    hasExclamationToken?: boolean;
 }): PropertyDeclarationStructure {
-    const { isNullable, propertyType, name, isList } = args;
+    const {
+        isNullable,
+        propertyType,
+        name,
+        isList,
+        hasQuestionToken,
+        hasExclamationToken,
+    } = args;
     const type = propertyType
         .map(type => (isList ? `Array<${type}>` : type))
         .join(' | ');
@@ -18,8 +27,8 @@ export function propertyStructure(args: {
         kind: StructureKind.Property,
         name,
         type,
-        hasQuestionToken: isNullable,
-        hasExclamationToken: !isNullable,
+        hasQuestionToken: hasQuestionToken ?? isNullable,
+        hasExclamationToken: hasExclamationToken ?? !isNullable,
         decorators: [],
         trailingTrivia: '\n',
     };

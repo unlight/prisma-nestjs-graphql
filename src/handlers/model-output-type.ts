@@ -82,6 +82,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     importDeclarations.add('ObjectType', nestjsGraphql);
 
     for (const field of outputType.fields) {
+        // if (model.name === 'Comment') {
+        //     console.dir(field);
+        // }
+
         // Do not generate already defined properties for model
         if (classStructure.properties?.some(p => p.name === field.name)) {
             continue;
@@ -105,6 +109,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                   location,
                   type: outputTypeName,
               });
+
+        // For model we keep only one type
+        propertyType.splice(1, propertyType.length);
+
+        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
+            propertyType.push('null');
+        }
 
         let graphqlType: string;
         const fieldType = settings?.getFieldType();
@@ -139,13 +150,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         //     settings,
         //     propertyType,
         //     graphqlType,
-        //     graphqlImport,
         //     location,
         // });
 
         const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
+            hasExclamationToken: true,
+            hasQuestionToken: false,
             propertyType,
             isList,
         });

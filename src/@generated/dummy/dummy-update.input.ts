@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
+import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { FloatFieldUpdateOperationsInput } from '../prisma/float-field-update-operations.input';
 import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
 import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input';
@@ -13,6 +14,9 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 export class DummyUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     id?: StringFieldUpdateOperationsInput;
+
+    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+    created?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => FloatFieldUpdateOperationsInput, { nullable: true })
     floaty?: FloatFieldUpdateOperationsInput;

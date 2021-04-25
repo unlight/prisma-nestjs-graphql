@@ -23,13 +23,13 @@ export class Article {
     body!: string;
 
     @Field(() => [Tag], { nullable: true })
-    tags?: Array<Tag>;
+    tags!: Array<Tag>;
 
     @Field(() => Date, { nullable: false })
-    createdAt!: Date | string;
+    createdAt!: Date;
 
     @Field(() => Date, { nullable: false })
-    updatedAt!: Date | string;
+    updatedAt!: Date;
 
     @Field(() => Int, { nullable: false, defaultValue: 0 })
     favoritesCount!: number;
@@ -41,14 +41,14 @@ export class Article {
     authorId!: string;
 
     @Field(() => [User], { nullable: true })
-    favoritedBy?: Array<User>;
+    favoritedBy!: Array<User>;
 
     @Field(() => [Comment], { nullable: true })
-    comments?: Array<Comment>;
+    comments!: Array<Comment>;
 
     @Field(() => Boolean, { nullable: true, defaultValue: true })
-    active?: boolean;
+    active!: boolean | null;
 
     @Field(() => ArticleCount, { nullable: true })
-    _count?: ArticleCount;
+    _count!: ArticleCount;
 }

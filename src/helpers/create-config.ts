@@ -38,16 +38,7 @@ export function createConfig(data: Record<string, string | undefined>) {
         }
     }
 
-    const types = merge(
-        {
-            Json: {
-                fieldType: 'any',
-                graphqlType: 'GraphQLJSON',
-                graphqlModule: 'graphql-type-json',
-            },
-        },
-        config.types,
-    ) as Record<string, Nullable<TypeRecord>>;
+    const types = merge({}, config.types) as Record<string, Nullable<TypeRecord>>;
 
     type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
     const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
@@ -75,6 +66,10 @@ export function createConfig(data: Record<string, string | undefined>) {
         tsConfigFilePath: 'tsconfig.json' as string,
         combineScalarFilters: toBoolean(config.combineScalarFilters),
         noAtomicOperations: toBoolean(config.noAtomicOperations),
+        /**
+         * @deprecated
+         * Use FieldType() instead
+         */
         types,
         reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
         emitSingle: toBoolean(config.emitSingle),

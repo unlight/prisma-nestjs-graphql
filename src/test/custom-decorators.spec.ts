@@ -6,7 +6,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { getImportDeclarations, getPropertyStructure } from './helpers';
+import { getFieldType, getImportDeclarations, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
@@ -25,6 +25,71 @@ const setSourceFile = (name: string) => {
     sourceText = sourceFile.getText();
     imports = getImportDeclarations(sourceFile);
 };
+
+describe('custom types', () => {
+    describe('custom type in user model', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               money Decimal
+            }`,
+                options: [
+                    `types_Decimal_fieldType = Dec`,
+                    `types_Decimal_fieldModule = "decimal.js"`,
+                ],
+            }));
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user.model.ts'),
+            )!;
+        });
+
+        it('money property should have Dec type', () => {
+            const property = getPropertyStructure(sourceFile, 'money');
+            expect(property?.type).toEqual('Dec');
+        });
+
+        it('import should contain Dec', () => {
+            const imports = getImportDeclarations(sourceFile);
+            expect(imports).toContainEqual({
+                name: 'Dec',
+                specifier: 'decimal.js',
+            });
+        });
+    });
+
+    describe('custom datetime type', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                    model User {
+                        id     Int      @id
+                        birth  DateTime
+                        died   DateTime?
+                    }`,
+                options: [
+                    `types_DateTime_fieldType = "string | Date"`,
+                    `types_DateTime_graphqlType = "Date"`,
+                ],
+            }));
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/date-time-filter.input.ts'),
+            )!;
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('property in', () => {
+            const property = getPropertyStructure(sourceFile, 'in');
+            expect(property?.type).toEqual('Array<Date> | Array<string>');
+        });
+
+        it('decorator type should be array date', () => {
+            expect(getFieldType(sourceFile, 'in')).toEqual('() => [Date]');
+        });
+    });
+});
 
 describe('custom decorators namespace both input and output', () => {
     let importDeclarations: any[];
