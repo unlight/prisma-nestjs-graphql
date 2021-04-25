@@ -61,6 +61,12 @@ export function createConfig(data: Record<string, string | undefined>) {
             }),
     );
 
+    if (Object.keys(types).length > 0) {
+        $warnings.push(
+            'Configuration throu `types_*` is deprecated, use @FieldType/@PropertyType https://github.com/unlight/prisma-nestjs-graphql#field-settings',
+        );
+    }
+
     return {
         outputFilePattern,
         tsConfigFilePath: 'tsconfig.json' as string,

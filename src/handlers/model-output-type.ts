@@ -1,6 +1,6 @@
 import assert from 'assert';
 import JSON5 from 'json5';
-import { remove } from 'lodash';
+import { castArray, remove, trim } from 'lodash';
 import {
     ClassDeclarationStructure,
     CommentStatement,
@@ -99,16 +99,27 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             fileType = 'output';
             outputTypeName = getOutputTypeName(outputTypeName);
         }
-        const customType = config.types[outputTypeName];
+        const customType = config.types[outputTypeName]; // todo: remove
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
+        const fieldType = settings?.getFieldType();
+        const propertySettings = settings?.getPropertyType();
 
-        const propertyType = customType?.fieldType
-            ? [customType.fieldType]
-            : getPropertyType({
-                  location,
-                  type: outputTypeName,
-              });
+        const propertyType = castArray(
+            propertySettings?.name ||
+                customType?.fieldType?.split('|').map(trim) ||
+                getPropertyType({
+                    location,
+                    type: outputTypeName,
+                }),
+        );
+
+        // For model we keep only one type
+        propertyType.splice(1, propertyType.length);
+
+        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
+            propertyType.push('null');
+        }
 
         // For model we keep only one type
         propertyType.splice(1, propertyType.length);
@@ -118,7 +129,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         }
 
         let graphqlType: string;
-        const fieldType = settings?.getFieldType();
 
         if (fieldType) {
             graphqlType = fieldType.name;
@@ -164,6 +174,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         classStructure.properties?.push(property);
 
+        if (propertySettings) {
+            importDeclarations.create({ ...propertySettings });
+        }
+
         // Create import for typescript field/property type
         if (customType && customType.fieldType && customType.fieldModule) {
             importDeclarations.add(customType.fieldType, customType.fieldModule);
@@ -190,7 +204,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             });
 
             for (const options of settings || []) {
-                if (!options.output || options.isFieldType) {
+                if (!options.output || options.kind !== 'Decorator') {
                     continue;
                 }
                 property.decorators?.push({

@@ -206,6 +206,7 @@ generator nestgraphql {
     fields_{Namespace}_output = true | false
     fields_{Namespace}_defaultImport = "default import name" | true
     fields_{Namespace}_namespaceImport = "namespace import name"
+    fields_{Namespace}_namedImport = true | false
 }
 ```
 
@@ -214,9 +215,8 @@ Where `{Namespace}` is a namespace used in field triple slash comment.
 
 ##### `fields_{Namespace}_from`
 
-Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
-Type: `string`  
-Required: yes
+Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
+Type: `string`
 
 ##### `fields_{Namespace}_input`
 
@@ -243,7 +243,14 @@ Import all as this namespace from module
 Type: `undefined | string`  
 Default: Equals to `{Namespace}`
 
-Example:
+##### `fields_{Namespace}_namedImport`
+
+If imported module has internal namespace, this allow to generate named import,  
+imported name will be equal to `{Namespace}`, see [example of usage](#propertytype)  
+Type: `boolean`  
+Default: `false`
+
+Custom decorators example:
 
 ```prisma
 generator nestgraphql {
@@ -326,6 +333,54 @@ model User {
 
 The result will be the same. `Scalars` is the namespace here.
 Missing field options will merged from generator configuration.
+
+##### @PropertyType()
+
+Similar to `@FieldType()` but refer to TypeScript property (actually field too).
+
+Named import example:
+
+```prisma
+model Transfer {
+    id String @id
+    /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true })
+    money Decimal
+}
+```
+
+May generate following:
+
+```ts
+import { Prisma } from '@prisma/client';
+
+@ObjectType()
+export class User {
+    @Field(() => GraphQLDecimal)
+    money!: Prisma.Decimal;
+}
+```
+
+Another example:
+
+```
+model User {
+    id String @id
+    /// @PropertyType('TF.JsonObject')
+    data Json
+}
+```
+
+May generate:
+
+```ts
+import * as TF from 'type-fest';
+
+@ObjectType()
+export class User {
+    @Field(() => GraphQLJSON)
+    data!: TF.JsonObject;
+}
+```
 
 ## Similar Projects
 

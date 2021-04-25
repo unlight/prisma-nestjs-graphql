@@ -1,5 +1,6 @@
 import assert from 'assert';
 import JSON5 from 'json5';
+import { castArray, trim } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
@@ -65,13 +66,19 @@ export function inputType(
         const graphqlInputType = getGraphqlInputType(inputTypes);
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
+        // todo: remove
         const customType = config.types[typeName];
         const settings = modelFieldSettings?.get(field.name);
+        const propertySettings = settings?.getPropertyType();
 
-        const propertyType = getPropertyType({
-            location,
-            type: typeName,
-        });
+        const propertyType = castArray(
+            propertySettings?.name ||
+                customType?.fieldType?.split('|').map(trim) ||
+                getPropertyType({
+                    location,
+                    type: typeName,
+                }),
+        );
 
         const property = propertyStructure({
             name: field.name,
@@ -81,6 +88,10 @@ export function inputType(
         });
 
         classStructure.properties?.push(property);
+
+        if (propertySettings) {
+            importDeclarations.create({ ...propertySettings });
+        }
 
         let graphqlType: string;
         const fieldType = settings?.getFieldType();
@@ -141,7 +152,7 @@ export function inputType(
             });
 
             for (const options of settings || []) {
-                if (!options.input || options.isFieldType) {
+                if (!options.input || options.kind !== 'Decorator') {
                     continue;
                 }
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
