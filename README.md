@@ -116,6 +116,7 @@ Default: `false`
 
 #### `types_*` (deprecated)
 
+<details>
 Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
 
 -   `types_{type}_fieldType` TypeScript field type name
@@ -158,6 +159,8 @@ Generated fields:
 @Field(() => GraphQLISODateTime)
 field: Date;
 ```
+
+</details>
 
 ## Field Settings
 
@@ -375,6 +378,10 @@ export class User {
 Another example:
 
 ```
+generator nestgraphql {
+    fields_TF_from = "type-fest"
+}
+
 model User {
     id String @id
     /// @PropertyType('TF.JsonObject')
