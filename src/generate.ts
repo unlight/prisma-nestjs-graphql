@@ -1,7 +1,6 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
-import { existsSync } from 'fs';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
@@ -15,12 +14,13 @@ import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
+import { purgeOutput } from './handlers/purge-output';
 import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
-import { factoryGetSourceFile } from './helpers/factory-get-souce-file';
+import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
 
@@ -76,6 +76,7 @@ export async function generate(
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
     config.reExport !== ReExport.None && reExport(eventEmitter);
     config.emitSingle && emitSingle(eventEmitter);
+    config.purgeOutput && purgeOutput(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
@@ -107,8 +108,6 @@ export async function generate(
         enums: mapKeys(datamodel.enums, x => x.name),
         getModelName: createGetModelName(modelNames),
     };
-
-    // console.dir(prismaClientDmmf.schema.outputObjectTypes, { depth: 4 });
 
     if (connectCallback) {
         await connectCallback(eventEmitter, eventArguments);

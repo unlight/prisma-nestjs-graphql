@@ -82,6 +82,7 @@ export function createConfig(data: Record<string, string | undefined>) {
         emitCompiled: toBoolean(config.emitCompiled),
         $warnings,
         fields,
+        purgeOutput: toBoolean(config.purgeOutput),
     };
 }
 

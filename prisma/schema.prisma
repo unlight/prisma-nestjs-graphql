@@ -16,6 +16,7 @@ generator nestgraphql {
   reExport = None
   emitSingle = false
   emitCompiled = false
+  purgeOutput = false
 }
 
 model User {

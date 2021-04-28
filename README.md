@@ -114,6 +114,12 @@ with temporal dead zone when generating merged file.
 Type: `boolean`  
 Default: `false`
 
+#### `purgeOutput`
+
+Delete all files in `output` folder  
+Type: `boolean`  
+Default: `false`
+
 #### `types_*` (deprecated)
 
 <details>
