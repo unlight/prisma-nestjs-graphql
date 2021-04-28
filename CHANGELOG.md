@@ -1,3 +1,10 @@
+## [11.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.3.1...v11.4.0) (2021-04-28)
+
+
+### Features
+
+* **configuration:** Allow purge output folder ([a360869](https://github.com/unlight/nestjs-graphql-prisma/commit/a360869fba2685ee5e463fcb6781039ec88b2356)), closes [#7](https://github.com/unlight/nestjs-graphql-prisma/issues/7)
+
 ### [11.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.3.0...v11.3.1) (2021-04-25)
 
 
