@@ -355,7 +355,7 @@ model User {
 The result will be the same. `Scalars` is the namespace here.
 Missing field options will merged from generator configuration.
 
-##### @PropertyType()
+#### @PropertyType()
 
 Similar to `@FieldType()` but refer to TypeScript property (actually field too).
 
