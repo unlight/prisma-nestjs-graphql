@@ -1,19 +1,20 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @InputType()
 export class NullableDecimalFieldUpdateOperationsInput {
-    @Field(() => String, { nullable: true })
-    set?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    set?: any;
 
-    @Field(() => String, { nullable: true })
-    increment?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    increment?: any;
 
-    @Field(() => String, { nullable: true })
-    decrement?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    decrement?: any;
 
-    @Field(() => String, { nullable: true })
-    multiply?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    multiply?: any;
 
-    @Field(() => String, { nullable: true })
-    divide?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    divide?: any;
 }

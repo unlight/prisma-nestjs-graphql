@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
 import expect from 'expect';
 import { Project } from 'ts-morph';
@@ -51,7 +51,7 @@ export async function testGenerate(args: {
         connectCallback,
     });
 
-    assert(project, 'Project is not defined');
+    ok(project, 'Project is not defined');
     const sourceFiles = project.getSourceFiles();
     let emptyFiles: string[] = [];
     try {

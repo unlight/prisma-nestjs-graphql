@@ -38,16 +38,7 @@ export function createConfig(data: Record<string, string | undefined>) {
         }
     }
 
-    const types = merge(
-        {
-            Json: {
-                fieldType: 'any',
-                graphqlType: 'GraphQLJSON',
-                graphqlModule: 'graphql-type-json',
-            },
-        },
-        config.types,
-    ) as Record<string, Nullable<TypeRecord>>;
+    const types = merge({}, config.types) as Record<string, Nullable<TypeRecord>>;
 
     type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
     const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
@@ -70,17 +61,28 @@ export function createConfig(data: Record<string, string | undefined>) {
             }),
     );
 
+    if (Object.keys(types).length > 0) {
+        $warnings.push(
+            'Configuration throu `types_*` is deprecated, use @FieldType/@PropertyType https://github.com/unlight/prisma-nestjs-graphql#field-settings',
+        );
+    }
+
     return {
         outputFilePattern,
-        tsConfigFilePath: 'tsconfig.json' as string,
+        tsConfigFilePath: undefined as string | undefined,
         combineScalarFilters: toBoolean(config.combineScalarFilters),
         noAtomicOperations: toBoolean(config.noAtomicOperations),
+        /**
+         * @deprecated
+         * Use FieldType() instead
+         */
         types,
         reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
         emitSingle: toBoolean(config.emitSingle),
         emitCompiled: toBoolean(config.emitCompiled),
         $warnings,
         fields,
+        purgeOutput: toBoolean(config.purgeOutput),
     };
 }
 

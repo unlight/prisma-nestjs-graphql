@@ -112,6 +112,7 @@
     "precise-commits": "^1.0.2",
     "prettier": "^2.2.1",
     "prisma": "2.21.2",
+    "prisma-graphql-type-decimal": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.7",
     "semantic-release": "^17.4.2",

@@ -1,4 +1,6 @@
+import { ok } from 'assert';
 import JSON5 from 'json5';
+import { castArray, trim } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
@@ -60,6 +62,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const { location, isList, type } = field.outputType;
         const outputTypeName = getOutputTypeName(String(type));
         const settings = model && fieldSettings.get(model.name)?.get(field.name);
+        const propertySettings = settings?.getPropertyType();
+        // todo: remove
         const customType = config.types[outputTypeName];
 
         // console.log({
@@ -72,12 +76,14 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         field.outputType.type = outputTypeName;
 
-        const propertyType = customType?.fieldType
-            ? [customType.fieldType]
-            : getPropertyType({
-                  location,
-                  type: outputTypeName,
-              });
+        const propertyType = castArray(
+            propertySettings?.name ||
+                customType?.fieldType?.split('|').map(trim) ||
+                getPropertyType({
+                    location,
+                    type: outputTypeName,
+                }),
+        );
 
         const property = propertyStructure({
             name: field.name,
@@ -87,6 +93,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         });
 
         classStructure.properties?.push(property);
+
+        if (propertySettings) {
+            importDeclarations.create({ ...propertySettings });
+        }
 
         const graphqlImport = getGraphqlImport({
             sourceFile,
@@ -123,6 +133,21 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                     }),
                 ],
             });
+
+            for (const options of settings || []) {
+                if (!options.output || options.kind !== 'Decorator') {
+                    continue;
+                }
+                property.decorators?.push({
+                    name: options.name,
+                    arguments: options.arguments,
+                });
+                ok(
+                    options.from,
+                    "Missed 'from' part in configuration or field setting",
+                );
+                importDeclarations.create(options);
+            }
         }
 
         eventEmitter.emitSync('ClassProperty', property, { location, isList });

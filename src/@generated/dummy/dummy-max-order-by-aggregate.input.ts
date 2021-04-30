@@ -3,22 +3,28 @@ import { Field, InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
-export class CommentOrderByInput {
+export class DummyMaxOrderByAggregateInput {
     @Field(() => SortOrder, { nullable: true })
     id?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    created?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    floaty?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    int?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
+    float?: SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    articleId?: SortOrder;
+    bytes?: SortOrder;
+
+    @Field(() => SortOrder, { nullable: true })
+    decimal?: SortOrder;
+
+    @Field(() => SortOrder, { nullable: true })
+    bigInt?: SortOrder;
 }

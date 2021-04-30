@@ -1,27 +1,28 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @InputType()
 export class NestedDecimalNullableFilter {
-    @Field(() => String, { nullable: true })
-    equals?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    equals?: any;
 
-    @Field(() => [String], { nullable: true })
-    in?: Array<number> | Array<string>;
+    @Field(() => [GraphQLDecimal], { nullable: true })
+    in?: Array<any>;
 
-    @Field(() => [String], { nullable: true })
-    notIn?: Array<number> | Array<string>;
+    @Field(() => [GraphQLDecimal], { nullable: true })
+    notIn?: Array<any>;
 
-    @Field(() => String, { nullable: true })
-    lt?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    lt?: any;
 
-    @Field(() => String, { nullable: true })
-    lte?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    lte?: any;
 
-    @Field(() => String, { nullable: true })
-    gt?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    gt?: any;
 
-    @Field(() => String, { nullable: true })
-    gte?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    gte?: any;
 
     @Field(() => NestedDecimalNullableFilter, { nullable: true })
     not?: NestedDecimalNullableFilter;

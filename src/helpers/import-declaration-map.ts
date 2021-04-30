@@ -27,15 +27,18 @@ export class ImportDeclarationMap extends Map<
         from: string;
         defaultImport?: string | true;
         namespaceImport?: string;
+        namedImport?: boolean;
     }) {
-        const { name, from, defaultImport, namespaceImport } = args;
+        const { name, from, defaultImport, namespaceImport, namedImport } = args;
         const value = {
             moduleSpecifier: from,
             namedImports: [] as OptionalKind<ImportSpecifierStructure>[],
             defaultImport: undefined as string | undefined,
             namespaceImport: undefined as string | undefined,
         };
-        if (defaultImport) {
+        if (namedImport === true && namespaceImport) {
+            value.namedImports = [{ name: namespaceImport }];
+        } else if (defaultImport) {
             value.defaultImport = defaultImport === true ? name : defaultImport;
         } else if (namespaceImport) {
             value.namespaceImport = namespaceImport;

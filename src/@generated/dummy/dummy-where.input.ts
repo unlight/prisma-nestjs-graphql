@@ -2,6 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 
 import { BigIntNullableFilter } from '../prisma/big-int-nullable-filter.input';
 import { BytesNullableFilter } from '../prisma/bytes-nullable-filter.input';
+import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input';
 import { FloatFilter } from '../prisma/float-filter.input';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
@@ -22,6 +23,9 @@ export class DummyWhereInput {
 
     @Field(() => StringFilter, { nullable: true })
     id?: StringFilter;
+
+    @Field(() => DateTimeFilter, { nullable: true })
+    created?: DateTimeFilter;
 
     @Field(() => FloatFilter, { nullable: true })
     floaty?: FloatFilter;

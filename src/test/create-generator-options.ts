@@ -23,20 +23,23 @@ export async function createGeneratorOptions(
     schema: string,
     options?: string[],
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
+    const schemaHeader = `
+        datasource database {
+            provider = "postgresql"
+            url = env("DATABASE_URL")
+        }
+        generator client {
+            provider        = "prisma-client-js"
+            previewFeatures = ["orderByRelation", "selectRelationCount", "orderByAggregateGroup"]
+        }
+    `;
     // eslint-disable-next-line prefer-rest-params
-    const hash = createHash(generatorVersion, arguments);
+    const hash = createHash(generatorVersion, schemaHeader, arguments);
     const cacheFile = `${cachePath}/options-${hash}.js`;
     if (!fs.existsSync(cacheFile)) {
         const schemaFile = `${cachePath}/schema-${hash}.prisma`;
-        const schemaData = `
-            datasource database {
-                provider = "postgresql"
-                url = env("DATABASE_URL")
-            }
-            generator client {
-                provider = "prisma-client-js"
-                previewFeatures = ["orderByRelation", "selectRelationCount"]
-            }
+        const schemaContent = `
+            ${schemaHeader}
             generator proxy {
                 provider = "node -r ts-node/register/transpile-only src/test/proxy-generator.ts"
                 output = "."
@@ -45,7 +48,7 @@ export async function createGeneratorOptions(
             }
             ${schema}
         `;
-        fs.writeFileSync(schemaFile, schemaData);
+        fs.writeFileSync(schemaFile, schemaContent);
 
         await new Promise((resolve, reject) => {
             const proc = exec(
@@ -69,5 +72,5 @@ export async function createGeneratorOptions(
 }
 
 function createHash(...data: unknown[]) {
-    return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
+    return crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');
 }

@@ -31,6 +31,18 @@ generator nestgraphql {
 npx prisma generate
 ```
 
+3. If your models have `Decimal` and `Json` types, you need install:
+
+```sh
+npm install graphql-type-json prisma-graphql-type-decimal
+
+```
+
+-   [graphql-type-json](https://github.com/taion/graphql-type-json)
+-   [prisma-graphql-type-decimal](https://github.com/unlight/prisma-graphql-type-decimal)
+
+Or write you own graphql scalar types, [read more on docs.nestjs.com](https://docs.nestjs.com/graphql/scalars).
+
 ## Generator options
 
 #### `output`
@@ -53,8 +65,8 @@ Possible tokens:
 #### `tsConfigFilePath`
 
 Path to `tsconfig.json`  
-Type: `string`  
-Default: `tsconfig.json`
+Type: `string | undefined`  
+Default: `undefined`
 
 #### `combineScalarFilters`
 
@@ -102,8 +114,15 @@ with temporal dead zone when generating merged file.
 Type: `boolean`  
 Default: `false`
 
-#### `types_*`
+#### `purgeOutput`
 
+Delete all files in `output` folder  
+Type: `boolean`  
+Default: `false`
+
+#### `types_*` (deprecated)
+
+<details>
 Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
 
 -   `types_{type}_fieldType` TypeScript field type name
@@ -146,6 +165,8 @@ Generated fields:
 @Field(() => GraphQLISODateTime)
 field: Date;
 ```
+
+</details>
 
 ## Field Settings
 
@@ -206,6 +227,7 @@ generator nestgraphql {
     fields_{Namespace}_output = true | false
     fields_{Namespace}_defaultImport = "default import name" | true
     fields_{Namespace}_namespaceImport = "namespace import name"
+    fields_{Namespace}_namedImport = true | false
 }
 ```
 
@@ -214,9 +236,8 @@ Where `{Namespace}` is a namespace used in field triple slash comment.
 
 ##### `fields_{Namespace}_from`
 
-Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
-Type: `string`  
-Required: yes
+Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
+Type: `string`
 
 ##### `fields_{Namespace}_input`
 
@@ -243,7 +264,14 @@ Import all as this namespace from module
 Type: `undefined | string`  
 Default: Equals to `{Namespace}`
 
-Example:
+##### `fields_{Namespace}_namedImport`
+
+If imported module has internal namespace, this allow to generate named import,  
+imported name will be equal to `{Namespace}`, see [example of usage](#propertytype)  
+Type: `boolean`  
+Default: `false`
+
+Custom decorators example:
 
 ```prisma
 generator nestgraphql {
@@ -326,6 +354,58 @@ model User {
 
 The result will be the same. `Scalars` is the namespace here.
 Missing field options will merged from generator configuration.
+
+##### @PropertyType()
+
+Similar to `@FieldType()` but refer to TypeScript property (actually field too).
+
+Named import example:
+
+```prisma
+model Transfer {
+    id String @id
+    /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true })
+    money Decimal
+}
+```
+
+May generate following:
+
+```ts
+import { Prisma } from '@prisma/client';
+
+@ObjectType()
+export class User {
+    @Field(() => GraphQLDecimal)
+    money!: Prisma.Decimal;
+}
+```
+
+Another example:
+
+```
+generator nestgraphql {
+    fields_TF_from = "type-fest"
+}
+
+model User {
+    id String @id
+    /// @PropertyType('TF.JsonObject')
+    data Json
+}
+```
+
+May generate:
+
+```ts
+import * as TF from 'type-fest';
+
+@ObjectType()
+export class User {
+    @Field(() => GraphQLJSON)
+    data!: TF.JsonObject;
+}
+```
 
 ## Similar Projects
 

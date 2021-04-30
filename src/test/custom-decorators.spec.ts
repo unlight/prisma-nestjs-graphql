@@ -6,7 +6,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { getImportDeclarations, getPropertyStructure } from './helpers';
+import { getFieldType, getImportDeclarations, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
@@ -25,6 +25,201 @@ const setSourceFile = (name: string) => {
     sourceText = sourceFile.getText();
     imports = getImportDeclarations(sourceFile);
 };
+
+describe('custom types', () => {
+    describe('legacy custom type in user model', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               money Decimal
+            }`,
+                options: [
+                    `types_Decimal_fieldType = Dec`,
+                    `types_Decimal_fieldModule = "decimal.js"`,
+                ],
+            }));
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user.model.ts'),
+            )!;
+        });
+
+        it('money property should have Dec type', () => {
+            const property = getPropertyStructure(sourceFile, 'money');
+            expect(property?.type).toEqual('Dec');
+        });
+
+        it('import should contain Dec', () => {
+            const imports = getImportDeclarations(sourceFile);
+            expect(imports).toContainEqual({
+                name: 'Dec',
+                specifier: 'decimal.js',
+            });
+        });
+    });
+
+    describe('legacy custom datetime type', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                    model User {
+                        id     Int      @id
+                        birth  DateTime
+                        died   DateTime?
+                    }`,
+                options: [
+                    `types_DateTime_fieldType = "Date | string"`,
+                    `types_DateTime_graphqlType = "Date"`,
+                ],
+            }));
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/date-time-filter.input.ts'),
+            )!;
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('property in', () => {
+            const property = getPropertyStructure(sourceFile, 'in');
+            expect(property?.type).toEqual('Array<Date> | Array<string>');
+        });
+
+        it('decorator type should be array date', () => {
+            expect(getFieldType(sourceFile, 'in')).toEqual('() => [Date]');
+        });
+    });
+
+    describe('custom type decimal in user', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true })
+               money Decimal
+            }`,
+                options: [],
+            }));
+        });
+
+        describe('user model', () => {
+            before(() => {
+                setSourceFile('/user.model.ts');
+            });
+
+            // it('^', () => console.log(sourceFile.getText()));
+
+            it('money property should have dec type', () => {
+                expect(p('money')?.type).toEqual('Prisma.Decimal');
+            });
+
+            it('import should exists', () => {
+                expect(imports).toContainEqual({
+                    name: 'Prisma',
+                    specifier: '@prisma/client',
+                });
+            });
+        });
+
+        describe('user create input', () => {
+            before(() => {
+                setSourceFile('/user-create.input.ts');
+            });
+
+            // it('^', () => console.log(sourceFile.getText()));
+
+            it('money property should have custom type', () => {
+                expect(p('money')?.type).toEqual('Prisma.Decimal');
+            });
+
+            it('import should exists', () => {
+                expect(imports).toContainEqual({
+                    name: 'Prisma',
+                    specifier: '@prisma/client',
+                });
+            });
+        });
+
+        describe('user count aggregate output', () => {
+            before(() => {
+                setSourceFile('/user-count-aggregate.output.ts');
+            });
+
+            // it('^', () => console.log(sourceFile.getText()));
+
+            it('money property should have custom type', () => {
+                expect(p('money')?.type).toEqual('Prisma.Decimal');
+            });
+
+            it('import should exists', () => {
+                expect(imports).toContainEqual({
+                    name: 'Prisma',
+                    specifier: '@prisma/client',
+                });
+            });
+        });
+    });
+
+    describe('custom type multiple types', () => {
+        let otherSourceFile: SourceFile;
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               /// @PropertyType({ name: 'X' })
+               date DateTime[]
+            }`,
+                options: [`noAtomicOperations = true`, `fields_X_from = "custom-date"`],
+            }));
+            setSourceFile('/user-create.input.ts');
+            // otherSourceFile = sourceFiles.find(s =>
+            //     s.getFilePath().endsWith('/user-createdate.input.ts'),
+            // );
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+        // it('^', () => console.log(otherSourceFile.getText()));
+    });
+
+    describe('custom type json in user model', () => {
+        let importDeclarations: any[] = [];
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+               id String @id
+               /// @PropertyType('TF.JsonObject')
+               data Json
+            }`,
+                options: [`fields_TF_from = "type-fest"`],
+            }));
+            setSourceFile('/user.model.ts');
+            importDeclarations = sourceFile
+                .getImportDeclarations()
+                .map(d => d.getStructure());
+        });
+
+        // it('^', () => console.log(sourceFile.getText()));
+
+        it('data property should have json type', () => {
+            const property = getPropertyStructure(sourceFile, 'data');
+            expect(property?.type).toEqual('TF.JsonObject');
+        });
+
+        it('import should contain type json', () => {
+            expect(importDeclarations).toContainEqual(
+                expect.objectContaining({
+                    defaultImport: undefined,
+                    moduleSpecifier: 'type-fest',
+                    namedImports: [],
+                    namespaceImport: 'TF',
+                }),
+            );
+        });
+    });
+});
 
 describe('custom decorators namespace both input and output', () => {
     let importDeclarations: any[];

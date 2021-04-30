@@ -1,5 +1,6 @@
 import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 import { DummyAvgAggregate } from './dummy-avg-aggregate.output';
 import { DummyCountAggregate } from './dummy-count-aggregate.output';
@@ -11,6 +12,9 @@ import { DummySumAggregate } from './dummy-sum-aggregate.output';
 export class DummyGroupBy {
     @Field(() => String, { nullable: false })
     id!: string;
+
+    @Field(() => Date, { nullable: false })
+    created!: Date | string;
 
     @Field(() => Float, { nullable: false })
     floaty!: number;
@@ -24,8 +28,8 @@ export class DummyGroupBy {
     @Field(() => String, { nullable: true })
     bytes?: Buffer;
 
-    @Field(() => String, { nullable: true })
-    decimal?: number | string;
+    @Field(() => GraphQLDecimal, { nullable: true })
+    decimal?: any;
 
     @Field(() => String, { nullable: true })
     bigInt?: bigint | number;

@@ -6,6 +6,9 @@ export class DummyCountAggregate {
     id!: number;
 
     @Field(() => Int, { nullable: false })
+    created!: number;
+
+    @Field(() => Int, { nullable: false })
     floaty!: number;
 
     @Field(() => Int, { nullable: false })

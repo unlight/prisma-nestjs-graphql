@@ -1,5 +1,5 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
-import assert from 'assert';
+import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
@@ -14,18 +14,18 @@ import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
 import { noAtomicOperations } from './handlers/no-atomic-operations';
 import { outputType } from './handlers/output-type';
+import { purgeOutput } from './handlers/purge-output';
 import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
 import { typeNames } from './handlers/type-names';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
-import { factoryGetSourceFile } from './helpers/factory-get-souce-file';
+import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
 
 export async function generate(
     args: GeneratorOptions & {
-        prismaClientDmmf?: DMMF.Document;
         skipAddOutputSourceFiles?: boolean;
         connectCallback?: (
             emitter: AwaitEventEmitter,
@@ -33,15 +33,10 @@ export async function generate(
         ) => void | Promise<void>;
     },
 ) {
-    const {
-        connectCallback,
-        generator,
-        otherGenerators,
-        skipAddOutputSourceFiles,
-    } = args;
+    const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
 
     const generatorOutputValue = generator.output?.value;
-    assert(generatorOutputValue, 'generator.output.value is empty');
+    ok(generatorOutputValue, 'Missing generator configuration: output');
 
     const eventEmitter = new AwaitEventEmitter();
     eventEmitter.on('Warning', warning);
@@ -60,20 +55,6 @@ export async function generate(
     for (const message of config.$warnings) {
         eventEmitter.emitSync('Warning', message);
     }
-    const prismaClientOutput = otherGenerators.find(
-        x => x.provider.value === 'prisma-client-js',
-    )?.output?.value;
-
-    assert(prismaClientOutput, 'Cannot find output of prisma-client-js');
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const prismaClientDmmf: DMMF.Document = JSON.parse(
-        JSON.stringify(
-            args.prismaClientDmmf ??
-                // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access
-                (require(prismaClientOutput).dmmf as DMMF.Document),
-        ),
-    );
 
     const project = new Project({
         tsConfigFilePath: config.tsConfigFilePath,
@@ -95,6 +76,7 @@ export async function generate(
     config.noAtomicOperations && noAtomicOperations(eventEmitter);
     config.reExport !== ReExport.None && reExport(eventEmitter);
     config.emitSingle && emitSingle(eventEmitter);
+    config.purgeOutput && purgeOutput(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
@@ -111,7 +93,7 @@ export async function generate(
     const {
         datamodel,
         schema: { inputObjectTypes, outputObjectTypes, enumTypes },
-    } = prismaClientDmmf;
+    } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
     const eventArguments: EventArguments = {
         models,
         config,
@@ -126,8 +108,6 @@ export async function generate(
         enums: mapKeys(datamodel.enums, x => x.name),
         getModelName: createGetModelName(modelNames),
     };
-
-    // console.dir(prismaClientDmmf.schema.outputObjectTypes, { depth: 4 });
 
     if (connectCallback) {
         await connectCallback(eventEmitter, eventArguments);

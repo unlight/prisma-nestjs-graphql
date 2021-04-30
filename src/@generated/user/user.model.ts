@@ -20,35 +20,35 @@ export class User {
     password!: string;
 
     @Field(() => String, { nullable: true })
-    bio?: string;
+    bio!: string | null;
 
     @Field(() => String, { nullable: true })
-    image?: string;
+    image!: string | null;
 
     @Field(() => [User], { nullable: true })
-    following?: Array<User>;
+    following!: Array<User>;
 
     @Field(() => [User], { nullable: true })
-    followers?: Array<User>;
+    followers!: Array<User>;
 
     @Field(() => [Article], { nullable: true })
-    favoriteArticles?: Array<Article>;
+    favoriteArticles!: Array<Article>;
 
     @Field(() => [Article], { nullable: true })
-    articles?: Array<Article>;
+    articles!: Array<Article>;
 
     @Field(() => [Comment], { nullable: true })
-    comments?: Array<Comment>;
+    comments!: Array<Comment>;
 
     @Field(() => Int, { nullable: true })
-    countComments?: number;
+    countComments!: number | null;
 
     @Field(() => Float, { nullable: true })
-    rating?: number;
+    rating!: number | null;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role!: Role | null;
 
     @Field(() => UserCount, { nullable: true })
-    _count?: UserCount;
+    _count!: UserCount;
 }

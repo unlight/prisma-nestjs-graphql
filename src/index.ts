@@ -10,7 +10,6 @@ generatorHandler({
         return {
             defaultOutput: '.',
             prettyName: 'Prisma NestJS/GraphQL',
-            requiresGenerators: ['prisma-client-js'],
         };
     },
 });

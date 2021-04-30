@@ -8,14 +8,15 @@ export type FieldSetting = {
      * Act as named import or namespaceImport or defaultImport
      */
     name: string;
-    isFieldType?: boolean;
+    kind: 'Decorator' | 'FieldType' | 'PropertyType';
     arguments?: string[];
     input: boolean;
     output: boolean;
     from: string;
+    namespace?: string;
     defaultImport?: string | true;
     namespaceImport?: string;
-    namespace?: string;
+    namedImport?: boolean;
 };
 
 export class FieldSettings extends Array<FieldSetting> {
@@ -28,7 +29,11 @@ export class FieldSettings extends Array<FieldSetting> {
     }
 
     getFieldType() {
-        return this.find(s => s.isFieldType);
+        return this.find(s => s.kind === 'FieldType');
+    }
+
+    getPropertyType() {
+        return this.find(s => s.kind === 'PropertyType');
     }
 }
 
@@ -38,16 +43,17 @@ export function createFieldSettings(args: {
 }) {
     const { config, text } = args;
     const result: FieldSettings = new FieldSettings();
-    const textLines = text.split('\\n');
+    const textLines = text.split('\n');
     const documentationLines: string[] = [];
     for (const line of textLines) {
         const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*?)\)/.exec(line);
-        if (!match) {
+        const name = match?.groups?.name;
+        if (!match || !name) {
             documentationLines.push(line);
             continue;
         }
-        const name = match.groups?.name;
         const decorator: FieldSetting = {
+            kind: 'Decorator',
             name: '',
             arguments: [],
             input: false,
@@ -56,16 +62,14 @@ export function createFieldSettings(args: {
         };
         if (name === 'TypeGraphQL.omit' || name === 'HideField') {
             Object.assign(decorator, hideFieldDecorator(match));
-        } else if (name === 'FieldType' && match.groups?.args) {
-            let options = parseArgs(match.groups.args);
-            if (typeof options === 'string') {
-                options = { name: options };
-            }
-            const namespace = getNamespace(options.name);
-            if ((options as { name: string }).name.includes('.')) {
-                decorator.namespaceImport = namespace;
-            }
-            merge(decorator, config.fields[namespace], options, { isFieldType: true });
+        } else if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
+            const options = customType(match.groups.args);
+            merge(
+                decorator,
+                options.namespace && config.fields[options.namespace],
+                options,
+                { kind: name },
+            );
         } else {
             const namespace = getNamespace(name);
             decorator.namespaceImport = namespace;
@@ -85,6 +89,21 @@ export function createFieldSettings(args: {
         result,
         documentation: documentationLines.filter(Boolean).join('\\n') || undefined,
     };
+}
+
+function customType(args: string) {
+    const result: Partial<FieldSetting> = {};
+    let options = parseArgs(args);
+    if (typeof options === 'string') {
+        options = { name: options };
+    }
+    Object.assign(result, options);
+    const namespace = getNamespace(options.name);
+    result.namespace = namespace;
+    if ((options as { name: string }).name.includes('.')) {
+        result.namespaceImport = namespace;
+    }
+    return result;
 }
 
 function hideFieldDecorator(match: RegExpExecArray) {

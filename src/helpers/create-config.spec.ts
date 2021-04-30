@@ -16,17 +16,6 @@ describe('createConfig', () => {
         expect(result.reExport).toEqual(ReExport.None);
     });
 
-    it('createConfig types', () => {
-        const result = createConfig({
-            types_Decimal_fieldType: `MyDec`,
-            types_Decimal_fieldModule: `decimal.js`,
-        });
-        expect(result.types['Decimal']).toBeTruthy();
-        expect(result.types['Decimal']?.fieldType).toEqual('MyDec');
-        expect(result.types['Decimal']?.fieldModule).toEqual('decimal.js');
-        expect(result.$warnings).toEqual([]);
-    });
-
     it('filename with parent reference should be not valid', () => {
         const result = createConfig({
             outputFilePattern: '../../../{model}//{name}.{type}.ts/',

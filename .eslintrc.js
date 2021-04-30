@@ -101,7 +101,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['*.spec.ts', '**/test/**/*.ts'],
+            files: ['*.spec.ts', '**/{test,@generated}/**/*.ts'],
             rules: {
                 'sonarjs/no-identical-functions': 0,
                 'consistent-return': 0,
@@ -112,6 +112,7 @@ module.exports = {
                 '@typescript-eslint/camelcase': 0,
                 '@typescript-eslint/no-unsafe-assignment': 0,
                 '@typescript-eslint/no-unused-vars': 0,
+                '@typescript-eslint/no-unsafe-return': 0,
                 '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
                 'import/max-dependencies': 0,
                 'sonarjs/no-duplicate-string': 0,

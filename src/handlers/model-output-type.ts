@@ -1,6 +1,6 @@
-import assert from 'assert';
+import { ok } from 'assert';
 import JSON5 from 'json5';
-import { remove } from 'lodash';
+import { castArray, remove, trim } from 'lodash';
 import {
     ClassDeclarationStructure,
     CommentStatement,
@@ -31,7 +31,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         eventEmitter,
     } = args;
     const model = models.get(outputType.name);
-    assert(model, `Cannot find model by name ${outputType.name}`);
+    ok(model, `Cannot find model by name ${outputType.name}`);
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: 'model',
@@ -73,7 +73,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
-    assert(decorator, 'ObjectType decorator not found');
+    ok(decorator, 'ObjectType decorator not found');
     decorator.arguments = model.documentation
         ? [JSON5.stringify({ description: model.documentation })]
         : [];
@@ -82,6 +82,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     importDeclarations.add('ObjectType', nestjsGraphql);
 
     for (const field of outputType.fields) {
+        // if (model.name === 'Comment') {
+        //     console.dir(field);
+        // }
+
         // Do not generate already defined properties for model
         if (classStructure.properties?.some(p => p.name === field.name)) {
             continue;
@@ -95,19 +99,29 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             fileType = 'output';
             outputTypeName = getOutputTypeName(outputTypeName);
         }
-        const customType = config.types[outputTypeName];
+        const customType = config.types[outputTypeName]; // todo: remove
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
+        const fieldType = settings?.getFieldType();
+        const propertySettings = settings?.getPropertyType();
 
-        const propertyType = customType?.fieldType
-            ? [customType.fieldType]
-            : getPropertyType({
-                  location,
-                  type: outputTypeName,
-              });
+        const propertyType = castArray(
+            propertySettings?.name ||
+                customType?.fieldType?.split('|').map(trim) ||
+                getPropertyType({
+                    location,
+                    type: outputTypeName,
+                }),
+        );
+
+        // For model we keep only one type
+        propertyType.splice(1, propertyType.length);
+
+        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
+            propertyType.push('null');
+        }
 
         let graphqlType: string;
-        const fieldType = settings?.getFieldType();
 
         if (fieldType) {
             graphqlType = fieldType.name;
@@ -139,18 +153,23 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         //     settings,
         //     propertyType,
         //     graphqlType,
-        //     graphqlImport,
         //     location,
         // });
 
         const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
+            hasExclamationToken: true,
+            hasQuestionToken: false,
             propertyType,
             isList,
         });
 
         classStructure.properties?.push(property);
+
+        if (propertySettings) {
+            importDeclarations.create({ ...propertySettings });
+        }
 
         // Create import for typescript field/property type
         if (customType && customType.fieldType && customType.fieldModule) {
@@ -178,14 +197,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             });
 
             for (const options of settings || []) {
-                if (!options.output || options.isFieldType) {
+                if (!options.output || options.kind !== 'Decorator') {
                     continue;
                 }
                 property.decorators?.push({
                     name: options.name,
                     arguments: options.arguments,
                 });
-                assert(
+                ok(
                     options.from,
                     "Missed 'from' part in configuration or field setting",
                 );

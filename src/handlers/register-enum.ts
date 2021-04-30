@@ -1,4 +1,4 @@
-import assert from 'assert';
+import { ok } from 'assert';
 import {
     CallExpression,
     ExpressionStatement,
@@ -55,7 +55,7 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
         ]) as ExpressionStatement[];
     }
 
-    assert(statement);
+    ok(statement, 'Failed to add registerEnumType statement');
 
     const objectLiteralExpression = (statement.getExpression() as CallExpression)
         .getArguments()

@@ -9,10 +9,10 @@ export class Comment {
     id!: string;
 
     @Field(() => Date, { nullable: false })
-    createdAt!: Date | string;
+    createdAt!: Date;
 
     @Field(() => Date, { nullable: false })
-    updatedAt!: Date | string;
+    updatedAt!: Date;
 
     @Field(() => String, { nullable: false })
     body!: string;
@@ -24,8 +24,8 @@ export class Comment {
     authorId!: string;
 
     @Field(() => Article, { nullable: true })
-    article?: Article;
+    article!: Article;
 
     @Field(() => String, { nullable: true })
-    articleId?: string;
+    articleId!: string | null;
 }

@@ -4,7 +4,7 @@ import { DummyAvgAggregateInput } from './dummy-avg-aggregate.input';
 import { DummyCountAggregateInput } from './dummy-count-aggregate.input';
 import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
-import { DummyOrderByInput } from './dummy-order-by.input';
+import { DummyOrderByWithAggregationInput } from './dummy-order-by-with-aggregation.input';
 import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
 import { DummyScalarWhereWithAggregatesInput } from './dummy-scalar-where-with-aggregates.input';
 import { DummySumAggregateInput } from './dummy-sum-aggregate.input';
@@ -15,8 +15,8 @@ export class GroupByDummyArgs {
     @Field(() => DummyWhereInput, { nullable: true })
     where?: DummyWhereInput;
 
-    @Field(() => [DummyOrderByInput], { nullable: true })
-    orderBy?: Array<DummyOrderByInput>;
+    @Field(() => [DummyOrderByWithAggregationInput], { nullable: true })
+    orderBy?: Array<DummyOrderByWithAggregationInput>;
 
     @Field(() => [DummyScalarFieldEnum], { nullable: false })
     by!: Array<DummyScalarFieldEnum>;

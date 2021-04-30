@@ -3,7 +3,7 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { CommentCountAggregateInput } from './comment-count-aggregate.input';
 import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
 import { CommentMinAggregateInput } from './comment-min-aggregate.input';
-import { CommentOrderByInput } from './comment-order-by.input';
+import { CommentOrderByWithAggregationInput } from './comment-order-by-with-aggregation.input';
 import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
 import { CommentScalarWhereWithAggregatesInput } from './comment-scalar-where-with-aggregates.input';
 import { CommentWhereInput } from './comment-where.input';
@@ -13,8 +13,8 @@ export class GroupByCommentArgs {
     @Field(() => CommentWhereInput, { nullable: true })
     where?: CommentWhereInput;
 
-    @Field(() => [CommentOrderByInput], { nullable: true })
-    orderBy?: Array<CommentOrderByInput>;
+    @Field(() => [CommentOrderByWithAggregationInput], { nullable: true })
+    orderBy?: Array<CommentOrderByWithAggregationInput>;
 
     @Field(() => [CommentScalarFieldEnum], { nullable: false })
     by!: Array<CommentScalarFieldEnum>;

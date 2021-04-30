@@ -77,6 +77,11 @@ const splitKeywords = [
     'UncheckedCreate',
     'ScalarWhere',
     'CountOutputType',
+    'CountOrderBy',
+    'SumOrderBy',
+    'MinOrderBy',
+    'MaxOrderBy',
+    'AvgOrderBy',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [
