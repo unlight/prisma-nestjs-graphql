@@ -2,7 +2,7 @@ import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
 import expect from 'expect';
 import { uniq } from 'lodash';
-import { Project } from 'ts-morph';
+import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate';
 import { generateFileName } from '../helpers/generate-file-name';
@@ -65,9 +65,12 @@ export async function testGenerate(args: {
             .getImportDeclarations()
             .map(d => d.getStructure())
             .flatMap(s => {
-                return [...s.namedImports?.map(x => x.name), s.namespaceImport].filter(
-                    Boolean,
-                );
+                return [
+                    ...((s.namedImports || []) as ImportSpecifierStructure[]).map(
+                        x => x.name,
+                    ),
+                    s.namespaceImport,
+                ].filter(Boolean);
             });
         if (uniq(imports).length !== imports.length) {
             throw `Duplicated import in ${filePath}: ${imports.toString()}`;
