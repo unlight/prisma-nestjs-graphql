@@ -31,7 +31,11 @@ module.exports = {
         { value: 'WIP', name: 'WIP:      Work in progress' },
     ],
 
-    scopes: [{ name: 'other' }],
+    scopes: [
+        { name: 'configuration' },
+        { name: 'custom decorators' },
+        { name: 'other' },
+    ],
 
     allowTicketNumber: false,
     isTicketNumberRequired: false,
@@ -72,7 +76,7 @@ module.exports = {
     // limit subject length
     subjectLimit: 100,
     // breaklineChar: '|', // It is supported for fields body and footer.
-    footerPrefix: 'closes:',
+    footerPrefix: 'close:',
     // askForBreakingChangeFirst : true, // default is false
     upperCaseSubject: true,
 };
