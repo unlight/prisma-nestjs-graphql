@@ -1,3 +1,10 @@
+### [11.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.0...v11.4.1) (2021-05-09)
+
+
+### Bug Fixes
+
+* Multiple namespace imports ([e096af0](https://github.com/unlight/nestjs-graphql-prisma/commit/e096af0fd28a7bc3615cfbd1ebe1052f74bbf30f)), closes [#27](https://github.com/unlight/nestjs-graphql-prisma/issues/27)
+
 ## [11.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.3.1...v11.4.0) (2021-04-28)
 
 
