@@ -1,6 +1,7 @@
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
 import expect from 'expect';
+import { uniq } from 'lodash';
 import { Project } from 'ts-morph';
 
 import { generate } from '../generate';
@@ -53,13 +54,24 @@ export async function testGenerate(args: {
 
     ok(project, 'Project is not defined');
     const sourceFiles = project.getSourceFiles();
-    let emptyFiles: string[] = [];
-    try {
-        emptyFiles = sourceFiles.filter(s => !s.getText()).map(s => s.getFilePath());
-        expect(emptyFiles).toHaveLength(0);
-    } catch {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        throw `Project should not contain empty files: ${emptyFiles}`;
+
+    for (const sourceFile of sourceFiles) {
+        const filePath = sourceFile.getFilePath();
+        const text = sourceFile.getText();
+        if (!text) {
+            throw `Project should not contain empty files: ${filePath}`;
+        }
+        const imports = sourceFile
+            .getImportDeclarations()
+            .map(d => d.getStructure())
+            .flatMap(s => {
+                return [...s.namedImports?.map(x => x.name), s.namespaceImport].filter(
+                    Boolean,
+                );
+            });
+        if (uniq(imports).length !== imports.length) {
+            throw `Duplicated import in ${filePath}: ${imports.toString()}`;
+        }
     }
 
     return { project, sourceFiles };

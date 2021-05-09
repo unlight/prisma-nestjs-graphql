@@ -1,6 +1,7 @@
 import expect from 'expect';
 import {
     ClassDeclaration,
+    ImportDeclarationStructure,
     Project,
     PropertyDeclarationStructure,
     SourceFile,
@@ -16,6 +17,7 @@ let propertyStructure: PropertyDeclarationStructure;
 let imports: ReturnType<typeof getImportDeclarations>;
 let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
+let importDeclarations: ImportDeclarationStructure[] = [];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
@@ -184,7 +186,6 @@ describe('custom types', () => {
     });
 
     describe('custom type json in user model', () => {
-        let importDeclarations: any[] = [];
         before(async () => {
             ({ project, sourceFiles } = await testGenerate({
                 schema: `
@@ -222,7 +223,6 @@ describe('custom types', () => {
 });
 
 describe('custom decorators namespace both input and output', () => {
-    let importDeclarations: any[];
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -275,9 +275,15 @@ describe('custom decorators namespace both input and output', () => {
             );
         });
 
-        it('several decorators', () => {
+        it('several decorators length', () => {
             const decorators = p('age')?.decorators;
             expect(decorators).toHaveLength(3);
+        });
+
+        it('validator should be imported once', () => {
+            expect(
+                importDeclarations.filter(x => x.moduleSpecifier === 'class-validator'),
+            ).toHaveLength(1);
         });
     });
 
@@ -308,7 +314,6 @@ describe('custom decorators namespace both input and output', () => {
 });
 
 describe('custom decorators and description', () => {
-    let importDeclarations: any[];
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -348,8 +353,6 @@ describe('custom decorators and description', () => {
 });
 
 describe('custom decorators default import', () => {
-    let importDeclarations: any[];
-
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -428,7 +431,6 @@ describe('custom decorators default import', () => {
 });
 
 describe('custom decorators field custom type namespace', () => {
-    let importDeclarations: any[];
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
