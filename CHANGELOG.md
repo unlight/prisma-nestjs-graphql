@@ -1,3 +1,10 @@
+### [11.4.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.3...v11.4.4) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Prevent applying on aggregate inputs ([9b21970](https://github.com/unlight/nestjs-graphql-prisma/commit/9b2197079b910ffdf0f895649e59028622e7025a))
+
 ### [11.4.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.2...v11.4.3) (2021-05-11)
 
 
