@@ -70,6 +70,8 @@ export function inputType(
         const customType = config.types[typeName];
         const settings = modelFieldSettings?.get(field.name);
         const propertySettings = settings?.getPropertyType();
+        const isCustomsApplicable =
+            typeName === model?.fields.find(f => f.name === field.name)?.type;
 
         const propertyType = castArray(
             propertySettings?.name ||
@@ -96,7 +98,7 @@ export function inputType(
         let graphqlType: string;
         const fieldType = settings?.getFieldType();
 
-        if (fieldType) {
+        if (fieldType && isCustomsApplicable) {
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {
@@ -122,7 +124,7 @@ export function inputType(
             }
         }
 
-        // if (inputType.name === 'UserCreateInput') {
+        // if (inputType.name === 'UserCountOrderByAggregateInput') {
         //     console.dir({
         //         'inputType.name': inputType.name,
         //         'field.name': field.name,
@@ -133,6 +135,7 @@ export function inputType(
         //         graphqlType,
         //         // graphqlImport,
         //         settings,
+        //         'model.field': model?.fields.find(f => f.name === field.name).type,
         //     });
         // }
 
@@ -151,20 +154,22 @@ export function inputType(
                 ],
             });
 
-            for (const options of settings || []) {
-                if (!options.input || options.kind !== 'Decorator') {
-                    continue;
+            if (isCustomsApplicable) {
+                for (const options of settings || []) {
+                    if (!options.input || options.kind !== 'Decorator') {
+                        continue;
+                    }
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    property.decorators!.push({
+                        name: options.name,
+                        arguments: options.arguments,
+                    });
+                    ok(
+                        options.from,
+                        "Missed 'from' part in configuration or field setting",
+                    );
+                    importDeclarations.create(options);
                 }
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                property.decorators!.push({
-                    name: options.name,
-                    arguments: options.arguments,
-                });
-                ok(
-                    options.from,
-                    "Missed 'from' part in configuration or field setting",
-                );
-                importDeclarations.create(options);
             }
         }
 

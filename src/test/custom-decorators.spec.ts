@@ -22,6 +22,9 @@ let imports: { name: string; specifier: string }[];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
+const t = (name: string) =>
+    getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
+        ?.arguments?.[0];
 const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
     classFile = sourceFile.getClass(() => true)!;
@@ -238,6 +241,7 @@ describe('custom decorators namespace both input and output', () => {
                     /// @Validator.Min(18)
                     age Int
                     /// @Validator.IsEmail()
+                    /// @FieldType({ name: 'Scalars.GraphQLEmailAddress', from: 'graphql-scalars', input: true })
                     email String?
                 }`,
             options: [
@@ -250,6 +254,24 @@ describe('custom decorators namespace both input and output', () => {
                 `fields_Validator_input = true`,
             ],
         }));
+    });
+
+    describe('aggregates should not have validators', () => {
+        it('user-count-aggregate.input', () => {
+            setSourceFile('user-count-aggregate.input.ts');
+            expect(
+                p('email')?.decorators?.find(d => d.name.includes('IsEmail')),
+            ).toBeUndefined();
+            expect(t('email')).toEqual('() => Boolean');
+        });
+
+        it('user-count-order-by-aggregate.input name is type of sort order', () => {
+            setSourceFile('user-count-order-by-aggregate.input.ts');
+            expect(
+                p('email')?.decorators?.find(d => d.name.includes('IsEmail')),
+            ).toBeUndefined();
+            expect(t('email')).toEqual('() => SortOrder');
+        });
     });
 
     describe('custom decorators in user create input', () => {

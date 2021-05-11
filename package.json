@@ -106,6 +106,7 @@
     "find-cache-dir": "^3.3.1",
     "git-branch-is": "^4.0.0",
     "graphql": "^15.5.0",
+    "graphql-scalars": "^1.9.3",
     "graphql-type-json": "^0.3.2",
     "mocha": "^8.3.2",
     "ololog": "^1.1.175",
