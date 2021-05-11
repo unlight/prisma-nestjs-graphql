@@ -1,3 +1,10 @@
+### [11.4.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.1...v11.4.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Missed imports when enabled `emitSingle` ([bf55996](https://github.com/unlight/nestjs-graphql-prisma/commit/bf55996e4c23c61300362f9c04d5bfd67a683aea)), closes [#28](https://github.com/unlight/nestjs-graphql-prisma/issues/28)
+
 ### [11.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.0...v11.4.1) (2021-05-09)
 
 
