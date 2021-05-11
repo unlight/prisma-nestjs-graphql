@@ -1,3 +1,10 @@
+### [11.4.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.2...v11.4.3) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Reget decorator full name ([9e279bf](https://github.com/unlight/nestjs-graphql-prisma/commit/9e279bfeb72ff7fbc752c6e7469427c0e5d86a50)), closes [#29](https://github.com/unlight/nestjs-graphql-prisma/issues/29)
+
 ### [11.4.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.1...v11.4.2) (2021-05-11)
 
 
