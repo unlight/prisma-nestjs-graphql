@@ -1,10 +1,12 @@
 import expect from 'expect';
+import { trim } from 'lodash';
 import {
     ClassDeclaration,
     EnumDeclarationStructure,
     ImportDeclarationStructure,
     ImportSpecifierStructure,
     Project,
+    PropertyDeclaration,
     PropertyDeclarationStructure,
     SourceFile,
 } from 'ts-morph';
@@ -1414,13 +1416,67 @@ describe('reexport option', () => {
     });
 });
 
+describe('emit single and decorators', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  id    Int    @id
+                  /// @Validator.MinLength(3)
+                  name String
+                  /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
+                  email String?
+                }
+                `,
+            options: [
+                `emitSingle = true`,
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_Validator_from = "class-validator"`,
+                `fields_Validator_input = true`,
+            ],
+        }));
+        setSourceFile('index.ts');
+    });
+
+    it('should contain custom decorator import', () => {
+        const importDeclaration = importDeclarations.find(
+            x => x.moduleSpecifier === 'graphql-type-email',
+        );
+        expect(importDeclaration).toEqual(
+            expect.objectContaining({
+                namespaceImport: 'G',
+            }),
+        );
+    });
+
+    it('validator namespace for name should be imported', () => {
+        expect(importDeclarations).toContainEqual(
+            expect.objectContaining({
+                namespaceImport: 'Validator',
+            }),
+        );
+    });
+
+    describe('user create input name', () => {
+        let property: PropertyDeclaration;
+        before(() => {
+            property = sourceFile.getClass('UserCreateInput')?.getProperty('name')!;
+        });
+
+        it('decorator validator', () => {
+            const d = property.getDecorator(d => d.getFullText().includes('MinLength'));
+            expect(trim(d?.getFullText())).toEqual('@Validator.MinLength(3)');
+        });
+    });
+
+    // it('^', () => console.log(sourceFile.getText()));
+});
+
 describe('emit single', () => {
     const schema = `
         model User {
           id    Int    @id
           posts Post[]
-          /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
-          email String?
         }
         model Post {
           id     Int   @id
@@ -1447,17 +1503,6 @@ describe('emit single', () => {
         it('should not contain relative import', () => {
             const badImport = imports.find(x => x.specifier.startsWith('.'));
             expect(badImport).toBeUndefined();
-        });
-
-        it('should contain custom decorator import', () => {
-            const importDeclaration = importDeclarations.find(
-                x => x.moduleSpecifier === 'graphql-type-email',
-            );
-            expect(importDeclaration).toEqual(
-                expect.objectContaining({
-                    namespaceImport: 'G',
-                }),
-            );
         });
 
         it('should contains class user', () => {

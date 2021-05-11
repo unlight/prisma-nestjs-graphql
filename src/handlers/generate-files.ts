@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import {
     ClassDeclarationStructure,
     ImportSpecifierStructure,
@@ -21,7 +22,36 @@ export function beforeGenerateFiles(args: EventArguments) {
             if (s === sourceFile) {
                 return [];
             }
+            const classDeclaration = s.getClass(() => true);
             const statements = s.getStructure().statements;
+            // Reget decorator full name
+            // TODO: Check possible bug of ts-morph
+            if (Array.isArray(statements)) {
+                for (const statement of statements) {
+                    if (
+                        !(
+                            typeof statement === 'object' &&
+                            statement.kind === StructureKind.Class
+                        )
+                    ) {
+                        continue;
+                    }
+                    for (const property of statement.properties || []) {
+                        for (const decorator of property.decorators || []) {
+                            const fullName = classDeclaration
+                                ?.getProperty(property.name)
+                                ?.getDecorator(decorator.name)
+                                ?.getFullName();
+                            ok(
+                                fullName,
+                                `Cannot get full name of decorator of class ${statement.name!}`,
+                            );
+                            decorator.name = fullName;
+                        }
+                    }
+                }
+            }
+
             project.removeSourceFile(s);
             return statements;
         });
