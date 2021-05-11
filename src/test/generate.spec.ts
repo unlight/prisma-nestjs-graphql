@@ -2,6 +2,7 @@ import expect from 'expect';
 import {
     ClassDeclaration,
     EnumDeclarationStructure,
+    ImportDeclarationStructure,
     Project,
     PropertyDeclarationStructure,
     SourceFile,
@@ -20,9 +21,9 @@ let sourceFile: SourceFile;
 let sourceText: string;
 let project: Project;
 let propertyStructure: PropertyDeclarationStructure;
-let imports: ReturnType<typeof getImportDeclarations>;
 let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
+let importDeclarations: ImportDeclarationStructure[] = [];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
@@ -37,6 +38,7 @@ const setSourceFile = (name: string) => {
     classFile = sourceFile.getClass(() => true)!;
     sourceText = sourceFile.getText();
     imports = getImportDeclarations(sourceFile);
+    importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
 };
 
 describe('model with one id int', () => {
@@ -1431,6 +1433,8 @@ describe('emit single', () => {
         model User {
           id    Int    @id
           posts Post[]
+          /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
+          email String?
         }
         model Post {
           id     Int   @id
@@ -1457,6 +1461,17 @@ describe('emit single', () => {
         it('should not contain relative import', () => {
             const badImport = imports.find(x => x.specifier.startsWith('.'));
             expect(badImport).toBeUndefined();
+        });
+
+        it('should contain custom decorator import', () => {
+            const importDeclaration = importDeclarations.find(
+                x => x.moduleSpecifier === 'graphql-type-email',
+            );
+            expect(importDeclaration).toEqual(
+                expect.objectContaining({
+                    namespaceImport: 'G',
+                }),
+            );
         });
 
         it('should contains class user', () => {

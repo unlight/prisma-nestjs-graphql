@@ -44,7 +44,22 @@ export function beforeGenerateFiles(args: EventArguments) {
                         continue;
                     }
                     for (const namedImport of statement.namedImports as ImportSpecifierStructure[]) {
-                        imports.add(namedImport.name, statement.moduleSpecifier);
+                        const name = namedImport.alias || namedImport.name;
+                        imports.add(name, statement.moduleSpecifier);
+                    }
+                    if (statement.defaultImport) {
+                        imports.create({
+                            from: statement.moduleSpecifier,
+                            name: statement.defaultImport,
+                            defaultImport: statement.defaultImport,
+                        });
+                    }
+                    if (statement.namespaceImport) {
+                        imports.create({
+                            from: statement.moduleSpecifier,
+                            name: statement.namespaceImport,
+                            namespaceImport: statement.namespaceImport,
+                        });
                     }
                     break;
                 case StructureKind.Enum:
