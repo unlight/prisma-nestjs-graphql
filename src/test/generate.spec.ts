@@ -3,24 +3,21 @@ import {
     ClassDeclaration,
     EnumDeclarationStructure,
     ImportDeclarationStructure,
+    ImportSpecifierStructure,
     Project,
     PropertyDeclarationStructure,
     SourceFile,
 } from 'ts-morph';
 
 import { EventArguments } from '../types';
-import {
-    getFieldOptions,
-    getFieldType,
-    getImportDeclarations,
-    getPropertyStructure,
-} from './helpers';
+import { getFieldOptions, getFieldType, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
 let sourceText: string;
 let project: Project;
 let propertyStructure: PropertyDeclarationStructure;
+let imports: { name: string; specifier: string }[];
 let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
 let importDeclarations: ImportDeclarationStructure[] = [];
@@ -37,8 +34,13 @@ const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
     classFile = sourceFile.getClass(() => true)!;
     sourceText = sourceFile.getText();
-    imports = getImportDeclarations(sourceFile);
     importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
+    imports = importDeclarations.flatMap(d =>
+        (d.namedImports as ImportSpecifierStructure[]).map(x => ({
+            name: x.name,
+            specifier: d.moduleSpecifier,
+        })),
+    );
 };
 
 describe('model with one id int', () => {
@@ -67,14 +69,14 @@ describe('model with one id int', () => {
         });
 
         it('should have import graphql type id', () => {
-            expect(getImportDeclarations(sourceFile)).toContainEqual({
+            expect(imports).toContainEqual({
                 name: 'ID',
                 specifier: '@nestjs/graphql',
             });
         });
 
         it('should have import field decorator', () => {
-            expect(getImportDeclarations(sourceFile)).toContainEqual({
+            expect(imports).toContainEqual({
                 name: 'Field',
                 specifier: '@nestjs/graphql',
             });
@@ -112,7 +114,7 @@ describe('model with one id int', () => {
         });
 
         it('has import objecttype', () => {
-            expect(getImportDeclarations(sourceFile)).toContainEqual({
+            expect(imports).toContainEqual({
                 name: 'ObjectType',
                 specifier: '@nestjs/graphql',
             });
@@ -132,7 +134,7 @@ describe('model with one id int', () => {
         });
 
         it('contains decorator ObjectType', () => {
-            expect(getImportDeclarations(sourceFile)).toContainEqual({
+            expect(imports).toContainEqual({
                 name: 'ObjectType',
                 specifier: '@nestjs/graphql',
             });
@@ -169,7 +171,7 @@ describe('model with one id int', () => {
         });
 
         it('should have import graphql type int', () => {
-            expect(getImportDeclarations(sourceFile)).toContainEqual({
+            expect(imports).toContainEqual({
                 name: 'Int',
                 specifier: '@nestjs/graphql',
             });
@@ -358,9 +360,7 @@ describe('one model with scalar types', () => {
 
     describe('user model', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user.model.ts'),
-            )!;
+            setSourceFile('user.model.ts');
         });
         describe('property types', () => {
             it('boolean', () => {
@@ -395,10 +395,6 @@ describe('one model with scalar types', () => {
         });
 
         describe('json type', () => {
-            before(() => {
-                imports = getImportDeclarations(sourceFile);
-            });
-
             it('should import graphqljson', () => {
                 expect(imports).toContainEqual({
                     name: 'GraphQLJSON',
@@ -444,10 +440,7 @@ describe('one model with scalar types', () => {
 
     describe('user where input', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-where.input.ts'),
-            )!;
-            imports = getImportDeclarations(sourceFile);
+            setSourceFile('user-where.input.ts');
         });
 
         it('number should have int filter', () => {
@@ -506,12 +499,10 @@ describe('one model with scalar types', () => {
         });
 
         it('valid imports', () => {
-            const sourceText = sourceFile.getText();
             expect(sourceText).not.toContain("import ';");
         });
 
         it('imports', () => {
-            const imports = getImportDeclarations(sourceFile);
             expect(imports).toContainEqual({
                 name: 'InputType',
                 specifier: '@nestjs/graphql',
@@ -694,11 +685,7 @@ describe('one model with id and enum', () => {
 
     describe('model', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user.model.ts'),
-            )!;
-            sourceText = sourceFile.getText();
-            imports = getImportDeclarations(sourceFile);
+            setSourceFile('user.model.ts');
         });
 
         // it('', () => console.log('sourceText', sourceText));
@@ -1271,7 +1258,6 @@ describe('hide field', () => {
             before(() => setSourceFile('/user.model.ts'));
 
             it('type should be imported', () => {
-                const imports = getImportDeclarations(sourceFile);
                 expect(imports).toContainEqual(
                     expect.objectContaining({ name: 'Secret' }),
                 );

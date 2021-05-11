@@ -1,14 +1,5 @@
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
-export function getImportDeclarations(sourceFile: SourceFile) {
-    return sourceFile.getImportDeclarations().flatMap(d =>
-        d.getNamedImports().map(index => ({
-            name: index.getName(),
-            specifier: d.getModuleSpecifierValue(),
-        })),
-    );
-}
-
 export function getFieldType(
     sourceFile: SourceFile,
     property: string | PropertyDeclaration,

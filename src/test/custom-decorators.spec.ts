@@ -2,22 +2,23 @@ import expect from 'expect';
 import {
     ClassDeclaration,
     ImportDeclarationStructure,
+    ImportSpecifierStructure,
     Project,
     PropertyDeclarationStructure,
     SourceFile,
 } from 'ts-morph';
 
-import { getFieldType, getImportDeclarations, getPropertyStructure } from './helpers';
+import { getFieldType, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
 let sourceText: string;
 let project: Project;
 let propertyStructure: PropertyDeclarationStructure;
-let imports: ReturnType<typeof getImportDeclarations>;
 let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
 let importDeclarations: ImportDeclarationStructure[] = [];
+let imports: { name: string; specifier: string }[];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
@@ -25,7 +26,13 @@ const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
     classFile = sourceFile.getClass(() => true)!;
     sourceText = sourceFile.getText();
-    imports = getImportDeclarations(sourceFile);
+    importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
+    imports = importDeclarations.flatMap(d =>
+        (d.namedImports as ImportSpecifierStructure[]).map(x => ({
+            name: x.name,
+            specifier: d.moduleSpecifier,
+        })),
+    );
 };
 
 describe('custom types', () => {
@@ -42,9 +49,7 @@ describe('custom types', () => {
                     `types_Decimal_fieldModule = "decimal.js"`,
                 ],
             }));
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('/user.model.ts'),
-            )!;
+            setSourceFile('/user.model.ts');
         });
 
         it('money property should have Dec type', () => {
@@ -53,7 +58,6 @@ describe('custom types', () => {
         });
 
         it('import should contain Dec', () => {
-            const imports = getImportDeclarations(sourceFile);
             expect(imports).toContainEqual({
                 name: 'Dec',
                 specifier: 'decimal.js',
