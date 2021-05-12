@@ -11,7 +11,6 @@ export class UserUncheckedCreateWithoutArticlesInput {
     id?: string;
 
     @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
-    @Validator.IsEmail()
     email!: string;
 
     @Field(() => String, { nullable: false })

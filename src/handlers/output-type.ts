@@ -63,6 +63,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const outputTypeName = getOutputTypeName(String(type));
         const settings = model && fieldSettings.get(model.name)?.get(field.name);
         const propertySettings = settings?.getPropertyType();
+        // const isCustomsApplicable =
+        //     outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
         // todo: remove
         const customType = config.types[outputTypeName];
 

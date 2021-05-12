@@ -8,7 +8,6 @@ export class UserWhereUniqueInput {
     id?: string;
 
     @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
-    @Validator.IsEmail()
     email?: string;
 
     @Field(() => String, { nullable: true })

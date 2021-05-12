@@ -19,12 +19,13 @@ generator nestgraphql {
   purgeOutput = false
   fields_Validator_from = "class-validator"
   fields_Validator_input = true
+  fields_Scalars_from = "graphql-scalars"
+  fields_Scalars_input = true
 }
 
 model User {
   id               String    @id @default(cuid())
-  /// @Validator.IsEmail()
-  /// @FieldType({ name: 'Scalars.GraphQLEmailAddress', from: 'graphql-scalars', input: true })
+  /// @FieldType('Scalars.GraphQLEmailAddress')
   email            String    @unique
   /// User's name
   /// @Validator.MinLength(3)
