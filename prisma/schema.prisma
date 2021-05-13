@@ -93,4 +93,5 @@ model Dummy {
   decimal Decimal?
   bigInt  BigInt?
   json    Json?
+  friends String[]
 }

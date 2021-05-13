@@ -12,7 +12,7 @@ import {
 } from 'ts-morph';
 
 import { EventArguments } from '../types';
-import { getFieldOptions, getFieldType, getPropertyStructure } from './helpers';
+import { getFieldOptions, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
@@ -67,7 +67,7 @@ describe('model with one id int', () => {
         });
 
         it('argument decorated id', () => {
-            expect(getFieldType(sourceFile, 'id')).toEqual('() => ID');
+            expect(t('id')).toEqual('() => ID');
         });
 
         it('should have import graphql type id', () => {
@@ -200,7 +200,7 @@ describe('model with one id int', () => {
         });
 
         it('field decorator returns IntFilter', () => {
-            const argument = getFieldType(sourceFile, 'id');
+            const argument = t('id');
             expect(argument).toEqual('() => IntFilter');
         });
 
@@ -280,7 +280,7 @@ describe('model with one id int', () => {
         });
 
         it('decorated field type should be boolean', () => {
-            const argument = getFieldType(sourceFile, 'id');
+            const argument = t('id');
             expect(argument).toEqual('() => Boolean');
         });
     });
@@ -405,7 +405,7 @@ describe('one model with scalar types', () => {
             });
 
             it('field decorator should return custom graphqljson type', () => {
-                expect(getFieldType(sourceFile, 'data')).toEqual('() => GraphQLJSON');
+                expect(t('data')).toEqual('() => GraphQLJSON');
             });
         });
     });
@@ -420,7 +420,7 @@ describe('one model with scalar types', () => {
         // it('^\n', () => console.log(sourceFile.getText()));
 
         it('equals field type Date', () => {
-            expect(getFieldType(sourceFile, 'equals')).toEqual('() => Date');
+            expect(t('equals')).toEqual('() => Date');
         });
 
         it('equals is optional', () => {
@@ -430,7 +430,7 @@ describe('one model with scalar types', () => {
         });
 
         it('not property should be object type', () => {
-            expect(getFieldType(sourceFile, 'not')).toContain('DateTimeFilter');
+            expect(t('not')).toContain('DateTimeFilter');
         });
 
         it('compatiblity datetime filter', () => {
@@ -451,7 +451,7 @@ describe('one model with scalar types', () => {
         });
 
         it('decorator argument int filter', () => {
-            const p = getFieldType(sourceFile, 'count');
+            const p = t('count');
             expect(p).toEqual('() => IntFilter');
         });
 
@@ -516,7 +516,7 @@ describe('one model with scalar types', () => {
         });
 
         it('id field type is string', () => {
-            const id = getFieldType(sourceFile, 'id');
+            const id = t('id');
             expect(id).toEqual('() => String');
         });
 
@@ -526,7 +526,7 @@ describe('one model with scalar types', () => {
         });
 
         it('data property (json)', () => {
-            expect(getFieldType(sourceFile, 'data')).toEqual('() => GraphQLJSON');
+            expect(t('data')).toEqual('() => GraphQLJSON');
         });
 
         it('native string should not be imported', () => {
@@ -551,10 +551,34 @@ describe('one model with scalar types', () => {
         });
 
         it('field type should be GraphQLJSON', () => {
-            expect(getFieldType(sourceFile, 'not')).toEqual('() => GraphQLJSON');
+            expect(t('not')).toEqual('() => GraphQLJSON');
         });
 
         // it('', () => console.log(sourceFile.getText()));
+    });
+});
+
+describe('scalar list type', () => {
+    describe('general', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+                id    Int   @id
+                permissions String[]
+            }`,
+            }));
+        });
+
+        it('smoke', () => {
+            expect(sourceFiles.length).toBeTruthy();
+        });
+
+        it('user create input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(p('permissions')?.type).toEqual('UserCreatepermissionsInput');
+            expect(t('permissions')).toEqual('() => UserCreatepermissionsInput');
+        });
     });
 });
 
@@ -605,7 +629,7 @@ describe('nullish compatibility', () => {
     // it('', () => console.log(sourceFile.getText()));
 });
 
-describe('one model with id and enum', () => {
+describe('one model with enum', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -617,6 +641,7 @@ describe('one model with id and enum', () => {
             model User {
                   id    Int   @id
                   role  Role
+                  permissions String[]
                 }`,
         }));
     });
@@ -954,6 +979,7 @@ describe('get rid of atomic number operations', () => {
               rating Float?
               money Decimal?
               born DateTime
+              friends String[]
             }
             `,
             options: [
@@ -982,7 +1008,7 @@ describe('get rid of atomic number operations', () => {
         });
 
         it('id field type should be string', () => {
-            expect(getFieldType(sourceFile, 'id')).toEqual('() => String');
+            expect(t('id')).toEqual('() => String');
         });
 
         it('age should be regular string', () => {
@@ -990,7 +1016,7 @@ describe('get rid of atomic number operations', () => {
         });
 
         it('age field type should be string', () => {
-            expect(getFieldType(sourceFile, 'age')).toEqual('() => Int');
+            expect(t('age')).toEqual('() => Int');
         });
 
         it('rating should be regular string', () => {
@@ -998,8 +1024,22 @@ describe('get rid of atomic number operations', () => {
         });
 
         it('rating field type should be string', () => {
-            expect(getFieldType(sourceFile, 'rating')).toEqual('() => Float');
+            expect(t('rating')).toEqual('() => Float');
         });
+
+        it('scalar array', () => {
+            expect(t('friends')).toEqual('() => UserUpdatefriendsInput');
+        });
+    });
+
+    describe('UserUpdatefriendsInput', () => {
+        before(() => {
+            setSourceFile('user-updatefriends.input.ts');
+        });
+
+        // it('', () => {
+        //     console.log(sourceText);
+        // });
     });
 
     describe('date field files', () => {

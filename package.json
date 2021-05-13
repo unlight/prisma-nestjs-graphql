@@ -62,7 +62,7 @@
     "@prisma/client": ">=2.16"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.2",
+    "@arkweid/lefthook": "0.7.2",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@nestjs/common": "^7.6.15",

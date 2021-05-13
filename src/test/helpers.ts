@@ -1,17 +1,5 @@
 import { PropertyDeclaration, SourceFile } from 'ts-morph';
 
-export function getFieldType(
-    sourceFile: SourceFile,
-    property: string | PropertyDeclaration,
-) {
-    let propertyDeclaration: PropertyDeclaration | undefined;
-    if (typeof property === 'string') {
-        propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
-    }
-    const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[0];
-    return result as string;
-}
-
 export function getFieldOptions(
     sourceFile: SourceFile,
     property: string | PropertyDeclaration,
@@ -23,17 +11,6 @@ export function getFieldOptions(
     const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
     return result as string;
     // return new Function(`return ${text}`)();
-}
-
-type GetStructuredArguments = {
-    sourceFile: SourceFile;
-    className: string;
-    property: string;
-};
-
-export function getStructure(args: GetStructuredArguments) {
-    const { sourceFile, className, property } = args;
-    return sourceFile.getClass(className)?.getProperty(property)?.getStructure();
 }
 
 export function getPropertyStructure(sourceFile: SourceFile, name: string) {

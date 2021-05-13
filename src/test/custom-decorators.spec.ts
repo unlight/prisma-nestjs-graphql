@@ -95,7 +95,7 @@ describe('custom types', () => {
         });
 
         it('decorator type should be array date', () => {
-            expect(getFieldType(sourceFile, 'in')).toEqual('() => [Date]');
+            expect(t('in')).toEqual('() => [Date]');
         });
     });
 
