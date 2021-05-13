@@ -59,7 +59,23 @@ export async function testGenerate(args: {
         const filePath = sourceFile.getFilePath();
         const text = sourceFile.getText();
         if (!text) {
-            throw `Project should not contain empty files: ${filePath}`;
+            let message = `Project should not contain empty files: ${filePath}`;
+            const fileLower = sourceFile
+                .getBaseNameWithoutExtension()
+                .replace(/-/g, '')
+                .split('.')[0];
+            const sources = sourceFiles.filter(s =>
+                s
+                    .getClass(() => true)
+                    ?.getProperties()
+                    .find(p =>
+                        String(p.getStructure().type).toLowerCase().includes(fileLower),
+                    ),
+            );
+            if (sources.length > 0) {
+                message += `, reference: ${sources.map(s => s.getBaseName())}`;
+            }
+            throw message;
         }
         const imports = sourceFile
             .getImportDeclarations()

@@ -53,15 +53,10 @@ function isScalarFilter(inputType: InputType) {
         return false;
     }
     let result = false;
-    // Check `not` field
-    // OPTIMIZE: Field not usually in the end of fields array
-    const notField = inputType.fields.find(f => f.name === 'not');
-    if (notField) {
-        result = notField.inputTypes.every(x => {
-            return (
-                String(x.type).includes(inputType.name) ||
-                ['enumTypes', 'scalar'].includes(x.location)
-            );
+    const equals = inputType.fields.find(f => f.name === 'equals');
+    if (equals) {
+        result = equals.inputTypes.every(x => {
+            return ['enumTypes', 'scalar'].includes(x.location);
         });
     }
     return result;

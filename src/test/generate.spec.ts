@@ -1113,47 +1113,35 @@ describe('combine scalar filters', () => {
 
     describe('user where input', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-where.input.ts'),
-            )!;
+            setSourceFile('user-where.input.ts');
         });
 
         it('count', () => {
-            expect(getPropertyStructure(sourceFile, 'count')?.type).toBe('IntFilter');
+            expect(p('count')?.type).toBe('IntFilter');
         });
 
         it('bio', () => {
-            expect(getPropertyStructure(sourceFile, 'bio')?.type).toBe('StringFilter');
+            expect(p('bio')?.type).toBe('StringFilter');
         });
 
         it('money', () => {
-            expect(getPropertyStructure(sourceFile, 'money')?.type).toBe(
-                'DecimalFilter',
-            );
+            expect(p('money')?.type).toBe('DecimalFilter');
         });
 
         it('rating', () => {
-            expect(getPropertyStructure(sourceFile, 'rating')?.type).toBe(
-                'FloatFilter',
-            );
+            expect(p('rating')?.type).toBe('FloatFilter');
         });
 
         it('born', () => {
-            expect(getPropertyStructure(sourceFile, 'born')?.type).toBe(
-                'DateTimeFilter',
-            );
+            expect(p('born')?.type).toBe('DateTimeFilter');
         });
 
         it('humanoid', () => {
-            expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toBe(
-                'BoolFilter',
-            );
+            expect(p('humanoid')?.type).toBe('BoolFilter');
         });
 
         it('role', () => {
-            expect(getPropertyStructure(sourceFile, 'role')?.type).toBe(
-                'EnumRoleFilter',
-            );
+            expect(p('role')?.type).toBe('EnumRoleFilter');
         });
 
         // it('^', () => console.log(sourceFile.getText()));
@@ -1161,66 +1149,68 @@ describe('combine scalar filters', () => {
 
     describe('user scalar where with aggregates', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-scalar-where-with-aggregates.input.ts'),
-            )!;
+            setSourceFile('user-scalar-where-with-aggregates.input.ts');
         });
 
         // it('^', () => console.log(sourceFile.getText()));
 
         it('id', () => {
-            expect(getPropertyStructure(sourceFile, 'id')?.type).toBe(
-                'StringWithAggregatesFilter',
-            );
+            expect(p('id')?.type).toBe('StringWithAggregatesFilter');
         });
 
         it('bio', () => {
-            expect(getPropertyStructure(sourceFile, 'bio')?.type).toBe(
-                'StringWithAggregatesFilter',
-            );
+            expect(p('bio')?.type).toBe('StringWithAggregatesFilter');
         });
 
         it('count', () => {
-            expect(getPropertyStructure(sourceFile, 'count')?.type).toBe(
-                'IntWithAggregatesFilter',
-            );
+            expect(p('count')?.type).toBe('IntWithAggregatesFilter');
         });
 
         it('rating', () => {
-            expect(getPropertyStructure(sourceFile, 'rating')?.type).toBe(
-                'FloatWithAggregatesFilter',
-            );
+            expect(p('rating')?.type).toBe('FloatWithAggregatesFilter');
         });
 
         it('born', () => {
-            expect(getPropertyStructure(sourceFile, 'born')?.type).toBe(
-                'DateTimeWithAggregatesFilter',
-            );
+            expect(p('born')?.type).toBe('DateTimeWithAggregatesFilter');
         });
 
         it('humanoid', () => {
-            expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toBe(
-                'BoolWithAggregatesFilter',
-            );
+            expect(p('humanoid')?.type).toBe('BoolWithAggregatesFilter');
         });
 
         it('money', () => {
-            expect(getPropertyStructure(sourceFile, 'money')?.type).toBe(
-                'DecimalWithAggregatesFilter',
-            );
+            expect(p('money')?.type).toBe('DecimalWithAggregatesFilter');
         });
 
         it('data', () => {
-            expect(getPropertyStructure(sourceFile, 'data')?.type).toBe(
-                'JsonWithAggregatesFilter',
-            );
+            expect(p('data')?.type).toBe('JsonWithAggregatesFilter');
         });
 
         it('role', () => {
-            expect(getPropertyStructure(sourceFile, 'role')?.type).toBe(
-                'EnumRoleWithAggregatesFilter',
-            );
+            expect(p('role')?.type).toBe('EnumRoleWithAggregatesFilter');
         });
+    });
+});
+
+describe('combine scalar filters on array', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id String @id
+                str String[]
+                int Int?
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `combineScalarFilters = true`,
+            ],
+        }));
+    });
+
+    it('smoke', () => {
+        'no errors';
     });
 });
 
