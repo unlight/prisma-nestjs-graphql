@@ -30,5 +30,8 @@ export class DummyCountAggregateInput {
     json?: true;
 
     @Field(() => Boolean, { nullable: true })
+    friends?: true;
+
+    @Field(() => Boolean, { nullable: true })
     _all?: true;
 }

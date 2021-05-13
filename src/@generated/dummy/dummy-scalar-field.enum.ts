@@ -10,6 +10,7 @@ export enum DummyScalarFieldEnum {
     decimal = 'decimal',
     bigInt = 'bigInt',
     json = 'json',
+    friends = 'friends',
 }
 
 registerEnumType(DummyScalarFieldEnum, { name: 'DummyScalarFieldEnum' });

@@ -30,4 +30,7 @@ export class Dummy {
 
     @Field(() => GraphQLJSON, { nullable: true })
     json!: any | null;
+
+    @Field(() => [String], { nullable: true })
+    friends!: Array<string>;
 }

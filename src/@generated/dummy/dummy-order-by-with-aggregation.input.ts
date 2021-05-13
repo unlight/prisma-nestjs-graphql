@@ -36,6 +36,9 @@ export class DummyOrderByWithAggregationInput {
     @Field(() => SortOrder, { nullable: true })
     json?: SortOrder;
 
+    @Field(() => SortOrder, { nullable: true })
+    friends?: SortOrder;
+
     @Field(() => DummyCountOrderByAggregateInput, { nullable: true })
     _count?: DummyCountOrderByAggregateInput;
 

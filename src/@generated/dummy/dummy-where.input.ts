@@ -9,6 +9,7 @@ import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
+import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
 
 @InputType()
 export class DummyWhereInput {
@@ -47,4 +48,7 @@ export class DummyWhereInput {
 
     @Field(() => JsonNullableFilter, { nullable: true })
     json?: JsonNullableFilter;
+
+    @Field(() => StringNullableListFilter, { nullable: true })
+    friends?: StringNullableListFilter;
 }

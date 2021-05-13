@@ -2,6 +2,8 @@ import { Field, Float, InputType, Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
+import { DummyCreateManyfriendsInput } from './dummy-create-manyfriends.input';
+
 @InputType()
 export class DummyCreateManyInput {
     @Field(() => String, { nullable: false })
@@ -30,4 +32,7 @@ export class DummyCreateManyInput {
 
     @Field(() => GraphQLJSON, { nullable: true })
     json?: any;
+
+    @Field(() => DummyCreateManyfriendsInput, { nullable: true })
+    friends?: DummyCreateManyfriendsInput;
 }

@@ -37,6 +37,9 @@ export class DummyGroupBy {
     @Field(() => GraphQLJSON, { nullable: true })
     json?: any;
 
+    @Field(() => [String], { nullable: true })
+    friends?: Array<string>;
+
     @Field(() => DummyCountAggregate, { nullable: true })
     count?: DummyCountAggregate;
 

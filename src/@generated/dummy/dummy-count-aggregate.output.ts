@@ -30,5 +30,8 @@ export class DummyCountAggregate {
     json!: number;
 
     @Field(() => Int, { nullable: false })
+    friends!: number;
+
+    @Field(() => Int, { nullable: false })
     _all!: number;
 }

@@ -22,14 +22,8 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-    const {
-        getSourceFile,
-        models,
-        config,
-        modelFields,
-        fieldSettings,
-        eventEmitter,
-    } = args;
+    const { getSourceFile, models, config, modelFields, fieldSettings, eventEmitter } =
+        args;
     const model = models.get(outputType.name);
     ok(model, `Cannot find model by name ${outputType.name}`);
     const sourceFile = getSourceFile({
@@ -41,8 +35,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         sourceFileStructure.statements as StatementStructures[],
         s => s.kind === StructureKind.ImportDeclaration,
     ).flatMap(s => {
-        return ((s as ImportDeclarationStructure)
-            .namedImports as OptionalKind<ImportSpecifierStructure>[]).map(x => [
+        return (
+            (s as ImportDeclarationStructure)
+                .namedImports as OptionalKind<ImportSpecifierStructure>[]
+        ).map(x => [
             x.name || x.alias,
             {
                 moduleSpecifier: (s as ImportDeclarationStructure).moduleSpecifier,
@@ -215,16 +211,16 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
-    const hasExportDeclaration = (sourceFileStructure.statements as StatementStructures[]).some(
-        structure => {
-            return (
-                structure.kind === StructureKind.ExportDeclaration &&
-                (structure.namedExports as ExportSpecifierStructure[]).some(
-                    o => (o.alias || o.name) === model.name,
-                )
-            );
-        },
-    );
+    const hasExportDeclaration = (
+        sourceFileStructure.statements as StatementStructures[]
+    ).some(structure => {
+        return (
+            structure.kind === StructureKind.ExportDeclaration &&
+            (structure.namedExports as ExportSpecifierStructure[]).some(
+                o => (o.alias || o.name) === model.name,
+            )
+        );
+    });
 
     // Check re-export, comment generated class if found
     if (hasExportDeclaration) {
