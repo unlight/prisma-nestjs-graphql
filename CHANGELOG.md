@@ -1,3 +1,11 @@
+### [11.4.5](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.4...v11.4.5) (2021-05-13)
+
+
+### Bug Fixes
+
+* Combine scalar filters on nullable list ([8f306e8](https://github.com/unlight/nestjs-graphql-prisma/commit/8f306e8c43fc557a9d58c6ae14a9787167cc2131))
+* Get graphql type for scalar list ([97a1ae4](https://github.com/unlight/nestjs-graphql-prisma/commit/97a1ae482edaff8ed873c65ab4f0ccb2ce1c51c5)), closes [#30](https://github.com/unlight/nestjs-graphql-prisma/issues/30)
+
 ### [11.4.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.3...v11.4.4) (2021-05-11)
 
 
