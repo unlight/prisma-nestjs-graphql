@@ -8,7 +8,7 @@ import {
     SourceFile,
 } from 'ts-morph';
 
-import { getFieldType, getPropertyStructure } from './helpers';
+import { getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;

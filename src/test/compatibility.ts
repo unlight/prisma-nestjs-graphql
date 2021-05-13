@@ -193,6 +193,7 @@ const $prisma = new PrismaClient();
         decimal: '0.1',
         bigInt: BigInt('1'),
         json: {},
+        friends: [],
     };
     let p: P.Dummy = {
         id: '',
@@ -205,6 +206,7 @@ const $prisma = new PrismaClient();
         decimal: new Prisma.Decimal(0),
         bigInt: BigInt('1'),
         json: {},
+        friends: [],
     };
     p = x;
 }
