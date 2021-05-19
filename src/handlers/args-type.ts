@@ -10,23 +10,33 @@ export function argsType(field: SchemaField, args: EventArguments) {
         return;
     }
     const { eventEmitter, typeNames, getModelName } = args;
-    const className = pascalCase(`${field.name}Args`);
+    let className = pascalCase(`${field.name}Args`);
     const modelName = getModelName(className) || '';
+
+    switch (className) {
+        case `Aggregate${modelName}Args`:
+            className = `${modelName}AggregateArgs`;
+            break;
+        case `GroupBy${modelName}Args`:
+            className = `${modelName}GroupByArgs`;
+            break;
+    }
+
     const inputType: InputType = {
         // eslint-disable-next-line unicorn/no-null
         constraints: { maxNumFields: null, minNumFields: null },
         name: className,
-        fields: field.args,
+        fields: [...field.args],
     };
+
+    // console.dir(field, { depth: 4 });
 
     if (
         !field.args.some(x => x.name === '_count') &&
-        [`Aggregate${modelName}Args`, `GroupBy${modelName}Args`].includes(
-            inputType.name,
-        )
+        [`${modelName}AggregateArgs`, `${modelName}GroupByArgs`].includes(className)
     ) {
         const names = ['Count', 'Avg', 'Sum', 'Min', 'Max'];
-        if (`GroupBy${modelName}Args` === inputType.name) {
+        if (`${modelName}GroupByArgs` === inputType.name) {
             // Make `by` property array only, noEnumerable
             const byField = inputType.fields.find(f => f.name === 'by');
             if (byField?.inputTypes) {

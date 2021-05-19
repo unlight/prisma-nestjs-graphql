@@ -9,13 +9,13 @@ import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
 import { FloatFilter } from '../@generated/prisma/float-filter.input';
 import { IntFilter } from '../@generated/prisma/int-filter.input';
 import { StringFilter } from '../@generated/prisma/string-filter.input';
-import { AggregateUserArgs } from '../@generated/user/aggregate-user.args';
+import { UserAggregateArgs } from '../@generated/prisma/user-aggregate.args';
 import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
-import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
 import { User } from '../@generated/user/user.model';
 import { UserCreateInput } from '../@generated/user/user-create.input';
 import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
 import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
+import { UserGroupByArgs } from '../@generated/user/user-group-by.args';
 import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
 import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
 import { UserWhereInput } from '../@generated/user/user-where.input';
@@ -100,12 +100,12 @@ const $prisma = new PrismaClient();
     });
 }
 {
-    const x: AggregateUserArgs = {};
+    const x: UserAggregateArgs = {};
     let p: Prisma.UserAggregateArgs = {};
     p = x;
 }
 {
-    const x: GroupByUserArgs = {
+    const x: UserGroupByArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
     let p: Prisma.UserGroupByArgs = {
@@ -209,4 +209,14 @@ const $prisma = new PrismaClient();
         friends: [],
     };
     p = x;
+}
+{
+    const x: UserGroupByArgs = {
+        by: ['id'] as UserScalarFieldEnum[],
+    };
+    let p: Prisma.UserGroupByArgs = {
+        by: ['id'] as UserScalarFieldEnum[],
+    };
+    p = x;
+    // $prisma.user.groupBy(x);
 }

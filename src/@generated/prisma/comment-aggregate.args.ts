@@ -1,14 +1,14 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { CommentCountAggregateInput } from './comment-count-aggregate.input';
-import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
-import { CommentMinAggregateInput } from './comment-min-aggregate.input';
-import { CommentOrderByWithRelationInput } from './comment-order-by-with-relation.input';
-import { CommentWhereInput } from './comment-where.input';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
+import { CommentCountAggregateInput } from '../comment/comment-count-aggregate.input';
+import { CommentMaxAggregateInput } from '../comment/comment-max-aggregate.input';
+import { CommentMinAggregateInput } from '../comment/comment-min-aggregate.input';
+import { CommentOrderByWithRelationInput } from '../comment/comment-order-by-with-relation.input';
+import { CommentWhereInput } from '../comment/comment-where.input';
+import { CommentWhereUniqueInput } from '../comment/comment-where-unique.input';
 
 @ArgsType()
-export class AggregateCommentArgs {
+export class CommentAggregateArgs {
     @Field(() => CommentWhereInput, { nullable: true })
     where?: CommentWhereInput;
 

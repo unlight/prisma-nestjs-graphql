@@ -11,7 +11,7 @@ import { DummySumAggregateInput } from './dummy-sum-aggregate.input';
 import { DummyWhereInput } from './dummy-where.input';
 
 @ArgsType()
-export class GroupByDummyArgs {
+export class DummyGroupByArgs {
     @Field(() => DummyWhereInput, { nullable: true })
     where?: DummyWhereInput;
 

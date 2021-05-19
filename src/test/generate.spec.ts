@@ -218,7 +218,7 @@ describe('model with one id int', () => {
 
     describe('aggregate user args', () => {
         before(() => {
-            setSourceFile('aggregate-user.args.ts');
+            setSourceFile('user-aggregate.args.ts');
             classFile = sourceFile.getClass(() => true)!;
         });
 
@@ -275,6 +275,16 @@ describe('model with one id int', () => {
             const argument = t('id');
             expect(argument).toEqual('() => Boolean');
         });
+    });
+
+    it('rename to user-group-by args', () => {
+        setSourceFile('user-group-by.args.ts');
+        expect(sourceFile.getClass(() => true)?.getName()).toEqual('UserGroupByArgs');
+    });
+
+    it('rename to user aggregateargs', () => {
+        setSourceFile('user-aggregate.args.ts');
+        expect(sourceFile.getClass(() => true)?.getName()).toEqual('UserAggregateArgs');
     });
 });
 

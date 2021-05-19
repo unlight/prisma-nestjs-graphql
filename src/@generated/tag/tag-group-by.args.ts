@@ -3,20 +3,24 @@ import { ArgsType, Field, Int } from '@nestjs/graphql';
 import { TagCountAggregateInput } from './tag-count-aggregate.input';
 import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 import { TagMinAggregateInput } from './tag-min-aggregate.input';
-import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input';
+import { TagOrderByWithAggregationInput } from './tag-order-by-with-aggregation.input';
+import { TagScalarFieldEnum } from './tag-scalar-field.enum';
+import { TagScalarWhereWithAggregatesInput } from './tag-scalar-where-with-aggregates.input';
 import { TagWhereInput } from './tag-where.input';
-import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
-export class AggregateTagArgs {
+export class TagGroupByArgs {
     @Field(() => TagWhereInput, { nullable: true })
     where?: TagWhereInput;
 
-    @Field(() => [TagOrderByWithRelationInput], { nullable: true })
-    orderBy?: Array<TagOrderByWithRelationInput>;
+    @Field(() => [TagOrderByWithAggregationInput], { nullable: true })
+    orderBy?: Array<TagOrderByWithAggregationInput>;
 
-    @Field(() => TagWhereUniqueInput, { nullable: true })
-    cursor?: TagWhereUniqueInput;
+    @Field(() => [TagScalarFieldEnum], { nullable: false })
+    by!: Array<TagScalarFieldEnum>;
+
+    @Field(() => TagScalarWhereWithAggregatesInput, { nullable: true })
+    having?: TagScalarWhereWithAggregatesInput;
 
     @Field(() => Int, { nullable: true })
     take?: number;

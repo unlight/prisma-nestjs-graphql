@@ -11,7 +11,7 @@ import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
 import { ArticleWhereInput } from './article-where.input';
 
 @ArgsType()
-export class GroupByArticleArgs {
+export class ArticleGroupByArgs {
     @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 

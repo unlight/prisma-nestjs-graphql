@@ -11,7 +11,7 @@ import { UserSumAggregateInput } from './user-sum-aggregate.input';
 import { UserWhereInput } from './user-where.input';
 
 @ArgsType()
-export class GroupByUserArgs {
+export class UserGroupByArgs {
     @Field(() => UserWhereInput, { nullable: true })
     where?: UserWhereInput;
 

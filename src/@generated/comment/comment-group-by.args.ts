@@ -9,7 +9,7 @@ import { CommentScalarWhereWithAggregatesInput } from './comment-scalar-where-wi
 import { CommentWhereInput } from './comment-where.input';
 
 @ArgsType()
-export class GroupByCommentArgs {
+export class CommentGroupByArgs {
     @Field(() => CommentWhereInput, { nullable: true })
     where?: CommentWhereInput;
 

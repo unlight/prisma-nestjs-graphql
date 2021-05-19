@@ -3,7 +3,7 @@ import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { AggregateUserArgs } from '../../@generated/user/aggregate-user.args';
+import { UserAggregateArgs } from '../../@generated/prisma/user-aggregate.args';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
 import { User } from '../../@generated/user/user.model';
 import { UserCreateInput } from '../../@generated/user/user-create.input';
@@ -65,7 +65,7 @@ export class UserResolver {
     }
 
     @Query(() => AggregateUser)
-    userAggregate(@Args() args: AggregateUserArgs) {
+    userAggregate(@Args() args: UserAggregateArgs) {
         return prisma.user.aggregate(args);
     }
 }
