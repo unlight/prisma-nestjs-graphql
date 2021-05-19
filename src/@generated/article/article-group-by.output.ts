@@ -39,17 +39,17 @@ export class ArticleGroupBy {
     active?: boolean;
 
     @Field(() => ArticleCountAggregate, { nullable: true })
-    count?: ArticleCountAggregate;
+    _count?: ArticleCountAggregate;
 
     @Field(() => ArticleAvgAggregate, { nullable: true })
-    avg?: ArticleAvgAggregate;
+    _avg?: ArticleAvgAggregate;
 
     @Field(() => ArticleSumAggregate, { nullable: true })
-    sum?: ArticleSumAggregate;
+    _sum?: ArticleSumAggregate;
 
     @Field(() => ArticleMinAggregate, { nullable: true })
-    min?: ArticleMinAggregate;
+    _min?: ArticleMinAggregate;
 
     @Field(() => ArticleMaxAggregate, { nullable: true })
-    max?: ArticleMaxAggregate;
+    _max?: ArticleMaxAggregate;
 }

@@ -14,10 +14,16 @@ export class BoolNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedBoolNullableFilter, { nullable: true })
     min?: NestedBoolNullableFilter;
-
     @Field(() => NestedBoolNullableFilter, { nullable: true })
     max?: NestedBoolNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedBoolNullableFilter, { nullable: true })
+    _min?: NestedBoolNullableFilter;
+
+    @Field(() => NestedBoolNullableFilter, { nullable: true })
+    _max?: NestedBoolNullableFilter;
 }

@@ -8,10 +8,16 @@ import { CommentMinAggregate } from './comment-min-aggregate.output';
 export class AggregateComment {
     @Field(() => CommentCountAggregate, { nullable: true })
     count?: CommentCountAggregate;
-
     @Field(() => CommentMinAggregate, { nullable: true })
     min?: CommentMinAggregate;
-
     @Field(() => CommentMaxAggregate, { nullable: true })
     max?: CommentMaxAggregate;
+    @Field(() => CommentCountAggregate, { nullable: true })
+    _count?: CommentCountAggregate;
+
+    @Field(() => CommentMinAggregate, { nullable: true })
+    _min?: CommentMinAggregate;
+
+    @Field(() => CommentMaxAggregate, { nullable: true })
+    _max?: CommentMaxAggregate;
 }

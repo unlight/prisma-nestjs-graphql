@@ -14,10 +14,16 @@ export class BytesNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedBytesNullableFilter, { nullable: true })
     min?: NestedBytesNullableFilter;
-
     @Field(() => NestedBytesNullableFilter, { nullable: true })
     max?: NestedBytesNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedBytesNullableFilter, { nullable: true })
+    _min?: NestedBytesNullableFilter;
+
+    @Field(() => NestedBytesNullableFilter, { nullable: true })
+    _max?: NestedBytesNullableFilter;
 }

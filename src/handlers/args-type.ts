@@ -2,7 +2,7 @@ import { pascalCase } from '../helpers/pascal-case';
 import { EventArguments, InputType, SchemaField } from '../types';
 
 /**
- * See prisma client/src/generation/TSClient.ts @ getAggregationTypes
+ * See https://github.com/prisma/prisma/blob/master/src/packages/client/src/generation/TSClient/Model.ts@getAggregationTypes
  * Subcribes on: 'ArgsType'
  */
 export function argsType(field: SchemaField, args: EventArguments) {

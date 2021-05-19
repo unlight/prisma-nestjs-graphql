@@ -45,10 +45,16 @@ export class StringWithAggregatesFilter {
 
     @Field(() => NestedIntFilter, { nullable: true })
     count?: NestedIntFilter;
-
     @Field(() => NestedStringFilter, { nullable: true })
     min?: NestedStringFilter;
-
     @Field(() => NestedStringFilter, { nullable: true })
     max?: NestedStringFilter;
+    @Field(() => NestedIntFilter, { nullable: true })
+    _count?: NestedIntFilter;
+
+    @Field(() => NestedStringFilter, { nullable: true })
+    _min?: NestedStringFilter;
+
+    @Field(() => NestedStringFilter, { nullable: true })
+    _max?: NestedStringFilter;
 }

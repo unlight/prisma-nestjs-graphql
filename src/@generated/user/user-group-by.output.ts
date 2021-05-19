@@ -37,17 +37,17 @@ export class UserGroupBy {
     role?: Role;
 
     @Field(() => UserCountAggregate, { nullable: true })
-    count?: UserCountAggregate;
+    _count?: UserCountAggregate;
 
     @Field(() => UserAvgAggregate, { nullable: true })
-    avg?: UserAvgAggregate;
+    _avg?: UserAvgAggregate;
 
     @Field(() => UserSumAggregate, { nullable: true })
-    sum?: UserSumAggregate;
+    _sum?: UserSumAggregate;
 
     @Field(() => UserMinAggregate, { nullable: true })
-    min?: UserMinAggregate;
+    _min?: UserMinAggregate;
 
     @Field(() => UserMaxAggregate, { nullable: true })
-    max?: UserMaxAggregate;
+    _max?: UserMaxAggregate;
 }

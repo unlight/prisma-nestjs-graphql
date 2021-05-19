@@ -32,10 +32,16 @@ export class DateTimeWithAggregatesFilter {
 
     @Field(() => NestedIntFilter, { nullable: true })
     count?: NestedIntFilter;
-
     @Field(() => NestedDateTimeFilter, { nullable: true })
     min?: NestedDateTimeFilter;
-
     @Field(() => NestedDateTimeFilter, { nullable: true })
     max?: NestedDateTimeFilter;
+    @Field(() => NestedIntFilter, { nullable: true })
+    _count?: NestedIntFilter;
+
+    @Field(() => NestedDateTimeFilter, { nullable: true })
+    _min?: NestedDateTimeFilter;
+
+    @Field(() => NestedDateTimeFilter, { nullable: true })
+    _max?: NestedDateTimeFilter;
 }

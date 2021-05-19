@@ -32,16 +32,26 @@ export class IntWithAggregatesFilter {
 
     @Field(() => NestedIntFilter, { nullable: true })
     count?: NestedIntFilter;
-
     @Field(() => NestedFloatFilter, { nullable: true })
     avg?: NestedFloatFilter;
-
     @Field(() => NestedIntFilter, { nullable: true })
     sum?: NestedIntFilter;
-
     @Field(() => NestedIntFilter, { nullable: true })
     min?: NestedIntFilter;
-
     @Field(() => NestedIntFilter, { nullable: true })
     max?: NestedIntFilter;
+    @Field(() => NestedIntFilter, { nullable: true })
+    _count?: NestedIntFilter;
+
+    @Field(() => NestedFloatFilter, { nullable: true })
+    _avg?: NestedFloatFilter;
+
+    @Field(() => NestedIntFilter, { nullable: true })
+    _sum?: NestedIntFilter;
+
+    @Field(() => NestedIntFilter, { nullable: true })
+    _min?: NestedIntFilter;
+
+    @Field(() => NestedIntFilter, { nullable: true })
+    _max?: NestedIntFilter;
 }

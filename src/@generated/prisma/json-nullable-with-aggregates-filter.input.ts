@@ -14,10 +14,16 @@ export class JsonNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedJsonNullableFilter, { nullable: true })
     min?: NestedJsonNullableFilter;
-
     @Field(() => NestedJsonNullableFilter, { nullable: true })
     max?: NestedJsonNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedJsonNullableFilter, { nullable: true })
+    _min?: NestedJsonNullableFilter;
+
+    @Field(() => NestedJsonNullableFilter, { nullable: true })
+    _max?: NestedJsonNullableFilter;
 }

@@ -25,11 +25,11 @@ export class CommentGroupBy {
     articleId?: string;
 
     @Field(() => CommentCountAggregate, { nullable: true })
-    count?: CommentCountAggregate;
+    _count?: CommentCountAggregate;
 
     @Field(() => CommentMinAggregate, { nullable: true })
-    min?: CommentMinAggregate;
+    _min?: CommentMinAggregate;
 
     @Field(() => CommentMaxAggregate, { nullable: true })
-    max?: CommentMaxAggregate;
+    _max?: CommentMaxAggregate;
 }

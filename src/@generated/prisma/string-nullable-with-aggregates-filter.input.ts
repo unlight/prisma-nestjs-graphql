@@ -45,10 +45,16 @@ export class StringNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedStringNullableFilter, { nullable: true })
     min?: NestedStringNullableFilter;
-
     @Field(() => NestedStringNullableFilter, { nullable: true })
     max?: NestedStringNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedStringNullableFilter, { nullable: true })
+    _min?: NestedStringNullableFilter;
+
+    @Field(() => NestedStringNullableFilter, { nullable: true })
+    _max?: NestedStringNullableFilter;
 }

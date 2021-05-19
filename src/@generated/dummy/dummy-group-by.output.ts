@@ -41,17 +41,17 @@ export class DummyGroupBy {
     friends?: Array<string>;
 
     @Field(() => DummyCountAggregate, { nullable: true })
-    count?: DummyCountAggregate;
+    _count?: DummyCountAggregate;
 
     @Field(() => DummyAvgAggregate, { nullable: true })
-    avg?: DummyAvgAggregate;
+    _avg?: DummyAvgAggregate;
 
     @Field(() => DummySumAggregate, { nullable: true })
-    sum?: DummySumAggregate;
+    _sum?: DummySumAggregate;
 
     @Field(() => DummyMinAggregate, { nullable: true })
-    min?: DummyMinAggregate;
+    _min?: DummyMinAggregate;
 
     @Field(() => DummyMaxAggregate, { nullable: true })
-    max?: DummyMaxAggregate;
+    _max?: DummyMaxAggregate;
 }

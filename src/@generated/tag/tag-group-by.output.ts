@@ -13,11 +13,11 @@ export class TagGroupBy {
     name!: string;
 
     @Field(() => TagCountAggregate, { nullable: true })
-    count?: TagCountAggregate;
+    _count?: TagCountAggregate;
 
     @Field(() => TagMinAggregate, { nullable: true })
-    min?: TagMinAggregate;
+    _min?: TagMinAggregate;
 
     @Field(() => TagMaxAggregate, { nullable: true })
-    max?: TagMaxAggregate;
+    _max?: TagMaxAggregate;
 }

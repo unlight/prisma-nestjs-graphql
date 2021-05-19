@@ -32,16 +32,26 @@ export class FloatNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedFloatNullableFilter, { nullable: true })
     avg?: NestedFloatNullableFilter;
-
     @Field(() => NestedFloatNullableFilter, { nullable: true })
     sum?: NestedFloatNullableFilter;
-
     @Field(() => NestedFloatNullableFilter, { nullable: true })
     min?: NestedFloatNullableFilter;
-
     @Field(() => NestedFloatNullableFilter, { nullable: true })
     max?: NestedFloatNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedFloatNullableFilter, { nullable: true })
+    _avg?: NestedFloatNullableFilter;
+
+    @Field(() => NestedFloatNullableFilter, { nullable: true })
+    _sum?: NestedFloatNullableFilter;
+
+    @Field(() => NestedFloatNullableFilter, { nullable: true })
+    _min?: NestedFloatNullableFilter;
+
+    @Field(() => NestedFloatNullableFilter, { nullable: true })
+    _max?: NestedFloatNullableFilter;
 }

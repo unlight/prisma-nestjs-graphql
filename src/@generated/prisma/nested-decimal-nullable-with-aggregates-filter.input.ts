@@ -32,16 +32,26 @@ export class NestedDecimalNullableWithAggregatesFilter {
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
     count?: NestedIntNullableFilter;
-
     @Field(() => NestedDecimalNullableFilter, { nullable: true })
     avg?: NestedDecimalNullableFilter;
-
     @Field(() => NestedDecimalNullableFilter, { nullable: true })
     sum?: NestedDecimalNullableFilter;
-
     @Field(() => NestedDecimalNullableFilter, { nullable: true })
     min?: NestedDecimalNullableFilter;
-
     @Field(() => NestedDecimalNullableFilter, { nullable: true })
     max?: NestedDecimalNullableFilter;
+    @Field(() => NestedIntNullableFilter, { nullable: true })
+    _count?: NestedIntNullableFilter;
+
+    @Field(() => NestedDecimalNullableFilter, { nullable: true })
+    _avg?: NestedDecimalNullableFilter;
+
+    @Field(() => NestedDecimalNullableFilter, { nullable: true })
+    _sum?: NestedDecimalNullableFilter;
+
+    @Field(() => NestedDecimalNullableFilter, { nullable: true })
+    _min?: NestedDecimalNullableFilter;
+
+    @Field(() => NestedDecimalNullableFilter, { nullable: true })
+    _max?: NestedDecimalNullableFilter;
 }
