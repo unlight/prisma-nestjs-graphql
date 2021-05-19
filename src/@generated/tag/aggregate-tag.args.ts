@@ -25,11 +25,11 @@ export class AggregateTagArgs {
     skip?: number;
 
     @Field(() => TagCountAggregateInput, { nullable: true })
-    count?: TagCountAggregateInput;
+    _count?: TagCountAggregateInput;
 
     @Field(() => TagMinAggregateInput, { nullable: true })
-    min?: TagMinAggregateInput;
+    _min?: TagMinAggregateInput;
 
     @Field(() => TagMaxAggregateInput, { nullable: true })
-    max?: TagMaxAggregateInput;
+    _max?: TagMaxAggregateInput;
 }

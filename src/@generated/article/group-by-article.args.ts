@@ -31,17 +31,17 @@ export class GroupByArticleArgs {
     skip?: number;
 
     @Field(() => ArticleCountAggregateInput, { nullable: true })
-    count?: ArticleCountAggregateInput;
+    _count?: ArticleCountAggregateInput;
 
     @Field(() => ArticleAvgAggregateInput, { nullable: true })
-    avg?: ArticleAvgAggregateInput;
+    _avg?: ArticleAvgAggregateInput;
 
     @Field(() => ArticleSumAggregateInput, { nullable: true })
-    sum?: ArticleSumAggregateInput;
+    _sum?: ArticleSumAggregateInput;
 
     @Field(() => ArticleMinAggregateInput, { nullable: true })
-    min?: ArticleMinAggregateInput;
+    _min?: ArticleMinAggregateInput;
 
     @Field(() => ArticleMaxAggregateInput, { nullable: true })
-    max?: ArticleMaxAggregateInput;
+    _max?: ArticleMaxAggregateInput;
 }

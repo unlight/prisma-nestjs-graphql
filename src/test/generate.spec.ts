@@ -218,9 +218,7 @@ describe('model with one id int', () => {
 
     describe('aggregate user args', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('aggregate-user.args.ts'),
-            )!;
+            setSourceFile('aggregate-user.args.ts');
             classFile = sourceFile.getClass(() => true)!;
         });
 
@@ -240,32 +238,26 @@ describe('model with one id int', () => {
         });
 
         it('count', () => {
-            const count = getPropertyStructure(sourceFile, 'count');
-            expect(count?.type).toEqual('UserCountAggregateInput');
+            expect(p('_count')?.type).toEqual('UserCountAggregateInput');
         });
 
         it('sum', () => {
-            const sum = getPropertyStructure(sourceFile, 'sum');
-            expect(sum?.type).toEqual('UserSumAggregateInput');
+            expect(p('_sum')?.type).toEqual('UserSumAggregateInput');
         });
 
         it('min', () => {
-            const min = getPropertyStructure(sourceFile, 'min');
-            expect(min?.type).toEqual('UserMinAggregateInput');
+            expect(p('_min')?.type).toEqual('UserMinAggregateInput');
         });
 
         it('max', () => {
-            const max = getPropertyStructure(sourceFile, 'max');
-            expect(max?.type).toEqual('UserMaxAggregateInput');
+            expect(p('_max')?.type).toEqual('UserMaxAggregateInput');
         });
     });
 
     describe('user count aggregate input', () => {
         let id: PropertyDeclarationStructure;
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-count-aggregate.input.ts'),
-            )!;
+            setSourceFile('user-count-aggregate.input.ts');
             id = getPropertyStructure(sourceFile, 'id')!;
         });
 

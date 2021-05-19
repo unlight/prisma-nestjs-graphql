@@ -31,17 +31,17 @@ export class GroupByUserArgs {
     skip?: number;
 
     @Field(() => UserCountAggregateInput, { nullable: true })
-    count?: UserCountAggregateInput;
+    _count?: UserCountAggregateInput;
 
     @Field(() => UserAvgAggregateInput, { nullable: true })
-    avg?: UserAvgAggregateInput;
+    _avg?: UserAvgAggregateInput;
 
     @Field(() => UserSumAggregateInput, { nullable: true })
-    sum?: UserSumAggregateInput;
+    _sum?: UserSumAggregateInput;
 
     @Field(() => UserMinAggregateInput, { nullable: true })
-    min?: UserMinAggregateInput;
+    _min?: UserMinAggregateInput;
 
     @Field(() => UserMaxAggregateInput, { nullable: true })
-    max?: UserMaxAggregateInput;
+    _max?: UserMaxAggregateInput;
 }

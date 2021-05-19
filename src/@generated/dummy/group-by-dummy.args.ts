@@ -31,17 +31,17 @@ export class GroupByDummyArgs {
     skip?: number;
 
     @Field(() => DummyCountAggregateInput, { nullable: true })
-    count?: DummyCountAggregateInput;
+    _count?: DummyCountAggregateInput;
 
     @Field(() => DummyAvgAggregateInput, { nullable: true })
-    avg?: DummyAvgAggregateInput;
+    _avg?: DummyAvgAggregateInput;
 
     @Field(() => DummySumAggregateInput, { nullable: true })
-    sum?: DummySumAggregateInput;
+    _sum?: DummySumAggregateInput;
 
     @Field(() => DummyMinAggregateInput, { nullable: true })
-    min?: DummyMinAggregateInput;
+    _min?: DummyMinAggregateInput;
 
     @Field(() => DummyMaxAggregateInput, { nullable: true })
-    max?: DummyMaxAggregateInput;
+    _max?: DummyMaxAggregateInput;
 }

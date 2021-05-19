@@ -20,8 +20,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
     };
 
     if (
-        // TODO: Figure out how to improve this (solve mutation)
-        !field.args.some(x => x.name === 'count') &&
+        !field.args.some(x => x.name === '_count') &&
         [`Aggregate${modelName}Args`, `GroupBy${modelName}Args`].includes(
             inputType.name,
         )
@@ -42,7 +41,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
             }
 
             inputType.fields.push({
-                name: name.toLowerCase(),
+                name: `_${name.toLowerCase()}`,
                 isRequired: false,
                 isNullable: true,
                 inputTypes: [
