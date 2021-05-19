@@ -54,6 +54,7 @@
     "get-relative-path": "^1.0.2",
     "json5": "^2.2.0",
     "lodash": "^4.17.21",
+    "matcher": "^4.0.0",
     "pluralize": "^8.0.0",
     "pupa": "^2.1.1",
     "ts-morph": "^10.0.2"

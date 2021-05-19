@@ -30,4 +30,18 @@ describe('createConfig', () => {
         const result = createConfig({ reExport: 'Single' });
         expect(result.reExport).toEqual(ReExport.Single);
     });
+
+    it('createConfig useInputType 1', () => {
+        const result = createConfig({
+            useInputType_CreateInput_ALL: 'WhereInput',
+            useInputType_CreateInput_author: 'WhereInput',
+        });
+        expect(result.useInputType).toEqual([
+            {
+                typeName: 'CreateInput',
+                ALL: 'WhereInput',
+                properties: { author: 'WhereInput' },
+            },
+        ]);
+    });
 });

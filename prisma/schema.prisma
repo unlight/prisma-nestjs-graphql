@@ -21,6 +21,7 @@ generator nestgraphql {
   fields_Validator_input = true
   fields_Scalars_from = "graphql-scalars"
   fields_Scalars_input = true
+  useInputType_WhereInput_ALL = "WhereInput"
 }
 
 model User {

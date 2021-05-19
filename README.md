@@ -120,6 +120,65 @@ Delete all files in `output` folder
 Type: `boolean`  
 Default: `false`
 
+#### `useInputType`
+
+Since GraphQL does not support input union type, this setting map
+allow to choose which input type is preferable.
+
+```sh
+generator nestgraphql {
+    useInputType_{typeName}_{property} = "{pattern}"
+}
+```
+
+Where:
+
+-   `typeName` Full name or partial name of the class where need to choose input type.  
+    Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
+-   `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
+-   `pattern` Part of name (or full) of type which should be chosen, you can use
+    wild card or negate symbols, in this case pattern should starts with `matcher:`,
+    e.g. `matcher:*UncheckedCreateInput` See [matcher](https://github.com/sindresorhus/matcher) for details.
+
+Example:
+
+```ts
+export type PostWhereInput = {
+    author?: XOR<UserRelationFilter, UserWhereInput>;
+};
+export type UserRelationFilter = {
+    is?: UserWhereInput;
+    isNot?: UserWhereInput;
+};
+
+export type UserWhereInput = {
+    AND?: Enumerable<UserWhereInput>;
+    OR?: Enumerable<UserWhereInput>;
+    NOT?: Enumerable<UserWhereInput>;
+    id?: StringFilter | string;
+    name?: StringFilter | string;
+};
+```
+
+We have generated types above, by default property `author` will be decorated as `UserRelationFilter`,
+to set `UserWhereInput` need to configure generator the following way:
+
+```prisma
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output = "../src/@generated/prisma-nestjs-graphql"
+  useInputType_WhereInput_ALL = "WhereInput"
+}
+```
+
+```ts
+@InputType()
+export class PostWhereInput {
+    @Field(() => UserWhereInput, { nullable: true })
+    author?: UserWhereInput;
+}
+```
+
 #### `types_*` (deprecated)
 
 <details>

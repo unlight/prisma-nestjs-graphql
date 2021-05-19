@@ -59,11 +59,16 @@ export function inputType(
             moduleSpecifier: '@nestjs/graphql',
         });
 
+    const useInputType = config.useInputType.find(x =>
+        inputType.name.includes(x.typeName),
+    );
+
     for (const field of inputType.fields) {
         eventEmitter.emitSync('BeforeGenerateField', field, args);
 
-        const { inputTypes, isRequired } = field;
-        const graphqlInputType = getGraphqlInputType(inputTypes);
+        const { inputTypes, isRequired, name } = field;
+        const usePattern = useInputType?.ALL || useInputType?.properties[name];
+        const graphqlInputType = getGraphqlInputType(inputTypes, usePattern);
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
         // todo: remove
@@ -71,7 +76,7 @@ export function inputType(
         const settings = modelFieldSettings?.get(field.name);
         const propertySettings = settings?.getPropertyType();
         const isCustomsApplicable =
-            typeName === model?.fields.find(f => f.name === field.name)?.type;
+            typeName === model?.fields.find(f => f.name === name)?.type;
 
         const propertyType = castArray(
             propertySettings?.name ||
@@ -83,7 +88,7 @@ export function inputType(
         );
 
         const property = propertyStructure({
-            name: field.name,
+            name,
             isNullable: !isRequired,
             propertyType,
             isList,

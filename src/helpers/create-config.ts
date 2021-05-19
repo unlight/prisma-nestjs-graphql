@@ -83,7 +83,33 @@ export function createConfig(data: Record<string, string | undefined>) {
         $warnings,
         fields,
         purgeOutput: toBoolean(config.purgeOutput),
+        useInputType: createUseInputType(config.useInputType),
     };
+}
+
+function createUseInputType(data: any) {
+    if (!data) {
+        return [];
+    }
+    const result: {
+        typeName: string;
+        ALL: string | undefined;
+        properties: Record<string, string | undefined>;
+    }[] = [];
+    for (const [typeName, useInputs] of Object.entries<any>(data)) {
+        const entry = {
+            typeName,
+            ALL: undefined,
+            properties: {},
+        };
+        if (useInputs['ALL']) {
+            entry.ALL = useInputs['ALL'];
+            delete useInputs['ALL'];
+        }
+        entry.properties = useInputs;
+        result.push(entry);
+    }
+    return result;
 }
 
 function toBoolean(value: unknown) {

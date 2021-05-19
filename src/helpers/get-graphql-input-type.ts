@@ -1,11 +1,15 @@
 import { countBy } from 'lodash';
+import matcher from 'matcher';
 
 import { DMMF } from '../types';
 
 /**
  * Find input type for graphql field decorator.
  */
-export function getGraphqlInputType(inputTypes: DMMF.SchemaArgInputType[]) {
+export function getGraphqlInputType(
+    inputTypes: DMMF.SchemaArgInputType[],
+    pattern?: string,
+) {
     let result: DMMF.SchemaArgInputType | undefined;
 
     inputTypes = inputTypes.filter(t => !['null', 'Null'].includes(String(t.type)));
@@ -19,6 +23,22 @@ export function getGraphqlInputType(inputTypes: DMMF.SchemaArgInputType[]) {
 
     if (isOneType) {
         result = inputTypes.find(x => x.isList);
+        if (result) {
+            return result;
+        }
+    }
+
+    if (pattern) {
+        if (pattern.startsWith('matcher:')) {
+            const patternValue = pattern.slice(8);
+            result = inputTypes.find(x =>
+                matcher.isMatch(String(x.type), patternValue),
+            );
+            if (result) {
+                return result;
+            }
+        }
+        result = inputTypes.find(x => String(x.type).includes(pattern));
         if (result) {
             return result;
         }

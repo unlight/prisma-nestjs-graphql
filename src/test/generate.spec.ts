@@ -1596,3 +1596,169 @@ describe('emit single', () => {
         // it('^', () => console.log(sourceFile.getText()));
     });
 });
+
+describe('select input type', () => {
+    it('select input type all', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  id Int @id
+                  posts Post[]
+                }
+                model Post {
+                  id     Int   @id
+                  user   User? @relation(fields: [userId], references: [id])
+                  userId Int?
+                }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `useInputType_PostWhereInput_ALL = "WhereInput"`,
+            ],
+        }));
+        setSourceFile('post-where.input.ts');
+        expect(t('user')).toEqual('() => UserWhereInput');
+        expect(p('user')?.type).toEqual('UserWhereInput');
+    });
+
+    it('select input type usercreateargs', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    userId String @id
+                    articles Article[] @relation("ArticleAuthor")
+                }
+                model Article {
+                    articleId      String    @id @default(cuid())
+                    author         User?     @relation(name: "ArticleAuthor", fields: [authorId], references: [userId])
+                    authorId       String?
+                }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+            ],
+        }));
+        setSourceFile('create-one-user.args.ts');
+        expect(t('data')).toEqual('() => UserUncheckedCreateInput');
+        expect(p('data')?.type).toEqual('UserUncheckedCreateInput');
+    });
+
+    describe('select input type articlewhereinput array config', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                model User {
+                    userId String @id
+                    articles Article[] @relation("ArticleAuthor")
+                }
+                model Article {
+                    articleId      String    @id @default(cuid())
+                    author         User?     @relation(name: "ArticleAuthor", fields: [authorId], references: [userId])
+                    authorId       String?
+                }
+            `,
+                options: [
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                    `useInputType_WhereInput_ALL = "WhereInput"`,
+                    `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+                ],
+            }));
+        });
+
+        it('article-where.input', async () => {
+            setSourceFile('article-where.input.ts');
+            expect(t('author')).toEqual('() => UserWhereInput');
+            expect(p('author')?.type).toEqual('UserWhereInput');
+            expect(importDeclarations).toContainEqual(
+                expect.objectContaining({
+                    moduleSpecifier: './user-where.input',
+                }),
+            );
+        });
+
+        it('select input type articlewhereinput array config', async () => {
+            setSourceFile('create-one-user.args.ts');
+            expect(t('data')).toEqual('() => UserUncheckedCreateInput');
+            expect(p('data')?.type).toEqual('UserUncheckedCreateInput');
+        });
+    });
+
+    describe('select input type no atomic operations', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                model User {
+                    userId Int @id
+                    articles Article[] @relation("ArticleAuthor")
+                    friends String[]
+                }
+                model Article {
+                    articleId      String    @id @default(cuid())
+                    author         User?     @relation(name: "ArticleAuthor", fields: [authorId], references: [userId])
+                    authorId       Int?
+                }
+            `,
+                options: [
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                    `useInputType_UpdateInput_ALL = "matcher:!*FieldUpdateOperationsInput"`,
+                    `useInputType_UpdateMany_ALL = "matcher:!*FieldUpdateOperationsInput"`,
+                    `useInputType_UpdateWithout_ALL = "matcher:!*FieldUpdateOperationsInput"`,
+                ],
+            }));
+        });
+
+        it('check all', () => {
+            for (const s of sourceFiles
+                .filter(
+                    sourceFile =>
+                        !sourceFile
+                            .getFilePath()
+                            .endsWith('field-update-operations.input.ts') &&
+                        sourceFile.getClass(() => true),
+                )
+                .map(sourceFile => sourceFile.getClass(() => true))
+                .flatMap(c => {
+                    return c!.getProperties().map(p => ({
+                        class: c?.getName(),
+                        type: p.getStructure().type,
+                    }));
+                })) {
+                expect(s).not.toEqual(
+                    expect.objectContaining({
+                        type: expect.stringContaining('FieldUpdateOperationsInput'),
+                    }),
+                );
+            }
+        });
+    });
+
+    it('select input type list filter', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    userId String @id
+                    friends String[]
+                    ints     Int[]
+                    // creates DateTime[]
+                    // floats   Float[]
+                    // bytes   Bytes[]
+                    // decimals Decimal[]
+                    // bigInts  BigInt[]
+                    // jsons    Json[]
+                }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `useInputType_CreateInput_friends = "String"`,
+                `useInputType_CreateInput_ints = "Int"`,
+            ],
+        }));
+        setSourceFile('user-create.input.ts');
+        expect(t('friends')).toEqual('() => [String]');
+        expect(p('friends')?.type).toEqual('Array<string>');
+
+        expect(t('ints')).toEqual('() => [Int]');
+        expect(p('ints')?.type).toEqual('Array<number>');
+    });
+});

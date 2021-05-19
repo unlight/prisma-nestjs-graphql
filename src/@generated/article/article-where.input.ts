@@ -7,7 +7,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { UserWhereInput } from '../user/user-where.input';
 
 @InputType()
 export class ArticleWhereInput {
@@ -47,8 +47,8 @@ export class ArticleWhereInput {
     @Field(() => IntFilter, { nullable: true })
     favoritesCount?: IntFilter;
 
-    @Field(() => UserRelationFilter, { nullable: true })
-    author?: UserRelationFilter;
+    @Field(() => UserWhereInput, { nullable: true })
+    author?: UserWhereInput;
 
     @Field(() => StringFilter, { nullable: true })
     authorId?: StringFilter;
