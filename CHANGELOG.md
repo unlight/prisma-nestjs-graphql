@@ -1,3 +1,20 @@
+## [12.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.5...v12.0.0) (2021-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **compatibility:** Possible breaking change aggregation keywords use underscore as prefix to prevent field clashes
+
+### Features
+
+* `useInputType` config option allow to choose input type ([54eeb1c](https://github.com/unlight/nestjs-graphql-prisma/commit/54eeb1c5bfc80df7705ab124baac715b61f00dda))
+
+
+### Bug Fixes
+
+* Make types same as in prisma ([1f5bc4e](https://github.com/unlight/nestjs-graphql-prisma/commit/1f5bc4e55bb5802feb1be5c21dca945f38318e57))
+* **compatibility:** Rename aggregation keywords ([83491c8](https://github.com/unlight/nestjs-graphql-prisma/commit/83491c85d455b725f30caa033c016cc0b22cb965))
+
 ### [11.4.5](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.4...v11.4.5) (2021-05-13)
 
 
