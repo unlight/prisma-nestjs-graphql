@@ -42,16 +42,59 @@ describe.skip('user test', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
 
-/// Represente les dossier de patients
-model Patient {
-  id                  String              @id @default(uuid())
-  special_indications String[]
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
 }
             `,
-            options: [],
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `useInputType_WhereInput_ALL = "WhereInput"`,
+                `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+            ],
         }));
     });
 
-    it('^', () => {});
+    it('^', () => {
+        for (const sourceFile of project.getSourceFiles()) {
+            const classDeclaration = sourceFile.getClass(() => true);
+            if (!classDeclaration) {
+                continue;
+            }
+            const referencedSymbols = classDeclaration.findReferences();
+            if (referencedSymbols.length > 1) {
+                continue;
+            }
+            console.log('class name', classDeclaration.getName());
+            // console.log('referencedSymbols.length', referencedSymbols.length);
+            // for (const referencedSymbol of referencedSymbols) {
+            //     for (const reference of referencedSymbol.getReferences()) {
+            //         console.log('---------');
+            //         console.log('REFERENCE');
+            //         console.log('---------');
+            //         console.log(
+            //             'File path: ' + reference.getSourceFile().getFilePath(),
+            //         );
+            //         console.log('Start: ' + reference.getTextSpan().getStart());
+            //         console.log('Length: ' + reference.getTextSpan().getLength());
+            //         console.log(
+            //             'Parent kind: ' +
+            //                 reference.getNode().getParentOrThrow().getKindName(),
+            //         );
+            //         console.log('\n');
+            //     }
+            // }
+        }
+    });
 });
