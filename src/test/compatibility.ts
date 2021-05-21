@@ -211,12 +211,13 @@ const $prisma = new PrismaClient();
     p = x;
 }
 {
-    const x: UserGroupByArgs = {
-        by: ['id'] as UserScalarFieldEnum[],
+    let x: UserGroupByArgs = {
+        by: [UserScalarFieldEnum.id],
     };
     let p: Prisma.UserGroupByArgs = {
-        by: ['id'] as UserScalarFieldEnum[],
+        by: [UserScalarFieldEnum.id],
     };
     p = x;
-    // $prisma.user.groupBy(x);
+    // $prisma.user.groupBy(x); // Error
+    // $prisma.user.groupBy(p); // Error
 }
