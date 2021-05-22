@@ -211,7 +211,7 @@ const $prisma = new PrismaClient();
     p = x;
 }
 {
-    let x: UserGroupByArgs = {
+    const x: UserGroupByArgs = {
         by: [UserScalarFieldEnum.id],
     };
     let p: Prisma.UserGroupByArgs = {

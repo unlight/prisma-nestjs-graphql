@@ -42,6 +42,7 @@ export type EventArguments = {
     getSourceFile(args: { type: string; name: string }): SourceFile;
     eventEmitter: AwaitEventEmitter;
     typeNames: Set<string>;
+    removeTypes: Set<string>;
     enums: Record<string, DMMF.DatamodelEnum | undefined>;
     getModelName(name: string): string | undefined;
 };

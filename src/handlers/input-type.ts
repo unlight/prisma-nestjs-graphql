@@ -27,7 +27,12 @@ export function inputType(
         fieldSettings,
         getModelName,
         models,
+        removeTypes,
+        typeNames,
     } = args;
+
+    typeNames.add(inputType.name);
+
     const importDeclarations = new ImportDeclarationMap();
     const sourceFile = getSourceFile({
         name: inputType.name,
@@ -64,6 +69,9 @@ export function inputType(
     );
 
     for (const field of inputType.fields) {
+        field.inputTypes = field.inputTypes.filter(
+            t => !removeTypes.has(String(t.type)),
+        );
         eventEmitter.emitSync('BeforeGenerateField', field, args);
 
         const { inputTypes, isRequired, name } = field;

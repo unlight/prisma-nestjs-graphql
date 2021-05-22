@@ -1764,3 +1764,31 @@ describe('select input type', () => {
         expect(p('ints')?.type).toEqual('Array<number>');
     });
 });
+
+describe('model autoincrement int', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  id  Int  @id  @default(autoincrement())
+                }
+            `,
+        }));
+    });
+
+    it('input types whithout fields', () => {
+        const files = sourceFiles
+            .map(s => s.getClass(() => true))
+            .filter(Boolean)
+            .map(c => ({ className: c!.getName(), properties: c!.getProperties() }))
+            .filter(({ properties }) => properties.length === 0);
+        expect(files).toHaveLength(0);
+    });
+
+    it('post update many input should not exists', () => {
+        const f = project.getSourceFile(s =>
+            s.getFilePath().endsWith('post-update-many-mutation.input.ts'),
+        );
+        expect(f).toBeUndefined();
+    });
+});

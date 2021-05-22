@@ -51,6 +51,8 @@ export function getGraphqlInputType(
 
     throw new TypeError(
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        `Cannot get matching input type from ${inputTypes.map(x => x.type)}`,
+        `Cannot get matching input type from ${
+            inputTypes.map(x => x.type) || 'zero length inputTypes'
+        }`,
     );
 }
