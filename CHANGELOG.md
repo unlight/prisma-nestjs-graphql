@@ -1,3 +1,10 @@
+### [12.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.0...v12.0.1) (2021-05-22)
+
+
+### Bug Fixes
+
+* Remove empty input types ([20c4f46](https://github.com/unlight/nestjs-graphql-prisma/commit/20c4f463ed736b9f4c73247b06e5921c20332f2d)), closes [#26](https://github.com/unlight/nestjs-graphql-prisma/issues/26)
+
 ## [12.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.5...v12.0.0) (2021-05-20)
 
 
