@@ -40,7 +40,7 @@ describe('createConfig', () => {
             {
                 typeName: 'CreateInput',
                 ALL: 'WhereInput',
-                properties: { author: 'WhereInput' },
+                author: 'WhereInput',
             },
         ]);
     });

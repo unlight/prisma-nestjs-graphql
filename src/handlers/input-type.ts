@@ -75,20 +75,20 @@ export function inputType(
         eventEmitter.emitSync('BeforeGenerateField', field, args);
 
         const { inputTypes, isRequired, name } = field;
-        const usePattern = useInputType?.ALL || useInputType?.properties[name];
+        const usePattern = useInputType?.ALL || useInputType?.[name];
         const graphqlInputType = getGraphqlInputType(inputTypes, usePattern);
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
         // todo: remove
         const customType = config.types[typeName];
-        const settings = modelFieldSettings?.get(field.name);
+        const settings = modelFieldSettings?.get(name);
         const propertySettings = settings?.getPropertyType();
         const isCustomsApplicable =
             typeName === model?.fields.find(f => f.name === name)?.type;
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(trim) ||
+                customType?.fieldType?.split('|').map(element => trim(element)) ||
                 getPropertyType({
                     location,
                     type: typeName,

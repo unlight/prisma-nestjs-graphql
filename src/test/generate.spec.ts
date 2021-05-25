@@ -1668,7 +1668,7 @@ describe('select input type', () => {
             }));
         });
 
-        it('article-where.input', async () => {
+        it('article-where.input', () => {
             setSourceFile('article-where.input.ts');
             expect(t('author')).toEqual('() => UserWhereInput');
             expect(p('author')?.type).toEqual('UserWhereInput');
@@ -1679,7 +1679,7 @@ describe('select input type', () => {
             );
         });
 
-        it('select input type articlewhereinput array config', async () => {
+        it('select input type articlewhereinput array config', () => {
             setSourceFile('create-one-user.args.ts');
             expect(t('data')).toEqual('() => UserUncheckedCreateInput');
             expect(p('data')?.type).toEqual('UserUncheckedCreateInput');

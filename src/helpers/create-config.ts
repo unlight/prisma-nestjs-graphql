@@ -6,7 +6,7 @@ import { Nullable } from 'simplytyped';
 import { ReExport } from '../handlers/re-export';
 import { FieldSetting, TypeRecord } from '../types';
 
-export function createConfig(data: Record<string, string | undefined>) {
+export function createConfig(data: Record<string, unknown>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
         string,
         unknown
@@ -83,30 +83,35 @@ export function createConfig(data: Record<string, string | undefined>) {
         $warnings,
         fields,
         purgeOutput: toBoolean(config.purgeOutput),
-        useInputType: createUseInputType(config.useInputType),
+        useInputType: createUseInputType(config.useInputType as any),
     };
 }
 
-function createUseInputType(data: any) {
+type ConfigInputItem = {
+    typeName: string;
+    ALL?: string;
+    [index: string]: string | undefined;
+};
+
+function createUseInputType(data?: Record<string, ConfigInputItem>) {
     if (!data) {
         return [];
     }
-    const result: {
-        typeName: string;
-        ALL: string | undefined;
-        properties: Record<string, string | undefined>;
-    }[] = [];
-    for (const [typeName, useInputs] of Object.entries<any>(data)) {
-        const entry = {
+    const result: ConfigInputItem[] = [];
+    for (const [typeName, useInputs] of Object.entries(data)) {
+        const entry: ConfigInputItem = {
             typeName,
             ALL: undefined,
-            properties: {},
         };
-        if (useInputs['ALL']) {
-            entry.ALL = useInputs['ALL'];
-            delete useInputs['ALL'];
+        if (useInputs.ALL) {
+            entry.ALL = useInputs.ALL;
+            delete useInputs.ALL;
         }
-        entry.properties = useInputs;
+
+        for (const [propertyName, pattern] of Object.entries(useInputs)) {
+            entry[propertyName] = pattern;
+        }
+
         result.push(entry);
     }
     return result;

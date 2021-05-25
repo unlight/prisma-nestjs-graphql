@@ -73,7 +73,9 @@ export async function testGenerate(args: {
                     ),
             );
             if (sources.length > 0) {
-                message += `, reference: ${sources.map(s => s.getBaseName())}`;
+                message += `, reference: ${sources
+                    .map(s => s.getBaseName())
+                    .join(', ')}`;
             }
             throw message;
         }
