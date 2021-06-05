@@ -1366,11 +1366,11 @@ describe('reexport option', () => {
             sourceFile = project.getSourceFile(s =>
                 s.getFilePath().endsWith('/user/index.ts'),
             )!;
-            exports = sourceFile.getExportDeclarations().map(x => ({
+            const decls = sourceFile.getExportDeclarations().map(x => ({
                 specifier: x.getModuleSpecifierValue(),
                 name: x.getNamedExports()[0].getName(),
             }));
-            expect(exports).not.toContainEqual(
+            expect(decls).not.toContainEqual(
                 expect.objectContaining({ specifier: './index' }),
             );
         });

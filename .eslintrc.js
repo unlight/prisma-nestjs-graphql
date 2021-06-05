@@ -56,6 +56,7 @@ module.exports = {
         // unicorn
         'unicorn/prefer-spread': 0,
         'unicorn/catch-error-name': 0,
+        'unicorn/prefer-node-protocol': 0,
         'unicorn/prevent-abbreviations': [
             1,
             {
