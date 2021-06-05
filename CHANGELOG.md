@@ -1,3 +1,10 @@
+### [12.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.2...v12.0.3) (2021-06-05)
+
+
+### Bug Fixes
+
+* **custom decorators:** `FieldType` respect input/output in generator settings ([a075e00](https://github.com/unlight/nestjs-graphql-prisma/commit/a075e0075e9c60530bd3a90edfc0a8c245371b7e)), closes [#34](https://github.com/unlight/nestjs-graphql-prisma/issues/34)
+
 ### [12.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.1...v12.0.2) (2021-06-05)
 
 
