@@ -1,3 +1,10 @@
+### [12.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.1...v12.0.2) (2021-06-05)
+
+
+### Bug Fixes
+
+* **other:** Ignore `@HideField()` for output count fields ([ce3eec2](https://github.com/unlight/nestjs-graphql-prisma/commit/ce3eec247c05fb771ea4f39ae1fbd136aa2bd6f4)), closes [#33](https://github.com/unlight/nestjs-graphql-prisma/issues/33)
+
 ### [12.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.0...v12.0.1) (2021-05-22)
 
 
