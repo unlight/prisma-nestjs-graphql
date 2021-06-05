@@ -1038,10 +1038,6 @@ describe('get rid of atomic number operations', () => {
         before(() => {
             setSourceFile('user-updatefriends.input.ts');
         });
-
-        // it('', () => {
-        //     console.log(sourceText);
-        // });
     });
 
     describe('date field files', () => {
@@ -1221,15 +1217,15 @@ describe('hide field', () => {
         before(async () => {
             ({ project, sourceFiles } = await testGenerate({
                 schema: `
-            model User {
-                id String @id
-                /// Password1
-                /// @TypeGraphQL.omit(output: true)
-                password1 String
-                /// Password2
-                /// @HideField()
-                password2 String
-            }
+                    model User {
+                        id String @id
+                        /// Password1
+                        /// @TypeGraphQL.omit(output: true)
+                        password1 String
+                        /// Password2
+                        /// @HideField()
+                        password2 String
+                    }
             `,
                 options: [],
             }));
@@ -1237,9 +1233,7 @@ describe('hide field', () => {
 
         describe('model', () => {
             before(() => {
-                sourceFile = project.getSourceFile(s =>
-                    s.getFilePath().endsWith('/user.model.ts'),
-                )!;
+                setSourceFile('/user.model.ts');
             });
 
             // it('^', () => console.log(sourceFile.getText()));
@@ -1257,9 +1251,7 @@ describe('hide field', () => {
 
         describe('other outputs', () => {
             it('user-max-aggregate', () => {
-                sourceFile = project.getSourceFile(s =>
-                    s.getFilePath().endsWith('/user-max-aggregate.output.ts'),
-                )!;
+                setSourceFile('/user-max-aggregate.output.ts');
                 expect(d('password1')?.name).toBe('HideField');
                 expect(d('password1')?.arguments).toEqual([]);
                 expect(d('password2')?.name).toBe('HideField');
@@ -1278,7 +1270,6 @@ describe('hide field', () => {
                       secret   Secret @relation(fields: [secretId], references: [id])
                       secretId String
                     }
-
                     model Secret {
                       id    String @id
                       users User[]
@@ -1790,5 +1781,30 @@ describe('model autoincrement int', () => {
             s.getFilePath().endsWith('post-update-many-mutation.input.ts'),
         );
         expect(f).toBeUndefined();
+    });
+});
+
+describe('output without fields', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model Comment {
+                  id String @id @default(cuid())
+                  dummy Dummy @relation(fields: [dummyId], references: [id])
+                  dummyId String
+                }
+                model Dummy {
+                  id String @id
+                  /// @HideField({ input: true, output: true })
+                  comments Comment[]
+                }
+            `,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('count output', () => {
+        setSourceFile('dummy-count.output.ts');
+        expect(t('comments')).toEqual('() => Int');
     });
 });

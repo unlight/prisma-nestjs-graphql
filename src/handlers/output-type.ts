@@ -20,14 +20,16 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     const fileType = 'output';
     const modelName = getModelName(outputType.name) || '';
     const model = models.get(modelName);
-    const shouldEmitAggregateOutput =
+    const isAggregateOutput =
         model &&
         /(Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
         String(outputType.name).startsWith(model.name);
+    const isCountOutput =
+        model?.name && outputType.name === `${model.name}CountOutputType`;
     // Get rid of bogus suffixes
     outputType.name = getOutputTypeName(outputType.name);
 
-    if (shouldEmitAggregateOutput) {
+    if (isAggregateOutput) {
         eventEmitter.emitSync('AggregateOutput', { ...args, outputType });
     }
 
@@ -55,10 +57,12 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     for (const field of outputType.fields) {
         const { location, isList, type } = field.outputType;
         const outputTypeName = getOutputTypeName(String(type));
-        const settings = model && fieldSettings.get(model.name)?.get(field.name);
+        const settings = isCountOutput
+            ? undefined
+            : model && fieldSettings.get(model.name)?.get(field.name);
         const propertySettings = settings?.getPropertyType();
-        // const isCustomsApplicable =
-        //     outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
+        const isCustomsApplicable =
+            outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
         // todo: remove
         const customType = config.types[outputTypeName];
 
@@ -130,19 +134,21 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                 ],
             });
 
-            for (const options of settings || []) {
-                if (!options.output || options.kind !== 'Decorator') {
-                    continue;
+            if (isCustomsApplicable) {
+                for (const options of settings || []) {
+                    if (!options.output || options.kind !== 'Decorator') {
+                        continue;
+                    }
+                    property.decorators?.push({
+                        name: options.name,
+                        arguments: options.arguments,
+                    });
+                    ok(
+                        options.from,
+                        "Missed 'from' part in configuration or field setting",
+                    );
+                    importDeclarations.create(options);
                 }
-                property.decorators?.push({
-                    name: options.name,
-                    arguments: options.arguments,
-                });
-                ok(
-                    options.from,
-                    "Missed 'from' part in configuration or field setting",
-                );
-                importDeclarations.create(options);
             }
         }
 

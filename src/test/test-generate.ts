@@ -54,6 +54,7 @@ export async function testGenerate(args: {
 
     ok(project, 'Project is not defined');
     const sourceFiles = project.getSourceFiles();
+    const emptyFieldsFiles: string[] = [];
 
     for (const sourceFile of sourceFiles) {
         const filePath = sourceFile.getFilePath();
@@ -77,7 +78,7 @@ export async function testGenerate(args: {
                     .map(s => s.getBaseName())
                     .join(', ')}`;
             }
-            throw message;
+            throw new Error(message);
         }
         const imports = sourceFile
             .getImportDeclarations()
@@ -91,8 +92,16 @@ export async function testGenerate(args: {
                 ].filter(Boolean);
             });
         if (uniq(imports).length !== imports.length) {
-            throw `Duplicated import in ${filePath}: ${imports.toString()}`;
+            throw new Error(`Duplicated import in ${filePath}: ${imports.toString()}`);
         }
+        // Find classes without @Field() (must define one or more fields)
+        const properties = sourceFile.getClass(() => true)?.getProperties();
+        if (properties && !properties.some(p => p.getDecorator('Field'))) {
+            emptyFieldsFiles.push(sourceFile.getBaseName());
+        }
+    }
+    if (emptyFieldsFiles.length > 0) {
+        throw new Error(`No defined fields in ${emptyFieldsFiles.join(', ')}`);
     }
 
     return { project, sourceFiles };
