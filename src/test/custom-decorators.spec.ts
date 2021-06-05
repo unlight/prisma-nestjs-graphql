@@ -339,6 +339,31 @@ describe('custom decorators namespace both input and output', () => {
     });
 });
 
+describe('fieldtype disable output', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    id           String        @id @default(cuid())
+                    /// @FieldType('Upload.GraphQLUpload')
+                    image        String?
+                }
+                `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_Upload_from = "graphql-upload"`,
+                `fields_Upload_input = true`,
+                `fields_Upload_output = false`,
+            ],
+        }));
+    });
+
+    it('upload image output', () => {
+        setSourceFile('user.model.ts');
+        expect(t('image')).toEqual('() => String');
+    });
+});
+
 describe('custom decorators and description', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({

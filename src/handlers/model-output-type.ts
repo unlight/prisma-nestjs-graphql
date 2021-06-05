@@ -119,7 +119,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         let graphqlType: string;
 
-        if (fieldType) {
+        if (fieldType && fieldType.output) {
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {

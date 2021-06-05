@@ -111,7 +111,7 @@ export function inputType(
         let graphqlType: string;
         const fieldType = settings?.getFieldType();
 
-        if (fieldType && isCustomsApplicable) {
+        if (fieldType && fieldType.input && isCustomsApplicable) {
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {
