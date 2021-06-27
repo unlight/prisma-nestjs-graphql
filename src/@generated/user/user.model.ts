@@ -1,5 +1,4 @@
 import { Field, Float, HideField, ID, Int, ObjectType } from '@nestjs/graphql';
-import * as Scalars from 'graphql-scalars';
 
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -11,7 +10,7 @@ export class User {
     @Field(() => ID, { nullable: false })
     id!: string;
 
-    @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
+    @Field(() => String, { nullable: false })
     email!: string;
 
     @Field(() => String, { nullable: false, description: "User's name" })
