@@ -24,7 +24,7 @@ export async function createGeneratorOptions(
     options?: string[],
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
     const schemaHeader = `
-        datasource database {
+        datasource db {
             provider = "postgresql"
             url = env("DATABASE_URL")
         }
