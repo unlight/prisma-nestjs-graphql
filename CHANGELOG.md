@@ -1,3 +1,10 @@
+## [12.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.3...v12.1.0) (2021-07-02)
+
+
+### Features
+
+* **hide field:** Allow hide field in type matching by pattern ([6c05123](https://github.com/unlight/nestjs-graphql-prisma/commit/6c05123b9454e649c5fe4298d52d57729c3c5453)), closes [#37](https://github.com/unlight/nestjs-graphql-prisma/issues/37)
+
 ### [12.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.2...v12.0.3) (2021-06-05)
 
 
