@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, HideField, InputType, Int } from '@nestjs/graphql';
 
 import { TagCreateNestedManyWithoutArticlesInput } from '../tag/tag-create-nested-many-without-articles.input';
 import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-create-nested-many-without-favorite-articles.input';
@@ -21,7 +21,7 @@ export class ArticleCreateWithoutCommentsInput {
     @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => Date, { nullable: true })
+    @HideField()
     createdAt?: Date | string;
 
     @Field(() => Date, { nullable: true })

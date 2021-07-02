@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, HideField, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class ArticleCreateManyInput {
@@ -17,7 +17,7 @@ export class ArticleCreateManyInput {
     @Field(() => String, { nullable: false })
     body!: string;
 
-    @Field(() => Date, { nullable: true })
+    @HideField()
     createdAt?: Date | string;
 
     @Field(() => Date, { nullable: true })
