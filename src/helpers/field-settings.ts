@@ -1,5 +1,6 @@
 import JSON5 from 'json5';
 import { merge, trim } from 'lodash';
+import outmatch from 'outmatch';
 
 import { GeneratorConfiguration } from '../types';
 
@@ -12,6 +13,7 @@ export type FieldSetting = {
     arguments?: string[];
     input: boolean;
     output: boolean;
+    match?: (test: string) => boolean;
     from: string;
     namespace?: string;
     defaultImport?: string | true;
@@ -20,12 +22,22 @@ export type FieldSetting = {
 };
 
 export class FieldSettings extends Array<FieldSetting> {
-    get hideInput() {
-        return this.some(s => s.name === 'HideField' && s.input);
-    }
+    shouldHideField({
+        name,
+        input = false,
+        output = false,
+    }: {
+        name: string;
+        input?: boolean;
+        output?: boolean;
+    }): boolean {
+        const hideField = this.find(s => s.name === 'HideField');
 
-    get hideOutput() {
-        return this.some(s => s.name === 'HideField' && s.output);
+        return Boolean(
+            (hideField?.input && input) ||
+                (hideField?.output && output) ||
+                hideField?.match?.(name),
+        );
     }
 
     getFieldType() {
@@ -46,7 +58,7 @@ export function createFieldSettings(args: {
     const textLines = text.split('\n');
     const documentationLines: string[] = [];
     for (const line of textLines) {
-        const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*?)\)/.exec(line);
+        const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*)\)/.exec(line);
         const name = match?.groups?.name;
         if (!match || !name) {
             documentationLines.push(line);
@@ -113,17 +125,29 @@ function hideFieldDecorator(match: RegExpExecArray) {
         from: '@nestjs/graphql',
         defaultImport: undefined,
         namespaceImport: undefined,
+        match: undefined,
     };
-    if (match.groups?.args) {
+    if (!match.groups?.args) {
+        result.output = true;
+        return result;
+    }
+
+    if (match.groups.args.includes('{') && match.groups.args.includes('}')) {
+        const options = parseArgs(match.groups.args) as Record<string, unknown>;
+        result.output = Boolean(options.output);
+        result.input = Boolean(options.input);
+        if (typeof options.match === 'string' || Array.isArray(options.match)) {
+            result.match = outmatch(options.match, { separator: false });
+        }
+    } else {
         if (/output:\s*true/.test(match.groups.args)) {
             result.output = true;
         }
         if (/input:\s*true/.test(match.groups.args)) {
             result.input = true;
         }
-    } else {
-        result.output = true;
     }
+
     return result;
 }
 

@@ -30,6 +30,7 @@ module.exports = {
     ],
 
     scopes: [
+        { name: 'hide field' },
         { name: 'configuration' },
         { name: 'custom decorators' },
         { name: 'compatibility' },

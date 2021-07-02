@@ -1291,6 +1291,61 @@ describe('hide field', () => {
             // it('^', () => console.log(sourceFile.getText()));
         });
     });
+
+    describe('hide field using match', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                    model User {
+                        id String @id
+                        /// @HideField({ match: '@(User|Comment)Create*Input' })
+                        createdAt DateTime @default(now())
+                        /// @HideField( { match: '*Update*Input' } )
+                        updatedAt DateTime @updatedAt
+                    }
+                    `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`],
+            }));
+        });
+
+        it('in model nothing should be hidden', () => {
+            setSourceFile('user.model.ts');
+            expect(p('createdAt')?.decorators).toHaveLength(1);
+            expect(d('createdAt')).toEqual(expect.objectContaining({ name: 'Field' }));
+        });
+
+        it('user-create-many.input', () => {
+            setSourceFile('user-create-many.input.ts');
+            expect(p('createdAt')?.decorators).toHaveLength(1);
+            expect(d('createdAt')).toEqual(
+                expect.objectContaining({ name: 'HideField' }),
+            );
+        });
+
+        it('user-create.input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(p('createdAt')?.decorators).toHaveLength(1);
+            expect(d('createdAt')).toEqual(
+                expect.objectContaining({ name: 'HideField' }),
+            );
+        });
+
+        it('user-update-many-mutation.input', () => {
+            setSourceFile('user-update-many-mutation.input.ts');
+            expect(p('updatedAt')?.decorators).toHaveLength(1);
+            expect(d('updatedAt')).toEqual(
+                expect.objectContaining({ name: 'HideField' }),
+            );
+        });
+
+        it('user-update.input', () => {
+            setSourceFile('user-update.input.ts');
+            expect(p('updatedAt')?.decorators).toHaveLength(1);
+            expect(d('updatedAt')).toEqual(
+                expect.objectContaining({ name: 'HideField' }),
+            );
+        });
+    });
 });
 
 it('model with prisma keyword output', async () => {
@@ -1808,3 +1863,10 @@ describe('output without fields', () => {
         expect(t('comments')).toEqual('() => Int');
     });
 });
+
+// it('filePaths', () => {
+//     console.log(
+//         'filePaths',
+//         sourceFiles.map(s => s.getBaseName()),
+//     );
+// });

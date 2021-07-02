@@ -152,7 +152,7 @@ export function inputType(
         //     });
         // }
 
-        if (settings?.hideInput) {
+        if (settings?.shouldHideField({ name: inputType.name, input: true })) {
             importDeclarations.add('HideField', '@nestjs/graphql');
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {

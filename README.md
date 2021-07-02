@@ -237,11 +237,15 @@ Removes field from GraphQL schema.
 Alias: `@TypeGraphQL.omit(output: true)`
 
 By default (without arguments) field will be decorated for hide only in output types (type in schema).  
-To hide input types add `input: true`.  
+To hide field in input types add `input: true`.  
+To hide field in specific type you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+
 Examples:
 
--   `@HideField()` same as `@HideField(output: true)` or `@HideField({ output: true })`
+-   `@HideField()` same as `@HideField({ output: true })`
 -   `@HideField({ input: true, output: true })`
+-   `@HideField({ match: 'UserCreate*Input' })`
 
 ```prisma
 model User {
@@ -250,6 +254,8 @@ model User {
     password String
     /// @HideField({ output: true, input: true })
     secret String
+    /// @HideField({ match: '@(User|Comment)Create*Input' })
+    createdAt DateTime @default(now())
 }
 ```
 
@@ -262,6 +268,8 @@ export class User {
     password: string;
     @HideField()
     secret: string;
+    @Field(() => Date, { nullable: false })
+    createdAt: Date;
 }
 ```
 
@@ -272,6 +280,8 @@ export class UserCreateInput {
     password: string;
     @HideField()
     secret: string;
+    @HideField()
+    createdAt: Date;
 }
 ```
 

@@ -59,6 +59,7 @@ model Article {
   description    String
   body           String
   tags           Tag[]
+  /// @HideField({ match: '*Create*Input' })
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   favoritesCount Int       @default(0)
@@ -72,6 +73,7 @@ model Article {
 model Comment {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+  /// @HideField({ match: '*Update*Input' })
   updatedAt DateTime @updatedAt
   body      String
   author    User     @relation(fields: [authorId], references: [id])

@@ -172,7 +172,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.add(customType.fieldType, customType.fieldModule);
         }
 
-        if (settings?.hideOutput) {
+        if (settings?.shouldHideField({ name: outputType.name, output: true })) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
