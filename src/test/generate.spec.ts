@@ -116,7 +116,7 @@ describe('model with one id int', () => {
         });
 
         it('object type description', () => {
-            const decoratorArgument = classFile?.getDecorators()?.[0].getStructure()
+            const decoratorArgument = classFile.getDecorators()[0].getStructure()
                 ?.arguments?.[0] as string | undefined;
             expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
         });

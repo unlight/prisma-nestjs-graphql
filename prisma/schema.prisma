@@ -24,6 +24,7 @@ generator nestgraphql {
   useInputType_WhereInput_ALL = "WhereInput"
 }
 
+/// User really
 model User {
   id               String    @id @default(cuid())
   /// @FieldType('Scalars.GraphQLEmailAddress')

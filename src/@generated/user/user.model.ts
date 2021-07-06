@@ -5,7 +5,8 @@ import { Comment } from '../comment/comment.model';
 import { Role } from '../prisma/role.enum';
 import { UserCount } from './user-count.output';
 
-@ObjectType()
+/** User really */
+@ObjectType({ description: 'User really' })
 export class User {
     @Field(() => ID, { nullable: false })
     id!: string;
@@ -13,6 +14,7 @@ export class User {
     @Field(() => String, { nullable: false })
     email!: string;
 
+    /** User's name */
     @Field(() => String, { nullable: false, description: "User's name" })
     name!: string;
 
