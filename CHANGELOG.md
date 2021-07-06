@@ -1,3 +1,10 @@
+## [12.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.1.0...v12.2.0) (2021-07-06)
+
+
+### Features
+
+* Duplicate comments in jsdoc ([002a055](https://github.com/unlight/nestjs-graphql-prisma/commit/002a0552096c6ffdd8abc9fec8b7e80b9209c288)), closes [#39](https://github.com/unlight/nestjs-graphql-prisma/issues/39)
+
 ## [12.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.3...v12.1.0) (2021-07-02)
 
 
