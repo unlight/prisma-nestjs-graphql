@@ -70,9 +70,22 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
     ok(decorator, 'ObjectType decorator not found');
-    decorator.arguments = model.documentation
-        ? [JSON5.stringify({ description: model.documentation })]
-        : [];
+    const decoratorArgument = decorator.arguments?.[0]
+        ? JSON5.parse(decorator.arguments[0])
+        : {};
+    if (model.documentation) {
+        if (!classStructure.leadingTrivia) {
+            classStructure.leadingTrivia = `/** ${model.documentation} */\n`;
+        }
+        decoratorArgument.description = model.documentation;
+    } else {
+        delete decoratorArgument.description;
+    }
+
+    decorator.arguments =
+        Object.keys(decoratorArgument).length > 0
+            ? [JSON5.stringify(decoratorArgument)]
+            : [];
 
     importDeclarations.add('Field', nestjsGraphql);
     importDeclarations.add('ObjectType', nestjsGraphql);
@@ -160,6 +173,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             propertyType,
             isList,
         });
+
+        if (typeof property.leadingTrivia === 'string' && modelField?.documentation) {
+            property.leadingTrivia += `/** ${modelField.documentation} */\n`;
+        }
 
         classStructure.properties?.push(property);
 

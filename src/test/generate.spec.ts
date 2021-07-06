@@ -52,7 +52,7 @@ describe('model with one id int', () => {
             schema: `
             /// User really
             model User {
-                  /// user id
+                  /// user id really
                   id Int @id @default(1)
                 }`,
         }));
@@ -104,15 +104,25 @@ describe('model with one id int', () => {
         it('property description', () => {
             const argument = getFieldOptions(sourceFile, 'id');
             expect(argument).toMatch(/nullable:\s*false/);
-            expect(argument).toMatch(/description:\s*["']user id["']/);
+            expect(argument).toMatch(/description:\s*["']user id really["']/);
+        });
+
+        it('property description in jsdoc', () => {
+            const description = classFile
+                .getProperty('id')
+                ?.getJsDocs()[0]
+                .getDescription();
+            expect(description).toEqual('user id really');
         });
 
         it('object type description', () => {
-            const decoratorArgument = sourceFile
-                .getClass(() => true)
-                ?.getDecorators()?.[0]
-                .getStructure()?.arguments?.[0] as string | undefined;
+            const decoratorArgument = classFile?.getDecorators()?.[0].getStructure()
+                ?.arguments?.[0] as string | undefined;
             expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
+        });
+
+        it('has js comment', () => {
+            expect(classFile.getJsDocs()[0].getDescription()).toEqual('User really');
         });
 
         it('has import objecttype', () => {
@@ -875,13 +885,8 @@ describe('model with one id string', () => {
                 text: `@ObjectType({ description: 'user description' }) export class User {}`,
             },
         }));
-        sourceFile = project.getSourceFile(s =>
-            s.getFilePath().endsWith('user.model.ts'),
-        )!;
-        const objectType = sourceFile
-            .getClass(() => true)
-            ?.getDecorator('ObjectType')
-            ?.getText();
+        setSourceFile('user.model.ts');
+        const objectType = classFile.getDecorator('ObjectType')?.getText();
         expect(objectType).toEqual('@ObjectType()');
     });
 
