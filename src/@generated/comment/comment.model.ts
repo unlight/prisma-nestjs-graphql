@@ -18,13 +18,13 @@ export class Comment {
     body!: string;
 
     @Field(() => User, { nullable: false })
-    author!: User;
+    author?: User;
 
     @Field(() => String, { nullable: false })
     authorId!: string;
 
     @Field(() => Article, { nullable: true })
-    article!: Article;
+    article?: Article;
 
     @Field(() => String, { nullable: true })
     articleId!: string | null;

@@ -3,6 +3,7 @@ import { Field, Float, HideField, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
 import { Role } from '../prisma/role.enum';
+import { Profile } from '../profile/profile.model';
 import { UserCount } from './user-count.output';
 
 /** User really */
@@ -28,19 +29,19 @@ export class User {
     image!: string | null;
 
     @Field(() => [User], { nullable: true })
-    following!: Array<User>;
+    following?: Array<User>;
 
     @Field(() => [User], { nullable: true })
-    followers!: Array<User>;
+    followers?: Array<User>;
 
     @Field(() => [Article], { nullable: true })
-    favoriteArticles!: Array<Article>;
+    favoriteArticles?: Array<Article>;
 
     @Field(() => [Article], { nullable: true })
-    articles!: Array<Article>;
+    articles?: Array<Article>;
 
     @Field(() => [Comment], { nullable: true })
-    comments!: Array<Comment>;
+    comments?: Array<Comment>;
 
     @Field(() => Int, { nullable: true })
     countComments!: number | null;
@@ -49,8 +50,11 @@ export class User {
     rating!: number | null;
 
     @Field(() => Role, { nullable: true })
-    role!: Role | null;
+    role!: keyof typeof Role | null;
+
+    @Field(() => Profile, { nullable: true })
+    profile?: Profile;
 
     @Field(() => UserCount, { nullable: true })
-    _count!: UserCount;
+    _count?: UserCount;
 }

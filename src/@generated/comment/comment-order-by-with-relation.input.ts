@@ -7,26 +7,26 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 @InputType()
 export class CommentOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    body?: keyof typeof SortOrder;
 
     @Field(() => UserOrderByWithRelationInput, { nullable: true })
     author?: UserOrderByWithRelationInput;
 
     @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
+    authorId?: keyof typeof SortOrder;
 
     @Field(() => ArticleOrderByWithRelationInput, { nullable: true })
     article?: ArticleOrderByWithRelationInput;
 
     @Field(() => SortOrder, { nullable: true })
-    articleId?: SortOrder;
+    articleId?: keyof typeof SortOrder;
 }

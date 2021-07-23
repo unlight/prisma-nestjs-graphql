@@ -10,34 +10,34 @@ import { ArticleSumOrderByAggregateInput } from './article-sum-order-by-aggregat
 @InputType()
 export class ArticleOrderByWithAggregationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    slug?: SortOrder;
+    slug?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    title?: SortOrder;
+    title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    description?: SortOrder;
+    description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    body?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    favoritesCount?: SortOrder;
+    favoritesCount?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
+    authorId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    active?: SortOrder;
+    active?: keyof typeof SortOrder;
 
     @Field(() => ArticleCountOrderByAggregateInput, { nullable: true })
     _count?: ArticleCountOrderByAggregateInput;

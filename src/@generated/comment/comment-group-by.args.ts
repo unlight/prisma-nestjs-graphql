@@ -17,7 +17,7 @@ export class CommentGroupByArgs {
     orderBy?: Array<CommentOrderByWithAggregationInput>;
 
     @Field(() => [CommentScalarFieldEnum], { nullable: false })
-    by!: Array<CommentScalarFieldEnum>;
+    by!: Array<keyof typeof CommentScalarFieldEnum>;
 
     @Field(() => CommentScalarWhereWithAggregatesInput, { nullable: true })
     having?: CommentScalarWhereWithAggregatesInput;

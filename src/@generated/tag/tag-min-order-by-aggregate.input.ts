@@ -5,8 +5,8 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class TagMinOrderByAggregateInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    name?: SortOrder;
+    name?: keyof typeof SortOrder;
 }

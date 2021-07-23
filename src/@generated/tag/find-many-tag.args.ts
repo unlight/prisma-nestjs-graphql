@@ -23,5 +23,5 @@ export class FindManyTagArgs {
     skip?: number;
 
     @Field(() => [TagScalarFieldEnum], { nullable: true })
-    distinct?: Array<TagScalarFieldEnum>;
+    distinct?: Array<keyof typeof TagScalarFieldEnum>;
 }

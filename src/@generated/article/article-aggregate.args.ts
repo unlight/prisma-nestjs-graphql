@@ -1,13 +1,13 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { ArticleAvgAggregateInput } from '../article/article-avg-aggregate.input';
-import { ArticleCountAggregateInput } from '../article/article-count-aggregate.input';
-import { ArticleMaxAggregateInput } from '../article/article-max-aggregate.input';
-import { ArticleMinAggregateInput } from '../article/article-min-aggregate.input';
-import { ArticleOrderByWithRelationInput } from '../article/article-order-by-with-relation.input';
-import { ArticleSumAggregateInput } from '../article/article-sum-aggregate.input';
-import { ArticleWhereInput } from '../article/article-where.input';
-import { ArticleWhereUniqueInput } from '../article/article-where-unique.input';
+import { ArticleAvgAggregateInput } from './article-avg-aggregate.input';
+import { ArticleCountAggregateInput } from './article-count-aggregate.input';
+import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
+import { ArticleMinAggregateInput } from './article-min-aggregate.input';
+import { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input';
+import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
+import { ArticleWhereInput } from './article-where.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class ArticleAggregateArgs {

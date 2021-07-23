@@ -9,37 +9,37 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 @InputType()
 export class ArticleOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    slug?: SortOrder;
+    slug?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    title?: SortOrder;
+    title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    description?: SortOrder;
+    description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    body?: keyof typeof SortOrder;
 
     @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
     tags?: TagOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    favoritesCount?: SortOrder;
+    favoritesCount?: keyof typeof SortOrder;
 
     @Field(() => UserOrderByWithRelationInput, { nullable: true })
     author?: UserOrderByWithRelationInput;
 
     @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
+    authorId?: keyof typeof SortOrder;
 
     @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
     favoritedBy?: UserOrderByRelationAggregateInput;
@@ -48,5 +48,5 @@ export class ArticleOrderByWithRelationInput {
     comments?: CommentOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, { nullable: true })
-    active?: SortOrder;
+    active?: keyof typeof SortOrder;
 }

@@ -7,6 +7,7 @@ import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { ProfileWhereInput } from '../profile/profile-where.input';
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 
 @InputType()
@@ -61,4 +62,7 @@ export class UserWhereInput {
 
     @Field(() => EnumRoleNullableFilter, { nullable: true })
     role?: EnumRoleNullableFilter;
+
+    @Field(() => ProfileWhereInput, { nullable: true })
+    profile?: ProfileWhereInput;
 }

@@ -8,22 +8,22 @@ import { CommentMinOrderByAggregateInput } from './comment-min-order-by-aggregat
 @InputType()
 export class CommentOrderByWithAggregationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    createdAt?: SortOrder;
+    createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    updatedAt?: SortOrder;
+    updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    body?: SortOrder;
+    body?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    authorId?: SortOrder;
+    authorId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    articleId?: SortOrder;
+    articleId?: keyof typeof SortOrder;
 
     @Field(() => CommentCountOrderByAggregateInput, { nullable: true })
     _count?: CommentCountOrderByAggregateInput;

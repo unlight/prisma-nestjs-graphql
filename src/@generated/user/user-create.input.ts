@@ -6,6 +6,7 @@ import { ArticleCreateNestedManyWithoutAuthorInput } from '../article/article-cr
 import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input';
 import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input';
 import { Role } from '../prisma/role.enum';
+import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input';
 import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input';
 
@@ -38,7 +39,7 @@ export class UserCreateInput {
     rating?: number;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role?: keyof typeof Role;
 
     @Field(() => UserCreateNestedManyWithoutFollowersInput, { nullable: true })
     following?: UserCreateNestedManyWithoutFollowersInput;
@@ -54,4 +55,7 @@ export class UserCreateInput {
 
     @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
     comments?: CommentCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
+    profile?: ProfileCreateNestedOneWithoutUserInput;
 }

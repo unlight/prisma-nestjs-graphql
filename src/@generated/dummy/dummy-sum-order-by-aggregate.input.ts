@@ -5,17 +5,17 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class DummySumOrderByAggregateInput {
     @Field(() => SortOrder, { nullable: true })
-    floaty?: SortOrder;
+    floaty?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    int?: SortOrder;
+    int?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    float?: SortOrder;
+    float?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    decimal?: SortOrder;
+    decimal?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    bigInt?: SortOrder;
+    bigInt?: keyof typeof SortOrder;
 }

@@ -6,10 +6,10 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class TagOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    name?: SortOrder;
+    name?: keyof typeof SortOrder;
 
     @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
     articles?: ArticleOrderByRelationAggregateInput;

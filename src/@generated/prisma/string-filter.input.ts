@@ -36,7 +36,7 @@ export class StringFilter {
     endsWith?: string;
 
     @Field(() => QueryMode, { nullable: true })
-    mode?: QueryMode;
+    mode?: keyof typeof QueryMode;
 
     @Field(() => NestedStringFilter, { nullable: true })
     not?: NestedStringFilter;

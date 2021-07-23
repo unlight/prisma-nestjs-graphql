@@ -1,11 +1,11 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
 
-import { TagCountAggregateInput } from '../tag/tag-count-aggregate.input';
-import { TagMaxAggregateInput } from '../tag/tag-max-aggregate.input';
-import { TagMinAggregateInput } from '../tag/tag-min-aggregate.input';
-import { TagOrderByWithRelationInput } from '../tag/tag-order-by-with-relation.input';
-import { TagWhereInput } from '../tag/tag-where.input';
-import { TagWhereUniqueInput } from '../tag/tag-where-unique.input';
+import { TagCountAggregateInput } from './tag-count-aggregate.input';
+import { TagMaxAggregateInput } from './tag-max-aggregate.input';
+import { TagMinAggregateInput } from './tag-min-aggregate.input';
+import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input';
+import { TagWhereInput } from './tag-where.input';
+import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class TagAggregateArgs {

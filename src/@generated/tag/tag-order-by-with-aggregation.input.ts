@@ -8,10 +8,10 @@ import { TagMinOrderByAggregateInput } from './tag-min-order-by-aggregate.input'
 @InputType()
 export class TagOrderByWithAggregationInput {
     @Field(() => SortOrder, { nullable: true })
-    id?: SortOrder;
+    id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, { nullable: true })
-    name?: SortOrder;
+    name?: keyof typeof SortOrder;
 
     @Field(() => TagCountOrderByAggregateInput, { nullable: true })
     _count?: TagCountOrderByAggregateInput;

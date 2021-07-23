@@ -5,6 +5,7 @@ import * as Scalars from 'graphql-scalars';
 import { ArticleUncheckedCreateNestedManyWithoutAuthorInput } from '../article/article-unchecked-create-nested-many-without-author.input';
 import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
 import { Role } from '../prisma/role.enum';
+import { ProfileUncheckedCreateNestedOneWithoutUserInput } from '../profile/profile-unchecked-create-nested-one-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutFollowersInput {
@@ -35,11 +36,14 @@ export class UserUncheckedCreateWithoutFollowersInput {
     rating?: number;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role?: keyof typeof Role;
 
     @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
     articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
 
     @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, { nullable: true })
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 }

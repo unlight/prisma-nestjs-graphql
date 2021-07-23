@@ -23,5 +23,5 @@ export class FindManyUserArgs {
     skip?: number;
 
     @Field(() => [UserScalarFieldEnum], { nullable: true })
-    distinct?: Array<UserScalarFieldEnum>;
+    distinct?: Array<keyof typeof UserScalarFieldEnum>;
 }

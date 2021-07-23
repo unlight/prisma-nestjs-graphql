@@ -8,6 +8,7 @@ import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-floa
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { ProfileUpdateOneWithoutUserInput } from '../profile/profile-update-one-without-user.input';
 import { UserUpdateManyWithoutFollowersInput } from './user-update-many-without-followers.input';
 
 @InputType()
@@ -50,4 +51,7 @@ export class UserUpdateWithoutFollowersInput {
 
     @Field(() => CommentUpdateManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUpdateManyWithoutAuthorInput;
+
+    @Field(() => ProfileUpdateOneWithoutUserInput, { nullable: true })
+    profile?: ProfileUpdateOneWithoutUserInput;
 }

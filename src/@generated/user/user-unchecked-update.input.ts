@@ -7,6 +7,7 @@ import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-floa
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { ProfileUncheckedUpdateOneWithoutUserInput } from '../profile/profile-unchecked-update-one-without-user.input';
 
 @InputType()
 export class UserUncheckedUpdateInput {
@@ -42,4 +43,7 @@ export class UserUncheckedUpdateInput {
 
     @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
     comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
+
+    @Field(() => ProfileUncheckedUpdateOneWithoutUserInput, { nullable: true })
+    profile?: ProfileUncheckedUpdateOneWithoutUserInput;
 }

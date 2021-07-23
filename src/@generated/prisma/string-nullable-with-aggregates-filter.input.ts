@@ -38,7 +38,7 @@ export class StringNullableWithAggregatesFilter {
     endsWith?: string;
 
     @Field(() => QueryMode, { nullable: true })
-    mode?: QueryMode;
+    mode?: keyof typeof QueryMode;
 
     @Field(() => NestedStringNullableWithAggregatesFilter, { nullable: true })
     not?: NestedStringNullableWithAggregatesFilter;

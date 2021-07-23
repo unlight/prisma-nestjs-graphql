@@ -5,6 +5,7 @@ import * as Scalars from 'graphql-scalars';
 import { ArticleCreateNestedManyWithoutAuthorInput } from '../article/article-create-nested-many-without-author.input';
 import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input';
 import { Role } from '../prisma/role.enum';
+import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input';
 import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input';
 
@@ -37,7 +38,7 @@ export class UserCreateWithoutCommentsInput {
     rating?: number;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role?: keyof typeof Role;
 
     @Field(() => UserCreateNestedManyWithoutFollowersInput, { nullable: true })
     following?: UserCreateNestedManyWithoutFollowersInput;
@@ -50,4 +51,7 @@ export class UserCreateWithoutCommentsInput {
 
     @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
     articles?: ArticleCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
+    profile?: ProfileCreateNestedOneWithoutUserInput;
 }

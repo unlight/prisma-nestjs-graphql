@@ -34,7 +34,7 @@ export class UserGroupBy {
     rating?: number;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role?: keyof typeof Role;
 
     @Field(() => UserCountAggregate, { nullable: true })
     _count?: UserCountAggregate;

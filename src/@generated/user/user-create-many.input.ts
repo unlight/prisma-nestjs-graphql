@@ -33,5 +33,5 @@ export class UserCreateManyInput {
     rating?: number;
 
     @Field(() => Role, { nullable: true })
-    role?: Role;
+    role?: keyof typeof Role;
 }

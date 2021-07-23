@@ -23,5 +23,5 @@ export class FindFirstUserArgs {
     skip?: number;
 
     @Field(() => [UserScalarFieldEnum], { nullable: true })
-    distinct?: Array<UserScalarFieldEnum>;
+    distinct?: Array<keyof typeof UserScalarFieldEnum>;
 }
