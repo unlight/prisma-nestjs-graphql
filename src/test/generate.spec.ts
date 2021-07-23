@@ -597,7 +597,8 @@ describe('scalar list type', () => {
 describe('nullish compatibility', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
-            schema: `model User {
+            schema: `
+            model User {
                 id String @id
                 count Int?
                 rating Float?
@@ -606,24 +607,43 @@ describe('nullish compatibility', () => {
                 money Decimal?
                 data Json?
                 biggy BigInt?
-            }`,
+                role Role?
+                posts Post[]
+                profile Profile?
+            }
+            model Post {
+              id     Int   @id
+              User   User? @relation(fields: [userId], references: [id])
+              userId String?
+            }
+            model Profile {
+              id                  Int                 @id @default(autoincrement())
+              user                User                @relation(fields: [userId], references: [id])
+              userId              String
+              dummy String?
+            }
+            enum Role {
+                USER
+            }
+            `,
             options: [`outputFilePattern = "{name}.{type}.ts"`],
         }));
         setSourceFile('user.model.ts');
     });
 
-    // datetime have only Date
-
     it('number', () => {
         expect(p('count')?.type).toEqual('number | null');
+        expect(p('count')?.hasQuestionToken).toBe(false);
     });
 
     it('born', () => {
         expect(p('born')?.type).toEqual('Date | null');
+        expect(p('born')?.hasQuestionToken).toBe(false);
     });
 
     it('money', () => {
         expect(p('money')?.type).toEqual('any | null');
+        expect(p('money')?.hasQuestionToken).toBe(false);
         expect(imports).toContainEqual({
             name: 'GraphQLDecimal',
             specifier: 'prisma-graphql-type-decimal',
@@ -635,6 +655,16 @@ describe('nullish compatibility', () => {
         expect(imports).toContainEqual({
             name: 'GraphQLJSON',
             specifier: 'graphql-type-json',
+        });
+    });
+
+    describe('relation fields should hasQuestionToken (optional)', () => {
+        it('profile', () => {
+            expect(p('profile')?.hasQuestionToken).toBe(true);
+        });
+
+        it('posts', () => {
+            expect(p('posts')?.hasQuestionToken).toBe(true);
         });
     });
 
@@ -660,10 +690,7 @@ describe('one model with enum', () => {
 
     describe('sort order enum', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('sort-order.enum.ts'),
-            )!;
-            sourceText = sourceFile.getText();
+            setSourceFile('sort-order.enum.ts');
         });
 
         it('should import registerEnumType', () => {
@@ -706,10 +733,7 @@ describe('one model with enum', () => {
 
     describe('role enum', () => {
         before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('role.enum.ts'),
-            )!;
-            sourceText = sourceFile.getText();
+            setSourceFile('role.enum.ts');
         });
 
         it('should contains import registerEnumType with name role', () => {
@@ -734,6 +758,11 @@ describe('one model with enum', () => {
                 name: 'Role',
                 specifier: '../prisma/role.enum',
             });
+        });
+
+        it('role type should use typeof keyof trick', () => {
+            const role = p('role');
+            expect(role?.type).toEqual('keyof typeof Role');
         });
     });
 });

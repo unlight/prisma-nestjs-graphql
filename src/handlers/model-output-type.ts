@@ -169,7 +169,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             name: field.name,
             isNullable: field.isNullable,
             hasExclamationToken: true,
-            hasQuestionToken: false,
+            hasQuestionToken: location === 'outputObjectTypes',
             propertyType,
             isList,
         });

@@ -28,8 +28,11 @@ export function getPropertyType(args: {
         case 'BigInt':
             return ['bigint', 'number'];
     }
-    if (['inputObjectTypes', 'outputObjectTypes', 'enumTypes'].includes(location)) {
+    if (['inputObjectTypes', 'outputObjectTypes'].includes(location)) {
         return [type];
+    }
+    if (location === 'enumTypes') {
+        return [`keyof typeof ${type}`];
     }
     if (location === 'scalar') {
         return [type];

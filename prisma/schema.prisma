@@ -45,6 +45,7 @@ model User {
   countComments    Int?
   rating           Float?
   role             Role?
+  profile          Profile?
 }
 
 model Tag {
@@ -85,6 +86,13 @@ model Comment {
 
 enum Role {
   USER
+}
+
+model Profile {
+  id                  Int                 @id @default(autoincrement())
+  user                User                @relation(fields: [userId], references: [id])
+  userId              String
+  dummy String?
 }
 
 model Dummy {
