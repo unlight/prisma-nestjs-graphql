@@ -3,9 +3,9 @@ import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
 
-import { UserAggregateArgs } from '../../@generated/prisma/user-aggregate.args';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
 import { User } from '../../@generated/user/user.model';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
 import { UserCreateInput } from '../../@generated/user/user-create.input';
 import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
