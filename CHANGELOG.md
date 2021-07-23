@@ -1,3 +1,11 @@
+### [12.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.0...v12.2.1) (2021-07-23)
+
+
+### Bug Fixes
+
+* **compatibility:** Make model types compatible from both sides Prisma and GraphQL ([c015f12](https://github.com/unlight/nestjs-graphql-prisma/commit/c015f12307541efdb833d06b4d26a9aadd3925e8)), closes [#41](https://github.com/unlight/nestjs-graphql-prisma/issues/41)
+* Get model name from `{Model}AggregateArgs` type ([0703f7e](https://github.com/unlight/nestjs-graphql-prisma/commit/0703f7ecfd546717cd6c7b4517eeace9362089d4))
+
 ## [12.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.1.0...v12.2.0) (2021-07-06)
 
 
