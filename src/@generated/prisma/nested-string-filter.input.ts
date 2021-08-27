@@ -32,6 +32,9 @@ export class NestedStringFilter {
     @Field(() => String, { nullable: true })
     endsWith?: string;
 
+    @Field(() => String, { nullable: true })
+    search?: string;
+
     @Field(() => NestedStringFilter, { nullable: true })
     not?: NestedStringFilter;
 }

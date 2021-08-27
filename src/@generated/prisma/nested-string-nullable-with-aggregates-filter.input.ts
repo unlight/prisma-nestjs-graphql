@@ -35,6 +35,9 @@ export class NestedStringNullableWithAggregatesFilter {
     @Field(() => String, { nullable: true })
     endsWith?: string;
 
+    @Field(() => String, { nullable: true })
+    search?: string;
+
     @Field(() => NestedStringNullableWithAggregatesFilter, { nullable: true })
     not?: NestedStringNullableWithAggregatesFilter;
 
