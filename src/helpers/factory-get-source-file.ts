@@ -22,10 +22,6 @@ export function factoryGetSourceFile(args: {
         });
         filePath = `${output}/${filePath}`;
 
-        const sourceFile =
-            // eslint-disable-next-line sonarjs/prefer-immediate-return
-            project.getSourceFile(filePath) || project.createSourceFile(filePath);
-
-        return sourceFile;
+        return project.getSourceFile(filePath) || project.createSourceFile(filePath);
     };
 }

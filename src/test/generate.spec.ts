@@ -701,7 +701,7 @@ describe('one model with enum', () => {
 
         it('should register SortOrder', () => {
             expect(sourceText).toContain(
-                `registerEnumType(SortOrder, { name: 'SortOrder' })`,
+                `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
             );
         });
 
@@ -955,10 +955,7 @@ describe('model with one id string', () => {
                 `,
             },
         }));
-        sourceFile = project.getSourceFile(s =>
-            s.getFilePath().endsWith('user.model.ts'),
-        )!;
-        sourceText = sourceFile.getText();
+        setSourceFile('user.model.ts');
         expect(sourceText.match(/export class User/g)).toHaveLength(1);
         expect(sourceText).toContain('// export class User');
     });
