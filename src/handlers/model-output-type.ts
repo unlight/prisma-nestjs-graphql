@@ -1,13 +1,10 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, remove, trim } from 'lodash';
+import { castArray, trim } from 'lodash';
+import { PlainObject } from 'simplytyped';
 import {
     ClassDeclarationStructure,
-    CommentStatement,
     ExportSpecifierStructure,
-    ImportDeclarationStructure,
-    ImportSpecifierStructure,
-    OptionalKind,
     StatementStructures,
     StructureKind,
 } from 'ts-morph';
@@ -31,47 +28,28 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         type: 'model',
     });
     const sourceFileStructure = sourceFile.getStructure();
-    const imports = remove(
+    const exportDeclaration = getExportDeclaration(
+        model.name,
         sourceFileStructure.statements as StatementStructures[],
-        s => s.kind === StructureKind.ImportDeclaration,
-    ).flatMap(s => {
-        return (
-            (s as ImportDeclarationStructure)
-                .namedImports as OptionalKind<ImportSpecifierStructure>[]
-        ).map(x => [
-            x.name || x.alias,
+    );
+    const importDeclarations = new ImportDeclarationMap();
+    const classStructure: ClassDeclarationStructure = {
+        kind: StructureKind.Class,
+        isExported: true,
+        name: outputType.name,
+        decorators: [
             {
-                moduleSpecifier: (s as ImportDeclarationStructure).moduleSpecifier,
-                namedImports: [{ name: x.name, alias: x.alias }],
+                name: 'ObjectType',
+                arguments: [],
             },
-        ]);
-    }) as Array<[string, OptionalKind<ImportDeclarationStructure>]>;
-    const importDeclarations = new ImportDeclarationMap(imports);
-
-    let classStructure = (sourceFileStructure.statements as StatementStructures[]).find(
-        (s: StatementStructures) => s.kind === StructureKind.Class,
-    ) as ClassDeclarationStructure | undefined;
-
-    if (!classStructure) {
-        classStructure = {
-            kind: StructureKind.Class,
-            isExported: true,
-            name: outputType.name,
-            decorators: [
-                {
-                    name: 'ObjectType',
-                    arguments: [],
-                },
-            ],
-            properties: [],
-        };
-        (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
-    }
-
+        ],
+        properties: [],
+    };
+    (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
     const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
     ok(decorator, 'ObjectType decorator not found');
     const decoratorArgument = decorator.arguments?.[0]
-        ? JSON5.parse(decorator.arguments[0])
+        ? JSON5.parse<PlainObject>(decorator.arguments[0])
         : {};
     if (model.documentation) {
         if (!classStructure.leadingTrivia) {
@@ -91,15 +69,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     importDeclarations.add('ObjectType', nestjsGraphql);
 
     for (const field of outputType.fields) {
-        // if (model.name === 'Comment') {
-        //     console.dir(field);
-        // }
-
-        // Do not generate already defined properties for model
-        if (classStructure.properties?.some(p => p.name === field.name)) {
-            continue;
-        }
-
         let fileType = 'model';
         const { location, isList, type, namespace } = field.outputType;
 
@@ -228,31 +197,11 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         eventEmitter.emitSync('ClassProperty', property, { location, isList });
     }
 
-    const hasExportDeclaration = (
-        sourceFileStructure.statements as StatementStructures[]
-    ).some(structure => {
-        return (
-            structure.kind === StructureKind.ExportDeclaration &&
-            (structure.namedExports as ExportSpecifierStructure[]).some(
-                o => (o.alias || o.name) === model.name,
-            )
-        );
-    });
-
-    // Check re-export, comment generated class if found
-    if (hasExportDeclaration) {
-        let commentStatement: CommentStatement | undefined;
-        while (
-            (commentStatement = sourceFile.getStatementByKind(
-                2 /* SingleLineCommentTrivia */,
-            ))
-        ) {
-            commentStatement.remove();
-        }
-
-        sourceFile.addStatements([classStructure]);
+    if (exportDeclaration) {
+        sourceFile.set({
+            statements: [exportDeclaration, '\n', classStructure],
+        });
         const classDeclaration = sourceFile.getClassOrThrow(model.name);
-
         const commentedText = classDeclaration
             .getText()
             .split('\n')
@@ -260,9 +209,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         classDeclaration.remove();
         sourceFile.addStatements(['\n', ...commentedText]);
     } else {
-        (sourceFileStructure.statements as StatementStructures[]).unshift(
-            ...importDeclarations.toStatements(),
-        );
-        sourceFile.set(sourceFileStructure);
+        sourceFile.set({
+            statements: [...importDeclarations.toStatements(), classStructure],
+        });
     }
+}
+
+function getExportDeclaration(name: string, statements: StatementStructures[]) {
+    return statements.find(structure => {
+        return (
+            structure.kind === StructureKind.ExportDeclaration &&
+            (structure.namedExports as ExportSpecifierStructure[]).some(
+                o => (o.alias || o.name) === name,
+            )
+        );
+    });
 }

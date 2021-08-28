@@ -931,12 +931,7 @@ describe('model with one id string', () => {
                 `,
             },
         }));
-        sourceFile = project.getSourceFile(s =>
-            s.getFilePath().endsWith('user.model.ts'),
-        )!;
-        sourceText = sourceFile.getText();
-        const sourceClass = sourceFile.getClasses();
-        expect(sourceClass).toHaveLength(0);
+        setSourceFile('user.model.ts');
         expect(sourceText).toContain(`export { User } from 'src/user/model'`);
         expect(sourceText).toContain(`// export class User`);
     });
