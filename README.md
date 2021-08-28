@@ -120,6 +120,12 @@ Delete all files in `output` folder
 Type: `boolean`  
 Default: `false`
 
+#### `noTypeId`
+
+Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.
+Type: `boolean`  
+Default: `false`
+
 #### `useInputType`
 
 Since GraphQL does not support input union type, this setting map

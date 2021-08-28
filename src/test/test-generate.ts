@@ -1,6 +1,6 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
-import expect from 'expect';
 import { uniq } from 'lodash';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 

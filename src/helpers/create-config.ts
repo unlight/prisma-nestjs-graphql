@@ -1,10 +1,9 @@
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
 import { Dictionary, merge, trim } from 'lodash';
-import { Nullable } from 'simplytyped';
 
 import { ReExport } from '../handlers/re-export';
-import { FieldSetting, TypeRecord } from '../types';
+import { FieldSetting } from '../types';
 
 export function createConfig(data: Record<string, unknown>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -71,6 +70,7 @@ export function createConfig(data: Record<string, unknown>) {
         fields,
         purgeOutput: toBoolean(config.purgeOutput),
         useInputType: createUseInputType(config.useInputType as any),
+        noTypeId: toBoolean(config.noTypeId),
     };
 }
 

@@ -108,6 +108,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 fileType,
                 location,
                 isId: modelField?.isId,
+                noTypeId: config.noTypeId,
                 typeName: outputTypeName,
                 getSourceFile,
             });

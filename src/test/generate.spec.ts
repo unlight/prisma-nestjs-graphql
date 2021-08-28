@@ -1890,6 +1890,58 @@ describe('output without fields', () => {
     });
 });
 
+describe('noTypeId config', () => {
+    describe('disabled', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                    model User {
+                      id Int @id
+                    }
+                `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`],
+            }));
+            setSourceFile('user.model.ts');
+        });
+
+        it('type should be ID', () => {
+            expect(t('id')).toEqual('() => ID');
+        });
+
+        it('import contain ID', () => {
+            expect(imports).toContainEqual({
+                name: 'ID',
+                specifier: '@nestjs/graphql',
+            });
+        });
+    });
+
+    describe('enabled int', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                    model User {
+                      id Int @id
+                    }
+                `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`, 'noTypeId = true'],
+            }));
+            setSourceFile('user.model.ts');
+        });
+
+        it('type should be Int', () => {
+            expect(t('id')).toEqual('() => Int');
+        });
+
+        it('import contain Int', () => {
+            expect(imports).toContainEqual({
+                name: 'Int',
+                specifier: '@nestjs/graphql',
+            });
+        });
+    });
+});
+
 // it('filePaths', () => {
 //     console.log(
 //         'filePaths',

@@ -10,12 +10,14 @@ export function getGraphqlImport(args: {
     location: FieldLocation;
     isId?: boolean;
     fileType?: string;
+    noTypeId?: boolean;
     getSourceFile(args: { type: string; name: string }): SourceFile;
 }): { name: string; specifier?: string } {
-    const { fileType, location, typeName, isId, sourceFile, getSourceFile } = args;
+    const { fileType, location, typeName, isId, noTypeId, sourceFile, getSourceFile } =
+        args;
 
     if (location === 'scalar') {
-        if (isId) {
+        if (isId && !noTypeId) {
             return { name: 'ID', specifier: '@nestjs/graphql' };
         }
 
