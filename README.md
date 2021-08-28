@@ -122,7 +122,7 @@ Default: `false`
 
 #### `noTypeId`
 
-Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.
+Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.  
 Type: `boolean`  
 Default: `false`
 
