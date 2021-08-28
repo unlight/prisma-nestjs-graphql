@@ -77,7 +77,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             fileType = 'output';
             outputTypeName = getOutputTypeName(outputTypeName);
         }
-        const customType = config.types[outputTypeName]; // todo: remove
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
         const fieldType = settings?.getFieldType();
@@ -85,7 +84,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(trim) ||
                 getPropertyType({
                     location,
                     type: outputTypeName,
@@ -111,7 +109,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 location,
                 isId: modelField?.isId,
                 typeName: outputTypeName,
-                customType,
                 getSourceFile,
             });
 
@@ -151,11 +148,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
-        }
-
-        // Create import for typescript field/property type
-        if (customType && customType.fieldType && customType.fieldModule) {
-            importDeclarations.add(customType.fieldType, customType.fieldModule);
         }
 
         if (settings?.shouldHideField({ name: outputType.name, output: true })) {

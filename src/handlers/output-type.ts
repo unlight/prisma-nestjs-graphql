@@ -63,8 +63,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const propertySettings = settings?.getPropertyType();
         const isCustomsApplicable =
             outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
-        // todo: remove
-        const customType = config.types[outputTypeName];
 
         // console.log({
         //     'field.outputType': field.outputType,
@@ -78,7 +76,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(trim) ||
                 getPropertyType({
                     location,
                     type: outputTypeName,
@@ -104,7 +101,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             location,
             isId: false,
             typeName: outputTypeName,
-            customType,
             getSourceFile,
         });
 
@@ -112,11 +108,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
             importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
-        }
-
-        // Create import for typescript field/property type
-        if (customType && customType.fieldModule && customType.fieldType) {
-            importDeclarations.add(customType.fieldType, customType.fieldModule);
         }
 
         if (settings?.shouldHideField({ name: outputType.name, output: true })) {

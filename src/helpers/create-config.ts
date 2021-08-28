@@ -38,8 +38,6 @@ export function createConfig(data: Record<string, unknown>) {
         }
     }
 
-    const types = merge({}, config.types) as Record<string, Nullable<TypeRecord>>;
-
     type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
     const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
         Object.entries<Dictionary<string | undefined>>(
@@ -61,22 +59,11 @@ export function createConfig(data: Record<string, unknown>) {
             }),
     );
 
-    if (Object.keys(types).length > 0) {
-        $warnings.push(
-            'Configuration throu `types_*` is deprecated, use @FieldType/@PropertyType https://github.com/unlight/prisma-nestjs-graphql#field-settings',
-        );
-    }
-
     return {
         outputFilePattern,
         tsConfigFilePath: undefined as string | undefined,
         combineScalarFilters: toBoolean(config.combineScalarFilters),
         noAtomicOperations: toBoolean(config.noAtomicOperations),
-        /**
-         * @deprecated
-         * Use FieldType() instead
-         */
-        types,
         reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
         emitSingle: toBoolean(config.emitSingle),
         emitCompiled: toBoolean(config.emitCompiled),

@@ -79,8 +79,6 @@ export function inputType(
         const graphqlInputType = getGraphqlInputType(inputTypes, usePattern);
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
-        // todo: remove
-        const customType = config.types[typeName];
         const settings = modelFieldSettings?.get(name);
         const propertySettings = settings?.getPropertyType();
         const isCustomsApplicable =
@@ -88,7 +86,6 @@ export function inputType(
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(element => trim(element)) ||
                 getPropertyType({
                     location,
                     type: typeName,
@@ -119,7 +116,6 @@ export function inputType(
                 sourceFile,
                 location,
                 typeName,
-                customType,
                 getSourceFile,
             });
 

@@ -1,6 +1,6 @@
 import { SourceFile } from 'ts-morph';
 
-import { FieldLocation, TypeRecord } from '../types';
+import { FieldLocation } from '../types';
 import { fileTypeByLocation } from './file-type-by-location';
 import { relativePath } from './relative-path';
 
@@ -10,25 +10,9 @@ export function getGraphqlImport(args: {
     location: FieldLocation;
     isId?: boolean;
     fileType?: string;
-    customType?: TypeRecord | null;
     getSourceFile(args: { type: string; name: string }): SourceFile;
 }): { name: string; specifier?: string } {
-    const {
-        fileType,
-        location,
-        typeName,
-        isId,
-        customType,
-        sourceFile,
-        getSourceFile,
-    } = args;
-
-    if (customType && customType.graphqlType) {
-        return {
-            name: customType.graphqlType,
-            specifier: customType.graphqlModule,
-        };
-    }
+    const { fileType, location, typeName, isId, sourceFile, getSourceFile } = args;
 
     if (location === 'scalar') {
         if (isId) {

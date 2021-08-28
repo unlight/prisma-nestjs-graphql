@@ -179,54 +179,6 @@ export class PostWhereInput {
 }
 ```
 
-#### `types_*` (deprecated)
-
-<details>
-Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
-
--   `types_{type}_fieldType` TypeScript field type name
--   `types_{type}_fieldModule` Module to import
--   `types_{type}_graphqlType` GraphQL type name
--   `types_{type}_graphqlModule` Module to import
-
-Where `{type}` is prisma type in schema
-
-Example (Decimal):
-
-```prisma
-types_Decimal_fieldType = "Decimal"
-types_Decimal_fieldModule = "decimal.js"
-types_Decimal_graphqlType = "GraphQLDecimal"
-types_Decimal_graphqlModule = "graphql-type-decimal"
-```
-
-Generates field:
-
-```ts
-import { GraphQLDecimal } from 'graphql-type-decimal';
-import { Decimal } from 'decimal.js';
-...
-@Field(() => GraphQLDecimal)
-field: Decimal;
-```
-
-Example (DateTime):
-
-```prisma
-types_DateTime_fieldType = "Date"
-types_DateTime_graphqlType = "GraphQLISODateTime"
-types_DateTime_graphqlModule = "@nestjs/graphql"
-```
-
-Generated fields:
-
-```ts
-@Field(() => GraphQLISODateTime)
-field: Date;
-```
-
-</details>
-
 ## Field Settings
 
 Special directives in triple slash comments for more precise code generation.
