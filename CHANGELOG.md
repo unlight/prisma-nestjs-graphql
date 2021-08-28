@@ -1,3 +1,27 @@
+## [13.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.1...v13.0.0) (2021-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed deprecated setting `types_*`
+* Model is regenerating ignoring existing data, any manual changes will be discarded
+* Enum is regerating now, any manual changes will be discarded
+
+### Features
+
+* **configuration:** Option to disable ID graphql type ([8474da7](https://github.com/unlight/nestjs-graphql-prisma/commit/8474da7c358d0e48f19c9f9db3093770396f20d7)), closes [#44](https://github.com/unlight/nestjs-graphql-prisma/issues/44)
+
+
+### Bug Fixes
+
+* Regenerate enum ignoring existing values ([c581bc7](https://github.com/unlight/nestjs-graphql-prisma/commit/c581bc7c376921c012a6a24bf30339e578256044)), closes [#45](https://github.com/unlight/nestjs-graphql-prisma/issues/45)
+* Regenerate model ignoring existing data ([62ffd83](https://github.com/unlight/nestjs-graphql-prisma/commit/62ffd83064c543f5285f37742e984b7efd9775b1)), closes [#45](https://github.com/unlight/nestjs-graphql-prisma/issues/45)
+
+
+### Miscellaneous Chores
+
+* Removed deprecated setting `types_*` ([3491398](https://github.com/unlight/nestjs-graphql-prisma/commit/349139894b087c37b521c6e472c1d34ee4997e45))
+
 ### [12.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.0...v12.2.1) (2021-07-23)
 
 
