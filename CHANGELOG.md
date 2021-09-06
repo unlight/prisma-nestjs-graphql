@@ -1,3 +1,15 @@
+## [14.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v13.0.0...v14.0.0) (2021-09-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Configuration `useInputType` changed underlying library for pattern matching
+https://github.com/axtgr/outmatch, prefix renamed to `match:`
+
+### Code Refactoring
+
+* Replace `matcher` by `outmatch` ([fa7c003](https://github.com/unlight/nestjs-graphql-prisma/commit/fa7c0036b7bd1209261cae3f5f9adbb8dde4f256))
+
 ## [13.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.1...v13.0.0) (2021-08-28)
 
 
