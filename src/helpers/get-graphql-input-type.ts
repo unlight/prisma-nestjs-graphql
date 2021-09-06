@@ -1,5 +1,5 @@
 import { countBy } from 'lodash';
-import matcher from 'matcher';
+import outmatch from 'outmatch';
 
 import { DMMF } from '../types';
 
@@ -29,11 +29,11 @@ export function getGraphqlInputType(
     }
 
     if (pattern) {
-        if (pattern.startsWith('matcher:')) {
-            const patternValue = pattern.slice(8);
-            result = inputTypes.find(x =>
-                matcher.isMatch(String(x.type), patternValue),
-            );
+        if (pattern.startsWith('matcher:') || pattern.startsWith('match:')) {
+            const { 1: patternValue } = pattern.split(':', 2);
+            console.log('patternValue', patternValue);
+            const isMatch = outmatch(patternValue, { separator: false });
+            result = inputTypes.find(x => isMatch(String(x.type)));
             if (result) {
                 return result;
             }

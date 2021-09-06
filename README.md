@@ -143,8 +143,8 @@ Where:
     Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
 -   `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
 -   `pattern` Part of name (or full) of type which should be chosen, you can use
-    wild card or negate symbols, in this case pattern should starts with `matcher:`,
-    e.g. `matcher:*UncheckedCreateInput` See [matcher](https://github.com/sindresorhus/matcher) for details.
+    wild card or negate symbols, in this case pattern should starts with `match:`,
+    e.g. `match:*UncheckedCreateInput` see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 Example:
 

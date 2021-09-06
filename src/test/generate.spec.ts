@@ -1775,9 +1775,9 @@ describe('select input type', () => {
             `,
                 options: [
                     `outputFilePattern = "{name}.{type}.ts"`,
-                    `useInputType_UpdateInput_ALL = "matcher:!*FieldUpdateOperationsInput"`,
-                    `useInputType_UpdateMany_ALL = "matcher:!*FieldUpdateOperationsInput"`,
-                    `useInputType_UpdateWithout_ALL = "matcher:!*FieldUpdateOperationsInput"`,
+                    `useInputType_UpdateInput_ALL = "match:!*FieldUpdateOperationsInput"`,
+                    `useInputType_UpdateMany_ALL = "match:!*FieldUpdateOperationsInput"`,
+                    `useInputType_UpdateWithout_ALL = "match:!*FieldUpdateOperationsInput"`,
                 ],
             }));
         });
