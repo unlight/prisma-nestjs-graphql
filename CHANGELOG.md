@@ -1,3 +1,10 @@
+### [14.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.0.0...v14.0.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* Getting json nullable enum ([d001714](https://github.com/unlight/nestjs-graphql-prisma/commit/d0017146a4543a8178972138fecbdabf58082d92))
+
 ## [14.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v13.0.0...v14.0.0) (2021-09-06)
 
 
