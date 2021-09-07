@@ -49,6 +49,17 @@ export function getGraphqlInputType(
         return result;
     }
 
+    if (
+        countTypes.enumTypes &&
+        countTypes.scalar &&
+        inputTypes.some(x => x.type === 'Json' && x.location === 'scalar')
+    ) {
+        result = inputTypes.find(x => x.type === 'Json' && x.location === 'scalar');
+        if (result) {
+            return result;
+        }
+    }
+
     throw new TypeError(
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         `Cannot get matching input type from ${

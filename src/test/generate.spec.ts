@@ -570,6 +570,29 @@ describe('one model with scalar types', () => {
     });
 });
 
+describe('model with scalar nullable types', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `model User {
+                id String @id
+                count Int?
+                rating Float?
+                born DateTime?
+                humanoid Boolean?
+                money Decimal?
+                data Json?
+                biggy BigInt?
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('nullable json', () => {
+        setSourceFile('user-create.input.ts');
+        expect(p('data')?.type).toEqual('any');
+    });
+});
+
 describe('scalar list type', () => {
     describe('general', () => {
         before(async () => {
