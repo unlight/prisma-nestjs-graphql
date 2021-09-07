@@ -133,12 +133,12 @@ describe('model with one id int', () => {
         });
     });
 
-    describe('aggregate user', () => {
+    describe('aggregate user output', () => {
         before(() => {
             setSourceFile('aggregate-user.output.ts');
         });
 
-        // it('', () => console.log(sourceFile.getText()));
+        // it('', () => console.log(sourceText));
 
         it('class should be exported', () => {
             const [classFile] = sourceFile.getClasses();
@@ -155,7 +155,7 @@ describe('model with one id int', () => {
         it('count', () => {
             const structure = sourceFile
                 .getClass(() => true)
-                ?.getProperty(p => p.getName() === 'count')
+                ?.getProperty(p => p.getName() === '_count')
                 ?.getStructure();
             expect(structure?.type).toEqual('UserCountAggregate');
             expect(structure?.hasQuestionToken).toEqual(true);
@@ -1135,7 +1135,13 @@ describe('combine scalar filters', () => {
     it('files should not contain nested and nullable', () => {
         const filePaths = sourceFiles
             .map(s => s.getFilePath().slice(1))
-            .filter(p => !p.endsWith('field-update-operations.input.ts'));
+            .filter(
+                p =>
+                    !(
+                        p.endsWith('field-update-operations.input.ts') ||
+                        p.endsWith('json-null-value-input.enum.ts')
+                    ),
+            );
         for (const filePath of filePaths) {
             expect(filePath).not.toContain('nested');
             expect(filePath).not.toContain('nullable');
