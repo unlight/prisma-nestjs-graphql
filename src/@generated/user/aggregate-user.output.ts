@@ -9,16 +9,6 @@ import { UserSumAggregate } from './user-sum-aggregate.output';
 @ObjectType()
 export class AggregateUser {
     @Field(() => UserCountAggregate, { nullable: true })
-    count?: UserCountAggregate;
-    @Field(() => UserAvgAggregate, { nullable: true })
-    avg?: UserAvgAggregate;
-    @Field(() => UserSumAggregate, { nullable: true })
-    sum?: UserSumAggregate;
-    @Field(() => UserMinAggregate, { nullable: true })
-    min?: UserMinAggregate;
-    @Field(() => UserMaxAggregate, { nullable: true })
-    max?: UserMaxAggregate;
-    @Field(() => UserCountAggregate, { nullable: true })
     _count?: UserCountAggregate;
 
     @Field(() => UserAvgAggregate, { nullable: true })

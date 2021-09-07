@@ -30,7 +30,7 @@ export async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["orderByRelation", "selectRelationCount", "orderByAggregateGroup"]
+            previewFeatures = ["filterJson"]
         }
     `;
     // eslint-disable-next-line prefer-rest-params

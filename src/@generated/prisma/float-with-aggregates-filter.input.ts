@@ -31,16 +31,6 @@ export class FloatWithAggregatesFilter {
     not?: NestedFloatWithAggregatesFilter;
 
     @Field(() => NestedIntFilter, { nullable: true })
-    count?: NestedIntFilter;
-    @Field(() => NestedFloatFilter, { nullable: true })
-    avg?: NestedFloatFilter;
-    @Field(() => NestedFloatFilter, { nullable: true })
-    sum?: NestedFloatFilter;
-    @Field(() => NestedFloatFilter, { nullable: true })
-    min?: NestedFloatFilter;
-    @Field(() => NestedFloatFilter, { nullable: true })
-    max?: NestedFloatFilter;
-    @Field(() => NestedIntFilter, { nullable: true })
     _count?: NestedIntFilter;
 
     @Field(() => NestedFloatFilter, { nullable: true })

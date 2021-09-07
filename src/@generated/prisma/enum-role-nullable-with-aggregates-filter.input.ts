@@ -20,12 +20,6 @@ export class EnumRoleNullableWithAggregatesFilter {
     not?: NestedEnumRoleNullableWithAggregatesFilter;
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
-    count?: NestedIntNullableFilter;
-    @Field(() => NestedEnumRoleNullableFilter, { nullable: true })
-    min?: NestedEnumRoleNullableFilter;
-    @Field(() => NestedEnumRoleNullableFilter, { nullable: true })
-    max?: NestedEnumRoleNullableFilter;
-    @Field(() => NestedIntNullableFilter, { nullable: true })
     _count?: NestedIntNullableFilter;
 
     @Field(() => NestedEnumRoleNullableFilter, { nullable: true })

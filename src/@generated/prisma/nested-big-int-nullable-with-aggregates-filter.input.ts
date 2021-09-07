@@ -31,16 +31,6 @@ export class NestedBigIntNullableWithAggregatesFilter {
     not?: NestedBigIntNullableWithAggregatesFilter;
 
     @Field(() => NestedIntNullableFilter, { nullable: true })
-    count?: NestedIntNullableFilter;
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
-    avg?: NestedFloatNullableFilter;
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
-    sum?: NestedBigIntNullableFilter;
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
-    min?: NestedBigIntNullableFilter;
-    @Field(() => NestedBigIntNullableFilter, { nullable: true })
-    max?: NestedBigIntNullableFilter;
-    @Field(() => NestedIntNullableFilter, { nullable: true })
     _count?: NestedIntNullableFilter;
 
     @Field(() => NestedFloatNullableFilter, { nullable: true })

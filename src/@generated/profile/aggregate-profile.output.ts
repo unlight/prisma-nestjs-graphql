@@ -9,16 +9,6 @@ import { ProfileSumAggregate } from './profile-sum-aggregate.output';
 @ObjectType()
 export class AggregateProfile {
     @Field(() => ProfileCountAggregate, { nullable: true })
-    count?: ProfileCountAggregate;
-    @Field(() => ProfileAvgAggregate, { nullable: true })
-    avg?: ProfileAvgAggregate;
-    @Field(() => ProfileSumAggregate, { nullable: true })
-    sum?: ProfileSumAggregate;
-    @Field(() => ProfileMinAggregate, { nullable: true })
-    min?: ProfileMinAggregate;
-    @Field(() => ProfileMaxAggregate, { nullable: true })
-    max?: ProfileMaxAggregate;
-    @Field(() => ProfileCountAggregate, { nullable: true })
     _count?: ProfileCountAggregate;
 
     @Field(() => ProfileAvgAggregate, { nullable: true })

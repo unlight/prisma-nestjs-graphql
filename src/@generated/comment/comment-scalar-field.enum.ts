@@ -9,4 +9,7 @@ export enum CommentScalarFieldEnum {
     articleId = 'articleId',
 }
 
-registerEnumType(CommentScalarFieldEnum, { name: 'CommentScalarFieldEnum' });
+registerEnumType(CommentScalarFieldEnum, {
+    name: 'CommentScalarFieldEnum',
+    description: undefined,
+});
