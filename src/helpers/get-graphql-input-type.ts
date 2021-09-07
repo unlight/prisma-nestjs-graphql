@@ -31,7 +31,6 @@ export function getGraphqlInputType(
     if (pattern) {
         if (pattern.startsWith('matcher:') || pattern.startsWith('match:')) {
             const { 1: patternValue } = pattern.split(':', 2);
-            console.log('patternValue', patternValue);
             const isMatch = outmatch(patternValue, { separator: false });
             result = inputTypes.find(x => isMatch(String(x.type)));
             if (result) {
