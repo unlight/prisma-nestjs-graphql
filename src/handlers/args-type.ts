@@ -29,8 +29,6 @@ export function argsType(field: SchemaField, args: EventArguments) {
         fields: [...field.args],
     };
 
-    // console.dir(field, { depth: 4 });
-
     if (
         !field.args.some(x => x.name === '_count') &&
         [`${modelName}AggregateArgs`, `${modelName}GroupByArgs`].includes(className)

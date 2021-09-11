@@ -1,9 +1,24 @@
+import { ok } from 'assert';
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
+import JSON5 from 'json5';
 import { Dictionary, merge, trim } from 'lodash';
+import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
 import { FieldSetting } from '../types';
+
+type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
+type DecorateElement = {
+    isMatchField: (s: string) => boolean;
+    isMatchType: (s: string) => boolean;
+    from: string;
+    name: string;
+    arguments?: string[];
+    namedImport: boolean;
+    defaultImport?: string | true;
+    namespaceImport?: string;
+};
 
 export function createConfig(data: Record<string, unknown>) {
     const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -37,7 +52,6 @@ export function createConfig(data: Record<string, unknown>) {
         }
     }
 
-    type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
     const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
         Object.entries<Dictionary<string | undefined>>(
             (config.fields ?? {}) as Record<string, Dictionary<string | undefined>>,
@@ -58,6 +72,31 @@ export function createConfig(data: Record<string, unknown>) {
             }),
     );
 
+    const decorate: DecorateElement[] = [];
+    const configDecorate: (Record<string, string> | undefined)[] = Object.values(
+        (config.decorate as any) || {},
+    );
+
+    for (const element of configDecorate) {
+        if (!element) continue;
+        ok(
+            element.from && element.name,
+            `Missed 'from' or 'name' part in configuration for decorate`,
+        );
+        decorate.push({
+            isMatchField: outmatch(element.field, { separator: false }),
+            isMatchType: outmatch(element.type, { separator: false }),
+            from: element.from,
+            name: element.name,
+            namedImport: toBoolean(element.namedImport),
+            defaultImport: toBoolean(element.defaultImport)
+                ? true
+                : element.defaultImport,
+            namespaceImport: element.namespaceImport,
+            arguments: element.arguments ? JSON5.parse(element.arguments) : undefined,
+        });
+    }
+
     return {
         outputFilePattern,
         tsConfigFilePath: undefined as string | undefined,
@@ -71,6 +110,7 @@ export function createConfig(data: Record<string, unknown>) {
         purgeOutput: toBoolean(config.purgeOutput),
         useInputType: createUseInputType(config.useInputType as any),
         noTypeId: toBoolean(config.noTypeId),
+        decorate,
     };
 }
 
