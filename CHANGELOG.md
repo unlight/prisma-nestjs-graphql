@@ -1,3 +1,15 @@
+## [14.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.0.0...v14.1.0) (2021-09-11)
+
+
+### Features
+
+* **custom decorators:** New `decorate` generator setting ([db970f0](https://github.com/unlight/nestjs-graphql-prisma/commit/db970f0601dc37bd0f2b154dfb7228496148b4ae)), closes [#48](https://github.com/unlight/nestjs-graphql-prisma/issues/48)
+
+
+### Bug Fixes
+
+* Getting json nullable enum ([d001714](https://github.com/unlight/nestjs-graphql-prisma/commit/d0017146a4543a8178972138fecbdabf58082d92))
+
 ## [14.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v13.0.0...v14.0.0) (2021-09-06)
 
 
