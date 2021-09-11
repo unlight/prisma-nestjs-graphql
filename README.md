@@ -185,6 +185,92 @@ export class PostWhereInput {
 }
 ```
 
+#### `decorate`
+
+Allow to attach multiple decorators to any field of any type.
+
+```sh
+generator nestgraphql {
+    decorate_{key}_type = "outmatch pattern"
+    decorate_{key}_field = "outmatch pattern"
+    decorate_{key}_from = "module specifier"
+    decorate_{key}_name = "import name"
+    decorate_{key}_arguments = "[argument1, argument2]"
+    decorate_{key}_defaultImport = "default import name" | true
+    decorate_{key}_namespaceImport = "namespace import name"
+    decorate_{key}_namedImport = "import name" | true
+}
+```
+
+Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
+
+-   `decorate_{key}_type` - outmatch pattern to match class name
+-   `decorate_{key}_field` - outmatch pattern to match field name
+-   `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
+-   `decorate_{key}_name` - import name or name with namespace
+-   `decorate_{key}_defaultImport` - import as default
+-   `decorate_{key}_namespaceImport` - use this name as import namespace
+-   `decorate_{key}_namedImport` - named import (without namespace)
+-   `decorate_{key}_arguments` - arguments for decorator (if decorator need to be called as function)  
+    Special tokens can be used:
+    -   `{propertyType.0}` - field's type (TypeScript type annotation)
+
+Example of generated class:
+
+```ts
+@ArgsType()
+export class CreateOneUserArgs {
+    @Field(() => UserCreateInput, { nullable: false })
+    data!: UserCreateInput;
+}
+```
+
+To make it validateable (assuming `UserCreateInput` already contains validation decorators from `class-validator`),
+it is necessary to add `@ValidateNested()` and `@Type()` from `class-transformer`.
+
+```sh
+decorate_1_type = "CreateOneUserArgs"
+decorate_1_field = data
+decorate_1_name = ValidateNested
+decorate_1_from = "class-validator"
+decorate_1_arguments = "[]"
+decorate_2_type = "CreateOneUserArgs"
+decorate_2_field = data
+decorate_2_from = "class-transformer"
+decorate_2_arguments = "['() => {propertyType.0}']"
+decorate_2_name = Type
+```
+
+Result:
+
+```ts
+import { ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+@ArgsType()
+export class CreateOneUserArgs {
+    @Field(() => UserCreateInput, { nullable: false })
+    @ValidateNested()
+    @Type(() => UserCreateInput)
+    data!: UserCreateInput;
+}
+```
+
+Another example:
+
+```sh
+decorate_2_namespaceImport = "Transform"
+decorate_2_name = "Transform.Type"
+```
+
+```ts
+import * as Transform from 'class-transformer';
+
+@Transform.Type(() => UserCreateInput)
+data!: UserCreateInput;
+
+```
+
 ## Field Settings
 
 Special directives in triple slash comments for more precise code generation.
@@ -249,52 +335,52 @@ Applying custom decorators requires configuration of generator.
 
 ```sh
 generator nestgraphql {
-    fields_{Namespace}_from = "module specifier"
-    fields_{Namespace}_input = true | false
-    fields_{Namespace}_output = true | false
-    fields_{Namespace}_defaultImport = "default import name" | true
-    fields_{Namespace}_namespaceImport = "namespace import name"
-    fields_{Namespace}_namedImport = true | false
+    fields_{namespace}_from = "module specifier"
+    fields_{namespace}_input = true | false
+    fields_{namespace}_output = true | false
+    fields_{namespace}_defaultImport = "default import name" | true
+    fields_{namespace}_namespaceImport = "namespace import name"
+    fields_{namespace}_namedImport = true | false
 }
 ```
 
-Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{Namespace}`.  
-Where `{Namespace}` is a namespace used in field triple slash comment.
+Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{namespace}`.  
+Where `{namespace}` is a namespace used in field triple slash comment.
 
-##### `fields_{Namespace}_from`
+##### `fields_{namespace}_from`
 
 Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
 Type: `string`
 
-##### `fields_{Namespace}_input`
+##### `fields_{namespace}_input`
 
 Means that it will be applied on input types (classes decorated by `InputType`)  
 Type: `boolean`  
 Default: `false`
 
-##### `fields_{Namespace}_output`
+##### `fields_{namespace}_output`
 
 Means that it will be applied on output types (classes decorated by `ObjectType`)  
 Type: `boolean`  
 Default: `false`
 
-##### `fields_{Namespace}_defaultImport`
+##### `fields_{namespace}_defaultImport`
 
 Default import name, if module have no namespace.  
 Type: `undefined | string | true`  
 Default: `undefined`  
-If defined as `true` then import name will be same as `{Namespace}`
+If defined as `true` then import name will be same as `{namespace}`
 
-##### `fields_{Namespace}_namespaceImport`
+##### `fields_{namespace}_namespaceImport`
 
 Import all as this namespace from module  
 Type: `undefined | string`  
-Default: Equals to `{Namespace}`
+Default: Equals to `{namespace}`
 
-##### `fields_{Namespace}_namedImport`
+##### `fields_{namespace}_namedImport`
 
 If imported module has internal namespace, this allow to generate named import,  
-imported name will be equal to `{Namespace}`, see [example of usage](#propertytype)  
+imported name will be equal to `{namespace}`, see [example of usage](#propertytype)  
 Type: `boolean`  
 Default: `false`
 

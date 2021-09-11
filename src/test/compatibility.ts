@@ -2,23 +2,23 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
 
-import { Dummy } from '../@generated/dummy/dummy.model';
-import { DummyCreateInput } from '../@generated/dummy/dummy-create.input';
-import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
-import { FloatFilter } from '../@generated/prisma/float-filter.input';
-import { IntFilter } from '../@generated/prisma/int-filter.input';
-import { StringFilter } from '../@generated/prisma/string-filter.input';
-import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
-import { User } from '../@generated/user/user.model';
-import { UserAggregateArgs } from '../@generated/user/user-aggregate.args';
-import { UserCreateInput } from '../@generated/user/user-create.input';
-import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
-import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
-import { UserGroupByArgs } from '../@generated/user/user-group-by.args';
-import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
-import { UserMaxOrderByAggregateInput } from '../@generated/user/user-max-order-by-aggregate.input';
-import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
-import { UserWhereInput } from '../@generated/user/user-where.input';
+import { Dummy } from '../../@generated/dummy/dummy.model';
+import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
+import { DateTimeFilter } from '../../@generated/prisma/date-time-filter.input';
+import { FloatFilter } from '../../@generated/prisma/float-filter.input';
+import { IntFilter } from '../../@generated/prisma/int-filter.input';
+import { StringFilter } from '../../@generated/prisma/string-filter.input';
+import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
+import { User } from '../../@generated/user/user.model';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
+import { UserCreateInput } from '../../@generated/user/user-create.input';
+import { UserCreateWithoutArticlesInput } from '../../@generated/user/user-create-without-articles.input';
+import { UserCreateWithoutCommentsInput } from '../../@generated/user/user-create-without-comments.input';
+import { UserGroupByArgs } from '../../@generated/user/user-group-by.args';
+import { UserListRelationFilter } from '../../@generated/user/user-list-relation-filter.input';
+import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-order-by-aggregate.input';
+import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
+import { UserWhereInput } from '../../@generated/user/user-where.input';
 
 let $prisma = new PrismaClient();
 
