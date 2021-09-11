@@ -1,6 +1,7 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
 import { castArray, trim } from 'lodash';
+import pupa from 'pupa';
 import { PlainObject } from 'simplytyped';
 import {
     ClassDeclarationStructure,
@@ -120,18 +121,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             }
         }
 
-        // console.log({
-        //     'field.outputType': field.outputType,
-        //     'outputType.name': outputType.name,
-        //     'model.name': model.name,
-        //     outputTypeName,
-        //     'field.name': field.name,
-        //     settings,
-        //     propertyType,
-        //     graphqlType,
-        //     location,
-        // });
-
         const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
@@ -155,7 +144,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
-            property.decorators?.push({
+            ok(property.decorators);
+            property.decorators.push({
                 name: 'Field',
                 arguments: [
                     `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
@@ -175,7 +165,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 if (!options.output || options.kind !== 'Decorator') {
                     continue;
                 }
-                property.decorators?.push({
+                property.decorators.push({
                     name: options.name,
                     arguments: options.arguments,
                 });
@@ -184,6 +174,21 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                     "Missed 'from' part in configuration or field setting",
                 );
                 importDeclarations.create(options);
+            }
+
+            for (const decorate of config.decorate) {
+                if (
+                    decorate.isMatchField(field.name) &&
+                    decorate.isMatchType(outputTypeName)
+                ) {
+                    property.decorators.push({
+                        name: decorate.name,
+                        arguments: decorate.arguments?.map(x =>
+                            pupa(x, { propertyType }),
+                        ),
+                    });
+                    importDeclarations.create(decorate);
+                }
             }
         }
 

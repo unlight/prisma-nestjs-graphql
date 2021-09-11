@@ -369,4 +369,89 @@ describe('custom decorators field custom type namespace', () => {
     });
 });
 
+describe('decorate option', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id Int @id @default(autoincrement())
+                /// @Validator.MinLength(3)
+                name String
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_Validator_from = "class-validator"`,
+                `decorate_1_type = "Create@(One|Many)*Args"`,
+                `decorate_1_field = data`,
+                `decorate_1_name = ValidateNested`,
+                `decorate_1_from = "class-validator"`,
+                `decorate_1_arguments = "[]"`,
+                `decorate_2_type = "Create@(One|Many)*Args"`,
+                `decorate_2_field = data`,
+                `decorate_2_from = "class-transformer"`,
+                `decorate_2_arguments = "['() => {propertyType.0}']"`,
+                `decorate_2_name = Type`,
+                // Import as namespace
+                // `decorate_2_namespaceImport = "Transform"`,
+                // `decorate_2_name = "Transform.Type"`,
+            ],
+        }));
+    });
+
+    it('validatenested create one user args', () => {
+        setSourceFile('create-one-user.args.ts');
+        const data = p('data');
+        expect(data?.decorators).toContainEqual(
+            expect.objectContaining({
+                name: 'ValidateNested',
+                arguments: [],
+                typeArguments: [],
+            }),
+        );
+        expect(data?.decorators).toContainEqual(
+            expect.objectContaining({
+                name: 'Type',
+                arguments: ['() => UserCreateInput'],
+                typeArguments: [],
+            }),
+        );
+        expect(imports).toContainEqual({
+            name: 'Type',
+            specifier: 'class-transformer',
+        });
+        expect(imports).toContainEqual({
+            name: 'ValidateNested',
+            specifier: 'class-validator',
+        });
+    });
+
+    it('validatenested create many user args', () => {
+        setSourceFile('create-many-user.args.ts');
+        const data = p('data');
+        expect(data?.decorators).toContainEqual(
+            expect.objectContaining({
+                name: 'ValidateNested',
+                arguments: [],
+                typeArguments: [],
+            }),
+        );
+        expect(data?.decorators).toContainEqual(
+            expect.objectContaining({
+                name: 'Type',
+                arguments: ['() => UserCreateManyInput'],
+                typeArguments: [],
+            }),
+        );
+        expect(imports).toContainEqual({
+            name: 'Type',
+            specifier: 'class-transformer',
+        });
+        expect(imports).toContainEqual({
+            name: 'ValidateNested',
+            specifier: 'class-validator',
+        });
+    });
+});
+
 // it('^', () => console.log(sourceFile.getText()));

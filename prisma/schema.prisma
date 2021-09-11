@@ -22,6 +22,17 @@ generator nestgraphql {
   fields_Scalars_from = "graphql-scalars"
   fields_Scalars_input = true
   useInputType_WhereInput_ALL = "WhereInput"
+  decorate_1_type = "Create@(One|Many)UserArgs"
+  decorate_1_field = data
+  decorate_1_name = ValidateNested
+  decorate_1_from = "class-validator"
+  decorate_1_arguments = "[]"
+  decorate_2_type = "Create@(One|Many)UserArgs"
+  decorate_2_field = data
+  decorate_2_from = "class-transformer"
+  decorate_2_arguments = "['() => {propertyType.0}']"
+  decorate_2_name = Type
+  decorate_2_namedImport = true
 }
 
 /// User really
