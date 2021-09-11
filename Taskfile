@@ -3,35 +3,37 @@ PATH="$PWD/node_modules/.bin":$PATH
 set -e
 
 compatibilty_check() {
-    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    set -x
+    rm -rf ./@generated && npm run prisma:g && npm run tscheck
 
     # Enable noAtomicOperations
     sed -i 's/noAtomicOperations = false/noAtomicOperations = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    rm -rf ./@generated && npm run prisma:g && npm run tscheck
     sed -i 's/noAtomicOperations = true/noAtomicOperations = false/g' prisma/schema.prisma
 
     # Enable combineScalarFilters
     sed -i 's/combineScalarFilters = false/combineScalarFilters = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    rm -rf ./@generated && npm run prisma:g && npm run tscheck
     sed -i 's/combineScalarFilters = true/combineScalarFilters = false/g' prisma/schema.prisma
 
     # Switching reExport
     sed -i 's/reExport = None/reExport = All/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g && npm run tscheck
+    rm -rf ./@generated && npm run prisma:g && npm run tscheck
     sed -i 's/reExport = All/reExport = None/g' prisma/schema.prisma
 
     # emitSingle and emitCompiled
     sed -i 's/emitSingle = false/emitSingle = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g
-    npx tsc --noEmit --skipLibCheck --experimentalDecorators src/@generated/index.ts
-    npx ts-node src/@generated/index.ts
+    rm -rf ./@generated && npm run prisma:g
+    npx tsc --noEmit --skipLibCheck --experimentalDecorators ./@generated/index.ts
+    npx ts-node ./@generated/index.ts
 
     sed -i 's/emitCompiled = false/emitCompiled = true/g' prisma/schema.prisma
-    rm -rf src/@generated && npm run prisma:g
-    node src/@generated/index.js
+    rm -rf ./@generated && npm run prisma:g
+    node ./@generated/index.js
 
     sed -i 's/emitCompiled = true/emitCompiled = false/g' prisma/schema.prisma
     sed -i 's/emitSingle = true/emitSingle = false/g' prisma/schema.prisma
+    set +x
 }
 
 build() {
@@ -42,7 +44,7 @@ build() {
     cp -fv README.md LICENSE package.json dist
     cd dist
     /usr/bin/find . -name '*.spec.ts' | xargs rm -rf
-    rm -rf fixtures test example @generated
+    rm -rf fixtures test example ./@generated
     tsc -p .
     rm -rf tsconfig.json
     /usr/bin/find . -name '*.ts' | xargs rm -rf
