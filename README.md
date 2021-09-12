@@ -436,6 +436,7 @@ export class User {
 
 ## Similar Projects
 
+-   https://github.com/rfermann/nestjs-prisma-graphql-generator
 -   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
 -   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
 -   https://github.com/MichalLytek/typegraphql-prisma
