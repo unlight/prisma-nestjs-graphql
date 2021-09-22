@@ -39,9 +39,10 @@ function getModelName(args: {
     // test for {Model}{UniqueName}CompoundUniqueInput
     if (name.slice(-19) === 'CompoundUniqueInput') {
         const test = name.slice(0, -19);
-        const model = modelNames.find(x => test.startsWith(x));
-        if (model) {
-            return model;
+        const model = modelNames.filter(x => test.startsWith(x));
+        const bestMatch = model.sort((a,b) => b.length - a.length)?.[0]
+        if (bestMatch) {
+            return bestMatch;
         }
     } 
 
