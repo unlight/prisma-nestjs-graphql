@@ -6,9 +6,9 @@ import { Dictionary, merge, trim } from 'lodash';
 import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
-import { FieldSetting } from '../types';
+import { ObjectSetting } from '../types';
 
-type ConfigFieldSetting = Partial<Omit<FieldSetting, 'name'>>;
+type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {
     isMatchField: (s: string) => boolean;
     isMatchType: (s: string) => boolean;

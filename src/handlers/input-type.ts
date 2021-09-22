@@ -166,7 +166,7 @@ export function inputType(
                     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     property.decorators.push({
                         name: options.name,
-                        arguments: options.arguments,
+                        arguments: options.arguments as string[],
                     });
                     ok(
                         options.from,

@@ -3,11 +3,11 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 
 import { createConfig } from './helpers/create-config';
-import { FieldSetting, FieldSettings } from './helpers/field-settings';
+import { ObjectSetting, ObjectSettings } from './helpers/object-settings';
 
 export { DMMF };
-export { FieldSetting };
-export { FieldSettings };
+export { ObjectSetting };
+export { ObjectSettings };
 
 export type InputType = DMMF.InputType;
 export type FieldLocation = DMMF.FieldLocation;
@@ -35,7 +35,7 @@ export type EventArguments = {
     models: Map<string, Model>;
     modelNames: string[];
     modelFields: Map<string, Map<string, Field>>;
-    fieldSettings: Map<string, Map<string, FieldSettings>>;
+    fieldSettings: Map<string, Map<string, ObjectSettings>>;
     config: GeneratorConfiguration;
     project: Project;
     output: string;

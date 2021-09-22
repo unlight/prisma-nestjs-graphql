@@ -1,4 +1,5 @@
 import expect from 'expect';
+import JSON5 from 'json5';
 import { trim } from 'lodash';
 import {
     ClassDeclaration,
@@ -44,6 +45,11 @@ const setSourceFile = (name: string) => {
         })),
     );
 };
+const objectTypeArguments = () =>
+    sourceFile
+        .getClass(() => true)
+        ?.getDecorator('ObjectType')
+        ?.getStructure().arguments;
 
 describe('model with one id int', () => {
     let id: PropertyDeclarationStructure;
@@ -1971,9 +1977,77 @@ describe('noTypeId config', () => {
     });
 });
 
-// it('filePaths', () => {
-//     console.log(
-//         'filePaths',
-//         sourceFiles.map(s => s.getBaseName()),
-//     );
-// });
+describe('object model options', () => {
+    it('user model should have abstract true', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            /// @IsAbstract()
+            model User {
+                id Int @id
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+
+        setSourceFile('user.model.ts');
+        const argument = objectTypeArguments()?.[0];
+        const json = JSON5.parse(argument);
+        expect(json).toEqual({ isAbstract: true });
+    });
+
+    it('abstract true by objecttype', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            /// @ObjectType({ isAbstract: true })
+            model User {
+                id Int @id
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+
+        setSourceFile('user.model.ts');
+        const argument = objectTypeArguments()?.[0];
+        const json = JSON5.parse(argument);
+        expect(json).toEqual({ isAbstract: true });
+    });
+
+    it('should have abstract true and name robot', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            /// user really
+            /// @ObjectType({ name: 'Robot', isAbstract: true })
+            model User {
+                id Int @id
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+
+        setSourceFile('user.model.ts');
+        // console.log(sourceText);
+        const [argument1, argument2] = objectTypeArguments() as string[];
+        expect(argument1).toEqual("'Robot'");
+        expect(JSON5.parse(argument2)).toEqual({
+            description: 'user really',
+            isAbstract: true,
+        });
+    });
+
+    it('name by first argument string', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            /// user really
+            /// @ObjectType('Human', { isAbstract: true })
+            model User {
+                id Int @id
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+
+        setSourceFile('user.model.ts');
+        const [argument1, argument2] = objectTypeArguments() as string[];
+        expect(JSON5.parse(argument1)).toEqual('Human');
+        expect(JSON5.parse(argument2)).toEqual({
+            description: 'user really',
+            isAbstract: true,
+        });
+    });
+});

@@ -1,16 +1,16 @@
 import JSON5 from 'json5';
-import { merge, trim } from 'lodash';
+import { isObject, merge, omit, trim } from 'lodash';
 import outmatch from 'outmatch';
 
 import { GeneratorConfiguration } from '../types';
 
-export type FieldSetting = {
+export type ObjectSetting = {
     /**
      * Act as named import or namespaceImport or defaultImport
      */
     name: string;
-    kind: 'Decorator' | 'FieldType' | 'PropertyType';
-    arguments?: string[];
+    kind: 'Decorator' | 'FieldType' | 'PropertyType' | 'ObjectType';
+    arguments?: string[] | Record<string, unknown>;
     input: boolean;
     output: boolean;
     match?: (test: string) => boolean;
@@ -21,7 +21,7 @@ export type FieldSetting = {
     namedImport?: boolean;
 };
 
-export class FieldSettings extends Array<FieldSetting> {
+export class ObjectSettings extends Array<ObjectSetting> {
     shouldHideField({
         name,
         input = false,
@@ -47,14 +47,28 @@ export class FieldSettings extends Array<FieldSetting> {
     getPropertyType() {
         return this.find(s => s.kind === 'PropertyType');
     }
+
+    getObjectTypeArguments(options: Record<string, any>): string[] {
+        const objectTypeOptions = merge({}, options);
+        const resultArguments: any[] = [objectTypeOptions];
+        const objectType = this.find(s => s.kind === 'ObjectType');
+        if (objectType && isObject(objectType.arguments)) {
+            const name = objectType.arguments.name;
+            merge(objectTypeOptions, omit(objectType.arguments, 'name'));
+            if (name) {
+                resultArguments.unshift(name);
+            }
+        }
+        return resultArguments.map(x => JSON5.stringify(x));
+    }
 }
 
-export function createFieldSettings(args: {
+export function createObjectSettings(args: {
     text: string;
     config: GeneratorConfiguration;
 }) {
     const { config, text } = args;
-    const result: FieldSettings = new FieldSettings();
+    const result = new ObjectSettings();
     const textLines = text.split('\n');
     const documentationLines: string[] = [];
     for (const line of textLines) {
@@ -64,7 +78,7 @@ export function createFieldSettings(args: {
             documentationLines.push(line);
             continue;
         }
-        const decorator: FieldSetting = {
+        const element: ObjectSetting = {
             kind: 'Decorator',
             name: '',
             arguments: [],
@@ -73,18 +87,34 @@ export function createFieldSettings(args: {
             from: '',
         };
         if (name === 'TypeGraphQL.omit' || name === 'HideField') {
-            Object.assign(decorator, hideFieldDecorator(match));
+            Object.assign(element, hideFieldDecorator(match));
         } else if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
             const options = customType(match.groups.args);
             merge(
-                decorator,
+                element,
                 options.namespace && config.fields[options.namespace],
                 options,
                 { kind: name },
             );
+        } else if (name === 'IsAbstract') {
+            element.kind = 'ObjectType';
+            element.arguments = { isAbstract: true };
+        } else if (name === 'ObjectType' && match.groups?.args) {
+            element.kind = 'ObjectType';
+            const options = customType(match.groups.args) as Record<string, unknown>;
+            if (typeof options[0] === 'string' && options[0]) {
+                options.name = options[0];
+            }
+            if (isObject(options[1])) {
+                merge(options, options[1]);
+            }
+            element.arguments = {
+                name: options.name,
+                isAbstract: options.isAbstract,
+            };
         } else {
             const namespace = getNamespace(name);
-            decorator.namespaceImport = namespace;
+            element.namespaceImport = namespace;
             const options = {
                 name,
                 arguments: (match.groups?.args || '')
@@ -92,19 +122,19 @@ export function createFieldSettings(args: {
                     .map(s => trim(s))
                     .filter(Boolean),
             };
-            merge(decorator, config.fields[namespace], options);
+            merge(element, config.fields[namespace], options);
         }
-        result.push(decorator);
+        result.push(element);
     }
 
     return {
-        result,
+        settings: result,
         documentation: documentationLines.filter(Boolean).join('\\n') || undefined,
     };
 }
 
 function customType(args: string) {
-    const result: Partial<FieldSetting> = {};
+    const result: Partial<ObjectSetting> = {};
     let options = parseArgs(args);
     if (typeof options === 'string') {
         options = { name: options };
@@ -112,14 +142,14 @@ function customType(args: string) {
     Object.assign(result, options);
     const namespace = getNamespace(options.name);
     result.namespace = namespace;
-    if ((options as { name: string }).name.includes('.')) {
+    if ((options as { name: string | undefined }).name?.includes('.')) {
         result.namespaceImport = namespace;
     }
     return result;
 }
 
 function hideFieldDecorator(match: RegExpExecArray) {
-    const result: Partial<FieldSetting> = {
+    const result: Partial<ObjectSetting> = {
         name: 'HideField',
         arguments: [],
         from: '@nestjs/graphql',
@@ -155,7 +185,11 @@ function parseArgs(string: string): Record<string, unknown> | string {
     try {
         return JSON5.parse(string);
     } catch {
-        throw new Error(`Failed to parse: ${string}`);
+        try {
+            return JSON5.parse(`[${string}]`);
+        } catch {
+            throw new Error(`Failed to parse: ${string}`);
+        }
     }
 }
 

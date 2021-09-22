@@ -520,9 +520,44 @@ export class User {
 }
 ```
 
+#### @ObjectType()
+
+Allow rename type in schema and make mark as abstract.
+
+Example 1:
+
+```
+// schema.prisma
+/// @ObjectType({ isAbstract: true })
+model User {
+    id Int @id
+}
+```
+
+```ts
+@ObjectType({ isAbstract: true })
+export class User {}
+```
+
+Example 2:
+
+```
+// schema.prisma
+/// @ObjectType('Human', { isAbstract: true })
+model User {
+    id Int @id
+}
+```
+
+```ts
+@ObjectType('Human', { isAbstract: true })
+export class User {}
+```
+
 ## Similar Projects
 
 -   https://github.com/rfermann/nestjs-prisma-graphql-generator
+-   https://github.com/madscience/graphql-codegen-nestjs
 -   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
 -   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
 -   https://github.com/MichalLytek/typegraphql-prisma

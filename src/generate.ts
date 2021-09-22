@@ -21,7 +21,14 @@ import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
-import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
+import {
+    DMMF,
+    EventArguments,
+    Field,
+    Model,
+    ObjectSettings,
+    OutputType,
+} from './types';
 
 export async function generate(
     args: GeneratorOptions & {
@@ -79,7 +86,7 @@ export async function generate(
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
     const modelFields = new Map<string, Map<string, Field>>();
-    const fieldSettings = new Map<string, Map<string, FieldSettings>>();
+    const fieldSettings = new Map<string, Map<string, ObjectSettings>>();
     const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
         output: generatorOutputValue,

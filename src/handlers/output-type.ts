@@ -114,8 +114,9 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
+            ok(property.decorators, 'Missing property.decorators');
             // Generate `@Field()` decorator
-            property.decorators?.push({
+            property.decorators.push({
                 name: 'Field',
                 arguments: [
                     `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
@@ -130,9 +131,9 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                     if (!options.output || options.kind !== 'Decorator') {
                         continue;
                     }
-                    property.decorators?.push({
+                    property.decorators.push({
                         name: options.name,
-                        arguments: options.arguments,
+                        arguments: options.arguments as string[],
                     });
                     ok(
                         options.from,

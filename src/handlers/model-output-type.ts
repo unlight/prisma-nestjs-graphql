@@ -1,6 +1,6 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, trim } from 'lodash';
+import { castArray } from 'lodash';
 import pupa from 'pupa';
 import { PlainObject } from 'simplytyped';
 import {
@@ -14,6 +14,7 @@ import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { createObjectSettings } from '../helpers/object-settings';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
@@ -24,6 +25,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         args;
     const model = models.get(outputType.name);
     ok(model, `Cannot find model by name ${outputType.name}`);
+
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: 'model',
@@ -49,22 +51,22 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
     const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
     ok(decorator, 'ObjectType decorator not found');
-    const decoratorArgument = decorator.arguments?.[0]
-        ? JSON5.parse<PlainObject>(decorator.arguments[0])
-        : {};
-    if (model.documentation) {
-        if (!classStructure.leadingTrivia) {
-            classStructure.leadingTrivia = `/** ${model.documentation} */\n`;
-        }
-        decoratorArgument.description = model.documentation;
-    } else {
-        delete decoratorArgument.description;
-    }
 
-    decorator.arguments =
-        Object.keys(decoratorArgument).length > 0
-            ? [JSON5.stringify(decoratorArgument)]
-            : [];
+    // Get model settings from documentation
+    if (model.documentation) {
+        const objectTypeOptions: PlainObject = {};
+        const { documentation, settings } = createObjectSettings({
+            text: model.documentation,
+            config,
+        });
+        if (documentation) {
+            if (!classStructure.leadingTrivia) {
+                classStructure.leadingTrivia = `/** ${documentation} */\n`;
+            }
+            objectTypeOptions.description = documentation;
+        }
+        decorator.arguments = settings.getObjectTypeArguments(objectTypeOptions);
+    }
 
     importDeclarations.add('Field', nestjsGraphql);
     importDeclarations.add('ObjectType', nestjsGraphql);
@@ -134,7 +136,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             property.leadingTrivia += `/** ${modelField.documentation} */\n`;
         }
 
-        classStructure.properties?.push(property);
+        classStructure.properties!.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
@@ -167,7 +169,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 }
                 property.decorators.push({
                     name: options.name,
-                    arguments: options.arguments,
+                    arguments: options.arguments as string[],
                 });
                 ok(
                     options.from,
