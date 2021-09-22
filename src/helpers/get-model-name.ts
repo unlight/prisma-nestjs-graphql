@@ -35,6 +35,16 @@ function getModelName(args: {
             return test;
         }
     }
+
+    // test for {Model}{UniqueName}CompoundUniqueInput
+    if (name.slice(-19) === 'CompoundUniqueInput') {
+        const test = name.slice(0, -19);
+        const model = modelNames.find(x => test.startsWith(x));
+        if (model) {
+            return model;
+        }
+    } 
+
     // test for {Model}Count
     if (name.slice(-5) === 'Count') {
         const test = name.slice(0, -5);
