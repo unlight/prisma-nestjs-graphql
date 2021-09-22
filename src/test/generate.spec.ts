@@ -1607,7 +1607,9 @@ describe('emit single and decorators', () => {
     describe('user unique input compound', () => {
         let property: PropertyDeclaration;
         before(() => {
-            property = sourceFile.getClass('UserEmailNameCompoundUniqueInput')?.getProperty('name')!;
+            property = sourceFile
+                .getClass('UserEmailNameCompoundUniqueInput')
+                ?.getProperty('name')!;
         });
 
         it('decorator validator', () => {
