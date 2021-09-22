@@ -1559,6 +1559,8 @@ describe('emit single and decorators', () => {
                   name String
                   /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
                   email String?
+
+                  @@unique([email, name])
                 }
                 `,
             options: [
@@ -1601,6 +1603,19 @@ describe('emit single and decorators', () => {
             expect(trim(d?.getFullText())).toEqual('@Validator.MinLength(3)');
         });
     });
+
+    describe('user unique input compound', () => {
+        let property: PropertyDeclaration;
+        before(() => {
+            property = sourceFile.getClass('UserEmailNameCompoundUniqueInput')?.getProperty('name')!;
+        });
+
+        it('decorator validator', () => {
+            const d = property.getDecorator(d => d.getFullText().includes('MinLength'));
+            expect(trim(d?.getFullText())).toEqual('@Validator.MinLength(3)');
+        });
+    });
+
 
     // it('^', () => console.log(sourceFile.getText()));
 });
