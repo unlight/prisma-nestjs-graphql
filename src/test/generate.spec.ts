@@ -34,9 +34,9 @@ const t = (name: string) =>
     getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
         ?.arguments?.[0];
 const setSourceFile = (name: string) => {
-    sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
-    classFile = sourceFile.getClass(() => true)!;
+    sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(name));
     sourceText = sourceFile.getText();
+    classFile = sourceFile.getClass(() => true)!;
     importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
     imports = importDeclarations.flatMap(d =>
         (d.namedImports as ImportSpecifierStructure[]).map(x => ({
@@ -2049,5 +2049,34 @@ describe('object model options', () => {
             description: 'user really',
             isAbstract: true,
         });
+    });
+});
+
+describe('compound index', () => {
+    it('user unique input compound', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  id    Int    @id
+                  /// @Validator.MinLength(3)
+                  name String
+                  /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
+                  email String?
+
+                  @@unique([email, name])
+                }
+                model Us {
+                  id    Int    @id
+                }
+                `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_Validator_from = "class-validator"`,
+                `fields_Validator_input = true`,
+            ],
+        }));
+        setSourceFile('user-email-name-compound-unique.input.ts');
+        const minLength = classFile.getProperty('name')?.getDecorator('MinLength');
+        expect(minLength?.getText()).toEqual('@Validator.MinLength(3)');
     });
 });

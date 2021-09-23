@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
+import { UserEmailNameCompoundUniqueInput } from './user-email-name-compound-unique.input';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -15,4 +16,7 @@ export class UserWhereUniqueInput {
     @Validator.MinLength(3)
     @Validator.MaxLength(50)
     name?: string;
+
+    @Field(() => UserEmailNameCompoundUniqueInput, { nullable: true })
+    email_name?: UserEmailNameCompoundUniqueInput;
 }

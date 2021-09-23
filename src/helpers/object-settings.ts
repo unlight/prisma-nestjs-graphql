@@ -1,6 +1,7 @@
 import JSON5 from 'json5';
 import { isObject, merge, omit, trim } from 'lodash';
 import outmatch from 'outmatch';
+import { PlainObject } from 'simplytyped';
 
 import { GeneratorConfiguration } from '../types';
 
@@ -53,7 +54,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
         const resultArguments: any[] = [objectTypeOptions];
         const objectType = this.find(s => s.kind === 'ObjectType');
         if (objectType && isObject(objectType.arguments)) {
-            const name = objectType.arguments.name;
+            const name = (objectType.arguments as PlainObject).name;
             merge(objectTypeOptions, omit(objectType.arguments, 'name'));
             if (name) {
                 resultArguments.unshift(name);

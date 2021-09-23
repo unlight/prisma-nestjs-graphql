@@ -1,4 +1,4 @@
-import { memoize } from 'lodash';
+import { first, memoize } from 'lodash';
 
 export function createGetModelName(modelNames: string[]) {
     return memoize(tryGetName);
@@ -35,6 +35,16 @@ function getModelName(args: {
             return test;
         }
     }
+
+    // test for {Model}{UniqueName}CompoundUniqueInput
+    if (name.slice(-19) === 'CompoundUniqueInput') {
+        const test = name.slice(0, -19);
+        const models = modelNames
+            .filter(x => test.startsWith(x))
+            .sort((a, b) => b.length - a.length);
+        return first(models);
+    }
+
     // test for {Model}Count
     if (name.slice(-5) === 'Count') {
         const test = name.slice(0, -5);

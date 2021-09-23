@@ -112,7 +112,7 @@ export async function generate(
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
-        getModelName: createGetModelName(modelNames),
+        getModelName,
         removeTypes,
     };
 

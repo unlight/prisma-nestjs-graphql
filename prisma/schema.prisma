@@ -57,6 +57,8 @@ model User {
   rating           Float?
   role             Role?
   profile          Profile?
+
+  @@unique([email, name])
 }
 
 model Tag {
