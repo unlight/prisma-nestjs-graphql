@@ -1,3 +1,16 @@
+## [14.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.1.0...v14.2.0) (2021-09-23)
+
+
+### Features
+
+* **custom decorators:** Abstract and rename type ([eb68ca6](https://github.com/unlight/nestjs-graphql-prisma/commit/eb68ca6288b74cd797d9d0c584b33ddcf540b066)), closes [#40](https://github.com/unlight/nestjs-graphql-prisma/issues/40)
+* **custom decorators:** New `decorate` generator setting ([c5e14b7](https://github.com/unlight/nestjs-graphql-prisma/commit/c5e14b7e8e59fffcd57ab5b6dff973cc48b37f14)), closes [#48](https://github.com/unlight/nestjs-graphql-prisma/issues/48)
+
+
+### Bug Fixes
+
+* Get model name for CompoundUniqueInput ([f44aa85](https://github.com/unlight/nestjs-graphql-prisma/commit/f44aa858a0459e61d1e13f19c0fe3317e6d0d063)), closes [#53](https://github.com/unlight/nestjs-graphql-prisma/issues/53)
+
 ### [14.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.0.0...v14.0.1) (2021-09-07)
 
 
