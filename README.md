@@ -522,7 +522,7 @@ export class User {
 
 #### @ObjectType()
 
-Allow rename type in schema and make mark as abstract.
+Allow rename type in schema and mark as abstract.
 
 Example 1:
 
