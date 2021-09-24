@@ -2115,4 +2115,9 @@ it('hidefield on groupby', async () => {
             name: 'GraphQLJSONObject',
         }),
     );
+    expect(imports).not.toContainEqual(
+        expect.objectContaining({
+            name: 'GraphQLJSON',
+        }),
+    );
 });
