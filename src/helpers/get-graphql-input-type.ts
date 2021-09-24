@@ -6,6 +6,7 @@ import { DMMF } from '../types';
 /**
  * Find input type for graphql field decorator.
  */
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function getGraphqlInputType(
     inputTypes: DMMF.SchemaArgInputType[],
     pattern?: string,

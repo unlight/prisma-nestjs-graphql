@@ -92,15 +92,6 @@ export function inputType(
                     type: typeName,
                 }),
         );
-        // 'UserCreateInput'
-        // if (['CreateOneUserArgs'].includes(inputType.name)) {
-        //     console.log('field', field);
-        //     console.log('inputType', inputType);
-        //     console.log('settings', settings);
-        //     console.log('propertyType', propertyType);
-        //     console.log('typeName', typeName);
-        //     console.log('settings', settings);
-        // }
         const property = propertyStructure({
             name,
             isNullable: !isRequired,
@@ -114,44 +105,45 @@ export function inputType(
             importDeclarations.create({ ...propertySettings });
         }
 
-        let graphqlType: string;
-        const fieldType = settings?.getFieldType();
-
-        if (fieldType && fieldType.input && isCustomsApplicable) {
-            graphqlType = fieldType.name;
-            importDeclarations.create({ ...fieldType });
-        } else {
-            const graphqlImport = getGraphqlImport({
-                sourceFile,
-                location,
-                typeName,
-                getSourceFile,
-            });
-
-            graphqlType = graphqlImport.name;
-
-            if (
-                graphqlImport.name !== inputType.name &&
-                graphqlImport.specifier &&
-                !importDeclarations.has(graphqlImport.name)
-            ) {
-                importDeclarations.set(graphqlImport.name, {
-                    namedImports: [{ name: graphqlImport.name }],
-                    moduleSpecifier: graphqlImport.specifier,
-                });
-            }
-        }
-
         if (settings?.shouldHideField({ name: inputType.name, input: true })) {
             importDeclarations.add('HideField', '@nestjs/graphql');
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
             ok(property.decorators);
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
+            let graphqlType: string;
+            const fieldType = settings?.getFieldType();
+
+            if (fieldType && fieldType.input && isCustomsApplicable) {
+                graphqlType = fieldType.name;
+                importDeclarations.create({ ...fieldType });
+            } else {
+                const graphqlImport = getGraphqlImport({
+                    sourceFile,
+                    location,
+                    typeName,
+                    getSourceFile,
+                });
+
+                graphqlType = graphqlImport.name;
+
+                if (
+                    graphqlImport.name !== inputType.name &&
+                    graphqlImport.specifier &&
+                    !importDeclarations.has(graphqlImport.name)
+                ) {
+                    importDeclarations.set(graphqlImport.name, {
+                        namedImports: [{ name: graphqlImport.name }],
+                        moduleSpecifier: graphqlImport.specifier,
+                    });
+                }
+            }
+
+            // Generate `@Field()` decorator
             property.decorators.push({
                 name: 'Field',
                 arguments: [
-                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: !isRequired,
                     }),
@@ -163,7 +155,6 @@ export function inputType(
                     if (!options.input || options.kind !== 'Decorator') {
                         continue;
                     }
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     property.decorators.push({
                         name: options.name,
                         arguments: options.arguments as string[],

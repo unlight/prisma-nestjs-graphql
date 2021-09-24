@@ -1,6 +1,6 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, trim } from 'lodash';
+import { castArray } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
@@ -13,8 +13,7 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, config, eventEmitter, fieldSettings, getModelName } =
-        args;
+    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName } = args;
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
@@ -22,7 +21,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     const model = models.get(modelName);
     const isAggregateOutput =
         model &&
-        /(Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
+        /(?:Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
         String(outputType.name).startsWith(model.name);
     const isCountOutput =
         model?.name && outputType.name === `${model.name}CountOutputType`;
@@ -64,14 +63,6 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const isCustomsApplicable =
             outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
 
-        // console.log({
-        //     'field.outputType': field.outputType,
-        //     'outputType.name': outputType.name,
-        //     outputTypeName,
-        //     'field.name': field.name,
-        //     fieldMeta,
-        // });
-
         field.outputType.type = outputTypeName;
 
         const propertyType = castArray(
@@ -95,31 +86,47 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...propertySettings });
         }
 
-        const graphqlImport = getGraphqlImport({
-            sourceFile,
-            fileType,
-            location,
-            isId: false,
-            typeName: outputTypeName,
-            getSourceFile,
-        });
-
-        const graphqlType = graphqlImport.name;
-
-        if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-            importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
-        }
-
         if (settings?.shouldHideField({ name: outputType.name, output: true })) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators?.push({ name: 'HideField', arguments: [] });
         } else {
             ok(property.decorators, 'Missing property.decorators');
+
+            let graphqlType: string;
+            const fieldType = settings?.getFieldType();
+
+            if (fieldType && fieldType.output && isCustomsApplicable) {
+                graphqlType = fieldType.name;
+                importDeclarations.create({ ...fieldType });
+            } else {
+                const graphqlImport = getGraphqlImport({
+                    sourceFile,
+                    fileType,
+                    location,
+                    isId: false,
+                    typeName: outputTypeName,
+                    getSourceFile,
+                });
+
+                graphqlType = graphqlImport.name;
+
+                if (
+                    graphqlImport.name !== outputType.name &&
+                    graphqlImport.specifier &&
+                    !importDeclarations.has(graphqlImport.name)
+                ) {
+                    importDeclarations.set(graphqlImport.name, {
+                        namedImports: [{ name: graphqlImport.name }],
+                        moduleSpecifier: graphqlImport.specifier,
+                    });
+                }
+            }
+
             // Generate `@Field()` decorator
             property.decorators.push({
                 name: 'Field',
                 arguments: [
-                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: Boolean(field.isNullable),
                     }),

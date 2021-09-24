@@ -59,7 +59,6 @@
     "pupa": "2.X",
     "ts-morph": ">=11 <=12"
   },
-  "peerDependencies": {},
   "devDependencies": {
     "@arkweid/lefthook": "0.7.6",
     "@commitlint/cli": "^13.1.0",
@@ -72,7 +71,6 @@
     "@prisma/client": "^3.1.1",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
-    "@types/find-cache-dir": "^3.2.1",
     "@types/flat": "^5.0.2",
     "@types/lodash": "^4.14.173",
     "@types/mocha": "^9.0.0",
@@ -102,7 +100,6 @@
     "eslint-plugin-unicorn": "^36.0.0",
     "eslint-plugin-wix-editor": "^3.3.0",
     "expect": "^27.2.1",
-    "find-cache-dir": "^3.3.2",
     "git-branch-is": "^4.0.0",
     "graphql": "^15.6.0",
     "graphql-scalars": "^1.10.1",
@@ -117,6 +114,7 @@
     "rxjs": "^7.3.0",
     "semantic-release": "^18.0.0",
     "simplytyped": "^3.3.0",
+    "temp-dir": "^2.0.0",
     "ts-node": "^10.2.1",
     "ts-node-dev": "^1.1.8",
     "tslib": "^2.3.1",

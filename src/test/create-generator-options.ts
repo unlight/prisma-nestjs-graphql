@@ -1,8 +1,8 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
 import crypto from 'crypto';
-import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
+import cachePath from 'temp-dir';
 
 import { DMMF } from '../types';
 
@@ -10,11 +10,6 @@ const {
     dependencies: { '@prisma/generator-helper': generatorVersion },
     // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('../../package.json');
-
-const cachePath: string = findCacheDir({
-    name: 'createGeneratorOptions',
-    create: true,
-}) as string;
 
 /**
  * Get generator options after run prisma generate.

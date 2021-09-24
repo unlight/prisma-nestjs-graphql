@@ -1,3 +1,4 @@
+/* eslint-disable regexp/strict */
 import expect from 'expect';
 import JSON5 from 'json5';
 import { trim } from 'lodash';
@@ -30,9 +31,7 @@ const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.
 const f = (name: string) =>
     getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
         ?.arguments;
-const t = (name: string) =>
-    getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
-        ?.arguments?.[0];
+const t = (name: string) => f(name)?.[0];
 const setSourceFile = (name: string) => {
     sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(name));
     sourceText = sourceFile.getText();
@@ -2079,4 +2078,41 @@ describe('compound index', () => {
         const minLength = classFile.getProperty('name')?.getDecorator('MinLength');
         expect(minLength?.getText()).toEqual('@Validator.MinLength(3)');
     });
+});
+
+it('fieldtype on groupby', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+        schema: `
+            model User {
+                id Int @id
+                /// @FieldType({ name: 'GraphQLJSONObject', from: 'graphql-scalars', namedImport: true, input: true, output: true })
+                /// @PropertyType({ name: 'JsonObject', from: 'type-fest', namedImport: true, input: true, output: true })
+                profile Json
+            }
+            `,
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
+    }));
+    setSourceFile('user-group-by.output.ts');
+    expect(t('profile')).toEqual('() => GraphQLJSONObject');
+});
+
+it('hidefield on groupby', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+        schema: `
+            model User {
+                id Int @id
+                /// @HideField({ match: '*GroupBy' })
+                /// @FieldType({ name: 'GraphQLJSONObject', from: 'graphql-scalars', namedImport: true, input: true, output: true })
+                /// @PropertyType({ name: 'JsonObject', from: 'type-fest', namedImport: true, input: true, output: true })
+                profile Json
+            }
+            `,
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
+    }));
+    setSourceFile('user-group-by.output.ts');
+    expect(imports).not.toContainEqual(
+        expect.objectContaining({
+            name: 'GraphQLJSONObject',
+        }),
+    );
 });
