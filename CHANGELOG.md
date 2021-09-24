@@ -1,3 +1,10 @@
+### [14.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.0...v14.2.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* **custom decorators:** FieldType mapping for output types ([c036a10](https://github.com/unlight/nestjs-graphql-prisma/commit/c036a103f7b16d2a9bcb9a0c36aa7948a4f79c09)), closes [#55](https://github.com/unlight/nestjs-graphql-prisma/issues/55)
+
 ## [14.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.1.0...v14.2.0) (2021-09-23)
 
 
