@@ -9,10 +9,19 @@ export function emitSingle(emitter: AwaitEventEmitter) {
 
 function classProperty(
     property: PropertyDeclarationStructure,
-    eventArguments: { location: DMMF.FieldLocation; isList: boolean },
+    eventArguments: {
+        location: DMMF.FieldLocation;
+        isList: boolean;
+        propertyType: string[];
+    },
 ) {
-    const { location, isList } = eventArguments;
+    const { location, isList, propertyType } = eventArguments;
     if (['inputObjectTypes', 'outputObjectTypes'].includes(location) && !isList) {
-        property.type = `InstanceType<typeof ${String(property.type)}>`;
+        const types = propertyType.filter(t => t !== 'null');
+        property.type = types.map(t => `InstanceType<typeof ${t}>`).join(' | ');
+        if (types.length !== propertyType.length) {
+            // If null was removed
+            property.type += ' | null';
+        }
     }
 }

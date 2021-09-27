@@ -25,7 +25,7 @@ export class Comment {
     authorId!: string;
 
     @Field(() => Article, { nullable: true })
-    article?: Article;
+    article?: Article | null;
 
     @Field(() => String, { nullable: true })
     articleId!: string | null;

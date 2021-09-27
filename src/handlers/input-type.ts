@@ -183,7 +183,11 @@ export function inputType(
             }
         }
 
-        eventEmitter.emitSync('ClassProperty', property, { location, isList });
+        eventEmitter.emitSync('ClassProperty', property, {
+            location,
+            isList,
+            propertyType,
+        });
     }
 
     sourceFile.set({

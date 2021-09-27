@@ -96,7 +96,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         // For model we keep only one type
         propertyType.splice(1, propertyType.length);
 
-        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
+        if (field.isNullable && !isList) {
             propertyType.push('null');
         }
 
@@ -136,21 +136,22 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             property.leadingTrivia += `/** ${modelField.documentation} */\n`;
         }
 
-        classStructure.properties!.push(property);
+        classStructure.properties?.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
         }
 
+        ok(property.decorators, 'property.decorators is undefined');
+
         if (settings?.shouldHideField({ name: outputType.name, output: true })) {
             importDeclarations.add('HideField', nestjsGraphql);
-            property.decorators?.push({ name: 'HideField', arguments: [] });
+            property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
-            ok(property.decorators);
             property.decorators.push({
                 name: 'Field',
                 arguments: [
-                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: Boolean(field.isNullable),
                         defaultValue: ['number', 'string', 'boolean'].includes(
@@ -194,7 +195,11 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             }
         }
 
-        eventEmitter.emitSync('ClassProperty', property, { location, isList });
+        eventEmitter.emitSync('ClassProperty', property, {
+            location,
+            isList,
+            propertyType,
+        });
     }
 
     if (exportDeclaration) {

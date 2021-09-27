@@ -86,12 +86,12 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...propertySettings });
         }
 
+        ok(property.decorators, 'property.decorators is undefined');
+
         if (settings?.shouldHideField({ name: outputType.name, output: true })) {
             importDeclarations.add('HideField', nestjsGraphql);
-            property.decorators?.push({ name: 'HideField', arguments: [] });
+            property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
-            ok(property.decorators, 'Missing property.decorators');
-
             let graphqlType: string;
             const fieldType = settings?.getFieldType();
 
@@ -151,7 +151,11 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             }
         }
 
-        eventEmitter.emitSync('ClassProperty', property, { location, isList });
+        eventEmitter.emitSync('ClassProperty', property, {
+            location,
+            isList,
+            propertyType,
+        });
     }
 
     sourceFile.set({

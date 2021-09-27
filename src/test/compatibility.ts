@@ -165,3 +165,18 @@ let $prisma = new PrismaClient();
     // $prisma.user.groupBy(x); // Error (prisma issue https://github.com/unlight/prisma-nestjs-graphql/issues/31)
     // $prisma.user.groupBy(p); // Error
 }
+{
+    void $prisma.user
+        .findMany({
+            include: {
+                articles: true,
+                profile: true,
+                _count: true,
+            },
+        })
+        // eslint-disable-next-line promise/always-return
+        .then(users => {
+            let result: User[] = users;
+            console.log('result', result);
+        });
+}

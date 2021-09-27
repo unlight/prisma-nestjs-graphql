@@ -1652,11 +1652,12 @@ describe('emit single', () => {
         });
 
         it('should use InstanceType trick to avoid tdz', () => {
-            const type = sourceFile
+            const struct = sourceFile
                 .getClass('Post')
                 ?.getProperty('user')
-                ?.getStructure().type;
-            expect(type).toEqual('InstanceType<typeof User>');
+                ?.getStructure();
+            expect(struct?.type).toEqual('InstanceType<typeof User> | null');
+            expect(struct?.hasQuestionToken).toEqual(true);
         });
 
         it('type for all properties should use InstanceType trick to avoid tdz', () => {
@@ -2120,4 +2121,48 @@ it('hidefield on groupby', async () => {
             name: 'GraphQLJSON',
         }),
     );
+});
+
+describe('non list optional properties should be nullable', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id String @id
+                profile Profile?
+                articles Article[] @relation("ArticleAuthor")
+            }
+            model Profile {
+              id String @id
+              user User? @relation(fields: [userId], references: [id])
+              userId String?
+            }
+            model Article {
+              id String @id
+              author User? @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+              authorId String?
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('user model profile', () => {
+        setSourceFile('user.model.ts');
+        expect(p('profile')?.type).toEqual('Profile | null');
+    });
+
+    it('user model count', () => {
+        setSourceFile('user.model.ts');
+        expect(p('_count')?.type).toEqual('UserCount | null');
+    });
+
+    it('article model author', () => {
+        setSourceFile('article.model.ts');
+        expect(p('author')?.type).toEqual('User | null');
+    });
+
+    it('list articles should not have null', () => {
+        setSourceFile('user.model.ts');
+        expect(p('articles')?.type).toEqual('Array<Article>');
+    });
 });

@@ -52,5 +52,5 @@ export class Article {
     active!: boolean | null;
 
     @Field(() => ArticleCount, { nullable: true })
-    _count?: ArticleCount;
+    _count?: ArticleCount | null;
 }

@@ -57,8 +57,8 @@ export class User {
     role!: keyof typeof Role | null;
 
     @Field(() => Profile, { nullable: true })
-    profile?: Profile;
+    profile?: Profile | null;
 
     @Field(() => UserCount, { nullable: true })
-    _count?: UserCount;
+    _count?: UserCount | null;
 }
