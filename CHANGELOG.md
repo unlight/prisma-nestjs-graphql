@@ -1,3 +1,10 @@
+### [14.2.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.1...v14.2.2) (2021-09-27)
+
+
+### Bug Fixes
+
+* **compatibility:** Add typescript null type for optional fields in model ([df0b9de](https://github.com/unlight/nestjs-graphql-prisma/commit/df0b9de53a003bc32fbc3ae1471be3681e55a551)), closes [#57](https://github.com/unlight/nestjs-graphql-prisma/issues/57)
+
 ### [14.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.0...v14.2.1) (2021-09-24)
 
 
