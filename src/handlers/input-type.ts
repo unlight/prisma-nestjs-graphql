@@ -82,7 +82,10 @@ export function inputType(
         const { isList, location, type } = graphqlInputType;
         const typeName = String(type);
         const settings = modelFieldSettings?.get(name);
-        const propertySettings = settings?.getPropertyType();
+        const propertySettings = settings?.getPropertyType({
+            name: inputType.name,
+            input: true,
+        });
         const isCustomsApplicable =
             typeName === model?.fields.find(f => f.name === name)?.type;
         const propertyType = castArray(
@@ -98,10 +101,9 @@ export function inputType(
             propertyType,
             isList,
         });
-
         classStructure.properties?.push(property);
 
-        if (propertySettings) {
+        if (propertySettings && propertySettings.input) {
             importDeclarations.create({ ...propertySettings });
         }
 
@@ -112,9 +114,12 @@ export function inputType(
             ok(property.decorators);
 
             let graphqlType: string;
-            const fieldType = settings?.getFieldType();
+            const fieldType = settings?.getFieldType({
+                name: inputType.name,
+                input: true,
+            });
 
-            if (fieldType && fieldType.input && isCustomsApplicable) {
+            if (fieldType && isCustomsApplicable) {
                 graphqlType = fieldType.name;
                 importDeclarations.create({ ...fieldType });
             } else {

@@ -82,8 +82,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         }
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
-        const fieldType = settings?.getFieldType();
-        const propertySettings = settings?.getPropertyType();
+        const fieldType = settings?.getFieldType({
+            name: outputType.name,
+            output: true,
+        });
+        const propertySettings = settings?.getPropertyType({
+            name: outputType.name,
+            output: true,
+        });
 
         const propertyType = castArray(
             propertySettings?.name ||
@@ -102,7 +108,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
         let graphqlType: string;
 
-        if (fieldType && fieldType.output) {
+        if (fieldType) {
             graphqlType = fieldType.name;
             importDeclarations.create({ ...fieldType });
         } else {

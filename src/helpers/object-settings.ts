@@ -41,13 +41,54 @@ export class ObjectSettings extends Array<ObjectSetting> {
         );
     }
 
-    getFieldType() {
-        return this.find(s => s.kind === 'FieldType');
+    getFieldType(args?: {
+        name: string;
+        input?: boolean;
+        output?: boolean;
+    }): ObjectSetting | undefined {
+          if (!args) return this.find(s => s.kind === 'FieldType');
+
+          const fieldType = this.find(s => s.kind === 'FieldType');
+
+          if (fieldType?.input && args.input) {
+                  return fieldType;
+          }
+
+          if (fieldType?.output && args.output) {
+                  return fieldType;
+          }
+
+          if (fieldType?.match?.(args.name)) {
+                  return fieldType;
+          }
+
+          // eslint-disable-next-line consistent-return
+          return undefined;
     }
 
-    getPropertyType() {
-        return this.find(s => s.kind === 'PropertyType');
-    }
+    getPropertyType(args?: {
+        name: string;
+        input?: boolean;
+        output?: boolean;
+    }): ObjectSetting | undefined  {
+        if (!args) return this.find(s => s.kind === 'PropertyType');
+
+        const propertyType = this.find(s => s.kind === 'PropertyType');
+
+        if (propertyType?.input && args.input) {
+                return propertyType;
+        }
+
+        if (propertyType?.output && args.output) {
+                return propertyType;
+        }
+
+        if (propertyType?.match?.(args.name)) {
+                return propertyType;
+        }
+
+        // eslint-disable-next-line consistent-return
+        return undefined;    }
 
     getObjectTypeArguments(options: Record<string, any>): string[] {
         const objectTypeOptions = merge({}, options);
@@ -146,6 +187,11 @@ function customType(args: string) {
     if ((options as { name: string | undefined }).name?.includes('.')) {
         result.namespaceImport = namespace;
     }
+
+    if (typeof options.match === 'string' || Array.isArray(options.match)) {
+        result.match = outmatch(options.match, { separator: false });
+    }
+
     return result;
 }
 
