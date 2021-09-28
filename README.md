@@ -126,6 +126,12 @@ Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id
 Type: `boolean`  
 Default: `false`
 
+#### `requireSingleFieldsInWhereUniqueInput`
+
+When a `Model`s `WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL). See [#58](https://github.com/unlight/prisma-nestjs-graphql/issues/58) for more details.  
+Type: `boolean`  
+Default: `false`
+
 #### `useInputType`
 
 Since GraphQL does not support input union type, this setting map

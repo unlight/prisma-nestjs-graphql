@@ -110,6 +110,9 @@ export function createConfig(data: Record<string, unknown>) {
         purgeOutput: toBoolean(config.purgeOutput),
         useInputType: createUseInputType(config.useInputType as any),
         noTypeId: toBoolean(config.noTypeId),
+        requireSingleFieldsInWhereUniqueInput: toBoolean(
+            config.requireSingleFieldsInWhereUniqueInput,
+        ),
         decorate,
     };
 }

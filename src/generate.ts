@@ -17,6 +17,7 @@ import { outputType } from './handlers/output-type';
 import { purgeOutput } from './handlers/purge-output';
 import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
+import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
@@ -82,6 +83,8 @@ export async function generate(
     config.reExport !== ReExport.None && reExport(eventEmitter);
     config.emitSingle && emitSingle(eventEmitter);
     config.purgeOutput && purgeOutput(eventEmitter);
+    config.requireSingleFieldsInWhereUniqueInput &&
+        requireSingleFieldsInWhereUniqueInput(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
