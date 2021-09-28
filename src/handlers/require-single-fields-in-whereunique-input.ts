@@ -9,11 +9,7 @@ export function requireSingleFieldsInWhereUniqueInput(eventEmitter: AwaitEventEm
 function beforeInputType(args: EventArguments & { inputType: InputType }) {
     const { inputType } = args;
 
-    if (!isWhereUniqueInputType(inputType.name)) {
-        return;
-    }
-
-    if (inputType.fields.length !== 1) {
+    if (!isWhereUniqueInputType(inputType.name) || inputType.fields.length !== 1) {
         return;
     }
 
