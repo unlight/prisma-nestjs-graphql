@@ -2166,3 +2166,75 @@ describe('non list optional properties should be nullable', () => {
         expect(p('articles')?.type).toEqual('Array<Article>');
     });
 });
+
+describe('requireSingleFieldsInWhereUniqueInput', () => {
+    it('requireSingleFieldsInWhereUniqueInput several fields', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    id String @id
+                email String @unique
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `requireSingleFieldsInWhereUniqueInput = true`,
+            ],
+        }));
+        setSourceFile('user-where-unique.input.ts');
+
+        expect(p('id')).toEqual(
+            expect.objectContaining({ hasQuestionToken: true, type: 'string' }),
+        );
+        expect(f('id')).toEqual(['() => String', '{nullable:true}']);
+        expect(p('email')).toEqual(
+            expect.objectContaining({ hasQuestionToken: true, type: 'string' }),
+        );
+        expect(f('email')).toEqual(['() => String', '{nullable:true}']);
+    });
+
+    it('requireSingleFieldsInWhereUniqueInput single fields', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                    id String @id
+                }
+        `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `requireSingleFieldsInWhereUniqueInput = true`,
+            ],
+        }));
+        setSourceFile('user-where-unique.input.ts');
+
+        expect(p('id')).toEqual(
+            expect.objectContaining({ hasQuestionToken: false, type: 'string' }),
+        );
+        expect(f('id')).toEqual(['() => String', '{nullable:false}']);
+    });
+
+    it('requireSingleFieldsInWhereUniqueInput compound', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  name String
+                  email String
+
+                  @@unique([name,email])
+                }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `requireSingleFieldsInWhereUniqueInput = true`,
+            ],
+        }));
+        setSourceFile('user-where-unique.input.ts');
+
+        expect(p('name_email')?.hasQuestionToken).toEqual(false);
+        expect(p('name_email')?.type).toEqual('UserNameEmailCompoundUniqueInput');
+        expect(f('name_email')).toEqual([
+            '() => UserNameEmailCompoundUniqueInput',
+            '{nullable:false}',
+        ]);
+    });
+});

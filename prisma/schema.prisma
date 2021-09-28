@@ -17,6 +17,7 @@ generator nestgraphql {
   emitSingle = false
   emitCompiled = false
   purgeOutput = false
+  requireSingleFieldsInWhereUniqueInput = false
   fields_Validator_from = "class-validator"
   fields_Validator_input = true
   fields_Scalars_from = "graphql-scalars"
