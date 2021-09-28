@@ -1,3 +1,10 @@
+## [14.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.2...v14.3.0) (2021-09-28)
+
+
+### Features
+
+* **require single uniq filter:** New `requireSingleFieldsInWhereUniqueInput` generator setting ([7ee73eb](https://github.com/unlight/nestjs-graphql-prisma/commit/7ee73eb69f57a55a6b7244377fabc11bf17005ea)), closes [#58](https://github.com/unlight/nestjs-graphql-prisma/issues/58)
+
 ### [14.2.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.1...v14.2.2) (2021-09-27)
 
 
