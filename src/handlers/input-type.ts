@@ -103,7 +103,7 @@ export function inputType(
         });
         classStructure.properties?.push(property);
 
-        if (propertySettings && propertySettings.input) {
+        if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
         }
 
