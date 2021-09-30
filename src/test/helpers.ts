@@ -19,11 +19,3 @@ export function getPropertyStructure(sourceFile: SourceFile, name: string) {
         ?.getProperty(p => p.getName() === name)
         ?.getStructure();
 }
-
-export function getHumanReadableType(sourceFile: SourceFile, name: string) {
-    return sourceFile
-        .getClass(() => true)
-        ?.getProperty(p => p.getName() === name)
-        ?.getTypeNode()
-        ?.getText();
-}

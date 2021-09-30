@@ -14,7 +14,7 @@ import {
 } from 'ts-morph';
 
 import { EventArguments } from '../types';
-import { getFieldOptions, getHumanReadableType, getPropertyStructure } from './helpers';
+import { getFieldOptions, getPropertyStructure } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
@@ -122,7 +122,7 @@ describe('model with one id int', () => {
 
         it('object type description', () => {
             const decoratorArgument = classFile.getDecorators()[0].getStructure()
-                ?.arguments?.[0] as string | undefined;
+                .arguments?.[0] as string | undefined;
             expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
         });
 
@@ -2156,27 +2156,28 @@ describe('property type', () => {
 
         it('should use default scalar type in model', () => {
             setSourceFile('user.model.ts');
-            expect(getHumanReadableType(sourceFile, 'profile')).toEqual('any');
+            expect(p('profile')?.type).toEqual('any');
         });
 
         it('should use default scalar type in user-create-many.input', () => {
             setSourceFile('user-create-many.input.ts');
-            expect(getHumanReadableType(sourceFile, 'profile')).toEqual('any');
+            expect(p('profile')?.type).toEqual('any');
         });
 
         it('user-create.input', () => {
             setSourceFile('user-create.input.ts');
-            expect(getHumanReadableType(sourceFile, 'profile')).toEqual('JsonObject');
+            expect(p('profile')?.type).toEqual('JsonObject');
+
         });
 
         it('should use default scalar type in user-update-many-mutation.input', () => {
             setSourceFile('user-update-many-mutation.input.ts');
-            expect(getHumanReadableType(sourceFile, 'profile')).toEqual('any');
+            expect(p('profile')?.type).toEqual('any');
         });
 
         it('user-update.input', () => {
             setSourceFile('user-update.input.ts');
-            expect(getHumanReadableType(sourceFile, 'profile')).toEqual('JsonObject');
+            expect(p('profile')?.type).toEqual('JsonObject');
         });
     });
 });
