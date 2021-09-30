@@ -22,16 +22,18 @@ export type ObjectSetting = {
     namedImport?: boolean;
 };
 
+interface ObjectSettingsFilterArgs {
+    name: string;
+    input?: boolean;
+    output?: boolean;
+}
+
 export class ObjectSettings extends Array<ObjectSetting> {
     shouldHideField({
         name,
         input = false,
         output = false,
-    }: {
-        name: string;
-        input?: boolean;
-        output?: boolean;
-    }): boolean {
+    }: ObjectSettingsFilterArgs): boolean {
         const hideField = this.find(s => s.name === 'HideField');
 
         return Boolean(
@@ -41,54 +43,51 @@ export class ObjectSettings extends Array<ObjectSetting> {
         );
     }
 
-    getFieldType(args?: {
-        name: string;
-        input?: boolean;
-        output?: boolean;
-    }): ObjectSetting | undefined {
-          if (!args) return this.find(s => s.kind === 'FieldType');
+    /* eslint-disable consistent-return */
+    getFieldType({
+        name,
+        input,
+        output,
+    }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
+        const fieldType = this.find(s => s.kind === 'FieldType');
 
-          const fieldType = this.find(s => s.kind === 'FieldType');
+        if (!fieldType) {
+            return undefined;
+        }
 
-          if (fieldType?.input && args.input) {
-                  return fieldType;
-          }
+        if (fieldType.match) {
+            // eslint-disable-next-line unicorn/prefer-regexp-test
+            return fieldType.match(name) ? fieldType : undefined;
+        }
 
-          if (fieldType?.output && args.output) {
-                  return fieldType;
-          }
+        if (input && !fieldType.input) {
+            return undefined;
+        }
 
-          if (fieldType?.match?.(args.name)) {
-                  return fieldType;
-          }
+        if (output && !fieldType.output) {
+            return undefined;
+        }
 
-          // eslint-disable-next-line consistent-return
-          return undefined;
+        return fieldType;
     }
+    /* eslint-enable consistent-return */
 
-    getPropertyType(args?: {
-        name: string;
-        input?: boolean;
-        output?: boolean;
-    }): ObjectSetting | undefined  {
-        if (!args) return this.find(s => s.kind === 'PropertyType');
-
+    /* eslint-disable consistent-return */
+    getPropertyType({ name }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
         const propertyType = this.find(s => s.kind === 'PropertyType');
 
-        if (propertyType?.input && args.input) {
-                return propertyType;
+        if (!propertyType) {
+            return undefined;
         }
 
-        if (propertyType?.output && args.output) {
-                return propertyType;
+        // eslint-disable-next-line unicorn/prefer-regexp-test
+        if (propertyType.match && !propertyType.match(name)) {
+            return undefined;
         }
 
-        if (propertyType?.match?.(args.name)) {
-                return propertyType;
-        }
-
-        // eslint-disable-next-line consistent-return
-        return undefined;    }
+        return propertyType;
+    }
+    /* eslint-enable consistent-return */
 
     getObjectTypeArguments(options: Record<string, any>): string[] {
         const objectTypeOptions = merge({}, options);
