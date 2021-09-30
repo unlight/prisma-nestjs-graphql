@@ -1,3 +1,10 @@
+## [14.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.3.0...v14.4.0) (2021-09-30)
+
+
+### Features
+
+* **match:** Allows `match` expressions in `FieldType` and `PropertyType` ([#60](https://github.com/unlight/nestjs-graphql-prisma/issues/60)) ([a9b0e46](https://github.com/unlight/nestjs-graphql-prisma/commit/a9b0e46ceda8a2c6ddaaccf3c8a987a672b91912))
+
 ## [14.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.2...v14.3.0) (2021-09-28)
 
 
