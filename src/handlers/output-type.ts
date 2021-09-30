@@ -59,7 +59,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const settings = isCountOutput
             ? undefined
             : model && fieldSettings.get(model.name)?.get(field.name);
-        const propertySettings = settings?.getPropertyType();
+        const propertySettings = settings?.getPropertyType({
+            name: outputType.name,
+            output: true,
+        });
         const isCustomsApplicable =
             outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
 
@@ -93,9 +96,12 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
             let graphqlType: string;
-            const fieldType = settings?.getFieldType();
+            const fieldType = settings?.getFieldType({
+                name: outputType.name,
+                output: true,
+            });
 
-            if (fieldType && fieldType.output && isCustomsApplicable) {
+            if (fieldType && isCustomsApplicable) {
                 graphqlType = fieldType.name;
                 importDeclarations.create({ ...fieldType });
             } else {

@@ -122,7 +122,7 @@ describe('model with one id int', () => {
 
         it('object type description', () => {
             const decoratorArgument = classFile.getDecorators()[0].getStructure()
-                ?.arguments?.[0] as string | undefined;
+                .arguments?.[0] as string | undefined;
             expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
         });
 
@@ -2081,6 +2081,48 @@ describe('compound index', () => {
     });
 });
 
+describe('field type', () => {
+    describe('it overwrites field type based on match expression', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                model User {
+                  id Int @id
+                  /// @FieldType({ name: 'GraphQLJSONObject', from: 'graphql-scalars', namedImport: true, match: 'User{Create,Update}Input' })
+                  profile Json
+                }
+                `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`],
+            }));
+        });
+
+        it('should use default scalar type in model', () => {
+            setSourceFile('user.model.ts');
+            expect(t('profile')).toEqual('() => GraphQLJSON');
+        });
+
+        it('should use default scalar type in user-create-many.input', () => {
+            setSourceFile('user-create-many.input.ts');
+            expect(t('profile')).toEqual('() => GraphQLJSON');
+        });
+
+        it('user-create.input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(t('profile')).toEqual('() => GraphQLJSONObject');
+        });
+
+        it('should use default scalar type in user-update-many-mutation.input', () => {
+            setSourceFile('user-update-many-mutation.input.ts');
+            expect(t('profile')).toEqual('() => GraphQLJSON');
+        });
+
+        it('user-update.input', () => {
+            setSourceFile('user-update.input.ts');
+            expect(t('profile')).toEqual('() => GraphQLJSONObject');
+        });
+    });
+});
+
 it('fieldtype on groupby', async () => {
     ({ project, sourceFiles } = await testGenerate({
         schema: `
@@ -2095,6 +2137,49 @@ it('fieldtype on groupby', async () => {
     }));
     setSourceFile('user-group-by.output.ts');
     expect(t('profile')).toEqual('() => GraphQLJSONObject');
+});
+
+describe('property type', () => {
+    describe('it overwrites property type based on match expression', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+              model User {
+                id Int @id
+                /// @PropertyType({ name: 'JsonObject', from: 'type-fest', namedImport: true, match: 'User{Create,Update}Input' })
+                profile Json
+              }
+              `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`],
+            }));
+        });
+
+        it('should use default scalar type in model', () => {
+            setSourceFile('user.model.ts');
+            expect(p('profile')?.type).toEqual('any');
+        });
+
+        it('should use default scalar type in user-create-many.input', () => {
+            setSourceFile('user-create-many.input.ts');
+            expect(p('profile')?.type).toEqual('any');
+        });
+
+        it('user-create.input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(p('profile')?.type).toEqual('JsonObject');
+
+        });
+
+        it('should use default scalar type in user-update-many-mutation.input', () => {
+            setSourceFile('user-update-many-mutation.input.ts');
+            expect(p('profile')?.type).toEqual('any');
+        });
+
+        it('user-update.input', () => {
+            setSourceFile('user-update.input.ts');
+            expect(p('profile')?.type).toEqual('JsonObject');
+        });
+    });
 });
 
 it('hidefield on groupby', async () => {

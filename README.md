@@ -422,7 +422,10 @@ export class UserCreateInput {
 
 #### @FieldType()
 
-Allow set custom type for field
+Allow set custom GraphQL scalar type for field
+
+To override scalar type in specific classes, you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 ```prisma
 model User {
@@ -478,6 +481,9 @@ Missing field options will merged from generator configuration.
 #### @PropertyType()
 
 Similar to `@FieldType()` but refer to TypeScript property (actually field too).
+
+To override TypeScript type in specific classes, you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 Named import example:
 
