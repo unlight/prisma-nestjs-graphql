@@ -1,9 +1,10 @@
 import JSON5 from 'json5';
-import { isObject, merge, omit, trim } from 'lodash';
+import { isObject, merge, omit } from 'lodash';
 import outmatch from 'outmatch';
 import { PlainObject } from 'simplytyped';
 
 import { GeneratorConfiguration } from '../types';
+import { stringToArray } from './string-to-array';
 
 export type ObjectSetting = {
     /**
@@ -43,7 +44,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
         );
     }
 
-    /* eslint-disable consistent-return */
     getFieldType({
         name,
         input,
@@ -70,9 +70,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
 
         return fieldType;
     }
-    /* eslint-enable consistent-return */
 
-    /* eslint-disable consistent-return */
     getPropertyType({ name }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
         const propertyType = this.find(s => s.kind === 'PropertyType');
 
@@ -87,7 +85,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
 
         return propertyType;
     }
-    /* eslint-enable consistent-return */
 
     getObjectTypeArguments(options: Record<string, any>): string[] {
         const objectTypeOptions = merge({}, options);
@@ -158,10 +155,7 @@ export function createObjectSettings(args: {
             element.namespaceImport = namespace;
             const options = {
                 name,
-                arguments: (match.groups?.args || '')
-                    .split(',')
-                    .map(s => trim(s))
-                    .filter(Boolean),
+                arguments: stringToArray(match.groups?.args || ''),
             };
             merge(element, config.fields[namespace], options);
         }

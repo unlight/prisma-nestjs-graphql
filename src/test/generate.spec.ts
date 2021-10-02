@@ -44,11 +44,11 @@ const setSourceFile = (name: string) => {
         })),
     );
 };
-const objectTypeArguments = () =>
+const decoratorTypeArguments = (decorator = 'ObjectType') =>
     sourceFile
         .getClass(() => true)
-        ?.getDecorator('ObjectType')
-        ?.getStructure().arguments;
+        ?.getDecorator(decorator)
+        ?.getStructure().arguments as string[];
 
 describe('model with one id int', () => {
     let id: PropertyDeclarationStructure;
@@ -1989,7 +1989,7 @@ describe('object model options', () => {
         }));
 
         setSourceFile('user.model.ts');
-        const argument = objectTypeArguments()?.[0];
+        const argument = decoratorTypeArguments()[0];
         const json = JSON5.parse(argument);
         expect(json).toEqual({ isAbstract: true });
     });
@@ -2005,7 +2005,7 @@ describe('object model options', () => {
         }));
 
         setSourceFile('user.model.ts');
-        const argument = objectTypeArguments()?.[0];
+        const argument = decoratorTypeArguments()[0];
         const json = JSON5.parse(argument);
         expect(json).toEqual({ isAbstract: true });
     });
@@ -2023,7 +2023,7 @@ describe('object model options', () => {
 
         setSourceFile('user.model.ts');
         // console.log(sourceText);
-        const [argument1, argument2] = objectTypeArguments() as string[];
+        const [argument1, argument2] = decoratorTypeArguments();
         expect(argument1).toEqual("'Robot'");
         expect(JSON5.parse(argument2)).toEqual({
             description: 'user really',
@@ -2043,12 +2043,78 @@ describe('object model options', () => {
         }));
 
         setSourceFile('user.model.ts');
-        const [argument1, argument2] = objectTypeArguments() as string[];
+        const [argument1, argument2] = decoratorTypeArguments();
         expect(JSON5.parse(argument1)).toEqual('Human');
         expect(JSON5.parse(argument2)).toEqual({
             description: 'user really',
             isAbstract: true,
         });
+    });
+
+    it('abstract all', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id Int @id
+                posts Post[]
+                parent User? @relation("UserToUser", fields: [parentId], references: [id])
+                parentId Int?
+                user User[] @relation("UserToUser")
+            }
+            model Post {
+              id Int @id
+              User User? @relation(fields: [userId], references: [id])
+              userId Int?
+            }
+            `,
+            options: [`isAbstractType = "*"`, `outputFilePattern = "{name}.{type}.ts"`],
+        }));
+        setSourceFile('user.model.ts');
+        let [argument1] = decoratorTypeArguments();
+        expect(argument1).toEqual('{isAbstract:true}');
+
+        setSourceFile('user-count.output.ts');
+        [argument1] = decoratorTypeArguments();
+        expect(argument1).toEqual('{isAbstract:true}');
+
+        setSourceFile('user-where.input.ts');
+        [argument1] = decoratorTypeArguments('InputType');
+        expect(argument1).toEqual('{isAbstract:true}');
+    });
+
+    it('abstract config array', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id Int @id
+                posts Post[]
+                parent User? @relation("UserToUser", fields: [parentId], references: [id])
+                parentId Int?
+                user User[] @relation("UserToUser")
+            }
+            model Post {
+              id Int @id
+              User User? @relation(fields: [userId], references: [id])
+              userId Int?
+            }
+            `,
+            options: [
+                `isAbstractType = "UserWhereInput, PostWhereInput"`,
+                `outputFilePattern = "{name}.{type}.ts"`,
+            ],
+        }));
+
+        setSourceFile('user-where.input.ts');
+        let [argument1] = decoratorTypeArguments('InputType');
+        expect(argument1).toEqual('{isAbstract:true}');
+
+        setSourceFile('post-where.input.ts');
+        [argument1] = decoratorTypeArguments('InputType');
+        expect(argument1).toEqual('{isAbstract:true}');
+
+        setSourceFile('post-where-unique.input.ts');
+        [argument1] = decoratorTypeArguments('InputType');
+        expect(argument1).toBeUndefined();
     });
 });
 
@@ -2167,7 +2233,6 @@ describe('property type', () => {
         it('user-create.input', () => {
             setSourceFile('user-create.input.ts');
             expect(p('profile')?.type).toEqual('JsonObject');
-
         });
 
         it('should use default scalar type in user-update-many-mutation.input', () => {

@@ -66,6 +66,16 @@ export function inputType(
             moduleSpecifier,
         });
 
+    if (config.isAbstractType?.(inputType.name) && classDecoratorName === 'InputType') {
+        const decorator = classStructure.decorators!.find(d => d.name === 'InputType');
+        const index = decorator.arguments!.length === 2 ? 1 : 0;
+        const argument = JSON5.parse(decorator.arguments[index] || '{}');
+        decorator!.arguments![index] = JSON5.stringify({
+            ...argument,
+            isAbstract: true,
+        });
+    }
+
     const useInputType = config.useInputType.find(x =>
         inputType.name.includes(x.typeName),
     );
@@ -101,7 +111,9 @@ export function inputType(
             propertyType,
             isList,
         });
-        classStructure.properties?.push(property);
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        classStructure.properties!.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });

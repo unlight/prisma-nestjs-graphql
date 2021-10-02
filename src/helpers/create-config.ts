@@ -7,6 +7,7 @@ import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
 import { ObjectSetting } from '../types';
+import { stringToArray } from './string-to-array';
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {
@@ -43,13 +44,6 @@ export function createConfig(data: Record<string, unknown>) {
         $warnings.push(
             `Due to invalid filepath 'outputFilePattern' changed to '${outputFilePattern}'`,
         );
-    }
-
-    if (config.reExportAll) {
-        $warnings.push(`Option 'reExportAll' is deprecated, use 'reExport' instead`);
-        if (toBoolean(config.reExportAll)) {
-            config.reExport = 'All';
-        }
     }
 
     const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
@@ -113,6 +107,10 @@ export function createConfig(data: Record<string, unknown>) {
         requireSingleFieldsInWhereUniqueInput: toBoolean(
             config.requireSingleFieldsInWhereUniqueInput,
         ),
+        isAbstractType: (config.isAbstractType &&
+            outmatch(stringToArray(String(config.isAbstractType)), {
+                separator: false,
+            })) as ReturnType<typeof outmatch> | undefined,
         decorate,
     };
 }

@@ -13,7 +13,8 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName } = args;
+    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName, config } =
+        args;
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
@@ -53,6 +54,15 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     importDeclarations.add('Field', nestjsGraphql);
     importDeclarations.add('ObjectType', nestjsGraphql);
 
+    if (config.isAbstractType?.(outputType.name)) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const decorator = classStructure.decorators!.find(d => d.name === 'ObjectType');
+        ok(decorator?.arguments, 'ObjectType decorator not found');
+        const index = decorator.arguments.length === 2 ? 1 : 0;
+        const argument = JSON5.parse(decorator.arguments[index] || '{}');
+        decorator.arguments[index] = JSON5.stringify({ ...argument, isAbstract: true });
+    }
+
     for (const field of outputType.fields) {
         const { location, isList, type } = field.outputType;
         const outputTypeName = getOutputTypeName(String(type));
@@ -83,7 +93,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             isList,
         });
 
-        classStructure.properties?.push(property);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        classStructure.properties!.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });

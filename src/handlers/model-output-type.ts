@@ -71,6 +71,12 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     importDeclarations.add('Field', nestjsGraphql);
     importDeclarations.add('ObjectType', nestjsGraphql);
 
+    if (config.isAbstractType?.(outputType.name) && decorator.arguments) {
+        const index = decorator.arguments.length === 2 ? 1 : 0;
+        const argument = JSON5.parse(decorator.arguments[index] || '{}');
+        decorator.arguments[index] = JSON5.stringify({ ...argument, isAbstract: true });
+    }
+
     for (const field of outputType.fields) {
         let fileType = 'model';
         const { location, isList, type, namespace } = field.outputType;

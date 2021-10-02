@@ -22,13 +22,14 @@ let imports: { name: string; specifier: string }[];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
-const t = (name: string) =>
+const f = (name: string) =>
     getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
-        ?.arguments?.[0];
+        ?.arguments;
+const t = (name: string) => f(name)?.[0];
 const setSourceFile = (name: string) => {
-    sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
-    classFile = sourceFile.getClass(() => true)!;
+    sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(name));
     sourceText = sourceFile.getText();
+    classFile = sourceFile.getClass(() => true)!;
     importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
     imports = importDeclarations.flatMap(d =>
         (d.namedImports as ImportSpecifierStructure[]).map(x => ({
@@ -37,6 +38,11 @@ const setSourceFile = (name: string) => {
         })),
     );
 };
+const objectTypeArguments = () =>
+    sourceFile
+        .getClass(() => true)
+        ?.getDecorator('ObjectType')
+        ?.getStructure().arguments;
 
 describe('custom decorators namespace both input and output', () => {
     before(async () => {

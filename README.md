@@ -278,6 +278,12 @@ data!: UserCreateInput;
 
 ```
 
+#### isAbstractType
+
+Outmatch pattern, which type generate with `isAbstract: true` option.  
+Type: `string | undefined`  
+Default: `undefined`
+
 ## Field Settings
 
 Special directives in triple slash comments for more precise code generation.
