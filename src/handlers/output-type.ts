@@ -89,45 +89,51 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...propertySettings });
         }
 
+        // Get graphql type
+        let graphqlType: string;
+        const shouldHideField = settings?.shouldHideField({
+            name: outputType.name,
+            output: true,
+        });
+        const fieldType = settings?.getFieldType({
+            name: outputType.name,
+            output: true,
+        });
+
+        if (fieldType && isCustomsApplicable && !shouldHideField) {
+            graphqlType = fieldType.name;
+            importDeclarations.create({ ...fieldType });
+        } else {
+            const graphqlImport = getGraphqlImport({
+                sourceFile,
+                fileType,
+                location,
+                isId: false,
+                typeName: outputTypeName,
+                getSourceFile,
+            });
+
+            graphqlType = graphqlImport.name;
+
+            if (
+                graphqlImport.specifier &&
+                !importDeclarations.has(graphqlImport.name) &&
+                ((graphqlImport.name !== outputType.name && !shouldHideField) ||
+                    (shouldHideField && propertyType[0] === graphqlImport.name))
+            ) {
+                importDeclarations.set(graphqlImport.name, {
+                    namedImports: [{ name: graphqlImport.name }],
+                    moduleSpecifier: graphqlImport.specifier,
+                });
+            }
+        }
+
         ok(property.decorators, 'property.decorators is undefined');
 
-        if (settings?.shouldHideField({ name: outputType.name, output: true })) {
+        if (shouldHideField) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
-            let graphqlType: string;
-            const fieldType = settings?.getFieldType({
-                name: outputType.name,
-                output: true,
-            });
-
-            if (fieldType && isCustomsApplicable) {
-                graphqlType = fieldType.name;
-                importDeclarations.create({ ...fieldType });
-            } else {
-                const graphqlImport = getGraphqlImport({
-                    sourceFile,
-                    fileType,
-                    location,
-                    isId: false,
-                    typeName: outputTypeName,
-                    getSourceFile,
-                });
-
-                graphqlType = graphqlImport.name;
-
-                if (
-                    graphqlImport.name !== outputType.name &&
-                    graphqlImport.specifier &&
-                    !importDeclarations.has(graphqlImport.name)
-                ) {
-                    importDeclarations.set(graphqlImport.name, {
-                        namedImports: [{ name: graphqlImport.name }],
-                        moduleSpecifier: graphqlImport.specifier,
-                    });
-                }
-            }
-
             // Generate `@Field()` decorator
             property.decorators.push({
                 name: 'Field',

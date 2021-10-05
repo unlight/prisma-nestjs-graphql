@@ -101,49 +101,57 @@ export function inputType(
             propertyType,
             isList,
         });
-        classStructure.properties?.push(property);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        classStructure.properties!.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
         }
 
-        if (settings?.shouldHideField({ name: inputType.name, input: true })) {
-            importDeclarations.add('HideField', '@nestjs/graphql');
-            property.decorators?.push({ name: 'HideField', arguments: [] });
-        } else {
-            ok(property.decorators);
+        // Get graphql type
+        let graphqlType: string;
+        const shouldHideField = settings?.shouldHideField({
+            name: inputType.name,
+            input: true,
+        });
+        const fieldType = settings?.getFieldType({
+            name: inputType.name,
+            input: true,
+        });
 
-            let graphqlType: string;
-            const fieldType = settings?.getFieldType({
-                name: inputType.name,
-                input: true,
+        if (fieldType && isCustomsApplicable && !shouldHideField) {
+            graphqlType = fieldType.name;
+            importDeclarations.create({ ...fieldType });
+        } else {
+            // Import property type class
+            const graphqlImport = getGraphqlImport({
+                sourceFile,
+                location,
+                typeName,
+                getSourceFile,
             });
 
-            if (fieldType && isCustomsApplicable) {
-                graphqlType = fieldType.name;
-                importDeclarations.create({ ...fieldType });
-            } else {
-                const graphqlImport = getGraphqlImport({
-                    sourceFile,
-                    location,
-                    typeName,
-                    getSourceFile,
+            graphqlType = graphqlImport.name;
+
+            if (
+                graphqlImport.specifier &&
+                !importDeclarations.has(graphqlImport.name) &&
+                ((graphqlImport.name !== inputType.name && !shouldHideField) ||
+                    (shouldHideField && propertyType[0] === graphqlImport.name))
+            ) {
+                importDeclarations.set(graphqlImport.name, {
+                    namedImports: [{ name: graphqlImport.name }],
+                    moduleSpecifier: graphqlImport.specifier,
                 });
-
-                graphqlType = graphqlImport.name;
-
-                if (
-                    graphqlImport.name !== inputType.name &&
-                    graphqlImport.specifier &&
-                    !importDeclarations.has(graphqlImport.name)
-                ) {
-                    importDeclarations.set(graphqlImport.name, {
-                        namedImports: [{ name: graphqlImport.name }],
-                        moduleSpecifier: graphqlImport.specifier,
-                    });
-                }
             }
+        }
 
+        ok(property.decorators, 'property.decorators is undefined');
+
+        if (shouldHideField) {
+            importDeclarations.add('HideField', '@nestjs/graphql');
+            property.decorators.push({ name: 'HideField', arguments: [] });
+        } else {
             // Generate `@Field()` decorator
             property.decorators.push({
                 name: 'Field',

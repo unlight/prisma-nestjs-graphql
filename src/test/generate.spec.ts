@@ -1406,6 +1406,31 @@ describe('hide field', () => {
             );
         });
     });
+
+    it('hidden relations result in un-imported types', async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+                model User {
+                  id           String @id @default(uuid())
+                  userApiKey UserApiKey[]
+                }
+
+                model UserApiKey {
+                  id        String   @id @default(uuid())
+                  userId    String
+                  /// @HideField({ input: true })
+                  user      User     @relation(fields: [userId], references: [id])
+                }
+                    `,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+        setSourceFile('user-api-key-where.input.ts');
+        expect(p('user')?.type).toEqual('UserRelationFilter');
+        expect(imports).toContainEqual({
+            name: 'UserRelationFilter',
+            specifier: './user-relation-filter.input',
+        });
+    });
 });
 
 it('model with prisma keyword output', async () => {
@@ -2167,7 +2192,6 @@ describe('property type', () => {
         it('user-create.input', () => {
             setSourceFile('user-create.input.ts');
             expect(p('profile')?.type).toEqual('JsonObject');
-
         });
 
         it('should use default scalar type in user-update-many-mutation.input', () => {
@@ -2182,9 +2206,10 @@ describe('property type', () => {
     });
 });
 
-it('hidefield on groupby', async () => {
-    ({ project, sourceFiles } = await testGenerate({
-        schema: `
+describe('hidefield on groupby output', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
             model User {
                 id Int @id
                 /// @HideField({ match: '*GroupBy' })
@@ -2193,19 +2218,26 @@ it('hidefield on groupby', async () => {
                 profile Json
             }
             `,
-        options: [`outputFilePattern = "{name}.{type}.ts"`],
-    }));
-    setSourceFile('user-group-by.output.ts');
-    expect(imports).not.toContainEqual(
-        expect.objectContaining({
-            name: 'GraphQLJSONObject',
-        }),
-    );
-    expect(imports).not.toContainEqual(
-        expect.objectContaining({
-            name: 'GraphQLJSON',
-        }),
-    );
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+        setSourceFile('user-group-by.output.ts');
+    });
+
+    it('no graphqljsonobject', () => {
+        expect(imports).not.toContainEqual(
+            expect.objectContaining({
+                name: 'GraphQLJSONObject',
+            }),
+        );
+    });
+
+    it('no graphqljson', () => {
+        expect(imports).not.toContainEqual(
+            expect.objectContaining({
+                name: 'GraphQLJSON',
+            }),
+        );
+    });
 });
 
 describe('non list optional properties should be nullable', () => {
