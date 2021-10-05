@@ -1,3 +1,10 @@
+### [14.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.0...v14.4.1) (2021-10-05)
+
+
+### Bug Fixes
+
+* Missing import in hidden type ([29e5a8e](https://github.com/unlight/nestjs-graphql-prisma/commit/29e5a8e1cda7dd47308f0b5f0cecef37efb0aa8f)), closes [#62](https://github.com/unlight/nestjs-graphql-prisma/issues/62)
+
 ## [14.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.3.0...v14.4.0) (2021-09-30)
 
 
