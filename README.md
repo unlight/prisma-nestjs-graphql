@@ -428,6 +428,36 @@ export class UserCreateInput {
 }
 ```
 
+Custom decorators can be applied on classes (models):
+
+```
+/// @NG.Directive('@extends')
+/// @NG.Directive('@key(fields: "id")')
+model User {
+    /// @NG.Directive('@external')
+    id String @id
+}
+
+generator nestgraphql {
+    fields_NG_from = "@nestjs/graphql"
+    fields_NG_output = false
+    fields_NG_model = true
+}
+```
+
+May generate:
+
+```ts
+import * as NG from '@nestjs/graphql';
+
+@NG.Directive('@extends')
+@NG.Directive('@key(fields: "id")')
+export class User {
+    @Field(() => ID, { nullable: false })
+    @NG.Directive('@external')
+    id!: string;
+```
+
 #### @FieldType()
 
 Allow set custom GraphQL scalar type for field
