@@ -62,6 +62,7 @@ export function createConfig(data: Record<string, unknown>) {
                     arguments: [],
                     output: toBoolean(value.output),
                     input: toBoolean(value.input),
+                    model: toBoolean(value.model),
                     from: value.from,
                     defaultImport: toBoolean(value.defaultImport)
                         ? true

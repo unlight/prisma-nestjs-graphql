@@ -14,7 +14,7 @@ import {
 } from 'ts-morph';
 
 import { EventArguments } from '../types';
-import { getFieldOptions, getPropertyStructure } from './helpers';
+import { getFieldOptions, getPropertyStructure, testSourceFile } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
@@ -64,7 +64,10 @@ describe('model with one id int', () => {
     });
 
     describe('model', () => {
-        before(() => setSourceFile('user.model.ts'));
+        before(() => {
+            setSourceFile('user.model.ts');
+            ({ classFile } = testSourceFile({ project, file: 'user.model.ts' }));
+        });
 
         it('class should be exported', () => {
             const [classFile] = sourceFile.getClasses();
@@ -72,7 +75,12 @@ describe('model with one id int', () => {
         });
 
         it('argument decorated id', () => {
-            expect(t('id')).toEqual('() => ID');
+            const { fieldDecoratorType } = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'id',
+            });
+            expect(fieldDecoratorType).toEqual('() => ID');
         });
 
         it('should have import graphql type id', () => {
@@ -176,8 +184,6 @@ describe('model with one id int', () => {
                 ?.getStructure()!;
         });
 
-        // it('', () => console.log(sourceFile.getText()));
-
         it('id property should be Int/number', () => {
             expect(propertyStructure.type).toEqual('number');
             expect(d('id')?.arguments?.[0]).toEqual('() => Int');
@@ -196,38 +202,49 @@ describe('model with one id int', () => {
     });
 
     describe('where input', () => {
-        before(() => {
-            sourceFile = project.getSourceFile(s =>
-                s.getFilePath().endsWith('user-where.input.ts'),
-            )!;
-        });
-
-        // it('', () => console.log(sourceFile.getText()));
-
         it('should have id property', () => {
-            id = getPropertyStructure(sourceFile, 'id')!;
-            expect(id).toEqual(expect.objectContaining({ name: 'id' }));
+            const { property } = testSourceFile({
+                project,
+                file: 'user-where.input.ts',
+                property: 'id',
+            });
+            expect(property?.name).toEqual('id');
         });
 
         it('should have type IntFilter', () => {
-            id = getPropertyStructure(sourceFile, 'id')!;
-            expect(id.type).toEqual('IntFilter');
+            const { property } = testSourceFile({
+                project,
+                file: 'user-where.input.ts',
+                property: 'id',
+            });
+            expect(property?.type).toEqual('IntFilter');
         });
 
         it('field decorator returns IntFilter', () => {
-            const argument = t('id');
-            expect(argument).toEqual('() => IntFilter');
+            const { fieldDecoratorType } = testSourceFile({
+                project,
+                file: 'user-where.input.ts',
+                property: 'id',
+            });
+            expect(fieldDecoratorType).toEqual('() => IntFilter');
         });
 
         it('field decorator IntFilter nullable', () => {
-            const argument = getFieldOptions(sourceFile, 'id');
-            expect(argument).toMatch(/nullable:\s*true/);
+            const { fieldDecoratorOptions } = testSourceFile({
+                project,
+                file: 'user-where.input.ts',
+                property: 'id',
+            });
+            expect(fieldDecoratorOptions).toMatch(/nullable:\s*true/);
         });
 
         it('property AND has one type', () => {
-            expect(getPropertyStructure(sourceFile, 'AND')?.type).toEqual(
-                'Array<UserWhereInput>',
-            );
+            const { property } = testSourceFile({
+                project,
+                file: 'user-where.input.ts',
+                property: 'AND',
+            });
+            expect(property?.type).toEqual('Array<UserWhereInput>');
         });
     });
 
@@ -237,11 +254,13 @@ describe('model with one id int', () => {
             classFile = sourceFile.getClass(() => true)!;
         });
 
-        // it('', () => console.log(sourceFile.getText()));
-
         it('decorator name args', () => {
+            const { classFile } = testSourceFile({
+                project,
+                file: 'user-aggregate.args.ts',
+            });
             const decorator = classFile.getDecorator('ArgsType');
-            expect(decorator).toBeTruthy();
+            expect(decorator?.getText()).toEqual('@ArgsType()');
         });
 
         it('no duplicated properties', () => {
@@ -695,8 +714,6 @@ describe('nullish compatibility', () => {
             expect(p('posts')?.hasQuestionToken).toBe(true);
         });
     });
-
-    // it('', () => console.log(sourceFile.getText()));
 });
 
 describe('one model with enum', () => {
@@ -779,8 +796,6 @@ describe('one model with enum', () => {
             setSourceFile('user.model.ts');
         });
 
-        // it('', () => console.log('sourceText', sourceText));
-
         it('should import Role as enum', () => {
             expect(imports).toContainEqual({
                 name: 'Role',
@@ -811,8 +826,6 @@ describe('one model with self reference', () => {
         before(() => {
             setSourceFile('user.model.ts');
         });
-
-        // it('', () => console.log('sourceText', sourceText));
 
         it('should not contain import to self file', () => {
             expect(imports).not.toContainEqual(
@@ -2003,22 +2016,6 @@ describe('noTypeId config', () => {
 });
 
 describe('object model options', () => {
-    it('user model should have abstract true', async () => {
-        ({ project, sourceFiles } = await testGenerate({
-            schema: `
-            /// @IsAbstract()
-            model User {
-                id Int @id
-            }`,
-            options: [`outputFilePattern = "{name}.{type}.ts"`],
-        }));
-
-        setSourceFile('user.model.ts');
-        const argument = objectTypeArguments()?.[0];
-        const json = JSON5.parse(argument);
-        expect(json).toEqual({ isAbstract: true });
-    });
-
     it('abstract true by objecttype', async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `

@@ -14,7 +14,11 @@ import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
-import { createObjectSettings } from '../helpers/object-settings';
+import {
+    createObjectSettings,
+    ObjectSetting,
+    ObjectSettings,
+} from '../helpers/object-settings';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
@@ -49,9 +53,11 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         properties: [],
     };
     (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
-    const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
+    ok(classStructure.decorators, 'classStructure.decorators is undefined');
+    const decorator = classStructure.decorators.find(d => d.name === 'ObjectType');
     ok(decorator, 'ObjectType decorator not found');
 
+    let modelSettings: ObjectSettings | undefined;
     // Get model settings from documentation
     if (model.documentation) {
         const objectTypeOptions: PlainObject = {};
@@ -66,6 +72,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             objectTypeOptions.description = documentation;
         }
         decorator.arguments = settings.getObjectTypeArguments(objectTypeOptions);
+        modelSettings = settings;
     }
 
     importDeclarations.add('Field', nestjsGraphql);
@@ -170,19 +177,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 ],
             });
 
-            for (const options of settings || []) {
-                if (!options.output || options.kind !== 'Decorator') {
+            for (const setting of settings || []) {
+                if (!shouldBeDecorated(setting)) {
                     continue;
                 }
                 property.decorators.push({
-                    name: options.name,
-                    arguments: options.arguments as string[],
+                    name: setting.name,
+                    arguments: setting.arguments as string[],
                 });
                 ok(
-                    options.from,
+                    setting.from,
                     "Missed 'from' part in configuration or field setting",
                 );
-                importDeclarations.create(options);
+                importDeclarations.create(setting);
             }
 
             for (const decorate of config.decorate) {
@@ -208,6 +215,18 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         });
     }
 
+    // Generate class decorators from model settings
+    for (const setting of modelSettings || []) {
+        if (!shouldBeDecorated(setting)) {
+            continue;
+        }
+        classStructure.decorators.push({
+            name: setting.name,
+            arguments: setting.arguments as string[],
+        });
+        importDeclarations.create(setting);
+    }
+
     if (exportDeclaration) {
         sourceFile.set({
             statements: [exportDeclaration, '\n', classStructure],
@@ -224,6 +243,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             statements: [...importDeclarations.toStatements(), classStructure],
         });
     }
+}
+
+function shouldBeDecorated(setting: ObjectSetting) {
+    return (
+        setting.kind === 'Decorator' &&
+        (setting.output || setting.model) &&
+        !(setting.output && setting.model)
+    );
 }
 
 function getExportDeclaration(name: string, statements: StatementStructures[]) {

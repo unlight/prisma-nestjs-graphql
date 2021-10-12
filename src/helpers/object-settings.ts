@@ -14,6 +14,7 @@ export type ObjectSetting = {
     arguments?: string[] | Record<string, unknown>;
     input: boolean;
     output: boolean;
+    model: boolean;
     match?: (test: string) => boolean;
     from: string;
     namespace?: string;
@@ -43,7 +44,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
         );
     }
 
-    /* eslint-disable consistent-return */
     getFieldType({
         name,
         input,
@@ -70,9 +70,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
 
         return fieldType;
     }
-    /* eslint-enable consistent-return */
 
-    /* eslint-disable consistent-return */
     getPropertyType({ name }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
         const propertyType = this.find(s => s.kind === 'PropertyType');
 
@@ -87,7 +85,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
 
         return propertyType;
     }
-    /* eslint-enable consistent-return */
 
     getObjectTypeArguments(options: Record<string, any>): string[] {
         const objectTypeOptions = merge({}, options);
@@ -125,6 +122,7 @@ export function createObjectSettings(args: {
             arguments: [],
             input: false,
             output: false,
+            model: false,
             from: '',
         };
         if (name === 'TypeGraphQL.omit' || name === 'HideField') {
@@ -137,9 +135,6 @@ export function createObjectSettings(args: {
                 options,
                 { kind: name },
             );
-        } else if (name === 'IsAbstract') {
-            element.kind = 'ObjectType';
-            element.arguments = { isAbstract: true };
         } else if (name === 'ObjectType' && match.groups?.args) {
             element.kind = 'ObjectType';
             const options = customType(match.groups.args) as Record<string, unknown>;

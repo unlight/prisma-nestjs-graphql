@@ -345,6 +345,7 @@ generator nestgraphql {
     fields_{namespace}_from = "module specifier"
     fields_{namespace}_input = true | false
     fields_{namespace}_output = true | false
+    fields_{namespace}_model = true | false
     fields_{namespace}_defaultImport = "default import name" | true
     fields_{namespace}_namespaceImport = "namespace import name"
     fields_{namespace}_namedImport = true | false
@@ -367,7 +368,14 @@ Default: `false`
 
 ##### `fields_{namespace}_output`
 
-Means that it will be applied on output types (classes decorated by `ObjectType`)  
+Means that it will be applied on output types (classes decorated by `ObjectType`),
+including models  
+Type: `boolean`  
+Default: `false`
+
+##### `fields_{namespace}_model`
+
+Means that it will be applied only on model types (classes decorated by `ObjectType`)  
 Type: `boolean`  
 Default: `false`
 

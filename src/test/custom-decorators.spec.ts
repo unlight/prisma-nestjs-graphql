@@ -1,42 +1,12 @@
 import expect from 'expect';
-import {
-    ClassDeclaration,
-    ImportDeclarationStructure,
-    ImportSpecifierStructure,
-    Project,
-    PropertyDeclarationStructure,
-    SourceFile,
-} from 'ts-morph';
+import { Project, SourceFile } from 'ts-morph';
 
-import { getPropertyStructure } from './helpers';
+import { testSourceFile } from './helpers';
 import { testGenerate } from './test-generate';
 
 let sourceFile: SourceFile;
-let sourceText: string;
 let project: Project;
-let propertyStructure: PropertyDeclarationStructure;
-let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
-let importDeclarations: ImportDeclarationStructure[] = [];
-let imports: { name: string; specifier: string }[];
-
-const p = (name: string) => getPropertyStructure(sourceFile, name);
-const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
-const t = (name: string) =>
-    getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
-        ?.arguments?.[0];
-const setSourceFile = (name: string) => {
-    sourceFile = project.getSourceFile(s => s.getFilePath().endsWith(name))!;
-    classFile = sourceFile.getClass(() => true)!;
-    sourceText = sourceFile.getText();
-    importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
-    imports = importDeclarations.flatMap(d =>
-        (d.namedImports as ImportSpecifierStructure[]).map(x => ({
-            name: x.name,
-            specifier: d.moduleSpecifier,
-        })),
-    );
-};
 
 describe('custom decorators namespace both input and output', () => {
     before(async () => {
@@ -67,31 +37,47 @@ describe('custom decorators namespace both input and output', () => {
 
     describe('aggregates should not have validators', () => {
         it('user-count-aggregate.input', () => {
-            setSourceFile('user-count-aggregate.input.ts');
-            expect(
-                p('email')?.decorators?.find(d => d.name.includes('IsEmail')),
-            ).toBeUndefined();
-            expect(t('email')).toEqual('() => Boolean');
+            const s = testSourceFile({
+                project,
+                file: 'user-count-aggregate.input.ts',
+                property: 'email',
+            });
+            expect(s.propertyDecorators).toHaveLength(1);
+            expect(s.propertyDecorators).not.toContainEqual(
+                expect.objectContaining({
+                    name: 'IsEmail',
+                }),
+            );
+            expect(s.fieldDecoratorType).toEqual('() => Boolean');
         });
 
         it('user-count-order-by-aggregate.input name is type of sort order', () => {
-            setSourceFile('user-count-order-by-aggregate.input.ts');
+            const s = testSourceFile({
+                project,
+                file: 'user-count-order-by-aggregate.input.ts',
+                property: 'email',
+            });
             expect(
-                p('email')?.decorators?.find(d => d.name.includes('IsEmail')),
+                s.propertyDecorators?.find(d => d.name.includes('IsEmail')),
             ).toBeUndefined();
-            expect(t('email')).toEqual('() => SortOrder');
+            expect(s.fieldDecoratorType).toEqual('() => SortOrder');
         });
     });
 
     describe('custom decorators in user create input', () => {
+        let sourceFile: SourceFile;
+        let importDeclarations: any[];
+        let classFile: any;
+
         before(() => {
-            setSourceFile('user-create.input.ts');
+            ({ sourceFile, classFile } = testSourceFile({
+                project,
+                file: 'user-create.input.ts',
+            }));
             importDeclarations = sourceFile
                 .getImportDeclarations()
                 .map(d => d.getStructure());
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
 
         it('decorator validator maxlength should exists', () => {
             const d = classFile
@@ -111,8 +97,12 @@ describe('custom decorators namespace both input and output', () => {
         });
 
         it('several decorators length', () => {
-            const decorators = p('age')?.decorators;
-            expect(decorators).toHaveLength(3);
+            const s = testSourceFile({
+                project,
+                file: 'user-create.input.ts',
+                property: 'age',
+            });
+            expect(s.propertyDecorators).toHaveLength(3);
         });
 
         it('validator should be imported once', () => {
@@ -122,29 +112,42 @@ describe('custom decorators namespace both input and output', () => {
         });
     });
 
-    describe('user model output should not have validator decorator', () => {
-        before(() => setSourceFile('user.model.ts'));
-
-        describe('should not have metadata in description', () => {
-            it('age', () => {
-                expect(d('age')?.arguments?.[1]).not.toContain('description');
+    describe('should not have metadata in description', () => {
+        it('age', () => {
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'age',
             });
-
-            it('name', () => {
-                expect(d('name')?.arguments?.[1]).not.toContain('description');
-            });
-
-            it('email', () => {
-                expect(d('email')?.arguments?.[1]).not.toContain('description');
-            });
+            expect(s.fieldDecoratorOptions).not.toContain('description');
         });
 
-        it('output model has no maxlength decorator', () => {
-            const decorator = p('name')?.decorators?.find(d => d.name === 'MaxLength');
-            expect(decorator).toBeFalsy();
+        it('name', () => {
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'name',
+            });
+            expect(s.fieldDecoratorOptions).not.toContain('description');
         });
 
-        // it('^', () => console.log(sourceFile.getText()));
+        it('email', () => {
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'email',
+            });
+            expect(s.fieldDecoratorOptions).not.toContain('description');
+        });
+    });
+
+    it('output model has no maxlength decorator', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'name',
+        });
+        expect(s.propertyDecorators?.find(d => d.name === 'MaxLength')).toBeFalsy();
     });
 });
 
@@ -168,8 +171,12 @@ describe('fieldtype disable output', () => {
     });
 
     it('upload image output', () => {
-        setSourceFile('user.model.ts');
-        expect(t('image')).toEqual('() => String');
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'image',
+        });
+        expect(s.fieldDecoratorType).toEqual('() => String');
     });
 });
 
@@ -193,22 +200,26 @@ describe('custom decorators and description', () => {
         }));
     });
 
-    describe('user model output', () => {
-        before(() => setSourceFile('user.model.ts'));
-
-        it('has description', () => {
-            const data = d('name')?.arguments?.[1];
-            expect(data).toContain("description:'User name really'");
+    it('has description', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'name',
         });
+        expect(s.fieldDecoratorOptions).toContain("description:'User name really'");
+    });
 
-        it('has decorator length', () => {
-            const decorators = p('name')?.decorators;
-            expect(decorators).toHaveLength(2);
-            expect(decorators).toContainEqual(
-                expect.objectContaining({ name: 'Length' }),
-            );
-            expect(sourceText).toContain('@Validator.Length(5, 15, "check length")');
+    it('has decorator length', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'name',
         });
+        expect(s.propertyDecorators).toHaveLength(2);
+        expect(s.propertyDecorators).toContainEqual(
+            expect.objectContaining({ name: 'Length' }),
+        );
+        expect(s.sourceText).toContain('@Validator.Length(5, 15, "check length")');
     });
 });
 
@@ -230,63 +241,63 @@ describe('custom decorators default import', () => {
         }));
     });
 
-    describe('in user create input', () => {
-        before(() => {
-            setSourceFile('user-create.input.ts');
+    it('importDeclarations should import default', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-create.input.ts',
         });
 
-        it('importDeclarations should import default', () => {
-            importDeclarations = sourceFile
-                .getImportDeclarations()
-                .map(d => d.getStructure())
-                .filter(d => d.moduleSpecifier === 'is-valid-name');
+        const importDeclarations = s.sourceFile
+            .getImportDeclarations()
+            .map(d => d.getStructure())
+            .filter(d => d.moduleSpecifier === 'is-valid-name');
 
-            expect(importDeclarations).toHaveLength(1);
-            expect(importDeclarations[0]).toEqual(
-                expect.objectContaining({
-                    defaultImport: 'IsValidName',
-                    namedImports: [],
-                    namespaceImport: undefined,
-                }),
-            );
-        });
-
-        // it('^', () => console.log(sourceFile.getText()));
+        expect(importDeclarations).toHaveLength(1);
+        expect(importDeclarations[0]).toEqual(
+            expect.objectContaining({
+                defaultImport: 'IsValidName',
+                namedImports: [],
+                namespaceImport: undefined,
+            }),
+        );
     });
+});
 
-    describe('default import alternative syntax', () => {
-        before(async () => {
-            ({ project, sourceFiles } = await testGenerate({
-                schema: `
+describe('default import alternative syntax', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
                 model User {
                     id Int @id
                     /// @IsEmail()
                     name String
                 }`,
-                options: [
-                    `outputFilePattern = "{name}.{type}.ts"`,
-                    `fields_IsEmail_from = "isvalidemail"`,
-                    `fields_IsEmail_input = true`,
-                    `fields_IsEmail_defaultImport = true`,
-                ],
-            }));
-            setSourceFile('user-create.input.ts');
-        });
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_IsEmail_from = "isvalidemail"`,
+                `fields_IsEmail_input = true`,
+                `fields_IsEmail_defaultImport = true`,
+            ],
+        }));
+    });
 
-        it('test', () => {
-            importDeclarations = sourceFile
-                .getImportDeclarations()
-                .map(d => d.getStructure())
-                .filter(d => d.moduleSpecifier === 'isvalidemail');
-            expect(importDeclarations).toHaveLength(1);
-            expect(importDeclarations[0]).toEqual(
-                expect.objectContaining({
-                    defaultImport: 'IsEmail',
-                    namedImports: [],
-                    namespaceImport: undefined,
-                }),
-            );
+    it('test', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-create.input.ts',
         });
+        const importDeclarations = s.sourceFile
+            .getImportDeclarations()
+            .map(d => d.getStructure())
+            .filter(d => d.moduleSpecifier === 'isvalidemail');
+        expect(importDeclarations).toHaveLength(1);
+        expect(importDeclarations[0]).toEqual(
+            expect.objectContaining({
+                defaultImport: 'IsEmail',
+                namedImports: [],
+                namespaceImport: undefined,
+            }),
+        );
     });
 });
 
@@ -312,60 +323,46 @@ describe('custom decorators field custom type namespace', () => {
     });
 
     describe('user create input', () => {
-        before(() => {
-            setSourceFile('user-create.input.ts');
-        });
-
         it('email field type', () => {
-            const decorator = p('email')?.decorators?.find(d => d.name === 'Field');
-            const typeArgument = decorator?.arguments?.[0];
-            expect(typeArgument).toEqual('() => Scalars.EmailAddress');
-        });
-
-        it('should not apply to field as decorator', () => {
-            const decorators = p('email')?.decorators;
-            expect(decorators).toHaveLength(1);
+            const s = testSourceFile({
+                project,
+                file: 'user-create.input.ts',
+                property: 'email',
+            });
+            expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
+            expect(s.propertyDecorators).toHaveLength(1);
         });
 
         it('field type secondemail', () => {
-            const decorator = p('secondEmail')?.decorators?.find(
-                d => d.name === 'Field',
-            );
-            const typeArgument = decorator?.arguments?.[0];
-            expect(typeArgument).toEqual('() => Scalars.EmailAddress');
+            const s = testSourceFile({
+                project,
+                file: 'user-create.input.ts',
+                property: 'secondEmail',
+            });
+            expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
         });
 
         it('importdeclarations should import namespace', () => {
-            importDeclarations = sourceFile
-                .getImportDeclarations()
-                .map(d => d.getStructure())
-                .filter(d => d.moduleSpecifier === 'graphql-scalars');
-
-            expect(importDeclarations).toHaveLength(1);
-            expect(importDeclarations[0]).toEqual(
-                expect.objectContaining({
-                    defaultImport: undefined,
-                    namedImports: [],
-                    namespaceImport: 'Scalars',
-                }),
-            );
+            const s = testSourceFile({
+                project,
+                file: 'user-create.input.ts',
+            });
+            expect(s.namespaceImports).toContainEqual({
+                name: 'Scalars',
+                specifier: 'graphql-scalars',
+            });
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
     });
 
     describe('custom type user model', () => {
-        before(() => {
-            setSourceFile('user.model.ts');
-        });
-
         it('custom type user model email field type', () => {
-            const decorator = p('email')?.decorators?.find(d => d.name === 'Field');
-            const typeArgument = decorator?.arguments?.[0];
-            expect(typeArgument).toEqual('() => Scalars.EmailAddress');
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'email',
+            });
+            expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
     });
 });
 
@@ -400,58 +397,117 @@ describe('decorate option', () => {
     });
 
     it('validatenested create one user args', () => {
-        setSourceFile('create-one-user.args.ts');
-        const data = p('data');
-        expect(data?.decorators).toContainEqual(
+        const s = testSourceFile({
+            project,
+            file: 'create-one-user.args.ts',
+            property: 'data',
+        });
+        expect(s.propertyDecorators).toContainEqual(
             expect.objectContaining({
                 name: 'ValidateNested',
                 arguments: [],
                 typeArguments: [],
             }),
         );
-        expect(data?.decorators).toContainEqual(
+        expect(s.propertyDecorators).toContainEqual(
             expect.objectContaining({
                 name: 'Type',
                 arguments: ['() => UserCreateInput'],
                 typeArguments: [],
             }),
         );
-        expect(imports).toContainEqual({
+        expect(s.namedImports).toContainEqual({
             name: 'Type',
             specifier: 'class-transformer',
         });
-        expect(imports).toContainEqual({
+        expect(s.namedImports).toContainEqual({
             name: 'ValidateNested',
             specifier: 'class-validator',
         });
     });
 
     it('validatenested create many user args', () => {
-        setSourceFile('create-many-user.args.ts');
-        const data = p('data');
-        expect(data?.decorators).toContainEqual(
+        const s = testSourceFile({
+            project,
+            file: 'create-many-user.args.ts',
+            property: 'data',
+        });
+
+        expect(s.propertyDecorators).toContainEqual(
             expect.objectContaining({
                 name: 'ValidateNested',
                 arguments: [],
                 typeArguments: [],
             }),
         );
-        expect(data?.decorators).toContainEqual(
+        expect(s.propertyDecorators).toContainEqual(
             expect.objectContaining({
                 name: 'Type',
                 arguments: ['() => UserCreateManyInput'],
                 typeArguments: [],
             }),
         );
-        expect(imports).toContainEqual({
+        expect(s.namedImports).toContainEqual({
             name: 'Type',
             specifier: 'class-transformer',
         });
-        expect(imports).toContainEqual({
+        expect(s.namedImports).toContainEqual({
             name: 'ValidateNested',
             specifier: 'class-validator',
         });
     });
 });
 
-// it('^', () => console.log(sourceFile.getText()));
+describe('model decorate', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            /// @NG.Directive('@extends')
+            /// @NG.Directive('@key(fields: "id")')
+            model User {
+                /// @NG.Directive('@external')
+                id String @id
+            }`,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `fields_NG_from = "@nestjs/graphql"`,
+                `fields_NG_output = false`,
+                `fields_NG_model = true`,
+            ],
+        }));
+    });
+
+    it('user model id property', () => {
+        const { propertyDecorators } = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'id',
+        });
+        expect(propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
+        expect(
+            propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0],
+        ).toBe("'@external'");
+    });
+
+    it('user model class', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+        });
+        expect(s.namespaceImports).toContainEqual({
+            name: 'NG',
+            specifier: '@nestjs/graphql',
+        });
+        expect(s.classFile.getDecorator('Directive')).toBeTruthy();
+    });
+
+    it('usergroupby should not have ng.directive', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-group-by.output.ts',
+            property: 'id',
+        });
+        expect(s.propertyDecorators).toHaveLength(1);
+        expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeFalsy();
+    });
+});
