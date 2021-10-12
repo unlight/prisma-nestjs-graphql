@@ -1,3 +1,10 @@
+## [14.5.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.1...v14.5.0) (2021-10-12)
+
+
+### Features
+
+* **custom decorators:** Allow apply custom decorator on models ([52f090a](https://github.com/unlight/nestjs-graphql-prisma/commit/52f090a55154bca3b0c9030cf7dff6f1599f6f94)), closes [#63](https://github.com/unlight/nestjs-graphql-prisma/issues/63)
+
 ### [14.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.0...v14.4.1) (2021-10-05)
 
 
