@@ -571,6 +571,34 @@ export class User {
 }
 ```
 
+### @Directive()
+
+Allow attach `@Directive` decorator from `@nestjs/graphql`
+
+GraphQL federation example:
+
+```
+/// @Directive({ arguments: ['@extends'] })
+/// @Directive({ arguments: ['@key(fields: "id")'] })
+model User {
+    /// @Directive({ arguments: ['@external'] })
+    id String @id
+}
+```
+
+May generate:
+
+```ts
+@ObjectType()
+@Directive('@extends')
+@Directive('@key(fields: "id")')
+export class User {
+    @Field(() => ID, { nullable: false })
+    @Directive('@external')
+    id!: string;
+}
+```
+
 #### @ObjectType()
 
 Allow rename type in schema and mark as abstract.

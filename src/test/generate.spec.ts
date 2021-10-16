@@ -1,4 +1,3 @@
-/* eslint-disable regexp/strict */
 import expect from 'expect';
 import JSON5 from 'json5';
 import { trim } from 'lodash';
@@ -20,7 +19,6 @@ import { testGenerate } from './test-generate';
 let sourceFile: SourceFile;
 let sourceText: string;
 let project: Project;
-let propertyStructure: PropertyDeclarationStructure;
 let imports: { name: string; specifier: string }[];
 let classFile: ClassDeclaration;
 let sourceFiles: SourceFile[];
@@ -51,7 +49,6 @@ const objectTypeArguments = () =>
         ?.getStructure().arguments;
 
 describe('model with one id int', () => {
-    let id: PropertyDeclarationStructure;
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -98,14 +95,13 @@ describe('model with one id int', () => {
         });
 
         it('should have exclamation mark for non null id field', () => {
-            id = sourceFile
-                .getClass(() => true)
-                ?.getProperty(p => p.getName() === 'id')
-                ?.getStructure()!;
-            expect(id.hasExclamationToken).toEqual(true);
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'id',
+            });
+            expect(s.property?.hasExclamationToken).toEqual(true);
         });
-
-        // it('', () => console.log(sourceFile.getText()));
 
         it('default value', () => {
             const argument = getFieldOptions(sourceFile, 'id');
@@ -146,58 +142,41 @@ describe('model with one id int', () => {
         });
     });
 
-    describe('aggregate user output', () => {
-        before(() => {
-            setSourceFile('aggregate-user.output.ts');
-        });
+    it('aggregate user output class should be exported', () => {
+        const s = testSourceFile({ project, file: 'aggregate-user.output.ts' });
+        expect(s.classFile.isExported()).toBe(true);
+    });
 
-        // it('', () => console.log(sourceText));
-
-        it('class should be exported', () => {
-            const [classFile] = sourceFile.getClasses();
-            expect(classFile.isExported()).toBe(true);
-        });
-
-        it('contains decorator ObjectType', () => {
-            expect(imports).toContainEqual({
-                name: 'ObjectType',
-                specifier: '@nestjs/graphql',
-            });
-        });
-
-        it('count', () => {
-            const structure = sourceFile
-                .getClass(() => true)
-                ?.getProperty(p => p.getName() === '_count')
-                ?.getStructure();
-            expect(structure?.type).toEqual('UserCountAggregate');
-            expect(structure?.hasQuestionToken).toEqual(true);
+    it('aggregate user output contains decorator ObjectType', () => {
+        const s = testSourceFile({ project, file: 'aggregate-user.output.ts' });
+        expect(s.namedImports).toContainEqual({
+            name: 'ObjectType',
+            specifier: '@nestjs/graphql',
         });
     });
 
-    describe('user count aggregate (usercountaggregate)', () => {
-        before(() => {
-            setSourceFile('user-count-aggregate.output.ts');
-            propertyStructure = sourceFile
-                .getClass(() => true)
-                ?.getProperty(p => p.getName() === 'id')
-                ?.getStructure()!;
+    it('aggregate user output count', () => {
+        const s = testSourceFile({
+            project,
+            file: 'aggregate-user.output.ts',
+            property: '_count',
         });
+        expect(s.property?.type).toEqual('UserCountAggregate');
+        expect(s.property?.hasQuestionToken).toEqual(true);
+    });
 
-        it('id property should be Int/number', () => {
-            expect(propertyStructure.type).toEqual('number');
-            expect(d('id')?.arguments?.[0]).toEqual('() => Int');
+    it('user count aggregate (usercountaggregate) id property', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-count-aggregate.output.ts',
+            property: 'id',
         });
-
-        it('should be not null', () => {
-            expect(propertyStructure.hasQuestionToken).toEqual(false);
-        });
-
-        it('should have import graphql type int', () => {
-            expect(imports).toContainEqual({
-                name: 'Int',
-                specifier: '@nestjs/graphql',
-            });
+        expect(s.property?.type).toEqual('number');
+        expect(s.fieldDecoratorType).toEqual('() => Int');
+        expect(s.property?.hasQuestionToken).toEqual(false);
+        expect(s.namedImports).toContainEqual({
+            name: 'Int',
+            specifier: '@nestjs/graphql',
         });
     });
 
@@ -294,8 +273,6 @@ describe('model with one id int', () => {
             setSourceFile('user-count-aggregate.input.ts');
             id = getPropertyStructure(sourceFile, 'id')!;
         });
-
-        // it('', () => console.log(sourceFile.getText()));
 
         it('property id should have true type', () => {
             expect(id.type).toEqual('true');
@@ -2308,7 +2285,7 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
     });
 
     it('requireSingleFieldsInWhereUniqueInput single fields', async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id String @id
@@ -2319,16 +2296,22 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
                 `requireSingleFieldsInWhereUniqueInput = true`,
             ],
         }));
-        setSourceFile('user-where-unique.input.ts');
 
-        expect(p('id')).toEqual(
+        const s = testSourceFile({
+            project,
+            file: 'user-where-unique.input.ts',
+            property: 'id',
+        });
+
+        expect(s.property).toEqual(
             expect.objectContaining({ hasQuestionToken: false, type: 'string' }),
         );
-        expect(f('id')).toEqual(['() => String', '{nullable:false}']);
+        expect(s.fieldDecoratorType).toEqual('() => String');
+        expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
     });
 
     it('requireSingleFieldsInWhereUniqueInput compound', async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                   name String
@@ -2342,13 +2325,16 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
                 `requireSingleFieldsInWhereUniqueInput = true`,
             ],
         }));
-        setSourceFile('user-where-unique.input.ts');
 
-        expect(p('name_email')?.hasQuestionToken).toEqual(false);
-        expect(p('name_email')?.type).toEqual('UserNameEmailCompoundUniqueInput');
-        expect(f('name_email')).toEqual([
-            '() => UserNameEmailCompoundUniqueInput',
-            '{nullable:false}',
-        ]);
+        const s = testSourceFile({
+            project,
+            file: 'user-where-unique.input.ts',
+            property: 'name_email',
+        });
+
+        expect(s.property?.hasQuestionToken).toEqual(false);
+        expect(s.property?.type).toEqual('UserNameEmailCompoundUniqueInput');
+        expect(s.fieldDecoratorType).toEqual('() => UserNameEmailCompoundUniqueInput');
+        expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
     });
 });

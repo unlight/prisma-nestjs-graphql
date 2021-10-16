@@ -178,18 +178,20 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             });
 
             for (const setting of settings || []) {
-                if (!shouldBeDecorated(setting)) {
-                    continue;
+                if (
+                    shouldBeDecorated(setting) &&
+                    (setting.match?.(field.name) ?? true)
+                ) {
+                    property.decorators.push({
+                        name: setting.name,
+                        arguments: setting.arguments as string[],
+                    });
+                    ok(
+                        setting.from,
+                        "Missed 'from' part in configuration or field setting",
+                    );
+                    importDeclarations.create(setting);
                 }
-                property.decorators.push({
-                    name: setting.name,
-                    arguments: setting.arguments as string[],
-                });
-                ok(
-                    setting.from,
-                    "Missed 'from' part in configuration or field setting",
-                );
-                importDeclarations.create(setting);
             }
 
             for (const decorate of config.decorate) {
@@ -217,14 +219,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     // Generate class decorators from model settings
     for (const setting of modelSettings || []) {
-        if (!shouldBeDecorated(setting)) {
-            continue;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        if (shouldBeDecorated(setting)) {
+            classStructure.decorators.push({
+                name: setting.name,
+                arguments: setting.arguments as string[],
+            });
+            importDeclarations.create(setting);
         }
-        classStructure.decorators.push({
-            name: setting.name,
-            arguments: setting.arguments as string[],
-        });
-        importDeclarations.create(setting);
     }
 
     if (exportDeclaration) {

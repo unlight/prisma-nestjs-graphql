@@ -165,18 +165,22 @@ export function inputType(
 
             if (isCustomsApplicable) {
                 for (const options of settings || []) {
-                    if (!options.input || options.kind !== 'Decorator') {
-                        continue;
+                    if (
+                        (options.kind === 'Decorator' &&
+                            options.input &&
+                            options.match?.(name)) ??
+                        true
+                    ) {
+                        property.decorators.push({
+                            name: options.name,
+                            arguments: options.arguments as string[],
+                        });
+                        ok(
+                            options.from,
+                            "Missed 'from' part in configuration or field setting",
+                        );
+                        importDeclarations.create(options);
                     }
-                    property.decorators.push({
-                        name: options.name,
-                        arguments: options.arguments as string[],
-                    });
-                    ok(
-                        options.from,
-                        "Missed 'from' part in configuration or field setting",
-                    );
-                    importDeclarations.create(options);
                 }
             }
 

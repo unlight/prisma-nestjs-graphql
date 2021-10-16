@@ -148,6 +148,16 @@ export function createObjectSettings(args: {
                 name: options.name,
                 isAbstract: options.isAbstract,
             };
+        } else if (name === 'Directive' && match.groups?.args) {
+            const options = customType(match.groups.args);
+            merge(element, { model: true, from: '@nestjs/graphql' }, options, {
+                name,
+                namespace: false,
+                kind: 'Decorator',
+                arguments: Array.isArray(options.arguments)
+                    ? options.arguments.map(s => JSON5.stringify(s))
+                    : options.arguments,
+            });
         } else {
             const namespace = getNamespace(name);
             element.namespaceImport = namespace;
@@ -158,7 +168,7 @@ export function createObjectSettings(args: {
                     .map(s => trim(s))
                     .filter(Boolean),
             };
-            merge(element, config.fields[namespace], options);
+            merge(element, namespace && config.fields[namespace], options);
         }
         result.push(element);
     }
@@ -234,10 +244,14 @@ function parseArgs(string: string): Record<string, unknown> | string {
     }
 }
 
-function getNamespace(name: unknown) {
+function getNamespace(name: unknown): string | undefined {
+    if (name === undefined) {
+        return undefined;
+    }
     let result = String(name);
     if (result.includes('.')) {
         [result] = result.split('.');
     }
+    // eslint-disable-next-line consistent-return
     return result;
 }

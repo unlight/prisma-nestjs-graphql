@@ -4,13 +4,11 @@ import { Project, SourceFile } from 'ts-morph';
 import { testSourceFile } from './helpers';
 import { testGenerate } from './test-generate';
 
-let sourceFile: SourceFile;
 let project: Project;
-let sourceFiles: SourceFile[];
 
 describe('custom decorators namespace both input and output', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id Int @id
@@ -153,7 +151,7 @@ describe('custom decorators namespace both input and output', () => {
 
 describe('fieldtype disable output', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id           String        @id @default(cuid())
@@ -182,7 +180,7 @@ describe('fieldtype disable output', () => {
 
 describe('custom decorators and description', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     /// user id really
@@ -225,7 +223,7 @@ describe('custom decorators and description', () => {
 
 describe('custom decorators default import', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id Int @id
@@ -265,7 +263,7 @@ describe('custom decorators default import', () => {
 
 describe('default import alternative syntax', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id Int @id
@@ -303,7 +301,7 @@ describe('default import alternative syntax', () => {
 
 describe('custom decorators field custom type namespace', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
                 model User {
                     id Int @id
@@ -368,7 +366,7 @@ describe('custom decorators field custom type namespace', () => {
 
 describe('decorate option', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
             model User {
                 id Int @id @default(autoincrement())
@@ -460,7 +458,7 @@ describe('decorate option', () => {
 
 describe('model decorate', () => {
     before(async () => {
-        ({ project, sourceFiles } = await testGenerate({
+        ({ project } = await testGenerate({
             schema: `
             /// @NG.Directive('@extends')
             /// @NG.Directive('@key(fields: "id")')
@@ -509,5 +507,59 @@ describe('model decorate', () => {
         });
         expect(s.propertyDecorators).toHaveLength(1);
         expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeFalsy();
+    });
+});
+
+describe('model directive', () => {
+    before(async () => {
+        ({ project } = await testGenerate({
+            schema: `
+            /// @Directive({ arguments: ['@extends'] })
+            /// @Directive({ arguments: ['@key(fields: "id")'] })
+            model User {
+                /// @Directive({ arguments: ['@external'] })
+                id String @id
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('user model id property', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'id',
+        });
+        console.log('s.sourceText', s.sourceText);
+        expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
+        expect(
+            s.propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0],
+        ).toBe("'@external'");
+    });
+
+    it('user model class', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+        });
+        expect(s.namedImports).toContainEqual({
+            name: 'Directive',
+            specifier: '@nestjs/graphql',
+        });
+        expect(s.classFile.getDecorator('Directive')).toBeTruthy();
+    });
+
+    it('usergroupby should not have ng.directive', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-group-by.output.ts',
+            property: 'id',
+        });
+        expect(s.propertyDecorators).toHaveLength(1);
+        expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeFalsy();
+        expect(s.namedImports).not.toContainEqual({
+            name: 'Directive',
+            specifier: '@nestjs/graphql',
+        });
     });
 });
