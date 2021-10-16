@@ -1,3 +1,10 @@
+## [14.6.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.5.0...v14.6.0) (2021-10-16)
+
+
+### Features
+
+* **custom decorators:** Allow attach `@Directive()` ([d6faef0](https://github.com/unlight/nestjs-graphql-prisma/commit/d6faef073f33f97b48e99619b737f5324e3e4dd7))
+
 ## [14.5.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.1...v14.5.0) (2021-10-12)
 
 
