@@ -9,31 +9,31 @@ generator client {
 }
 
 generator nestgraphql {
-  provider = "node -r ts-node/register/transpile-only src/index.ts"
-  output = "../@generated"
-  noAtomicOperations = false
-  combineScalarFilters = false
-  reExport = None
-  emitSingle = false
-  emitCompiled = false
-  purgeOutput = false
+  provider                              = "node -r ts-node/register/transpile-only src/index.ts"
+  output                                = "../@generated"
+  noAtomicOperations                    = false
+  combineScalarFilters                  = false
+  reExport                              = None
+  emitSingle                            = true
+  emitCompiled                          = true
+  purgeOutput                           = false
   requireSingleFieldsInWhereUniqueInput = false
-  fields_Validator_from = "class-validator"
-  fields_Validator_input = true
-  fields_Scalars_from = "graphql-scalars"
-  fields_Scalars_input = true
-  useInputType_WhereInput_ALL = "WhereInput"
-  decorate_1_type = "Create@(One|Many)UserArgs"
-  decorate_1_field = data
-  decorate_1_name = ValidateNested
-  decorate_1_from = "class-validator"
-  decorate_1_arguments = "[]"
-  decorate_2_type = "Create@(One|Many)UserArgs"
-  decorate_2_field = data
-  decorate_2_from = "class-transformer"
-  decorate_2_arguments = "['() => {propertyType.0}']"
-  decorate_2_name = Type
-  decorate_2_namedImport = true
+  fields_Validator_from                 = "class-validator"
+  fields_Validator_input                = true
+  fields_Scalars_from                   = "graphql-scalars"
+  fields_Scalars_input                  = true
+  useInputType_WhereInput_ALL           = "WhereInput"
+  decorate_1_type                       = "Create@(One|Many)UserArgs"
+  decorate_1_field                      = data
+  decorate_1_name                       = ValidateNested
+  decorate_1_from                       = "class-validator"
+  decorate_1_arguments                  = "[]"
+  decorate_2_type                       = "Create@(One|Many)UserArgs"
+  decorate_2_field                      = data
+  decorate_2_from                       = "class-transformer"
+  decorate_2_arguments                  = "['() => {propertyType.0}']"
+  decorate_2_name                       = Type
+  decorate_2_namedImport                = true
 }
 
 /// User really
@@ -103,10 +103,10 @@ enum Role {
 }
 
 model Profile {
-  id                  Int                 @id @default(autoincrement())
-  user                User                @relation(fields: [userId], references: [id])
-  userId              String
-  dummy String?
+  id     Int     @id @default(autoincrement())
+  user   User    @relation(fields: [userId], references: [id])
+  userId String  @unique
+  dummy  String?
 }
 
 model Dummy {
@@ -120,4 +120,61 @@ model Dummy {
   bigInt  BigInt?
   json    Json?
   friends String[]
+}
+
+model Parcel {
+  id String @id @default(cuid())
+
+  l Float?
+  b Float?
+  h Float?
+
+  mass Float?
+
+
+  // RELATIONS
+
+  labels Dalabel[]
+
+  delivery    Delivery? @relation(fields: [id_delivery], references: [id])
+  id_delivery String?
+
+  customer        Customer? @relation(fields: [customer_number], references: [number])
+  customer_number String?
+
+  surcharges Surcharge[]
+
+
+  // INVERSE RELATIONS
+
+  scans Scan[]
+
+}
+
+model Scan {
+  id       String  @id @default(cuid())
+  Parcel   Parcel? @relation(fields: [parcelId], references: [id])
+  parcelId String?
+}
+
+model Surcharge {
+  id       String  @id @default(cuid())
+  Parcel   Parcel? @relation(fields: [parcelId], references: [id])
+  parcelId String?
+}
+
+model Delivery {
+  id     String   @id @default(cuid())
+  Parcel Parcel[]
+}
+
+model Customer {
+  number String   @id @default(cuid())
+  Parcel Parcel[]
+}
+
+model Dalabel {
+  id       String  @id @default(cuid())
+  Parcel   Parcel? @relation(fields: [parcelId], references: [id])
+  parcelId String?
 }
