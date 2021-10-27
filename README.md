@@ -128,10 +128,11 @@ Default: `false`
 
 #### `requireSingleFieldsInWhereUniqueInput`
 
-When a `Model`s `WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).
+When a model `*WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).  
 See [#58](https://github.com/unlight/prisma-nestjs-graphql/issues/58) for more details.  
 Type: `boolean`  
-Default: `false`
+Default: `false`  
+**Note**: It will break compatiblity between Prisma types and generated classes.
 
 #### `useInputType`
 
