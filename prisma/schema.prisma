@@ -2,9 +2,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 generator client {
   provider = "prisma-client-js"
 }
+
 generator nestjsgraphql {
   provider                              = "node -r ts-node/register/transpile-only src/index.ts"
   fields_Validator_from                 = "class-validator"
@@ -15,125 +17,41 @@ generator nestjsgraphql {
   purgeOutput                           = true
   output                                = "../@generated"
 }
+
 model Parcel {
-  id String @id @default(cuid())
+  id              String    @id @default(cuid())
   customer        Customer? @relation(fields: [customer_number], references: [number])
   customer_number String?
 }
+
 model Customer {
-  number String @id
-//  destinations Destination[]
-  collectors Profile[] @relation(name: "collector")
-//  favoriteDelivery    Delivery @relation(fields: [id_favoriteDelivery], references: [id])
-//  id_favoriteDelivery String   @unique
-  profile    Profile @relation(fields: [id_profile], references: [id])
-  id_profile String  @unique
-  Parcel Parcel[]
+  number              String        @id
+  destinations        Destination[]
+  collectors          Profile[]     @relation(name: "collector")
+  favoriteDelivery    Delivery      @relation(fields: [id_favoriteDelivery], references: [id])
+  id_favoriteDelivery String        @unique
+  profile             Profile       @relation(fields: [id_profile], references: [id])
+  id_profile          String        @unique
+  Parcel              Parcel[]
 }
+
+model Destination {
+  id                            String    @id @default(cuid())
+  customer_destination_customer Customer? @relation(fields: [customer_number], references: [number])
+  customer_number               String?
+  delivery_destination_delivery Delivery?
+}
+
 model Profile {
-  id         String    @id @default(cuid())
-//  address    Address? @relation(fields: [id_address], references: [id])
-//  id_address String?  @unique
-//  workers Worker[]
-  customer Customer?
-//  user    User?   @relation(fields: [id_user], references: [id])
-//  id_user String? @unique
+  id                         String    @id @default(cuid())
+  customer                   Customer?
   collector_profile_customer Customer? @relation(name: "collector", fields: [customer_numbner], references: [number])
   customer_numbner           String?
 }
-//model Destination {
-//  id    String @id @default(cuid())
-//  // address    Address? @relation(fields: [id_address], references: [id])
-//  // id_address String?  @unique
-//  customer_destination_customer Customer? @relation(fields: [customer_number], references: [number])
-//  customer_number               String?
-//  // delivery_destination_delivery Delivery?
-//}
-//model Event {
-//  id String @id @default(cuid())
-//  who     User   @relation(fields: [id_user], references: [id])
-//  id_user String
-//  history_created_history History? @relation("history_created")
-//  updated    History? @relation("history_updated", fields: [id_history], references: [id])
-//  id_history String?
-//  history_deleted_history History? @relation("history_deleted")
-//}
-//model History {
-//  id String @id @default(cuid())
-//  created    Event   @relation(name: "history_created", fields: [id_created], references: [id])
-//  id_created String  @unique
-//  updated    Event[] @relation("history_updated")
-//  deleted    Event?  @relation(name: "history_deleted", fields: [id_deleted], references: [id])
-//  id_deleted String? @unique
-//  user_history_user User? @relation("user_history")
-//}
-//model User {
-//  id String @id @default(cuid())
-//  history    History? @relation(name: "user_history", fields: [id_history], references: [id])
-//  id_history String?  @unique
-//  profile Profile?
-//  event_who_event Event[]
-//}
-//model Address {
-//  id       String  @id @default(cuid())
-//  country    Country @relation(fields: [id_country], references: [id])
-//  id_country String
-//  telephone Telephone[]
-//  profile Profile?
-//  destination Destination?
-//  branch Branch?
-//}
-//model Country {
-//  id     String @id @default(cuid())
-//  name   String @unique
-//  number Int    @unique
-//  address  Address[]
-//}
-//model Telephone {
-//  id               String         @id @default(cuid())
-//  address    Address? @relation(fields: [id_address], references: [id])
-//  id_address String?
-//}
-//model Company {
-//  id   String @id @default(cuid())
-//  branches Branch[]
-//}
-//model Branch {
-//  id   String @id @default(cuid())
-//  name String
-//  address    Address @relation(fields: [id_address], references: [id])
-//  id_address String  @unique
-//  company    Company @relation(fields: [id_company], references: [id])
-//  id_company String
-//  delivery_branch_deliveries Delivery[]
-//}
-//model Delivery {
-//  id       String           @id @default(cuid())
-//  branch    Branch? @relation(fields: [id_branch], references: [id])
-//  id_branch String?
-//  destination    Destination? @relation(fields: [id_destination], references: [id])
-//  id_destination String?      @unique
-//  customer_favouriteDelivery_customer Customer?
-//}
-//model Dalabel {
-//  id String @id @default(cuid())
-//  data String
-//  active Boolean @default(true)
-//}
-//model Scan {
-//  id String @id @default(cuid())
-//}
-//model Surcharge {
-//  id String @id @default(cuid())
-//  type             Surchargetype @relation(fields: [id_surchargetype], references: [id])
-//  id_surchargetype String
-//}
-//model Surchargetype {
-//  id String @id @default(cuid())
-//  surcharge_surchargeType_surcharges Surcharge[]
-//}
-//model Worker {
-//  personnel_number String  @id
-//  profile    Profile @relation(fields: [id_profile], references: [id])
-//  id_profile String
-//}
+
+model Delivery {
+  id                                  String       @id @default(cuid())
+  destination                         Destination? @relation(fields: [id_destination], references: [id])
+  id_destination                      String?      @unique
+  customer_favouriteDelivery_customer Customer?
+}
