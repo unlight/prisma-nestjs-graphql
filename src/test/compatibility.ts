@@ -20,8 +20,9 @@ import * as P from '@prisma/client';
 // import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
 // import { UserWhereInput } from '../../@generated/user/user-where.input';
 // import { DummyUpdateInput } from '../../@generated/dummy/dummy-update.input';
-import { ParcelUpdateInput } from '../../@generated';
-import { ParcelWhereUniqueInput } from '../../@generated';
+// import { ParcelUpdateInput } from '../../@generated';
+// import { ParcelWhereUniqueInput } from '../../@generated';
+import * as G from '../../@generated';
 
 let $prisma = new PrismaClient();
 
@@ -191,7 +192,7 @@ let $prisma = new PrismaClient();
 //     x;
 // }
 {
-    const where: ParcelWhereUniqueInput = {};
-    const updateParcelInput: ParcelUpdateInput = {};
-    void $prisma.parcel.update({ where, data: updateParcelInput });
+    const where: G.CustomerWhereUniqueInput = { number: '1' };
+    const updateCustomerInput: G.CustomerUpdateInput = {};
+    void $prisma.customer.update({ where, data: updateCustomerInput });
 }
