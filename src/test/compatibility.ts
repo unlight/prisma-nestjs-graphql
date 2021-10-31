@@ -193,6 +193,9 @@ let $prisma = new PrismaClient();
 // }
 {
     const where: G.CustomerWhereUniqueInput = { number: '1' };
-    const updateCustomerInput: G.CustomerUpdateInput = {};
-    void $prisma.customer.update({ where, data: updateCustomerInput });
+    let updateCustomerInput: G.CustomerUpdateInput = {};
+    let p_updateCustomerInput: Prisma.CustomerUpdateInput = {
+        profile: updateCustomerInput.profile,
+    };
+    void $prisma.customer.update({ where, data: updateCustomerInput2 });
 }
