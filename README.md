@@ -636,6 +636,7 @@ export class User {}
 
 ## Similar Projects
 
+-   https://github.com/kimjbstar/prisma-class-generator
 -   https://github.com/odroe/nest-gql-mix
 -   https://github.com/rfermann/nestjs-prisma-graphql-generator
 -   https://github.com/madscience/graphql-codegen-nestjs
