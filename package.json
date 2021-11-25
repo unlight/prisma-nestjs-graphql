@@ -47,8 +47,7 @@
     },
     "ghooks": {
       "pre-commit": "precise-commits",
-      "commit-msg": "sh Taskfile commit_lint",
-      "pre-push": "ultra test"
+      "commit-msg": "sh Taskfile commit_lint"
     }
   },
   "dependencies": {
