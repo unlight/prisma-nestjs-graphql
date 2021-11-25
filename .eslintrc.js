@@ -10,8 +10,6 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:unicorn/recommended',
-        'plugin:promise/recommended',
-        'plugin:sonarjs/recommended',
         'plugin:import/warnings',
         'plugin:regexp/recommended',
     ],
@@ -31,8 +29,6 @@ module.exports = {
         '@typescript-eslint',
         'prettier',
         'simple-import-sort',
-        'promise',
-        'sonarjs',
         'sort-class-members',
         'etc',
         'only-warn',
@@ -104,7 +100,6 @@ module.exports = {
         {
             files: ['*.spec.ts', '**/{test,@generated}/**/*.ts'],
             rules: {
-                'sonarjs/no-identical-functions': 0,
                 'consistent-return': 0,
                 'max-lines': 0,
                 'regexp/strict': 0,
@@ -118,7 +113,6 @@ module.exports = {
                 '@typescript-eslint/no-unsafe-return': 0,
                 '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
                 'import/max-dependencies': 0,
-                'sonarjs/no-duplicate-string': 0,
             },
         },
     ],
