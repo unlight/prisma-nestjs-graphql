@@ -1442,13 +1442,13 @@ describe('hide field', () => {
         });
 
         it('check files', () => {
-            [
+            for (const file of [
                 'user-group-by.output.ts',
                 'user-max-aggregate.output.ts',
                 'user-min-aggregate.output.ts',
                 'user-create-many.input.ts',
                 'user.model.ts',
-            ].forEach(file => {
+            ]) {
                 const s = testSourceFile({
                     project,
                     file,
@@ -1462,7 +1462,7 @@ describe('hide field', () => {
                 expect(s.propertyDecorators).toContainEqual(
                     expect.objectContaining({ name: 'HideField' }),
                 );
-            });
+            }
         });
     });
 });
@@ -2287,8 +2287,12 @@ describe('non list optional properties should be nullable', () => {
     });
 
     it('user model count', () => {
-        setSourceFile('user.model.ts');
-        expect(p('_count')?.type).toEqual('UserCount | null');
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: '_count',
+        });
+        expect(s.property?.type).toEqual('UserCount');
     });
 
     it('article model author', () => {
