@@ -1448,10 +1448,10 @@ describe('hide field', () => {
                 'user-min-aggregate.output.ts',
                 'user-create-many.input.ts',
                 'user.model.ts',
-            ].forEach(() => {
+            ].forEach(file => {
                 const s = testSourceFile({
                     project,
-                    file: 'user-group-by.output.ts',
+                    file,
                     property: 'role',
                 });
 
