@@ -24,9 +24,6 @@ export class CommentUpdateManyWithoutArticleInput {
     createMany?: CommentCreateManyArticleInputEnvelope;
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
-    connect?: Array<CommentWhereUniqueInput>;
-
-    @Field(() => [CommentWhereUniqueInput], { nullable: true })
     set?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
@@ -34,6 +31,9 @@ export class CommentUpdateManyWithoutArticleInput {
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
     delete?: Array<CommentWhereUniqueInput>;
+
+    @Field(() => [CommentWhereUniqueInput], { nullable: true })
+    connect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], { nullable: true })
     update?: Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;

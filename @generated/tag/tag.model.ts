@@ -15,6 +15,6 @@ export class Tag {
     @Field(() => [Article], { nullable: true })
     articles?: Array<Article>;
 
-    @Field(() => TagCount, { nullable: true })
-    _count?: TagCount | null;
+    @Field(() => TagCount, { nullable: false })
+    _count?: TagCount;
 }

@@ -17,14 +17,14 @@ export class ProfileUncheckedUpdateOneWithoutUserInput {
     @Field(() => ProfileUpsertWithoutUserInput, { nullable: true })
     upsert?: ProfileUpsertWithoutUserInput;
 
-    @Field(() => ProfileWhereUniqueInput, { nullable: true })
-    connect?: ProfileWhereUniqueInput;
-
     @Field(() => Boolean, { nullable: true })
     disconnect?: boolean;
 
     @Field(() => Boolean, { nullable: true })
     delete?: boolean;
+
+    @Field(() => ProfileWhereUniqueInput, { nullable: true })
+    connect?: ProfileWhereUniqueInput;
 
     @Field(() => ProfileUpdateWithoutUserInput, { nullable: true })
     update?: ProfileUpdateWithoutUserInput;

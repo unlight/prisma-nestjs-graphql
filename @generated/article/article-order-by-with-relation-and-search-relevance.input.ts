@@ -2,12 +2,13 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { TagOrderByRelationAggregateInput } from '../tag/tag-order-by-relation-aggregate.input';
-import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
+import { UserOrderByWithRelationAndSearchRelevanceInput } from '../user/user-order-by-with-relation-and-search-relevance.input';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
+import { ArticleOrderByRelevanceInput } from './article-order-by-relevance.input';
 
 @InputType()
-export class ArticleOrderByWithRelationInput {
+export class ArticleOrderByWithRelationAndSearchRelevanceInput {
     @Field(() => SortOrder, { nullable: true })
     id?: keyof typeof SortOrder;
 
@@ -35,8 +36,8 @@ export class ArticleOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     favoritesCount?: keyof typeof SortOrder;
 
-    @Field(() => UserOrderByWithRelationInput, { nullable: true })
-    author?: UserOrderByWithRelationInput;
+    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+    author?: UserOrderByWithRelationAndSearchRelevanceInput;
 
     @Field(() => SortOrder, { nullable: true })
     authorId?: keyof typeof SortOrder;
@@ -49,4 +50,7 @@ export class ArticleOrderByWithRelationInput {
 
     @Field(() => SortOrder, { nullable: true })
     active?: keyof typeof SortOrder;
+
+    @Field(() => ArticleOrderByRelevanceInput, { nullable: true })
+    _relevance?: ArticleOrderByRelevanceInput;
 }

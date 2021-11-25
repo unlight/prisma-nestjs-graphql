@@ -59,6 +59,6 @@ export class User {
     @Field(() => Profile, { nullable: true })
     profile?: Profile | null;
 
-    @Field(() => UserCount, { nullable: true })
-    _count?: UserCount | null;
+    @Field(() => UserCount, { nullable: false })
+    _count?: UserCount;
 }

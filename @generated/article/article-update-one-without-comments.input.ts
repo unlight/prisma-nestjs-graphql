@@ -17,14 +17,14 @@ export class ArticleUpdateOneWithoutCommentsInput {
     @Field(() => ArticleUpsertWithoutCommentsInput, { nullable: true })
     upsert?: ArticleUpsertWithoutCommentsInput;
 
-    @Field(() => ArticleWhereUniqueInput, { nullable: true })
-    connect?: ArticleWhereUniqueInput;
-
     @Field(() => Boolean, { nullable: true })
     disconnect?: boolean;
 
     @Field(() => Boolean, { nullable: true })
     delete?: boolean;
+
+    @Field(() => ArticleWhereUniqueInput, { nullable: true })
+    connect?: ArticleWhereUniqueInput;
 
     @Field(() => ArticleUpdateWithoutCommentsInput, { nullable: true })
     update?: ArticleUpdateWithoutCommentsInput;

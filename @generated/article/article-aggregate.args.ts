@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { ArticleWhereInput } from './article-where.input';
-import { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input';
+import { ArticleOrderByWithRelationAndSearchRelevanceInput } from './article-order-by-with-relation-and-search-relevance.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ArticleCountAggregateInput } from './article-count-aggregate.input';
@@ -15,8 +15,10 @@ export class ArticleAggregateArgs {
     @Field(() => ArticleWhereInput, { nullable: true })
     where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
-    orderBy?: Array<ArticleOrderByWithRelationInput>;
+    @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], {
+        nullable: true,
+    })
+    orderBy?: Array<ArticleOrderByWithRelationAndSearchRelevanceInput>;
 
     @Field(() => ArticleWhereUniqueInput, { nullable: true })
     cursor?: ArticleWhereUniqueInput;

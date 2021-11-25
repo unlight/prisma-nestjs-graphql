@@ -51,6 +51,6 @@ export class Article {
     @Field(() => Boolean, { nullable: true, defaultValue: true })
     active!: boolean | null;
 
-    @Field(() => ArticleCount, { nullable: true })
-    _count?: ArticleCount | null;
+    @Field(() => ArticleCount, { nullable: false })
+    _count?: ArticleCount;
 }

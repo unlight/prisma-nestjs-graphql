@@ -4,10 +4,11 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
-import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
+import { ProfileOrderByWithRelationAndSearchRelevanceInput } from '../profile/profile-order-by-with-relation-and-search-relevance.input';
+import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 
 @InputType()
-export class UserOrderByWithRelationInput {
+export class UserOrderByWithRelationAndSearchRelevanceInput {
     @Field(() => SortOrder, { nullable: true })
     id?: keyof typeof SortOrder;
 
@@ -50,6 +51,9 @@ export class UserOrderByWithRelationInput {
     @Field(() => SortOrder, { nullable: true })
     role?: keyof typeof SortOrder;
 
-    @Field(() => ProfileOrderByWithRelationInput, { nullable: true })
-    profile?: ProfileOrderByWithRelationInput;
+    @Field(() => ProfileOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+    profile?: ProfileOrderByWithRelationAndSearchRelevanceInput;
+
+    @Field(() => UserOrderByRelevanceInput, { nullable: true })
+    _relevance?: UserOrderByRelevanceInput;
 }

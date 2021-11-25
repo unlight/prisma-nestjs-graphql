@@ -24,9 +24,6 @@ export class CommentUpdateManyWithoutAuthorInput {
     createMany?: CommentCreateManyAuthorInputEnvelope;
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
-    connect?: Array<CommentWhereUniqueInput>;
-
-    @Field(() => [CommentWhereUniqueInput], { nullable: true })
     set?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
@@ -34,6 +31,9 @@ export class CommentUpdateManyWithoutAuthorInput {
 
     @Field(() => [CommentWhereUniqueInput], { nullable: true })
     delete?: Array<CommentWhereUniqueInput>;
+
+    @Field(() => [CommentWhereUniqueInput], { nullable: true })
+    connect?: Array<CommentWhereUniqueInput>;
 
     @Field(() => [CommentUpdateWithWhereUniqueWithoutAuthorInput], { nullable: true })
     update?: Array<CommentUpdateWithWhereUniqueWithoutAuthorInput>;

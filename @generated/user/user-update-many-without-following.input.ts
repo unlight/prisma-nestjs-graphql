@@ -20,9 +20,6 @@ export class UserUpdateManyWithoutFollowingInput {
     upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
 
     @Field(() => [UserWhereUniqueInput], { nullable: true })
-    connect?: Array<UserWhereUniqueInput>;
-
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
     set?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserWhereUniqueInput], { nullable: true })
@@ -30,6 +27,9 @@ export class UserUpdateManyWithoutFollowingInput {
 
     @Field(() => [UserWhereUniqueInput], { nullable: true })
     delete?: Array<UserWhereUniqueInput>;
+
+    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    connect?: Array<UserWhereUniqueInput>;
 
     @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], { nullable: true })
     update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;

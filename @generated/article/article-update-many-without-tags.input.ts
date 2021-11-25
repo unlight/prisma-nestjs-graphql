@@ -20,9 +20,6 @@ export class ArticleUpdateManyWithoutTagsInput {
     upsert?: Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-    connect?: Array<ArticleWhereUniqueInput>;
-
-    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
@@ -30,6 +27,9 @@ export class ArticleUpdateManyWithoutTagsInput {
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     delete?: Array<ArticleWhereUniqueInput>;
+
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], { nullable: true })
     update?: Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;

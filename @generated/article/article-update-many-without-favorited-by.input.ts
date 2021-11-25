@@ -22,9 +22,6 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
     upsert?: Array<ArticleUpsertWithWhereUniqueWithoutFavoritedByInput>;
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-    connect?: Array<ArticleWhereUniqueInput>;
-
-    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     set?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
@@ -32,6 +29,9 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
 
     @Field(() => [ArticleWhereUniqueInput], { nullable: true })
     delete?: Array<ArticleWhereUniqueInput>;
+
+    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
+    connect?: Array<ArticleWhereUniqueInput>;
 
     @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
         nullable: true,
