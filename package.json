@@ -102,7 +102,7 @@
     "expect": "^27.3.1",
     "ghooks": "^2.0.4",
     "git-branch-is": "^4.0.0",
-    "graphql": "^16.0.1",
+    "graphql": "^15.7.2",
     "graphql-scalars": "^1.13.6",
     "graphql-type-json": "^0.3.2",
     "mocha": "^9.1.3",
