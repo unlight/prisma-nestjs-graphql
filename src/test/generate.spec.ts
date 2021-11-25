@@ -1,6 +1,7 @@
 import expect from 'expect';
 import JSON5 from 'json5';
 import { trim } from 'lodash';
+import { async } from 'rxjs';
 import {
     ClassDeclaration,
     EnumDeclarationStructure,
@@ -1419,6 +1420,49 @@ describe('hide field', () => {
         expect(imports).toContainEqual({
             name: 'UserRelationFilter',
             specifier: './user-relation-filter.input',
+        });
+    });
+
+    describe('enums are not imported in classes when decorated', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+              id Int @id
+              /// @HideField({ input: true, output: true })
+              role Role
+            }
+            enum Role {
+              USER
+              ADMIN
+            }
+            `,
+                options: [`outputFilePattern = "{name}.{type}.ts"`],
+            }));
+        });
+
+        it('check files', () => {
+            [
+                'user-group-by.output.ts',
+                'user-max-aggregate.output.ts',
+                'user-min-aggregate.output.ts',
+                'user-create-many.input.ts',
+                'user.model.ts',
+            ].forEach(() => {
+                const s = testSourceFile({
+                    project,
+                    file: 'user-group-by.output.ts',
+                    property: 'role',
+                });
+
+                expect(s.namedImports).toContainEqual({
+                    name: 'Role',
+                    specifier: './role.enum',
+                });
+                expect(s.propertyDecorators).toContainEqual(
+                    expect.objectContaining({ name: 'HideField' }),
+                );
+            });
         });
     });
 });

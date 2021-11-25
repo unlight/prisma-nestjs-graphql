@@ -1,6 +1,6 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray } from 'lodash';
+import { castArray, last } from 'lodash';
 import pupa from 'pupa';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
@@ -132,12 +132,16 @@ export function inputType(
             });
 
             graphqlType = graphqlImport.name;
+            let referenceName = propertyType[0];
+            if (location === 'enumTypes') {
+                referenceName = last(referenceName.split(' ')) as string;
+            }
 
             if (
                 graphqlImport.specifier &&
                 !importDeclarations.has(graphqlImport.name) &&
                 ((graphqlImport.name !== inputType.name && !shouldHideField) ||
-                    (shouldHideField && propertyType[0] === graphqlImport.name))
+                    (shouldHideField && referenceName === graphqlImport.name))
             ) {
                 importDeclarations.set(graphqlImport.name, {
                     namedImports: [{ name: graphqlImport.name }],
