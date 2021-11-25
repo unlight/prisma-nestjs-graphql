@@ -1,3 +1,10 @@
+### [14.6.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.0...v14.6.1) (2021-11-25)
+
+
+### Bug Fixes
+
+* **hide field:** Missing import of enum type ([b067142](https://github.com/unlight/nestjs-graphql-prisma/commit/b06714292e6a7ae6b9bb74d18cf591836dc8cf01)), closes [#73](https://github.com/unlight/nestjs-graphql-prisma/issues/73)
+
 ## [14.6.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.5.0...v14.6.0) (2021-10-16)
 
 

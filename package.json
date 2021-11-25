@@ -112,6 +112,7 @@
     "prisma": "^3.5.0",
     "prisma-graphql-type-decimal": "^1.0.0",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
     "rxjs": "^7.4.0",
     "semantic-release": "^18.0.1",
     "simplytyped": "^3.3.0",
