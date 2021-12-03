@@ -86,8 +86,8 @@ export function inputType(
             name: inputType.name,
             input: true,
         });
-        const isCustomsApplicable =
-            typeName === model?.fields.find(f => f.name === name)?.type;
+        const modelField = model?.fields.find(f => f.name === name);
+        const isCustomsApplicable = typeName === modelField?.type;
         const propertyType = castArray(
             propertySettings?.name ||
                 getPropertyType({
@@ -163,6 +163,14 @@ export function inputType(
                     isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: !isRequired,
+                        description:
+                            config.inputFieldDescription && modelField
+                                ? pupa(config.inputFieldDescription, {
+                                      model,
+                                      field,
+                                      modelField,
+                                  })
+                                : undefined,
                     }),
                 ],
             });

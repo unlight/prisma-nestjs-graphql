@@ -114,6 +114,7 @@ export function createConfig(data: Record<string, unknown>) {
         requireSingleFieldsInWhereUniqueInput: toBoolean(
             config.requireSingleFieldsInWhereUniqueInput,
         ),
+        inputFieldDescription: config.inputFieldDescription as string | undefined,
         decorate,
     };
 }
