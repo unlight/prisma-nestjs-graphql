@@ -41,6 +41,7 @@ export async function generate(
     },
 ) {
     const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
+    // args.schemaPath
 
     const generatorOutputValue = generator.output?.value;
     ok(generatorOutputValue, 'Missing generator configuration: output');

@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
 import { uniq } from 'lodash';

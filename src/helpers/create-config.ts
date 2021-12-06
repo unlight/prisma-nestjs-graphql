@@ -27,6 +27,8 @@ export function createConfig(data: Record<string, unknown>) {
     >;
     const $warnings: string[] = [];
 
+    console.log('config', config);
+
     const configOutputFilePattern = String(
         config.outputFilePattern || `{model}/{name}.{type}.ts`,
     );
