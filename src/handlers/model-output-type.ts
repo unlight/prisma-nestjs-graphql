@@ -1,13 +1,11 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, remove, trim } from 'lodash';
+import { castArray } from 'lodash';
+import pupa from 'pupa';
+import { PlainObject } from 'simplytyped';
 import {
     ClassDeclarationStructure,
-    CommentStatement,
     ExportSpecifierStructure,
-    ImportDeclarationStructure,
-    ImportSpecifierStructure,
-    OptionalKind,
     StatementStructures,
     StructureKind,
 } from 'ts-morph';
@@ -16,81 +14,71 @@ import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import {
+    createObjectSettings,
+    ObjectSetting,
+    ObjectSettings,
+} from '../helpers/object-settings';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, OutputType } from '../types';
 
 const nestjsGraphql = '@nestjs/graphql';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-    const {
-        getSourceFile,
-        models,
-        config,
-        modelFields,
-        fieldSettings,
-        eventEmitter,
-    } = args;
+    const { getSourceFile, models, config, modelFields, fieldSettings, eventEmitter } =
+        args;
     const model = models.get(outputType.name);
     ok(model, `Cannot find model by name ${outputType.name}`);
+
     const sourceFile = getSourceFile({
         name: outputType.name,
         type: 'model',
     });
     const sourceFileStructure = sourceFile.getStructure();
-    const imports = remove(
+    const exportDeclaration = getExportDeclaration(
+        model.name,
         sourceFileStructure.statements as StatementStructures[],
-        s => s.kind === StructureKind.ImportDeclaration,
-    ).flatMap(s => {
-        return ((s as ImportDeclarationStructure)
-            .namedImports as OptionalKind<ImportSpecifierStructure>[]).map(x => [
-            x.name || x.alias,
+    );
+    const importDeclarations = new ImportDeclarationMap();
+    const classStructure: ClassDeclarationStructure = {
+        kind: StructureKind.Class,
+        isExported: true,
+        name: outputType.name,
+        decorators: [
             {
-                moduleSpecifier: (s as ImportDeclarationStructure).moduleSpecifier,
-                namedImports: [{ name: x.name, alias: x.alias }],
+                name: 'ObjectType',
+                arguments: [],
             },
-        ]);
-    }) as Array<[string, OptionalKind<ImportDeclarationStructure>]>;
-    const importDeclarations = new ImportDeclarationMap(imports);
-
-    let classStructure = (sourceFileStructure.statements as StatementStructures[]).find(
-        (s: StatementStructures) => s.kind === StructureKind.Class,
-    ) as ClassDeclarationStructure | undefined;
-
-    if (!classStructure) {
-        classStructure = {
-            kind: StructureKind.Class,
-            isExported: true,
-            name: outputType.name,
-            decorators: [
-                {
-                    name: 'ObjectType',
-                    arguments: [],
-                },
-            ],
-            properties: [],
-        };
-        (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
-    }
-
-    const decorator = classStructure.decorators?.find(d => d.name === 'ObjectType');
+        ],
+        properties: [],
+    };
+    (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
+    ok(classStructure.decorators, 'classStructure.decorators is undefined');
+    const decorator = classStructure.decorators.find(d => d.name === 'ObjectType');
     ok(decorator, 'ObjectType decorator not found');
-    decorator.arguments = model.documentation
-        ? [JSON5.stringify({ description: model.documentation })]
-        : [];
+
+    let modelSettings: ObjectSettings | undefined;
+    // Get model settings from documentation
+    if (model.documentation) {
+        const objectTypeOptions: PlainObject = {};
+        const { documentation, settings } = createObjectSettings({
+            text: model.documentation,
+            config,
+        });
+        if (documentation) {
+            if (!classStructure.leadingTrivia) {
+                classStructure.leadingTrivia = `/** ${documentation} */\n`;
+            }
+            objectTypeOptions.description = documentation;
+        }
+        decorator.arguments = settings.getObjectTypeArguments(objectTypeOptions);
+        modelSettings = settings;
+    }
 
     importDeclarations.add('Field', nestjsGraphql);
     importDeclarations.add('ObjectType', nestjsGraphql);
 
     for (const field of outputType.fields) {
-        // if (model.name === 'Comment') {
-        //     console.dir(field);
-        // }
-
-        // Do not generate already defined properties for model
-        if (classStructure.properties?.some(p => p.name === field.name)) {
-            continue;
-        }
-
         let fileType = 'model';
         const { location, isList, type, namespace } = field.outputType;
 
@@ -99,15 +87,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             fileType = 'output';
             outputTypeName = getOutputTypeName(outputTypeName);
         }
-        const customType = config.types[outputTypeName]; // todo: remove
         const modelField = modelFields.get(model.name)?.get(field.name);
         const settings = fieldSettings.get(model.name)?.get(field.name);
-        const fieldType = settings?.getFieldType();
-        const propertySettings = settings?.getPropertyType();
+        const fieldType = settings?.getFieldType({
+            name: outputType.name,
+            output: true,
+        });
+        const propertySettings = settings?.getPropertyType({
+            name: outputType.name,
+            output: true,
+        });
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(trim) ||
                 getPropertyType({
                     location,
                     type: outputTypeName,
@@ -117,7 +109,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         // For model we keep only one type
         propertyType.splice(1, propertyType.length);
 
-        if (field.isNullable && !isList && ['enumTypes', 'scalar'].includes(location)) {
+        if (field.isNullable && !isList) {
             propertyType.push('null');
         }
 
@@ -132,8 +124,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 fileType,
                 location,
                 isId: modelField?.isId,
+                noTypeId: config.noTypeId,
                 typeName: outputTypeName,
-                customType,
                 getSourceFile,
             });
 
@@ -144,26 +136,18 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             }
         }
 
-        // console.log({
-        //     'field.outputType': field.outputType,
-        //     'outputType.name': outputType.name,
-        //     'model.name': model.name,
-        //     outputTypeName,
-        //     'field.name': field.name,
-        //     settings,
-        //     propertyType,
-        //     graphqlType,
-        //     location,
-        // });
-
         const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
             hasExclamationToken: true,
-            hasQuestionToken: false,
+            hasQuestionToken: location === 'outputObjectTypes',
             propertyType,
             isList,
         });
+
+        if (typeof property.leadingTrivia === 'string' && modelField?.documentation) {
+            property.leadingTrivia += `/** ${modelField.documentation} */\n`;
+        }
 
         classStructure.properties?.push(property);
 
@@ -171,19 +155,16 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...propertySettings });
         }
 
-        // Create import for typescript field/property type
-        if (customType && customType.fieldType && customType.fieldModule) {
-            importDeclarations.add(customType.fieldType, customType.fieldModule);
-        }
+        ok(property.decorators, 'property.decorators is undefined');
 
-        if (settings?.hideOutput) {
+        if (settings?.shouldHideField({ name: outputType.name, output: true })) {
             importDeclarations.add('HideField', nestjsGraphql);
-            property.decorators?.push({ name: 'HideField', arguments: [] });
+            property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
-            property.decorators?.push({
+            property.decorators.push({
                 name: 'Field',
                 arguments: [
-                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: Boolean(field.isNullable),
                         defaultValue: ['number', 'string', 'boolean'].includes(
@@ -196,50 +177,63 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
                 ],
             });
 
-            for (const options of settings || []) {
-                if (!options.output || options.kind !== 'Decorator') {
-                    continue;
+            for (const setting of settings || []) {
+                if (
+                    shouldBeDecorated(setting) &&
+                    (setting.match?.(field.name) ?? true)
+                ) {
+                    property.decorators.push({
+                        name: setting.name,
+                        arguments: setting.arguments as string[],
+                    });
+                    ok(
+                        setting.from,
+                        "Missed 'from' part in configuration or field setting",
+                    );
+                    importDeclarations.create(setting);
                 }
-                property.decorators?.push({
-                    name: options.name,
-                    arguments: options.arguments,
-                });
-                ok(
-                    options.from,
-                    "Missed 'from' part in configuration or field setting",
-                );
-                importDeclarations.create(options);
+            }
+
+            for (const decorate of config.decorate) {
+                if (
+                    decorate.isMatchField(field.name) &&
+                    decorate.isMatchType(outputTypeName)
+                ) {
+                    property.decorators.push({
+                        name: decorate.name,
+                        arguments: decorate.arguments?.map(x =>
+                            pupa(x, { propertyType }),
+                        ),
+                    });
+                    importDeclarations.create(decorate);
+                }
             }
         }
 
-        eventEmitter.emitSync('ClassProperty', property, { location, isList });
+        eventEmitter.emitSync('ClassProperty', property, {
+            location,
+            isList,
+            propertyType,
+        });
     }
 
-    const hasExportDeclaration = (sourceFileStructure.statements as StatementStructures[]).some(
-        structure => {
-            return (
-                structure.kind === StructureKind.ExportDeclaration &&
-                (structure.namedExports as ExportSpecifierStructure[]).some(
-                    o => (o.alias || o.name) === model.name,
-                )
-            );
-        },
-    );
-
-    // Check re-export, comment generated class if found
-    if (hasExportDeclaration) {
-        let commentStatement: CommentStatement | undefined;
-        while (
-            (commentStatement = sourceFile.getStatementByKind(
-                2 /* SingleLineCommentTrivia */,
-            ))
-        ) {
-            commentStatement.remove();
+    // Generate class decorators from model settings
+    for (const setting of modelSettings || []) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        if (shouldBeDecorated(setting)) {
+            classStructure.decorators.push({
+                name: setting.name,
+                arguments: setting.arguments as string[],
+            });
+            importDeclarations.create(setting);
         }
+    }
 
-        sourceFile.addStatements([classStructure]);
+    if (exportDeclaration) {
+        sourceFile.set({
+            statements: [exportDeclaration, '\n', classStructure],
+        });
         const classDeclaration = sourceFile.getClassOrThrow(model.name);
-
         const commentedText = classDeclaration
             .getText()
             .split('\n')
@@ -247,9 +241,27 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         classDeclaration.remove();
         sourceFile.addStatements(['\n', ...commentedText]);
     } else {
-        (sourceFileStructure.statements as StatementStructures[]).unshift(
-            ...importDeclarations.toStatements(),
-        );
-        sourceFile.set(sourceFileStructure);
+        sourceFile.set({
+            statements: [...importDeclarations.toStatements(), classStructure],
+        });
     }
+}
+
+function shouldBeDecorated(setting: ObjectSetting) {
+    return (
+        setting.kind === 'Decorator' &&
+        (setting.output || setting.model) &&
+        !(setting.output && setting.model)
+    );
+}
+
+function getExportDeclaration(name: string, statements: StatementStructures[]) {
+    return statements.find(structure => {
+        return (
+            structure.kind === StructureKind.ExportDeclaration &&
+            (structure.namedExports as ExportSpecifierStructure[]).some(
+                o => (o.alias || o.name) === name,
+            )
+        );
+    });
 }

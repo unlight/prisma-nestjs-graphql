@@ -120,53 +120,164 @@ Delete all files in `output` folder
 Type: `boolean`  
 Default: `false`
 
-#### `types_*` (deprecated)
+#### `noTypeId`
 
-<details>
-Map prisma scalar types in [flatten](https://github.com/hughsk/flat) style
+Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.  
+Type: `boolean`  
+Default: `false`
 
--   `types_{type}_fieldType` TypeScript field type name
--   `types_{type}_fieldModule` Module to import
--   `types_{type}_graphqlType` GraphQL type name
--   `types_{type}_graphqlModule` Module to import
+#### `requireSingleFieldsInWhereUniqueInput`
 
-Where `{type}` is prisma type in schema
+When a model `*WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).  
+See [#58](https://github.com/unlight/prisma-nestjs-graphql/issues/58) for more details.  
+Type: `boolean`  
+Default: `false`  
+**Note**: It will break compatiblity between Prisma types and generated classes.
 
-Example (Decimal):
+#### `useInputType`
 
-```prisma
-types_Decimal_fieldType = "Decimal"
-types_Decimal_fieldModule = "decimal.js"
-types_Decimal_graphqlType = "GraphQLDecimal"
-types_Decimal_graphqlModule = "graphql-type-decimal"
+Since GraphQL does not support input union type, this setting map
+allow to choose which input type is preferable.
+
+```sh
+generator nestgraphql {
+    useInputType_{typeName}_{property} = "{pattern}"
+}
 ```
 
-Generates field:
+Where:
+
+-   `typeName` Full name or partial name of the class where need to choose input type.  
+    Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
+-   `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
+-   `pattern` Part of name (or full) of type which should be chosen, you can use
+    wild card or negate symbols, in this case pattern should starts with `match:`,
+    e.g. `match:*UncheckedCreateInput` see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+
+Example:
 
 ```ts
-import { GraphQLDecimal } from 'graphql-type-decimal';
-import { Decimal } from 'decimal.js';
-...
-@Field(() => GraphQLDecimal)
-field: Decimal;
+export type PostWhereInput = {
+    author?: XOR<UserRelationFilter, UserWhereInput>;
+};
+export type UserRelationFilter = {
+    is?: UserWhereInput;
+    isNot?: UserWhereInput;
+};
+
+export type UserWhereInput = {
+    AND?: Enumerable<UserWhereInput>;
+    OR?: Enumerable<UserWhereInput>;
+    NOT?: Enumerable<UserWhereInput>;
+    id?: StringFilter | string;
+    name?: StringFilter | string;
+};
 ```
 
-Example (DateTime):
+We have generated types above, by default property `author` will be decorated as `UserRelationFilter`,
+to set `UserWhereInput` need to configure generator the following way:
 
 ```prisma
-types_DateTime_fieldType = "Date"
-types_DateTime_graphqlType = "GraphQLISODateTime"
-types_DateTime_graphqlModule = "@nestjs/graphql"
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output = "../src/@generated/prisma-nestjs-graphql"
+  useInputType_WhereInput_ALL = "WhereInput"
+}
 ```
-
-Generated fields:
 
 ```ts
-@Field(() => GraphQLISODateTime)
-field: Date;
+@InputType()
+export class PostWhereInput {
+    @Field(() => UserWhereInput, { nullable: true })
+    author?: UserWhereInput;
+}
 ```
 
-</details>
+#### `decorate`
+
+Allow to attach multiple decorators to any field of any type.
+
+```sh
+generator nestgraphql {
+    decorate_{key}_type = "outmatch pattern"
+    decorate_{key}_field = "outmatch pattern"
+    decorate_{key}_from = "module specifier"
+    decorate_{key}_name = "import name"
+    decorate_{key}_arguments = "[argument1, argument2]"
+    decorate_{key}_defaultImport = "default import name" | true
+    decorate_{key}_namespaceImport = "namespace import name"
+    decorate_{key}_namedImport = "import name" | true
+}
+```
+
+Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
+
+-   `decorate_{key}_type` - outmatch pattern to match class name
+-   `decorate_{key}_field` - outmatch pattern to match field name
+-   `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
+-   `decorate_{key}_name` - import name or name with namespace
+-   `decorate_{key}_defaultImport` - import as default
+-   `decorate_{key}_namespaceImport` - use this name as import namespace
+-   `decorate_{key}_namedImport` - named import (without namespace)
+-   `decorate_{key}_arguments` - arguments for decorator (if decorator need to be called as function)  
+    Special tokens can be used:
+    -   `{propertyType.0}` - field's type (TypeScript type annotation)
+
+Example of generated class:
+
+```ts
+@ArgsType()
+export class CreateOneUserArgs {
+    @Field(() => UserCreateInput, { nullable: false })
+    data!: UserCreateInput;
+}
+```
+
+To make it validateable (assuming `UserCreateInput` already contains validation decorators from `class-validator`),
+it is necessary to add `@ValidateNested()` and `@Type()` from `class-transformer`.
+
+```sh
+decorate_1_type = "CreateOneUserArgs"
+decorate_1_field = data
+decorate_1_name = ValidateNested
+decorate_1_from = "class-validator"
+decorate_1_arguments = "[]"
+decorate_2_type = "CreateOneUserArgs"
+decorate_2_field = data
+decorate_2_from = "class-transformer"
+decorate_2_arguments = "['() => {propertyType.0}']"
+decorate_2_name = Type
+```
+
+Result:
+
+```ts
+import { ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+@ArgsType()
+export class CreateOneUserArgs {
+    @Field(() => UserCreateInput, { nullable: false })
+    @ValidateNested()
+    @Type(() => UserCreateInput)
+    data!: UserCreateInput;
+}
+```
+
+Another example:
+
+```sh
+decorate_2_namespaceImport = "Transform"
+decorate_2_name = "Transform.Type"
+```
+
+```ts
+import * as Transform from 'class-transformer';
+
+@Transform.Type(() => UserCreateInput)
+data!: UserCreateInput;
+
+```
 
 ## Field Settings
 
@@ -178,11 +289,15 @@ Removes field from GraphQL schema.
 Alias: `@TypeGraphQL.omit(output: true)`
 
 By default (without arguments) field will be decorated for hide only in output types (type in schema).  
-To hide input types add `input: true`.  
+To hide field in input types add `input: true`.  
+To hide field in specific type you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+
 Examples:
 
--   `@HideField()` same as `@HideField(output: true)` or `@HideField({ output: true })`
+-   `@HideField()` same as `@HideField({ output: true })`
 -   `@HideField({ input: true, output: true })`
+-   `@HideField({ match: 'UserCreate*Input' })`
 
 ```prisma
 model User {
@@ -191,6 +306,8 @@ model User {
     password String
     /// @HideField({ output: true, input: true })
     secret String
+    /// @HideField({ match: '@(User|Comment)Create*Input' })
+    createdAt DateTime @default(now())
 }
 ```
 
@@ -203,6 +320,8 @@ export class User {
     password: string;
     @HideField()
     secret: string;
+    @Field(() => Date, { nullable: false })
+    createdAt: Date;
 }
 ```
 
@@ -213,6 +332,8 @@ export class UserCreateInput {
     password: string;
     @HideField()
     secret: string;
+    @HideField()
+    createdAt: Date;
 }
 ```
 
@@ -222,52 +343,60 @@ Applying custom decorators requires configuration of generator.
 
 ```sh
 generator nestgraphql {
-    fields_{Namespace}_from = "module specifier"
-    fields_{Namespace}_input = true | false
-    fields_{Namespace}_output = true | false
-    fields_{Namespace}_defaultImport = "default import name" | true
-    fields_{Namespace}_namespaceImport = "namespace import name"
-    fields_{Namespace}_namedImport = true | false
+    fields_{namespace}_from = "module specifier"
+    fields_{namespace}_input = true | false
+    fields_{namespace}_output = true | false
+    fields_{namespace}_model = true | false
+    fields_{namespace}_defaultImport = "default import name" | true
+    fields_{namespace}_namespaceImport = "namespace import name"
+    fields_{namespace}_namedImport = true | false
 }
 ```
 
-Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{Namespace}`.  
-Where `{Namespace}` is a namespace used in field triple slash comment.
+Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{namespace}`.  
+Where `{namespace}` is a namespace used in field triple slash comment.
 
-##### `fields_{Namespace}_from`
+##### `fields_{namespace}_from`
 
 Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
 Type: `string`
 
-##### `fields_{Namespace}_input`
+##### `fields_{namespace}_input`
 
 Means that it will be applied on input types (classes decorated by `InputType`)  
 Type: `boolean`  
 Default: `false`
 
-##### `fields_{Namespace}_output`
+##### `fields_{namespace}_output`
 
-Means that it will be applied on output types (classes decorated by `ObjectType`)  
+Means that it will be applied on output types (classes decorated by `ObjectType`),
+including models  
 Type: `boolean`  
 Default: `false`
 
-##### `fields_{Namespace}_defaultImport`
+##### `fields_{namespace}_model`
+
+Means that it will be applied only on model types (classes decorated by `ObjectType`)  
+Type: `boolean`  
+Default: `false`
+
+##### `fields_{namespace}_defaultImport`
 
 Default import name, if module have no namespace.  
 Type: `undefined | string | true`  
 Default: `undefined`  
-If defined as `true` then import name will be same as `{Namespace}`
+If defined as `true` then import name will be same as `{namespace}`
 
-##### `fields_{Namespace}_namespaceImport`
+##### `fields_{namespace}_namespaceImport`
 
 Import all as this namespace from module  
 Type: `undefined | string`  
-Default: Equals to `{Namespace}`
+Default: Equals to `{namespace}`
 
-##### `fields_{Namespace}_namedImport`
+##### `fields_{namespace}_namedImport`
 
 If imported module has internal namespace, this allow to generate named import,  
-imported name will be equal to `{Namespace}`, see [example of usage](#propertytype)  
+imported name will be equal to `{namespace}`, see [example of usage](#propertytype)  
 Type: `boolean`  
 Default: `false`
 
@@ -300,9 +429,42 @@ export class UserCreateInput {
 }
 ```
 
+Custom decorators can be applied on classes (models):
+
+```
+/// @NG.Directive('@extends')
+/// @NG.Directive('@key(fields: "id")')
+model User {
+    /// @NG.Directive('@external')
+    id String @id
+}
+
+generator nestgraphql {
+    fields_NG_from = "@nestjs/graphql"
+    fields_NG_output = false
+    fields_NG_model = true
+}
+```
+
+May generate:
+
+```ts
+import * as NG from '@nestjs/graphql';
+
+@NG.Directive('@extends')
+@NG.Directive('@key(fields: "id")')
+export class User {
+    @Field(() => ID, { nullable: false })
+    @NG.Directive('@external')
+    id!: string;
+```
+
 #### @FieldType()
 
-Allow set custom type for field
+Allow set custom GraphQL scalar type for field
+
+To override scalar type in specific classes, you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 ```prisma
 model User {
@@ -355,9 +517,12 @@ model User {
 The result will be the same. `Scalars` is the namespace here.
 Missing field options will merged from generator configuration.
 
-##### @PropertyType()
+#### @PropertyType()
 
 Similar to `@FieldType()` but refer to TypeScript property (actually field too).
+
+To override TypeScript type in specific classes, you can use glob pattern `match: string | string[]`
+see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 Named import example:
 
@@ -407,8 +572,74 @@ export class User {
 }
 ```
 
+### @Directive()
+
+Allow attach `@Directive` decorator from `@nestjs/graphql`
+
+GraphQL federation example:
+
+```
+/// @Directive({ arguments: ['@extends'] })
+/// @Directive({ arguments: ['@key(fields: "id")'] })
+model User {
+    /// @Directive({ arguments: ['@external'] })
+    id String @id
+}
+```
+
+May generate:
+
+```ts
+@ObjectType()
+@Directive('@extends')
+@Directive('@key(fields: "id")')
+export class User {
+    @Field(() => ID, { nullable: false })
+    @Directive('@external')
+    id!: string;
+}
+```
+
+#### @ObjectType()
+
+Allow rename type in schema and mark as abstract.
+
+Example 1:
+
+```
+// schema.prisma
+/// @ObjectType({ isAbstract: true })
+model User {
+    id Int @id
+}
+```
+
+```ts
+@ObjectType({ isAbstract: true })
+export class User {}
+```
+
+Example 2:
+
+```
+// schema.prisma
+/// @ObjectType('Human', { isAbstract: true })
+model User {
+    id Int @id
+}
+```
+
+```ts
+@ObjectType('Human', { isAbstract: true })
+export class User {}
+```
+
 ## Similar Projects
 
+-   https://github.com/kimjbstar/prisma-class-generator
+-   https://github.com/odroe/nest-gql-mix
+-   https://github.com/rfermann/nestjs-prisma-graphql-generator
+-   https://github.com/madscience/graphql-codegen-nestjs
 -   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
 -   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
 -   https://github.com/MichalLytek/typegraphql-prisma

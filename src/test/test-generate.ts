@@ -1,7 +1,8 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
-import expect from 'expect';
-import { Project } from 'ts-morph';
+import { uniq } from 'lodash';
+import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate';
 import { generateFileName } from '../helpers/generate-file-name';
@@ -53,13 +54,54 @@ export async function testGenerate(args: {
 
     ok(project, 'Project is not defined');
     const sourceFiles = project.getSourceFiles();
-    let emptyFiles: string[] = [];
-    try {
-        emptyFiles = sourceFiles.filter(s => !s.getText()).map(s => s.getFilePath());
-        expect(emptyFiles).toHaveLength(0);
-    } catch {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        throw `Project should not contain empty files: ${emptyFiles}`;
+    const emptyFieldsFiles: string[] = [];
+
+    for (const sourceFile of sourceFiles) {
+        const filePath = sourceFile.getFilePath();
+        const text = sourceFile.getText();
+        if (!text) {
+            let message = `Project should not contain empty files: ${filePath}`;
+            const fileLower = sourceFile
+                .getBaseNameWithoutExtension()
+                .replace(/-/g, '')
+                .split('.')[0];
+            const sources = sourceFiles.filter(s =>
+                s
+                    .getClass(() => true)
+                    ?.getProperties()
+                    .find(p =>
+                        String(p.getStructure().type).toLowerCase().includes(fileLower),
+                    ),
+            );
+            if (sources.length > 0) {
+                message += `, reference: ${sources
+                    .map(s => s.getBaseName())
+                    .join(', ')}`;
+            }
+            throw new Error(message);
+        }
+        const imports = sourceFile
+            .getImportDeclarations()
+            .map(d => d.getStructure())
+            .flatMap(s => {
+                return [
+                    ...((s.namedImports || []) as ImportSpecifierStructure[]).map(
+                        x => x.name,
+                    ),
+                    s.namespaceImport,
+                ].filter(Boolean);
+            });
+        if (uniq(imports).length !== imports.length) {
+            throw new Error(`Duplicated import in ${filePath}: ${imports.toString()}`);
+        }
+        // Find classes without @Field() (must define one or more fields)
+        const properties = sourceFile.getClass(() => true)?.getProperties();
+        if (properties && !properties.some(p => p.getDecorator('Field'))) {
+            emptyFieldsFiles.push(sourceFile.getBaseName());
+        }
+    }
+    if (emptyFieldsFiles.length > 0) {
+        throw new Error(`No defined fields in ${emptyFieldsFiles.join(', ')}`);
     }
 
     return { project, sourceFiles };

@@ -1,6 +1,6 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, trim } from 'lodash';
+import { castArray, last } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
@@ -13,27 +13,22 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-    const {
-        getSourceFile,
-        models,
-        config,
-        eventEmitter,
-        fieldSettings,
-        getModelName,
-    } = args;
+    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName } = args;
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
     const modelName = getModelName(outputType.name) || '';
     const model = models.get(modelName);
-    const shouldEmitAggregateOutput =
+    const isAggregateOutput =
         model &&
-        /(Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
+        /(?:Count|Avg|Sum|Min|Max)AggregateOutputType$/.test(outputType.name) &&
         String(outputType.name).startsWith(model.name);
+    const isCountOutput =
+        model?.name && outputType.name === `${model.name}CountOutputType`;
     // Get rid of bogus suffixes
     outputType.name = getOutputTypeName(outputType.name);
 
-    if (shouldEmitAggregateOutput) {
+    if (isAggregateOutput) {
         eventEmitter.emitSync('AggregateOutput', { ...args, outputType });
     }
 
@@ -61,24 +56,20 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     for (const field of outputType.fields) {
         const { location, isList, type } = field.outputType;
         const outputTypeName = getOutputTypeName(String(type));
-        const settings = model && fieldSettings.get(model.name)?.get(field.name);
-        const propertySettings = settings?.getPropertyType();
-        // todo: remove
-        const customType = config.types[outputTypeName];
-
-        // console.log({
-        //     'field.outputType': field.outputType,
-        //     'outputType.name': outputType.name,
-        //     outputTypeName,
-        //     'field.name': field.name,
-        //     fieldMeta,
-        // });
+        const settings = isCountOutput
+            ? undefined
+            : model && fieldSettings.get(model.name)?.get(field.name);
+        const propertySettings = settings?.getPropertyType({
+            name: outputType.name,
+            output: true,
+        });
+        const isCustomsApplicable =
+            outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
 
         field.outputType.type = outputTypeName;
 
         const propertyType = castArray(
             propertySettings?.name ||
-                customType?.fieldType?.split('|').map(trim) ||
                 getPropertyType({
                     location,
                     type: outputTypeName,
@@ -98,59 +89,93 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...propertySettings });
         }
 
-        const graphqlImport = getGraphqlImport({
-            sourceFile,
-            fileType,
-            location,
-            isId: false,
-            typeName: outputTypeName,
-            customType,
-            getSourceFile,
+        // Get graphql type
+        let graphqlType: string;
+        const shouldHideField = settings?.shouldHideField({
+            name: outputType.name,
+            output: true,
+        });
+        const fieldType = settings?.getFieldType({
+            name: outputType.name,
+            output: true,
         });
 
-        const graphqlType = graphqlImport.name;
+        if (fieldType && isCustomsApplicable && !shouldHideField) {
+            graphqlType = fieldType.name;
+            importDeclarations.create({ ...fieldType });
+        } else {
+            const graphqlImport = getGraphqlImport({
+                sourceFile,
+                fileType,
+                location,
+                isId: false,
+                typeName: outputTypeName,
+                getSourceFile,
+            });
 
-        if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-            importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
+            graphqlType = graphqlImport.name;
+            let referenceName = propertyType[0];
+            if (location === 'enumTypes') {
+                referenceName = last(referenceName.split(' ')) as string;
+            }
+
+            if (
+                graphqlImport.specifier &&
+                !importDeclarations.has(graphqlImport.name) &&
+                ((graphqlImport.name !== outputType.name && !shouldHideField) ||
+                    (shouldHideField && referenceName === graphqlImport.name))
+            ) {
+                importDeclarations.set(graphqlImport.name, {
+                    namedImports: [{ name: graphqlImport.name }],
+                    moduleSpecifier: graphqlImport.specifier,
+                });
+            }
         }
 
-        // Create import for typescript field/property type
-        if (customType && customType.fieldModule && customType.fieldType) {
-            importDeclarations.add(customType.fieldType, customType.fieldModule);
-        }
+        ok(property.decorators, 'property.decorators is undefined');
 
-        if (settings?.hideOutput) {
+        if (shouldHideField) {
             importDeclarations.add('HideField', nestjsGraphql);
-            property.decorators?.push({ name: 'HideField', arguments: [] });
+            property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
             // Generate `@Field()` decorator
-            property.decorators?.push({
+            property.decorators.push({
                 name: 'Field',
                 arguments: [
-                    `() => ${isList ? `[${graphqlType}]` : graphqlType}`,
+                    isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
                         nullable: Boolean(field.isNullable),
                     }),
                 ],
             });
 
-            for (const options of settings || []) {
-                if (!options.output || options.kind !== 'Decorator') {
-                    continue;
+            if (isCustomsApplicable) {
+                for (const options of settings || []) {
+                    if (
+                        (options.kind === 'Decorator' &&
+                            options.output &&
+                            options.match?.(field.name)) ??
+                        true
+                    ) {
+                        property.decorators.push({
+                            name: options.name,
+                            arguments: options.arguments as string[],
+                        });
+                        ok(
+                            options.from,
+                            "Missed 'from' part in configuration or field setting",
+                        );
+                        importDeclarations.create(options);
+                    }
                 }
-                property.decorators?.push({
-                    name: options.name,
-                    arguments: options.arguments,
-                });
-                ok(
-                    options.from,
-                    "Missed 'from' part in configuration or field setting",
-                );
-                importDeclarations.create(options);
             }
         }
 
-        eventEmitter.emitSync('ClassProperty', property, { location, isList });
+        eventEmitter.emitSync('ClassProperty', property, {
+            location,
+            isList,
+            propertyType,
+        });
     }
 
     sourceFile.set({

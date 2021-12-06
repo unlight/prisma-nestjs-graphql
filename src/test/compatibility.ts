@@ -1,210 +1,182 @@
+/* eslint-disable prefer-const, unicorn/no-null */
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
-import { Decimal } from 'decimal.js';
 
-import { Comment } from '../@generated/comment/comment.model';
-import { Dummy } from '../@generated/dummy/dummy.model';
-import { DummyCreateInput } from '../@generated/dummy/dummy-create.input';
-import { DateTimeFilter } from '../@generated/prisma/date-time-filter.input';
-import { FloatFilter } from '../@generated/prisma/float-filter.input';
-import { IntFilter } from '../@generated/prisma/int-filter.input';
-import { StringFilter } from '../@generated/prisma/string-filter.input';
-import { AggregateUserArgs } from '../@generated/user/aggregate-user.args';
-import { FindManyUserArgs } from '../@generated/user/find-many-user.args';
-import { GroupByUserArgs } from '../@generated/user/group-by-user.args';
-import { User } from '../@generated/user/user.model';
-import { UserCreateInput } from '../@generated/user/user-create.input';
-import { UserCreateWithoutArticlesInput } from '../@generated/user/user-create-without-articles.input';
-import { UserCreateWithoutCommentsInput } from '../@generated/user/user-create-without-comments.input';
-import { UserListRelationFilter } from '../@generated/user/user-list-relation-filter.input';
-import { UserScalarFieldEnum } from '../@generated/user/user-scalar-field.enum';
-import { UserWhereInput } from '../@generated/user/user-where.input';
+import { Dummy } from '../../@generated/dummy/dummy.model';
+import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
+import { DateTimeFilter } from '../../@generated/prisma/date-time-filter.input';
+import { FloatFilter } from '../../@generated/prisma/float-filter.input';
+import { IntFilter } from '../../@generated/prisma/int-filter.input';
+import { StringFilter } from '../../@generated/prisma/string-filter.input';
+import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
+import { User } from '../../@generated/user/user.model';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
+import { UserCreateInput } from '../../@generated/user/user-create.input';
+import { UserCreateWithoutArticlesInput } from '../../@generated/user/user-create-without-articles.input';
+import { UserCreateWithoutCommentsInput } from '../../@generated/user/user-create-without-comments.input';
+import { UserGroupByArgs } from '../../@generated/user/user-group-by.args';
+import { UserListRelationFilter } from '../../@generated/user/user-list-relation-filter.input';
+import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-order-by-aggregate.input';
+import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
+import { UserWhereInput } from '../../@generated/user/user-where.input';
 
-const $prisma = new PrismaClient();
+let $prisma = new PrismaClient();
 
 {
-    const t: Array<Date> | Array<string> = [];
-    const m: Array<Date | string> = t; // t => m will fail
+    let p: P.User = {} as unknown as P.User;
+    let o: User = {} as unknown as User;
+    o = p;
+    p = o;
+}
+{
+    let t: Array<Date> | Array<string> = [];
+    let m: Array<Date | string> = t; // t => m will fail
+    m;
 }
 {
     // Scalar filter
-    const x: IntFilter = {};
+    let x: IntFilter = {};
     let p: Prisma.IntFilter = {};
     p = x;
+    p; // x = p fail (enumerable)
 }
 {
     // Scalar filter
-    const x: DateTimeFilter = {};
+    let x: DateTimeFilter = {};
     let p: Prisma.DateTimeFilter = {};
     p = x;
+    p;
 }
 {
     // Scalar filter
-    const x: StringFilter = {};
+    let x: StringFilter = {};
     let p: Prisma.StringFilter = {};
     p = x;
+    p;
 }
 {
     // Nullable filter
-    const x: FloatFilter = {};
+    let x: FloatFilter = {};
     let p: Prisma.FloatNullableFilter = {};
     p = x;
+    p;
 }
 {
-    const x: UserWhereInput = {};
+    let x: UserWhereInput = {};
     let p: Prisma.UserWhereInput = {};
     p = x;
+    p;
     $prisma.user.findMany({ where: x });
 }
 {
-    const x: UserListRelationFilter = {};
+    let x: UserListRelationFilter = {};
     let p: Prisma.UserListRelationFilter = {};
     p = x;
+    p;
 }
 {
-    const x: FindManyUserArgs = {};
+    let x: FindManyUserArgs = {};
     let p: Prisma.UserFindManyArgs = {};
     p = x;
+    p;
     $prisma.user.findMany(x);
 }
 {
-    const x: UserCreateWithoutArticlesInput = {
-        email: '',
-        name: '',
-        password: '',
-    };
-    let p: Prisma.UserCreateWithoutArticlesInput = {
-        email: '',
-        name: '',
-        password: '',
-    };
+    let x: UserCreateWithoutArticlesInput =
+        {} as unknown as UserCreateWithoutArticlesInput;
+    let p: Prisma.UserCreateWithoutArticlesInput =
+        {} as unknown as Prisma.UserCreateWithoutArticlesInput;
     p = x;
+    p;
     $prisma.user.create({
         data: x,
     });
 }
 {
-    const x: UserCreateWithoutCommentsInput = {
-        email: '',
-        name: '',
-        password: '',
-    };
-    let p: Prisma.UserCreateWithoutCommentsInput = {
-        email: '',
-        name: '',
-        password: '',
-    };
+    let x: UserCreateWithoutCommentsInput =
+        {} as unknown as UserCreateWithoutCommentsInput;
+    let p: Prisma.UserCreateWithoutCommentsInput =
+        {} as unknown as Prisma.UserCreateWithoutCommentsInput;
     p = x;
+    p;
     $prisma.user.create({
         data: x,
     });
 }
 {
-    const x: AggregateUserArgs = {};
+    let x: UserAggregateArgs = {};
     let p: Prisma.UserAggregateArgs = {};
     p = x;
+    p;
+    x;
 }
 {
-    const x: GroupByUserArgs = {
+    let x: UserGroupByArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
     let p: Prisma.UserGroupByArgs = {
         by: ['id'] as UserScalarFieldEnum[],
     };
     p = x;
+    p;
+    x;
 }
 {
-    const x: DummyCreateInput = { id: '1', floaty: 1 };
+    let x: DummyCreateInput = { id: '1', floaty: 1 };
     let p: Prisma.DummyCreateInput = { id: '2', floaty: 2 };
     p = x;
+    p;
+    x;
 }
 {
-    const x: DummyCreateInput['json'] = {};
+    let x: DummyCreateInput['json'] = {};
     let p: Prisma.DummyCreateInput['json'] = {};
     p = x;
+    p;
 }
 {
-    const x: UserCreateInput = {
-        email: '',
-        name: '',
-        password: '',
+    let x: UserMaxOrderByAggregateInput = {};
+    let p: Prisma.UserMaxOrderByAggregateInput = {};
+    p = x; // To prisma
+    x = p; // To object type
+}
+{
+    let x: UserCreateInput = {} as unknown as UserCreateInput;
+    let p: Prisma.UserCreateInput = {} as unknown as Prisma.UserCreateInput;
+    p = x;
+    p;
+}
+{
+    let x: Dummy = {} as unknown as Dummy;
+    let p: P.Dummy = {} as unknown as P.Dummy;
+    p = x;
+    x = p;
+}
+{
+    let x: UserGroupByArgs = {
+        by: [UserScalarFieldEnum.id],
     };
-    let p: Prisma.UserCreateInput = {
-        email: '',
-        name: '',
-        password: '',
+    let p: Prisma.UserGroupByArgs = {
+        by: [UserScalarFieldEnum.id],
     };
     p = x;
+    p;
+    // x = p; // fails (enumerable)
+    // $prisma.user.groupBy(x); // Error (prisma issue https://github.com/unlight/prisma-nestjs-graphql/issues/31)
+    // $prisma.user.groupBy(p); // Error
 }
 {
-    // $prisma.user.groupBy({ by: ['name'], count: { _all: true } }).then(([user]) => {
-    //     user.name;
-    //     user.count;
-    // });
-}
-// {
-//     // incompatible
-//     let x: User = {
-//         id: '',
-//         email: '',
-//         name: '',
-//         password: '',
-//     };
-//     let p: P.User = {
-//         id: '',
-//         email: '',
-//         name: '',
-//         password: '',
-//         bio: null,
-//         image: null,
-//         countComments: null,
-//         rating: null,
-//         role: null,
-//     };
-//     x = p;
-// }
-{
-    // OK
-    // const x: RDecimal = new RDecimal(0);
-    // let p: Prisma.Decimal = new Prisma.Decimal(0);
-    // p = x;
-}
-{
-    // Fails
-    // const x: Decimal = new Decimal(0);
-    // let p: Prisma.Decimal = new Prisma.Decimal(0);
-    // p = x;
-}
-{
-    // Fails
-    // const x: Prisma.Decimal = new Prisma.Decimal(0);
-    // let p: Decimal = new Decimal(0);
-    // p = x;
-}
-{
-    const x: Dummy = {
-        id: '',
-        created: new Date(),
-        floaty: 1,
-        int: 1,
-        float: 1,
-        bytes: Buffer.from('b'),
-        // eslint-disable-next-line unicorn/no-null
-        decimal: '0.1',
-        bigInt: BigInt('1'),
-        json: {},
-    };
-    let p: P.Dummy = {
-        id: '',
-        created: new Date(),
-        floaty: 1,
-        int: 1,
-        float: 1,
-        bytes: Buffer.from('b'),
-        // eslint-disable-next-line unicorn/no-null
-        decimal: new Prisma.Decimal(0),
-        bigInt: BigInt('1'),
-        json: {},
-    };
-    p = x;
+    void $prisma.user
+        .findMany({
+            include: {
+                articles: true,
+                profile: true,
+                _count: true,
+            },
+        })
+        // eslint-disable-next-line promise/always-return
+        .then(users => {
+            let result: User[] = users;
+            console.log('result', result);
+        });
 }

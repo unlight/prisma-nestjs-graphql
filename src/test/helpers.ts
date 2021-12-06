@@ -1,25 +1,10 @@
-import { PropertyDeclaration, SourceFile } from 'ts-morph';
-
-export function getImportDeclarations(sourceFile: SourceFile) {
-    return sourceFile.getImportDeclarations().flatMap(d =>
-        d.getNamedImports().map(index => ({
-            name: index.getName(),
-            specifier: d.getModuleSpecifierValue(),
-        })),
-    );
-}
-
-export function getFieldType(
-    sourceFile: SourceFile,
-    property: string | PropertyDeclaration,
-) {
-    let propertyDeclaration: PropertyDeclaration | undefined;
-    if (typeof property === 'string') {
-        propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
-    }
-    const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[0];
-    return result as string;
-}
+import {
+    ImportSpecifierStructure,
+    Project,
+    PropertyDeclaration,
+    PropertyDeclarationStructure,
+    SourceFile,
+} from 'ts-morph';
 
 export function getFieldOptions(
     sourceFile: SourceFile,
@@ -34,20 +19,63 @@ export function getFieldOptions(
     // return new Function(`return ${text}`)();
 }
 
-type GetStructuredArguments = {
-    sourceFile: SourceFile;
-    className: string;
-    property: string;
-};
-
-export function getStructure(args: GetStructuredArguments) {
-    const { sourceFile, className, property } = args;
-    return sourceFile.getClass(className)?.getProperty(property)?.getStructure();
-}
-
 export function getPropertyStructure(sourceFile: SourceFile, name: string) {
     return sourceFile
         .getClass(() => true)
         ?.getProperty(p => p.getName() === name)
         ?.getStructure();
+}
+
+export function testSourceFile(args: {
+    project: Project;
+    file: string;
+    property?: string;
+}) {
+    const { project, file, property } = args;
+    const sourceFile = project.getSourceFileOrThrow(s =>
+        s.getFilePath().endsWith(file),
+    );
+    const importDeclarations = sourceFile
+        .getImportDeclarations()
+        .map(d => d.getStructure());
+    const classFile = sourceFile.getClass(() => true)!;
+    const propertyStructure =
+        property &&
+        classFile.getProperty(p => p.getName() === property)?.getStructure();
+    const propertyDecorators = (
+        propertyStructure as PropertyDeclarationStructure | undefined
+    )?.decorators;
+    const fieldDecorator = propertyDecorators?.find(d => d.name === 'Field');
+
+    type ImportElement = { name: string; specifier: string };
+    const namedImports: ImportElement[] = [];
+    const namespaceImports: ImportElement[] = [];
+
+    for (const d of importDeclarations) {
+        if (d.namespaceImport) {
+            namespaceImports.push({
+                name: d.namespaceImport,
+                specifier: d.moduleSpecifier,
+            });
+        }
+        for (const s of (d.namedImports || []) as ImportSpecifierStructure[]) {
+            namedImports.push({
+                name: s.name,
+                specifier: d.moduleSpecifier,
+            });
+        }
+    }
+
+    return {
+        sourceFile,
+        classFile,
+        sourceText: sourceFile.getText(),
+        namedImports,
+        namespaceImports,
+        property: propertyStructure as PropertyDeclarationStructure | undefined,
+        propertyDecorators,
+        fieldDecorator,
+        fieldDecoratorType: fieldDecorator?.arguments?.[0],
+        fieldDecoratorOptions: fieldDecorator?.arguments?.[1],
+    };
 }

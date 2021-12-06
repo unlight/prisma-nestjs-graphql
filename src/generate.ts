@@ -17,12 +17,19 @@ import { outputType } from './handlers/output-type';
 import { purgeOutput } from './handlers/purge-output';
 import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
-import { typeNames } from './handlers/type-names';
+import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
-import { DMMF, EventArguments, Field, FieldSettings, Model, OutputType } from './types';
+import {
+    DMMF,
+    EventArguments,
+    Field,
+    Model,
+    ObjectSettings,
+    OutputType,
+} from './types';
 
 export async function generate(
     args: GeneratorOptions & {
@@ -46,7 +53,6 @@ export async function generate(
     eventEmitter.on('ModelOutputType', modelOutputType);
     eventEmitter.on('AggregateOutput', createAggregateInput);
     eventEmitter.on('InputType', inputType);
-    eventEmitter.on('InputType', typeNames);
     eventEmitter.on('ArgsType', argsType);
     eventEmitter.on('BeforeGenerateFiles', beforeGenerateFiles);
     eventEmitter.on('GenerateFiles', generateFiles);
@@ -77,11 +83,13 @@ export async function generate(
     config.reExport !== ReExport.None && reExport(eventEmitter);
     config.emitSingle && emitSingle(eventEmitter);
     config.purgeOutput && purgeOutput(eventEmitter);
+    config.requireSingleFieldsInWhereUniqueInput &&
+        requireSingleFieldsInWhereUniqueInput(eventEmitter);
 
     const models = new Map<string, Model>();
     const modelNames: string[] = [];
     const modelFields = new Map<string, Map<string, Field>>();
-    const fieldSettings = new Map<string, Map<string, FieldSettings>>();
+    const fieldSettings = new Map<string, Map<string, ObjectSettings>>();
     const getModelName = createGetModelName(modelNames);
     const getSourceFile = factoryGetSourceFile({
         output: generatorOutputValue,
@@ -94,6 +102,7 @@ export async function generate(
         datamodel,
         schema: { inputObjectTypes, outputObjectTypes, enumTypes },
     } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+    const removeTypes = new Set<string>();
     const eventArguments: EventArguments = {
         models,
         config,
@@ -106,7 +115,8 @@ export async function generate(
         eventEmitter,
         typeNames: new Set<string>(),
         enums: mapKeys(datamodel.enums, x => x.name),
-        getModelName: createGetModelName(modelNames),
+        getModelName,
+        removeTypes,
     };
 
     if (connectCallback) {
@@ -139,15 +149,19 @@ export async function generate(
         await eventEmitter.emit('OutputType', outputType, eventArguments);
     }
 
-    for (const inputType of inputObjectTypes.prisma.concat(
-        inputObjectTypes.model || [],
-    )) {
+    const inputTypes = inputObjectTypes.prisma.concat(inputObjectTypes.model || []);
+
+    for (const inputType of inputTypes) {
         const event = {
             ...eventArguments,
             inputType,
             fileType: 'input',
             classDecoratorName: 'InputType',
         };
+        if (inputType.fields.length === 0) {
+            removeTypes.add(inputType.name);
+            continue;
+        }
         await eventEmitter.emit('BeforeInputType', event);
         await eventEmitter.emit('InputType', event);
     }

@@ -1,3 +1,204 @@
+## [14.6.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.5.0...v14.6.0) (2021-10-16)
+
+
+### Features
+
+* **custom decorators:** Allow attach `@Directive()` ([d6faef0](https://github.com/unlight/nestjs-graphql-prisma/commit/d6faef073f33f97b48e99619b737f5324e3e4dd7))
+
+## [14.5.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.1...v14.5.0) (2021-10-12)
+
+
+### Features
+
+* **custom decorators:** Allow apply custom decorator on models ([52f090a](https://github.com/unlight/nestjs-graphql-prisma/commit/52f090a55154bca3b0c9030cf7dff6f1599f6f94)), closes [#63](https://github.com/unlight/nestjs-graphql-prisma/issues/63)
+
+### [14.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.4.0...v14.4.1) (2021-10-05)
+
+
+### Bug Fixes
+
+* Missing import in hidden type ([29e5a8e](https://github.com/unlight/nestjs-graphql-prisma/commit/29e5a8e1cda7dd47308f0b5f0cecef37efb0aa8f)), closes [#62](https://github.com/unlight/nestjs-graphql-prisma/issues/62)
+
+## [14.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.3.0...v14.4.0) (2021-09-30)
+
+
+### Features
+
+* **match:** Allows `match` expressions in `FieldType` and `PropertyType` ([#60](https://github.com/unlight/nestjs-graphql-prisma/issues/60)) ([a9b0e46](https://github.com/unlight/nestjs-graphql-prisma/commit/a9b0e46ceda8a2c6ddaaccf3c8a987a672b91912))
+
+## [14.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.2...v14.3.0) (2021-09-28)
+
+
+### Features
+
+* **require single uniq filter:** New `requireSingleFieldsInWhereUniqueInput` generator setting ([7ee73eb](https://github.com/unlight/nestjs-graphql-prisma/commit/7ee73eb69f57a55a6b7244377fabc11bf17005ea)), closes [#58](https://github.com/unlight/nestjs-graphql-prisma/issues/58)
+
+### [14.2.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.1...v14.2.2) (2021-09-27)
+
+
+### Bug Fixes
+
+* **compatibility:** Add typescript null type for optional fields in model ([df0b9de](https://github.com/unlight/nestjs-graphql-prisma/commit/df0b9de53a003bc32fbc3ae1471be3681e55a551)), closes [#57](https://github.com/unlight/nestjs-graphql-prisma/issues/57)
+
+### [14.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.2.0...v14.2.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* **custom decorators:** FieldType mapping for output types ([c036a10](https://github.com/unlight/nestjs-graphql-prisma/commit/c036a103f7b16d2a9bcb9a0c36aa7948a4f79c09)), closes [#55](https://github.com/unlight/nestjs-graphql-prisma/issues/55)
+
+## [14.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.1.0...v14.2.0) (2021-09-23)
+
+
+### Features
+
+* **custom decorators:** Abstract and rename type ([eb68ca6](https://github.com/unlight/nestjs-graphql-prisma/commit/eb68ca6288b74cd797d9d0c584b33ddcf540b066)), closes [#40](https://github.com/unlight/nestjs-graphql-prisma/issues/40)
+* **custom decorators:** New `decorate` generator setting ([c5e14b7](https://github.com/unlight/nestjs-graphql-prisma/commit/c5e14b7e8e59fffcd57ab5b6dff973cc48b37f14)), closes [#48](https://github.com/unlight/nestjs-graphql-prisma/issues/48)
+
+
+### Bug Fixes
+
+* Get model name for CompoundUniqueInput ([f44aa85](https://github.com/unlight/nestjs-graphql-prisma/commit/f44aa858a0459e61d1e13f19c0fe3317e6d0d063)), closes [#53](https://github.com/unlight/nestjs-graphql-prisma/issues/53)
+
+### [14.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.0.0...v14.0.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* Getting json nullable enum ([d001714](https://github.com/unlight/nestjs-graphql-prisma/commit/d0017146a4543a8178972138fecbdabf58082d92))
+
+## [14.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v13.0.0...v14.0.0) (2021-09-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Configuration `useInputType` changed underlying library for pattern matching
+https://github.com/axtgr/outmatch, prefix renamed to `match:`
+
+### Code Refactoring
+
+* Replace `matcher` by `outmatch` ([fa7c003](https://github.com/unlight/nestjs-graphql-prisma/commit/fa7c0036b7bd1209261cae3f5f9adbb8dde4f256))
+
+## [13.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.1...v13.0.0) (2021-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed deprecated setting `types_*`
+* Model is regenerating ignoring existing data, any manual changes will be discarded
+* Enum is regerating now, any manual changes will be discarded
+
+### Features
+
+* **configuration:** Option to disable ID graphql type ([8474da7](https://github.com/unlight/nestjs-graphql-prisma/commit/8474da7c358d0e48f19c9f9db3093770396f20d7)), closes [#44](https://github.com/unlight/nestjs-graphql-prisma/issues/44)
+
+
+### Bug Fixes
+
+* Regenerate enum ignoring existing values ([c581bc7](https://github.com/unlight/nestjs-graphql-prisma/commit/c581bc7c376921c012a6a24bf30339e578256044)), closes [#45](https://github.com/unlight/nestjs-graphql-prisma/issues/45)
+* Regenerate model ignoring existing data ([62ffd83](https://github.com/unlight/nestjs-graphql-prisma/commit/62ffd83064c543f5285f37742e984b7efd9775b1)), closes [#45](https://github.com/unlight/nestjs-graphql-prisma/issues/45)
+
+
+### Miscellaneous Chores
+
+* Removed deprecated setting `types_*` ([3491398](https://github.com/unlight/nestjs-graphql-prisma/commit/349139894b087c37b521c6e472c1d34ee4997e45))
+
+### [12.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.2.0...v12.2.1) (2021-07-23)
+
+
+### Bug Fixes
+
+* **compatibility:** Make model types compatible from both sides Prisma and GraphQL ([c015f12](https://github.com/unlight/nestjs-graphql-prisma/commit/c015f12307541efdb833d06b4d26a9aadd3925e8)), closes [#41](https://github.com/unlight/nestjs-graphql-prisma/issues/41)
+* Get model name from `{Model}AggregateArgs` type ([0703f7e](https://github.com/unlight/nestjs-graphql-prisma/commit/0703f7ecfd546717cd6c7b4517eeace9362089d4))
+
+## [12.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.1.0...v12.2.0) (2021-07-06)
+
+
+### Features
+
+* Duplicate comments in jsdoc ([002a055](https://github.com/unlight/nestjs-graphql-prisma/commit/002a0552096c6ffdd8abc9fec8b7e80b9209c288)), closes [#39](https://github.com/unlight/nestjs-graphql-prisma/issues/39)
+
+## [12.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.3...v12.1.0) (2021-07-02)
+
+
+### Features
+
+* **hide field:** Allow hide field in type matching by pattern ([6c05123](https://github.com/unlight/nestjs-graphql-prisma/commit/6c05123b9454e649c5fe4298d52d57729c3c5453)), closes [#37](https://github.com/unlight/nestjs-graphql-prisma/issues/37)
+
+### [12.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.2...v12.0.3) (2021-06-05)
+
+
+### Bug Fixes
+
+* **custom decorators:** `FieldType` respect input/output in generator settings ([a075e00](https://github.com/unlight/nestjs-graphql-prisma/commit/a075e0075e9c60530bd3a90edfc0a8c245371b7e)), closes [#34](https://github.com/unlight/nestjs-graphql-prisma/issues/34)
+
+### [12.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.1...v12.0.2) (2021-06-05)
+
+
+### Bug Fixes
+
+* **other:** Ignore `@HideField()` for output count fields ([ce3eec2](https://github.com/unlight/nestjs-graphql-prisma/commit/ce3eec247c05fb771ea4f39ae1fbd136aa2bd6f4)), closes [#33](https://github.com/unlight/nestjs-graphql-prisma/issues/33)
+
+### [12.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v12.0.0...v12.0.1) (2021-05-22)
+
+
+### Bug Fixes
+
+* Remove empty input types ([20c4f46](https://github.com/unlight/nestjs-graphql-prisma/commit/20c4f463ed736b9f4c73247b06e5921c20332f2d)), closes [#26](https://github.com/unlight/nestjs-graphql-prisma/issues/26)
+
+## [12.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.5...v12.0.0) (2021-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **compatibility:** Possible breaking change aggregation keywords use underscore as prefix to prevent field clashes
+
+### Features
+
+* `useInputType` config option allow to choose input type ([54eeb1c](https://github.com/unlight/nestjs-graphql-prisma/commit/54eeb1c5bfc80df7705ab124baac715b61f00dda))
+
+
+### Bug Fixes
+
+* Make types same as in prisma ([1f5bc4e](https://github.com/unlight/nestjs-graphql-prisma/commit/1f5bc4e55bb5802feb1be5c21dca945f38318e57))
+* **compatibility:** Rename aggregation keywords ([83491c8](https://github.com/unlight/nestjs-graphql-prisma/commit/83491c85d455b725f30caa033c016cc0b22cb965))
+
+### [11.4.5](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.4...v11.4.5) (2021-05-13)
+
+
+### Bug Fixes
+
+* Combine scalar filters on nullable list ([8f306e8](https://github.com/unlight/nestjs-graphql-prisma/commit/8f306e8c43fc557a9d58c6ae14a9787167cc2131))
+* Get graphql type for scalar list ([97a1ae4](https://github.com/unlight/nestjs-graphql-prisma/commit/97a1ae482edaff8ed873c65ab4f0ccb2ce1c51c5)), closes [#30](https://github.com/unlight/nestjs-graphql-prisma/issues/30)
+
+### [11.4.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.3...v11.4.4) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Prevent applying on aggregate inputs ([9b21970](https://github.com/unlight/nestjs-graphql-prisma/commit/9b2197079b910ffdf0f895649e59028622e7025a))
+
+### [11.4.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.2...v11.4.3) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Reget decorator full name ([9e279bf](https://github.com/unlight/nestjs-graphql-prisma/commit/9e279bfeb72ff7fbc752c6e7469427c0e5d86a50)), closes [#29](https://github.com/unlight/nestjs-graphql-prisma/issues/29)
+
+### [11.4.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.1...v11.4.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* **custom decorators:** Missed imports when enabled `emitSingle` ([bf55996](https://github.com/unlight/nestjs-graphql-prisma/commit/bf55996e4c23c61300362f9c04d5bfd67a683aea)), closes [#28](https://github.com/unlight/nestjs-graphql-prisma/issues/28)
+
+### [11.4.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.4.0...v11.4.1) (2021-05-09)
+
+
+### Bug Fixes
+
+* Multiple namespace imports ([e096af0](https://github.com/unlight/nestjs-graphql-prisma/commit/e096af0fd28a7bc3615cfbd1ebe1052f74bbf30f)), closes [#27](https://github.com/unlight/nestjs-graphql-prisma/issues/27)
+
 ## [11.4.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v11.3.1...v11.4.0) (2021-04-28)
 
 

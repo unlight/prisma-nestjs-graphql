@@ -5,24 +5,45 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["orderByRelation", "selectRelationCount", "orderByAggregateGroup"]
+  previewFeatures = ["filterJson", "fullTextSearch"]
 }
 
 generator nestgraphql {
   provider = "node -r ts-node/register/transpile-only src/index.ts"
-  output = "../src/@generated"
+  output = "../@generated"
   noAtomicOperations = false
   combineScalarFilters = false
   reExport = None
   emitSingle = false
   emitCompiled = false
   purgeOutput = false
+  requireSingleFieldsInWhereUniqueInput = false
+  fields_Validator_from = "class-validator"
+  fields_Validator_input = true
+  fields_Scalars_from = "graphql-scalars"
+  fields_Scalars_input = true
+  useInputType_WhereInput_ALL = "WhereInput"
+  decorate_1_type = "Create@(One|Many)UserArgs"
+  decorate_1_field = data
+  decorate_1_name = ValidateNested
+  decorate_1_from = "class-validator"
+  decorate_1_arguments = "[]"
+  decorate_2_type = "Create@(One|Many)UserArgs"
+  decorate_2_field = data
+  decorate_2_from = "class-transformer"
+  decorate_2_arguments = "['() => {propertyType.0}']"
+  decorate_2_name = Type
+  decorate_2_namedImport = true
 }
 
+/// User really
 model User {
   id               String    @id @default(cuid())
+  /// @FieldType('Scalars.GraphQLEmailAddress')
   email            String    @unique
   /// User's name
+  /// @Validator.MinLength(3)
+  /// @Validator.MaxLength(50)
   name             String    @unique
   /// @HideField()
   password         String
@@ -36,6 +57,9 @@ model User {
   countComments    Int?
   rating           Float?
   role             Role?
+  profile          Profile?
+
+  @@unique([email, name])
 }
 
 model Tag {
@@ -51,6 +75,7 @@ model Article {
   description    String
   body           String
   tags           Tag[]
+  /// @HideField({ match: '*Create*Input' })
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   favoritesCount Int       @default(0)
@@ -64,6 +89,7 @@ model Article {
 model Comment {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+  /// @HideField({ match: '*Update*Input' })
   updatedAt DateTime @updatedAt
   body      String
   author    User     @relation(fields: [authorId], references: [id])
@@ -76,6 +102,13 @@ enum Role {
   USER
 }
 
+model Profile {
+  id                  Int                 @id @default(autoincrement())
+  user                User                @relation(fields: [userId], references: [id])
+  userId              String
+  dummy String?
+}
+
 model Dummy {
   id      String   @id
   created DateTime @default(now())
@@ -86,4 +119,5 @@ model Dummy {
   decimal Decimal?
   bigInt  BigInt?
   json    Json?
+  friends String[]
 }

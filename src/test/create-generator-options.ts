@@ -1,8 +1,8 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { exec } from 'child_process';
 import crypto from 'crypto';
-import findCacheDir from 'find-cache-dir';
 import fs from 'fs';
+import cachePath from 'temp-dir';
 
 import { DMMF } from '../types';
 
@@ -10,11 +10,6 @@ const {
     dependencies: { '@prisma/generator-helper': generatorVersion },
     // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require('../../package.json');
-
-const cachePath: string = findCacheDir({
-    name: 'createGeneratorOptions',
-    create: true,
-}) as string;
 
 /**
  * Get generator options after run prisma generate.
@@ -24,13 +19,13 @@ export async function createGeneratorOptions(
     options?: string[],
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
     const schemaHeader = `
-        datasource database {
+        datasource db {
             provider = "postgresql"
             url = env("DATABASE_URL")
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["orderByRelation", "selectRelationCount", "orderByAggregateGroup"]
+            previewFeatures = ["filterJson"]
         }
     `;
     // eslint-disable-next-line prefer-rest-params

@@ -2,7 +2,7 @@ import { pascalCase } from '../helpers/pascal-case';
 import { EventArguments, InputType, SchemaField } from '../types';
 
 /**
- * See prisma client/src/generation/TSClient.ts @ getAggregationTypes
+ * See https://github.com/prisma/prisma/blob/master/src/packages/client/src/generation/TSClient/Model.ts@getAggregationTypes
  * Subcribes on: 'ArgsType'
  */
 export function argsType(field: SchemaField, args: EventArguments) {
@@ -10,24 +10,31 @@ export function argsType(field: SchemaField, args: EventArguments) {
         return;
     }
     const { eventEmitter, typeNames, getModelName } = args;
-    const className = pascalCase(`${field.name}Args`);
+    let className = pascalCase(`${field.name}Args`);
     const modelName = getModelName(className) || '';
+
+    switch (className) {
+        case `Aggregate${modelName}Args`:
+            className = `${modelName}AggregateArgs`;
+            break;
+        case `GroupBy${modelName}Args`:
+            className = `${modelName}GroupByArgs`;
+            break;
+    }
+
     const inputType: InputType = {
         // eslint-disable-next-line unicorn/no-null
         constraints: { maxNumFields: null, minNumFields: null },
         name: className,
-        fields: field.args,
+        fields: [...field.args],
     };
 
     if (
-        // TODO: Figure out how to improve this (solve mutation)
-        !field.args.some(x => x.name === 'count') &&
-        [`Aggregate${modelName}Args`, `GroupBy${modelName}Args`].includes(
-            inputType.name,
-        )
+        !field.args.some(x => x.name === '_count') &&
+        [`${modelName}AggregateArgs`, `${modelName}GroupByArgs`].includes(className)
     ) {
         const names = ['Count', 'Avg', 'Sum', 'Min', 'Max'];
-        if (`GroupBy${modelName}Args` === inputType.name) {
+        if (`${modelName}GroupByArgs` === inputType.name) {
             // Make `by` property array only, noEnumerable
             const byField = inputType.fields.find(f => f.name === 'by');
             if (byField?.inputTypes) {
@@ -42,7 +49,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
             }
 
             inputType.fields.push({
-                name: name.toLowerCase(),
+                name: `_${name.toLowerCase()}`,
                 isRequired: false,
                 isNullable: true,
                 inputTypes: [

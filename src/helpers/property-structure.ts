@@ -30,6 +30,6 @@ export function propertyStructure(args: {
         hasQuestionToken: hasQuestionToken ?? isNullable,
         hasExclamationToken: hasExclamationToken ?? !isNullable,
         decorators: [],
-        trailingTrivia: '\n',
+        leadingTrivia: '\n',
     };
 }

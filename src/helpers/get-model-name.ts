@@ -1,4 +1,4 @@
-import { memoize } from 'lodash';
+import { first, memoize } from 'lodash';
 
 export function createGetModelName(modelNames: string[]) {
     return memoize(tryGetName);
@@ -26,11 +26,25 @@ function getModelName(args: {
         }
     }
     for (const [start, end] of middleKeywords) {
-        const test = name.slice(start.length).slice(0, -end.length);
+        let test = name.slice(start.length).slice(0, -end.length);
+        if (modelNames.includes(test)) {
+            return test;
+        }
+        test = name.slice(0, -(start + end).length);
         if (modelNames.includes(test)) {
             return test;
         }
     }
+
+    // test for {Model}{UniqueName}CompoundUniqueInput
+    if (name.slice(-19) === 'CompoundUniqueInput') {
+        const test = name.slice(0, -19);
+        const models = modelNames
+            .filter(x => test.startsWith(x))
+            .sort((a, b) => b.length - a.length);
+        return first(models);
+    }
+
     // test for {Model}Count
     if (name.slice(-5) === 'Count') {
         const test = name.slice(0, -5);
