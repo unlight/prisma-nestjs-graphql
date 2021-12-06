@@ -1520,3 +1520,28 @@ describe('emit single', () => {
         // it('^', () => console.log(sourceFile.getText()));
     });
 });
+
+/*
+
+ */
+
+describe('native types auto class validator', () => {
+    const schema = `
+        model Post {
+          id         Int    @id
+          title      String @db.VarChar(100)
+        }
+    `;
+
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema,
+            options: [],
+        }));
+    });
+
+    it('post model', () => {
+        setSourceFile('/post.model.ts');
+        console.log(sourceFile.getText());
+    });
+});
