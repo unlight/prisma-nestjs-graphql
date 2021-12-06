@@ -1,6 +1,8 @@
+import { getSchema, Schema } from '@mrleebo/prisma-ast';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
+import { readFile } from 'fs/promises';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
@@ -40,8 +42,8 @@ export async function generate(
         ) => void | Promise<void>;
     },
 ) {
-    const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
-    // args.schemaPath
+    const { connectCallback, generator, skipAddOutputSourceFiles, dmmf, schemaPath } =
+        args;
 
     const generatorOutputValue = generator.output?.value;
     ok(generatorOutputValue, 'Missing generator configuration: output');
@@ -61,6 +63,12 @@ export async function generate(
     const config = createConfig(generator.config);
     for (const message of config.$warnings) {
         eventEmitter.emitSync('Warning', message);
+    }
+
+    let schema: Schema | undefined;
+    if (config.classValidatorAutoDecorators) {
+        const source = await readFile(schemaPath, { encoding: 'utf8' });
+        schema = getSchema(source);
     }
 
     const project = new Project({
@@ -118,6 +126,7 @@ export async function generate(
         enums: mapKeys(datamodel.enums, x => x.name),
         getModelName,
         removeTypes,
+        schema,
     };
 
     if (connectCallback) {

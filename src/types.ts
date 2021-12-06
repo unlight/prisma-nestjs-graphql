@@ -1,3 +1,4 @@
+import { Schema } from '@mrleebo/prisma-ast';
 import { DMMF } from '@prisma/client/runtime';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
@@ -45,6 +46,7 @@ export type EventArguments = {
     removeTypes: Set<string>;
     enums: Record<string, DMMF.DatamodelEnum | undefined>;
     getModelName(name: string): string | undefined;
+    schema?: Schema;
 };
 
 export type Field = DMMF.Field;

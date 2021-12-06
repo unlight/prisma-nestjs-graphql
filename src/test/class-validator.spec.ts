@@ -7,15 +7,15 @@ describe.only('native types auto class validator', () => {
     let project: Project;
     const schema = `
         model Post {
-          id         Int    @id
-          title      String @db.VarChar(100)
+          id Int @id
+          title String @db.VarChar(100)
         }
     `;
 
     before(async () => {
         ({ project } = await testGenerate({
             schema,
-            options: [`classValidatorDecorators = true`],
+            options: [`classValidatorAutoDecorators = true`],
         }));
     });
 

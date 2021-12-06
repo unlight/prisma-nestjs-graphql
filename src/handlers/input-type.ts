@@ -1,3 +1,4 @@
+import * as ast from '@mrleebo/prisma-ast';
 import { ok } from 'assert';
 import JSON5 from 'json5';
 import { castArray, last } from 'lodash';
@@ -30,6 +31,7 @@ export function inputType(
         models,
         removeTypes,
         typeNames,
+        schema,
     } = args;
 
     typeNames.add(inputType.name);
@@ -201,6 +203,16 @@ export function inputType(
                     });
                     importDeclarations.create(decorate);
                 }
+            }
+
+            if (config.classValidatorAutoDecorators && schema) {
+                const x = (
+                    schema.list.find(
+                        t => t.type === 'model' && t.name === model?.name,
+                    ) as ast.Model | undefined
+                )?.properties.find(p => (p as ast.Field).name === name)
+                    ?.attributes as ast.Attribute[];
+                x && console.dir({ x, model }, { depth: 6 });
             }
         }
 
