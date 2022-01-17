@@ -38,7 +38,7 @@ const setSourceFile = (name: string) => {
     );
 };
 
-describe.skip('user test', () => {
+describe.only('user test', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
             schema: `
@@ -60,23 +60,29 @@ model Post {
             `,
             options: [
                 `outputFilePattern = "{name}.{type}.ts"`,
-                `useInputType_WhereInput_ALL = "WhereInput"`,
+                `useInputType_WhereInput_id = "match:Int"`,
+                `useInputType_WhereInput_email = "match:String"`,
                 `useInputType_CreateOne_ALL = "UncheckedCreate"`,
             ],
         }));
     });
 
     it('^', () => {
+        let x;
         for (const sourceFile of project.getSourceFiles()) {
             const classDeclaration = sourceFile.getClass(() => true);
             if (!classDeclaration) {
                 continue;
             }
-            const referencedSymbols = classDeclaration.findReferences();
-            if (referencedSymbols.length > 1) {
-                continue;
+            // const referencedSymbols = classDeclaration.findReferences();
+            // if (referencedSymbols.length > 1) {
+            //     continue;
+            // }
+            // console.log('class name', classDeclaration.getName());
+            if ('UserWhereInput' === classDeclaration.getName()) {
+                x = classDeclaration.getText();
+                break;
             }
-            console.log('class name', classDeclaration.getName());
             // console.log('referencedSymbols.length', referencedSymbols.length);
             // for (const referencedSymbol of referencedSymbols) {
             //     for (const reference of referencedSymbol.getReferences()) {
@@ -96,5 +102,6 @@ model Post {
             //     }
             // }
         }
+        console.log('x', x);
     });
 });
