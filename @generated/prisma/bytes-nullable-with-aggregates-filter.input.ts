@@ -9,6 +9,12 @@ export class BytesNullableWithAggregatesFilter {
     @Field(() => String, { nullable: true })
     equals?: Buffer;
 
+    @Field(() => [String], { nullable: true })
+    in?: Array<Buffer>;
+
+    @Field(() => [String], { nullable: true })
+    notIn?: Array<Buffer>;
+
     @Field(() => NestedBytesNullableWithAggregatesFilter, { nullable: true })
     not?: NestedBytesNullableWithAggregatesFilter;
 

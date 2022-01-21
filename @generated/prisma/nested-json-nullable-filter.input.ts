@@ -7,18 +7,6 @@ export class NestedJsonNullableFilter {
     @Field(() => GraphQLJSON, { nullable: true })
     equals?: any;
 
-    @Field(() => GraphQLJSON, { nullable: true })
-    lt?: any;
-
-    @Field(() => GraphQLJSON, { nullable: true })
-    lte?: any;
-
-    @Field(() => GraphQLJSON, { nullable: true })
-    gt?: any;
-
-    @Field(() => GraphQLJSON, { nullable: true })
-    gte?: any;
-
     @Field(() => [String], { nullable: true })
     path?: Array<string>;
 
@@ -39,6 +27,18 @@ export class NestedJsonNullableFilter {
 
     @Field(() => GraphQLJSON, { nullable: true })
     array_ends_with?: any;
+
+    @Field(() => GraphQLJSON, { nullable: true })
+    lt?: any;
+
+    @Field(() => GraphQLJSON, { nullable: true })
+    lte?: any;
+
+    @Field(() => GraphQLJSON, { nullable: true })
+    gt?: any;
+
+    @Field(() => GraphQLJSON, { nullable: true })
+    gte?: any;
 
     @Field(() => GraphQLJSON, { nullable: true })
     not?: any;
