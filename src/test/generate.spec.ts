@@ -2079,6 +2079,7 @@ describe('non list optional properties should be nullable', () => {
     it('user model profile', () => {
         setSourceFile('user.model.ts');
         expect(p('profile')?.type).toEqual('Profile | null');
+        expect(p('profile')?.hasQuestionToken).toEqual(true);
     });
 
     it('user model count', () => {
@@ -2088,6 +2089,18 @@ describe('non list optional properties should be nullable', () => {
             property: '_count',
         });
         expect(s.property?.type).toEqual('UserCount');
+        expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
+        expect(s.property?.hasQuestionToken).toEqual(true);
+    });
+
+    it('user count output should undefineable ts type', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-count.output.ts',
+            property: 'articles',
+        });
+        expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
+        expect(s.property?.hasQuestionToken).toBe(true);
     });
 
     it('article model author', () => {

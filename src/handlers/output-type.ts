@@ -79,6 +79,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         const property = propertyStructure({
             name: field.name,
             isNullable: field.isNullable,
+            hasQuestionToken: isCountOutput ? true : undefined,
             propertyType,
             isList,
         });
