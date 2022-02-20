@@ -1,3 +1,10 @@
+### [14.6.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.1...v14.6.2) (2022-02-20)
+
+
+### Bug Fixes
+
+* Make fields in count output undefinable ([8e3d85c](https://github.com/unlight/nestjs-graphql-prisma/commit/8e3d85c1cd3f9c2453d8c54675f7dca798954d43))
+
 ### [14.6.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.0...v14.6.1) (2021-11-25)
 
 
