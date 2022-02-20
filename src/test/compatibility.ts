@@ -11,6 +11,7 @@ import { StringFilter } from '../../@generated/prisma/string-filter.input';
 import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
 import { User } from '../../@generated/user/user.model';
 import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
+import { UserCount } from '../../@generated/user/user-count.output';
 import { UserCreateInput } from '../../@generated/user/user-create.input';
 import { UserCreateWithoutArticlesInput } from '../../@generated/user/user-create-without-articles.input';
 import { UserCreateWithoutCommentsInput } from '../../@generated/user/user-create-without-comments.input';
@@ -172,10 +173,29 @@ let $prisma = new PrismaClient();
                 articles: true,
                 profile: true,
                 _count: true,
+                comments: true,
+                favoriteArticles: true,
+                followers: true,
+                following: true,
             },
         })
-        // eslint-disable-next-line promise/always-return
         .then(users => {
+            let result: User[] = users;
+            console.log('result', result);
+        });
+
+    void $prisma.user
+        .findMany({
+            include: {
+                _count: {
+                    select: {
+                        comments: true,
+                    },
+                },
+            },
+        })
+        .then(users => {
+            type x = UserCount;
             let result: User[] = users;
             console.log('result', result);
         });

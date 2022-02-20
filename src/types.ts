@@ -3,11 +3,7 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 
 import { createConfig } from './helpers/create-config';
-import { ObjectSetting, ObjectSettings } from './helpers/object-settings';
-
-export { DMMF };
-export { ObjectSetting };
-export { ObjectSettings };
+import { ObjectSettings } from './helpers/object-settings';
 
 export type InputType = DMMF.InputType;
 export type FieldLocation = DMMF.FieldLocation;
@@ -48,3 +44,6 @@ export type EventArguments = {
 };
 
 export type Field = DMMF.Field;
+
+export { ObjectSetting, ObjectSettings } from './helpers/object-settings';
+export { DMMF } from '@prisma/client/runtime';

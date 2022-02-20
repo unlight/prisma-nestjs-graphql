@@ -5,11 +5,11 @@ import { Int } from '@nestjs/graphql';
 @ObjectType()
 export class ArticleCount {
     @Field(() => Int, { nullable: false })
-    tags!: number;
+    tags?: number;
 
     @Field(() => Int, { nullable: false })
-    favoritedBy!: number;
+    favoritedBy?: number;
 
     @Field(() => Int, { nullable: false })
-    comments!: number;
+    comments?: number;
 }
