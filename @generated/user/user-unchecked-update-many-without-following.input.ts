@@ -1,37 +1,42 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
-import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
+import { UserCreateWithoutFollowingInput } from './user-create-without-following.input';
+import { UserCreateOrConnectWithoutFollowingInput } from './user-create-or-connect-without-following.input';
+import { UserUpsertWithWhereUniqueWithoutFollowingInput } from './user-upsert-with-where-unique-without-following.input';
+import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserUpdateWithWhereUniqueWithoutFollowingInput } from './user-update-with-where-unique-without-following.input';
+import { UserUpdateManyWithWhereWithoutFollowingInput } from './user-update-many-with-where-without-following.input';
+import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
 export class UserUncheckedUpdateManyWithoutFollowingInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+    @Field(() => [UserCreateWithoutFollowingInput], { nullable: true })
+    create?: Array<UserCreateWithoutFollowingInput>;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    email?: StringFieldUpdateOperationsInput;
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], { nullable: true })
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    name?: StringFieldUpdateOperationsInput;
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], { nullable: true })
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    password?: StringFieldUpdateOperationsInput;
+    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    set?: Array<UserWhereUniqueInput>;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    bio?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    disconnect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    image?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    delete?: Array<UserWhereUniqueInput>;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-    countComments?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => [UserWhereUniqueInput], { nullable: true })
+    connect?: Array<UserWhereUniqueInput>;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-    rating?: NullableFloatFieldUpdateOperationsInput;
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], { nullable: true })
+    update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-    role?: NullableEnumRoleFieldUpdateOperationsInput;
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], { nullable: true })
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
+
+    @Field(() => [UserScalarWhereInput], { nullable: true })
+    deleteMany?: Array<UserScalarWhereInput>;
 }

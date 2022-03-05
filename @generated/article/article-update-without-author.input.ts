@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-without-articles.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
-import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-without-articles.input';
 import { UserUpdateManyWithoutFavoriteArticlesInput } from '../user/user-update-many-without-favorite-articles.input';
 import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
 export class ArticleUpdateWithoutAuthorInput {
@@ -25,6 +25,9 @@ export class ArticleUpdateWithoutAuthorInput {
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     body?: StringFieldUpdateOperationsInput;
 
+    @Field(() => TagUpdateManyWithoutArticlesInput, { nullable: true })
+    tags?: TagUpdateManyWithoutArticlesInput;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
@@ -34,15 +37,12 @@ export class ArticleUpdateWithoutAuthorInput {
     @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
     favoritesCount?: IntFieldUpdateOperationsInput;
 
-    @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
-    active?: NullableBoolFieldUpdateOperationsInput;
-
-    @Field(() => TagUpdateManyWithoutArticlesInput, { nullable: true })
-    tags?: TagUpdateManyWithoutArticlesInput;
-
     @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
     favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
 
     @Field(() => CommentUpdateManyWithoutArticleInput, { nullable: true })
     comments?: CommentUpdateManyWithoutArticleInput;
+
+    @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
+    active?: NullableBoolFieldUpdateOperationsInput;
 }

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
+import { UserUncheckedUpdateManyWithoutFavoriteArticlesInput } from '../user/user-unchecked-update-many-without-favorite-articles.input';
 import { CommentUncheckedUpdateManyWithoutArticleInput } from '../comment/comment-unchecked-update-many-without-article.input';
+import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
 export class ArticleUncheckedUpdateWithoutTagsInput {
@@ -35,9 +36,14 @@ export class ArticleUncheckedUpdateWithoutTagsInput {
     @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
     authorId?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
-    active?: NullableBoolFieldUpdateOperationsInput;
+    @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, {
+        nullable: true,
+    })
+    favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesInput;
 
     @Field(() => CommentUncheckedUpdateManyWithoutArticleInput, { nullable: true })
     comments?: CommentUncheckedUpdateManyWithoutArticleInput;
+
+    @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
+    active?: NullableBoolFieldUpdateOperationsInput;
 }

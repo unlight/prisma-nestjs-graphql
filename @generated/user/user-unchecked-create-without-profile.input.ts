@@ -2,11 +2,14 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
+import { UserUncheckedCreateNestedManyWithoutFollowersInput } from './user-unchecked-create-nested-many-without-followers.input';
+import { UserUncheckedCreateNestedManyWithoutFollowingInput } from './user-unchecked-create-nested-many-without-following.input';
+import { ArticleUncheckedCreateNestedManyWithoutFavoritedByInput } from '../article/article-unchecked-create-nested-many-without-favorited-by.input';
+import { ArticleUncheckedCreateNestedManyWithoutAuthorInput } from '../article/article-unchecked-create-nested-many-without-author.input';
+import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { Role } from '../prisma/role.enum';
-import { ArticleUncheckedCreateNestedManyWithoutAuthorInput } from '../article/article-unchecked-create-nested-many-without-author.input';
-import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutProfileInput {
@@ -30,6 +33,23 @@ export class UserUncheckedCreateWithoutProfileInput {
     @Field(() => String, { nullable: true })
     image?: string;
 
+    @Field(() => UserUncheckedCreateNestedManyWithoutFollowersInput, { nullable: true })
+    following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
+
+    @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, { nullable: true })
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
+
+    @Field(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput, {
+        nullable: true,
+    })
+    favoriteArticles?: ArticleUncheckedCreateNestedManyWithoutFavoritedByInput;
+
+    @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+
     @Field(() => Int, { nullable: true })
     countComments?: number;
 
@@ -38,10 +58,4 @@ export class UserUncheckedCreateWithoutProfileInput {
 
     @Field(() => Role, { nullable: true })
     role?: keyof typeof Role;
-
-    @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
-    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
-
-    @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
-    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
 }

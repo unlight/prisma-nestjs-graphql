@@ -1,7 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { TagUncheckedCreateNestedManyWithoutArticlesInput } from '../tag/tag-unchecked-create-nested-many-without-articles.input';
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-unchecked-create-nested-many-without-favorite-articles.input';
 
 @InputType()
 export class ArticleUncheckedCreateWithoutCommentsInput {
@@ -20,6 +22,9 @@ export class ArticleUncheckedCreateWithoutCommentsInput {
     @Field(() => String, { nullable: false })
     body!: string;
 
+    @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, { nullable: true })
+    tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
+
     @HideField()
     createdAt?: Date | string;
 
@@ -31,6 +36,11 @@ export class ArticleUncheckedCreateWithoutCommentsInput {
 
     @Field(() => String, { nullable: false })
     authorId!: string;
+
+    @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {
+        nullable: true,
+    })
+    favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput;
 
     @Field(() => Boolean, { nullable: true })
     active?: boolean;

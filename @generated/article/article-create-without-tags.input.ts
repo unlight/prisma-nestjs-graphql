@@ -32,9 +32,6 @@ export class ArticleCreateWithoutTagsInput {
     @Field(() => Int, { nullable: true })
     favoritesCount?: number;
 
-    @Field(() => Boolean, { nullable: true })
-    active?: boolean;
-
     @Field(() => UserCreateNestedOneWithoutArticlesInput, { nullable: false })
     author!: UserCreateNestedOneWithoutArticlesInput;
 
@@ -43,4 +40,7 @@ export class ArticleCreateWithoutTagsInput {
 
     @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
     comments?: CommentCreateNestedManyWithoutArticleInput;
+
+    @Field(() => Boolean, { nullable: true })
+    active?: boolean;
 }
