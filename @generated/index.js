@@ -352,21 +352,27 @@ var CustomerScalarFieldEnum;
     (CustomerScalarFieldEnum =
         exports.CustomerScalarFieldEnum || (exports.CustomerScalarFieldEnum = {})),
 );
-graphql_6.registerEnumType(CustomerScalarFieldEnum, {
+(0, graphql_6.registerEnumType)(CustomerScalarFieldEnum, {
     name: 'CustomerScalarFieldEnum',
     description: undefined,
 });
-graphql_6.registerEnumType(DeliveryScalarFieldEnum, {
+(0, graphql_6.registerEnumType)(DeliveryScalarFieldEnum, {
     name: 'DeliveryScalarFieldEnum',
     description: undefined,
 });
-graphql_6.registerEnumType(DestinationScalarFieldEnum, {
+(0, graphql_6.registerEnumType)(DestinationScalarFieldEnum, {
     name: 'DestinationScalarFieldEnum',
     description: undefined,
 });
-graphql_6.registerEnumType(QueryMode, { name: 'QueryMode', description: undefined });
-graphql_6.registerEnumType(SortOrder, { name: 'SortOrder', description: undefined });
-graphql_6.registerEnumType(ProfileScalarFieldEnum, {
+(0, graphql_6.registerEnumType)(QueryMode, {
+    name: 'QueryMode',
+    description: undefined,
+});
+(0, graphql_6.registerEnumType)(SortOrder, {
+    name: 'SortOrder',
+    description: undefined,
+});
+(0, graphql_6.registerEnumType)(ProfileScalarFieldEnum, {
     name: 'ProfileScalarFieldEnum',
     description: undefined,
 });
@@ -374,7 +380,7 @@ var AggregateCustomer = /** @class */ (function () {
     function AggregateCustomer() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCountAggregate;
                 },
@@ -386,7 +392,7 @@ var AggregateCustomer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMinAggregate;
                 },
@@ -398,7 +404,7 @@ var AggregateCustomer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMaxAggregate;
                 },
@@ -408,7 +414,7 @@ var AggregateCustomer = /** @class */ (function () {
         AggregateCustomer.prototype,
         '_max',
     );
-    AggregateCustomer = __decorate([graphql_2.ObjectType()], AggregateCustomer);
+    AggregateCustomer = __decorate([(0, graphql_2.ObjectType)()], AggregateCustomer);
     return AggregateCustomer;
 })();
 exports.AggregateCustomer = AggregateCustomer;
@@ -416,7 +422,7 @@ var CreateManyCustomerArgs = /** @class */ (function () {
     function CreateManyCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerCreateManyInput];
                 },
@@ -428,7 +434,7 @@ var CreateManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -438,7 +444,10 @@ var CreateManyCustomerArgs = /** @class */ (function () {
         CreateManyCustomerArgs.prototype,
         'skipDuplicates',
     );
-    CreateManyCustomerArgs = __decorate([graphql_3.ArgsType()], CreateManyCustomerArgs);
+    CreateManyCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateManyCustomerArgs,
+    );
     return CreateManyCustomerArgs;
 })();
 exports.CreateManyCustomerArgs = CreateManyCustomerArgs;
@@ -446,7 +455,7 @@ var CreateOneCustomerArgs = /** @class */ (function () {
     function CreateOneCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateInput;
                 },
@@ -456,7 +465,10 @@ var CreateOneCustomerArgs = /** @class */ (function () {
         CreateOneCustomerArgs.prototype,
         'data',
     );
-    CreateOneCustomerArgs = __decorate([graphql_3.ArgsType()], CreateOneCustomerArgs);
+    CreateOneCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateOneCustomerArgs,
+    );
     return CreateOneCustomerArgs;
 })();
 exports.CreateOneCustomerArgs = CreateOneCustomerArgs;
@@ -464,7 +476,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     function CustomerAggregateArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -476,7 +488,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerOrderByWithRelationInput];
                 },
@@ -488,7 +500,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -500,7 +512,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -512,7 +524,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -524,7 +536,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCountAggregateInput;
                 },
@@ -536,7 +548,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMinAggregateInput;
                 },
@@ -548,7 +560,7 @@ var CustomerAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMaxAggregateInput;
                 },
@@ -558,7 +570,10 @@ var CustomerAggregateArgs = /** @class */ (function () {
         CustomerAggregateArgs.prototype,
         '_max',
     );
-    CustomerAggregateArgs = __decorate([graphql_3.ArgsType()], CustomerAggregateArgs);
+    CustomerAggregateArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CustomerAggregateArgs,
+    );
     return CustomerAggregateArgs;
 })();
 exports.CustomerAggregateArgs = CustomerAggregateArgs;
@@ -566,7 +581,7 @@ var CustomerCountAggregateInput = /** @class */ (function () {
     function CustomerCountAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -578,7 +593,7 @@ var CustomerCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -590,7 +605,7 @@ var CustomerCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -602,7 +617,7 @@ var CustomerCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -613,7 +628,7 @@ var CustomerCountAggregateInput = /** @class */ (function () {
         '_all',
     );
     CustomerCountAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCountAggregateInput,
     );
     return CustomerCountAggregateInput;
@@ -623,7 +638,7 @@ var CustomerCountAggregate = /** @class */ (function () {
     function CustomerCountAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -635,7 +650,7 @@ var CustomerCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -647,7 +662,7 @@ var CustomerCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -659,7 +674,7 @@ var CustomerCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -670,7 +685,7 @@ var CustomerCountAggregate = /** @class */ (function () {
         '_all',
     );
     CustomerCountAggregate = __decorate(
-        [graphql_2.ObjectType()],
+        [(0, graphql_2.ObjectType)()],
         CustomerCountAggregate,
     );
     return CustomerCountAggregate;
@@ -680,7 +695,7 @@ var CustomerCountOrderByAggregateInput = /** @class */ (function () {
     function CustomerCountOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -692,7 +707,7 @@ var CustomerCountOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -704,7 +719,7 @@ var CustomerCountOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -715,7 +730,7 @@ var CustomerCountOrderByAggregateInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerCountOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCountOrderByAggregateInput,
     );
     return CustomerCountOrderByAggregateInput;
@@ -725,7 +740,7 @@ var CustomerCount = /** @class */ (function () {
     function CustomerCount() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -737,7 +752,7 @@ var CustomerCount = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -747,7 +762,7 @@ var CustomerCount = /** @class */ (function () {
         CustomerCount.prototype,
         'collectors',
     );
-    CustomerCount = __decorate([graphql_2.ObjectType()], CustomerCount);
+    CustomerCount = __decorate([(0, graphql_2.ObjectType)()], CustomerCount);
     return CustomerCount;
 })();
 exports.CustomerCount = CustomerCount;
@@ -755,7 +770,7 @@ var CustomerCreateManyInput = /** @class */ (function () {
     function CustomerCreateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -767,7 +782,7 @@ var CustomerCreateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -779,7 +794,7 @@ var CustomerCreateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -790,7 +805,7 @@ var CustomerCreateManyInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerCreateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateManyInput,
     );
     return CustomerCreateManyInput;
@@ -800,7 +815,7 @@ var CustomerCreateNestedOneWithoutCollectorsInput = /** @class */ (function () {
     function CustomerCreateNestedOneWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutCollectorsInput;
                 },
@@ -812,7 +827,7 @@ var CustomerCreateNestedOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutCollectorsInput;
                 },
@@ -824,7 +839,7 @@ var CustomerCreateNestedOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -835,7 +850,7 @@ var CustomerCreateNestedOneWithoutCollectorsInput = /** @class */ (function () {
         'connect',
     );
     CustomerCreateNestedOneWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateNestedOneWithoutCollectorsInput,
     );
     return CustomerCreateNestedOneWithoutCollectorsInput;
@@ -846,7 +861,7 @@ var CustomerCreateNestedOneWithoutDestinationsInput = /** @class */ (function ()
     function CustomerCreateNestedOneWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutDestinationsInput;
                 },
@@ -858,7 +873,7 @@ var CustomerCreateNestedOneWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutDestinationsInput;
                 },
@@ -870,7 +885,7 @@ var CustomerCreateNestedOneWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -881,7 +896,7 @@ var CustomerCreateNestedOneWithoutDestinationsInput = /** @class */ (function ()
         'connect',
     );
     CustomerCreateNestedOneWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateNestedOneWithoutDestinationsInput,
     );
     return CustomerCreateNestedOneWithoutDestinationsInput;
@@ -892,7 +907,7 @@ var CustomerCreateNestedOneWithoutFavoriteDeliveryInput = /** @class */ (functio
     function CustomerCreateNestedOneWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutFavoriteDeliveryInput;
                 },
@@ -904,7 +919,7 @@ var CustomerCreateNestedOneWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutFavoriteDeliveryInput;
                 },
@@ -916,7 +931,7 @@ var CustomerCreateNestedOneWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -927,7 +942,7 @@ var CustomerCreateNestedOneWithoutFavoriteDeliveryInput = /** @class */ (functio
         'connect',
     );
     CustomerCreateNestedOneWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateNestedOneWithoutFavoriteDeliveryInput,
     );
     return CustomerCreateNestedOneWithoutFavoriteDeliveryInput;
@@ -938,7 +953,7 @@ var CustomerCreateNestedOneWithoutProfileInput = /** @class */ (function () {
     function CustomerCreateNestedOneWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -950,7 +965,7 @@ var CustomerCreateNestedOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutProfileInput;
                 },
@@ -962,7 +977,7 @@ var CustomerCreateNestedOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -973,7 +988,7 @@ var CustomerCreateNestedOneWithoutProfileInput = /** @class */ (function () {
         'connect',
     );
     CustomerCreateNestedOneWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateNestedOneWithoutProfileInput,
     );
     return CustomerCreateNestedOneWithoutProfileInput;
@@ -984,7 +999,7 @@ var CustomerCreateOrConnectWithoutCollectorsInput = /** @class */ (function () {
     function CustomerCreateOrConnectWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -996,7 +1011,7 @@ var CustomerCreateOrConnectWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutCollectorsInput;
                 },
@@ -1007,7 +1022,7 @@ var CustomerCreateOrConnectWithoutCollectorsInput = /** @class */ (function () {
         'create',
     );
     CustomerCreateOrConnectWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateOrConnectWithoutCollectorsInput,
     );
     return CustomerCreateOrConnectWithoutCollectorsInput;
@@ -1018,7 +1033,7 @@ var CustomerCreateOrConnectWithoutDestinationsInput = /** @class */ (function ()
     function CustomerCreateOrConnectWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -1030,7 +1045,7 @@ var CustomerCreateOrConnectWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutDestinationsInput;
                 },
@@ -1041,7 +1056,7 @@ var CustomerCreateOrConnectWithoutDestinationsInput = /** @class */ (function ()
         'create',
     );
     CustomerCreateOrConnectWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateOrConnectWithoutDestinationsInput,
     );
     return CustomerCreateOrConnectWithoutDestinationsInput;
@@ -1052,7 +1067,7 @@ var CustomerCreateOrConnectWithoutFavoriteDeliveryInput = /** @class */ (functio
     function CustomerCreateOrConnectWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -1064,7 +1079,7 @@ var CustomerCreateOrConnectWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutFavoriteDeliveryInput;
                 },
@@ -1075,7 +1090,7 @@ var CustomerCreateOrConnectWithoutFavoriteDeliveryInput = /** @class */ (functio
         'create',
     );
     CustomerCreateOrConnectWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateOrConnectWithoutFavoriteDeliveryInput,
     );
     return CustomerCreateOrConnectWithoutFavoriteDeliveryInput;
@@ -1086,7 +1101,7 @@ var CustomerCreateOrConnectWithoutProfileInput = /** @class */ (function () {
     function CustomerCreateOrConnectWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -1098,7 +1113,7 @@ var CustomerCreateOrConnectWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -1109,7 +1124,7 @@ var CustomerCreateOrConnectWithoutProfileInput = /** @class */ (function () {
         'create',
     );
     CustomerCreateOrConnectWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateOrConnectWithoutProfileInput,
     );
     return CustomerCreateOrConnectWithoutProfileInput;
@@ -1120,7 +1135,7 @@ var CustomerCreateWithoutCollectorsInput = /** @class */ (function () {
     function CustomerCreateWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1132,7 +1147,7 @@ var CustomerCreateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -1144,7 +1159,7 @@ var CustomerCreateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -1156,7 +1171,7 @@ var CustomerCreateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedOneWithoutCustomerInput;
                 },
@@ -1167,7 +1182,7 @@ var CustomerCreateWithoutCollectorsInput = /** @class */ (function () {
         'profile',
     );
     CustomerCreateWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateWithoutCollectorsInput,
     );
     return CustomerCreateWithoutCollectorsInput;
@@ -1177,7 +1192,7 @@ var CustomerCreateWithoutDestinationsInput = /** @class */ (function () {
     function CustomerCreateWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1189,7 +1204,7 @@ var CustomerCreateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -1201,7 +1216,7 @@ var CustomerCreateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -1213,7 +1228,7 @@ var CustomerCreateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedOneWithoutCustomerInput;
                 },
@@ -1224,7 +1239,7 @@ var CustomerCreateWithoutDestinationsInput = /** @class */ (function () {
         'profile',
     );
     CustomerCreateWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateWithoutDestinationsInput,
     );
     return CustomerCreateWithoutDestinationsInput;
@@ -1234,7 +1249,7 @@ var CustomerCreateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     function CustomerCreateWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1246,7 +1261,7 @@ var CustomerCreateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -1258,7 +1273,7 @@ var CustomerCreateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -1270,7 +1285,7 @@ var CustomerCreateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedOneWithoutCustomerInput;
                 },
@@ -1281,7 +1296,7 @@ var CustomerCreateWithoutFavoriteDeliveryInput = /** @class */ (function () {
         'profile',
     );
     CustomerCreateWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateWithoutFavoriteDeliveryInput,
     );
     return CustomerCreateWithoutFavoriteDeliveryInput;
@@ -1292,7 +1307,7 @@ var CustomerCreateWithoutProfileInput = /** @class */ (function () {
     function CustomerCreateWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1304,7 +1319,7 @@ var CustomerCreateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -1316,7 +1331,7 @@ var CustomerCreateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -1328,7 +1343,7 @@ var CustomerCreateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -1339,7 +1354,7 @@ var CustomerCreateWithoutProfileInput = /** @class */ (function () {
         'favoriteDelivery',
     );
     CustomerCreateWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerCreateWithoutProfileInput,
     );
     return CustomerCreateWithoutProfileInput;
@@ -1349,7 +1364,7 @@ var CustomerCreateInput = /** @class */ (function () {
     function CustomerCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1361,7 +1376,7 @@ var CustomerCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -1373,7 +1388,7 @@ var CustomerCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -1385,7 +1400,7 @@ var CustomerCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -1397,7 +1412,7 @@ var CustomerCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateNestedOneWithoutCustomerInput;
                 },
@@ -1407,7 +1422,7 @@ var CustomerCreateInput = /** @class */ (function () {
         CustomerCreateInput.prototype,
         'profile',
     );
-    CustomerCreateInput = __decorate([graphql_5.InputType()], CustomerCreateInput);
+    CustomerCreateInput = __decorate([(0, graphql_5.InputType)()], CustomerCreateInput);
     return CustomerCreateInput;
 })();
 exports.CustomerCreateInput = CustomerCreateInput;
@@ -1415,7 +1430,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     function CustomerGroupByArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -1427,7 +1442,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerOrderByWithAggregationInput];
                 },
@@ -1439,7 +1454,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarFieldEnum];
                 },
@@ -1451,7 +1466,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerScalarWhereWithAggregatesInput;
                 },
@@ -1463,7 +1478,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -1475,7 +1490,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -1487,7 +1502,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCountAggregateInput;
                 },
@@ -1499,7 +1514,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMinAggregateInput;
                 },
@@ -1511,7 +1526,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMaxAggregateInput;
                 },
@@ -1521,7 +1536,7 @@ var CustomerGroupByArgs = /** @class */ (function () {
         CustomerGroupByArgs.prototype,
         '_max',
     );
-    CustomerGroupByArgs = __decorate([graphql_3.ArgsType()], CustomerGroupByArgs);
+    CustomerGroupByArgs = __decorate([(0, graphql_3.ArgsType)()], CustomerGroupByArgs);
     return CustomerGroupByArgs;
 })();
 exports.CustomerGroupByArgs = CustomerGroupByArgs;
@@ -1529,7 +1544,7 @@ var CustomerGroupBy = /** @class */ (function () {
     function CustomerGroupBy() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1541,7 +1556,7 @@ var CustomerGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1553,7 +1568,7 @@ var CustomerGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1565,7 +1580,7 @@ var CustomerGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCountAggregate;
                 },
@@ -1577,7 +1592,7 @@ var CustomerGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMinAggregate;
                 },
@@ -1589,7 +1604,7 @@ var CustomerGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMaxAggregate;
                 },
@@ -1599,7 +1614,7 @@ var CustomerGroupBy = /** @class */ (function () {
         CustomerGroupBy.prototype,
         '_max',
     );
-    CustomerGroupBy = __decorate([graphql_2.ObjectType()], CustomerGroupBy);
+    CustomerGroupBy = __decorate([(0, graphql_2.ObjectType)()], CustomerGroupBy);
     return CustomerGroupBy;
 })();
 exports.CustomerGroupBy = CustomerGroupBy;
@@ -1607,7 +1622,7 @@ var CustomerMaxAggregateInput = /** @class */ (function () {
     function CustomerMaxAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1619,7 +1634,7 @@ var CustomerMaxAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1631,7 +1646,7 @@ var CustomerMaxAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1642,7 +1657,7 @@ var CustomerMaxAggregateInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerMaxAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerMaxAggregateInput,
     );
     return CustomerMaxAggregateInput;
@@ -1652,7 +1667,7 @@ var CustomerMaxAggregate = /** @class */ (function () {
     function CustomerMaxAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1664,7 +1679,7 @@ var CustomerMaxAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1676,7 +1691,7 @@ var CustomerMaxAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1686,7 +1701,10 @@ var CustomerMaxAggregate = /** @class */ (function () {
         CustomerMaxAggregate.prototype,
         'id_profile',
     );
-    CustomerMaxAggregate = __decorate([graphql_2.ObjectType()], CustomerMaxAggregate);
+    CustomerMaxAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        CustomerMaxAggregate,
+    );
     return CustomerMaxAggregate;
 })();
 exports.CustomerMaxAggregate = CustomerMaxAggregate;
@@ -1694,7 +1712,7 @@ var CustomerMaxOrderByAggregateInput = /** @class */ (function () {
     function CustomerMaxOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1706,7 +1724,7 @@ var CustomerMaxOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1718,7 +1736,7 @@ var CustomerMaxOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1729,7 +1747,7 @@ var CustomerMaxOrderByAggregateInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerMaxOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerMaxOrderByAggregateInput,
     );
     return CustomerMaxOrderByAggregateInput;
@@ -1739,7 +1757,7 @@ var CustomerMinAggregateInput = /** @class */ (function () {
     function CustomerMinAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1751,7 +1769,7 @@ var CustomerMinAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1763,7 +1781,7 @@ var CustomerMinAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -1774,7 +1792,7 @@ var CustomerMinAggregateInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerMinAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerMinAggregateInput,
     );
     return CustomerMinAggregateInput;
@@ -1784,7 +1802,7 @@ var CustomerMinAggregate = /** @class */ (function () {
     function CustomerMinAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1796,7 +1814,7 @@ var CustomerMinAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1808,7 +1826,7 @@ var CustomerMinAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -1818,7 +1836,10 @@ var CustomerMinAggregate = /** @class */ (function () {
         CustomerMinAggregate.prototype,
         'id_profile',
     );
-    CustomerMinAggregate = __decorate([graphql_2.ObjectType()], CustomerMinAggregate);
+    CustomerMinAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        CustomerMinAggregate,
+    );
     return CustomerMinAggregate;
 })();
 exports.CustomerMinAggregate = CustomerMinAggregate;
@@ -1826,7 +1847,7 @@ var CustomerMinOrderByAggregateInput = /** @class */ (function () {
     function CustomerMinOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1838,7 +1859,7 @@ var CustomerMinOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1850,7 +1871,7 @@ var CustomerMinOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1861,7 +1882,7 @@ var CustomerMinOrderByAggregateInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerMinOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerMinOrderByAggregateInput,
     );
     return CustomerMinOrderByAggregateInput;
@@ -1871,7 +1892,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     function CustomerOrderByWithAggregationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1883,7 +1904,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1895,7 +1916,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1907,7 +1928,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCountOrderByAggregateInput;
                 },
@@ -1919,7 +1940,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMaxOrderByAggregateInput;
                 },
@@ -1931,7 +1952,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerMinOrderByAggregateInput;
                 },
@@ -1942,7 +1963,7 @@ var CustomerOrderByWithAggregationInput = /** @class */ (function () {
         '_min',
     );
     CustomerOrderByWithAggregationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerOrderByWithAggregationInput,
     );
     return CustomerOrderByWithAggregationInput;
@@ -1952,7 +1973,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     function CustomerOrderByWithRelationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -1964,7 +1985,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationOrderByRelationAggregateInput;
                 },
@@ -1976,7 +1997,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileOrderByRelationAggregateInput;
                 },
@@ -1988,7 +2009,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryOrderByWithRelationInput;
                 },
@@ -2000,7 +2021,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -2012,7 +2033,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileOrderByWithRelationInput;
                 },
@@ -2024,7 +2045,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -2035,7 +2056,7 @@ var CustomerOrderByWithRelationInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerOrderByWithRelationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerOrderByWithRelationInput,
     );
     return CustomerOrderByWithRelationInput;
@@ -2045,7 +2066,7 @@ var CustomerRelationFilter = /** @class */ (function () {
     function CustomerRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -2057,7 +2078,7 @@ var CustomerRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -2068,7 +2089,7 @@ var CustomerRelationFilter = /** @class */ (function () {
         'isNot',
     );
     CustomerRelationFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerRelationFilter,
     );
     return CustomerRelationFilter;
@@ -2080,7 +2101,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     var CustomerScalarWhereWithAggregatesInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarWhereWithAggregatesInput_1];
                 },
@@ -2092,7 +2113,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarWhereWithAggregatesInput_1];
                 },
@@ -2104,7 +2125,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarWhereWithAggregatesInput_1];
                 },
@@ -2116,7 +2137,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -2128,7 +2149,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -2140,7 +2161,7 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -2151,7 +2172,10 @@ var CustomerScalarWhereWithAggregatesInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerScalarWhereWithAggregatesInput = CustomerScalarWhereWithAggregatesInput_1 =
-        __decorate([graphql_5.InputType()], CustomerScalarWhereWithAggregatesInput);
+        __decorate(
+            [(0, graphql_5.InputType)()],
+            CustomerScalarWhereWithAggregatesInput,
+        );
     return CustomerScalarWhereWithAggregatesInput;
 })();
 exports.CustomerScalarWhereWithAggregatesInput = CustomerScalarWhereWithAggregatesInput;
@@ -2160,7 +2184,7 @@ var CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput =
         function CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerCreateWithoutFavoriteDeliveryInput;
                     },
@@ -2172,7 +2196,7 @@ var CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerCreateOrConnectWithoutFavoriteDeliveryInput;
                     },
@@ -2184,7 +2208,7 @@ var CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerWhereUniqueInput;
                     },
@@ -2195,7 +2219,7 @@ var CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput =
             'connect',
         );
         CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput,
         );
         return CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput;
@@ -2206,7 +2230,7 @@ var CustomerUncheckedCreateNestedOneWithoutProfileInput = /** @class */ (functio
     function CustomerUncheckedCreateNestedOneWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -2218,7 +2242,7 @@ var CustomerUncheckedCreateNestedOneWithoutProfileInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutProfileInput;
                 },
@@ -2230,7 +2254,7 @@ var CustomerUncheckedCreateNestedOneWithoutProfileInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -2241,7 +2265,7 @@ var CustomerUncheckedCreateNestedOneWithoutProfileInput = /** @class */ (functio
         'connect',
     );
     CustomerUncheckedCreateNestedOneWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateNestedOneWithoutProfileInput,
     );
     return CustomerUncheckedCreateNestedOneWithoutProfileInput;
@@ -2252,7 +2276,7 @@ var CustomerUncheckedCreateWithoutCollectorsInput = /** @class */ (function () {
     function CustomerUncheckedCreateWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2264,7 +2288,19 @@ var CustomerUncheckedCreateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedCreateWithoutCollectorsInput.prototype,
+        'destinations',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2276,7 +2312,7 @@ var CustomerUncheckedCreateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2286,20 +2322,8 @@ var CustomerUncheckedCreateWithoutCollectorsInput = /** @class */ (function () {
         CustomerUncheckedCreateWithoutCollectorsInput.prototype,
         'id_profile',
     );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedCreateWithoutCollectorsInput.prototype,
-        'destinations',
-    );
     CustomerUncheckedCreateWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateWithoutCollectorsInput,
     );
     return CustomerUncheckedCreateWithoutCollectorsInput;
@@ -2310,7 +2334,7 @@ var CustomerUncheckedCreateWithoutDestinationsInput = /** @class */ (function ()
     function CustomerUncheckedCreateWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2322,7 +2346,19 @@ var CustomerUncheckedCreateWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedCreateWithoutDestinationsInput.prototype,
+        'collectors',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2334,7 +2370,7 @@ var CustomerUncheckedCreateWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2344,20 +2380,8 @@ var CustomerUncheckedCreateWithoutDestinationsInput = /** @class */ (function ()
         CustomerUncheckedCreateWithoutDestinationsInput.prototype,
         'id_profile',
     );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedCreateWithoutDestinationsInput.prototype,
-        'collectors',
-    );
     CustomerUncheckedCreateWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateWithoutDestinationsInput,
     );
     return CustomerUncheckedCreateWithoutDestinationsInput;
@@ -2368,7 +2392,7 @@ var CustomerUncheckedCreateWithoutFavoriteDeliveryInput = /** @class */ (functio
     function CustomerUncheckedCreateWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2380,19 +2404,7 @@ var CustomerUncheckedCreateWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return String;
-                },
-                { nullable: false },
-            ),
-        ],
-        CustomerUncheckedCreateWithoutFavoriteDeliveryInput.prototype,
-        'id_profile',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -2404,7 +2416,7 @@ var CustomerUncheckedCreateWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -2414,8 +2426,20 @@ var CustomerUncheckedCreateWithoutFavoriteDeliveryInput = /** @class */ (functio
         CustomerUncheckedCreateWithoutFavoriteDeliveryInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return String;
+                },
+                { nullable: false },
+            ),
+        ],
+        CustomerUncheckedCreateWithoutFavoriteDeliveryInput.prototype,
+        'id_profile',
+    );
     CustomerUncheckedCreateWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateWithoutFavoriteDeliveryInput,
     );
     return CustomerUncheckedCreateWithoutFavoriteDeliveryInput;
@@ -2426,7 +2450,7 @@ var CustomerUncheckedCreateWithoutProfileInput = /** @class */ (function () {
     function CustomerUncheckedCreateWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2438,19 +2462,7 @@ var CustomerUncheckedCreateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return String;
-                },
-                { nullable: false },
-            ),
-        ],
-        CustomerUncheckedCreateWithoutProfileInput.prototype,
-        'id_favoriteDelivery',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -2462,7 +2474,7 @@ var CustomerUncheckedCreateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -2472,8 +2484,20 @@ var CustomerUncheckedCreateWithoutProfileInput = /** @class */ (function () {
         CustomerUncheckedCreateWithoutProfileInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return String;
+                },
+                { nullable: false },
+            ),
+        ],
+        CustomerUncheckedCreateWithoutProfileInput.prototype,
+        'id_favoriteDelivery',
+    );
     CustomerUncheckedCreateWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateWithoutProfileInput,
     );
     return CustomerUncheckedCreateWithoutProfileInput;
@@ -2484,7 +2508,7 @@ var CustomerUncheckedCreateInput = /** @class */ (function () {
     function CustomerUncheckedCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -2496,31 +2520,7 @@ var CustomerUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return String;
-                },
-                { nullable: false },
-            ),
-        ],
-        CustomerUncheckedCreateInput.prototype,
-        'id_favoriteDelivery',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return String;
-                },
-                { nullable: false },
-            ),
-        ],
-        CustomerUncheckedCreateInput.prototype,
-        'id_profile',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
                 },
@@ -2532,7 +2532,7 @@ var CustomerUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
                 },
@@ -2542,8 +2542,32 @@ var CustomerUncheckedCreateInput = /** @class */ (function () {
         CustomerUncheckedCreateInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return String;
+                },
+                { nullable: false },
+            ),
+        ],
+        CustomerUncheckedCreateInput.prototype,
+        'id_favoriteDelivery',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return String;
+                },
+                { nullable: false },
+            ),
+        ],
+        CustomerUncheckedCreateInput.prototype,
+        'id_profile',
+    );
     CustomerUncheckedCreateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedCreateInput,
     );
     return CustomerUncheckedCreateInput;
@@ -2553,7 +2577,7 @@ var CustomerUncheckedUpdateManyInput = /** @class */ (function () {
     function CustomerUncheckedUpdateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2565,7 +2589,7 @@ var CustomerUncheckedUpdateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2577,7 +2601,7 @@ var CustomerUncheckedUpdateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2588,7 +2612,7 @@ var CustomerUncheckedUpdateManyInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerUncheckedUpdateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateManyInput,
     );
     return CustomerUncheckedUpdateManyInput;
@@ -2599,7 +2623,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         function CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerCreateWithoutFavoriteDeliveryInput;
                     },
@@ -2611,7 +2635,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerCreateOrConnectWithoutFavoriteDeliveryInput;
                     },
@@ -2623,7 +2647,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerUpsertWithoutFavoriteDeliveryInput;
                     },
@@ -2635,19 +2659,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return CustomerWhereUniqueInput;
-                    },
-                    { nullable: true },
-                ),
-            ],
-            CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -2659,7 +2671,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -2671,7 +2683,19 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return CustomerWhereUniqueInput;
+                    },
+                    { nullable: true },
+                ),
+            ],
+            CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerUpdateWithoutFavoriteDeliveryInput;
                     },
@@ -2682,7 +2706,7 @@ var CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput =
             'update',
         );
         CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput,
         );
         return CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput;
@@ -2693,7 +2717,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     function CustomerUncheckedUpdateOneWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -2705,7 +2729,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutProfileInput;
                 },
@@ -2717,7 +2741,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpsertWithoutProfileInput;
                 },
@@ -2729,19 +2753,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return CustomerWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateOneWithoutProfileInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -2753,7 +2765,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -2765,7 +2777,19 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return CustomerWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateOneWithoutProfileInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutProfileInput;
                 },
@@ -2776,7 +2800,7 @@ var CustomerUncheckedUpdateOneWithoutProfileInput = /** @class */ (function () {
         'update',
     );
     CustomerUncheckedUpdateOneWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateOneWithoutProfileInput,
     );
     return CustomerUncheckedUpdateOneWithoutProfileInput;
@@ -2787,7 +2811,7 @@ var CustomerUncheckedUpdateWithoutCollectorsInput = /** @class */ (function () {
     function CustomerUncheckedUpdateWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2799,7 +2823,19 @@ var CustomerUncheckedUpdateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateWithoutCollectorsInput.prototype,
+        'destinations',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2811,7 +2847,7 @@ var CustomerUncheckedUpdateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2821,20 +2857,8 @@ var CustomerUncheckedUpdateWithoutCollectorsInput = /** @class */ (function () {
         CustomerUncheckedUpdateWithoutCollectorsInput.prototype,
         'id_profile',
     );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateWithoutCollectorsInput.prototype,
-        'destinations',
-    );
     CustomerUncheckedUpdateWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateWithoutCollectorsInput,
     );
     return CustomerUncheckedUpdateWithoutCollectorsInput;
@@ -2845,7 +2869,7 @@ var CustomerUncheckedUpdateWithoutDestinationsInput = /** @class */ (function ()
     function CustomerUncheckedUpdateWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2857,7 +2881,19 @@ var CustomerUncheckedUpdateWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateWithoutDestinationsInput.prototype,
+        'collectors',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2869,7 +2905,7 @@ var CustomerUncheckedUpdateWithoutDestinationsInput = /** @class */ (function ()
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2879,20 +2915,8 @@ var CustomerUncheckedUpdateWithoutDestinationsInput = /** @class */ (function ()
         CustomerUncheckedUpdateWithoutDestinationsInput.prototype,
         'id_profile',
     );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateWithoutDestinationsInput.prototype,
-        'collectors',
-    );
     CustomerUncheckedUpdateWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateWithoutDestinationsInput,
     );
     return CustomerUncheckedUpdateWithoutDestinationsInput;
@@ -2903,7 +2927,7 @@ var CustomerUncheckedUpdateWithoutFavoriteDeliveryInput = /** @class */ (functio
     function CustomerUncheckedUpdateWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2915,19 +2939,7 @@ var CustomerUncheckedUpdateWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return StringFieldUpdateOperationsInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateWithoutFavoriteDeliveryInput.prototype,
-        'id_profile',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -2939,7 +2951,7 @@ var CustomerUncheckedUpdateWithoutFavoriteDeliveryInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -2949,8 +2961,20 @@ var CustomerUncheckedUpdateWithoutFavoriteDeliveryInput = /** @class */ (functio
         CustomerUncheckedUpdateWithoutFavoriteDeliveryInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return StringFieldUpdateOperationsInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateWithoutFavoriteDeliveryInput.prototype,
+        'id_profile',
+    );
     CustomerUncheckedUpdateWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateWithoutFavoriteDeliveryInput,
     );
     return CustomerUncheckedUpdateWithoutFavoriteDeliveryInput;
@@ -2961,7 +2985,7 @@ var CustomerUncheckedUpdateWithoutProfileInput = /** @class */ (function () {
     function CustomerUncheckedUpdateWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -2973,19 +2997,7 @@ var CustomerUncheckedUpdateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return StringFieldUpdateOperationsInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateWithoutProfileInput.prototype,
-        'id_favoriteDelivery',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -2997,7 +3009,7 @@ var CustomerUncheckedUpdateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3007,8 +3019,20 @@ var CustomerUncheckedUpdateWithoutProfileInput = /** @class */ (function () {
         CustomerUncheckedUpdateWithoutProfileInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return StringFieldUpdateOperationsInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateWithoutProfileInput.prototype,
+        'id_favoriteDelivery',
+    );
     CustomerUncheckedUpdateWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateWithoutProfileInput,
     );
     return CustomerUncheckedUpdateWithoutProfileInput;
@@ -3019,7 +3043,7 @@ var CustomerUncheckedUpdateInput = /** @class */ (function () {
     function CustomerUncheckedUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3031,31 +3055,7 @@ var CustomerUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return StringFieldUpdateOperationsInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateInput.prototype,
-        'id_favoriteDelivery',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
-                function () {
-                    return StringFieldUpdateOperationsInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUncheckedUpdateInput.prototype,
-        'id_profile',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -3067,7 +3067,7 @@ var CustomerUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3077,8 +3077,32 @@ var CustomerUncheckedUpdateInput = /** @class */ (function () {
         CustomerUncheckedUpdateInput.prototype,
         'collectors',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return StringFieldUpdateOperationsInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateInput.prototype,
+        'id_favoriteDelivery',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return StringFieldUpdateOperationsInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUncheckedUpdateInput.prototype,
+        'id_profile',
+    );
     CustomerUncheckedUpdateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUncheckedUpdateInput,
     );
     return CustomerUncheckedUpdateInput;
@@ -3088,7 +3112,7 @@ var CustomerUpdateManyMutationInput = /** @class */ (function () {
     function CustomerUpdateManyMutationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3099,7 +3123,7 @@ var CustomerUpdateManyMutationInput = /** @class */ (function () {
         'number',
     );
     CustomerUpdateManyMutationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateManyMutationInput,
     );
     return CustomerUpdateManyMutationInput;
@@ -3109,7 +3133,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     function CustomerUpdateOneWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutCollectorsInput;
                 },
@@ -3121,7 +3145,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutCollectorsInput;
                 },
@@ -3133,7 +3157,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpsertWithoutCollectorsInput;
                 },
@@ -3145,19 +3169,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return CustomerWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUpdateOneWithoutCollectorsInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3169,7 +3181,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3181,7 +3193,19 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return CustomerWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUpdateOneWithoutCollectorsInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutCollectorsInput;
                 },
@@ -3192,7 +3216,7 @@ var CustomerUpdateOneWithoutCollectorsInput = /** @class */ (function () {
         'update',
     );
     CustomerUpdateOneWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateOneWithoutCollectorsInput,
     );
     return CustomerUpdateOneWithoutCollectorsInput;
@@ -3203,7 +3227,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     function CustomerUpdateOneWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutDestinationsInput;
                 },
@@ -3215,7 +3239,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutDestinationsInput;
                 },
@@ -3227,7 +3251,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpsertWithoutDestinationsInput;
                 },
@@ -3239,19 +3263,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return CustomerWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUpdateOneWithoutDestinationsInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3263,7 +3275,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3275,7 +3287,19 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return CustomerWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUpdateOneWithoutDestinationsInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutDestinationsInput;
                 },
@@ -3286,7 +3310,7 @@ var CustomerUpdateOneWithoutDestinationsInput = /** @class */ (function () {
         'update',
     );
     CustomerUpdateOneWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateOneWithoutDestinationsInput,
     );
     return CustomerUpdateOneWithoutDestinationsInput;
@@ -3297,7 +3321,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     function CustomerUpdateOneWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutFavoriteDeliveryInput;
                 },
@@ -3309,7 +3333,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutFavoriteDeliveryInput;
                 },
@@ -3321,7 +3345,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpsertWithoutFavoriteDeliveryInput;
                 },
@@ -3333,19 +3357,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return CustomerWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUpdateOneWithoutFavoriteDeliveryInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3357,7 +3369,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3369,7 +3381,19 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return CustomerWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUpdateOneWithoutFavoriteDeliveryInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutFavoriteDeliveryInput;
                 },
@@ -3380,7 +3404,7 @@ var CustomerUpdateOneWithoutFavoriteDeliveryInput = /** @class */ (function () {
         'update',
     );
     CustomerUpdateOneWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateOneWithoutFavoriteDeliveryInput,
     );
     return CustomerUpdateOneWithoutFavoriteDeliveryInput;
@@ -3391,7 +3415,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     function CustomerUpdateOneWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -3403,7 +3427,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateOrConnectWithoutProfileInput;
                 },
@@ -3415,7 +3439,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpsertWithoutProfileInput;
                 },
@@ -3427,19 +3451,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return CustomerWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        CustomerUpdateOneWithoutProfileInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3451,7 +3463,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -3463,7 +3475,19 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return CustomerWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        CustomerUpdateOneWithoutProfileInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutProfileInput;
                 },
@@ -3474,7 +3498,7 @@ var CustomerUpdateOneWithoutProfileInput = /** @class */ (function () {
         'update',
     );
     CustomerUpdateOneWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateOneWithoutProfileInput,
     );
     return CustomerUpdateOneWithoutProfileInput;
@@ -3484,7 +3508,7 @@ var CustomerUpdateWithoutCollectorsInput = /** @class */ (function () {
     function CustomerUpdateWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3496,7 +3520,7 @@ var CustomerUpdateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -3508,7 +3532,7 @@ var CustomerUpdateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -3520,7 +3544,7 @@ var CustomerUpdateWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateOneRequiredWithoutCustomerInput;
                 },
@@ -3531,7 +3555,7 @@ var CustomerUpdateWithoutCollectorsInput = /** @class */ (function () {
         'profile',
     );
     CustomerUpdateWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateWithoutCollectorsInput,
     );
     return CustomerUpdateWithoutCollectorsInput;
@@ -3541,7 +3565,7 @@ var CustomerUpdateWithoutDestinationsInput = /** @class */ (function () {
     function CustomerUpdateWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3553,7 +3577,7 @@ var CustomerUpdateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3565,7 +3589,7 @@ var CustomerUpdateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -3577,7 +3601,7 @@ var CustomerUpdateWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateOneRequiredWithoutCustomerInput;
                 },
@@ -3588,7 +3612,7 @@ var CustomerUpdateWithoutDestinationsInput = /** @class */ (function () {
         'profile',
     );
     CustomerUpdateWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateWithoutDestinationsInput,
     );
     return CustomerUpdateWithoutDestinationsInput;
@@ -3598,7 +3622,7 @@ var CustomerUpdateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     function CustomerUpdateWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3610,7 +3634,7 @@ var CustomerUpdateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -3622,7 +3646,7 @@ var CustomerUpdateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3634,7 +3658,7 @@ var CustomerUpdateWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateOneRequiredWithoutCustomerInput;
                 },
@@ -3645,7 +3669,7 @@ var CustomerUpdateWithoutFavoriteDeliveryInput = /** @class */ (function () {
         'profile',
     );
     CustomerUpdateWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateWithoutFavoriteDeliveryInput,
     );
     return CustomerUpdateWithoutFavoriteDeliveryInput;
@@ -3656,7 +3680,7 @@ var CustomerUpdateWithoutProfileInput = /** @class */ (function () {
     function CustomerUpdateWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3668,7 +3692,7 @@ var CustomerUpdateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -3680,7 +3704,7 @@ var CustomerUpdateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3692,7 +3716,7 @@ var CustomerUpdateWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -3703,7 +3727,7 @@ var CustomerUpdateWithoutProfileInput = /** @class */ (function () {
         'favoriteDelivery',
     );
     CustomerUpdateWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpdateWithoutProfileInput,
     );
     return CustomerUpdateWithoutProfileInput;
@@ -3713,7 +3737,7 @@ var CustomerUpdateInput = /** @class */ (function () {
     function CustomerUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -3725,7 +3749,7 @@ var CustomerUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateManyWithoutCustomer_destination_customerInput;
                 },
@@ -3737,7 +3761,7 @@ var CustomerUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateManyWithoutCollector_profile_customerInput;
                 },
@@ -3749,7 +3773,7 @@ var CustomerUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput;
                 },
@@ -3761,7 +3785,7 @@ var CustomerUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateOneRequiredWithoutCustomerInput;
                 },
@@ -3771,7 +3795,7 @@ var CustomerUpdateInput = /** @class */ (function () {
         CustomerUpdateInput.prototype,
         'profile',
     );
-    CustomerUpdateInput = __decorate([graphql_5.InputType()], CustomerUpdateInput);
+    CustomerUpdateInput = __decorate([(0, graphql_5.InputType)()], CustomerUpdateInput);
     return CustomerUpdateInput;
 })();
 exports.CustomerUpdateInput = CustomerUpdateInput;
@@ -3779,7 +3803,7 @@ var CustomerUpsertWithoutCollectorsInput = /** @class */ (function () {
     function CustomerUpsertWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutCollectorsInput;
                 },
@@ -3791,7 +3815,7 @@ var CustomerUpsertWithoutCollectorsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutCollectorsInput;
                 },
@@ -3802,7 +3826,7 @@ var CustomerUpsertWithoutCollectorsInput = /** @class */ (function () {
         'create',
     );
     CustomerUpsertWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpsertWithoutCollectorsInput,
     );
     return CustomerUpsertWithoutCollectorsInput;
@@ -3812,7 +3836,7 @@ var CustomerUpsertWithoutDestinationsInput = /** @class */ (function () {
     function CustomerUpsertWithoutDestinationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutDestinationsInput;
                 },
@@ -3824,7 +3848,7 @@ var CustomerUpsertWithoutDestinationsInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutDestinationsInput;
                 },
@@ -3835,7 +3859,7 @@ var CustomerUpsertWithoutDestinationsInput = /** @class */ (function () {
         'create',
     );
     CustomerUpsertWithoutDestinationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpsertWithoutDestinationsInput,
     );
     return CustomerUpsertWithoutDestinationsInput;
@@ -3845,7 +3869,7 @@ var CustomerUpsertWithoutFavoriteDeliveryInput = /** @class */ (function () {
     function CustomerUpsertWithoutFavoriteDeliveryInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutFavoriteDeliveryInput;
                 },
@@ -3857,7 +3881,7 @@ var CustomerUpsertWithoutFavoriteDeliveryInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutFavoriteDeliveryInput;
                 },
@@ -3868,7 +3892,7 @@ var CustomerUpsertWithoutFavoriteDeliveryInput = /** @class */ (function () {
         'create',
     );
     CustomerUpsertWithoutFavoriteDeliveryInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpsertWithoutFavoriteDeliveryInput,
     );
     return CustomerUpsertWithoutFavoriteDeliveryInput;
@@ -3879,7 +3903,7 @@ var CustomerUpsertWithoutProfileInput = /** @class */ (function () {
     function CustomerUpsertWithoutProfileInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateWithoutProfileInput;
                 },
@@ -3891,7 +3915,7 @@ var CustomerUpsertWithoutProfileInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateWithoutProfileInput;
                 },
@@ -3902,7 +3926,7 @@ var CustomerUpsertWithoutProfileInput = /** @class */ (function () {
         'create',
     );
     CustomerUpsertWithoutProfileInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerUpsertWithoutProfileInput,
     );
     return CustomerUpsertWithoutProfileInput;
@@ -3912,7 +3936,7 @@ var CustomerWhereUniqueInput = /** @class */ (function () {
     function CustomerWhereUniqueInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -3924,7 +3948,7 @@ var CustomerWhereUniqueInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -3936,7 +3960,7 @@ var CustomerWhereUniqueInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -3947,7 +3971,7 @@ var CustomerWhereUniqueInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerWhereUniqueInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerWhereUniqueInput,
     );
     return CustomerWhereUniqueInput;
@@ -3959,7 +3983,7 @@ var CustomerWhereInput = /** @class */ (function () {
     var CustomerWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerWhereInput_1];
                 },
@@ -3971,7 +3995,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerWhereInput_1];
                 },
@@ -3983,7 +4007,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerWhereInput_1];
                 },
@@ -3995,7 +4019,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -4007,7 +4031,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationListRelationFilter;
                 },
@@ -4019,7 +4043,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileListRelationFilter;
                 },
@@ -4031,7 +4055,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryRelationFilter;
                 },
@@ -4043,7 +4067,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -4055,7 +4079,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileRelationFilter;
                 },
@@ -4067,7 +4091,7 @@ var CustomerWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -4078,7 +4102,7 @@ var CustomerWhereInput = /** @class */ (function () {
         'id_profile',
     );
     CustomerWhereInput = CustomerWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         CustomerWhereInput,
     );
     return CustomerWhereInput;
@@ -4088,7 +4112,7 @@ var Customer = /** @class */ (function () {
     function Customer() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_7.ID;
                 },
@@ -4100,7 +4124,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [Destination];
                 },
@@ -4112,7 +4136,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [Profile];
                 },
@@ -4124,7 +4148,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Delivery;
                 },
@@ -4136,7 +4160,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -4148,7 +4172,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Profile;
                 },
@@ -4160,7 +4184,7 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -4172,17 +4196,17 @@ var Customer = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCount;
                 },
-                { nullable: true },
+                { nullable: false },
             ),
         ],
         Customer.prototype,
         '_count',
     );
-    Customer = __decorate([graphql_2.ObjectType()], Customer);
+    Customer = __decorate([(0, graphql_2.ObjectType)()], Customer);
     return Customer;
 })();
 exports.Customer = Customer;
@@ -4190,7 +4214,7 @@ var DeleteManyCustomerArgs = /** @class */ (function () {
     function DeleteManyCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -4200,7 +4224,10 @@ var DeleteManyCustomerArgs = /** @class */ (function () {
         DeleteManyCustomerArgs.prototype,
         'where',
     );
-    DeleteManyCustomerArgs = __decorate([graphql_3.ArgsType()], DeleteManyCustomerArgs);
+    DeleteManyCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteManyCustomerArgs,
+    );
     return DeleteManyCustomerArgs;
 })();
 exports.DeleteManyCustomerArgs = DeleteManyCustomerArgs;
@@ -4208,7 +4235,7 @@ var DeleteOneCustomerArgs = /** @class */ (function () {
     function DeleteOneCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4218,7 +4245,10 @@ var DeleteOneCustomerArgs = /** @class */ (function () {
         DeleteOneCustomerArgs.prototype,
         'where',
     );
-    DeleteOneCustomerArgs = __decorate([graphql_3.ArgsType()], DeleteOneCustomerArgs);
+    DeleteOneCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteOneCustomerArgs,
+    );
     return DeleteOneCustomerArgs;
 })();
 exports.DeleteOneCustomerArgs = DeleteOneCustomerArgs;
@@ -4226,7 +4256,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     function FindFirstCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -4238,7 +4268,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerOrderByWithRelationInput];
                 },
@@ -4250,7 +4280,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4262,7 +4292,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4274,7 +4304,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4286,7 +4316,7 @@ var FindFirstCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarFieldEnum];
                 },
@@ -4296,7 +4326,10 @@ var FindFirstCustomerArgs = /** @class */ (function () {
         FindFirstCustomerArgs.prototype,
         'distinct',
     );
-    FindFirstCustomerArgs = __decorate([graphql_3.ArgsType()], FindFirstCustomerArgs);
+    FindFirstCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindFirstCustomerArgs,
+    );
     return FindFirstCustomerArgs;
 })();
 exports.FindFirstCustomerArgs = FindFirstCustomerArgs;
@@ -4304,7 +4337,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     function FindManyCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -4316,7 +4349,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerOrderByWithRelationInput];
                 },
@@ -4328,7 +4361,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4340,7 +4373,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4352,7 +4385,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4364,7 +4397,7 @@ var FindManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [CustomerScalarFieldEnum];
                 },
@@ -4374,7 +4407,10 @@ var FindManyCustomerArgs = /** @class */ (function () {
         FindManyCustomerArgs.prototype,
         'distinct',
     );
-    FindManyCustomerArgs = __decorate([graphql_3.ArgsType()], FindManyCustomerArgs);
+    FindManyCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindManyCustomerArgs,
+    );
     return FindManyCustomerArgs;
 })();
 exports.FindManyCustomerArgs = FindManyCustomerArgs;
@@ -4382,7 +4418,7 @@ var FindUniqueCustomerArgs = /** @class */ (function () {
     function FindUniqueCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4392,7 +4428,10 @@ var FindUniqueCustomerArgs = /** @class */ (function () {
         FindUniqueCustomerArgs.prototype,
         'where',
     );
-    FindUniqueCustomerArgs = __decorate([graphql_3.ArgsType()], FindUniqueCustomerArgs);
+    FindUniqueCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindUniqueCustomerArgs,
+    );
     return FindUniqueCustomerArgs;
 })();
 exports.FindUniqueCustomerArgs = FindUniqueCustomerArgs;
@@ -4400,7 +4439,7 @@ var UpdateManyCustomerArgs = /** @class */ (function () {
     function UpdateManyCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateManyMutationInput;
                 },
@@ -4412,7 +4451,7 @@ var UpdateManyCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereInput;
                 },
@@ -4422,7 +4461,10 @@ var UpdateManyCustomerArgs = /** @class */ (function () {
         UpdateManyCustomerArgs.prototype,
         'where',
     );
-    UpdateManyCustomerArgs = __decorate([graphql_3.ArgsType()], UpdateManyCustomerArgs);
+    UpdateManyCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateManyCustomerArgs,
+    );
     return UpdateManyCustomerArgs;
 })();
 exports.UpdateManyCustomerArgs = UpdateManyCustomerArgs;
@@ -4430,7 +4472,7 @@ var UpdateOneCustomerArgs = /** @class */ (function () {
     function UpdateOneCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateInput;
                 },
@@ -4442,7 +4484,7 @@ var UpdateOneCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4452,7 +4494,10 @@ var UpdateOneCustomerArgs = /** @class */ (function () {
         UpdateOneCustomerArgs.prototype,
         'where',
     );
-    UpdateOneCustomerArgs = __decorate([graphql_3.ArgsType()], UpdateOneCustomerArgs);
+    UpdateOneCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateOneCustomerArgs,
+    );
     return UpdateOneCustomerArgs;
 })();
 exports.UpdateOneCustomerArgs = UpdateOneCustomerArgs;
@@ -4460,7 +4505,7 @@ var UpsertOneCustomerArgs = /** @class */ (function () {
     function UpsertOneCustomerArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerWhereUniqueInput;
                 },
@@ -4472,7 +4517,7 @@ var UpsertOneCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateInput;
                 },
@@ -4484,7 +4529,7 @@ var UpsertOneCustomerArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateInput;
                 },
@@ -4494,7 +4539,10 @@ var UpsertOneCustomerArgs = /** @class */ (function () {
         UpsertOneCustomerArgs.prototype,
         'update',
     );
-    UpsertOneCustomerArgs = __decorate([graphql_3.ArgsType()], UpsertOneCustomerArgs);
+    UpsertOneCustomerArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpsertOneCustomerArgs,
+    );
     return UpsertOneCustomerArgs;
 })();
 exports.UpsertOneCustomerArgs = UpsertOneCustomerArgs;
@@ -4502,7 +4550,7 @@ var AggregateDelivery = /** @class */ (function () {
     function AggregateDelivery() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCountAggregate;
                 },
@@ -4514,7 +4562,7 @@ var AggregateDelivery = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMinAggregate;
                 },
@@ -4526,7 +4574,7 @@ var AggregateDelivery = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMaxAggregate;
                 },
@@ -4536,7 +4584,7 @@ var AggregateDelivery = /** @class */ (function () {
         AggregateDelivery.prototype,
         '_max',
     );
-    AggregateDelivery = __decorate([graphql_2.ObjectType()], AggregateDelivery);
+    AggregateDelivery = __decorate([(0, graphql_2.ObjectType)()], AggregateDelivery);
     return AggregateDelivery;
 })();
 exports.AggregateDelivery = AggregateDelivery;
@@ -4544,7 +4592,7 @@ var CreateManyDeliveryArgs = /** @class */ (function () {
     function CreateManyDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryCreateManyInput];
                 },
@@ -4556,7 +4604,7 @@ var CreateManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -4566,7 +4614,10 @@ var CreateManyDeliveryArgs = /** @class */ (function () {
         CreateManyDeliveryArgs.prototype,
         'skipDuplicates',
     );
-    CreateManyDeliveryArgs = __decorate([graphql_3.ArgsType()], CreateManyDeliveryArgs);
+    CreateManyDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateManyDeliveryArgs,
+    );
     return CreateManyDeliveryArgs;
 })();
 exports.CreateManyDeliveryArgs = CreateManyDeliveryArgs;
@@ -4574,7 +4625,7 @@ var CreateOneDeliveryArgs = /** @class */ (function () {
     function CreateOneDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateInput;
                 },
@@ -4584,7 +4635,10 @@ var CreateOneDeliveryArgs = /** @class */ (function () {
         CreateOneDeliveryArgs.prototype,
         'data',
     );
-    CreateOneDeliveryArgs = __decorate([graphql_3.ArgsType()], CreateOneDeliveryArgs);
+    CreateOneDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateOneDeliveryArgs,
+    );
     return CreateOneDeliveryArgs;
 })();
 exports.CreateOneDeliveryArgs = CreateOneDeliveryArgs;
@@ -4592,7 +4646,7 @@ var DeleteManyDeliveryArgs = /** @class */ (function () {
     function DeleteManyDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -4602,7 +4656,10 @@ var DeleteManyDeliveryArgs = /** @class */ (function () {
         DeleteManyDeliveryArgs.prototype,
         'where',
     );
-    DeleteManyDeliveryArgs = __decorate([graphql_3.ArgsType()], DeleteManyDeliveryArgs);
+    DeleteManyDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteManyDeliveryArgs,
+    );
     return DeleteManyDeliveryArgs;
 })();
 exports.DeleteManyDeliveryArgs = DeleteManyDeliveryArgs;
@@ -4610,7 +4667,7 @@ var DeleteOneDeliveryArgs = /** @class */ (function () {
     function DeleteOneDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -4620,7 +4677,10 @@ var DeleteOneDeliveryArgs = /** @class */ (function () {
         DeleteOneDeliveryArgs.prototype,
         'where',
     );
-    DeleteOneDeliveryArgs = __decorate([graphql_3.ArgsType()], DeleteOneDeliveryArgs);
+    DeleteOneDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteOneDeliveryArgs,
+    );
     return DeleteOneDeliveryArgs;
 })();
 exports.DeleteOneDeliveryArgs = DeleteOneDeliveryArgs;
@@ -4628,7 +4688,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     function DeliveryAggregateArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -4640,7 +4700,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryOrderByWithRelationInput];
                 },
@@ -4652,7 +4712,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -4664,7 +4724,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4676,7 +4736,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4688,7 +4748,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCountAggregateInput;
                 },
@@ -4700,7 +4760,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMinAggregateInput;
                 },
@@ -4712,7 +4772,7 @@ var DeliveryAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMaxAggregateInput;
                 },
@@ -4722,7 +4782,10 @@ var DeliveryAggregateArgs = /** @class */ (function () {
         DeliveryAggregateArgs.prototype,
         '_max',
     );
-    DeliveryAggregateArgs = __decorate([graphql_3.ArgsType()], DeliveryAggregateArgs);
+    DeliveryAggregateArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeliveryAggregateArgs,
+    );
     return DeliveryAggregateArgs;
 })();
 exports.DeliveryAggregateArgs = DeliveryAggregateArgs;
@@ -4730,7 +4793,7 @@ var DeliveryCountAggregateInput = /** @class */ (function () {
     function DeliveryCountAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -4742,7 +4805,7 @@ var DeliveryCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -4754,7 +4817,7 @@ var DeliveryCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -4765,7 +4828,7 @@ var DeliveryCountAggregateInput = /** @class */ (function () {
         '_all',
     );
     DeliveryCountAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCountAggregateInput,
     );
     return DeliveryCountAggregateInput;
@@ -4775,7 +4838,7 @@ var DeliveryCountAggregate = /** @class */ (function () {
     function DeliveryCountAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4787,7 +4850,7 @@ var DeliveryCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4799,7 +4862,7 @@ var DeliveryCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -4810,7 +4873,7 @@ var DeliveryCountAggregate = /** @class */ (function () {
         '_all',
     );
     DeliveryCountAggregate = __decorate(
-        [graphql_2.ObjectType()],
+        [(0, graphql_2.ObjectType)()],
         DeliveryCountAggregate,
     );
     return DeliveryCountAggregate;
@@ -4820,7 +4883,7 @@ var DeliveryCountOrderByAggregateInput = /** @class */ (function () {
     function DeliveryCountOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -4832,7 +4895,7 @@ var DeliveryCountOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -4843,7 +4906,7 @@ var DeliveryCountOrderByAggregateInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryCountOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCountOrderByAggregateInput,
     );
     return DeliveryCountOrderByAggregateInput;
@@ -4853,7 +4916,7 @@ var DeliveryCreateManyInput = /** @class */ (function () {
     function DeliveryCreateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -4865,7 +4928,7 @@ var DeliveryCreateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -4876,7 +4939,7 @@ var DeliveryCreateManyInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryCreateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCreateManyInput,
     );
     return DeliveryCreateManyInput;
@@ -4887,7 +4950,7 @@ var DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -4899,7 +4962,7 @@ var DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -4911,7 +4974,7 @@ var DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryWhereUniqueInput;
                     },
@@ -4923,7 +4986,7 @@ var DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput =
         );
         DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput,
             );
         return DeliveryCreateNestedOneWithoutCustomer_favouriteDelivery_customerInput;
@@ -4934,7 +4997,7 @@ var DeliveryCreateNestedOneWithoutDestinationInput = /** @class */ (function () 
     function DeliveryCreateNestedOneWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateWithoutDestinationInput;
                 },
@@ -4946,7 +5009,7 @@ var DeliveryCreateNestedOneWithoutDestinationInput = /** @class */ (function () 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateOrConnectWithoutDestinationInput;
                 },
@@ -4958,7 +5021,7 @@ var DeliveryCreateNestedOneWithoutDestinationInput = /** @class */ (function () 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -4969,7 +5032,7 @@ var DeliveryCreateNestedOneWithoutDestinationInput = /** @class */ (function () 
         'connect',
     );
     DeliveryCreateNestedOneWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCreateNestedOneWithoutDestinationInput,
     );
     return DeliveryCreateNestedOneWithoutDestinationInput;
@@ -4981,7 +5044,7 @@ var DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryWhereUniqueInput;
                     },
@@ -4993,7 +5056,7 @@ var DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -5005,7 +5068,7 @@ var DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput =
         );
         DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput,
             );
         return DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput;
@@ -5016,7 +5079,7 @@ var DeliveryCreateOrConnectWithoutDestinationInput = /** @class */ (function () 
     function DeliveryCreateOrConnectWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -5028,7 +5091,7 @@ var DeliveryCreateOrConnectWithoutDestinationInput = /** @class */ (function () 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateWithoutDestinationInput;
                 },
@@ -5039,7 +5102,7 @@ var DeliveryCreateOrConnectWithoutDestinationInput = /** @class */ (function () 
         'create',
     );
     DeliveryCreateOrConnectWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCreateOrConnectWithoutDestinationInput,
     );
     return DeliveryCreateOrConnectWithoutDestinationInput;
@@ -5051,7 +5114,7 @@ var DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -5063,7 +5126,7 @@ var DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput;
                     },
@@ -5074,7 +5137,7 @@ var DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput =
             'destination',
         );
         DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput,
         );
         return DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput;
@@ -5085,7 +5148,7 @@ var DeliveryCreateWithoutDestinationInput = /** @class */ (function () {
     function DeliveryCreateWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5097,7 +5160,7 @@ var DeliveryCreateWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutFavoriteDeliveryInput;
                 },
@@ -5108,7 +5171,7 @@ var DeliveryCreateWithoutDestinationInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryCreateWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryCreateWithoutDestinationInput,
     );
     return DeliveryCreateWithoutDestinationInput;
@@ -5118,7 +5181,7 @@ var DeliveryCreateInput = /** @class */ (function () {
     function DeliveryCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5130,7 +5193,7 @@ var DeliveryCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput;
                 },
@@ -5142,7 +5205,7 @@ var DeliveryCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutFavoriteDeliveryInput;
                 },
@@ -5152,7 +5215,7 @@ var DeliveryCreateInput = /** @class */ (function () {
         DeliveryCreateInput.prototype,
         'customer_favouriteDelivery_customer',
     );
-    DeliveryCreateInput = __decorate([graphql_5.InputType()], DeliveryCreateInput);
+    DeliveryCreateInput = __decorate([(0, graphql_5.InputType)()], DeliveryCreateInput);
     return DeliveryCreateInput;
 })();
 exports.DeliveryCreateInput = DeliveryCreateInput;
@@ -5160,7 +5223,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     function DeliveryGroupByArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -5172,7 +5235,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryOrderByWithAggregationInput];
                 },
@@ -5184,7 +5247,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarFieldEnum];
                 },
@@ -5196,7 +5259,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryScalarWhereWithAggregatesInput;
                 },
@@ -5208,7 +5271,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -5220,7 +5283,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -5232,7 +5295,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCountAggregateInput;
                 },
@@ -5244,7 +5307,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMinAggregateInput;
                 },
@@ -5256,7 +5319,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMaxAggregateInput;
                 },
@@ -5266,7 +5329,7 @@ var DeliveryGroupByArgs = /** @class */ (function () {
         DeliveryGroupByArgs.prototype,
         '_max',
     );
-    DeliveryGroupByArgs = __decorate([graphql_3.ArgsType()], DeliveryGroupByArgs);
+    DeliveryGroupByArgs = __decorate([(0, graphql_3.ArgsType)()], DeliveryGroupByArgs);
     return DeliveryGroupByArgs;
 })();
 exports.DeliveryGroupByArgs = DeliveryGroupByArgs;
@@ -5274,7 +5337,7 @@ var DeliveryGroupBy = /** @class */ (function () {
     function DeliveryGroupBy() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5286,7 +5349,7 @@ var DeliveryGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5298,7 +5361,7 @@ var DeliveryGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCountAggregate;
                 },
@@ -5310,7 +5373,7 @@ var DeliveryGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMinAggregate;
                 },
@@ -5322,7 +5385,7 @@ var DeliveryGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMaxAggregate;
                 },
@@ -5332,7 +5395,7 @@ var DeliveryGroupBy = /** @class */ (function () {
         DeliveryGroupBy.prototype,
         '_max',
     );
-    DeliveryGroupBy = __decorate([graphql_2.ObjectType()], DeliveryGroupBy);
+    DeliveryGroupBy = __decorate([(0, graphql_2.ObjectType)()], DeliveryGroupBy);
     return DeliveryGroupBy;
 })();
 exports.DeliveryGroupBy = DeliveryGroupBy;
@@ -5340,7 +5403,7 @@ var DeliveryMaxAggregateInput = /** @class */ (function () {
     function DeliveryMaxAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -5352,7 +5415,7 @@ var DeliveryMaxAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -5363,7 +5426,7 @@ var DeliveryMaxAggregateInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryMaxAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryMaxAggregateInput,
     );
     return DeliveryMaxAggregateInput;
@@ -5373,7 +5436,7 @@ var DeliveryMaxAggregate = /** @class */ (function () {
     function DeliveryMaxAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5385,7 +5448,7 @@ var DeliveryMaxAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5395,7 +5458,10 @@ var DeliveryMaxAggregate = /** @class */ (function () {
         DeliveryMaxAggregate.prototype,
         'id_destination',
     );
-    DeliveryMaxAggregate = __decorate([graphql_2.ObjectType()], DeliveryMaxAggregate);
+    DeliveryMaxAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        DeliveryMaxAggregate,
+    );
     return DeliveryMaxAggregate;
 })();
 exports.DeliveryMaxAggregate = DeliveryMaxAggregate;
@@ -5403,7 +5469,7 @@ var DeliveryMaxOrderByAggregateInput = /** @class */ (function () {
     function DeliveryMaxOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5415,7 +5481,7 @@ var DeliveryMaxOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5426,7 +5492,7 @@ var DeliveryMaxOrderByAggregateInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryMaxOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryMaxOrderByAggregateInput,
     );
     return DeliveryMaxOrderByAggregateInput;
@@ -5436,7 +5502,7 @@ var DeliveryMinAggregateInput = /** @class */ (function () {
     function DeliveryMinAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -5448,7 +5514,7 @@ var DeliveryMinAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -5459,7 +5525,7 @@ var DeliveryMinAggregateInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryMinAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryMinAggregateInput,
     );
     return DeliveryMinAggregateInput;
@@ -5469,7 +5535,7 @@ var DeliveryMinAggregate = /** @class */ (function () {
     function DeliveryMinAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5481,7 +5547,7 @@ var DeliveryMinAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5491,7 +5557,10 @@ var DeliveryMinAggregate = /** @class */ (function () {
         DeliveryMinAggregate.prototype,
         'id_destination',
     );
-    DeliveryMinAggregate = __decorate([graphql_2.ObjectType()], DeliveryMinAggregate);
+    DeliveryMinAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        DeliveryMinAggregate,
+    );
     return DeliveryMinAggregate;
 })();
 exports.DeliveryMinAggregate = DeliveryMinAggregate;
@@ -5499,7 +5568,7 @@ var DeliveryMinOrderByAggregateInput = /** @class */ (function () {
     function DeliveryMinOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5511,7 +5580,7 @@ var DeliveryMinOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5522,7 +5591,7 @@ var DeliveryMinOrderByAggregateInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryMinOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryMinOrderByAggregateInput,
     );
     return DeliveryMinOrderByAggregateInput;
@@ -5532,7 +5601,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
     function DeliveryOrderByWithAggregationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5544,7 +5613,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5556,7 +5625,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCountOrderByAggregateInput;
                 },
@@ -5568,7 +5637,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMaxOrderByAggregateInput;
                 },
@@ -5580,7 +5649,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryMinOrderByAggregateInput;
                 },
@@ -5591,7 +5660,7 @@ var DeliveryOrderByWithAggregationInput = /** @class */ (function () {
         '_min',
     );
     DeliveryOrderByWithAggregationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryOrderByWithAggregationInput,
     );
     return DeliveryOrderByWithAggregationInput;
@@ -5601,7 +5670,7 @@ var DeliveryOrderByWithRelationInput = /** @class */ (function () {
     function DeliveryOrderByWithRelationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5613,7 +5682,7 @@ var DeliveryOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationOrderByWithRelationInput;
                 },
@@ -5625,7 +5694,7 @@ var DeliveryOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -5637,7 +5706,7 @@ var DeliveryOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerOrderByWithRelationInput;
                 },
@@ -5648,7 +5717,7 @@ var DeliveryOrderByWithRelationInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryOrderByWithRelationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryOrderByWithRelationInput,
     );
     return DeliveryOrderByWithRelationInput;
@@ -5658,7 +5727,7 @@ var DeliveryRelationFilter = /** @class */ (function () {
     function DeliveryRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -5670,7 +5739,7 @@ var DeliveryRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -5681,7 +5750,7 @@ var DeliveryRelationFilter = /** @class */ (function () {
         'isNot',
     );
     DeliveryRelationFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryRelationFilter,
     );
     return DeliveryRelationFilter;
@@ -5693,7 +5762,7 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
     var DeliveryScalarWhereWithAggregatesInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarWhereWithAggregatesInput_1];
                 },
@@ -5705,7 +5774,7 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarWhereWithAggregatesInput_1];
                 },
@@ -5717,7 +5786,7 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarWhereWithAggregatesInput_1];
                 },
@@ -5729,7 +5798,7 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -5741,7 +5810,7 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableWithAggregatesFilter;
                 },
@@ -5752,7 +5821,10 @@ var DeliveryScalarWhereWithAggregatesInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryScalarWhereWithAggregatesInput = DeliveryScalarWhereWithAggregatesInput_1 =
-        __decorate([graphql_5.InputType()], DeliveryScalarWhereWithAggregatesInput);
+        __decorate(
+            [(0, graphql_5.InputType)()],
+            DeliveryScalarWhereWithAggregatesInput,
+        );
     return DeliveryScalarWhereWithAggregatesInput;
 })();
 exports.DeliveryScalarWhereWithAggregatesInput = DeliveryScalarWhereWithAggregatesInput;
@@ -5761,7 +5833,7 @@ var DeliveryUncheckedCreateNestedOneWithoutDestinationInput =
         function DeliveryUncheckedCreateNestedOneWithoutDestinationInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateWithoutDestinationInput;
                     },
@@ -5773,7 +5845,7 @@ var DeliveryUncheckedCreateNestedOneWithoutDestinationInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateOrConnectWithoutDestinationInput;
                     },
@@ -5785,7 +5857,7 @@ var DeliveryUncheckedCreateNestedOneWithoutDestinationInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryWhereUniqueInput;
                     },
@@ -5796,7 +5868,7 @@ var DeliveryUncheckedCreateNestedOneWithoutDestinationInput =
             'connect',
         );
         DeliveryUncheckedCreateNestedOneWithoutDestinationInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DeliveryUncheckedCreateNestedOneWithoutDestinationInput,
         );
         return DeliveryUncheckedCreateNestedOneWithoutDestinationInput;
@@ -5808,7 +5880,7 @@ var DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -5820,7 +5892,7 @@ var DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -5832,7 +5904,7 @@ var DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput =
         );
         DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput,
             );
         return DeliveryUncheckedCreateWithoutCustomer_favouriteDelivery_customerInput;
@@ -5843,7 +5915,7 @@ var DeliveryUncheckedCreateWithoutDestinationInput = /** @class */ (function () 
     function DeliveryUncheckedCreateWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5855,7 +5927,7 @@ var DeliveryUncheckedCreateWithoutDestinationInput = /** @class */ (function () 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput;
                 },
@@ -5866,7 +5938,7 @@ var DeliveryUncheckedCreateWithoutDestinationInput = /** @class */ (function () 
         'customer_favouriteDelivery_customer',
     );
     DeliveryUncheckedCreateWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedCreateWithoutDestinationInput,
     );
     return DeliveryUncheckedCreateWithoutDestinationInput;
@@ -5877,7 +5949,7 @@ var DeliveryUncheckedCreateInput = /** @class */ (function () {
     function DeliveryUncheckedCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5889,7 +5961,7 @@ var DeliveryUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -5901,7 +5973,7 @@ var DeliveryUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedCreateNestedOneWithoutFavoriteDeliveryInput;
                 },
@@ -5912,7 +5984,7 @@ var DeliveryUncheckedCreateInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryUncheckedCreateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedCreateInput,
     );
     return DeliveryUncheckedCreateInput;
@@ -5922,7 +5994,7 @@ var DeliveryUncheckedUpdateManyInput = /** @class */ (function () {
     function DeliveryUncheckedUpdateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -5934,7 +6006,7 @@ var DeliveryUncheckedUpdateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -5945,7 +6017,7 @@ var DeliveryUncheckedUpdateManyInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryUncheckedUpdateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedUpdateManyInput,
     );
     return DeliveryUncheckedUpdateManyInput;
@@ -5955,7 +6027,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     function DeliveryUncheckedUpdateOneWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateWithoutDestinationInput;
                 },
@@ -5967,7 +6039,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateOrConnectWithoutDestinationInput;
                 },
@@ -5979,7 +6051,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpsertWithoutDestinationInput;
                 },
@@ -5991,19 +6063,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return DeliveryWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        DeliveryUncheckedUpdateOneWithoutDestinationInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -6015,7 +6075,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -6027,7 +6087,19 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return DeliveryWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        DeliveryUncheckedUpdateOneWithoutDestinationInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateWithoutDestinationInput;
                 },
@@ -6038,7 +6110,7 @@ var DeliveryUncheckedUpdateOneWithoutDestinationInput = /** @class */ (function 
         'update',
     );
     DeliveryUncheckedUpdateOneWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedUpdateOneWithoutDestinationInput,
     );
     return DeliveryUncheckedUpdateOneWithoutDestinationInput;
@@ -6050,7 +6122,7 @@ var DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -6062,7 +6134,7 @@ var DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return NullableStringFieldUpdateOperationsInput;
                     },
@@ -6074,7 +6146,7 @@ var DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput =
         );
         DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput,
             );
         return DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput;
@@ -6085,7 +6157,7 @@ var DeliveryUncheckedUpdateWithoutDestinationInput = /** @class */ (function () 
     function DeliveryUncheckedUpdateWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -6097,7 +6169,7 @@ var DeliveryUncheckedUpdateWithoutDestinationInput = /** @class */ (function () 
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput;
                 },
@@ -6108,7 +6180,7 @@ var DeliveryUncheckedUpdateWithoutDestinationInput = /** @class */ (function () 
         'customer_favouriteDelivery_customer',
     );
     DeliveryUncheckedUpdateWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedUpdateWithoutDestinationInput,
     );
     return DeliveryUncheckedUpdateWithoutDestinationInput;
@@ -6119,7 +6191,7 @@ var DeliveryUncheckedUpdateInput = /** @class */ (function () {
     function DeliveryUncheckedUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -6131,7 +6203,7 @@ var DeliveryUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -6143,7 +6215,7 @@ var DeliveryUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput;
                 },
@@ -6154,7 +6226,7 @@ var DeliveryUncheckedUpdateInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryUncheckedUpdateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUncheckedUpdateInput,
     );
     return DeliveryUncheckedUpdateInput;
@@ -6164,7 +6236,7 @@ var DeliveryUpdateManyMutationInput = /** @class */ (function () {
     function DeliveryUpdateManyMutationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -6175,7 +6247,7 @@ var DeliveryUpdateManyMutationInput = /** @class */ (function () {
         'id',
     );
     DeliveryUpdateManyMutationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUpdateManyMutationInput,
     );
     return DeliveryUpdateManyMutationInput;
@@ -6186,7 +6258,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6198,7 +6270,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateOrConnectWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6210,7 +6282,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6222,7 +6294,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryWhereUniqueInput;
                     },
@@ -6234,7 +6306,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6246,7 +6318,7 @@ var DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
         );
         DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput,
             );
         return DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_customerInput;
@@ -6257,7 +6329,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     function DeliveryUpdateOneWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateWithoutDestinationInput;
                 },
@@ -6269,7 +6341,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateOrConnectWithoutDestinationInput;
                 },
@@ -6281,7 +6353,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpsertWithoutDestinationInput;
                 },
@@ -6293,19 +6365,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return DeliveryWhereUniqueInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        DeliveryUpdateOneWithoutDestinationInput.prototype,
-        'connect',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -6317,7 +6377,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -6329,7 +6389,19 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
+                function () {
+                    return DeliveryWhereUniqueInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        DeliveryUpdateOneWithoutDestinationInput.prototype,
+        'connect',
+    );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateWithoutDestinationInput;
                 },
@@ -6340,7 +6412,7 @@ var DeliveryUpdateOneWithoutDestinationInput = /** @class */ (function () {
         'update',
     );
     DeliveryUpdateOneWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUpdateOneWithoutDestinationInput,
     );
     return DeliveryUpdateOneWithoutDestinationInput;
@@ -6352,7 +6424,7 @@ var DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -6364,7 +6436,7 @@ var DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateOneWithoutDelivery_destination_deliveryInput;
                     },
@@ -6375,7 +6447,7 @@ var DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput =
             'destination',
         );
         DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput,
         );
         return DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput;
@@ -6386,7 +6458,7 @@ var DeliveryUpdateWithoutDestinationInput = /** @class */ (function () {
     function DeliveryUpdateWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -6398,7 +6470,7 @@ var DeliveryUpdateWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutFavoriteDeliveryInput;
                 },
@@ -6409,7 +6481,7 @@ var DeliveryUpdateWithoutDestinationInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryUpdateWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUpdateWithoutDestinationInput,
     );
     return DeliveryUpdateWithoutDestinationInput;
@@ -6419,7 +6491,7 @@ var DeliveryUpdateInput = /** @class */ (function () {
     function DeliveryUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -6431,7 +6503,7 @@ var DeliveryUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateOneWithoutDelivery_destination_deliveryInput;
                 },
@@ -6443,7 +6515,7 @@ var DeliveryUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutFavoriteDeliveryInput;
                 },
@@ -6453,7 +6525,7 @@ var DeliveryUpdateInput = /** @class */ (function () {
         DeliveryUpdateInput.prototype,
         'customer_favouriteDelivery_customer',
     );
-    DeliveryUpdateInput = __decorate([graphql_5.InputType()], DeliveryUpdateInput);
+    DeliveryUpdateInput = __decorate([(0, graphql_5.InputType)()], DeliveryUpdateInput);
     return DeliveryUpdateInput;
 })();
 exports.DeliveryUpdateInput = DeliveryUpdateInput;
@@ -6462,7 +6534,7 @@ var DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput =
         function DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6474,7 +6546,7 @@ var DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateWithoutCustomer_favouriteDelivery_customerInput;
                     },
@@ -6485,7 +6557,7 @@ var DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput =
             'create',
         );
         DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput,
         );
         return DeliveryUpsertWithoutCustomer_favouriteDelivery_customerInput;
@@ -6496,7 +6568,7 @@ var DeliveryUpsertWithoutDestinationInput = /** @class */ (function () {
     function DeliveryUpsertWithoutDestinationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateWithoutDestinationInput;
                 },
@@ -6508,7 +6580,7 @@ var DeliveryUpsertWithoutDestinationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateWithoutDestinationInput;
                 },
@@ -6519,7 +6591,7 @@ var DeliveryUpsertWithoutDestinationInput = /** @class */ (function () {
         'create',
     );
     DeliveryUpsertWithoutDestinationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryUpsertWithoutDestinationInput,
     );
     return DeliveryUpsertWithoutDestinationInput;
@@ -6529,7 +6601,7 @@ var DeliveryWhereUniqueInput = /** @class */ (function () {
     function DeliveryWhereUniqueInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -6541,7 +6613,7 @@ var DeliveryWhereUniqueInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -6552,7 +6624,7 @@ var DeliveryWhereUniqueInput = /** @class */ (function () {
         'id_destination',
     );
     DeliveryWhereUniqueInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryWhereUniqueInput,
     );
     return DeliveryWhereUniqueInput;
@@ -6564,7 +6636,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     var DeliveryWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryWhereInput_1];
                 },
@@ -6576,7 +6648,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryWhereInput_1];
                 },
@@ -6588,7 +6660,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryWhereInput_1];
                 },
@@ -6600,7 +6672,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -6612,7 +6684,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationRelationFilter;
                 },
@@ -6624,7 +6696,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableFilter;
                 },
@@ -6636,7 +6708,7 @@ var DeliveryWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerRelationFilter;
                 },
@@ -6647,7 +6719,7 @@ var DeliveryWhereInput = /** @class */ (function () {
         'customer_favouriteDelivery_customer',
     );
     DeliveryWhereInput = DeliveryWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DeliveryWhereInput,
     );
     return DeliveryWhereInput;
@@ -6657,7 +6729,7 @@ var Delivery = /** @class */ (function () {
     function Delivery() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_7.ID;
                 },
@@ -6669,7 +6741,7 @@ var Delivery = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Destination;
                 },
@@ -6681,7 +6753,7 @@ var Delivery = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -6693,7 +6765,7 @@ var Delivery = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Customer;
                 },
@@ -6703,7 +6775,7 @@ var Delivery = /** @class */ (function () {
         Delivery.prototype,
         'customer_favouriteDelivery_customer',
     );
-    Delivery = __decorate([graphql_2.ObjectType()], Delivery);
+    Delivery = __decorate([(0, graphql_2.ObjectType)()], Delivery);
     return Delivery;
 })();
 exports.Delivery = Delivery;
@@ -6711,7 +6783,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     function FindFirstDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -6723,7 +6795,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryOrderByWithRelationInput];
                 },
@@ -6735,7 +6807,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -6747,7 +6819,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -6759,7 +6831,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -6771,7 +6843,7 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarFieldEnum];
                 },
@@ -6781,7 +6853,10 @@ var FindFirstDeliveryArgs = /** @class */ (function () {
         FindFirstDeliveryArgs.prototype,
         'distinct',
     );
-    FindFirstDeliveryArgs = __decorate([graphql_3.ArgsType()], FindFirstDeliveryArgs);
+    FindFirstDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindFirstDeliveryArgs,
+    );
     return FindFirstDeliveryArgs;
 })();
 exports.FindFirstDeliveryArgs = FindFirstDeliveryArgs;
@@ -6789,7 +6864,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     function FindManyDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -6801,7 +6876,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryOrderByWithRelationInput];
                 },
@@ -6813,7 +6888,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -6825,7 +6900,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -6837,7 +6912,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -6849,7 +6924,7 @@ var FindManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DeliveryScalarFieldEnum];
                 },
@@ -6859,7 +6934,10 @@ var FindManyDeliveryArgs = /** @class */ (function () {
         FindManyDeliveryArgs.prototype,
         'distinct',
     );
-    FindManyDeliveryArgs = __decorate([graphql_3.ArgsType()], FindManyDeliveryArgs);
+    FindManyDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindManyDeliveryArgs,
+    );
     return FindManyDeliveryArgs;
 })();
 exports.FindManyDeliveryArgs = FindManyDeliveryArgs;
@@ -6867,7 +6945,7 @@ var FindUniqueDeliveryArgs = /** @class */ (function () {
     function FindUniqueDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -6877,7 +6955,10 @@ var FindUniqueDeliveryArgs = /** @class */ (function () {
         FindUniqueDeliveryArgs.prototype,
         'where',
     );
-    FindUniqueDeliveryArgs = __decorate([graphql_3.ArgsType()], FindUniqueDeliveryArgs);
+    FindUniqueDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindUniqueDeliveryArgs,
+    );
     return FindUniqueDeliveryArgs;
 })();
 exports.FindUniqueDeliveryArgs = FindUniqueDeliveryArgs;
@@ -6885,7 +6966,7 @@ var UpdateManyDeliveryArgs = /** @class */ (function () {
     function UpdateManyDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateManyMutationInput;
                 },
@@ -6897,7 +6978,7 @@ var UpdateManyDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereInput;
                 },
@@ -6907,7 +6988,10 @@ var UpdateManyDeliveryArgs = /** @class */ (function () {
         UpdateManyDeliveryArgs.prototype,
         'where',
     );
-    UpdateManyDeliveryArgs = __decorate([graphql_3.ArgsType()], UpdateManyDeliveryArgs);
+    UpdateManyDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateManyDeliveryArgs,
+    );
     return UpdateManyDeliveryArgs;
 })();
 exports.UpdateManyDeliveryArgs = UpdateManyDeliveryArgs;
@@ -6915,7 +6999,7 @@ var UpdateOneDeliveryArgs = /** @class */ (function () {
     function UpdateOneDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateInput;
                 },
@@ -6927,7 +7011,7 @@ var UpdateOneDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -6937,7 +7021,10 @@ var UpdateOneDeliveryArgs = /** @class */ (function () {
         UpdateOneDeliveryArgs.prototype,
         'where',
     );
-    UpdateOneDeliveryArgs = __decorate([graphql_3.ArgsType()], UpdateOneDeliveryArgs);
+    UpdateOneDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateOneDeliveryArgs,
+    );
     return UpdateOneDeliveryArgs;
 })();
 exports.UpdateOneDeliveryArgs = UpdateOneDeliveryArgs;
@@ -6945,7 +7032,7 @@ var UpsertOneDeliveryArgs = /** @class */ (function () {
     function UpsertOneDeliveryArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryWhereUniqueInput;
                 },
@@ -6957,7 +7044,7 @@ var UpsertOneDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateInput;
                 },
@@ -6969,7 +7056,7 @@ var UpsertOneDeliveryArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateInput;
                 },
@@ -6979,7 +7066,10 @@ var UpsertOneDeliveryArgs = /** @class */ (function () {
         UpsertOneDeliveryArgs.prototype,
         'update',
     );
-    UpsertOneDeliveryArgs = __decorate([graphql_3.ArgsType()], UpsertOneDeliveryArgs);
+    UpsertOneDeliveryArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpsertOneDeliveryArgs,
+    );
     return UpsertOneDeliveryArgs;
 })();
 exports.UpsertOneDeliveryArgs = UpsertOneDeliveryArgs;
@@ -6987,7 +7077,7 @@ var AggregateDestination = /** @class */ (function () {
     function AggregateDestination() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCountAggregate;
                 },
@@ -6999,7 +7089,7 @@ var AggregateDestination = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMinAggregate;
                 },
@@ -7011,7 +7101,7 @@ var AggregateDestination = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMaxAggregate;
                 },
@@ -7021,7 +7111,10 @@ var AggregateDestination = /** @class */ (function () {
         AggregateDestination.prototype,
         '_max',
     );
-    AggregateDestination = __decorate([graphql_2.ObjectType()], AggregateDestination);
+    AggregateDestination = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        AggregateDestination,
+    );
     return AggregateDestination;
 })();
 exports.AggregateDestination = AggregateDestination;
@@ -7029,7 +7122,7 @@ var CreateManyDestinationArgs = /** @class */ (function () {
     function CreateManyDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationCreateManyInput];
                 },
@@ -7041,7 +7134,7 @@ var CreateManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7052,7 +7145,7 @@ var CreateManyDestinationArgs = /** @class */ (function () {
         'skipDuplicates',
     );
     CreateManyDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         CreateManyDestinationArgs,
     );
     return CreateManyDestinationArgs;
@@ -7062,7 +7155,7 @@ var CreateOneDestinationArgs = /** @class */ (function () {
     function CreateOneDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateInput;
                 },
@@ -7073,7 +7166,7 @@ var CreateOneDestinationArgs = /** @class */ (function () {
         'data',
     );
     CreateOneDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         CreateOneDestinationArgs,
     );
     return CreateOneDestinationArgs;
@@ -7083,7 +7176,7 @@ var DeleteManyDestinationArgs = /** @class */ (function () {
     function DeleteManyDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7094,7 +7187,7 @@ var DeleteManyDestinationArgs = /** @class */ (function () {
         'where',
     );
     DeleteManyDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         DeleteManyDestinationArgs,
     );
     return DeleteManyDestinationArgs;
@@ -7104,7 +7197,7 @@ var DeleteOneDestinationArgs = /** @class */ (function () {
     function DeleteOneDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -7115,7 +7208,7 @@ var DeleteOneDestinationArgs = /** @class */ (function () {
         'where',
     );
     DeleteOneDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         DeleteOneDestinationArgs,
     );
     return DeleteOneDestinationArgs;
@@ -7125,7 +7218,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     function DestinationAggregateArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7137,7 +7230,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationOrderByWithRelationInput];
                 },
@@ -7149,7 +7242,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -7161,7 +7254,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7173,7 +7266,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7185,7 +7278,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCountAggregateInput;
                 },
@@ -7197,7 +7290,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMinAggregateInput;
                 },
@@ -7209,7 +7302,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMaxAggregateInput;
                 },
@@ -7220,7 +7313,7 @@ var DestinationAggregateArgs = /** @class */ (function () {
         '_max',
     );
     DestinationAggregateArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         DestinationAggregateArgs,
     );
     return DestinationAggregateArgs;
@@ -7230,7 +7323,7 @@ var DestinationCountAggregateInput = /** @class */ (function () {
     function DestinationCountAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7242,7 +7335,7 @@ var DestinationCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7254,7 +7347,7 @@ var DestinationCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7265,7 +7358,7 @@ var DestinationCountAggregateInput = /** @class */ (function () {
         '_all',
     );
     DestinationCountAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationCountAggregateInput,
     );
     return DestinationCountAggregateInput;
@@ -7275,7 +7368,7 @@ var DestinationCountAggregate = /** @class */ (function () {
     function DestinationCountAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7287,7 +7380,7 @@ var DestinationCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7299,7 +7392,7 @@ var DestinationCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7310,7 +7403,7 @@ var DestinationCountAggregate = /** @class */ (function () {
         '_all',
     );
     DestinationCountAggregate = __decorate(
-        [graphql_2.ObjectType()],
+        [(0, graphql_2.ObjectType)()],
         DestinationCountAggregate,
     );
     return DestinationCountAggregate;
@@ -7320,7 +7413,7 @@ var DestinationCountOrderByAggregateInput = /** @class */ (function () {
     function DestinationCountOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -7332,7 +7425,7 @@ var DestinationCountOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -7343,7 +7436,7 @@ var DestinationCountOrderByAggregateInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationCountOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationCountOrderByAggregateInput,
     );
     return DestinationCountOrderByAggregateInput;
@@ -7354,7 +7447,7 @@ var DestinationCreateManyCustomer_destination_customerInputEnvelope =
         function DestinationCreateManyCustomer_destination_customerInputEnvelope() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateManyCustomer_destination_customerInput,
@@ -7368,7 +7461,7 @@ var DestinationCreateManyCustomer_destination_customerInputEnvelope =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -7379,7 +7472,7 @@ var DestinationCreateManyCustomer_destination_customerInputEnvelope =
             'skipDuplicates',
         );
         DestinationCreateManyCustomer_destination_customerInputEnvelope = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationCreateManyCustomer_destination_customerInputEnvelope,
         );
         return DestinationCreateManyCustomer_destination_customerInputEnvelope;
@@ -7391,7 +7484,7 @@ var DestinationCreateManyCustomer_destination_customerInput =
         function DestinationCreateManyCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -7402,7 +7495,7 @@ var DestinationCreateManyCustomer_destination_customerInput =
             'id',
         );
         DestinationCreateManyCustomer_destination_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationCreateManyCustomer_destination_customerInput,
         );
         return DestinationCreateManyCustomer_destination_customerInput;
@@ -7413,7 +7506,7 @@ var DestinationCreateManyInput = /** @class */ (function () {
     function DestinationCreateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -7425,7 +7518,7 @@ var DestinationCreateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -7436,7 +7529,7 @@ var DestinationCreateManyInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationCreateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationCreateManyInput,
     );
     return DestinationCreateManyInput;
@@ -7447,7 +7540,7 @@ var DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
         function DestinationCreateNestedManyWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateWithoutCustomer_destination_customerInput,
@@ -7461,7 +7554,7 @@ var DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateOrConnectWithoutCustomer_destination_customerInput,
@@ -7475,7 +7568,7 @@ var DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateManyCustomer_destination_customerInputEnvelope;
                     },
@@ -7487,7 +7580,7 @@ var DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -7499,7 +7592,7 @@ var DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
         );
         DestinationCreateNestedManyWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationCreateNestedManyWithoutCustomer_destination_customerInput,
             );
         return DestinationCreateNestedManyWithoutCustomer_destination_customerInput;
@@ -7511,7 +7604,7 @@ var DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput =
         function DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutDelivery_destination_deliveryInput;
                     },
@@ -7523,7 +7616,7 @@ var DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput;
                     },
@@ -7535,7 +7628,7 @@ var DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationWhereUniqueInput;
                     },
@@ -7547,7 +7640,7 @@ var DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput =
         );
         DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput,
             );
         return DestinationCreateNestedOneWithoutDelivery_destination_deliveryInput;
@@ -7559,7 +7652,7 @@ var DestinationCreateOrConnectWithoutCustomer_destination_customerInput =
         function DestinationCreateOrConnectWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationWhereUniqueInput;
                     },
@@ -7571,7 +7664,7 @@ var DestinationCreateOrConnectWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutCustomer_destination_customerInput;
                     },
@@ -7583,7 +7676,7 @@ var DestinationCreateOrConnectWithoutCustomer_destination_customerInput =
         );
         DestinationCreateOrConnectWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationCreateOrConnectWithoutCustomer_destination_customerInput,
             );
         return DestinationCreateOrConnectWithoutCustomer_destination_customerInput;
@@ -7595,7 +7688,7 @@ var DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput =
         function DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationWhereUniqueInput;
                     },
@@ -7607,7 +7700,7 @@ var DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutDelivery_destination_deliveryInput;
                     },
@@ -7619,7 +7712,7 @@ var DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput =
         );
         DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput,
             );
         return DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput;
@@ -7631,7 +7724,7 @@ var DestinationCreateWithoutCustomer_destination_customerInput =
         function DestinationCreateWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -7643,7 +7736,7 @@ var DestinationCreateWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryCreateNestedOneWithoutDestinationInput;
                     },
@@ -7654,7 +7747,7 @@ var DestinationCreateWithoutCustomer_destination_customerInput =
             'delivery_destination_delivery',
         );
         DestinationCreateWithoutCustomer_destination_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationCreateWithoutCustomer_destination_customerInput,
         );
         return DestinationCreateWithoutCustomer_destination_customerInput;
@@ -7666,7 +7759,7 @@ var DestinationCreateWithoutDelivery_destination_deliveryInput =
         function DestinationCreateWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -7678,7 +7771,7 @@ var DestinationCreateWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerCreateNestedOneWithoutDestinationsInput;
                     },
@@ -7689,7 +7782,7 @@ var DestinationCreateWithoutDelivery_destination_deliveryInput =
             'customer_destination_customer',
         );
         DestinationCreateWithoutDelivery_destination_deliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationCreateWithoutDelivery_destination_deliveryInput,
         );
         return DestinationCreateWithoutDelivery_destination_deliveryInput;
@@ -7700,7 +7793,7 @@ var DestinationCreateInput = /** @class */ (function () {
     function DestinationCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -7712,7 +7805,7 @@ var DestinationCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutDestinationsInput;
                 },
@@ -7724,7 +7817,7 @@ var DestinationCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryCreateNestedOneWithoutDestinationInput;
                 },
@@ -7735,7 +7828,7 @@ var DestinationCreateInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationCreateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationCreateInput,
     );
     return DestinationCreateInput;
@@ -7745,7 +7838,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     function DestinationGroupByArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7757,7 +7850,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationOrderByWithAggregationInput];
                 },
@@ -7769,7 +7862,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarFieldEnum];
                 },
@@ -7781,7 +7874,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationScalarWhereWithAggregatesInput;
                 },
@@ -7793,7 +7886,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7805,7 +7898,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -7817,7 +7910,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCountAggregateInput;
                 },
@@ -7829,7 +7922,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMinAggregateInput;
                 },
@@ -7841,7 +7934,7 @@ var DestinationGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMaxAggregateInput;
                 },
@@ -7851,7 +7944,10 @@ var DestinationGroupByArgs = /** @class */ (function () {
         DestinationGroupByArgs.prototype,
         '_max',
     );
-    DestinationGroupByArgs = __decorate([graphql_3.ArgsType()], DestinationGroupByArgs);
+    DestinationGroupByArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DestinationGroupByArgs,
+    );
     return DestinationGroupByArgs;
 })();
 exports.DestinationGroupByArgs = DestinationGroupByArgs;
@@ -7859,7 +7955,7 @@ var DestinationGroupBy = /** @class */ (function () {
     function DestinationGroupBy() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -7871,7 +7967,7 @@ var DestinationGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -7883,7 +7979,7 @@ var DestinationGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCountAggregate;
                 },
@@ -7895,7 +7991,7 @@ var DestinationGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMinAggregate;
                 },
@@ -7907,7 +8003,7 @@ var DestinationGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMaxAggregate;
                 },
@@ -7917,7 +8013,7 @@ var DestinationGroupBy = /** @class */ (function () {
         DestinationGroupBy.prototype,
         '_max',
     );
-    DestinationGroupBy = __decorate([graphql_2.ObjectType()], DestinationGroupBy);
+    DestinationGroupBy = __decorate([(0, graphql_2.ObjectType)()], DestinationGroupBy);
     return DestinationGroupBy;
 })();
 exports.DestinationGroupBy = DestinationGroupBy;
@@ -7925,7 +8021,7 @@ var DestinationListRelationFilter = /** @class */ (function () {
     function DestinationListRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7937,7 +8033,7 @@ var DestinationListRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7949,7 +8045,7 @@ var DestinationListRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -7960,7 +8056,7 @@ var DestinationListRelationFilter = /** @class */ (function () {
         'none',
     );
     DestinationListRelationFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationListRelationFilter,
     );
     return DestinationListRelationFilter;
@@ -7970,7 +8066,7 @@ var DestinationMaxAggregateInput = /** @class */ (function () {
     function DestinationMaxAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7982,7 +8078,7 @@ var DestinationMaxAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -7993,7 +8089,7 @@ var DestinationMaxAggregateInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationMaxAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationMaxAggregateInput,
     );
     return DestinationMaxAggregateInput;
@@ -8003,7 +8099,7 @@ var DestinationMaxAggregate = /** @class */ (function () {
     function DestinationMaxAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8015,7 +8111,7 @@ var DestinationMaxAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8026,7 +8122,7 @@ var DestinationMaxAggregate = /** @class */ (function () {
         'customer_number',
     );
     DestinationMaxAggregate = __decorate(
-        [graphql_2.ObjectType()],
+        [(0, graphql_2.ObjectType)()],
         DestinationMaxAggregate,
     );
     return DestinationMaxAggregate;
@@ -8036,7 +8132,7 @@ var DestinationMaxOrderByAggregateInput = /** @class */ (function () {
     function DestinationMaxOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8048,7 +8144,7 @@ var DestinationMaxOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8059,7 +8155,7 @@ var DestinationMaxOrderByAggregateInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationMaxOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationMaxOrderByAggregateInput,
     );
     return DestinationMaxOrderByAggregateInput;
@@ -8069,7 +8165,7 @@ var DestinationMinAggregateInput = /** @class */ (function () {
     function DestinationMinAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -8081,7 +8177,7 @@ var DestinationMinAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -8092,7 +8188,7 @@ var DestinationMinAggregateInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationMinAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationMinAggregateInput,
     );
     return DestinationMinAggregateInput;
@@ -8102,7 +8198,7 @@ var DestinationMinAggregate = /** @class */ (function () {
     function DestinationMinAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8114,7 +8210,7 @@ var DestinationMinAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8125,7 +8221,7 @@ var DestinationMinAggregate = /** @class */ (function () {
         'customer_number',
     );
     DestinationMinAggregate = __decorate(
-        [graphql_2.ObjectType()],
+        [(0, graphql_2.ObjectType)()],
         DestinationMinAggregate,
     );
     return DestinationMinAggregate;
@@ -8135,7 +8231,7 @@ var DestinationMinOrderByAggregateInput = /** @class */ (function () {
     function DestinationMinOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8147,7 +8243,7 @@ var DestinationMinOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8158,7 +8254,7 @@ var DestinationMinOrderByAggregateInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationMinOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationMinOrderByAggregateInput,
     );
     return DestinationMinOrderByAggregateInput;
@@ -8168,7 +8264,7 @@ var DestinationOrderByRelationAggregateInput = /** @class */ (function () {
     function DestinationOrderByRelationAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8179,7 +8275,7 @@ var DestinationOrderByRelationAggregateInput = /** @class */ (function () {
         '_count',
     );
     DestinationOrderByRelationAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationOrderByRelationAggregateInput,
     );
     return DestinationOrderByRelationAggregateInput;
@@ -8190,7 +8286,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
     function DestinationOrderByWithAggregationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8202,7 +8298,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8214,7 +8310,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCountOrderByAggregateInput;
                 },
@@ -8226,7 +8322,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMaxOrderByAggregateInput;
                 },
@@ -8238,7 +8334,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationMinOrderByAggregateInput;
                 },
@@ -8249,7 +8345,7 @@ var DestinationOrderByWithAggregationInput = /** @class */ (function () {
         '_min',
     );
     DestinationOrderByWithAggregationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationOrderByWithAggregationInput,
     );
     return DestinationOrderByWithAggregationInput;
@@ -8259,7 +8355,7 @@ var DestinationOrderByWithRelationInput = /** @class */ (function () {
     function DestinationOrderByWithRelationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8271,7 +8367,7 @@ var DestinationOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerOrderByWithRelationInput;
                 },
@@ -8283,7 +8379,7 @@ var DestinationOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -8295,7 +8391,7 @@ var DestinationOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryOrderByWithRelationInput;
                 },
@@ -8306,7 +8402,7 @@ var DestinationOrderByWithRelationInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationOrderByWithRelationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationOrderByWithRelationInput,
     );
     return DestinationOrderByWithRelationInput;
@@ -8316,7 +8412,7 @@ var DestinationRelationFilter = /** @class */ (function () {
     function DestinationRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -8328,7 +8424,7 @@ var DestinationRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -8339,7 +8435,7 @@ var DestinationRelationFilter = /** @class */ (function () {
         'isNot',
     );
     DestinationRelationFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationRelationFilter,
     );
     return DestinationRelationFilter;
@@ -8352,7 +8448,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     var DestinationScalarWhereWithAggregatesInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereWithAggregatesInput_1];
                 },
@@ -8364,7 +8460,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereWithAggregatesInput_1];
                 },
@@ -8376,7 +8472,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereWithAggregatesInput_1];
                 },
@@ -8388,7 +8484,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -8400,7 +8496,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableWithAggregatesFilter;
                 },
@@ -8412,7 +8508,7 @@ var DestinationScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     DestinationScalarWhereWithAggregatesInput =
         DestinationScalarWhereWithAggregatesInput_1 = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationScalarWhereWithAggregatesInput,
         );
     return DestinationScalarWhereWithAggregatesInput;
@@ -8425,7 +8521,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
     var DestinationScalarWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereInput_1];
                 },
@@ -8437,7 +8533,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereInput_1];
                 },
@@ -8449,7 +8545,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarWhereInput_1];
                 },
@@ -8461,7 +8557,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -8473,7 +8569,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableFilter;
                 },
@@ -8484,7 +8580,7 @@ var DestinationScalarWhereInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationScalarWhereInput = DestinationScalarWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationScalarWhereInput,
     );
     return DestinationScalarWhereInput;
@@ -8495,7 +8591,7 @@ var DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInpu
         function DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateWithoutCustomer_destination_customerInput,
@@ -8509,7 +8605,7 @@ var DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInpu
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateOrConnectWithoutCustomer_destination_customerInput,
@@ -8523,7 +8619,7 @@ var DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInpu
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateManyCustomer_destination_customerInputEnvelope;
                     },
@@ -8535,7 +8631,7 @@ var DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInpu
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -8547,7 +8643,7 @@ var DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInpu
         );
         DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput,
             );
         return DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput;
@@ -8559,7 +8655,7 @@ var DestinationUncheckedCreateWithoutCustomer_destination_customerInput =
         function DestinationUncheckedCreateWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -8571,7 +8667,7 @@ var DestinationUncheckedCreateWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUncheckedCreateNestedOneWithoutDestinationInput;
                     },
@@ -8583,7 +8679,7 @@ var DestinationUncheckedCreateWithoutCustomer_destination_customerInput =
         );
         DestinationUncheckedCreateWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedCreateWithoutCustomer_destination_customerInput,
             );
         return DestinationUncheckedCreateWithoutCustomer_destination_customerInput;
@@ -8595,7 +8691,7 @@ var DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput =
         function DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -8607,7 +8703,7 @@ var DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -8619,7 +8715,7 @@ var DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput =
         );
         DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput,
             );
         return DestinationUncheckedCreateWithoutDelivery_destination_deliveryInput;
@@ -8630,7 +8726,7 @@ var DestinationUncheckedCreateInput = /** @class */ (function () {
     function DestinationUncheckedCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8642,7 +8738,7 @@ var DestinationUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -8654,7 +8750,7 @@ var DestinationUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUncheckedCreateNestedOneWithoutDestinationInput;
                 },
@@ -8665,7 +8761,7 @@ var DestinationUncheckedCreateInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationUncheckedCreateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationUncheckedCreateInput,
     );
     return DestinationUncheckedCreateInput;
@@ -8676,7 +8772,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         function DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateWithoutCustomer_destination_customerInput,
@@ -8690,7 +8786,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateOrConnectWithoutCustomer_destination_customerInput,
@@ -8704,7 +8800,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput,
@@ -8718,7 +8814,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateManyCustomer_destination_customerInputEnvelope;
                     },
@@ -8730,19 +8826,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return [DestinationWhereUniqueInput];
-                    },
-                    { nullable: true },
-                ),
-            ],
-            DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -8754,7 +8838,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -8766,7 +8850,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -8778,7 +8862,19 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return [DestinationWhereUniqueInput];
+                    },
+                    { nullable: true },
+                ),
+            ],
+            DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput,
@@ -8792,7 +8888,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput,
@@ -8806,7 +8902,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationScalarWhereInput];
                     },
@@ -8818,7 +8914,7 @@ var DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
         );
         DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput,
             );
         return DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput;
@@ -8830,7 +8926,7 @@ var DestinationUncheckedUpdateManyWithoutDestinationsInput =
         function DestinationUncheckedUpdateManyWithoutDestinationsInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -8841,7 +8937,7 @@ var DestinationUncheckedUpdateManyWithoutDestinationsInput =
             'id',
         );
         DestinationUncheckedUpdateManyWithoutDestinationsInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUncheckedUpdateManyWithoutDestinationsInput,
         );
         return DestinationUncheckedUpdateManyWithoutDestinationsInput;
@@ -8852,7 +8948,7 @@ var DestinationUncheckedUpdateManyInput = /** @class */ (function () {
     function DestinationUncheckedUpdateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -8864,7 +8960,7 @@ var DestinationUncheckedUpdateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -8875,7 +8971,7 @@ var DestinationUncheckedUpdateManyInput = /** @class */ (function () {
         'customer_number',
     );
     DestinationUncheckedUpdateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationUncheckedUpdateManyInput,
     );
     return DestinationUncheckedUpdateManyInput;
@@ -8886,7 +8982,7 @@ var DestinationUncheckedUpdateWithoutCustomer_destination_customerInput =
         function DestinationUncheckedUpdateWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -8898,7 +8994,7 @@ var DestinationUncheckedUpdateWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUncheckedUpdateOneWithoutDestinationInput;
                     },
@@ -8910,7 +9006,7 @@ var DestinationUncheckedUpdateWithoutCustomer_destination_customerInput =
         );
         DestinationUncheckedUpdateWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedUpdateWithoutCustomer_destination_customerInput,
             );
         return DestinationUncheckedUpdateWithoutCustomer_destination_customerInput;
@@ -8922,7 +9018,7 @@ var DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput =
         function DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -8934,7 +9030,7 @@ var DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return NullableStringFieldUpdateOperationsInput;
                     },
@@ -8946,7 +9042,7 @@ var DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput =
         );
         DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput,
             );
         return DestinationUncheckedUpdateWithoutDelivery_destination_deliveryInput;
@@ -8957,7 +9053,7 @@ var DestinationUncheckedUpdateInput = /** @class */ (function () {
     function DestinationUncheckedUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -8969,7 +9065,7 @@ var DestinationUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -8981,7 +9077,7 @@ var DestinationUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUncheckedUpdateOneWithoutDestinationInput;
                 },
@@ -8992,7 +9088,7 @@ var DestinationUncheckedUpdateInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationUncheckedUpdateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationUncheckedUpdateInput,
     );
     return DestinationUncheckedUpdateInput;
@@ -9002,7 +9098,7 @@ var DestinationUpdateManyMutationInput = /** @class */ (function () {
     function DestinationUpdateManyMutationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -9013,7 +9109,7 @@ var DestinationUpdateManyMutationInput = /** @class */ (function () {
         'id',
     );
     DestinationUpdateManyMutationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationUpdateManyMutationInput,
     );
     return DestinationUpdateManyMutationInput;
@@ -9024,7 +9120,7 @@ var DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput =
         function DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationScalarWhereInput;
                     },
@@ -9036,7 +9132,7 @@ var DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateManyMutationInput;
                     },
@@ -9048,7 +9144,7 @@ var DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput =
         );
         DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput,
             );
         return DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput;
@@ -9060,7 +9156,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         function DestinationUpdateManyWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateWithoutCustomer_destination_customerInput,
@@ -9074,7 +9170,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationCreateOrConnectWithoutCustomer_destination_customerInput,
@@ -9088,7 +9184,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput,
@@ -9102,7 +9198,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateManyCustomer_destination_customerInputEnvelope;
                     },
@@ -9114,19 +9210,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return [DestinationWhereUniqueInput];
-                    },
-                    { nullable: true },
-                ),
-            ],
-            DestinationUpdateManyWithoutCustomer_destination_customerInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -9138,7 +9222,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -9150,7 +9234,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationWhereUniqueInput];
                     },
@@ -9162,7 +9246,19 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return [DestinationWhereUniqueInput];
+                    },
+                    { nullable: true },
+                ),
+            ],
+            DestinationUpdateManyWithoutCustomer_destination_customerInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput,
@@ -9176,7 +9272,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput,
@@ -9190,7 +9286,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [DestinationScalarWhereInput];
                     },
@@ -9201,7 +9297,7 @@ var DestinationUpdateManyWithoutCustomer_destination_customerInput =
             'deleteMany',
         );
         DestinationUpdateManyWithoutCustomer_destination_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUpdateManyWithoutCustomer_destination_customerInput,
         );
         return DestinationUpdateManyWithoutCustomer_destination_customerInput;
@@ -9213,7 +9309,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         function DestinationUpdateOneWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutDelivery_destination_deliveryInput;
                     },
@@ -9225,7 +9321,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateOrConnectWithoutDelivery_destination_deliveryInput;
                     },
@@ -9237,7 +9333,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpsertWithoutDelivery_destination_deliveryInput;
                     },
@@ -9249,19 +9345,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return DestinationWhereUniqueInput;
-                    },
-                    { nullable: true },
-                ),
-            ],
-            DestinationUpdateOneWithoutDelivery_destination_deliveryInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -9273,7 +9357,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -9285,7 +9369,19 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return DestinationWhereUniqueInput;
+                    },
+                    { nullable: true },
+                ),
+            ],
+            DestinationUpdateOneWithoutDelivery_destination_deliveryInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateWithoutDelivery_destination_deliveryInput;
                     },
@@ -9296,7 +9392,7 @@ var DestinationUpdateOneWithoutDelivery_destination_deliveryInput =
             'update',
         );
         DestinationUpdateOneWithoutDelivery_destination_deliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUpdateOneWithoutDelivery_destination_deliveryInput,
         );
         return DestinationUpdateOneWithoutDelivery_destination_deliveryInput;
@@ -9308,7 +9404,7 @@ var DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput =
         function DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationWhereUniqueInput;
                     },
@@ -9320,7 +9416,7 @@ var DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateWithoutCustomer_destination_customerInput;
                     },
@@ -9332,7 +9428,7 @@ var DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput =
         );
         DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput,
             );
         return DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput;
@@ -9344,7 +9440,7 @@ var DestinationUpdateWithoutCustomer_destination_customerInput =
         function DestinationUpdateWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -9356,7 +9452,7 @@ var DestinationUpdateWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DeliveryUpdateOneWithoutDestinationInput;
                     },
@@ -9367,7 +9463,7 @@ var DestinationUpdateWithoutCustomer_destination_customerInput =
             'delivery_destination_delivery',
         );
         DestinationUpdateWithoutCustomer_destination_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUpdateWithoutCustomer_destination_customerInput,
         );
         return DestinationUpdateWithoutCustomer_destination_customerInput;
@@ -9379,7 +9475,7 @@ var DestinationUpdateWithoutDelivery_destination_deliveryInput =
         function DestinationUpdateWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -9391,7 +9487,7 @@ var DestinationUpdateWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerUpdateOneWithoutDestinationsInput;
                     },
@@ -9402,7 +9498,7 @@ var DestinationUpdateWithoutDelivery_destination_deliveryInput =
             'customer_destination_customer',
         );
         DestinationUpdateWithoutDelivery_destination_deliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUpdateWithoutDelivery_destination_deliveryInput,
         );
         return DestinationUpdateWithoutDelivery_destination_deliveryInput;
@@ -9413,7 +9509,7 @@ var DestinationUpdateInput = /** @class */ (function () {
     function DestinationUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -9425,7 +9521,7 @@ var DestinationUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutDestinationsInput;
                 },
@@ -9437,7 +9533,7 @@ var DestinationUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryUpdateOneWithoutDestinationInput;
                 },
@@ -9448,7 +9544,7 @@ var DestinationUpdateInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationUpdateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationUpdateInput,
     );
     return DestinationUpdateInput;
@@ -9459,7 +9555,7 @@ var DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput =
         function DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationWhereUniqueInput;
                     },
@@ -9471,7 +9567,7 @@ var DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateWithoutCustomer_destination_customerInput;
                     },
@@ -9483,7 +9579,7 @@ var DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutCustomer_destination_customerInput;
                     },
@@ -9495,7 +9591,7 @@ var DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput =
         );
         DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput,
             );
         return DestinationUpsertWithWhereUniqueWithoutCustomer_destination_customerInput;
@@ -9507,7 +9603,7 @@ var DestinationUpsertWithoutDelivery_destination_deliveryInput =
         function DestinationUpsertWithoutDelivery_destination_deliveryInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationUpdateWithoutDelivery_destination_deliveryInput;
                     },
@@ -9519,7 +9615,7 @@ var DestinationUpsertWithoutDelivery_destination_deliveryInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return DestinationCreateWithoutDelivery_destination_deliveryInput;
                     },
@@ -9530,7 +9626,7 @@ var DestinationUpsertWithoutDelivery_destination_deliveryInput =
             'create',
         );
         DestinationUpsertWithoutDelivery_destination_deliveryInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             DestinationUpsertWithoutDelivery_destination_deliveryInput,
         );
         return DestinationUpsertWithoutDelivery_destination_deliveryInput;
@@ -9541,7 +9637,7 @@ var DestinationWhereUniqueInput = /** @class */ (function () {
     function DestinationWhereUniqueInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -9552,7 +9648,7 @@ var DestinationWhereUniqueInput = /** @class */ (function () {
         'id',
     );
     DestinationWhereUniqueInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationWhereUniqueInput,
     );
     return DestinationWhereUniqueInput;
@@ -9564,7 +9660,7 @@ var DestinationWhereInput = /** @class */ (function () {
     var DestinationWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationWhereInput_1];
                 },
@@ -9576,7 +9672,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationWhereInput_1];
                 },
@@ -9588,7 +9684,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationWhereInput_1];
                 },
@@ -9600,7 +9696,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -9612,7 +9708,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerRelationFilter;
                 },
@@ -9624,7 +9720,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableFilter;
                 },
@@ -9636,7 +9732,7 @@ var DestinationWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DeliveryRelationFilter;
                 },
@@ -9647,7 +9743,7 @@ var DestinationWhereInput = /** @class */ (function () {
         'delivery_destination_delivery',
     );
     DestinationWhereInput = DestinationWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         DestinationWhereInput,
     );
     return DestinationWhereInput;
@@ -9657,7 +9753,7 @@ var Destination = /** @class */ (function () {
     function Destination() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_7.ID;
                 },
@@ -9669,7 +9765,7 @@ var Destination = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Customer;
                 },
@@ -9681,7 +9777,7 @@ var Destination = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -9693,7 +9789,7 @@ var Destination = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Delivery;
                 },
@@ -9703,7 +9799,7 @@ var Destination = /** @class */ (function () {
         Destination.prototype,
         'delivery_destination_delivery',
     );
-    Destination = __decorate([graphql_2.ObjectType()], Destination);
+    Destination = __decorate([(0, graphql_2.ObjectType)()], Destination);
     return Destination;
 })();
 exports.Destination = Destination;
@@ -9711,7 +9807,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     function FindFirstDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -9723,7 +9819,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationOrderByWithRelationInput];
                 },
@@ -9735,7 +9831,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -9747,7 +9843,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -9759,7 +9855,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -9771,7 +9867,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarFieldEnum];
                 },
@@ -9782,7 +9878,7 @@ var FindFirstDestinationArgs = /** @class */ (function () {
         'distinct',
     );
     FindFirstDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         FindFirstDestinationArgs,
     );
     return FindFirstDestinationArgs;
@@ -9792,7 +9888,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     function FindManyDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -9804,7 +9900,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationOrderByWithRelationInput];
                 },
@@ -9816,7 +9912,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -9828,7 +9924,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -9840,7 +9936,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -9852,7 +9948,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [DestinationScalarFieldEnum];
                 },
@@ -9863,7 +9959,7 @@ var FindManyDestinationArgs = /** @class */ (function () {
         'distinct',
     );
     FindManyDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         FindManyDestinationArgs,
     );
     return FindManyDestinationArgs;
@@ -9873,7 +9969,7 @@ var FindUniqueDestinationArgs = /** @class */ (function () {
     function FindUniqueDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -9884,7 +9980,7 @@ var FindUniqueDestinationArgs = /** @class */ (function () {
         'where',
     );
     FindUniqueDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         FindUniqueDestinationArgs,
     );
     return FindUniqueDestinationArgs;
@@ -9894,7 +9990,7 @@ var UpdateManyDestinationArgs = /** @class */ (function () {
     function UpdateManyDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateManyMutationInput;
                 },
@@ -9906,7 +10002,7 @@ var UpdateManyDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereInput;
                 },
@@ -9917,7 +10013,7 @@ var UpdateManyDestinationArgs = /** @class */ (function () {
         'where',
     );
     UpdateManyDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         UpdateManyDestinationArgs,
     );
     return UpdateManyDestinationArgs;
@@ -9927,7 +10023,7 @@ var UpdateOneDestinationArgs = /** @class */ (function () {
     function UpdateOneDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateInput;
                 },
@@ -9939,7 +10035,7 @@ var UpdateOneDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -9950,7 +10046,7 @@ var UpdateOneDestinationArgs = /** @class */ (function () {
         'where',
     );
     UpdateOneDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         UpdateOneDestinationArgs,
     );
     return UpdateOneDestinationArgs;
@@ -9960,7 +10056,7 @@ var UpsertOneDestinationArgs = /** @class */ (function () {
     function UpsertOneDestinationArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationWhereUniqueInput;
                 },
@@ -9972,7 +10068,7 @@ var UpsertOneDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationCreateInput;
                 },
@@ -9984,7 +10080,7 @@ var UpsertOneDestinationArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return DestinationUpdateInput;
                 },
@@ -9995,7 +10091,7 @@ var UpsertOneDestinationArgs = /** @class */ (function () {
         'update',
     );
     UpsertOneDestinationArgs = __decorate(
-        [graphql_3.ArgsType()],
+        [(0, graphql_3.ArgsType)()],
         UpsertOneDestinationArgs,
     );
     return UpsertOneDestinationArgs;
@@ -10005,7 +10101,7 @@ var AffectedRows = /** @class */ (function () {
     function AffectedRows() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10015,7 +10111,7 @@ var AffectedRows = /** @class */ (function () {
         AffectedRows.prototype,
         'count',
     );
-    AffectedRows = __decorate([graphql_2.ObjectType()], AffectedRows);
+    AffectedRows = __decorate([(0, graphql_2.ObjectType)()], AffectedRows);
     return AffectedRows;
 })();
 exports.AffectedRows = AffectedRows;
@@ -10025,7 +10121,7 @@ var NestedIntFilter = /** @class */ (function () {
     var NestedIntFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10037,7 +10133,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [graphql_4.Int];
                 },
@@ -10049,7 +10145,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [graphql_4.Int];
                 },
@@ -10061,7 +10157,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10073,7 +10169,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10085,7 +10181,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10097,7 +10193,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10109,7 +10205,7 @@ var NestedIntFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntFilter_1;
                 },
@@ -10120,7 +10216,7 @@ var NestedIntFilter = /** @class */ (function () {
         'not',
     );
     NestedIntFilter = NestedIntFilter_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NestedIntFilter,
     );
     return NestedIntFilter;
@@ -10132,7 +10228,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     var NestedIntNullableFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10144,7 +10240,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [graphql_4.Int];
                 },
@@ -10156,7 +10252,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [graphql_4.Int];
                 },
@@ -10168,7 +10264,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10180,7 +10276,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10192,7 +10288,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10204,7 +10300,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -10216,7 +10312,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntNullableFilter_1;
                 },
@@ -10227,7 +10323,7 @@ var NestedIntNullableFilter = /** @class */ (function () {
         'not',
     );
     NestedIntNullableFilter = NestedIntNullableFilter_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NestedIntNullableFilter,
     );
     return NestedIntNullableFilter;
@@ -10239,7 +10335,7 @@ var NestedStringFilter = /** @class */ (function () {
     var NestedStringFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10251,7 +10347,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10263,7 +10359,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10275,7 +10371,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10287,7 +10383,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10299,7 +10395,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10311,7 +10407,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10323,7 +10419,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10335,7 +10431,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10347,7 +10443,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10359,7 +10455,7 @@ var NestedStringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter_1;
                 },
@@ -10370,7 +10466,7 @@ var NestedStringFilter = /** @class */ (function () {
         'not',
     );
     NestedStringFilter = NestedStringFilter_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NestedStringFilter,
     );
     return NestedStringFilter;
@@ -10382,7 +10478,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     var NestedStringNullableFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10394,7 +10490,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10406,7 +10502,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10418,7 +10514,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10430,7 +10526,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10442,7 +10538,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10454,7 +10550,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10466,7 +10562,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10478,7 +10574,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10490,7 +10586,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10502,7 +10598,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter_1;
                 },
@@ -10513,7 +10609,7 @@ var NestedStringNullableFilter = /** @class */ (function () {
         'not',
     );
     NestedStringNullableFilter = NestedStringNullableFilter_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NestedStringNullableFilter,
     );
     return NestedStringNullableFilter;
@@ -10526,7 +10622,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     var NestedStringNullableWithAggregatesFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10538,7 +10634,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10550,7 +10646,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10562,7 +10658,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10574,7 +10670,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10586,7 +10682,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10598,7 +10694,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10610,7 +10706,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10622,7 +10718,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10634,7 +10730,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10646,7 +10742,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableWithAggregatesFilter_1;
                 },
@@ -10658,7 +10754,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntNullableFilter;
                 },
@@ -10670,7 +10766,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter;
                 },
@@ -10682,7 +10778,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter;
                 },
@@ -10694,7 +10790,7 @@ var NestedStringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     NestedStringNullableWithAggregatesFilter =
         NestedStringNullableWithAggregatesFilter_1 = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             NestedStringNullableWithAggregatesFilter,
         );
     return NestedStringNullableWithAggregatesFilter;
@@ -10707,7 +10803,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     var NestedStringWithAggregatesFilter_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10719,7 +10815,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10731,7 +10827,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10743,7 +10839,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10755,7 +10851,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10767,7 +10863,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10779,7 +10875,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10791,7 +10887,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10803,7 +10899,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10815,7 +10911,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10827,7 +10923,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringWithAggregatesFilter_1;
                 },
@@ -10839,7 +10935,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntFilter;
                 },
@@ -10851,7 +10947,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter;
                 },
@@ -10863,7 +10959,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter;
                 },
@@ -10874,7 +10970,7 @@ var NestedStringWithAggregatesFilter = /** @class */ (function () {
         '_max',
     );
     NestedStringWithAggregatesFilter = NestedStringWithAggregatesFilter_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NestedStringWithAggregatesFilter,
     );
     return NestedStringWithAggregatesFilter;
@@ -10884,7 +10980,7 @@ var NullableStringFieldUpdateOperationsInput = /** @class */ (function () {
     function NullableStringFieldUpdateOperationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10895,7 +10991,7 @@ var NullableStringFieldUpdateOperationsInput = /** @class */ (function () {
         'set',
     );
     NullableStringFieldUpdateOperationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         NullableStringFieldUpdateOperationsInput,
     );
     return NullableStringFieldUpdateOperationsInput;
@@ -10906,7 +11002,7 @@ var StringFieldUpdateOperationsInput = /** @class */ (function () {
     function StringFieldUpdateOperationsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10917,7 +11013,7 @@ var StringFieldUpdateOperationsInput = /** @class */ (function () {
         'set',
     );
     StringFieldUpdateOperationsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         StringFieldUpdateOperationsInput,
     );
     return StringFieldUpdateOperationsInput;
@@ -10927,7 +11023,7 @@ var StringFilter = /** @class */ (function () {
     function StringFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10939,7 +11035,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10951,7 +11047,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -10963,7 +11059,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10975,7 +11071,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10987,7 +11083,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -10999,7 +11095,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11011,7 +11107,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11023,7 +11119,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11035,7 +11131,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11047,7 +11143,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return QueryMode;
                 },
@@ -11059,7 +11155,7 @@ var StringFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter;
                 },
@@ -11069,7 +11165,7 @@ var StringFilter = /** @class */ (function () {
         StringFilter.prototype,
         'not',
     );
-    StringFilter = __decorate([graphql_5.InputType()], StringFilter);
+    StringFilter = __decorate([(0, graphql_5.InputType)()], StringFilter);
     return StringFilter;
 })();
 exports.StringFilter = StringFilter;
@@ -11077,7 +11173,7 @@ var StringNullableFilter = /** @class */ (function () {
     function StringNullableFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11089,7 +11185,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11101,7 +11197,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11113,7 +11209,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11125,7 +11221,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11137,7 +11233,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11149,7 +11245,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11161,7 +11257,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11173,7 +11269,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11185,7 +11281,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11197,7 +11293,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return QueryMode;
                 },
@@ -11209,7 +11305,7 @@ var StringNullableFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter;
                 },
@@ -11219,7 +11315,10 @@ var StringNullableFilter = /** @class */ (function () {
         StringNullableFilter.prototype,
         'not',
     );
-    StringNullableFilter = __decorate([graphql_5.InputType()], StringNullableFilter);
+    StringNullableFilter = __decorate(
+        [(0, graphql_5.InputType)()],
+        StringNullableFilter,
+    );
     return StringNullableFilter;
 })();
 exports.StringNullableFilter = StringNullableFilter;
@@ -11227,7 +11326,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     function StringNullableWithAggregatesFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11239,7 +11338,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11251,7 +11350,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11263,7 +11362,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11275,7 +11374,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11287,7 +11386,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11299,7 +11398,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11311,7 +11410,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11323,7 +11422,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11335,7 +11434,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11347,7 +11446,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return QueryMode;
                 },
@@ -11359,7 +11458,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableWithAggregatesFilter;
                 },
@@ -11371,7 +11470,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntNullableFilter;
                 },
@@ -11383,7 +11482,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter;
                 },
@@ -11395,7 +11494,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringNullableFilter;
                 },
@@ -11406,7 +11505,7 @@ var StringNullableWithAggregatesFilter = /** @class */ (function () {
         '_max',
     );
     StringNullableWithAggregatesFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         StringNullableWithAggregatesFilter,
     );
     return StringNullableWithAggregatesFilter;
@@ -11416,7 +11515,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     function StringWithAggregatesFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11428,7 +11527,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11440,7 +11539,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [String];
                 },
@@ -11452,7 +11551,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11464,7 +11563,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11476,7 +11575,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11488,7 +11587,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11500,7 +11599,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11512,7 +11611,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11524,7 +11623,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -11536,7 +11635,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return QueryMode;
                 },
@@ -11548,7 +11647,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringWithAggregatesFilter;
                 },
@@ -11560,7 +11659,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedIntFilter;
                 },
@@ -11572,7 +11671,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter;
                 },
@@ -11584,7 +11683,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NestedStringFilter;
                 },
@@ -11595,7 +11694,7 @@ var StringWithAggregatesFilter = /** @class */ (function () {
         '_max',
     );
     StringWithAggregatesFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         StringWithAggregatesFilter,
     );
     return StringWithAggregatesFilter;
@@ -11605,7 +11704,7 @@ var AggregateProfile = /** @class */ (function () {
     function AggregateProfile() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCountAggregate;
                 },
@@ -11617,7 +11716,7 @@ var AggregateProfile = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMinAggregate;
                 },
@@ -11629,7 +11728,7 @@ var AggregateProfile = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMaxAggregate;
                 },
@@ -11639,7 +11738,7 @@ var AggregateProfile = /** @class */ (function () {
         AggregateProfile.prototype,
         '_max',
     );
-    AggregateProfile = __decorate([graphql_2.ObjectType()], AggregateProfile);
+    AggregateProfile = __decorate([(0, graphql_2.ObjectType)()], AggregateProfile);
     return AggregateProfile;
 })();
 exports.AggregateProfile = AggregateProfile;
@@ -11647,7 +11746,7 @@ var CreateManyProfileArgs = /** @class */ (function () {
     function CreateManyProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileCreateManyInput];
                 },
@@ -11659,7 +11758,7 @@ var CreateManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -11669,7 +11768,10 @@ var CreateManyProfileArgs = /** @class */ (function () {
         CreateManyProfileArgs.prototype,
         'skipDuplicates',
     );
-    CreateManyProfileArgs = __decorate([graphql_3.ArgsType()], CreateManyProfileArgs);
+    CreateManyProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateManyProfileArgs,
+    );
     return CreateManyProfileArgs;
 })();
 exports.CreateManyProfileArgs = CreateManyProfileArgs;
@@ -11677,7 +11779,7 @@ var CreateOneProfileArgs = /** @class */ (function () {
     function CreateOneProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateInput;
                 },
@@ -11687,7 +11789,10 @@ var CreateOneProfileArgs = /** @class */ (function () {
         CreateOneProfileArgs.prototype,
         'data',
     );
-    CreateOneProfileArgs = __decorate([graphql_3.ArgsType()], CreateOneProfileArgs);
+    CreateOneProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        CreateOneProfileArgs,
+    );
     return CreateOneProfileArgs;
 })();
 exports.CreateOneProfileArgs = CreateOneProfileArgs;
@@ -11695,7 +11800,7 @@ var DeleteManyProfileArgs = /** @class */ (function () {
     function DeleteManyProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -11705,7 +11810,10 @@ var DeleteManyProfileArgs = /** @class */ (function () {
         DeleteManyProfileArgs.prototype,
         'where',
     );
-    DeleteManyProfileArgs = __decorate([graphql_3.ArgsType()], DeleteManyProfileArgs);
+    DeleteManyProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteManyProfileArgs,
+    );
     return DeleteManyProfileArgs;
 })();
 exports.DeleteManyProfileArgs = DeleteManyProfileArgs;
@@ -11713,7 +11821,7 @@ var DeleteOneProfileArgs = /** @class */ (function () {
     function DeleteOneProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -11723,7 +11831,10 @@ var DeleteOneProfileArgs = /** @class */ (function () {
         DeleteOneProfileArgs.prototype,
         'where',
     );
-    DeleteOneProfileArgs = __decorate([graphql_3.ArgsType()], DeleteOneProfileArgs);
+    DeleteOneProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        DeleteOneProfileArgs,
+    );
     return DeleteOneProfileArgs;
 })();
 exports.DeleteOneProfileArgs = DeleteOneProfileArgs;
@@ -11731,7 +11842,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     function FindFirstProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -11743,7 +11854,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileOrderByWithRelationInput];
                 },
@@ -11755,7 +11866,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -11767,7 +11878,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11779,7 +11890,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11791,7 +11902,7 @@ var FindFirstProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarFieldEnum];
                 },
@@ -11801,7 +11912,10 @@ var FindFirstProfileArgs = /** @class */ (function () {
         FindFirstProfileArgs.prototype,
         'distinct',
     );
-    FindFirstProfileArgs = __decorate([graphql_3.ArgsType()], FindFirstProfileArgs);
+    FindFirstProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindFirstProfileArgs,
+    );
     return FindFirstProfileArgs;
 })();
 exports.FindFirstProfileArgs = FindFirstProfileArgs;
@@ -11809,7 +11923,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     function FindManyProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -11821,7 +11935,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileOrderByWithRelationInput];
                 },
@@ -11833,7 +11947,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -11845,7 +11959,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11857,7 +11971,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11869,7 +11983,7 @@ var FindManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarFieldEnum];
                 },
@@ -11879,7 +11993,7 @@ var FindManyProfileArgs = /** @class */ (function () {
         FindManyProfileArgs.prototype,
         'distinct',
     );
-    FindManyProfileArgs = __decorate([graphql_3.ArgsType()], FindManyProfileArgs);
+    FindManyProfileArgs = __decorate([(0, graphql_3.ArgsType)()], FindManyProfileArgs);
     return FindManyProfileArgs;
 })();
 exports.FindManyProfileArgs = FindManyProfileArgs;
@@ -11887,7 +12001,7 @@ var FindUniqueProfileArgs = /** @class */ (function () {
     function FindUniqueProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -11897,7 +12011,10 @@ var FindUniqueProfileArgs = /** @class */ (function () {
         FindUniqueProfileArgs.prototype,
         'where',
     );
-    FindUniqueProfileArgs = __decorate([graphql_3.ArgsType()], FindUniqueProfileArgs);
+    FindUniqueProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        FindUniqueProfileArgs,
+    );
     return FindUniqueProfileArgs;
 })();
 exports.FindUniqueProfileArgs = FindUniqueProfileArgs;
@@ -11905,7 +12022,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     function ProfileAggregateArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -11917,7 +12034,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileOrderByWithRelationInput];
                 },
@@ -11929,7 +12046,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -11941,7 +12058,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11953,7 +12070,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -11965,7 +12082,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCountAggregateInput;
                 },
@@ -11977,7 +12094,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMinAggregateInput;
                 },
@@ -11989,7 +12106,7 @@ var ProfileAggregateArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMaxAggregateInput;
                 },
@@ -11999,7 +12116,10 @@ var ProfileAggregateArgs = /** @class */ (function () {
         ProfileAggregateArgs.prototype,
         '_max',
     );
-    ProfileAggregateArgs = __decorate([graphql_3.ArgsType()], ProfileAggregateArgs);
+    ProfileAggregateArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        ProfileAggregateArgs,
+    );
     return ProfileAggregateArgs;
 })();
 exports.ProfileAggregateArgs = ProfileAggregateArgs;
@@ -12007,7 +12127,7 @@ var ProfileCountAggregateInput = /** @class */ (function () {
     function ProfileCountAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12019,7 +12139,7 @@ var ProfileCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12031,7 +12151,7 @@ var ProfileCountAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12042,7 +12162,7 @@ var ProfileCountAggregateInput = /** @class */ (function () {
         '_all',
     );
     ProfileCountAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCountAggregateInput,
     );
     return ProfileCountAggregateInput;
@@ -12052,7 +12172,7 @@ var ProfileCountAggregate = /** @class */ (function () {
     function ProfileCountAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -12064,7 +12184,7 @@ var ProfileCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -12076,7 +12196,7 @@ var ProfileCountAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -12086,7 +12206,10 @@ var ProfileCountAggregate = /** @class */ (function () {
         ProfileCountAggregate.prototype,
         '_all',
     );
-    ProfileCountAggregate = __decorate([graphql_2.ObjectType()], ProfileCountAggregate);
+    ProfileCountAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        ProfileCountAggregate,
+    );
     return ProfileCountAggregate;
 })();
 exports.ProfileCountAggregate = ProfileCountAggregate;
@@ -12094,7 +12217,7 @@ var ProfileCountOrderByAggregateInput = /** @class */ (function () {
     function ProfileCountOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12106,7 +12229,7 @@ var ProfileCountOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12117,7 +12240,7 @@ var ProfileCountOrderByAggregateInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileCountOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCountOrderByAggregateInput,
     );
     return ProfileCountOrderByAggregateInput;
@@ -12128,7 +12251,7 @@ var ProfileCreateManyCollector_profile_customerInputEnvelope =
         function ProfileCreateManyCollector_profile_customerInputEnvelope() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileCreateManyCollector_profile_customerInput];
                     },
@@ -12140,7 +12263,7 @@ var ProfileCreateManyCollector_profile_customerInputEnvelope =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return Boolean;
                     },
@@ -12151,7 +12274,7 @@ var ProfileCreateManyCollector_profile_customerInputEnvelope =
             'skipDuplicates',
         );
         ProfileCreateManyCollector_profile_customerInputEnvelope = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileCreateManyCollector_profile_customerInputEnvelope,
         );
         return ProfileCreateManyCollector_profile_customerInputEnvelope;
@@ -12162,7 +12285,7 @@ var ProfileCreateManyCollector_profile_customerInput = /** @class */ (function (
     function ProfileCreateManyCollector_profile_customerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12173,7 +12296,7 @@ var ProfileCreateManyCollector_profile_customerInput = /** @class */ (function (
         'id',
     );
     ProfileCreateManyCollector_profile_customerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateManyCollector_profile_customerInput,
     );
     return ProfileCreateManyCollector_profile_customerInput;
@@ -12184,7 +12307,7 @@ var ProfileCreateManyInput = /** @class */ (function () {
     function ProfileCreateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12196,7 +12319,7 @@ var ProfileCreateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12207,7 +12330,7 @@ var ProfileCreateManyInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileCreateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateManyInput,
     );
     return ProfileCreateManyInput;
@@ -12218,7 +12341,7 @@ var ProfileCreateNestedManyWithoutCollector_profile_customerInput =
         function ProfileCreateNestedManyWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileCreateWithoutCollector_profile_customerInput];
                     },
@@ -12230,7 +12353,7 @@ var ProfileCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileCreateOrConnectWithoutCollector_profile_customerInput,
@@ -12244,7 +12367,7 @@ var ProfileCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateManyCollector_profile_customerInputEnvelope;
                     },
@@ -12256,7 +12379,7 @@ var ProfileCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -12267,7 +12390,7 @@ var ProfileCreateNestedManyWithoutCollector_profile_customerInput =
             'connect',
         );
         ProfileCreateNestedManyWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileCreateNestedManyWithoutCollector_profile_customerInput,
         );
         return ProfileCreateNestedManyWithoutCollector_profile_customerInput;
@@ -12278,7 +12401,7 @@ var ProfileCreateNestedOneWithoutCustomerInput = /** @class */ (function () {
     function ProfileCreateNestedOneWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateWithoutCustomerInput;
                 },
@@ -12290,7 +12413,7 @@ var ProfileCreateNestedOneWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateOrConnectWithoutCustomerInput;
                 },
@@ -12302,7 +12425,7 @@ var ProfileCreateNestedOneWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -12313,7 +12436,7 @@ var ProfileCreateNestedOneWithoutCustomerInput = /** @class */ (function () {
         'connect',
     );
     ProfileCreateNestedOneWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateNestedOneWithoutCustomerInput,
     );
     return ProfileCreateNestedOneWithoutCustomerInput;
@@ -12325,7 +12448,7 @@ var ProfileCreateOrConnectWithoutCollector_profile_customerInput =
         function ProfileCreateOrConnectWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileWhereUniqueInput;
                     },
@@ -12337,7 +12460,7 @@ var ProfileCreateOrConnectWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateWithoutCollector_profile_customerInput;
                     },
@@ -12348,7 +12471,7 @@ var ProfileCreateOrConnectWithoutCollector_profile_customerInput =
             'create',
         );
         ProfileCreateOrConnectWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileCreateOrConnectWithoutCollector_profile_customerInput,
         );
         return ProfileCreateOrConnectWithoutCollector_profile_customerInput;
@@ -12359,7 +12482,7 @@ var ProfileCreateOrConnectWithoutCustomerInput = /** @class */ (function () {
     function ProfileCreateOrConnectWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -12371,7 +12494,7 @@ var ProfileCreateOrConnectWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateWithoutCustomerInput;
                 },
@@ -12382,7 +12505,7 @@ var ProfileCreateOrConnectWithoutCustomerInput = /** @class */ (function () {
         'create',
     );
     ProfileCreateOrConnectWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateOrConnectWithoutCustomerInput,
     );
     return ProfileCreateOrConnectWithoutCustomerInput;
@@ -12393,7 +12516,7 @@ var ProfileCreateWithoutCollector_profile_customerInput = /** @class */ (functio
     function ProfileCreateWithoutCollector_profile_customerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12405,7 +12528,7 @@ var ProfileCreateWithoutCollector_profile_customerInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutProfileInput;
                 },
@@ -12416,7 +12539,7 @@ var ProfileCreateWithoutCollector_profile_customerInput = /** @class */ (functio
         'customer',
     );
     ProfileCreateWithoutCollector_profile_customerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateWithoutCollector_profile_customerInput,
     );
     return ProfileCreateWithoutCollector_profile_customerInput;
@@ -12427,7 +12550,7 @@ var ProfileCreateWithoutCustomerInput = /** @class */ (function () {
     function ProfileCreateWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12439,7 +12562,7 @@ var ProfileCreateWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutCollectorsInput;
                 },
@@ -12450,7 +12573,7 @@ var ProfileCreateWithoutCustomerInput = /** @class */ (function () {
         'collector_profile_customer',
     );
     ProfileCreateWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileCreateWithoutCustomerInput,
     );
     return ProfileCreateWithoutCustomerInput;
@@ -12460,7 +12583,7 @@ var ProfileCreateInput = /** @class */ (function () {
     function ProfileCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12472,7 +12595,7 @@ var ProfileCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutProfileInput;
                 },
@@ -12484,7 +12607,7 @@ var ProfileCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerCreateNestedOneWithoutCollectorsInput;
                 },
@@ -12494,7 +12617,7 @@ var ProfileCreateInput = /** @class */ (function () {
         ProfileCreateInput.prototype,
         'collector_profile_customer',
     );
-    ProfileCreateInput = __decorate([graphql_5.InputType()], ProfileCreateInput);
+    ProfileCreateInput = __decorate([(0, graphql_5.InputType)()], ProfileCreateInput);
     return ProfileCreateInput;
 })();
 exports.ProfileCreateInput = ProfileCreateInput;
@@ -12502,7 +12625,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     function ProfileGroupByArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -12514,7 +12637,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileOrderByWithAggregationInput];
                 },
@@ -12526,7 +12649,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarFieldEnum];
                 },
@@ -12538,7 +12661,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileScalarWhereWithAggregatesInput;
                 },
@@ -12550,7 +12673,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -12562,7 +12685,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_4.Int;
                 },
@@ -12574,7 +12697,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCountAggregateInput;
                 },
@@ -12586,7 +12709,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMinAggregateInput;
                 },
@@ -12598,7 +12721,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMaxAggregateInput;
                 },
@@ -12608,7 +12731,7 @@ var ProfileGroupByArgs = /** @class */ (function () {
         ProfileGroupByArgs.prototype,
         '_max',
     );
-    ProfileGroupByArgs = __decorate([graphql_3.ArgsType()], ProfileGroupByArgs);
+    ProfileGroupByArgs = __decorate([(0, graphql_3.ArgsType)()], ProfileGroupByArgs);
     return ProfileGroupByArgs;
 })();
 exports.ProfileGroupByArgs = ProfileGroupByArgs;
@@ -12616,7 +12739,7 @@ var ProfileGroupBy = /** @class */ (function () {
     function ProfileGroupBy() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12628,7 +12751,7 @@ var ProfileGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12640,7 +12763,7 @@ var ProfileGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCountAggregate;
                 },
@@ -12652,7 +12775,7 @@ var ProfileGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMinAggregate;
                 },
@@ -12664,7 +12787,7 @@ var ProfileGroupBy = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMaxAggregate;
                 },
@@ -12674,7 +12797,7 @@ var ProfileGroupBy = /** @class */ (function () {
         ProfileGroupBy.prototype,
         '_max',
     );
-    ProfileGroupBy = __decorate([graphql_2.ObjectType()], ProfileGroupBy);
+    ProfileGroupBy = __decorate([(0, graphql_2.ObjectType)()], ProfileGroupBy);
     return ProfileGroupBy;
 })();
 exports.ProfileGroupBy = ProfileGroupBy;
@@ -12682,7 +12805,7 @@ var ProfileListRelationFilter = /** @class */ (function () {
     function ProfileListRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -12694,7 +12817,7 @@ var ProfileListRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -12706,7 +12829,7 @@ var ProfileListRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -12717,7 +12840,7 @@ var ProfileListRelationFilter = /** @class */ (function () {
         'none',
     );
     ProfileListRelationFilter = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileListRelationFilter,
     );
     return ProfileListRelationFilter;
@@ -12727,7 +12850,7 @@ var ProfileMaxAggregateInput = /** @class */ (function () {
     function ProfileMaxAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12739,7 +12862,7 @@ var ProfileMaxAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12750,7 +12873,7 @@ var ProfileMaxAggregateInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileMaxAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileMaxAggregateInput,
     );
     return ProfileMaxAggregateInput;
@@ -12760,7 +12883,7 @@ var ProfileMaxAggregate = /** @class */ (function () {
     function ProfileMaxAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12772,7 +12895,7 @@ var ProfileMaxAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12782,7 +12905,10 @@ var ProfileMaxAggregate = /** @class */ (function () {
         ProfileMaxAggregate.prototype,
         'customer_numbner',
     );
-    ProfileMaxAggregate = __decorate([graphql_2.ObjectType()], ProfileMaxAggregate);
+    ProfileMaxAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        ProfileMaxAggregate,
+    );
     return ProfileMaxAggregate;
 })();
 exports.ProfileMaxAggregate = ProfileMaxAggregate;
@@ -12790,7 +12916,7 @@ var ProfileMaxOrderByAggregateInput = /** @class */ (function () {
     function ProfileMaxOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12802,7 +12928,7 @@ var ProfileMaxOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12813,7 +12939,7 @@ var ProfileMaxOrderByAggregateInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileMaxOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileMaxOrderByAggregateInput,
     );
     return ProfileMaxOrderByAggregateInput;
@@ -12823,7 +12949,7 @@ var ProfileMinAggregateInput = /** @class */ (function () {
     function ProfileMinAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12835,7 +12961,7 @@ var ProfileMinAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Boolean;
                 },
@@ -12846,7 +12972,7 @@ var ProfileMinAggregateInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileMinAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileMinAggregateInput,
     );
     return ProfileMinAggregateInput;
@@ -12856,7 +12982,7 @@ var ProfileMinAggregate = /** @class */ (function () {
     function ProfileMinAggregate() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12868,7 +12994,7 @@ var ProfileMinAggregate = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -12878,7 +13004,10 @@ var ProfileMinAggregate = /** @class */ (function () {
         ProfileMinAggregate.prototype,
         'customer_numbner',
     );
-    ProfileMinAggregate = __decorate([graphql_2.ObjectType()], ProfileMinAggregate);
+    ProfileMinAggregate = __decorate(
+        [(0, graphql_2.ObjectType)()],
+        ProfileMinAggregate,
+    );
     return ProfileMinAggregate;
 })();
 exports.ProfileMinAggregate = ProfileMinAggregate;
@@ -12886,7 +13015,7 @@ var ProfileMinOrderByAggregateInput = /** @class */ (function () {
     function ProfileMinOrderByAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12898,7 +13027,7 @@ var ProfileMinOrderByAggregateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12909,7 +13038,7 @@ var ProfileMinOrderByAggregateInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileMinOrderByAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileMinOrderByAggregateInput,
     );
     return ProfileMinOrderByAggregateInput;
@@ -12919,7 +13048,7 @@ var ProfileOrderByRelationAggregateInput = /** @class */ (function () {
     function ProfileOrderByRelationAggregateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12930,7 +13059,7 @@ var ProfileOrderByRelationAggregateInput = /** @class */ (function () {
         '_count',
     );
     ProfileOrderByRelationAggregateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileOrderByRelationAggregateInput,
     );
     return ProfileOrderByRelationAggregateInput;
@@ -12940,7 +13069,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
     function ProfileOrderByWithAggregationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12952,7 +13081,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -12964,7 +13093,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCountOrderByAggregateInput;
                 },
@@ -12976,7 +13105,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMaxOrderByAggregateInput;
                 },
@@ -12988,7 +13117,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileMinOrderByAggregateInput;
                 },
@@ -12999,7 +13128,7 @@ var ProfileOrderByWithAggregationInput = /** @class */ (function () {
         '_min',
     );
     ProfileOrderByWithAggregationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileOrderByWithAggregationInput,
     );
     return ProfileOrderByWithAggregationInput;
@@ -13009,7 +13138,7 @@ var ProfileOrderByWithRelationInput = /** @class */ (function () {
     function ProfileOrderByWithRelationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -13021,7 +13150,7 @@ var ProfileOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerOrderByWithRelationInput;
                 },
@@ -13033,7 +13162,7 @@ var ProfileOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerOrderByWithRelationInput;
                 },
@@ -13045,7 +13174,7 @@ var ProfileOrderByWithRelationInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return SortOrder;
                 },
@@ -13056,7 +13185,7 @@ var ProfileOrderByWithRelationInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileOrderByWithRelationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileOrderByWithRelationInput,
     );
     return ProfileOrderByWithRelationInput;
@@ -13066,7 +13195,7 @@ var ProfileRelationFilter = /** @class */ (function () {
     function ProfileRelationFilter() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -13078,7 +13207,7 @@ var ProfileRelationFilter = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -13088,7 +13217,10 @@ var ProfileRelationFilter = /** @class */ (function () {
         ProfileRelationFilter.prototype,
         'isNot',
     );
-    ProfileRelationFilter = __decorate([graphql_5.InputType()], ProfileRelationFilter);
+    ProfileRelationFilter = __decorate(
+        [(0, graphql_5.InputType)()],
+        ProfileRelationFilter,
+    );
     return ProfileRelationFilter;
 })();
 exports.ProfileRelationFilter = ProfileRelationFilter;
@@ -13098,7 +13230,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
     var ProfileScalarWhereWithAggregatesInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereWithAggregatesInput_1];
                 },
@@ -13110,7 +13242,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereWithAggregatesInput_1];
                 },
@@ -13122,7 +13254,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereWithAggregatesInput_1];
                 },
@@ -13134,7 +13266,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringWithAggregatesFilter;
                 },
@@ -13146,7 +13278,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableWithAggregatesFilter;
                 },
@@ -13157,7 +13289,7 @@ var ProfileScalarWhereWithAggregatesInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileScalarWhereWithAggregatesInput = ProfileScalarWhereWithAggregatesInput_1 =
-        __decorate([graphql_5.InputType()], ProfileScalarWhereWithAggregatesInput);
+        __decorate([(0, graphql_5.InputType)()], ProfileScalarWhereWithAggregatesInput);
     return ProfileScalarWhereWithAggregatesInput;
 })();
 exports.ProfileScalarWhereWithAggregatesInput = ProfileScalarWhereWithAggregatesInput;
@@ -13167,7 +13299,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
     var ProfileScalarWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereInput_1];
                 },
@@ -13179,7 +13311,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereInput_1];
                 },
@@ -13191,7 +13323,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileScalarWhereInput_1];
                 },
@@ -13203,7 +13335,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -13215,7 +13347,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableFilter;
                 },
@@ -13226,7 +13358,7 @@ var ProfileScalarWhereInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileScalarWhereInput = ProfileScalarWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileScalarWhereInput,
     );
     return ProfileScalarWhereInput;
@@ -13237,7 +13369,7 @@ var ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
         function ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileCreateWithoutCollector_profile_customerInput];
                     },
@@ -13249,7 +13381,7 @@ var ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileCreateOrConnectWithoutCollector_profile_customerInput,
@@ -13263,7 +13395,7 @@ var ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateManyCollector_profile_customerInputEnvelope;
                     },
@@ -13275,7 +13407,7 @@ var ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13287,7 +13419,7 @@ var ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
         );
         ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput =
             __decorate(
-                [graphql_5.InputType()],
+                [(0, graphql_5.InputType)()],
                 ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput,
             );
         return ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput;
@@ -13299,7 +13431,7 @@ var ProfileUncheckedCreateWithoutCollector_profile_customerInput =
         function ProfileUncheckedCreateWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return String;
                     },
@@ -13311,7 +13443,7 @@ var ProfileUncheckedCreateWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerUncheckedCreateNestedOneWithoutProfileInput;
                     },
@@ -13322,7 +13454,7 @@ var ProfileUncheckedCreateWithoutCollector_profile_customerInput =
             'customer',
         );
         ProfileUncheckedCreateWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUncheckedCreateWithoutCollector_profile_customerInput,
         );
         return ProfileUncheckedCreateWithoutCollector_profile_customerInput;
@@ -13333,7 +13465,7 @@ var ProfileUncheckedCreateWithoutCustomerInput = /** @class */ (function () {
     function ProfileUncheckedCreateWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -13345,7 +13477,7 @@ var ProfileUncheckedCreateWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -13356,7 +13488,7 @@ var ProfileUncheckedCreateWithoutCustomerInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileUncheckedCreateWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedCreateWithoutCustomerInput,
     );
     return ProfileUncheckedCreateWithoutCustomerInput;
@@ -13367,7 +13499,7 @@ var ProfileUncheckedCreateInput = /** @class */ (function () {
     function ProfileUncheckedCreateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -13379,19 +13511,7 @@ var ProfileUncheckedCreateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return String;
-                },
-                { nullable: true },
-            ),
-        ],
-        ProfileUncheckedCreateInput.prototype,
-        'customer_numbner',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedCreateNestedOneWithoutProfileInput;
                 },
@@ -13401,8 +13521,20 @@ var ProfileUncheckedCreateInput = /** @class */ (function () {
         ProfileUncheckedCreateInput.prototype,
         'customer',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return String;
+                },
+                { nullable: true },
+            ),
+        ],
+        ProfileUncheckedCreateInput.prototype,
+        'customer_numbner',
+    );
     ProfileUncheckedCreateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedCreateInput,
     );
     return ProfileUncheckedCreateInput;
@@ -13413,7 +13545,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         function ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileCreateWithoutCollector_profile_customerInput];
                     },
@@ -13425,7 +13557,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileCreateOrConnectWithoutCollector_profile_customerInput,
@@ -13439,7 +13571,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput,
@@ -13453,7 +13585,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateManyCollector_profile_customerInputEnvelope;
                     },
@@ -13465,19 +13597,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return [ProfileWhereUniqueInput];
-                    },
-                    { nullable: true },
-                ),
-            ],
-            ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13489,7 +13609,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13501,7 +13621,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13513,7 +13633,19 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return [ProfileWhereUniqueInput];
+                    },
+                    { nullable: true },
+                ),
+            ],
+            ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput,
@@ -13527,7 +13659,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput,
@@ -13541,7 +13673,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileScalarWhereInput];
                     },
@@ -13552,7 +13684,7 @@ var ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput =
             'deleteMany',
         );
         ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput,
         );
         return ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput;
@@ -13563,7 +13695,7 @@ var ProfileUncheckedUpdateManyWithoutCollectorsInput = /** @class */ (function (
     function ProfileUncheckedUpdateManyWithoutCollectorsInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -13574,7 +13706,7 @@ var ProfileUncheckedUpdateManyWithoutCollectorsInput = /** @class */ (function (
         'id',
     );
     ProfileUncheckedUpdateManyWithoutCollectorsInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedUpdateManyWithoutCollectorsInput,
     );
     return ProfileUncheckedUpdateManyWithoutCollectorsInput;
@@ -13585,7 +13717,7 @@ var ProfileUncheckedUpdateManyInput = /** @class */ (function () {
     function ProfileUncheckedUpdateManyInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -13597,7 +13729,7 @@ var ProfileUncheckedUpdateManyInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -13608,7 +13740,7 @@ var ProfileUncheckedUpdateManyInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileUncheckedUpdateManyInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedUpdateManyInput,
     );
     return ProfileUncheckedUpdateManyInput;
@@ -13619,7 +13751,7 @@ var ProfileUncheckedUpdateWithoutCollector_profile_customerInput =
         function ProfileUncheckedUpdateWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return StringFieldUpdateOperationsInput;
                     },
@@ -13631,7 +13763,7 @@ var ProfileUncheckedUpdateWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return CustomerUncheckedUpdateOneWithoutProfileInput;
                     },
@@ -13642,7 +13774,7 @@ var ProfileUncheckedUpdateWithoutCollector_profile_customerInput =
             'customer',
         );
         ProfileUncheckedUpdateWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUncheckedUpdateWithoutCollector_profile_customerInput,
         );
         return ProfileUncheckedUpdateWithoutCollector_profile_customerInput;
@@ -13653,7 +13785,7 @@ var ProfileUncheckedUpdateWithoutCustomerInput = /** @class */ (function () {
     function ProfileUncheckedUpdateWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -13665,7 +13797,7 @@ var ProfileUncheckedUpdateWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return NullableStringFieldUpdateOperationsInput;
                 },
@@ -13676,7 +13808,7 @@ var ProfileUncheckedUpdateWithoutCustomerInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileUncheckedUpdateWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedUpdateWithoutCustomerInput,
     );
     return ProfileUncheckedUpdateWithoutCustomerInput;
@@ -13687,7 +13819,7 @@ var ProfileUncheckedUpdateInput = /** @class */ (function () {
     function ProfileUncheckedUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -13699,19 +13831,7 @@ var ProfileUncheckedUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
-                function () {
-                    return NullableStringFieldUpdateOperationsInput;
-                },
-                { nullable: true },
-            ),
-        ],
-        ProfileUncheckedUpdateInput.prototype,
-        'customer_numbner',
-    );
-    __decorate(
-        [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUncheckedUpdateOneWithoutProfileInput;
                 },
@@ -13721,8 +13841,20 @@ var ProfileUncheckedUpdateInput = /** @class */ (function () {
         ProfileUncheckedUpdateInput.prototype,
         'customer',
     );
+    __decorate(
+        [
+            (0, graphql_1.Field)(
+                function () {
+                    return NullableStringFieldUpdateOperationsInput;
+                },
+                { nullable: true },
+            ),
+        ],
+        ProfileUncheckedUpdateInput.prototype,
+        'customer_numbner',
+    );
     ProfileUncheckedUpdateInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUncheckedUpdateInput,
     );
     return ProfileUncheckedUpdateInput;
@@ -13732,7 +13864,7 @@ var ProfileUpdateManyMutationInput = /** @class */ (function () {
     function ProfileUpdateManyMutationInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -13743,7 +13875,7 @@ var ProfileUpdateManyMutationInput = /** @class */ (function () {
         'id',
     );
     ProfileUpdateManyMutationInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUpdateManyMutationInput,
     );
     return ProfileUpdateManyMutationInput;
@@ -13754,7 +13886,7 @@ var ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput =
         function ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileScalarWhereInput;
                     },
@@ -13766,7 +13898,7 @@ var ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileUpdateManyMutationInput;
                     },
@@ -13777,7 +13909,7 @@ var ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput =
             'data',
         );
         ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput,
         );
         return ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput;
@@ -13789,7 +13921,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         function ProfileUpdateManyWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileCreateWithoutCollector_profile_customerInput];
                     },
@@ -13801,7 +13933,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileCreateOrConnectWithoutCollector_profile_customerInput,
@@ -13815,7 +13947,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput,
@@ -13829,7 +13961,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateManyCollector_profile_customerInputEnvelope;
                     },
@@ -13841,19 +13973,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
-                    function () {
-                        return [ProfileWhereUniqueInput];
-                    },
-                    { nullable: true },
-                ),
-            ],
-            ProfileUpdateManyWithoutCollector_profile_customerInput.prototype,
-            'connect',
-        );
-        __decorate(
-            [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13865,7 +13985,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13877,7 +13997,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileWhereUniqueInput];
                     },
@@ -13889,7 +14009,19 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
+                    function () {
+                        return [ProfileWhereUniqueInput];
+                    },
+                    { nullable: true },
+                ),
+            ],
+            ProfileUpdateManyWithoutCollector_profile_customerInput.prototype,
+            'connect',
+        );
+        __decorate(
+            [
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput,
@@ -13903,7 +14035,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [
                             ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput,
@@ -13917,7 +14049,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return [ProfileScalarWhereInput];
                     },
@@ -13928,7 +14060,7 @@ var ProfileUpdateManyWithoutCollector_profile_customerInput =
             'deleteMany',
         );
         ProfileUpdateManyWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUpdateManyWithoutCollector_profile_customerInput,
         );
         return ProfileUpdateManyWithoutCollector_profile_customerInput;
@@ -13939,7 +14071,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
     function ProfileUpdateOneRequiredWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateWithoutCustomerInput;
                 },
@@ -13951,7 +14083,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateOrConnectWithoutCustomerInput;
                 },
@@ -13963,7 +14095,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpsertWithoutCustomerInput;
                 },
@@ -13975,7 +14107,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -13987,7 +14119,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateWithoutCustomerInput;
                 },
@@ -13998,7 +14130,7 @@ var ProfileUpdateOneRequiredWithoutCustomerInput = /** @class */ (function () {
         'update',
     );
     ProfileUpdateOneRequiredWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUpdateOneRequiredWithoutCustomerInput,
     );
     return ProfileUpdateOneRequiredWithoutCustomerInput;
@@ -14010,7 +14142,7 @@ var ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput =
         function ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileWhereUniqueInput;
                     },
@@ -14022,7 +14154,7 @@ var ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileUpdateWithoutCollector_profile_customerInput;
                     },
@@ -14033,7 +14165,7 @@ var ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput =
             'data',
         );
         ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput,
         );
         return ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput;
@@ -14044,7 +14176,7 @@ var ProfileUpdateWithoutCollector_profile_customerInput = /** @class */ (functio
     function ProfileUpdateWithoutCollector_profile_customerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -14056,7 +14188,7 @@ var ProfileUpdateWithoutCollector_profile_customerInput = /** @class */ (functio
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutProfileInput;
                 },
@@ -14067,7 +14199,7 @@ var ProfileUpdateWithoutCollector_profile_customerInput = /** @class */ (functio
         'customer',
     );
     ProfileUpdateWithoutCollector_profile_customerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUpdateWithoutCollector_profile_customerInput,
     );
     return ProfileUpdateWithoutCollector_profile_customerInput;
@@ -14078,7 +14210,7 @@ var ProfileUpdateWithoutCustomerInput = /** @class */ (function () {
     function ProfileUpdateWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -14090,7 +14222,7 @@ var ProfileUpdateWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutCollectorsInput;
                 },
@@ -14101,7 +14233,7 @@ var ProfileUpdateWithoutCustomerInput = /** @class */ (function () {
         'collector_profile_customer',
     );
     ProfileUpdateWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUpdateWithoutCustomerInput,
     );
     return ProfileUpdateWithoutCustomerInput;
@@ -14111,7 +14243,7 @@ var ProfileUpdateInput = /** @class */ (function () {
     function ProfileUpdateInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFieldUpdateOperationsInput;
                 },
@@ -14123,7 +14255,7 @@ var ProfileUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutProfileInput;
                 },
@@ -14135,7 +14267,7 @@ var ProfileUpdateInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerUpdateOneWithoutCollectorsInput;
                 },
@@ -14145,7 +14277,7 @@ var ProfileUpdateInput = /** @class */ (function () {
         ProfileUpdateInput.prototype,
         'collector_profile_customer',
     );
-    ProfileUpdateInput = __decorate([graphql_5.InputType()], ProfileUpdateInput);
+    ProfileUpdateInput = __decorate([(0, graphql_5.InputType)()], ProfileUpdateInput);
     return ProfileUpdateInput;
 })();
 exports.ProfileUpdateInput = ProfileUpdateInput;
@@ -14154,7 +14286,7 @@ var ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput =
         function ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput() {}
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileWhereUniqueInput;
                     },
@@ -14166,7 +14298,7 @@ var ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileUpdateWithoutCollector_profile_customerInput;
                     },
@@ -14178,7 +14310,7 @@ var ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput =
         );
         __decorate(
             [
-                graphql_1.Field(
+                (0, graphql_1.Field)(
                     function () {
                         return ProfileCreateWithoutCollector_profile_customerInput;
                     },
@@ -14189,7 +14321,7 @@ var ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput =
             'create',
         );
         ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput = __decorate(
-            [graphql_5.InputType()],
+            [(0, graphql_5.InputType)()],
             ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput,
         );
         return ProfileUpsertWithWhereUniqueWithoutCollector_profile_customerInput;
@@ -14200,7 +14332,7 @@ var ProfileUpsertWithoutCustomerInput = /** @class */ (function () {
     function ProfileUpsertWithoutCustomerInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateWithoutCustomerInput;
                 },
@@ -14212,7 +14344,7 @@ var ProfileUpsertWithoutCustomerInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateWithoutCustomerInput;
                 },
@@ -14223,7 +14355,7 @@ var ProfileUpsertWithoutCustomerInput = /** @class */ (function () {
         'create',
     );
     ProfileUpsertWithoutCustomerInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileUpsertWithoutCustomerInput,
     );
     return ProfileUpsertWithoutCustomerInput;
@@ -14233,7 +14365,7 @@ var ProfileWhereUniqueInput = /** @class */ (function () {
     function ProfileWhereUniqueInput() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -14244,7 +14376,7 @@ var ProfileWhereUniqueInput = /** @class */ (function () {
         'id',
     );
     ProfileWhereUniqueInput = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileWhereUniqueInput,
     );
     return ProfileWhereUniqueInput;
@@ -14256,7 +14388,7 @@ var ProfileWhereInput = /** @class */ (function () {
     var ProfileWhereInput_1;
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileWhereInput_1];
                 },
@@ -14268,7 +14400,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileWhereInput_1];
                 },
@@ -14280,7 +14412,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return [ProfileWhereInput_1];
                 },
@@ -14292,7 +14424,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringFilter;
                 },
@@ -14304,7 +14436,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerRelationFilter;
                 },
@@ -14316,7 +14448,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return CustomerRelationFilter;
                 },
@@ -14328,7 +14460,7 @@ var ProfileWhereInput = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return StringNullableFilter;
                 },
@@ -14339,7 +14471,7 @@ var ProfileWhereInput = /** @class */ (function () {
         'customer_numbner',
     );
     ProfileWhereInput = ProfileWhereInput_1 = __decorate(
-        [graphql_5.InputType()],
+        [(0, graphql_5.InputType)()],
         ProfileWhereInput,
     );
     return ProfileWhereInput;
@@ -14349,7 +14481,7 @@ var Profile = /** @class */ (function () {
     function Profile() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return graphql_7.ID;
                 },
@@ -14361,7 +14493,7 @@ var Profile = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Customer;
                 },
@@ -14373,7 +14505,7 @@ var Profile = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return Customer;
                 },
@@ -14385,7 +14517,7 @@ var Profile = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return String;
                 },
@@ -14395,7 +14527,7 @@ var Profile = /** @class */ (function () {
         Profile.prototype,
         'customer_numbner',
     );
-    Profile = __decorate([graphql_2.ObjectType()], Profile);
+    Profile = __decorate([(0, graphql_2.ObjectType)()], Profile);
     return Profile;
 })();
 exports.Profile = Profile;
@@ -14403,7 +14535,7 @@ var UpdateManyProfileArgs = /** @class */ (function () {
     function UpdateManyProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateManyMutationInput;
                 },
@@ -14415,7 +14547,7 @@ var UpdateManyProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereInput;
                 },
@@ -14425,7 +14557,10 @@ var UpdateManyProfileArgs = /** @class */ (function () {
         UpdateManyProfileArgs.prototype,
         'where',
     );
-    UpdateManyProfileArgs = __decorate([graphql_3.ArgsType()], UpdateManyProfileArgs);
+    UpdateManyProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateManyProfileArgs,
+    );
     return UpdateManyProfileArgs;
 })();
 exports.UpdateManyProfileArgs = UpdateManyProfileArgs;
@@ -14433,7 +14568,7 @@ var UpdateOneProfileArgs = /** @class */ (function () {
     function UpdateOneProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateInput;
                 },
@@ -14445,7 +14580,7 @@ var UpdateOneProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -14455,7 +14590,10 @@ var UpdateOneProfileArgs = /** @class */ (function () {
         UpdateOneProfileArgs.prototype,
         'where',
     );
-    UpdateOneProfileArgs = __decorate([graphql_3.ArgsType()], UpdateOneProfileArgs);
+    UpdateOneProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpdateOneProfileArgs,
+    );
     return UpdateOneProfileArgs;
 })();
 exports.UpdateOneProfileArgs = UpdateOneProfileArgs;
@@ -14463,7 +14601,7 @@ var UpsertOneProfileArgs = /** @class */ (function () {
     function UpsertOneProfileArgs() {}
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileWhereUniqueInput;
                 },
@@ -14475,7 +14613,7 @@ var UpsertOneProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileCreateInput;
                 },
@@ -14487,7 +14625,7 @@ var UpsertOneProfileArgs = /** @class */ (function () {
     );
     __decorate(
         [
-            graphql_1.Field(
+            (0, graphql_1.Field)(
                 function () {
                     return ProfileUpdateInput;
                 },
@@ -14497,7 +14635,10 @@ var UpsertOneProfileArgs = /** @class */ (function () {
         UpsertOneProfileArgs.prototype,
         'update',
     );
-    UpsertOneProfileArgs = __decorate([graphql_3.ArgsType()], UpsertOneProfileArgs);
+    UpsertOneProfileArgs = __decorate(
+        [(0, graphql_3.ArgsType)()],
+        UpsertOneProfileArgs,
+    );
     return UpsertOneProfileArgs;
 })();
 exports.UpsertOneProfileArgs = UpsertOneProfileArgs;

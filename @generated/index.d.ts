@@ -260,50 +260,50 @@ export declare class CustomerUncheckedCreateNestedOneWithoutProfileInput {
 }
 export declare class CustomerUncheckedCreateWithoutCollectorsInput {
     number: string;
-    id_favoriteDelivery: string;
-    id_profile: string;
     destinations?: InstanceType<
         typeof DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput
     >;
+    id_favoriteDelivery: string;
+    id_profile: string;
 }
 export declare class CustomerUncheckedCreateWithoutDestinationsInput {
     number: string;
-    id_favoriteDelivery: string;
-    id_profile: string;
     collectors?: InstanceType<
         typeof ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery: string;
+    id_profile: string;
 }
 export declare class CustomerUncheckedCreateWithoutFavoriteDeliveryInput {
     number: string;
-    id_profile: string;
     destinations?: InstanceType<
         typeof DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput
     >;
+    id_profile: string;
 }
 export declare class CustomerUncheckedCreateWithoutProfileInput {
     number: string;
-    id_favoriteDelivery: string;
     destinations?: InstanceType<
         typeof DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery: string;
 }
 export declare class CustomerUncheckedCreateInput {
     number: string;
-    id_favoriteDelivery: string;
-    id_profile: string;
     destinations?: InstanceType<
         typeof DestinationUncheckedCreateNestedManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedCreateNestedManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery: string;
+    id_profile: string;
 }
 export declare class CustomerUncheckedUpdateManyInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
@@ -316,66 +316,66 @@ export declare class CustomerUncheckedUpdateOneWithoutFavoriteDeliveryInput {
         typeof CustomerCreateOrConnectWithoutFavoriteDeliveryInput
     >;
     upsert?: InstanceType<typeof CustomerUpsertWithoutFavoriteDeliveryInput>;
-    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutFavoriteDeliveryInput>;
 }
 export declare class CustomerUncheckedUpdateOneWithoutProfileInput {
     create?: InstanceType<typeof CustomerCreateWithoutProfileInput>;
     connectOrCreate?: InstanceType<typeof CustomerCreateOrConnectWithoutProfileInput>;
     upsert?: InstanceType<typeof CustomerUpsertWithoutProfileInput>;
-    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutProfileInput>;
 }
 export declare class CustomerUncheckedUpdateWithoutCollectorsInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     destinations?: InstanceType<
         typeof DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput
     >;
+    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
 }
 export declare class CustomerUncheckedUpdateWithoutDestinationsInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     collectors?: InstanceType<
         typeof ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
 }
 export declare class CustomerUncheckedUpdateWithoutFavoriteDeliveryInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     destinations?: InstanceType<
         typeof DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput
     >;
+    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
 }
 export declare class CustomerUncheckedUpdateWithoutProfileInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     destinations?: InstanceType<
         typeof DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
 }
 export declare class CustomerUncheckedUpdateInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     destinations?: InstanceType<
         typeof DestinationUncheckedUpdateManyWithoutCustomer_destination_customerInput
     >;
     collectors?: InstanceType<
         typeof ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput
     >;
+    id_favoriteDelivery?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    id_profile?: InstanceType<typeof StringFieldUpdateOperationsInput>;
 }
 export declare class CustomerUpdateManyMutationInput {
     number?: InstanceType<typeof StringFieldUpdateOperationsInput>;
@@ -386,9 +386,9 @@ export declare class CustomerUpdateOneWithoutCollectorsInput {
         typeof CustomerCreateOrConnectWithoutCollectorsInput
     >;
     upsert?: InstanceType<typeof CustomerUpsertWithoutCollectorsInput>;
-    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutCollectorsInput>;
 }
 export declare class CustomerUpdateOneWithoutDestinationsInput {
@@ -397,29 +397,29 @@ export declare class CustomerUpdateOneWithoutDestinationsInput {
         typeof CustomerCreateOrConnectWithoutDestinationsInput
     >;
     upsert?: InstanceType<typeof CustomerUpsertWithoutDestinationsInput>;
-    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutDestinationsInput>;
 }
 export declare class CustomerUpdateOneWithoutFavoriteDeliveryInput {
-    // create?: InstanceType<typeof CustomerCreateWithoutFavoriteDeliveryInput>;
-    // connectOrCreate?: InstanceType<
-    //     typeof CustomerCreateOrConnectWithoutFavoriteDeliveryInput
-    // >;
-    // upsert?: InstanceType<typeof CustomerUpsertWithoutFavoriteDeliveryInput>;
-    // connect?: InstanceType<typeof CustomerWhereUniqueInput>;
-    // disconnect?: boolean;
-    // delete?: boolean;
+    create?: InstanceType<typeof CustomerCreateWithoutFavoriteDeliveryInput>;
+    connectOrCreate?: InstanceType<
+        typeof CustomerCreateOrConnectWithoutFavoriteDeliveryInput
+    >;
+    upsert?: InstanceType<typeof CustomerUpsertWithoutFavoriteDeliveryInput>;
+    disconnect?: boolean;
+    delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutFavoriteDeliveryInput>;
 }
 export declare class CustomerUpdateOneWithoutProfileInput {
     create?: InstanceType<typeof CustomerCreateWithoutProfileInput>;
     connectOrCreate?: InstanceType<typeof CustomerCreateOrConnectWithoutProfileInput>;
     upsert?: InstanceType<typeof CustomerUpsertWithoutProfileInput>;
-    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof CustomerWhereUniqueInput>;
     update?: InstanceType<typeof CustomerUpdateWithoutProfileInput>;
 }
 export declare class CustomerUpdateWithoutCollectorsInput {
@@ -518,7 +518,7 @@ export declare class Customer {
     id_favoriteDelivery: string;
     profile?: InstanceType<typeof Profile>;
     id_profile: string;
-    _count?: InstanceType<typeof CustomerCount> | null;
+    _count?: InstanceType<typeof CustomerCount>;
 }
 export declare class DeleteManyCustomerArgs {
     where?: InstanceType<typeof CustomerWhereInput>;
@@ -753,9 +753,9 @@ export declare class DeliveryUncheckedUpdateOneWithoutDestinationInput {
         typeof DeliveryCreateOrConnectWithoutDestinationInput
     >;
     upsert?: InstanceType<typeof DeliveryUpsertWithoutDestinationInput>;
-    connect?: InstanceType<typeof DeliveryWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof DeliveryWhereUniqueInput>;
     update?: InstanceType<typeof DeliveryUpdateWithoutDestinationInput>;
 }
 export declare class DeliveryUncheckedUpdateWithoutCustomer_favouriteDelivery_customerInput {
@@ -794,14 +794,14 @@ export declare class DeliveryUpdateOneRequiredWithoutCustomer_favouriteDelivery_
     >;
 }
 export declare class DeliveryUpdateOneWithoutDestinationInput {
-    // create?: InstanceType<typeof DeliveryCreateWithoutDestinationInput>;
-    // connectOrCreate?: InstanceType<
-    //     typeof DeliveryCreateOrConnectWithoutDestinationInput
-    // >;
-    // upsert?: InstanceType<typeof DeliveryUpsertWithoutDestinationInput>;
-    // connect?: InstanceType<typeof DeliveryWhereUniqueInput>;
-    // disconnect?: boolean;
-    // delete?: boolean;
+    create?: InstanceType<typeof DeliveryCreateWithoutDestinationInput>;
+    connectOrCreate?: InstanceType<
+        typeof DeliveryCreateOrConnectWithoutDestinationInput
+    >;
+    upsert?: InstanceType<typeof DeliveryUpsertWithoutDestinationInput>;
+    disconnect?: boolean;
+    delete?: boolean;
+    connect?: InstanceType<typeof DeliveryWhereUniqueInput>;
     update?: InstanceType<typeof DeliveryUpdateWithoutDestinationInput>;
 }
 export declare class DeliveryUpdateWithoutCustomer_favouriteDelivery_customerInput {
@@ -1108,10 +1108,10 @@ export declare class DestinationUncheckedUpdateManyWithoutCustomer_destination_c
     createMany?: InstanceType<
         typeof DestinationCreateManyCustomer_destination_customerInputEnvelope
     >;
-    connect?: Array<DestinationWhereUniqueInput>;
     set?: Array<DestinationWhereUniqueInput>;
     disconnect?: Array<DestinationWhereUniqueInput>;
     delete?: Array<DestinationWhereUniqueInput>;
+    connect?: Array<DestinationWhereUniqueInput>;
     update?: Array<DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput>;
     updateMany?: Array<DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput>;
     deleteMany?: Array<DestinationScalarWhereInput>;
@@ -1154,10 +1154,10 @@ export declare class DestinationUpdateManyWithoutCustomer_destination_customerIn
     createMany?: InstanceType<
         typeof DestinationCreateManyCustomer_destination_customerInputEnvelope
     >;
-    connect?: Array<DestinationWhereUniqueInput>;
     set?: Array<DestinationWhereUniqueInput>;
     disconnect?: Array<DestinationWhereUniqueInput>;
     delete?: Array<DestinationWhereUniqueInput>;
+    connect?: Array<DestinationWhereUniqueInput>;
     update?: Array<DestinationUpdateWithWhereUniqueWithoutCustomer_destination_customerInput>;
     updateMany?: Array<DestinationUpdateManyWithWhereWithoutCustomer_destination_customerInput>;
     deleteMany?: Array<DestinationScalarWhereInput>;
@@ -1172,9 +1172,9 @@ export declare class DestinationUpdateOneWithoutDelivery_destination_deliveryInp
     upsert?: InstanceType<
         typeof DestinationUpsertWithoutDelivery_destination_deliveryInput
     >;
-    connect?: InstanceType<typeof DestinationWhereUniqueInput>;
     disconnect?: boolean;
     delete?: boolean;
+    connect?: InstanceType<typeof DestinationWhereUniqueInput>;
     update?: InstanceType<
         typeof DestinationUpdateWithoutDelivery_destination_deliveryInput
     >;
@@ -1631,8 +1631,8 @@ export declare class ProfileUncheckedCreateWithoutCustomerInput {
 }
 export declare class ProfileUncheckedCreateInput {
     id?: string;
-    customer_numbner?: string;
     customer?: InstanceType<typeof CustomerUncheckedCreateNestedOneWithoutProfileInput>;
+    customer_numbner?: string;
 }
 export declare class ProfileUncheckedUpdateManyWithoutCollector_profile_customerInput {
     create?: Array<ProfileCreateWithoutCollector_profile_customerInput>;
@@ -1641,10 +1641,10 @@ export declare class ProfileUncheckedUpdateManyWithoutCollector_profile_customer
     createMany?: InstanceType<
         typeof ProfileCreateManyCollector_profile_customerInputEnvelope
     >;
-    connect?: Array<ProfileWhereUniqueInput>;
     set?: Array<ProfileWhereUniqueInput>;
     disconnect?: Array<ProfileWhereUniqueInput>;
     delete?: Array<ProfileWhereUniqueInput>;
+    connect?: Array<ProfileWhereUniqueInput>;
     update?: Array<ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput>;
     updateMany?: Array<ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput>;
     deleteMany?: Array<ProfileScalarWhereInput>;
@@ -1666,8 +1666,8 @@ export declare class ProfileUncheckedUpdateWithoutCustomerInput {
 }
 export declare class ProfileUncheckedUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    customer_numbner?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     customer?: InstanceType<typeof CustomerUncheckedUpdateOneWithoutProfileInput>;
+    customer_numbner?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
 }
 export declare class ProfileUpdateManyMutationInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
@@ -1683,10 +1683,10 @@ export declare class ProfileUpdateManyWithoutCollector_profile_customerInput {
     createMany?: InstanceType<
         typeof ProfileCreateManyCollector_profile_customerInputEnvelope
     >;
-    connect?: Array<ProfileWhereUniqueInput>;
     set?: Array<ProfileWhereUniqueInput>;
     disconnect?: Array<ProfileWhereUniqueInput>;
     delete?: Array<ProfileWhereUniqueInput>;
+    connect?: Array<ProfileWhereUniqueInput>;
     update?: Array<ProfileUpdateWithWhereUniqueWithoutCollector_profile_customerInput>;
     updateMany?: Array<ProfileUpdateManyWithWhereWithoutCollector_profile_customerInput>;
     deleteMany?: Array<ProfileScalarWhereInput>;
