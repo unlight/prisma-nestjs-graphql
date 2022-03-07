@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "@nestjs/apollo": "^10.0.6",
     "@prisma/generator-helper": "^3.10.0",
     "await-event-emitter": "^2.0.2",
     "filenamify": "4.X",
