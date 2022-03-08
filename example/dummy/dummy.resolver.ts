@@ -25,9 +25,11 @@ export class DummyResolver {
     @Query(() => [Dummy])
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     findDummies(@Args() args: FindManyDummyArgs) {
-        console.log('args.where.bigInt?.equals', args.where.bigInt?.equals);
+        // console.log('args.where.bigInt?.equals', args.where.bigInt?.equals);
         const dummy = new Dummy();
+        // @ts-ignore
         dummy.id = ~~(Math.random() * 1000);
+        // @ts-ignore
         dummy.bigInt = args.where.bigInt?.equals;
         return [dummy];
     }
