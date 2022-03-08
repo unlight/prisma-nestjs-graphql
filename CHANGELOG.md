@@ -1,3 +1,10 @@
+## [14.7.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.2...v14.7.0) (2022-03-08)
+
+
+### Features
+
+* **configuration:** Allow to map prisma scalars to custom graphql scalars ([59300e1](https://github.com/unlight/nestjs-graphql-prisma/commit/59300e17d36c32d09e1c8a923cb409f95810f048)), closes [#87](https://github.com/unlight/nestjs-graphql-prisma/issues/87)
+
 ### [14.6.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.1...v14.6.2) (2022-02-20)
 
 
