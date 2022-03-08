@@ -125,6 +125,7 @@ export function inputType(
         } else {
             // Import property type class
             const graphqlImport = getGraphqlImport({
+                config,
                 sourceFile,
                 location,
                 typeName,

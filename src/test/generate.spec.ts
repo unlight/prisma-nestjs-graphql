@@ -430,8 +430,6 @@ describe('one model with scalar types', () => {
             )!;
         });
 
-        // it('^\n', () => console.log(sourceFile.getText()));
-
         it('equals field type Date', () => {
             expect(t('equals')).toEqual('() => Date');
         });
@@ -486,8 +484,6 @@ describe('one model with scalar types', () => {
                 s.getFilePath().endsWith('/string-filter.input.ts'),
             )!;
         });
-
-        // it('', () => console.log(sourceFile.getText()));
 
         it('properties and types', () => {
             const properties = sourceFile.getClass(() => true)?.getProperties();
@@ -547,8 +543,6 @@ describe('one model with scalar types', () => {
                 expect.objectContaining({ name: 'String' }),
             );
         });
-
-        // it('', () => console.log(sourceFile.getText()));
     });
 
     describe('json filter', () => {
@@ -566,8 +560,6 @@ describe('one model with scalar types', () => {
         it('field type should be GraphQLJSON', () => {
             expect(t('not')).toEqual('() => GraphQLJSON');
         });
-
-        // it('', () => console.log(sourceFile.getText()));
     });
 });
 
@@ -1047,8 +1039,6 @@ describe('get rid of atomic number operations', () => {
             setSourceFile('user-update.input.ts');
         });
 
-        // it('^', () => console.log(sourceFile.getText()));
-
         it('id should be regular string', () => {
             expect(getPropertyStructure(sourceFile, 'id')?.type).toEqual('string');
         });
@@ -1191,16 +1181,12 @@ describe('combine scalar filters', () => {
         it('role', () => {
             expect(p('role')?.type).toBe('EnumRoleFilter');
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
     });
 
     describe('user scalar where with aggregates', () => {
         before(() => {
             setSourceFile('user-scalar-where-with-aggregates.input.ts');
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
 
         it('id', () => {
             expect(p('id')?.type).toBe('StringWithAggregatesFilter');
@@ -1460,8 +1446,6 @@ describe('emit single and decorators', () => {
             expect(trim(d?.getFullText())).toEqual('@Validator.MinLength(3)');
         });
     });
-
-    // it('^', () => console.log(sourceFile.getText()));
 });
 
 describe('emit single', () => {
@@ -1527,8 +1511,6 @@ describe('emit single', () => {
                 }));
             expect(types).toHaveLength(0);
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
     });
 
     describe('emit single second gen', () => {
@@ -1555,8 +1537,6 @@ describe('emit single', () => {
         it('should not add to existing file', () => {
             expect(sourceText.match(/export class User /g)).toHaveLength(1);
         });
-
-        // it('^', () => console.log(sourceFile.getText()));
     });
 });
 
@@ -1860,7 +1840,6 @@ describe('object model options', () => {
         }));
 
         setSourceFile('user.model.ts');
-        // console.log(sourceText);
         const [argument1, argument2] = objectTypeArguments() as string[];
         expect(argument1).toEqual("'Robot'");
         expect(JSON5.parse(argument2)).toEqual({
@@ -2192,5 +2171,77 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
         expect(s.property?.type).toEqual('UserNameEmailCompoundUniqueInput');
         expect(s.fieldDecoratorType).toEqual('() => UserNameEmailCompoundUniqueInput');
         expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
+    });
+});
+
+describe('configuration custom scalars', () => {
+    describe('bigint', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+            model User {
+              id String @id
+              bigInt BigInt
+            }`,
+                options: [
+                    `outputFilePattern = "{name}.{type}.ts"`,
+                    `graphqlScalars_BigInt_name = "GraphQLBigInt"`,
+                    `graphqlScalars_BigInt_specifier = "graphql-scalars"`,
+                ],
+            }));
+        });
+
+        it('big-int-filter equals', () => {
+            const s = testSourceFile({
+                project,
+                file: 'big-int-filter.input.ts',
+                property: 'equals',
+            });
+
+            expect(s.fieldDecoratorType).toEqual('() => GraphQLBigInt');
+
+            expect(s.namedImports).toContainEqual({
+                name: 'GraphQLBigInt',
+                specifier: 'graphql-scalars',
+            });
+        });
+
+        it('big-int-filter in', () => {
+            const s = testSourceFile({
+                project,
+                file: 'big-int-filter.input.ts',
+                property: 'in',
+            });
+
+            expect(s.fieldDecoratorType).toEqual('() => [GraphQLBigInt]');
+        });
+
+        it('user model', () => {
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'bigInt',
+            });
+
+            expect(s.namedImports).toContainEqual({
+                name: 'GraphQLBigInt',
+                specifier: 'graphql-scalars',
+            });
+            expect(s.fieldDecoratorType).toEqual('() => GraphQLBigInt');
+        });
+
+        it('user-sum-aggregate', () => {
+            const s = testSourceFile({
+                project,
+                file: 'user-sum-aggregate.output.ts',
+                property: 'bigInt',
+            });
+
+            expect(s.namedImports).toContainEqual({
+                name: 'GraphQLBigInt',
+                specifier: 'graphql-scalars',
+            });
+            expect(s.fieldDecoratorType).toEqual('() => GraphQLBigInt');
+        });
     });
 });

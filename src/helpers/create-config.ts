@@ -6,7 +6,7 @@ import { Dictionary, merge, trim } from 'lodash';
 import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
-import { ObjectSetting } from '../types';
+import { ImportNameSpec, ObjectSetting } from '../types';
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {
@@ -114,6 +114,10 @@ export function createConfig(data: Record<string, unknown>) {
         requireSingleFieldsInWhereUniqueInput: toBoolean(
             config.requireSingleFieldsInWhereUniqueInput,
         ),
+        graphqlScalars: (config.graphqlScalars || {}) as Record<
+            string,
+            ImportNameSpec | undefined
+        >,
         decorate,
     };
 }

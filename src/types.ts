@@ -43,6 +43,8 @@ export type EventArguments = {
     getModelName(name: string): string | undefined;
 };
 
+export type ImportNameSpec = { name: string; specifier?: string };
+
 export type Field = DMMF.Field;
 
 export { ObjectSetting, ObjectSettings } from './helpers/object-settings';

@@ -120,6 +120,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...fieldType });
         } else {
             const graphqlImport = getGraphqlImport({
+                config,
                 sourceFile,
                 fileType,
                 location,

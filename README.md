@@ -279,6 +279,38 @@ data!: UserCreateInput;
 
 ```
 
+#### `graphqlScalars`
+
+Allow to set custom graphql type for Prisma scalar type.
+Format:
+
+```
+graphqlScalars_{type}_name = "string"
+graphqlScalars_{type}_specifier = "string"
+```
+
+where `{type}` is a prisma scalar type name (e.g. BigInt)
+
+Example:
+
+```
+graphqlScalars_BigInt_name = "GraphQLBigInt"
+graphqlScalars_BigInt_specifier = "graphql-scalars"
+```
+
+May generate:
+
+```ts
+import { GraphQLBigInt } from 'graphql-scalars';
+
+export class BigIntFilter {
+    @Field(() => GraphQLBigInt, { nullable: true })
+    equals?: bigint | number;
+}
+```
+
+It will affect all inputs and outputs types (including models).
+
 ## Field Settings
 
 Special directives in triple slash comments for more precise code generation.

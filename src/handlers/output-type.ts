@@ -13,7 +13,8 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName } = args;
+    const { getSourceFile, models, eventEmitter, fieldSettings, getModelName, config } =
+        args;
     const importDeclarations = new ImportDeclarationMap();
 
     const fileType = 'output';
@@ -106,6 +107,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.create({ ...fieldType });
         } else {
             const graphqlImport = getGraphqlImport({
+                config,
                 sourceFile,
                 fileType,
                 location,
