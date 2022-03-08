@@ -1,0 +1,20 @@
+{
+    "sourceMaps": false,
+    "module": {
+        "type": "commonjs"
+    },
+    "jsc": {
+        "externalHelpers": true,
+        "keepClassNames": true,
+        "target": "es2020",
+        "parser": {
+            "syntax": "typescript",
+            "tsx": false,
+            "decorators": false
+        },
+        "transform": {
+            "legacyDecorator": true,
+            "decoratorMetadata": false
+        }
+    }
+}
