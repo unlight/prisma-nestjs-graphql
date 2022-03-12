@@ -1,3 +1,10 @@
+### [14.7.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.7.0...v14.7.1) (2022-03-12)
+
+
+### Bug Fixes
+
+* Remove unused classes when both noAtomicOperations and emitSingle enabled ([41ce3c1](https://github.com/unlight/nestjs-graphql-prisma/commit/41ce3c1ddaa276b3c6bce4a50b5083353b276fb8)), closes [#89](https://github.com/unlight/nestjs-graphql-prisma/issues/89)
+
 ## [14.7.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.6.2...v14.7.0) (2022-03-08)
 
 
