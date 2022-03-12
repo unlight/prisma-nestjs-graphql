@@ -12,10 +12,9 @@ import { generate } from '../generate';
 import { generateFileName } from '../helpers/generate-file-name';
 import { DMMF, EventArguments } from '../types';
 
-const {
-    dependencies: { '@prisma/generator-helper': generatorVersion },
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-} = require('../../package.json');
+const { '@prisma/generator-helper': generatorVersion } =
+    // eslint-disable-next-line unicorn/prefer-module @typescript-eslint/no-var-requires
+    require('../../package.json').dependencies;
 
 export async function testGenerate(args: {
     schema: string;
@@ -165,7 +164,7 @@ async function createGeneratorOptions(
             });
         });
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    // eslint-disable-next-line unicorn/prefer-module
     return require(cacheFile);
 }
 
