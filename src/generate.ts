@@ -8,7 +8,7 @@ import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
 import { createAggregateInput } from './handlers/create-aggregate-input';
 import { emitSingle } from './handlers/emit-single';
-import { beforeGenerateFiles, generateFiles } from './handlers/generate-files';
+import { generateFiles } from './handlers/generate-files';
 import { inputType } from './handlers/input-type';
 import { modelData } from './handlers/model-data';
 import { modelOutputType } from './handlers/model-output-type';
@@ -54,7 +54,6 @@ export async function generate(
     eventEmitter.on('AggregateOutput', createAggregateInput);
     eventEmitter.on('InputType', inputType);
     eventEmitter.on('ArgsType', argsType);
-    eventEmitter.on('BeforeGenerateFiles', beforeGenerateFiles);
     eventEmitter.on('GenerateFiles', generateFiles);
 
     const config = createConfig(generator.config);

@@ -9,15 +9,15 @@ import {
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments } from '../types';
 
-export function beforeGenerateFiles(args: EventArguments) {
-    const { config, project, output } = args;
+export async function generateFiles(args: EventArguments) {
+    const { project, config, output, eventEmitter } = args;
 
     if (config.emitSingle) {
         const rootDirectory =
             project.getDirectory(output) || project.createDirectory(output);
         const sourceFile =
             rootDirectory.getSourceFile('index.ts') ||
-            rootDirectory.createSourceFile('index.ts');
+            rootDirectory.createSourceFile('index.ts', undefined, { overwrite: true });
         const statements = project.getSourceFiles().flatMap(s => {
             if (s === sourceFile) {
                 return [];
@@ -105,10 +105,6 @@ export function beforeGenerateFiles(args: EventArguments) {
             statements: [...imports.toStatements(), ...enums, ...classes],
         });
     }
-}
-
-export async function generateFiles(args: EventArguments) {
-    const { project, config, output, eventEmitter } = args;
 
     if (config.emitCompiled) {
         project.compilerOptions.set({

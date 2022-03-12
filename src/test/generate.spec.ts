@@ -1090,6 +1090,35 @@ describe('get rid of atomic number operations', () => {
     });
 });
 
+describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+              id String @id
+              age Int
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `noAtomicOperations = true`,
+                `emitSingle = true`,
+                `combineScalarFilters = true`,
+            ],
+        }));
+    });
+
+    it('FieldUpdateOperationsInput should not exists', () => {
+        const s = testSourceFile({
+            project,
+            file: 'index.ts',
+        });
+
+        const classDeclaration = s.sourceFile.getClass('IntFieldUpdateOperationsInput');
+        expect(classDeclaration).toBeUndefined();
+    });
+});
+
 describe('combine scalar filters', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({

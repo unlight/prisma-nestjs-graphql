@@ -22,6 +22,9 @@ export function factoryGetSourceFile(args: {
         });
         filePath = `${output}/${filePath}`;
 
-        return project.getSourceFile(filePath) || project.createSourceFile(filePath);
+        return (
+            project.getSourceFile(filePath) ||
+            project.createSourceFile(filePath, undefined, { overwrite: true })
+        );
     };
 }
