@@ -530,7 +530,6 @@ describe('model directive', () => {
             file: 'user.model.ts',
             property: 'id',
         });
-        console.log('s.sourceText', s.sourceText);
         expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
         expect(
             s.propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0],
