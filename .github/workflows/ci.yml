@@ -30,6 +30,8 @@ jobs:
           npm run regen
           npm run test
           npm run build
+      - name: 'Compatibilty Check'
+        run: |
           npm run compatibilty_check
   release:
     name: 'Release'
