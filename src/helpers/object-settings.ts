@@ -71,15 +71,27 @@ export class ObjectSettings extends Array<ObjectSetting> {
         return fieldType;
     }
 
-    getPropertyType({ name }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
+    getPropertyType({
+        name,
+        input,
+        output,
+    }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
         const propertyType = this.find(s => s.kind === 'PropertyType');
 
         if (!propertyType) {
             return undefined;
         }
 
-        // eslint-disable-next-line unicorn/prefer-regexp-test
-        if (propertyType.match && !propertyType.match(name)) {
+        if (propertyType.match) {
+            // eslint-disable-next-line unicorn/prefer-regexp-test
+            return propertyType.match(name) ? propertyType : undefined;
+        }
+
+        if (input && !propertyType.input) {
+            return undefined;
+        }
+
+        if (output && !propertyType.output) {
             return undefined;
         }
 

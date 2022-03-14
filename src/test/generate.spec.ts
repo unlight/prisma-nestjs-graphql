@@ -1431,7 +1431,7 @@ describe('emit single and decorators', () => {
                   id    Int    @id
                   /// @Validator.MinLength(3)
                   name String
-                  /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email' })
+                  /// @PropertyType({ name: 'G.Email', from: 'graphql-type-email', input: true })
                   email String?
                 }
                 `,
@@ -2023,6 +2023,70 @@ describe('property type', () => {
         it('user-update.input', () => {
             setSourceFile('user-update.input.ts');
             expect(p('profile')?.type).toEqual('JsonObject');
+        });
+    });
+
+    describe('it respects input from generator level field configuration', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+              model User {
+                id Int @id
+                /// @PropertyType('JsonObject')
+                profile Json
+              }
+              `,
+                options: [
+                    `
+                  fields_JsonObject_from         = "type-fest"
+                  fields_JsonObject_namedImport  = true
+                  fields_JsonObject_input        = true
+                  fields_JsonObject_output       = false
+                `,
+                ],
+            }));
+        });
+
+        it('should use default scalar type in model', () => {
+            setSourceFile('user.model.ts');
+            expect(p('profile')?.type).toEqual('any');
+        });
+
+        it('user-create.input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(p('profile')?.type).toEqual('JsonObject');
+        });
+    });
+
+    describe('it respects output from generator level field configuration', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+              model User {
+                id Int @id
+                /// @PropertyType('JsonObject')
+                profile Json
+              }
+              `,
+                options: [
+                    `
+                  fields_JsonObject_from         = "type-fest"
+                  fields_JsonObject_namedImport  = true
+                  fields_JsonObject_input        = false
+                  fields_JsonObject_output       = true
+                `,
+                ],
+            }));
+        });
+
+        it('should use default scalar type in model', () => {
+            setSourceFile('user.model.ts');
+            expect(p('profile')?.type).toEqual('JsonObject');
+        });
+
+        it('user-create.input', () => {
+            setSourceFile('user-create.input.ts');
+            expect(p('profile')?.type).toEqual('any');
         });
     });
 });
