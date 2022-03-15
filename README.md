@@ -561,7 +561,7 @@ Named import example:
 ```prisma
 model Transfer {
     id String @id
-    /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true })
+    /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true, input: true })
     money Decimal
 }
 ```
@@ -572,7 +572,7 @@ May generate following:
 import { Prisma } from '@prisma/client';
 
 @ObjectType()
-export class User {
+export class TransferCreateInput {
     @Field(() => GraphQLDecimal)
     money!: Prisma.Decimal;
 }
