@@ -1,3 +1,14 @@
+## [15.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.7.1...v15.0.0) (2022-03-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **other:** defaults `input` and `output` in PropertyType to false
+
+### Bug Fixes
+
+* **other:** Makes proptype resolution behave like fieldtype ([850018a](https://github.com/unlight/nestjs-graphql-prisma/commit/850018adf52dc909d935fe2a24b12f48d0a94904))
+
 ### [14.7.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.7.0...v14.7.1) (2022-03-12)
 
 
