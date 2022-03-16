@@ -3,7 +3,6 @@ import JSON5 from 'json5';
 import { trim } from 'lodash';
 import {
     ClassDeclaration,
-    EnumDeclarationStructure,
     ImportDeclarationStructure,
     ImportSpecifierStructure,
     Project,
@@ -1299,80 +1298,148 @@ describe('combine scalar filters', () => {
         }
     });
 
-    describe('user where input', () => {
-        before(() => {
-            setSourceFile('user-where.input.ts');
+    it('user-where.input count', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'count',
         });
-
-        it('count', () => {
-            expect(p('count')?.type).toBe('IntFilter');
-        });
-
-        it('bio', () => {
-            expect(p('bio')?.type).toBe('StringFilter');
-        });
-
-        it('money', () => {
-            expect(p('money')?.type).toBe('DecimalFilter');
-        });
-
-        it('rating', () => {
-            expect(p('rating')?.type).toBe('FloatFilter');
-        });
-
-        it('born', () => {
-            expect(p('born')?.type).toBe('DateTimeFilter');
-        });
-
-        it('humanoid', () => {
-            expect(p('humanoid')?.type).toBe('BoolFilter');
-        });
-
-        it('role', () => {
-            expect(p('role')?.type).toBe('EnumRoleFilter');
-        });
+        expect(s.property?.type).toBe('IntFilter');
     });
 
-    describe('user scalar where with aggregates', () => {
-        before(() => {
-            setSourceFile('user-scalar-where-with-aggregates.input.ts');
+    it('user-where.input bio', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'bio',
         });
+        expect(s.property?.type).toBe('StringFilter');
+    });
 
-        it('id', () => {
-            expect(p('id')?.type).toBe('StringWithAggregatesFilter');
+    it('user-where.input money', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'money',
         });
+        expect(s.property?.type).toBe('DecimalFilter');
+    });
 
-        it('bio', () => {
-            expect(p('bio')?.type).toBe('StringWithAggregatesFilter');
+    it('user-where.input rating', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'rating',
         });
+        expect(s.property?.type).toBe('FloatFilter');
+    });
 
-        it('count', () => {
-            expect(p('count')?.type).toBe('IntWithAggregatesFilter');
+    it('user-where.input born', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'born',
         });
+        expect(s.property?.type).toBe('DateTimeFilter');
+    });
 
-        it('rating', () => {
-            expect(p('rating')?.type).toBe('FloatWithAggregatesFilter');
+    it('user-where.input humanoid', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'humanoid',
         });
+        expect(s.property?.type).toBe('BoolFilter');
+    });
 
-        it('born', () => {
-            expect(p('born')?.type).toBe('DateTimeWithAggregatesFilter');
+    it('user-where.input role', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-where.input.ts',
+            property: 'role',
         });
+        expect(s.property?.type).toBe('EnumRoleFilter');
+    });
 
-        it('humanoid', () => {
-            expect(p('humanoid')?.type).toBe('BoolWithAggregatesFilter');
+    it('user scalar where with aggregates id', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'id',
         });
+        expect(s.property?.type).toBe('StringWithAggregatesFilter');
+    });
 
-        it('money', () => {
-            expect(p('money')?.type).toBe('DecimalWithAggregatesFilter');
+    it('user scalar where with aggregates bio', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'bio',
         });
+        expect(s.property?.type).toBe('StringWithAggregatesFilter');
+    });
 
-        it('data', () => {
-            expect(p('data')?.type).toBe('JsonWithAggregatesFilter');
+    it('user scalar where with aggregates count', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'count',
         });
+        expect(s.property?.type).toBe('IntWithAggregatesFilter');
+    });
 
-        it('role', () => {
-            expect(p('role')?.type).toBe('EnumRoleWithAggregatesFilter');
+    it('user scalar where with aggregates rating', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'rating',
         });
+        expect(s.property?.type).toBe('FloatWithAggregatesFilter');
+    });
+
+    it('user scalar where with aggregates born', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'born',
+        });
+        expect(s.property?.type).toBe('DateTimeWithAggregatesFilter');
+    });
+
+    it('user scalar where with aggregates humanoid', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'humanoid',
+        });
+        expect(s.property?.type).toBe('BoolWithAggregatesFilter');
+    });
+
+    it('user scalar where with aggregates money', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'money',
+        });
+        expect(s.property?.type).toBe('DecimalWithAggregatesFilter');
+    });
+
+    it('user scalar where with aggregates data', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'data',
+        });
+        expect(s.property?.type).toBe('JsonWithAggregatesFilter');
+    });
+
+    it('user scalar where with aggregates role', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-scalar-where-with-aggregates.input.ts',
+            property: 'role',
+        });
+        expect(s.property?.type).toBe('EnumRoleWithAggregatesFilter');
     });
 });
 
