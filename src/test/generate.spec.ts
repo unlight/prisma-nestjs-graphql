@@ -580,15 +580,18 @@ describe('one model with scalar types', () => {
 describe('decimal type', () => {
     before(async () => {
         ({ project } = await testGenerate({
-            schema: `model User {
+            schema: `
+            model User {
                 id String @id
                 money Decimal
-            }`,
+                maybe Decimal?
+            }
+            `,
             options: [`outputFilePattern = "{name}.{type}.ts"`],
         }));
     });
 
-    it('user model', () => {
+    it('user model money', () => {
         const s = testSourceFile({
             project,
             file: 'user.model.ts',
@@ -601,7 +604,20 @@ describe('decimal type', () => {
         });
     });
 
-    it('user input', () => {
+    it('user model nullish', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'maybe',
+        });
+        expect(s.property?.type).toEqual('Decimal | null');
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+
+    it('user input money', () => {
         const s = testSourceFile({
             project,
             file: 'user-create.input.ts',
@@ -614,13 +630,41 @@ describe('decimal type', () => {
         });
     });
 
-    it('user aggregate output', () => {
+    it('user input maybe', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-create.input.ts',
+            property: 'maybe',
+        });
+        expect(s.property?.type).toEqual('Decimal');
+        expect(s.property?.hasQuestionToken).toEqual(true);
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+
+    it('user aggregate output money', () => {
         const s = testSourceFile({
             project,
             file: 'user-sum-aggregate.output.ts',
             property: 'money',
         });
         expect(s.property?.type).toEqual('Decimal');
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+
+    it('user aggregate output maybe', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-sum-aggregate.output.ts',
+            property: 'maybe',
+        });
+        expect(s.property?.type).toEqual('Decimal');
+        expect(s.property?.hasQuestionToken).toEqual(true);
         expect(s.namedImports).toContainEqual({
             name: 'Decimal',
             specifier: '@prisma/client/runtime',
