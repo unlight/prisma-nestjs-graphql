@@ -1,3 +1,10 @@
+## [15.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.0.0...v15.1.0) (2022-03-16)
+
+
+### Features
+
+* Use Prisma.Decimal typescript type ([0395e5f](https://github.com/unlight/nestjs-graphql-prisma/commit/0395e5f47857800ba7b5d31e28dc99eebc194582))
+
 ## [15.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v14.7.1...v15.0.0) (2022-03-15)
 
 
