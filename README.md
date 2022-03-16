@@ -556,29 +556,7 @@ Similar to `@FieldType()` but refer to TypeScript property (actually field too).
 To override TypeScript type in specific classes, you can use glob pattern `match: string | string[]`
 see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
-Named import example:
-
-```prisma
-model Transfer {
-    id String @id
-    /// @PropertyType({ name: 'Prisma.Decimal', from: '@prisma/client', namedImport: true, input: true })
-    money Decimal
-}
-```
-
-May generate following:
-
-```ts
-import { Prisma } from '@prisma/client';
-
-@ObjectType()
-export class TransferCreateInput {
-    @Field(() => GraphQLDecimal)
-    money!: Prisma.Decimal;
-}
-```
-
-Another example:
+Example:
 
 ```
 generator nestgraphql {
