@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DummyCreatefriendsInput } from '../prisma/dummy-createfriends.input';
@@ -27,7 +28,7 @@ export class DummyCreateManyInput {
     bytes?: Buffer;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    decimal?: any;
+    decimal?: Decimal;
 
     @Field(() => String, { nullable: true })
     bigInt?: bigint | number;

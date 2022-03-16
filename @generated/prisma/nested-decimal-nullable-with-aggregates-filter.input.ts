@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
 import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.input';
@@ -7,25 +8,25 @@ import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.in
 @InputType()
 export class NestedDecimalNullableWithAggregatesFilter {
     @Field(() => GraphQLDecimal, { nullable: true })
-    equals?: any;
+    equals?: Decimal;
 
     @Field(() => [GraphQLDecimal], { nullable: true })
-    in?: Array<any>;
+    in?: Array<Decimal>;
 
     @Field(() => [GraphQLDecimal], { nullable: true })
-    notIn?: Array<any>;
+    notIn?: Array<Decimal>;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    lt?: any;
+    lt?: Decimal;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    lte?: any;
+    lte?: Decimal;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    gt?: any;
+    gt?: Decimal;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    gte?: any;
+    gte?: Decimal;
 
     @Field(() => NestedDecimalNullableWithAggregatesFilter, { nullable: true })
     not?: NestedDecimalNullableWithAggregatesFilter;

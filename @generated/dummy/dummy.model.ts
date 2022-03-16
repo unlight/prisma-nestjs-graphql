@@ -27,7 +27,7 @@ export class Dummy {
     bytes!: Buffer | null;
 
     @Field(() => GraphQLDecimal, { nullable: true })
-    decimal!: any | null;
+    decimal!: Decimal | null;
 
     @Field(() => String, { nullable: true })
     bigInt!: bigint | null;
