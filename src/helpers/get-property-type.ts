@@ -19,6 +19,7 @@ export function getPropertyType(args: {
         case 'DateTime':
             return ['Date', 'string'];
         case 'Decimal':
+            return ['Decimal'];
         case 'Json':
             return ['any'];
         case 'Null':

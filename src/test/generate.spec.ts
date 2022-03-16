@@ -275,7 +275,13 @@ describe('model with one id int', () => {
         });
 
         it('property id should have true type', () => {
-            expect(id.type).toEqual('true');
+            const s = testSourceFile({
+                project,
+                file: 'user-count-aggregate.input.ts',
+                property: 'id',
+            });
+
+            expect(s.property?.type).toEqual('true');
         });
 
         it('nullable', () => {
@@ -289,13 +295,21 @@ describe('model with one id int', () => {
     });
 
     it('rename to user-group-by args', () => {
-        setSourceFile('user-group-by.args.ts');
-        expect(sourceFile.getClass(() => true)?.getName()).toEqual('UserGroupByArgs');
+        const s = testSourceFile({
+            project,
+            file: 'user-group-by.args.ts',
+        });
+
+        expect(s.classFile.getName()).toEqual('UserGroupByArgs');
     });
 
     it('rename to user aggregateargs', () => {
-        setSourceFile('user-aggregate.args.ts');
-        expect(sourceFile.getClass(() => true)?.getName()).toEqual('UserAggregateArgs');
+        const s = testSourceFile({
+            project,
+            file: 'user-aggregate.args.ts',
+        });
+
+        expect(s.classFile.getName()).toEqual('UserAggregateArgs');
     });
 });
 
@@ -405,7 +419,7 @@ describe('one model with scalar types', () => {
             });
 
             it('money', () => {
-                expect(p('money')?.type).toEqual('any');
+                expect(p('money')?.type).toEqual('Decimal');
             });
         });
 
@@ -563,6 +577,57 @@ describe('one model with scalar types', () => {
     });
 });
 
+describe('decimal type', () => {
+    before(async () => {
+        ({ project } = await testGenerate({
+            schema: `model User {
+                id String @id
+                money Decimal
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('user model', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user.model.ts',
+            property: 'money',
+        });
+        expect(s.property?.type).toEqual('Decimal');
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+
+    it('user input', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-create.input.ts',
+            property: 'money',
+        });
+        expect(s.property?.type).toEqual('Decimal');
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+
+    it('user aggregate output', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-sum-aggregate.output.ts',
+            property: 'money',
+        });
+        expect(s.property?.type).toEqual('Decimal');
+        expect(s.namedImports).toContainEqual({
+            name: 'Decimal',
+            specifier: '@prisma/client/runtime',
+        });
+    });
+});
+
 describe('model with scalar nullable types', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
@@ -648,18 +713,23 @@ describe('nullish compatibility', () => {
     });
 
     it('number', () => {
-        expect(p('count')?.type).toEqual('number | null');
-        expect(p('count')?.hasQuestionToken).toBe(false);
+        const s = testSourceFile({ project, file: 'user.model.ts', property: 'count' });
+
+        expect(s.property?.type).toEqual('number | null');
+        expect(s.property?.hasQuestionToken).toBe(false);
     });
 
     it('born', () => {
-        expect(p('born')?.type).toEqual('Date | null');
-        expect(p('born')?.hasQuestionToken).toBe(false);
+        const s = testSourceFile({ project, file: 'user.model.ts', property: 'born' });
+
+        expect(s.property?.type).toEqual('Date | null');
+        expect(s.property?.hasQuestionToken).toBe(false);
     });
 
     it('money', () => {
-        expect(p('money')?.type).toEqual('any | null');
-        expect(p('money')?.hasQuestionToken).toBe(false);
+        const s = testSourceFile({ project, file: 'user.model.ts', property: 'money' });
+        expect(s.property?.type).toEqual('Decimal | null');
+        expect(s.property?.hasQuestionToken).toBe(false);
         expect(imports).toContainEqual({
             name: 'GraphQLDecimal',
             specifier: 'prisma-graphql-type-decimal',
@@ -667,7 +737,8 @@ describe('nullish compatibility', () => {
     });
 
     it('data', () => {
-        expect(p('data')?.type).toEqual('any | null');
+        const s = testSourceFile({ project, file: 'user.model.ts', property: 'data' });
+        expect(s.property?.type).toEqual('any | null');
         expect(imports).toContainEqual({
             name: 'GraphQLJSON',
             specifier: 'graphql-type-json',
@@ -676,11 +747,21 @@ describe('nullish compatibility', () => {
 
     describe('relation fields should hasQuestionToken (optional)', () => {
         it('profile', () => {
-            expect(p('profile')?.hasQuestionToken).toBe(true);
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'profile',
+            });
+            expect(s.property?.hasQuestionToken).toBe(true);
         });
 
         it('posts', () => {
-            expect(p('posts')?.hasQuestionToken).toBe(true);
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'posts',
+            });
+            expect(s.property?.hasQuestionToken).toBe(true);
         });
     });
 });
@@ -702,47 +783,43 @@ describe('one model with enum', () => {
         }));
     });
 
-    describe('sort order enum', () => {
-        before(() => {
-            setSourceFile('sort-order.enum.ts');
+    it('should import registerEnumType', () => {
+        const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+        expect(s.namedImports).toContainEqual({
+            name: 'registerEnumType',
+            specifier: '@nestjs/graphql',
         });
+    });
 
-        it('should import registerEnumType', () => {
-            expect(sourceText).toContain(
-                `import { registerEnumType } from '@nestjs/graphql'`,
-            );
-        });
+    it('should register SortOrder', () => {
+        const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+        expect(s.sourceText).toContain(
+            `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
+        );
+    });
 
-        it('should register SortOrder', () => {
-            expect(sourceText).toContain(
-                `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
-            );
-        });
+    it('should have asc value', () => {
+        const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+        const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
-        describe('enum sort order', () => {
-            let structure: EnumDeclarationStructure;
-            before(() => {
-                structure = sourceFile.getEnum('SortOrder')?.getStructure()!;
-            });
+        expect(members).toContainEqual(
+            expect.objectContaining({
+                name: 'asc',
+                initializer: '"asc"',
+            }),
+        );
+    });
 
-            it('should have asc value', () => {
-                expect(structure.members).toContainEqual(
-                    expect.objectContaining({
-                        name: 'asc',
-                        initializer: '"asc"',
-                    }),
-                );
-            });
+    it('should have desc value', () => {
+        const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+        const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
-            it('should have desc value', () => {
-                expect(structure.members).toContainEqual(
-                    expect.objectContaining({
-                        name: 'desc',
-                        initializer: '"desc"',
-                    }),
-                );
-            });
-        });
+        expect(members).toContainEqual(
+            expect.objectContaining({
+                name: 'desc',
+                initializer: '"desc"',
+            }),
+        );
     });
 
     describe('role enum', () => {

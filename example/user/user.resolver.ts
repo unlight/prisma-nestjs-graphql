@@ -1,17 +1,17 @@
-import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Profile } from '../../@generated/profile/profile.model';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output';
+import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args';
+import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args';
 import { User } from '../../@generated/user/user.model';
 import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
 import { UserCreateInput } from '../../@generated/user/user-create.input';
 import { UserUpdateInput } from '../../@generated/user/user-update.input';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
-import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args';
-import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args';
 import { UserDateInput } from './user-date.input';
 
 const prisma = new PrismaClient({
