@@ -20,7 +20,7 @@ npm install --save-dev prisma-nestjs-graphql
 
 ```prisma
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
+    provider = "prisma-nestjs-graphql"
     output = "../src/@generated/prisma-nestjs-graphql"
 }
 ```
