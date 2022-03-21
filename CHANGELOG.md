@@ -1,3 +1,10 @@
+### [15.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.1.0...v15.1.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* Create bin script ([a6c2573](https://github.com/unlight/nestjs-graphql-prisma/commit/a6c257399f8f449ef0707ff1de8dd01588e70172)), closes [#92](https://github.com/unlight/nestjs-graphql-prisma/issues/92)
+
 ## [15.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.0.0...v15.1.0) (2022-03-16)
 
 
