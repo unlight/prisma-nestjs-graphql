@@ -42,38 +42,11 @@ compatibilty_check() {
     set +x
 }
 
-build() {
-    set -x
-    rm -rf dist
-    cp -rf src dist
-    cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' >dist/tsconfig.json
-    cp -fv README.md LICENSE package.json dist
-    cd dist
-    /usr/bin/find . -name '*.spec.ts' | xargs rm -rf
-    rm -rf fixtures test example ./@generated
-    tsc -p .
-    rm -rf tsconfig.json
-    /usr/bin/find . -name '*.ts' | xargs rm -rf
-    cd ..
-    set +x
-}
-
 bundle() {
     set -x
     npx tsup src/index.ts --format cjs --target es2018
     cp -fv README.md LICENSE package.json dist
-}
-
-git_last_release_tag() {
-    result=""
-    rev=$(git rev-list --max-count=1 --tags="v[0-9]*\\.[0-9]*\\.[0-9]*")
-    if [ -n "$rev" ]; then
-        result=$(git describe --tags $rev)
-    fi
-    if [ -n "$result" ]; then
-        result=$(git rev-list --max-parents=0 HEAD)
-    fi
-    echo $result
+    cp -fv src/bin.js dist
 }
 
 commit_lint() {
