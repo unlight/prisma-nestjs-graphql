@@ -24,17 +24,42 @@ function beforeGenerateFiles(args: EventArguments) {
     const rootDirectory = project.getDirectoryOrThrow(output);
 
     if ([ReExport.Directories, ReExport.All].includes(config.reExport)) {
-        for (const directory of rootDirectory.getDirectories()) {
+        for (const directory of rootDirectory.getDescendantDirectories()) {
+            let indexSourceFile: SourceFile | undefined;
+
             const exportDeclarations: ExportDeclarationStructure[] = directory
                 .getSourceFiles()
                 .filter(sourceFile => {
                     return sourceFile.getBaseName() !== 'index.ts';
                 })
                 .map(sourcesFile => getExportDeclaration(directory, sourcesFile));
-            directory.createSourceFile(
-                'index.ts',
+
+            if (exportDeclarations.length > 0) {
+                indexSourceFile = directory.createSourceFile(
+                    'index.ts',
+                    {
+                        statements: exportDeclarations,
+                    },
+                    {
+                        overwrite: true,
+                    },
+                );
+            }
+
+            if (indexSourceFile) {
+                continue;
+            }
+
+            const namespaceExportDeclarations: ExportDeclarationStructure[] = directory
+                .getDirectories()
+                .map(sourceDirectory =>
+                    getNamespaceExportDeclaration(directory, sourceDirectory),
+                );
+
+            project.createSourceFile(
+                `${directory.getPath()}/index.ts`,
                 {
-                    statements: exportDeclarations,
+                    statements: namespaceExportDeclarations,
                 },
                 {
                     overwrite: true,
@@ -85,5 +110,15 @@ function getExportDeclaration(
         kind: StructureKind.ExportDeclaration,
         namedExports: sourceFile.getExportSymbols().map(s => ({ name: s.getName() })),
         moduleSpecifier: directory.getRelativePathAsModuleSpecifierTo(sourceFile),
+    };
+}
+
+function getNamespaceExportDeclaration(
+    directory: Directory,
+    sourceDirectory: Directory,
+): ExportDeclarationStructure {
+    return {
+        kind: StructureKind.ExportDeclaration,
+        moduleSpecifier: directory.getRelativePathAsModuleSpecifierTo(sourceDirectory),
     };
 }
