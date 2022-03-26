@@ -1548,6 +1548,37 @@ describe('reexport option', () => {
         });
     });
 
+    describe('reexport directories with output file pattern', () => {
+        before(async () => {
+            ({ project, sourceFiles } = await testGenerate({
+                schema: `
+                model User {
+                    id Int @id
+                }`,
+                options: [
+                    'reExport = Directories',
+                    `outputFilePattern = "{model}/{plural.type}/{name}.{type}.ts"`,
+                ],
+            }));
+        });
+
+        it('user should export plural types', () => {
+            sourceFile = project.getSourceFile(s =>
+                s.getFilePath().endsWith('/user/index.ts'),
+            )!;
+
+            for (const exp of [
+                `export * from './args';`,
+                `export * from './enums';`,
+                `export * from './inputs';`,
+                `export * from './models';`,
+                `export * from './outputs';`,
+            ]) {
+                expect(sourceFile.getText()).toContain(exp);
+            }
+        });
+    });
+
     describe('reexport single', () => {
         before(async () => {
             ({ project, sourceFiles } = await testGenerate({
