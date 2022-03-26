@@ -1,3 +1,10 @@
+## [15.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.1.1...v15.2.0) (2022-03-26)
+
+
+### Features
+
+* Support reexport with custom output pattern ([2786894](https://github.com/unlight/nestjs-graphql-prisma/commit/27868946ada49d2cb72babc54197d4ccb2442dc0))
+
 ### [15.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.1.0...v15.1.1) (2022-03-21)
 
 
