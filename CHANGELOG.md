@@ -1,3 +1,10 @@
+### [15.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.0...v15.2.1) (2022-04-03)
+
+
+### Bug Fixes
+
+* `tsConfigFilePath` is ignored ([d98e146](https://github.com/unlight/nestjs-graphql-prisma/commit/d98e1469d497b0f5546caf09c0a0092506471b25)), closes [#88](https://github.com/unlight/nestjs-graphql-prisma/issues/88)
+
 ## [15.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.1.1...v15.2.0) (2022-03-26)
 
 
