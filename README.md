@@ -66,9 +66,9 @@ Possible tokens:
 
 #### `tsConfigFilePath`
 
-Path to `tsconfig.json`  
+Path to `tsconfig.json` (absolute path or relative to current working directory)  
 Type: `string | undefined`  
-Default: `undefined`
+Default: `tsconfig.json` if exists, `undefined` otherwise
 
 #### `combineScalarFilters`
 

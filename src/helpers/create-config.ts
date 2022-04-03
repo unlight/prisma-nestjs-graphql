@@ -1,8 +1,9 @@
 import { ok } from 'assert';
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
+import { existsSync } from 'fs';
 import JSON5 from 'json5';
-import { Dictionary, merge, trim } from 'lodash';
+import { Dictionary, memoize, merge, trim } from 'lodash';
 import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
@@ -100,7 +101,7 @@ export function createConfig(data: Record<string, unknown>) {
 
     return {
         outputFilePattern,
-        tsConfigFilePath: undefined as string | undefined,
+        tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
         combineScalarFilters: toBoolean(config.combineScalarFilters),
         noAtomicOperations: toBoolean(config.noAtomicOperations),
         reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
@@ -127,6 +128,15 @@ type ConfigInputItem = {
     ALL?: string;
     [index: string]: string | undefined;
 };
+
+const tsConfigFileExists = memoize((filePath: string) => {
+    return existsSync(filePath);
+});
+
+function createTsConfigFilePathValue(value: unknown): string | undefined {
+    if (typeof value === 'string') return value;
+    if (tsConfigFileExists('tsconfig.json')) return 'tsconfig.json';
+}
 
 function createUseInputType(data?: Record<string, ConfigInputItem>) {
     if (!data) {

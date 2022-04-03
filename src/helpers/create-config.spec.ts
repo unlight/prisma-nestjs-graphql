@@ -80,4 +80,18 @@ describe('createConfig', () => {
         expect(result.decorate).toBeInstanceOf(Array);
         expect(result.decorate).toHaveLength(2);
     });
+
+    it('tsConfigFilePath value', () => {
+        const result = createConfig({
+            tsConfigFilePath: 'x.json',
+        });
+
+        expect(result.tsConfigFilePath).toEqual('x.json');
+    });
+
+    it('tsConfigFilePath default', () => {
+        const result = createConfig({});
+
+        expect(result.tsConfigFilePath).toEqual('tsconfig.json');
+    });
 });

@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
+import { Decimal } from '@prisma/client/runtime';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()

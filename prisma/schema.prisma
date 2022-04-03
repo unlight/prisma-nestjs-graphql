@@ -1,123 +1,123 @@
 datasource database {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+    provider = "postgres"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["filterJson", "fullTextSearch"]
+    provider        = "prisma-client-js"
+    previewFeatures = ["filterJson", "fullTextSearch"]
 }
 
 generator nestgraphql {
-  provider = "node -r ts-node/register/transpile-only src/index.ts"
-  output = "../@generated"
-  noAtomicOperations = false
-  combineScalarFilters = false
-  reExport = None
-  emitSingle = false
-  emitCompiled = false
-  purgeOutput = false
-  requireSingleFieldsInWhereUniqueInput = false
-  fields_Validator_from = "class-validator"
-  fields_Validator_input = true
-  fields_Scalars_from = "graphql-scalars"
-  fields_Scalars_input = true
-  useInputType_WhereInput_ALL = "WhereInput"
-  decorate_1_type = "Create@(One|Many)UserArgs"
-  decorate_1_field = data
-  decorate_1_name = ValidateNested
-  decorate_1_from = "class-validator"
-  decorate_1_arguments = "[]"
-  decorate_2_type = "Create@(One|Many)UserArgs"
-  decorate_2_field = data
-  decorate_2_from = "class-transformer"
-  decorate_2_arguments = "['() => {propertyType.0}']"
-  decorate_2_name = Type
-  decorate_2_namedImport = true
+    provider                              = "node -r ts-node/register/transpile-only src/index.ts"
+    output                                = "../@generated"
+    noAtomicOperations                    = false
+    combineScalarFilters                  = false
+    reExport                              = None
+    emitSingle                            = false
+    emitCompiled                          = false
+    purgeOutput                           = false
+    requireSingleFieldsInWhereUniqueInput = false
+    fields_Validator_from                 = "class-validator"
+    fields_Validator_input                = true
+    fields_Scalars_from                   = "graphql-scalars"
+    fields_Scalars_input                  = true
+    useInputType_WhereInput_ALL           = "WhereInput"
+    decorate_1_type                       = "Create@(One|Many)UserArgs"
+    decorate_1_field                      = data
+    decorate_1_name                       = ValidateNested
+    decorate_1_from                       = "class-validator"
+    decorate_1_arguments                  = "[]"
+    decorate_2_type                       = "Create@(One|Many)UserArgs"
+    decorate_2_field                      = data
+    decorate_2_from                       = "class-transformer"
+    decorate_2_arguments                  = "['() => {propertyType.0}']"
+    decorate_2_name                       = Type
+    decorate_2_namedImport                = true
 }
 
 /// User really
 model User {
-  id               String    @id @default(cuid())
-  /// @FieldType('Scalars.GraphQLEmailAddress')
-  email            String    @unique
-  /// User's name
-  /// @Validator.MinLength(3)
-  /// @Validator.MaxLength(50)
-  name             String    @unique
-  /// @HideField()
-  password         String
-  bio              String?
-  image            String?
-  following        User[]    @relation("UserFollows", references: [id])
-  followers        User[]    @relation("UserFollows", references: [id])
-  favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
-  articles         Article[] @relation("ArticleAuthor")
-  comments         Comment[]
-  countComments    Int?
-  rating           Float?
-  role             Role?
-  profile          Profile?
+    id               String    @id @default(cuid())
+    /// @FieldType('Scalars.GraphQLEmailAddress')
+    email            String    @unique
+    /// User's name
+    /// @Validator.MinLength(3)
+    /// @Validator.MaxLength(50)
+    name             String    @unique
+    /// @HideField()
+    password         String
+    bio              String?
+    image            String?
+    following        User[]    @relation("UserFollows", references: [id])
+    followers        User[]    @relation("UserFollows", references: [id])
+    favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
+    articles         Article[] @relation("ArticleAuthor")
+    comments         Comment[]
+    countComments    Int?
+    rating           Float?
+    role             Role?
+    profile          Profile?
 
-  @@unique([email, name])
+    @@unique([email, name])
 }
 
 model Tag {
-  id       String    @id @default(cuid())
-  name     String    @unique
-  articles Article[]
+    id       String    @id @default(cuid())
+    name     String    @unique
+    articles Article[]
 }
 
 model Article {
-  id             String    @id @default(cuid())
-  slug           String    @unique
-  title          String
-  description    String
-  body           String
-  tags           Tag[]
-  /// @HideField({ match: '*Create*Input' })
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  favoritesCount Int       @default(0)
-  author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
-  authorId       String
-  favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
-  comments       Comment[]
-  active         Boolean?  @default(true)
+    id             String    @id @default(cuid())
+    slug           String    @unique
+    title          String
+    description    String
+    body           String
+    tags           Tag[]
+    /// @HideField({ match: '*Create*Input' })
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+    favoritesCount Int       @default(0)
+    author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+    authorId       String
+    favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
+    comments       Comment[]
+    active         Boolean?  @default(true)
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  /// @HideField({ match: '*Update*Input' })
-  updatedAt DateTime @updatedAt
-  body      String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  article   Article? @relation(fields: [articleId], references: [id])
-  articleId String?
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    /// @HideField({ match: '*Update*Input' })
+    updatedAt DateTime @updatedAt
+    body      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    article   Article? @relation(fields: [articleId], references: [id])
+    articleId String?
 }
 
 enum Role {
-  USER
+    USER
 }
 
 model Profile {
-  id                  Int                 @id @default(autoincrement())
-  user                User                @relation(fields: [userId], references: [id])
-  userId              String
-  dummy String?
+    id     Int     @id @default(autoincrement())
+    user   User    @relation(fields: [userId], references: [id])
+    userId String  @unique
+    dummy  String?
 }
 
 model Dummy {
-  id      String   @id
-  created DateTime @default(now())
-  floaty  Float
-  int     Int?
-  float   Float?
-  bytes   Bytes?
-  decimal Decimal?
-  bigInt  BigInt?
-  json    Json?
-  friends String[]
+    id      String   @id
+    created DateTime @default(now())
+    floaty  Float
+    int     Int?
+    float   Float?
+    bytes   Bytes?
+    decimal Decimal?
+    bigInt  BigInt?
+    json    Json?
+    friends String[]
 }
