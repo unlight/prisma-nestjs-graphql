@@ -13,7 +13,7 @@ jobs:
           - 16
         os:
           - ubuntu-latest
-          - windows-latest
+          # - windows-latest
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v2
