@@ -1,3 +1,10 @@
+### [15.2.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.1...v15.2.2) (2022-04-12)
+
+
+### Bug Fixes
+
+* **other:** Fail model with single id field in mongodb ([4d19e9a](https://github.com/unlight/nestjs-graphql-prisma/commit/4d19e9a0f3a09a917fedc985e80681cea15e40ef)), closes [#96](https://github.com/unlight/nestjs-graphql-prisma/issues/96)
+
 ### [15.2.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.0...v15.2.1) (2022-04-03)
 
 
