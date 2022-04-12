@@ -129,7 +129,7 @@ async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["filterJson", "mongoDb", "fullTextSearch", "referentialIntegrity", "extendedIndexes", "fullTextIndex"]
+            previewFeatures = ["filterJson", "fullTextSearch", "referentialIntegrity", "extendedIndexes", "fullTextIndex"]
         }
     `;
     // eslint-disable-next-line prefer-rest-params
