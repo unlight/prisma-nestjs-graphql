@@ -19,6 +19,7 @@ const { '@prisma/generator-helper': generatorVersion } =
 export async function testGenerate(args: {
     schema: string;
     options?: string[];
+    provider?: 'postgresql' | 'mongodb';
     createSouceFile?: {
         text: string;
         name: string;
@@ -26,7 +27,7 @@ export async function testGenerate(args: {
     };
     onConnect?: (emitter: AwaitEventEmitter) => void;
 }) {
-    const { schema, options, createSouceFile, onConnect } = args;
+    const { schema, options, provider, createSouceFile, onConnect } = args;
     let project: Project | undefined;
     const connectCallback = (emitter: AwaitEventEmitter) => {
         onConnect && onConnect(emitter);
@@ -53,7 +54,7 @@ export async function testGenerate(args: {
         });
     };
     await generate({
-        ...(await createGeneratorOptions(schema, options)),
+        ...(await createGeneratorOptions(schema, options, provider)),
         skipAddOutputSourceFiles: true,
         connectCallback,
     });
@@ -119,10 +120,11 @@ export async function testGenerate(args: {
 async function createGeneratorOptions(
     schema: string,
     options?: string[],
+    provider: 'postgresql' | 'mongodb' = 'postgresql',
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
     const schemaHeader = `
         datasource db {
-            provider = "postgresql"
+            provider = "${provider}"
             url = env("DATABASE_URL")
         }
         generator client {

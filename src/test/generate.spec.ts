@@ -2557,3 +2557,26 @@ describe('configuration custom scalars', () => {
         });
     });
 });
+
+describe('single model and field mongodb', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            provider: 'mongodb',
+            schema: `
+                model Product {
+                  id String @id @default(auto()) @map("_id") @db.ObjectId
+                }
+            `,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('example input update type', () => {
+        const s = testSourceFile({
+            project,
+            file: 'update-one-product.args.ts',
+        });
+        // data field is missing because of single id field
+        expect(s.classFile.getProperties()).toHaveLength(1);
+    });
+});

@@ -56,6 +56,8 @@ export function inputType(
     const modelFieldSettings = model && fieldSettings.get(model.name);
     const moduleSpecifier = '@nestjs/graphql';
 
+    // console.log('sourceFile.getBaseName()', sourceFile.getBaseName());
+
     importDeclarations
         .set('Field', {
             namedImports: [{ name: 'Field' }],
@@ -77,6 +79,12 @@ export function inputType(
         eventEmitter.emitSync('BeforeGenerateField', field, args);
 
         const { inputTypes, isRequired, name } = field;
+
+        if (inputTypes.length === 0) {
+            // No types
+            continue;
+        }
+
         const usePattern = useInputType?.ALL || useInputType?.[name];
         const graphqlInputType = getGraphqlInputType(inputTypes, usePattern);
         const { isList, location, type } = graphqlInputType;
