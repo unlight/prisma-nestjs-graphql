@@ -1,7 +1,8 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 
 import { Dummy } from '../../@generated/dummy/dummy.model';
+import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
 import { FindManyDummyArgs } from '../../@generated/dummy/find-many-dummy.args';
 
 /**
@@ -32,5 +33,15 @@ export class DummyResolver {
         // @ts-ignore
         dummy.bigInt = args.where.bigInt?.equals;
         return [dummy];
+    }
+
+    @Mutation(() => Dummy)
+    createDummy(@Args('data') create: DummyCreateInput) {
+        console.log('create', create);
+        const dummy = new Dummy();
+
+        dummy.created = new Date();
+
+        return dummy;
     }
 }
