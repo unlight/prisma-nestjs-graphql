@@ -1,4 +1,4 @@
-import { countBy } from 'lodash';
+import { countBy, isEqual, uniqWith } from 'lodash';
 import outmatch from 'outmatch';
 
 import { DMMF } from '../types';
@@ -13,6 +13,7 @@ export function getGraphqlInputType(
     let result: DMMF.SchemaArgInputType | undefined;
 
     inputTypes = inputTypes.filter(t => !['null', 'Null'].includes(String(t.type)));
+    inputTypes = uniqWith(inputTypes, isEqual);
 
     if (inputTypes.length === 1) {
         return inputTypes[0];

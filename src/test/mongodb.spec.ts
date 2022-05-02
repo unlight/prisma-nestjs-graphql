@@ -50,3 +50,22 @@ describe('type has been treated as model #99', () => {
         expect(s.fieldDecoratorType).toEqual('() => [Preference]');
     });
 });
+
+describe('mongodb json', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            provider: 'mongodb',
+            schema: `
+                model User {
+                  id String @id @default(auto()) @map("_id") @db.ObjectId
+                  json Json?
+                }
+            `,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('smoke', () => {
+        expect(project).toBeTruthy();
+    });
+});
