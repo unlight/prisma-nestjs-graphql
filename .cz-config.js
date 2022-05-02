@@ -34,6 +34,7 @@ module.exports = {
         { name: 'configuration' },
         { name: 'custom decorators' },
         { name: 'compatibility' },
+        { name: 'mongodb' },
         { name: 'other' },
     ],
 

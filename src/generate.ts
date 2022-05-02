@@ -128,6 +128,11 @@ export async function generate(
         await eventEmitter.emit('Model', model, eventArguments);
     }
 
+    // Types behaves like model
+    for (const model of datamodel.types) {
+        await eventEmitter.emit('Model', model, eventArguments);
+    }
+
     await eventEmitter.emit('PostBegin', eventArguments);
 
     for (const enumType of enumTypes.prisma.concat(enumTypes.model || [])) {
