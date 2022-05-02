@@ -1,3 +1,10 @@
+### [15.2.5](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.4...v15.2.5) (2022-05-02)
+
+
+### Bug Fixes
+
+* **hide field:** Self relation field ([5cb4311](https://github.com/unlight/nestjs-graphql-prisma/commit/5cb4311c5dc7250d3c133985a6b408a96f80a108)), closes [#103](https://github.com/unlight/nestjs-graphql-prisma/issues/103)
+
 ### [15.2.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.3...v15.2.4) (2022-05-02)
 
 
