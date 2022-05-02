@@ -1,3 +1,10 @@
+### [15.2.4](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.3...v15.2.4) (2022-05-02)
+
+
+### Bug Fixes
+
+* **mongodb:** Get matching input type from Json ([e16cad0](https://github.com/unlight/nestjs-graphql-prisma/commit/e16cad00a30d1aa7e31a9ef6b0318932c18f6131))
+
 ### [15.2.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.2...v15.2.3) (2022-05-02)
 
 
