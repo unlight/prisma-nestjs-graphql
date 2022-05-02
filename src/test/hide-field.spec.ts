@@ -323,3 +323,36 @@ describe.skip('hide enum', () => {
         }
     });
 });
+
+describe('hide with self reference', () => {
+    before(async () => {
+        ({ project } = await testGenerate({
+            schema: `model User {
+                  id     Int    @id
+                  parentId Int
+                  /// @HideField({ output: false, input: true })
+                  parent User   @relation("UserToUser", fields: [parentId], references: [id])
+                  /// @HideField({ output: false, input: true })
+                  user   User[] @relation("UserToUser")
+                }`,
+        }));
+    });
+
+    it('smoke', () => {
+        const files = project.getSourceFiles().map(s => s.getBaseName());
+        expect(files).toBeTruthy();
+    });
+
+    it('order by with relation self import', () => {
+        const s = testSourceFile({
+            project,
+            class: 'UserOrderByWithRelationAndSearchRelevanceInput',
+        });
+
+        expect(s.namedImports).not.toContainEqual(
+            expect.objectContaining({
+                name: 'UserOrderByWithRelationAndSearchRelevanceInput',
+            }),
+        );
+    });
+});

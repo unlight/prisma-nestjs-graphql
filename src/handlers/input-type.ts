@@ -151,8 +151,9 @@ export function inputType(
             if (
                 graphqlImport.specifier &&
                 !importDeclarations.has(graphqlImport.name) &&
-                ((graphqlImport.name !== inputType.name && !shouldHideField) ||
-                    (shouldHideField && referenceName === graphqlImport.name))
+                graphqlImport.name !== inputType.name
+                // ((graphqlImport.name !== inputType.name && !shouldHideField) ||
+                //     (shouldHideField && referenceName === graphqlImport.name))
             ) {
                 importDeclarations.set(graphqlImport.name, {
                     namedImports: [{ name: graphqlImport.name }],

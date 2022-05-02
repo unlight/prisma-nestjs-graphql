@@ -28,13 +28,20 @@ export function getPropertyStructure(sourceFile: SourceFile, name: string) {
 
 export function testSourceFile(args: {
     project: Project;
-    file: string;
+    file?: string;
+    class?: string;
     property?: string;
 }) {
-    const { project, file, property } = args;
-    const sourceFile = project.getSourceFileOrThrow(s =>
-        s.getFilePath().endsWith(file),
-    );
+    const { project, file, property, class: className } = args;
+    let sourceFile: SourceFile;
+    if (file) {
+        sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(file));
+    } else if (className) {
+        sourceFile = project.getSourceFileOrThrow(s => Boolean(s.getClass(className)));
+    } else {
+        throw new TypeError('file or class must be provided');
+    }
+
     const importDeclarations = sourceFile
         .getImportDeclarations()
         .map(d => d.getStructure());
