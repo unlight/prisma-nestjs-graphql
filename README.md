@@ -659,7 +659,7 @@ export class User {}
 ## Resources
 
 -   Todo - https://github.com/unlight/prisma-nestjs-graphql/issues/2
--   https://github.com/prisma/prisma/blob/master/src/packages/client/src/generation/TSClient/TSClient.ts
+-   https://github.com/prisma/prisma/blob/main/packages/client/src/generation/TSClient/TSClient.ts
 -   https://ts-ast-viewer.com/
 -   https://github.com/unlight/nestjs-graphql-prisma-realworld-example-app
 -   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
