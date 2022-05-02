@@ -911,19 +911,30 @@ describe('one model with self reference', () => {
         }));
     });
 
-    describe('model', () => {
-        before(() => {
-            setSourceFile('user.model.ts');
+    it('with relation input', () => {
+        const s = testSourceFile({
+            project,
+            file: 'user-order-by-with-relation-and-search-relevance.input.ts',
         });
 
+        expect(s.namedImports).not.toContainEqual(
+            expect.objectContaining({
+                name: 'UserOrderByWithRelationAndSearchRelevanceInput',
+            }),
+        );
+    });
+
+    describe('model', () => {
         it('should not contain import to self file', () => {
-            expect(imports).not.toContainEqual(
+            const s = testSourceFile({ project, file: 'user.model.ts' });
+            expect(s.namedImports).not.toContainEqual(
                 expect.objectContaining({ name: 'User' }),
             );
         });
 
         it('imports should contain user count', () => {
-            expect(imports).toContainEqual({
+            const s = testSourceFile({ project, file: 'user.model.ts' });
+            expect(s.namedImports).toContainEqual({
                 name: 'UserCount',
                 specifier: './user-count.output',
             });
