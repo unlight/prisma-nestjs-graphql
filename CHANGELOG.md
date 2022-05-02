@@ -1,3 +1,10 @@
+### [15.2.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.2...v15.2.3) (2022-05-02)
+
+
+### Bug Fixes
+
+* **mongodb:** Support composite types (behaves like model) ([d505ecb](https://github.com/unlight/nestjs-graphql-prisma/commit/d505ecb49dfc5e442c802503f461a45e8cf97cb8)), closes [#99](https://github.com/unlight/nestjs-graphql-prisma/issues/99)
+
 ### [15.2.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.1...v15.2.2) (2022-04-12)
 
 
