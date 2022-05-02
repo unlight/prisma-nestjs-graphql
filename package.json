@@ -25,7 +25,7 @@
     "mocha": "node node_modules/mocha/bin/mocha",
     "test:r": "npm run mocha -- -r ts-node/register src/**/*.spec.ts",
     "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/test/**\"  npm run test:r -- --no-timeouts",
-    "test:w": "npm run test:r -- --watch-files src --watch",
+    "test:w": "npm run test:r -- --watch-files src --watch --timeout=10s",
     "test:d": "ndb -r @swc/register node_modules/mocha/bin/_mocha --no-timeouts --watch-files src/**/*.ts --watch src/**/*.spec.ts",
     "tscheck": "tsc --noEmit",
     "tscheck:w": "npm run tscheck -- --watch",
