@@ -95,10 +95,19 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         // Get graphql type
         let graphqlType: string;
-        const shouldHideField = settings?.shouldHideField({
-            name: outputType.name,
-            output: true,
-        });
+        const shouldHideField =
+            settings?.shouldHideField({
+                name: outputType.name,
+                output: true,
+            }) ||
+            config.decorate.some(
+                d =>
+                    d.name === 'HideField' &&
+                    d.from === '@nestjs/graphql' &&
+                    d.isMatchField(field.name) &&
+                    d.isMatchType(outputTypeName),
+            );
+
         const fieldType = settings?.getFieldType({
             name: outputType.name,
             output: true,

@@ -281,6 +281,29 @@ data!: UserCreateInput;
 
 ```
 
+Add `@HideField()` decorator to nested types:
+
+```
+decorate_3_type = "*CreateNestedOneWithoutUserInput"
+decorate_3_field = "!(create)"
+decorate_3_name = "HideField"
+decorate_3_from = "@nestjs/graphql"
+decorate_3_arguments = "[]"
+```
+
+May generate following class:
+
+```ts
+@Field(() => ProfileCreateWithoutUserInput, { nullable: true })
+create?: ProfileCreateWithoutUserInput;
+
+@HideField()
+connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+
+@HideField()
+connect?: ProfileWhereUniqueInput;
+```
+
 #### `graphqlScalars`
 
 Allow to set custom graphql type for Prisma scalar type.

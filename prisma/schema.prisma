@@ -34,6 +34,11 @@ generator nestgraphql {
     decorate_2_arguments                  = "['() => {propertyType.0}']"
     decorate_2_name                       = Type
     decorate_2_namedImport                = true
+    decorate_3_type = "ProfileUncheckedCreateNestedOneWithoutUserInput"
+    decorate_3_field = "!(create)"
+    decorate_3_name = "HideField"
+    decorate_3_from = "@nestjs/graphql"
+    decorate_3_arguments = "[]"
 }
 
 /// User really

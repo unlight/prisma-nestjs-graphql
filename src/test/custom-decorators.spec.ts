@@ -562,3 +562,66 @@ describe('model directive', () => {
         });
     });
 });
+
+describe('hide and decorate', () => {
+    before(async () => {
+        ({ project } = await testGenerate({
+            schema: `
+            model User {
+                id String @id
+                profile Profile?
+            }
+            model Profile {
+                id String @id
+                user   User    @relation(fields: [userId], references: [id])
+                userId String  @unique
+            }
+            `,
+            options: [
+                `outputFilePattern = "{name}.{type}.ts"`,
+                `decorate_3_type = "ProfileUncheckedCreateNestedOneWithoutUserInput"`,
+                `decorate_3_field = "!(create)"`,
+                `decorate_3_name = "HideField"`,
+                `decorate_3_from = "@nestjs/graphql"`,
+                `decorate_3_arguments = "[]"`,
+            ],
+        }));
+    });
+
+    it('smoke', () => {
+        expect(project).toBeTruthy();
+        const files = project.getSourceFiles().map(s => s.getBaseName());
+        expect(files.length).toBeGreaterThan(0);
+    });
+
+    it('should keep only create', () => {
+        const s = testSourceFile({
+            project,
+            class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
+            property: 'create',
+        });
+
+        expect(s.property?.decorators).not.toContainEqual(
+            expect.objectContaining({ name: 'HideField' }),
+        );
+    });
+
+    // eslint-disable-next-line unicorn/no-array-for-each
+    ['connect', 'connectOrCreate'].forEach(property => {
+        it(`${property} property should be disabled`, () => {
+            const s = testSourceFile({
+                project,
+                class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
+                property,
+            });
+
+            expect(s.property?.decorators).not.toContainEqual(
+                expect.objectContaining({ name: 'Field' }),
+            );
+
+            expect(s.property?.decorators).toContainEqual(
+                expect.objectContaining({ name: 'HideField' }),
+            );
+        });
+    });
+});

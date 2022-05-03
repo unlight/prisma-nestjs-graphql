@@ -120,10 +120,19 @@ export function inputType(
 
         // Get graphql type
         let graphqlType: string;
-        const shouldHideField = settings?.shouldHideField({
-            name: inputType.name,
-            input: true,
-        });
+        const shouldHideField =
+            settings?.shouldHideField({
+                name: inputType.name,
+                input: true,
+            }) ||
+            config.decorate.some(
+                d =>
+                    d.name === 'HideField' &&
+                    d.from === '@nestjs/graphql' &&
+                    d.isMatchField(name) &&
+                    d.isMatchType(inputType.name),
+            );
+
         const fieldType = settings?.getFieldType({
             name: inputType.name,
             input: true,
