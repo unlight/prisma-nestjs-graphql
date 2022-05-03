@@ -1,3 +1,10 @@
+### [15.2.6](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.5...v15.2.6) (2022-05-03)
+
+
+### Bug Fixes
+
+* **hide field:** Fields in nested types ([2760d9e](https://github.com/unlight/nestjs-graphql-prisma/commit/2760d9e1cd27aae17be23887b9c437cbefb857c8)), closes [#80](https://github.com/unlight/nestjs-graphql-prisma/issues/80)
+
 ### [15.2.5](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.4...v15.2.5) (2022-05-02)
 
 
