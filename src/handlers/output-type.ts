@@ -89,7 +89,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
-        } else if (!propertySettings && propertyType.includes('Decimal')) {
+        } else if (propertyType.includes('Decimal')) {
             importDeclarations.add('Decimal', '@prisma/client/runtime');
         }
 

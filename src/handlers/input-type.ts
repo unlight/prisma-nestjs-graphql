@@ -114,7 +114,7 @@ export function inputType(
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
-        } else if (!propertySettings && propertyType.includes('Decimal')) {
+        } else if (propertyType.includes('Decimal')) {
             importDeclarations.add('Decimal', '@prisma/client/runtime');
         }
 
