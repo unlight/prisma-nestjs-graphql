@@ -6,12 +6,12 @@ import { DummyUpdateInput } from './dummy-update.input';
 
 @ArgsType()
 export class UpsertOneDummyArgs {
-    @Field(() => DummyWhereUniqueInput, { nullable: false })
-    where!: DummyWhereUniqueInput;
+  @Field(() => DummyWhereUniqueInput, { nullable: false })
+  where!: DummyWhereUniqueInput;
 
-    @Field(() => DummyCreateInput, { nullable: false })
-    create!: DummyCreateInput;
+  @Field(() => DummyCreateInput, { nullable: false })
+  create!: DummyCreateInput;
 
-    @Field(() => DummyUpdateInput, { nullable: false })
-    update!: DummyUpdateInput;
+  @Field(() => DummyUpdateInput, { nullable: false })
+  update!: DummyUpdateInput;
 }

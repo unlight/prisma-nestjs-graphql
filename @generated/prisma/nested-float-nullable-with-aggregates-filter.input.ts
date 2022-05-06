@@ -6,42 +6,42 @@ import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input'
 
 @InputType()
 export class NestedFloatNullableWithAggregatesFilter {
-    @Field(() => Float, { nullable: true })
-    equals?: number;
+  @Field(() => Float, { nullable: true })
+  equals?: number;
 
-    @Field(() => [Float], { nullable: true })
-    in?: Array<number>;
+  @Field(() => [Float], { nullable: true })
+  in?: Array<number>;
 
-    @Field(() => [Float], { nullable: true })
-    notIn?: Array<number>;
+  @Field(() => [Float], { nullable: true })
+  notIn?: Array<number>;
 
-    @Field(() => Float, { nullable: true })
-    lt?: number;
+  @Field(() => Float, { nullable: true })
+  lt?: number;
 
-    @Field(() => Float, { nullable: true })
-    lte?: number;
+  @Field(() => Float, { nullable: true })
+  lte?: number;
 
-    @Field(() => Float, { nullable: true })
-    gt?: number;
+  @Field(() => Float, { nullable: true })
+  gt?: number;
 
-    @Field(() => Float, { nullable: true })
-    gte?: number;
+  @Field(() => Float, { nullable: true })
+  gte?: number;
 
-    @Field(() => NestedFloatNullableWithAggregatesFilter, { nullable: true })
-    not?: NestedFloatNullableWithAggregatesFilter;
+  @Field(() => NestedFloatNullableWithAggregatesFilter, { nullable: true })
+  not?: NestedFloatNullableWithAggregatesFilter;
 
-    @Field(() => NestedIntNullableFilter, { nullable: true })
-    _count?: NestedIntNullableFilter;
+  @Field(() => NestedIntNullableFilter, { nullable: true })
+  _count?: NestedIntNullableFilter;
 
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
-    _avg?: NestedFloatNullableFilter;
+  @Field(() => NestedFloatNullableFilter, { nullable: true })
+  _avg?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
-    _sum?: NestedFloatNullableFilter;
+  @Field(() => NestedFloatNullableFilter, { nullable: true })
+  _sum?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
-    _min?: NestedFloatNullableFilter;
+  @Field(() => NestedFloatNullableFilter, { nullable: true })
+  _min?: NestedFloatNullableFilter;
 
-    @Field(() => NestedFloatNullableFilter, { nullable: true })
-    _max?: NestedFloatNullableFilter;
+  @Field(() => NestedFloatNullableFilter, { nullable: true })
+  _max?: NestedFloatNullableFilter;
 }

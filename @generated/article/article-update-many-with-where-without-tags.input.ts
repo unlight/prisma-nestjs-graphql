@@ -5,9 +5,9 @@ import { ArticleUpdateManyMutationInput } from './article-update-many-mutation.i
 
 @InputType()
 export class ArticleUpdateManyWithWhereWithoutTagsInput {
-    @Field(() => ArticleScalarWhereInput, { nullable: false })
-    where!: ArticleScalarWhereInput;
+  @Field(() => ArticleScalarWhereInput, { nullable: false })
+  where!: ArticleScalarWhereInput;
 
-    @Field(() => ArticleUpdateManyMutationInput, { nullable: false })
-    data!: ArticleUpdateManyMutationInput;
+  @Field(() => ArticleUpdateManyMutationInput, { nullable: false })
+  data!: ArticleUpdateManyMutationInput;
 }

@@ -6,12 +6,12 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedManyWithoutFavoriteArticlesInput {
-    @Field(() => [UserCreateWithoutFavoriteArticlesInput], { nullable: true })
-    create?: Array<UserCreateWithoutFavoriteArticlesInput>;
+  @Field(() => [UserCreateWithoutFavoriteArticlesInput], { nullable: true })
+  create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], { nullable: true })
-    connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
+  @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], { nullable: true })
+  connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
 
-    @Field(() => [UserWhereUniqueInput], { nullable: true })
-    connect?: Array<UserWhereUniqueInput>;
+  @Field(() => [UserWhereUniqueInput], { nullable: true })
+  connect?: Array<UserWhereUniqueInput>;
 }

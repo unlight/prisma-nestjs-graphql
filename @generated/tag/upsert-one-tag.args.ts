@@ -6,12 +6,12 @@ import { TagUpdateInput } from './tag-update.input';
 
 @ArgsType()
 export class UpsertOneTagArgs {
-    @Field(() => TagWhereUniqueInput, { nullable: false })
-    where!: TagWhereUniqueInput;
+  @Field(() => TagWhereUniqueInput, { nullable: false })
+  where!: TagWhereUniqueInput;
 
-    @Field(() => TagCreateInput, { nullable: false })
-    create!: TagCreateInput;
+  @Field(() => TagCreateInput, { nullable: false })
+  create!: TagCreateInput;
 
-    @Field(() => TagUpdateInput, { nullable: false })
-    update!: TagUpdateInput;
+  @Field(() => TagUpdateInput, { nullable: false })
+  update!: TagUpdateInput;
 }

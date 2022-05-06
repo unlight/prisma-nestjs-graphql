@@ -1,20 +1,20 @@
 {
-    "sourceMaps": false,
-    "module": {
-        "type": "commonjs"
+  "sourceMaps": false,
+  "module": {
+    "type": "commonjs"
+  },
+  "jsc": {
+    "externalHelpers": true,
+    "keepClassNames": true,
+    "target": "es2020",
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": false
     },
-    "jsc": {
-        "externalHelpers": true,
-        "keepClassNames": true,
-        "target": "es2020",
-        "parser": {
-            "syntax": "typescript",
-            "tsx": false,
-            "decorators": false
-        },
-        "transform": {
-            "legacyDecorator": true,
-            "decoratorMetadata": false
-        }
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": false
     }
+  }
 }

@@ -6,12 +6,12 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
-    @Field(() => UserWhereUniqueInput, { nullable: false })
-    where!: UserWhereUniqueInput;
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  where!: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
-    update!: UserUpdateWithoutFavoriteArticlesInput;
+  @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
+  update!: UserUpdateWithoutFavoriteArticlesInput;
 
-    @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
-    create!: UserCreateWithoutFavoriteArticlesInput;
+  @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
+  create!: UserCreateWithoutFavoriteArticlesInput;
 }

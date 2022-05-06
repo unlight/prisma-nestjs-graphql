@@ -6,12 +6,12 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedManyWithoutFavoritedByInput {
-    @Field(() => [ArticleCreateWithoutFavoritedByInput], { nullable: true })
-    create?: Array<ArticleCreateWithoutFavoritedByInput>;
+  @Field(() => [ArticleCreateWithoutFavoritedByInput], { nullable: true })
+  create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
-    connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
+  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
+  connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
 
-    @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-    connect?: Array<ArticleWhereUniqueInput>;
+  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
+  connect?: Array<ArticleWhereUniqueInput>;
 }

@@ -6,18 +6,18 @@ import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input';
 
 @InputType()
 export class BoolNullableWithAggregatesFilter {
-    @Field(() => Boolean, { nullable: true })
-    equals?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  equals?: boolean;
 
-    @Field(() => NestedBoolNullableWithAggregatesFilter, { nullable: true })
-    not?: NestedBoolNullableWithAggregatesFilter;
+  @Field(() => NestedBoolNullableWithAggregatesFilter, { nullable: true })
+  not?: NestedBoolNullableWithAggregatesFilter;
 
-    @Field(() => NestedIntNullableFilter, { nullable: true })
-    _count?: NestedIntNullableFilter;
+  @Field(() => NestedIntNullableFilter, { nullable: true })
+  _count?: NestedIntNullableFilter;
 
-    @Field(() => NestedBoolNullableFilter, { nullable: true })
-    _min?: NestedBoolNullableFilter;
+  @Field(() => NestedBoolNullableFilter, { nullable: true })
+  _min?: NestedBoolNullableFilter;
 
-    @Field(() => NestedBoolNullableFilter, { nullable: true })
-    _max?: NestedBoolNullableFilter;
+  @Field(() => NestedBoolNullableFilter, { nullable: true })
+  _max?: NestedBoolNullableFilter;
 }

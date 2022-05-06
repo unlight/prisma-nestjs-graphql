@@ -6,14 +6,14 @@ import { DummyModule } from './dummy/dummy.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-    imports: [
-        UserModule,
-        DummyModule,
-        GraphQLModule.forRoot({
-            driver: ApolloDriver,
-            installSubscriptionHandlers: true,
-            autoSchemaFile: '~schema.gql',
-        }),
-    ],
+  imports: [
+    UserModule,
+    DummyModule,
+    GraphQLModule.forRoot({
+      driver: ApolloDriver,
+      installSubscriptionHandlers: true,
+      autoSchemaFile: '~schema.gql',
+    }),
+  ],
 })
 export class AppModule {}

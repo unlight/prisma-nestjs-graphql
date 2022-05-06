@@ -5,9 +5,9 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 
 @InputType()
 export class UserCreateOrConnectWithoutFavoriteArticlesInput {
-    @Field(() => UserWhereUniqueInput, { nullable: false })
-    where!: UserWhereUniqueInput;
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  where!: UserWhereUniqueInput;
 
-    @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
-    create!: UserCreateWithoutFavoriteArticlesInput;
+  @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
+  create!: UserCreateWithoutFavoriteArticlesInput;
 }

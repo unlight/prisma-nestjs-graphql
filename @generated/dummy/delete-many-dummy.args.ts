@@ -4,6 +4,6 @@ import { DummyWhereInput } from './dummy-where.input';
 
 @ArgsType()
 export class DeleteManyDummyArgs {
-    @Field(() => DummyWhereInput, { nullable: true })
-    where?: DummyWhereInput;
+  @Field(() => DummyWhereInput, { nullable: true })
+  where?: DummyWhereInput;
 }

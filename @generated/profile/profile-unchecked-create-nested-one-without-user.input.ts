@@ -7,12 +7,12 @@ import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @InputType()
 export class ProfileUncheckedCreateNestedOneWithoutUserInput {
-    @Field(() => ProfileCreateWithoutUserInput, { nullable: true })
-    create?: ProfileCreateWithoutUserInput;
+  @Field(() => ProfileCreateWithoutUserInput, { nullable: true })
+  create?: ProfileCreateWithoutUserInput;
 
-    @HideField()
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+  @HideField()
+  connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
 
-    @HideField()
-    connect?: ProfileWhereUniqueInput;
+  @HideField()
+  connect?: ProfileWhereUniqueInput;
 }

@@ -7,30 +7,30 @@ import { Role } from '../prisma/role.enum';
 
 @ObjectType()
 export class UserMinAggregate {
-    @Field(() => String, { nullable: true })
-    id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, { nullable: true })
-    email?: string;
+  @Field(() => String, { nullable: true })
+  email?: string;
 
-    @Field(() => String, { nullable: true })
-    name?: string;
+  @Field(() => String, { nullable: true })
+  name?: string;
 
-    @HideField()
-    password?: string;
+  @HideField()
+  password?: string;
 
-    @Field(() => String, { nullable: true })
-    bio?: string;
+  @Field(() => String, { nullable: true })
+  bio?: string;
 
-    @Field(() => String, { nullable: true })
-    image?: string;
+  @Field(() => String, { nullable: true })
+  image?: string;
 
-    @Field(() => Int, { nullable: true })
-    countComments?: number;
+  @Field(() => Int, { nullable: true })
+  countComments?: number;
 
-    @Field(() => Float, { nullable: true })
-    rating?: number;
+  @Field(() => Float, { nullable: true })
+  rating?: number;
 
-    @Field(() => Role, { nullable: true })
-    role?: keyof typeof Role;
+  @Field(() => Role, { nullable: true })
+  role?: keyof typeof Role;
 }

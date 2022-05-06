@@ -3,6 +3,6 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class ArticleSumAggregateInput {
-    @Field(() => Boolean, { nullable: true })
-    favoritesCount?: true;
+  @Field(() => Boolean, { nullable: true })
+  favoritesCount?: true;
 }

@@ -5,9 +5,9 @@ import { CommentUpdateWithoutArticleInput } from './comment-update-without-artic
 
 @InputType()
 export class CommentUpdateWithWhereUniqueWithoutArticleInput {
-    @Field(() => CommentWhereUniqueInput, { nullable: false })
-    where!: CommentWhereUniqueInput;
+  @Field(() => CommentWhereUniqueInput, { nullable: false })
+  where!: CommentWhereUniqueInput;
 
-    @Field(() => CommentUpdateWithoutArticleInput, { nullable: false })
-    data!: CommentUpdateWithoutArticleInput;
+  @Field(() => CommentUpdateWithoutArticleInput, { nullable: false })
+  data!: CommentUpdateWithoutArticleInput;
 }

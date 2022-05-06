@@ -6,12 +6,12 @@ import { ArticleUpdateInput } from './article-update.input';
 
 @ArgsType()
 export class UpsertOneArticleArgs {
-    @Field(() => ArticleWhereUniqueInput, { nullable: false })
-    where!: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, { nullable: false })
+  where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleCreateInput, { nullable: false })
-    create!: ArticleCreateInput;
+  @Field(() => ArticleCreateInput, { nullable: false })
+  create!: ArticleCreateInput;
 
-    @Field(() => ArticleUpdateInput, { nullable: false })
-    update!: ArticleUpdateInput;
+  @Field(() => ArticleUpdateInput, { nullable: false })
+  update!: ArticleUpdateInput;
 }

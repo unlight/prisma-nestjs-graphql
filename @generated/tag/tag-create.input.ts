@@ -4,12 +4,12 @@ import { ArticleCreateNestedManyWithoutTagsInput } from '../article/article-crea
 
 @InputType()
 export class TagCreateInput {
-    @Field(() => String, { nullable: true })
-    id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, { nullable: false })
-    name!: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => ArticleCreateNestedManyWithoutTagsInput, { nullable: true })
-    articles?: ArticleCreateNestedManyWithoutTagsInput;
+  @Field(() => ArticleCreateNestedManyWithoutTagsInput, { nullable: true })
+  articles?: ArticleCreateNestedManyWithoutTagsInput;
 }

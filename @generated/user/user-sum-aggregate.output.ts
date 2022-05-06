@@ -5,9 +5,9 @@ import { Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserSumAggregate {
-    @Field(() => Int, { nullable: true })
-    countComments?: number;
+  @Field(() => Int, { nullable: true })
+  countComments?: number;
 
-    @Field(() => Float, { nullable: true })
-    rating?: number;
+  @Field(() => Float, { nullable: true })
+  rating?: number;
 }

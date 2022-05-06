@@ -8,39 +8,39 @@ import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-c
 
 @InputType()
 export class ArticleCreateWithoutAuthorInput {
-    @Field(() => String, { nullable: true })
-    id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, { nullable: false })
-    slug!: string;
+  @Field(() => String, { nullable: false })
+  slug!: string;
 
-    @Field(() => String, { nullable: false })
-    title!: string;
+  @Field(() => String, { nullable: false })
+  title!: string;
 
-    @Field(() => String, { nullable: false })
-    description!: string;
+  @Field(() => String, { nullable: false })
+  description!: string;
 
-    @Field(() => String, { nullable: false })
-    body!: string;
+  @Field(() => String, { nullable: false })
+  body!: string;
 
-    @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
-    tags?: TagCreateNestedManyWithoutArticlesInput;
+  @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
+  tags?: TagCreateNestedManyWithoutArticlesInput;
 
-    @HideField()
-    createdAt?: Date | string;
+  @HideField()
+  createdAt?: Date | string;
 
-    @Field(() => Date, { nullable: true })
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-    @Field(() => Int, { nullable: true })
-    favoritesCount?: number;
+  @Field(() => Int, { nullable: true })
+  favoritesCount?: number;
 
-    @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, { nullable: true })
-    favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
+  @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, { nullable: true })
+  favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 
-    @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
-    comments?: CommentCreateNestedManyWithoutArticleInput;
+  @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
+  comments?: CommentCreateNestedManyWithoutArticleInput;
 
-    @Field(() => Boolean, { nullable: true })
-    active?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  active?: boolean;
 }

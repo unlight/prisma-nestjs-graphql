@@ -1,11 +1,11 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum TagScalarFieldEnum {
-    id = 'id',
-    name = 'name',
+  id = 'id',
+  name = 'name',
 }
 
 registerEnumType(TagScalarFieldEnum, {
-    name: 'TagScalarFieldEnum',
-    description: undefined,
+  name: 'TagScalarFieldEnum',
+  description: undefined,
 });

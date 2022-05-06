@@ -9,33 +9,33 @@ import { DummyCreatefriendsInput } from '../prisma/dummy-createfriends.input';
 
 @InputType()
 export class DummyCreateManyInput {
-    @Field(() => String, { nullable: false })
-    id!: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-    @Field(() => Date, { nullable: true })
-    created?: Date | string;
+  @Field(() => Date, { nullable: true })
+  created?: Date | string;
 
-    @Field(() => Float, { nullable: false })
-    floaty!: number;
+  @Field(() => Float, { nullable: false })
+  floaty!: number;
 
-    @Field(() => Int, { nullable: true })
-    int?: number;
+  @Field(() => Int, { nullable: true })
+  int?: number;
 
-    @Field(() => Float, { nullable: true })
-    float?: number;
+  @Field(() => Float, { nullable: true })
+  float?: number;
 
-    @Field(() => String, { nullable: true })
-    bytes?: Buffer;
+  @Field(() => String, { nullable: true })
+  bytes?: Buffer;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
-    decimal?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  decimal?: Decimal;
 
-    @Field(() => String, { nullable: true })
-    bigInt?: bigint | number;
+  @Field(() => String, { nullable: true })
+  bigInt?: bigint | number;
 
-    @Field(() => GraphQLJSON, { nullable: true })
-    json?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  json?: any;
 
-    @Field(() => DummyCreatefriendsInput, { nullable: true })
-    friends?: DummyCreatefriendsInput;
+  @Field(() => DummyCreatefriendsInput, { nullable: true })
+  friends?: DummyCreatefriendsInput;
 }

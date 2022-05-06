@@ -6,12 +6,12 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
 export class TagCreateNestedManyWithoutArticlesInput {
-    @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
-    create?: Array<TagCreateWithoutArticlesInput>;
+  @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
+  create?: Array<TagCreateWithoutArticlesInput>;
 
-    @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
-    connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
+  @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
+  connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
 
-    @Field(() => [TagWhereUniqueInput], { nullable: true })
-    connect?: Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], { nullable: true })
+  connect?: Array<TagWhereUniqueInput>;
 }

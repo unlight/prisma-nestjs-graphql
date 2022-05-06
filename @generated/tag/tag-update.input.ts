@@ -5,12 +5,12 @@ import { ArticleUpdateManyWithoutTagsInput } from '../article/article-update-man
 
 @InputType()
 export class TagUpdateInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => ArticleUpdateManyWithoutTagsInput, { nullable: true })
-    articles?: ArticleUpdateManyWithoutTagsInput;
+  @Field(() => ArticleUpdateManyWithoutTagsInput, { nullable: true })
+  articles?: ArticleUpdateManyWithoutTagsInput;
 }

@@ -6,15 +6,15 @@ import { HideField } from '@nestjs/graphql';
 
 @InputType()
 export class CommentUpdateManyMutationInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @HideField()
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @HideField()
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    body?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  body?: StringFieldUpdateOperationsInput;
 }

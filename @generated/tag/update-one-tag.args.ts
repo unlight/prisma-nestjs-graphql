@@ -5,9 +5,9 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @ArgsType()
 export class UpdateOneTagArgs {
-    @Field(() => TagUpdateInput, { nullable: false })
-    data!: TagUpdateInput;
+  @Field(() => TagUpdateInput, { nullable: false })
+  data!: TagUpdateInput;
 
-    @Field(() => TagWhereUniqueInput, { nullable: false })
-    where!: TagWhereUniqueInput;
+  @Field(() => TagWhereUniqueInput, { nullable: false })
+  where!: TagWhereUniqueInput;
 }

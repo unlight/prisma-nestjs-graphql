@@ -13,33 +13,33 @@ import { DummyUpdatefriendsInput } from '../prisma/dummy-updatefriends.input';
 
 @InputType()
 export class DummyUpdateManyMutationInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-    created?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  created?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => FloatFieldUpdateOperationsInput, { nullable: true })
-    floaty?: FloatFieldUpdateOperationsInput;
+  @Field(() => FloatFieldUpdateOperationsInput, { nullable: true })
+  floaty?: FloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-    int?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  int?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-    float?: NullableFloatFieldUpdateOperationsInput;
+  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
+  float?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
-    bytes?: NullableBytesFieldUpdateOperationsInput;
+  @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
+  bytes?: NullableBytesFieldUpdateOperationsInput;
 
-    @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
-    decimal?: NullableDecimalFieldUpdateOperationsInput;
+  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
+  decimal?: NullableDecimalFieldUpdateOperationsInput;
 
-    @Field(() => NullableBigIntFieldUpdateOperationsInput, { nullable: true })
-    bigInt?: NullableBigIntFieldUpdateOperationsInput;
+  @Field(() => NullableBigIntFieldUpdateOperationsInput, { nullable: true })
+  bigInt?: NullableBigIntFieldUpdateOperationsInput;
 
-    @Field(() => GraphQLJSON, { nullable: true })
-    json?: any;
+  @Field(() => GraphQLJSON, { nullable: true })
+  json?: any;
 
-    @Field(() => DummyUpdatefriendsInput, { nullable: true })
-    friends?: DummyUpdatefriendsInput;
+  @Field(() => DummyUpdatefriendsInput, { nullable: true })
+  friends?: DummyUpdatefriendsInput;
 }

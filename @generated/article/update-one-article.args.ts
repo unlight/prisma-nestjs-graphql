@@ -5,9 +5,9 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @ArgsType()
 export class UpdateOneArticleArgs {
-    @Field(() => ArticleUpdateInput, { nullable: false })
-    data!: ArticleUpdateInput;
+  @Field(() => ArticleUpdateInput, { nullable: false })
+  data!: ArticleUpdateInput;
 
-    @Field(() => ArticleWhereUniqueInput, { nullable: false })
-    where!: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, { nullable: false })
+  where!: ArticleWhereUniqueInput;
 }

@@ -5,9 +5,9 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 
 @InputType()
 export class ArticleCreateOrConnectWithoutFavoritedByInput {
-    @Field(() => ArticleWhereUniqueInput, { nullable: false })
-    where!: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, { nullable: false })
+  where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleCreateWithoutFavoritedByInput, { nullable: false })
-    create!: ArticleCreateWithoutFavoritedByInput;
+  @Field(() => ArticleCreateWithoutFavoritedByInput, { nullable: false })
+  create!: ArticleCreateWithoutFavoritedByInput;
 }

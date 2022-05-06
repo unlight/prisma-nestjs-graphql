@@ -7,30 +7,30 @@ import { CommentOrderByRelevanceInput } from './comment-order-by-relevance.input
 
 @InputType()
 export class CommentOrderByWithRelationAndSearchRelevanceInput {
-    @Field(() => SortOrder, { nullable: true })
-    id?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  id?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
-    createdAt?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  createdAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
-    updatedAt?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => SortOrder, { nullable: true })
-    body?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  body?: keyof typeof SortOrder;
 
-    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
-    author?: UserOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+  author?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => SortOrder, { nullable: true })
-    authorId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  authorId?: keyof typeof SortOrder;
 
-    @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
-    article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+  article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
 
-    @Field(() => SortOrder, { nullable: true })
-    articleId?: keyof typeof SortOrder;
+  @Field(() => SortOrder, { nullable: true })
+  articleId?: keyof typeof SortOrder;
 
-    @Field(() => CommentOrderByRelevanceInput, { nullable: true })
-    _relevance?: CommentOrderByRelevanceInput;
+  @Field(() => CommentOrderByRelevanceInput, { nullable: true })
+  _relevance?: CommentOrderByRelevanceInput;
 }

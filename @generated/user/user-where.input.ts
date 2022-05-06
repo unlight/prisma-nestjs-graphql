@@ -12,57 +12,57 @@ import { ProfileWhereInput } from '../profile/profile-where.input';
 
 @InputType()
 export class UserWhereInput {
-    @Field(() => [UserWhereInput], { nullable: true })
-    AND?: Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], { nullable: true })
+  AND?: Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], { nullable: true })
-    OR?: Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], { nullable: true })
+  OR?: Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], { nullable: true })
-    NOT?: Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], { nullable: true })
+  NOT?: Array<UserWhereInput>;
 
-    @Field(() => StringFilter, { nullable: true })
-    id?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  id?: StringFilter;
 
-    @Field(() => StringFilter, { nullable: true })
-    email?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  email?: StringFilter;
 
-    @Field(() => StringFilter, { nullable: true })
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, { nullable: true })
-    password?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  password?: StringFilter;
 
-    @Field(() => StringNullableFilter, { nullable: true })
-    bio?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  bio?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, { nullable: true })
-    image?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  image?: StringNullableFilter;
 
-    @Field(() => UserListRelationFilter, { nullable: true })
-    following?: UserListRelationFilter;
+  @Field(() => UserListRelationFilter, { nullable: true })
+  following?: UserListRelationFilter;
 
-    @Field(() => UserListRelationFilter, { nullable: true })
-    followers?: UserListRelationFilter;
+  @Field(() => UserListRelationFilter, { nullable: true })
+  followers?: UserListRelationFilter;
 
-    @Field(() => ArticleListRelationFilter, { nullable: true })
-    favoriteArticles?: ArticleListRelationFilter;
+  @Field(() => ArticleListRelationFilter, { nullable: true })
+  favoriteArticles?: ArticleListRelationFilter;
 
-    @Field(() => ArticleListRelationFilter, { nullable: true })
-    articles?: ArticleListRelationFilter;
+  @Field(() => ArticleListRelationFilter, { nullable: true })
+  articles?: ArticleListRelationFilter;
 
-    @Field(() => CommentListRelationFilter, { nullable: true })
-    comments?: CommentListRelationFilter;
+  @Field(() => CommentListRelationFilter, { nullable: true })
+  comments?: CommentListRelationFilter;
 
-    @Field(() => IntNullableFilter, { nullable: true })
-    countComments?: IntNullableFilter;
+  @Field(() => IntNullableFilter, { nullable: true })
+  countComments?: IntNullableFilter;
 
-    @Field(() => FloatNullableFilter, { nullable: true })
-    rating?: FloatNullableFilter;
+  @Field(() => FloatNullableFilter, { nullable: true })
+  rating?: FloatNullableFilter;
 
-    @Field(() => EnumRoleNullableFilter, { nullable: true })
-    role?: EnumRoleNullableFilter;
+  @Field(() => EnumRoleNullableFilter, { nullable: true })
+  role?: EnumRoleNullableFilter;
 
-    @Field(() => ProfileWhereInput, { nullable: true })
-    profile?: ProfileWhereInput;
+  @Field(() => ProfileWhereInput, { nullable: true })
+  profile?: ProfileWhereInput;
 }

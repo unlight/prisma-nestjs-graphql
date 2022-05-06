@@ -8,23 +8,23 @@ import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
 
 @ArgsType()
 export class FindManyArticleArgs {
-    @Field(() => ArticleWhereInput, { nullable: true })
-    where?: ArticleWhereInput;
+  @Field(() => ArticleWhereInput, { nullable: true })
+  where?: ArticleWhereInput;
 
-    @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], {
-        nullable: true,
-    })
-    orderBy?: Array<ArticleOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<ArticleOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => ArticleWhereUniqueInput, { nullable: true })
-    cursor?: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, { nullable: true })
+  cursor?: ArticleWhereUniqueInput;
 
-    @Field(() => Int, { nullable: true })
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, { nullable: true })
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => [ArticleScalarFieldEnum], { nullable: true })
-    distinct?: Array<keyof typeof ArticleScalarFieldEnum>;
+  @Field(() => [ArticleScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof ArticleScalarFieldEnum>;
 }

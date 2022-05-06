@@ -13,45 +13,45 @@ import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-e
 
 @InputType()
 export class UserUncheckedUpdateWithoutProfileInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    email?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    password?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    bio?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-    image?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => UserUncheckedUpdateManyWithoutFollowersInput, { nullable: true })
-    following?: UserUncheckedUpdateManyWithoutFollowersInput;
+  @Field(() => UserUncheckedUpdateManyWithoutFollowersInput, { nullable: true })
+  following?: UserUncheckedUpdateManyWithoutFollowersInput;
 
-    @Field(() => UserUncheckedUpdateManyWithoutFollowingInput, { nullable: true })
-    followers?: UserUncheckedUpdateManyWithoutFollowingInput;
+  @Field(() => UserUncheckedUpdateManyWithoutFollowingInput, { nullable: true })
+  followers?: UserUncheckedUpdateManyWithoutFollowingInput;
 
-    @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByInput, { nullable: true })
-    favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByInput;
+  @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByInput, { nullable: true })
+  favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByInput;
 
-    @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
-    articles?: ArticleUncheckedUpdateManyWithoutAuthorInput;
+  @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
+  articles?: ArticleUncheckedUpdateManyWithoutAuthorInput;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
-    comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
+  @Field(() => CommentUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
+  comments?: CommentUncheckedUpdateManyWithoutAuthorInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-    countComments?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-    rating?: NullableFloatFieldUpdateOperationsInput;
+  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
+  rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-    role?: NullableEnumRoleFieldUpdateOperationsInput;
+  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
+  role?: NullableEnumRoleFieldUpdateOperationsInput;
 }

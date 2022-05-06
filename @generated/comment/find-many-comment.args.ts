@@ -8,23 +8,23 @@ import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
 
 @ArgsType()
 export class FindManyCommentArgs {
-    @Field(() => CommentWhereInput, { nullable: true })
-    where?: CommentWhereInput;
+  @Field(() => CommentWhereInput, { nullable: true })
+  where?: CommentWhereInput;
 
-    @Field(() => [CommentOrderByWithRelationAndSearchRelevanceInput], {
-        nullable: true,
-    })
-    orderBy?: Array<CommentOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => [CommentOrderByWithRelationAndSearchRelevanceInput], {
+    nullable: true,
+  })
+  orderBy?: Array<CommentOrderByWithRelationAndSearchRelevanceInput>;
 
-    @Field(() => CommentWhereUniqueInput, { nullable: true })
-    cursor?: CommentWhereUniqueInput;
+  @Field(() => CommentWhereUniqueInput, { nullable: true })
+  cursor?: CommentWhereUniqueInput;
 
-    @Field(() => Int, { nullable: true })
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, { nullable: true })
-    skip?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => [CommentScalarFieldEnum], { nullable: true })
-    distinct?: Array<keyof typeof CommentScalarFieldEnum>;
+  @Field(() => [CommentScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof CommentScalarFieldEnum>;
 }

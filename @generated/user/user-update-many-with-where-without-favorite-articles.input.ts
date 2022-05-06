@@ -5,9 +5,9 @@ import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
 
 @InputType()
 export class UserUpdateManyWithWhereWithoutFavoriteArticlesInput {
-    @Field(() => UserScalarWhereInput, { nullable: false })
-    where!: UserScalarWhereInput;
+  @Field(() => UserScalarWhereInput, { nullable: false })
+  where!: UserScalarWhereInput;
 
-    @Field(() => UserUpdateManyMutationInput, { nullable: false })
-    data!: UserUpdateManyMutationInput;
+  @Field(() => UserUpdateManyMutationInput, { nullable: false })
+  data!: UserUpdateManyMutationInput;
 }

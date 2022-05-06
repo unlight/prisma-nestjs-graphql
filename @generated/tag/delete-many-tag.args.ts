@@ -4,6 +4,6 @@ import { TagWhereInput } from './tag-where.input';
 
 @ArgsType()
 export class DeleteManyTagArgs {
-    @Field(() => TagWhereInput, { nullable: true })
-    where?: TagWhereInput;
+  @Field(() => TagWhereInput, { nullable: true })
+  where?: TagWhereInput;
 }

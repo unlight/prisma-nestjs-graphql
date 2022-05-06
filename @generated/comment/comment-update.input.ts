@@ -8,21 +8,21 @@ import { ArticleUpdateOneWithoutCommentsInput } from '../article/article-update-
 
 @InputType()
 export class CommentUpdateInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @HideField()
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @HideField()
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    body?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutCommentsInput, { nullable: true })
-    author?: UserUpdateOneRequiredWithoutCommentsInput;
+  @Field(() => UserUpdateOneRequiredWithoutCommentsInput, { nullable: true })
+  author?: UserUpdateOneRequiredWithoutCommentsInput;
 
-    @Field(() => ArticleUpdateOneWithoutCommentsInput, { nullable: true })
-    article?: ArticleUpdateOneWithoutCommentsInput;
+  @Field(() => ArticleUpdateOneWithoutCommentsInput, { nullable: true })
+  article?: ArticleUpdateOneWithoutCommentsInput;
 }

@@ -5,9 +5,9 @@ import { UserWhereInput } from './user-where.input';
 
 @ArgsType()
 export class UpdateManyUserArgs {
-    @Field(() => UserUpdateManyMutationInput, { nullable: false })
-    data!: UserUpdateManyMutationInput;
+  @Field(() => UserUpdateManyMutationInput, { nullable: false })
+  data!: UserUpdateManyMutationInput;
 
-    @Field(() => UserWhereInput, { nullable: true })
-    where?: UserWhereInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  where?: UserWhereInput;
 }

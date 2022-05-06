@@ -7,18 +7,18 @@ import { UserUpdateOneRequiredWithoutCommentsInput } from '../user/user-update-o
 
 @InputType()
 export class CommentUpdateWithoutArticleInput {
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @HideField()
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @HideField()
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-    body?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  body?: StringFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutCommentsInput, { nullable: true })
-    author?: UserUpdateOneRequiredWithoutCommentsInput;
+  @Field(() => UserUpdateOneRequiredWithoutCommentsInput, { nullable: true })
+  author?: UserUpdateOneRequiredWithoutCommentsInput;
 }

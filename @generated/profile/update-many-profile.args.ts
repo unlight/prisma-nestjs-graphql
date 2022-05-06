@@ -5,9 +5,9 @@ import { ProfileWhereInput } from './profile-where.input';
 
 @ArgsType()
 export class UpdateManyProfileArgs {
-    @Field(() => ProfileUpdateManyMutationInput, { nullable: false })
-    data!: ProfileUpdateManyMutationInput;
+  @Field(() => ProfileUpdateManyMutationInput, { nullable: false })
+  data!: ProfileUpdateManyMutationInput;
 
-    @Field(() => ProfileWhereInput, { nullable: true })
-    where?: ProfileWhereInput;
+  @Field(() => ProfileWhereInput, { nullable: true })
+  where?: ProfileWhereInput;
 }

@@ -16,17 +16,17 @@ import { UserDateInput } from './user-date.input';
 import { Resolver, Query, Args, Mutation, Info } from '@nestjs/graphql';
 
 const prisma = new PrismaClient({
-    errorFormat: 'colorless',
-    log: [
-        {
-            emit: 'event',
-            level: 'query',
-        },
-    ],
+  errorFormat: 'colorless',
+  log: [
+    {
+      emit: 'event',
+      level: 'query',
+    },
+  ],
 });
 
 prisma.$on('query', event => {
-    console.log(event);
+  console.log(event);
 });
 
 /**
@@ -34,63 +34,53 @@ prisma.$on('query', event => {
  */
 @Resolver(() => User)
 export class UserResolver {
-    /**
-     * Query for single user.
-     */
-    @Query(() => [User])
-    async users(
-        @Args('where') where: UserWhereInput,
-        @Info() info: GraphQLResolveInfo,
-    ) {
-        const select = new PrismaSelect(info).value;
-        // console.log('select', select);
-        return await prisma.user.findMany({ where, ...select });
-    }
+  /**
+   * Query for single user.
+   */
+  @Query(() => [User])
+  async users(@Args('where') where: UserWhereInput, @Info() info: GraphQLResolveInfo) {
+    const select = new PrismaSelect(info).value;
+    // console.log('select', select);
+    return await prisma.user.findMany({ where, ...select });
+  }
 
-    @Mutation(() => User, { nullable: true })
-    async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
-        return;
-    }
+  @Mutation(() => User, { nullable: true })
+  async userUpdate(@Args('user') user: UserUpdateInput): Promise<any> {
+    return;
+  }
 
-    @Mutation(() => User, { nullable: true })
-    async userCreate(@Args('user') user: UserCreateInput): Promise<any> {
-        return;
-    }
+  @Mutation(() => User, { nullable: true })
+  async userCreate(@Args('user') user: UserCreateInput): Promise<any> {
+    return;
+  }
 
-    @Mutation(() => User, { nullable: true })
-    async createOneUser(@Args() args: CreateOneUserArgs): Promise<any> {
-        console.log('args', args);
-        return;
-    }
+  @Mutation(() => User, { nullable: true })
+  async createOneUser(@Args() args: CreateOneUserArgs): Promise<any> {
+    console.log('args', args);
+    return;
+  }
 
-    @Mutation(() => User, { nullable: true })
-    async userInfo(@Args('user') user: UserDateInput): Promise<any> {
-        console.log(
-            'userInfo Args',
-            user.date,
-            typeof user.date,
-            user.date?.constructor,
-        );
-        return;
-    }
+  @Mutation(() => User, { nullable: true })
+  async userInfo(@Args('user') user: UserDateInput): Promise<any> {
+    console.log('userInfo Args', user.date, typeof user.date, user.date?.constructor);
+    return;
+  }
 
-    @Mutation(() => [User], { nullable: true })
-    async createManyUsers(
-        @Args() createManyUserArgs: CreateManyUserArgs,
-    ): Promise<any> {
-        console.log('createManyUserArgs', createManyUserArgs);
-        return;
-    }
+  @Mutation(() => [User], { nullable: true })
+  async createManyUsers(@Args() createManyUserArgs: CreateManyUserArgs): Promise<any> {
+    console.log('createManyUserArgs', createManyUserArgs);
+    return;
+  }
 
-    @Query(() => AggregateUser)
-    userAggregate(@Args() args: UserAggregateArgs) {
-        return prisma.user.aggregate(args);
-    }
+  @Query(() => AggregateUser)
+  userAggregate(@Args() args: UserAggregateArgs) {
+    return prisma.user.aggregate(args);
+  }
 
-    @Query(() => Profile)
-    queryProfile() {
-        const p = new Profile();
-        p.id = 1;
-        return p;
-    }
+  @Query(() => Profile)
+  queryProfile() {
+    const p = new Profile();
+    p.id = 1;
+    return p;
+  }
 }

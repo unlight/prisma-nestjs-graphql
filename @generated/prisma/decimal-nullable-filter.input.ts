@@ -6,27 +6,27 @@ import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.in
 
 @InputType()
 export class DecimalNullableFilter {
-    @Field(() => GraphQLDecimal, { nullable: true })
-    equals?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  equals?: Decimal;
 
-    @Field(() => [GraphQLDecimal], { nullable: true })
-    in?: Array<Decimal>;
+  @Field(() => [GraphQLDecimal], { nullable: true })
+  in?: Array<Decimal>;
 
-    @Field(() => [GraphQLDecimal], { nullable: true })
-    notIn?: Array<Decimal>;
+  @Field(() => [GraphQLDecimal], { nullable: true })
+  notIn?: Array<Decimal>;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
-    lt?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  lt?: Decimal;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
-    lte?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  lte?: Decimal;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
-    gt?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  gt?: Decimal;
 
-    @Field(() => GraphQLDecimal, { nullable: true })
-    gte?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  gte?: Decimal;
 
-    @Field(() => NestedDecimalNullableFilter, { nullable: true })
-    not?: NestedDecimalNullableFilter;
+  @Field(() => NestedDecimalNullableFilter, { nullable: true })
+  not?: NestedDecimalNullableFilter;
 }

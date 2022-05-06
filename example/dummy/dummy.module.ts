@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { DummyResolver } from './dummy.resolver';
 
 @Module({
-    imports: [],
-    providers: [DummyResolver],
+  imports: [],
+  providers: [DummyResolver],
 })
 export class DummyModule {}

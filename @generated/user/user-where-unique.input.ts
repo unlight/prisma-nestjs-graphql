@@ -6,17 +6,17 @@ import { UserEmailNameCompoundUniqueInput } from './user-email-name-compound-uni
 
 @InputType()
 export class UserWhereUniqueInput {
-    @Field(() => String, { nullable: true })
-    id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
-    email?: string;
+  @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
+  email?: string;
 
-    @Field(() => String, { nullable: true })
-    @Validator.MinLength(3)
-    @Validator.MaxLength(50)
-    name?: string;
+  @Field(() => String, { nullable: true })
+  @Validator.MinLength(3)
+  @Validator.MaxLength(50)
+  name?: string;
 
-    @Field(() => UserEmailNameCompoundUniqueInput, { nullable: true })
-    email_name?: UserEmailNameCompoundUniqueInput;
+  @Field(() => UserEmailNameCompoundUniqueInput, { nullable: true })
+  email_name?: UserEmailNameCompoundUniqueInput;
 }

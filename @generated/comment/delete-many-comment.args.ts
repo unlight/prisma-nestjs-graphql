@@ -4,6 +4,6 @@ import { CommentWhereInput } from './comment-where.input';
 
 @ArgsType()
 export class DeleteManyCommentArgs {
-    @Field(() => CommentWhereInput, { nullable: true })
-    where?: CommentWhereInput;
+  @Field(() => CommentWhereInput, { nullable: true })
+  where?: CommentWhereInput;
 }

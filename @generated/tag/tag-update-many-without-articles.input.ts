@@ -10,33 +10,33 @@ import { TagScalarWhereInput } from './tag-scalar-where.input';
 
 @InputType()
 export class TagUpdateManyWithoutArticlesInput {
-    @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
-    create?: Array<TagCreateWithoutArticlesInput>;
+  @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
+  create?: Array<TagCreateWithoutArticlesInput>;
 
-    @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
-    connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
+  @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
+  connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
 
-    @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], { nullable: true })
-    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+  @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], { nullable: true })
+  upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
 
-    @Field(() => [TagWhereUniqueInput], { nullable: true })
-    set?: Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], { nullable: true })
+  set?: Array<TagWhereUniqueInput>;
 
-    @Field(() => [TagWhereUniqueInput], { nullable: true })
-    disconnect?: Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], { nullable: true })
+  disconnect?: Array<TagWhereUniqueInput>;
 
-    @Field(() => [TagWhereUniqueInput], { nullable: true })
-    delete?: Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], { nullable: true })
+  delete?: Array<TagWhereUniqueInput>;
 
-    @Field(() => [TagWhereUniqueInput], { nullable: true })
-    connect?: Array<TagWhereUniqueInput>;
+  @Field(() => [TagWhereUniqueInput], { nullable: true })
+  connect?: Array<TagWhereUniqueInput>;
 
-    @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], { nullable: true })
-    update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
+  @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], { nullable: true })
+  update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
 
-    @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], { nullable: true })
-    updateMany?: Array<TagUpdateManyWithWhereWithoutArticlesInput>;
+  @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], { nullable: true })
+  updateMany?: Array<TagUpdateManyWithWhereWithoutArticlesInput>;
 
-    @Field(() => [TagScalarWhereInput], { nullable: true })
-    deleteMany?: Array<TagScalarWhereInput>;
+  @Field(() => [TagScalarWhereInput], { nullable: true })
+  deleteMany?: Array<TagScalarWhereInput>;
 }

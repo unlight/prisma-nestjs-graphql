@@ -5,9 +5,9 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @ArgsType()
 export class UpdateOneUserArgs {
-    @Field(() => UserUpdateInput, { nullable: false })
-    data!: UserUpdateInput;
+  @Field(() => UserUpdateInput, { nullable: false })
+  data!: UserUpdateInput;
 
-    @Field(() => UserWhereUniqueInput, { nullable: false })
-    where!: UserWhereUniqueInput;
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  where!: UserWhereUniqueInput;
 }

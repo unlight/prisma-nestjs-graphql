@@ -5,9 +5,9 @@ import { CommentWhereInput } from './comment-where.input';
 
 @ArgsType()
 export class UpdateManyCommentArgs {
-    @Field(() => CommentUpdateManyMutationInput, { nullable: false })
-    data!: CommentUpdateManyMutationInput;
+  @Field(() => CommentUpdateManyMutationInput, { nullable: false })
+  data!: CommentUpdateManyMutationInput;
 
-    @Field(() => CommentWhereInput, { nullable: true })
-    where?: CommentWhereInput;
+  @Field(() => CommentWhereInput, { nullable: true })
+  where?: CommentWhereInput;
 }

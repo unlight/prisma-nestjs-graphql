@@ -23,164 +23,164 @@ import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import {
-    DMMF,
-    EventArguments,
-    Field,
-    Model,
-    ObjectSettings,
-    OutputType,
+  DMMF,
+  EventArguments,
+  Field,
+  Model,
+  ObjectSettings,
+  OutputType,
 } from './types';
 
 export async function generate(
-    args: GeneratorOptions & {
-        skipAddOutputSourceFiles?: boolean;
-        connectCallback?: (
-            emitter: AwaitEventEmitter,
-            eventArguments: EventArguments,
-        ) => void | Promise<void>;
-    },
+  args: GeneratorOptions & {
+    skipAddOutputSourceFiles?: boolean;
+    connectCallback?: (
+      emitter: AwaitEventEmitter,
+      eventArguments: EventArguments,
+    ) => void | Promise<void>;
+  },
 ) {
-    const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
+  const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
 
-    const generatorOutputValue = generator.output?.value;
-    ok(generatorOutputValue, 'Missing generator configuration: output');
+  const generatorOutputValue = generator.output?.value;
+  ok(generatorOutputValue, 'Missing generator configuration: output');
 
-    const eventEmitter = new AwaitEventEmitter();
-    eventEmitter.on('Warning', warning);
-    eventEmitter.on('Model', modelData);
-    eventEmitter.on('EnumType', registerEnum);
-    eventEmitter.on('OutputType', outputType);
-    eventEmitter.on('ModelOutputType', modelOutputType);
-    eventEmitter.on('AggregateOutput', createAggregateInput);
-    eventEmitter.on('InputType', inputType);
-    eventEmitter.on('ArgsType', argsType);
-    eventEmitter.on('GenerateFiles', generateFiles);
+  const eventEmitter = new AwaitEventEmitter();
+  eventEmitter.on('Warning', warning);
+  eventEmitter.on('Model', modelData);
+  eventEmitter.on('EnumType', registerEnum);
+  eventEmitter.on('OutputType', outputType);
+  eventEmitter.on('ModelOutputType', modelOutputType);
+  eventEmitter.on('AggregateOutput', createAggregateInput);
+  eventEmitter.on('InputType', inputType);
+  eventEmitter.on('ArgsType', argsType);
+  eventEmitter.on('GenerateFiles', generateFiles);
 
-    const config = createConfig(generator.config);
-    for (const message of config.$warnings) {
-        eventEmitter.emitSync('Warning', message);
+  const config = createConfig(generator.config);
+  for (const message of config.$warnings) {
+    eventEmitter.emitSync('Warning', message);
+  }
+
+  const project = new Project({
+    tsConfigFilePath: config.tsConfigFilePath,
+    skipAddingFilesFromTsConfig: true,
+    skipLoadingLibFiles: !config.emitCompiled,
+    manipulationSettings: {
+      quoteKind: QuoteKind.Single,
+    },
+  });
+
+  if (!skipAddOutputSourceFiles) {
+    project.addSourceFilesAtPaths([
+      `${generatorOutputValue}/**/*.ts`,
+      `!${generatorOutputValue}/**/*.d.ts`,
+    ]);
+  }
+
+  config.combineScalarFilters && combineScalarFilters(eventEmitter);
+  config.noAtomicOperations && noAtomicOperations(eventEmitter);
+  config.reExport !== ReExport.None && reExport(eventEmitter);
+  config.emitSingle && emitSingle(eventEmitter);
+  config.purgeOutput && purgeOutput(eventEmitter);
+  config.requireSingleFieldsInWhereUniqueInput &&
+    requireSingleFieldsInWhereUniqueInput(eventEmitter);
+
+  const models = new Map<string, Model>();
+  const modelNames: string[] = [];
+  const modelFields = new Map<string, Map<string, Field>>();
+  const fieldSettings = new Map<string, Map<string, ObjectSettings>>();
+  const getModelName = createGetModelName(modelNames);
+  const getSourceFile = factoryGetSourceFile({
+    output: generatorOutputValue,
+    project,
+    getModelName,
+    outputFilePattern: config.outputFilePattern,
+    eventEmitter,
+  });
+  const {
+    datamodel,
+    schema: { inputObjectTypes, outputObjectTypes, enumTypes },
+  } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+  const removeTypes = new Set<string>();
+  const eventArguments: EventArguments = {
+    models,
+    config,
+    modelNames,
+    modelFields,
+    fieldSettings,
+    project,
+    output: generatorOutputValue,
+    getSourceFile,
+    eventEmitter,
+    typeNames: new Set<string>(),
+    enums: mapKeys(datamodel.enums, x => x.name),
+    getModelName,
+    removeTypes,
+  };
+
+  if (connectCallback) {
+    await connectCallback(eventEmitter, eventArguments);
+  }
+
+  await eventEmitter.emit('Begin', eventArguments);
+
+  for (const model of datamodel.models) {
+    await eventEmitter.emit('Model', model, eventArguments);
+  }
+
+  // Types behaves like model
+  for (const model of datamodel.types) {
+    await eventEmitter.emit('Model', model, eventArguments);
+  }
+
+  await eventEmitter.emit('PostBegin', eventArguments);
+
+  for (const enumType of enumTypes.prisma.concat(enumTypes.model || [])) {
+    await eventEmitter.emit('EnumType', enumType, eventArguments);
+  }
+
+  for (const outputType of outputObjectTypes.model) {
+    await eventEmitter.emit('ModelOutputType', outputType, eventArguments);
+  }
+
+  const queryOutputTypes: OutputType[] = [];
+
+  for (const outputType of outputObjectTypes.prisma) {
+    if (['Query', 'Mutation'].includes(outputType.name)) {
+      queryOutputTypes.push(outputType);
+      continue;
     }
+    await eventEmitter.emit('OutputType', outputType, eventArguments);
+  }
 
-    const project = new Project({
-        tsConfigFilePath: config.tsConfigFilePath,
-        skipAddingFilesFromTsConfig: true,
-        skipLoadingLibFiles: !config.emitCompiled,
-        manipulationSettings: {
-            quoteKind: QuoteKind.Single,
-        },
-    });
+  const inputTypes = inputObjectTypes.prisma.concat(inputObjectTypes.model || []);
 
-    if (!skipAddOutputSourceFiles) {
-        project.addSourceFilesAtPaths([
-            `${generatorOutputValue}/**/*.ts`,
-            `!${generatorOutputValue}/**/*.d.ts`,
-        ]);
-    }
-
-    config.combineScalarFilters && combineScalarFilters(eventEmitter);
-    config.noAtomicOperations && noAtomicOperations(eventEmitter);
-    config.reExport !== ReExport.None && reExport(eventEmitter);
-    config.emitSingle && emitSingle(eventEmitter);
-    config.purgeOutput && purgeOutput(eventEmitter);
-    config.requireSingleFieldsInWhereUniqueInput &&
-        requireSingleFieldsInWhereUniqueInput(eventEmitter);
-
-    const models = new Map<string, Model>();
-    const modelNames: string[] = [];
-    const modelFields = new Map<string, Map<string, Field>>();
-    const fieldSettings = new Map<string, Map<string, ObjectSettings>>();
-    const getModelName = createGetModelName(modelNames);
-    const getSourceFile = factoryGetSourceFile({
-        output: generatorOutputValue,
-        project,
-        getModelName,
-        outputFilePattern: config.outputFilePattern,
-        eventEmitter,
-    });
-    const {
-        datamodel,
-        schema: { inputObjectTypes, outputObjectTypes, enumTypes },
-    } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
-    const removeTypes = new Set<string>();
-    const eventArguments: EventArguments = {
-        models,
-        config,
-        modelNames,
-        modelFields,
-        fieldSettings,
-        project,
-        output: generatorOutputValue,
-        getSourceFile,
-        eventEmitter,
-        typeNames: new Set<string>(),
-        enums: mapKeys(datamodel.enums, x => x.name),
-        getModelName,
-        removeTypes,
+  for (const inputType of inputTypes) {
+    const event = {
+      ...eventArguments,
+      inputType,
+      fileType: 'input',
+      classDecoratorName: 'InputType',
     };
-
-    if (connectCallback) {
-        await connectCallback(eventEmitter, eventArguments);
+    if (inputType.fields.length === 0) {
+      removeTypes.add(inputType.name);
+      continue;
     }
+    await eventEmitter.emit('BeforeInputType', event);
+    await eventEmitter.emit('InputType', event);
+  }
 
-    await eventEmitter.emit('Begin', eventArguments);
-
-    for (const model of datamodel.models) {
-        await eventEmitter.emit('Model', model, eventArguments);
+  for (const outputType of queryOutputTypes) {
+    for (const field of outputType.fields) {
+      await eventEmitter.emit('ArgsType', field, eventArguments);
     }
+  }
 
-    // Types behaves like model
-    for (const model of datamodel.types) {
-        await eventEmitter.emit('Model', model, eventArguments);
-    }
+  await eventEmitter.emit('BeforeGenerateFiles', eventArguments);
+  await eventEmitter.emit('GenerateFiles', eventArguments);
+  await eventEmitter.emit('End', eventArguments);
 
-    await eventEmitter.emit('PostBegin', eventArguments);
-
-    for (const enumType of enumTypes.prisma.concat(enumTypes.model || [])) {
-        await eventEmitter.emit('EnumType', enumType, eventArguments);
-    }
-
-    for (const outputType of outputObjectTypes.model) {
-        await eventEmitter.emit('ModelOutputType', outputType, eventArguments);
-    }
-
-    const queryOutputTypes: OutputType[] = [];
-
-    for (const outputType of outputObjectTypes.prisma) {
-        if (['Query', 'Mutation'].includes(outputType.name)) {
-            queryOutputTypes.push(outputType);
-            continue;
-        }
-        await eventEmitter.emit('OutputType', outputType, eventArguments);
-    }
-
-    const inputTypes = inputObjectTypes.prisma.concat(inputObjectTypes.model || []);
-
-    for (const inputType of inputTypes) {
-        const event = {
-            ...eventArguments,
-            inputType,
-            fileType: 'input',
-            classDecoratorName: 'InputType',
-        };
-        if (inputType.fields.length === 0) {
-            removeTypes.add(inputType.name);
-            continue;
-        }
-        await eventEmitter.emit('BeforeInputType', event);
-        await eventEmitter.emit('InputType', event);
-    }
-
-    for (const outputType of queryOutputTypes) {
-        for (const field of outputType.fields) {
-            await eventEmitter.emit('ArgsType', field, eventArguments);
-        }
-    }
-
-    await eventEmitter.emit('BeforeGenerateFiles', eventArguments);
-    await eventEmitter.emit('GenerateFiles', eventArguments);
-    await eventEmitter.emit('End', eventArguments);
-
-    for (const name of Object.keys(eventEmitter._events)) {
-        eventEmitter.off(name);
-    }
+  for (const name of Object.keys(eventEmitter._events)) {
+    eventEmitter.off(name);
+  }
 }

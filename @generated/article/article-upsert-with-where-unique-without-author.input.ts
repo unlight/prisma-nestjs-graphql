@@ -6,12 +6,12 @@ import { ArticleCreateWithoutAuthorInput } from './article-create-without-author
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
-    @Field(() => ArticleWhereUniqueInput, { nullable: false })
-    where!: ArticleWhereUniqueInput;
+  @Field(() => ArticleWhereUniqueInput, { nullable: false })
+  where!: ArticleWhereUniqueInput;
 
-    @Field(() => ArticleUpdateWithoutAuthorInput, { nullable: false })
-    update!: ArticleUpdateWithoutAuthorInput;
+  @Field(() => ArticleUpdateWithoutAuthorInput, { nullable: false })
+  update!: ArticleUpdateWithoutAuthorInput;
 
-    @Field(() => ArticleCreateWithoutAuthorInput, { nullable: false })
-    create!: ArticleCreateWithoutAuthorInput;
+  @Field(() => ArticleCreateWithoutAuthorInput, { nullable: false })
+  create!: ArticleCreateWithoutAuthorInput;
 }

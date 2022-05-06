@@ -5,9 +5,9 @@ import { UserUpdateWithoutFavoriteArticlesInput } from './user-update-without-fa
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
-    @Field(() => UserWhereUniqueInput, { nullable: false })
-    where!: UserWhereUniqueInput;
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  where!: UserWhereUniqueInput;
 
-    @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
-    data!: UserUpdateWithoutFavoriteArticlesInput;
+  @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
+  data!: UserUpdateWithoutFavoriteArticlesInput;
 }

@@ -4,6 +4,6 @@ import { ArticleWhereInput } from './article-where.input';
 
 @ArgsType()
 export class DeleteManyArticleArgs {
-    @Field(() => ArticleWhereInput, { nullable: true })
-    where?: ArticleWhereInput;
+  @Field(() => ArticleWhereInput, { nullable: true })
+  where?: ArticleWhereInput;
 }
