@@ -183,6 +183,7 @@ export function inputType(
                 arguments: [
                     isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
+                        ...settings?.fieldArguments(),
                         nullable: !isRequired,
                     }),
                 ],

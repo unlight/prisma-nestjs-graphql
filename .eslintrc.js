@@ -35,7 +35,7 @@ module.exports = {
     ],
     rules: {
         // core
-        'consistent-return': [1, { treatUndefinedAsUnspecified: true }],
+        'consistent-return': [0, { treatUndefinedAsUnspecified: false }],
         quotes: [1, 'single', { allowTemplateLiterals: true, avoidEscape: true }],
         semi: [1, 'always'],
         'max-lines': [1, { max: 300 }],

@@ -9,6 +9,7 @@ import {
     StatementStructures,
     StructureKind,
 } from 'ts-morph';
+import { createComment } from '../helpers/create-comment';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
@@ -67,7 +68,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         });
         if (documentation) {
             if (!classStructure.leadingTrivia) {
-                classStructure.leadingTrivia = `/** ${documentation} */\n`;
+                classStructure.leadingTrivia = createComment(documentation);
             }
             objectTypeOptions.description = documentation;
         }
@@ -147,14 +148,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         });
 
         if (typeof property.leadingTrivia === 'string' && modelField?.documentation) {
-            property.leadingTrivia += `/** ${modelField.documentation} */\n`;
+            property.leadingTrivia += createComment(modelField.documentation, settings);
         }
 
         classStructure.properties?.push(property);
 
         if (propertySettings) {
             importDeclarations.create({ ...propertySettings });
-        } else if (!propertySettings && propertyType.includes('Decimal')) {
+        } else if (propertyType.includes('Decimal')) {
             importDeclarations.add('Decimal', '@prisma/client/runtime');
         }
 
@@ -164,11 +165,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             importDeclarations.add('HideField', nestjsGraphql);
             property.decorators.push({ name: 'HideField', arguments: [] });
         } else {
+            // Generate `@Field()` decorator
             property.decorators.push({
                 name: 'Field',
                 arguments: [
                     isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
+                        ...settings?.fieldArguments(),
                         nullable: Boolean(field.isNullable),
                         defaultValue: ['number', 'string', 'boolean'].includes(
                             typeof modelField?.default,

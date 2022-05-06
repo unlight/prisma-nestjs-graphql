@@ -4,9 +4,9 @@ Generate object types, inputs, args, etc. from prisma schema file for usage with
 
 ## Features
 
--   Generates only necessary imports
--   Combines zoo of nested/nullable filters
--   Does not generate resolvers, since it's application specific
+- Generates only necessary imports
+- Combines zoo of nested/nullable filters
+- Does not generate resolvers, since it's application specific
 
 ## Install
 
@@ -40,8 +40,8 @@ npm install graphql-type-json prisma-graphql-type-decimal
 
 ```
 
--   [graphql-type-json](https://github.com/taion/graphql-type-json)
--   [prisma-graphql-type-decimal](https://github.com/unlight/prisma-graphql-type-decimal)
+- [graphql-type-json](https://github.com/taion/graphql-type-json)
+- [prisma-graphql-type-decimal](https://github.com/unlight/prisma-graphql-type-decimal)
 
 Or write you own graphql scalar types, [read more on docs.nestjs.com](https://docs.nestjs.com/graphql/scalars).
 
@@ -59,10 +59,10 @@ Type: `string`
 Default: `{model}/{name}.{type}.ts`  
 Possible tokens:
 
--   `{model}` Model name in dashed case or 'prisma' if unknown
--   `{name}` Dashed-case name of model/input/arg without suffix
--   `{type}` Short type name (model, input, args, output)
--   `{plural.type}` Plural short type name (models, inputs, enums)
+- `{model}` Model name in dashed case or 'prisma' if unknown
+- `{name}` Dashed-case name of model/input/arg without suffix
+- `{type}` Short type name (model, input, args, output)
+- `{plural.type}` Plural short type name (models, inputs, enums)
 
 #### `tsConfigFilePath`
 
@@ -149,30 +149,30 @@ generator nestgraphql {
 
 Where:
 
--   `typeName` Full name or partial name of the class where need to choose input type.  
-    Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
--   `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
--   `pattern` Part of name (or full) of type which should be chosen, you can use
-    wild card or negate symbols, in this case pattern should starts with `match:`,
-    e.g. `match:*UncheckedCreateInput` see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+- `typeName` Full name or partial name of the class where need to choose input type.  
+  Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
+- `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
+- `pattern` Part of name (or full) of type which should be chosen, you can use
+  wild card or negate symbols, in this case pattern should starts with `match:`,
+  e.g. `match:*UncheckedCreateInput` see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 Example:
 
 ```ts
 export type PostWhereInput = {
-    author?: XOR<UserRelationFilter, UserWhereInput>;
+  author?: XOR<UserRelationFilter, UserWhereInput>;
 };
 export type UserRelationFilter = {
-    is?: UserWhereInput;
-    isNot?: UserWhereInput;
+  is?: UserWhereInput;
+  isNot?: UserWhereInput;
 };
 
 export type UserWhereInput = {
-    AND?: Enumerable<UserWhereInput>;
-    OR?: Enumerable<UserWhereInput>;
-    NOT?: Enumerable<UserWhereInput>;
-    id?: StringFilter | string;
-    name?: StringFilter | string;
+  AND?: Enumerable<UserWhereInput>;
+  OR?: Enumerable<UserWhereInput>;
+  NOT?: Enumerable<UserWhereInput>;
+  id?: StringFilter | string;
+  name?: StringFilter | string;
 };
 ```
 
@@ -190,8 +190,8 @@ generator nestgraphql {
 ```ts
 @InputType()
 export class PostWhereInput {
-    @Field(() => UserWhereInput, { nullable: true })
-    author?: UserWhereInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  author?: UserWhereInput;
 }
 ```
 
@@ -214,24 +214,24 @@ generator nestgraphql {
 
 Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
 
--   `decorate_{key}_type` - outmatch pattern to match class name
--   `decorate_{key}_field` - outmatch pattern to match field name
--   `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
--   `decorate_{key}_name` - import name or name with namespace
--   `decorate_{key}_defaultImport` - import as default
--   `decorate_{key}_namespaceImport` - use this name as import namespace
--   `decorate_{key}_namedImport` - named import (without namespace)
--   `decorate_{key}_arguments` - arguments for decorator (if decorator need to be called as function)  
-    Special tokens can be used:
-    -   `{propertyType.0}` - field's type (TypeScript type annotation)
+- `decorate_{key}_type` - outmatch pattern to match class name
+- `decorate_{key}_field` - outmatch pattern to match field name
+- `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
+- `decorate_{key}_name` - import name or name with namespace
+- `decorate_{key}_defaultImport` - import as default
+- `decorate_{key}_namespaceImport` - use this name as import namespace
+- `decorate_{key}_namedImport` - named import (without namespace)
+- `decorate_{key}_arguments` - arguments for decorator (if decorator need to be called as function)  
+  Special tokens can be used:
+  - `{propertyType.0}` - field's type (TypeScript type annotation)
 
 Example of generated class:
 
 ```ts
 @ArgsType()
 export class CreateOneUserArgs {
-    @Field(() => UserCreateInput, { nullable: false })
-    data!: UserCreateInput;
+  @Field(() => UserCreateInput, { nullable: false })
+  data!: UserCreateInput;
 }
 ```
 
@@ -259,10 +259,10 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneUserArgs {
-    @Field(() => UserCreateInput, { nullable: false })
-    @ValidateNested()
-    @Type(() => UserCreateInput)
-    data!: UserCreateInput;
+  @Field(() => UserCreateInput, { nullable: false })
+  @ValidateNested()
+  @Type(() => UserCreateInput)
+  data!: UserCreateInput;
 }
 ```
 
@@ -329,12 +329,44 @@ May generate:
 import { GraphQLBigInt } from 'graphql-scalars';
 
 export class BigIntFilter {
-    @Field(() => GraphQLBigInt, { nullable: true })
-    equals?: bigint | number;
+  @Field(() => GraphQLBigInt, { nullable: true })
+  equals?: bigint | number;
 }
 ```
 
 It will affect all inputs and outputs types (including models).
+
+## Documentation and field options
+
+Comments with double slash will projected to typescript code comments
+and some `@Field()` decorator options
+
+For example:
+
+```prisma
+model Product {
+  // Old description
+  // @deprecated Use new name instead
+  oldName
+}
+```
+
+May produce:
+
+```ts
+@ObjectType()
+export class Product {
+  /**
+   * Old description
+   * @deprecated Use new name instead
+   */
+  @Field(() => String, {
+    description: 'Old description',
+    deprecationReason: 'Use new name instead',
+  })
+  oldName: string;
+}
+```
 
 ## Field Settings
 
@@ -352,9 +384,9 @@ see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 Examples:
 
--   `@HideField()` same as `@HideField({ output: true })`
--   `@HideField({ input: true, output: true })`
--   `@HideField({ match: 'UserCreate*Input' })`
+- `@HideField()` same as `@HideField({ output: true })`
+- `@HideField({ input: true, output: true })`
+- `@HideField({ match: 'UserCreate*Input' })`
 
 ```prisma
 model User {
@@ -373,24 +405,24 @@ May generate classes:
 ```ts
 @ObjectType()
 export class User {
-    @HideField()
-    password: string;
-    @HideField()
-    secret: string;
-    @Field(() => Date, { nullable: false })
-    createdAt: Date;
+  @HideField()
+  password: string;
+  @HideField()
+  secret: string;
+  @Field(() => Date, { nullable: false })
+  createdAt: Date;
 }
 ```
 
 ```ts
 @InputType()
 export class UserCreateInput {
-    @Field()
-    password: string;
-    @HideField()
-    secret: string;
-    @HideField()
-    createdAt: Date;
+  @Field()
+  password: string;
+  @HideField()
+  secret: string;
+  @HideField()
+  createdAt: Date;
 }
 ```
 
@@ -480,9 +512,9 @@ import * as Validator from 'class-validator';
 
 @InputType()
 export class UserCreateInput {
-    @Field(() => String, { nullable: false })
-    @Validator.MinLength(3)
-    name!: string;
+  @Field(() => String, { nullable: false })
+  @Validator.MinLength(3)
+  name!: string;
 }
 ```
 
@@ -539,8 +571,8 @@ import * as Scalars from 'graphql-scalars';
 
 @InputType()
 export class UserCreateInput {
-    @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
-    email!: string;
+  @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
+  email!: string;
 }
 ```
 
@@ -602,8 +634,8 @@ import * as TF from 'type-fest';
 
 @ObjectType()
 export class User {
-    @Field(() => GraphQLJSON)
-    data!: TF.JsonObject;
+  @Field(() => GraphQLJSON)
+  data!: TF.JsonObject;
 }
 ```
 
@@ -629,9 +661,9 @@ May generate:
 @Directive('@extends')
 @Directive('@key(fields: "id")')
 export class User {
-    @Field(() => ID, { nullable: false })
-    @Directive('@external')
-    id!: string;
+  @Field(() => ID, { nullable: false })
+  @Directive('@external')
+  id!: string;
 }
 ```
 
@@ -671,21 +703,21 @@ export class User {}
 
 ## Similar Projects
 
--   https://github.com/kimjbstar/prisma-class-generator
--   https://github.com/odroe/nest-gql-mix
--   https://github.com/rfermann/nestjs-prisma-graphql-generator
--   https://github.com/madscience/graphql-codegen-nestjs
--   https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
--   https://github.com/EndyKaufman/typegraphql-prisma-nestjs
--   https://github.com/MichalLytek/typegraphql-prisma
+- https://github.com/kimjbstar/prisma-class-generator
+- https://github.com/odroe/nest-gql-mix
+- https://github.com/rfermann/nestjs-prisma-graphql-generator
+- https://github.com/madscience/graphql-codegen-nestjs
+- https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
+- https://github.com/EndyKaufman/typegraphql-prisma-nestjs
+- https://github.com/MichalLytek/typegraphql-prisma
 
 ## Resources
 
--   Todo - https://github.com/unlight/prisma-nestjs-graphql/issues/2
--   https://github.com/prisma/prisma/blob/main/packages/client/src/generation/TSClient/TSClient.ts
--   https://ts-ast-viewer.com/
--   https://github.com/unlight/nestjs-graphql-prisma-realworld-example-app
--   https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
--   JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
--   https://github.com/paljs/prisma-tools/tree/master/packages/plugins
--   https://github.com/wasp-lang/wasp
+- Todo - https://github.com/unlight/prisma-nestjs-graphql/issues/2
+- https://github.com/prisma/prisma/blob/main/packages/client/src/generation/TSClient/TSClient.ts
+- https://ts-ast-viewer.com/
+- https://github.com/unlight/nestjs-graphql-prisma-realworld-example-app
+- https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
+- JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
+- https://github.com/paljs/prisma-tools/tree/master/packages/plugins
+- https://github.com/wasp-lang/wasp

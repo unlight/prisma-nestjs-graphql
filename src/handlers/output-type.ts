@@ -158,6 +158,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
                 arguments: [
                     isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
                     JSON5.stringify({
+                        ...settings?.fieldArguments(),
                         nullable: Boolean(field.isNullable),
                     }),
                 ],

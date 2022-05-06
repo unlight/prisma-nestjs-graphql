@@ -10,7 +10,7 @@ export type ObjectSetting = {
      * Act as named import or namespaceImport or defaultImport
      */
     name: string;
-    kind: 'Decorator' | 'FieldType' | 'PropertyType' | 'ObjectType';
+    kind: 'Decorator' | 'Field' | 'FieldType' | 'PropertyType' | 'ObjectType';
     arguments?: string[] | Record<string, unknown>;
     input: boolean;
     output: boolean;
@@ -111,6 +111,13 @@ export class ObjectSettings extends Array<ObjectSetting> {
         }
         return resultArguments.map(x => JSON5.stringify(x));
     }
+
+    fieldArguments(): Record<string, unknown> | undefined {
+        const item = this.find(item => item.kind === 'Field');
+        if (item) {
+            return item.arguments as Record<string, unknown>;
+        }
+    }
 }
 
 export function createObjectSettings(args: {
@@ -121,74 +128,139 @@ export function createObjectSettings(args: {
     const result = new ObjectSettings();
     const textLines = text.split('\n');
     const documentationLines: string[] = [];
+
+    let fieldElement = result.find(item => item.kind === 'Field');
+    if (!fieldElement) {
+        fieldElement = {
+            name: '',
+            kind: 'Field',
+            arguments: {},
+        } as ObjectSetting;
+    }
+
     for (const line of textLines) {
         const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*)\)/.exec(line);
-        const name = match?.groups?.name;
-        if (!match || !name) {
+        const { element, documentLine } = createSettingElement({
+            line,
+            config,
+            fieldElement,
+            match,
+        });
+
+        if (element) {
+            result.push(element);
+        }
+
+        if (documentLine) {
             documentationLines.push(line);
-            continue;
         }
-        const element: ObjectSetting = {
-            kind: 'Decorator',
-            name: '',
-            arguments: [],
-            input: false,
-            output: false,
-            model: false,
-            from: '',
-        };
-        if (name === 'TypeGraphQL.omit' || name === 'HideField') {
-            Object.assign(element, hideFieldDecorator(match));
-        } else if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
-            const options = customType(match.groups.args);
-            merge(
-                element,
-                options.namespace && config.fields[options.namespace],
-                options,
-                { kind: name },
-            );
-        } else if (name === 'ObjectType' && match.groups?.args) {
-            element.kind = 'ObjectType';
-            const options = customType(match.groups.args) as Record<string, unknown>;
-            if (typeof options[0] === 'string' && options[0]) {
-                options.name = options[0];
-            }
-            if (isObject(options[1])) {
-                merge(options, options[1]);
-            }
-            element.arguments = {
-                name: options.name,
-                isAbstract: options.isAbstract,
-            };
-        } else if (name === 'Directive' && match.groups?.args) {
-            const options = customType(match.groups.args);
-            merge(element, { model: true, from: '@nestjs/graphql' }, options, {
-                name,
-                namespace: false,
-                kind: 'Decorator',
-                arguments: Array.isArray(options.arguments)
-                    ? options.arguments.map(s => JSON5.stringify(s))
-                    : options.arguments,
-            });
-        } else {
-            const namespace = getNamespace(name);
-            element.namespaceImport = namespace;
-            const options = {
-                name,
-                arguments: (match.groups?.args || '')
-                    .split(',')
-                    .map(s => trim(s))
-                    .filter(Boolean),
-            };
-            merge(element, namespace && config.fields[namespace], options);
-        }
-        result.push(element);
     }
 
     return {
         settings: result,
-        documentation: documentationLines.filter(Boolean).join('\\n') || undefined,
+        documentation: documentationLines.filter(Boolean).join('\n') || undefined,
     };
+}
+
+function createSettingElement({
+    line,
+    config,
+    fieldElement,
+    match,
+}: {
+    line: string;
+    config: GeneratorConfiguration;
+    fieldElement: ObjectSetting;
+    match: RegExpExecArray | null;
+}) {
+    const result = {
+        documentLine: '',
+        element: undefined as ObjectSetting | undefined,
+    };
+    if (line.startsWith('@deprecated')) {
+        fieldElement.arguments!['deprecationReason'] = trim(line.slice(11));
+
+        result.element = fieldElement;
+
+        return result;
+    }
+
+    const name = match?.groups?.name;
+
+    if (!(match && name)) {
+        result.documentLine = line;
+        return result;
+    }
+
+    const element: ObjectSetting = {
+        kind: 'Decorator',
+        name: '',
+        arguments: [],
+        input: false,
+        output: false,
+        model: false,
+        from: '',
+    };
+
+    result.element = element;
+
+    if (name === 'TypeGraphQL.omit' || name === 'HideField') {
+        Object.assign(element, hideFieldDecorator(match));
+
+        return result;
+    }
+
+    if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
+        const options = customType(match.groups.args);
+        merge(element, options.namespace && config.fields[options.namespace], options, {
+            kind: name,
+        });
+        return result;
+    }
+
+    if (name === 'ObjectType' && match.groups?.args) {
+        element.kind = 'ObjectType';
+        const options = customType(match.groups.args) as Record<string, unknown>;
+        if (typeof options[0] === 'string' && options[0]) {
+            options.name = options[0];
+        }
+        if (isObject(options[1])) {
+            merge(options, options[1]);
+        }
+        element.arguments = {
+            name: options.name,
+            isAbstract: options.isAbstract,
+        };
+
+        return result;
+    }
+
+    if (name === 'Directive' && match.groups?.args) {
+        const options = customType(match.groups.args);
+        merge(element, { model: true, from: '@nestjs/graphql' }, options, {
+            name,
+            namespace: false,
+            kind: 'Decorator',
+            arguments: Array.isArray(options.arguments)
+                ? options.arguments.map(s => JSON5.stringify(s))
+                : options.arguments,
+        });
+
+        return result;
+    }
+
+    const namespace = getNamespace(name);
+    element.namespaceImport = namespace;
+    const options = {
+        name,
+        arguments: (match.groups?.args || '')
+            .split(',')
+            .map(s => trim(s))
+            .filter(Boolean),
+    };
+    merge(element, namespace && config.fields[namespace], options);
+
+    return result;
 }
 
 function customType(args: string) {

@@ -60,14 +60,13 @@ describe('model with one id int', () => {
     });
 
     describe('model', () => {
+        let s: ReturnType<typeof testSourceFile>;
         before(() => {
-            setSourceFile('user.model.ts');
-            ({ classFile } = testSourceFile({ project, file: 'user.model.ts' }));
+            s = testSourceFile({ project, file: 'user.model.ts' });
         });
 
         it('class should be exported', () => {
-            const [classFile] = sourceFile.getClasses();
-            expect(classFile.isExported()).toBe(true);
+            expect(s.classFile.isExported()).toBe(true);
         });
 
         it('argument decorated id', () => {
@@ -80,14 +79,14 @@ describe('model with one id int', () => {
         });
 
         it('should have import graphql type id', () => {
-            expect(imports).toContainEqual({
+            expect(s.namedImports).toContainEqual({
                 name: 'ID',
                 specifier: '@nestjs/graphql',
             });
         });
 
         it('should have import field decorator', () => {
-            expect(imports).toContainEqual({
+            expect(s.namedImports).toContainEqual({
                 name: 'Field',
                 specifier: '@nestjs/graphql',
             });
@@ -103,38 +102,50 @@ describe('model with one id int', () => {
         });
 
         it('default value', () => {
-            const argument = getFieldOptions(sourceFile, 'id');
-            expect(argument).toMatch(/nullable:\s*false/);
-            expect(argument).toMatch(/defaultValue:\s*1/);
-            expect(argument).not.toMatch(/description:\s*undefined/);
+            const s = testSourceFile({
+                project,
+                class: 'User',
+                property: 'id',
+            });
+            expect(s.fieldDecoratorOptions).toMatch(/nullable:\s*false/);
+            expect(s.fieldDecoratorOptions).toMatch(/defaultValue:\s*1/);
+            expect(s.fieldDecoratorOptions).not.toMatch(/description:\s*undefined/);
         });
 
         it('property description', () => {
-            const argument = getFieldOptions(sourceFile, 'id');
-            expect(argument).toMatch(/nullable:\s*false/);
-            expect(argument).toMatch(/description:\s*["']user id really["']/);
+            const s = testSourceFile({
+                project,
+                file: 'user.model.ts',
+                property: 'id',
+            });
+            expect(s.fieldDecoratorOptions).toMatch(/nullable:\s*false/);
+            expect(s.fieldDecoratorOptions).toMatch(
+                /description:\s*["']user id really["']/,
+            );
         });
 
         it('property description in jsdoc', () => {
-            const description = classFile
+            const description = s.classFile
                 .getProperty('id')
                 ?.getJsDocs()[0]
                 .getDescription();
-            expect(description).toEqual('user id really');
+            expect(description).toEqual('\nuser id really');
         });
 
         it('object type description', () => {
-            const decoratorArgument = classFile.getDecorators()[0].getStructure()
+            const decoratorArgument = s.classFile.getDecorators()[0].getStructure()
                 .arguments?.[0] as string | undefined;
             expect(decoratorArgument).toMatch(/description:\s*["']User really["']/);
         });
 
         it('has js comment', () => {
-            expect(classFile.getJsDocs()[0].getDescription()).toEqual('User really');
+            expect(s.classFile.getJsDocs()[0].getDescription()).toEqual(
+                '\nUser really',
+            );
         });
 
         it('has import objecttype', () => {
-            expect(imports).toContainEqual({
+            expect(s.namedImports).toContainEqual({
                 name: 'ObjectType',
                 specifier: '@nestjs/graphql',
             });
@@ -2081,9 +2092,11 @@ describe('object model options', () => {
             options: [`outputFilePattern = "{name}.{type}.ts"`],
         }));
 
-        setSourceFile('user.model.ts');
-        const argument = objectTypeArguments()?.[0];
+        const s = testSourceFile({ project, class: 'User' });
+        const argument = s.classFile.getDecorator('ObjectType')?.getStructure()
+            .arguments?.[0];
         const json = JSON5.parse(argument);
+
         expect(json).toEqual({ isAbstract: true });
     });
 
@@ -2569,25 +2582,95 @@ describe('configuration custom scalars', () => {
     });
 });
 
-describe('single model and field mongodb', () => {
+describe('multiple description', () => {
     before(async () => {
         ({ project, sourceFiles } = await testGenerate({
-            provider: 'mongodb',
             schema: `
-                model Product {
-                  id String @id @default(auto()) @map("_id") @db.ObjectId
-                }
-            `,
+            /// Model description
+            /// Model 2
+            model User {
+                id Int @id
+                /// Name description
+                /// Second line
+                name String
+            }`,
             options: [`outputFilePattern = "{name}.{type}.ts"`],
         }));
     });
 
-    it('example input update type', () => {
-        const s = testSourceFile({
-            project,
-            file: 'update-one-product.args.ts',
+    it('field', () => {
+        const s = testSourceFile({ project, class: 'User' });
+        expect(s.sourceText).toContain(`
+    /**
+     * Name description
+     * Second line
+     */
+    `);
+    });
+
+    it('model', () => {
+        const s = testSourceFile({ project, class: 'User' });
+        expect(s.sourceText).toContain(`/**
+ * Model description
+ * Model 2
+ */`);
+    });
+});
+
+describe('deprecation reason', () => {
+    before(async () => {
+        ({ project, sourceFiles } = await testGenerate({
+            schema: `
+            model User {
+                id Int @id
+                /// Name description
+                /// @deprecated Use name2 instead
+                name String
+            }`,
+            options: [`outputFilePattern = "{name}.{type}.ts"`],
+        }));
+    });
+
+    it('deprecation reason default', async () => {
+        const s = testSourceFile({ project, class: 'User', property: 'name' });
+
+        expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
+            expect.objectContaining({
+                deprecationReason: 'Use name2 instead',
+                description: 'Name description',
+            }),
+        );
+    });
+
+    for (const className of [
+        'UserWhereInput',
+        'UserCountAggregateInput',
+        'UserCountAggregate',
+        'UserMaxAggregateInput',
+    ]) {
+        it(className, () => {
+            const s = testSourceFile({
+                project,
+                class: 'UserCountAggregateInput',
+                property: 'name',
+            });
+            expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
+                expect.objectContaining({ deprecationReason: 'Use name2 instead' }),
+            );
         });
-        // data field is missing because of single id field
-        expect(s.classFile.getProperties()).toHaveLength(1);
+    }
+
+    it('deprecated decorator in comment', () => {
+        const s = testSourceFile({ project, class: 'User', property: 'name' });
+        const jsdoc = s.classFile.getProperty('name')?.getJsDocs().at(0)?.getText();
+        expect(jsdoc).toContain('* Name description');
+        expect(jsdoc).toContain('* @deprecated Use name2 instead');
+
+        expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
+            expect.objectContaining({
+                description: 'Name description',
+                deprecationReason: 'Use name2 instead',
+            }),
+        );
     });
 });

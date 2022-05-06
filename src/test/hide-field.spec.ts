@@ -236,14 +236,14 @@ describe('enums are not imported in classes when decorated', () => {
         }));
     });
 
-    it('check files', () => {
-        for (const file of [
-            'user-group-by.output.ts',
-            'user-max-aggregate.output.ts',
-            'user-min-aggregate.output.ts',
-            'user-create-many.input.ts',
-            'user.model.ts',
-        ]) {
+    for (const file of [
+        'user-group-by.output.ts',
+        'user-max-aggregate.output.ts',
+        'user-min-aggregate.output.ts',
+        'user-create-many.input.ts',
+        'user.model.ts',
+    ]) {
+        it(`check files ${file}`, () => {
             const s = testSourceFile({
                 project,
                 file,
@@ -254,11 +254,12 @@ describe('enums are not imported in classes when decorated', () => {
                 name: 'Role',
                 specifier: './role.enum',
             });
+
             expect(s.propertyDecorators).toContainEqual(
                 expect.objectContaining({ name: 'HideField' }),
             );
-        }
-    });
+        });
+    }
 });
 
 describe.skip('hide enum', () => {
