@@ -9,8 +9,8 @@ import {
   StatementStructures,
   StructureKind,
 } from 'ts-morph';
-import { createComment } from '../helpers/create-comment';
 
+import { createComment } from '../helpers/create-comment';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
