@@ -1,3 +1,10 @@
+## [15.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.6...v15.3.0) (2022-05-06)
+
+
+### Features
+
+* Allow add deprecation reason ([432e8f1](https://github.com/unlight/nestjs-graphql-prisma/commit/432e8f1f5b61f214df9e823cf63b2c455ac59e65)), closes [#104](https://github.com/unlight/nestjs-graphql-prisma/issues/104)
+
 ### [15.2.6](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.5...v15.2.6) (2022-05-03)
 
 
