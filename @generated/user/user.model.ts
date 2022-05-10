@@ -10,7 +10,9 @@ import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
 import { UserCount } from './user-count.output';
 
-/** User really */
+/**
+ * User really
+ */
 @ObjectType({ description: 'User really' })
 export class User {
   @Field(() => ID, { nullable: false })
@@ -19,7 +21,9 @@ export class User {
   @Field(() => String, { nullable: false })
   email!: string;
 
-  /** User's name */
+  /**
+   * User's name
+   */
   @Field(() => String, { nullable: false, description: "User's name" })
   name!: string;
 

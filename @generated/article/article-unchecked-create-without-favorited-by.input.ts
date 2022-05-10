@@ -37,9 +37,7 @@ export class ArticleUncheckedCreateWithoutFavoritedByInput {
   @Field(() => String, { nullable: false })
   authorId!: string;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, {
-    nullable: true,
-  })
+  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
   comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 
   @Field(() => Boolean, { nullable: true })

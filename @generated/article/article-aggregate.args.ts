@@ -15,9 +15,7 @@ export class ArticleAggregateArgs {
   @Field(() => ArticleWhereInput, { nullable: true })
   where?: ArticleWhereInput;
 
-  @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], {
-    nullable: true,
-  })
+  @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
   orderBy?: Array<ArticleOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })

@@ -15,9 +15,7 @@ export class ProfileAggregateArgs {
   @Field(() => ProfileWhereInput, { nullable: true })
   where?: ProfileWhereInput;
 
-  @Field(() => [ProfileOrderByWithRelationAndSearchRelevanceInput], {
-    nullable: true,
-  })
+  @Field(() => [ProfileOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
   orderBy?: Array<ProfileOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => ProfileWhereUniqueInput, { nullable: true })

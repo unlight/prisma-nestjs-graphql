@@ -38,9 +38,7 @@ export class ArticleUpdateManyWithoutFavoritedByInput {
   })
   update?: Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], {
-    nullable: true,
-  })
+  @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], { nullable: true })
   updateMany?: Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 
   @Field(() => [ArticleScalarWhereInput], { nullable: true })

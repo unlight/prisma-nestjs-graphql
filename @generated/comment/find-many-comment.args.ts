@@ -11,9 +11,7 @@ export class FindManyCommentArgs {
   @Field(() => CommentWhereInput, { nullable: true })
   where?: CommentWhereInput;
 
-  @Field(() => [CommentOrderByWithRelationAndSearchRelevanceInput], {
-    nullable: true,
-  })
+  @Field(() => [CommentOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
   orderBy?: Array<CommentOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => CommentWhereUniqueInput, { nullable: true })

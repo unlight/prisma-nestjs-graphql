@@ -37,9 +37,7 @@ export class ArticleUncheckedUpdateWithoutAuthorInput {
   @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
   favoritesCount?: IntFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, {
-    nullable: true,
-  })
+  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
   favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesInput;
 
   @Field(() => CommentUncheckedUpdateManyWithoutArticleInput, { nullable: true })

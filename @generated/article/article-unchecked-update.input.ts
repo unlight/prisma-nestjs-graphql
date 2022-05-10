@@ -40,9 +40,7 @@ export class ArticleUncheckedUpdateInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   authorId?: StringFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, {
-    nullable: true,
-  })
+  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
   favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesInput;
 
   @Field(() => CommentUncheckedUpdateManyWithoutArticleInput, { nullable: true })
