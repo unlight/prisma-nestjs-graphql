@@ -2,65 +2,80 @@
 PATH="$PWD/node_modules/.bin":$PATH
 set -e
 
+build_hybrid() {
+  set -x
+  rm -rfv dist
+  npx tsup src/index.ts -d=dist/esm --keep-names --format=esm --target=es2020 --sourcemap
+  npx tsup src/index.ts -d=dist/cjs --keep-names --format=cjs --target=es2020 --sourcemap
+  npx tsup src/index.ts -d=dist --dts-only
+  echo {\"type\": \"module\"} >dist/esm/package.json
+  echo {\"type\": \"commonjs\"} >dist/cjs/package.json
+  cp -fv README.md LICENSE dist
+  cat package.json | jq "del(.type)" >dist/package.json
+
+  # bin
+  cp -fv src/bin.js dist
+}
+
 compatibilty_check() {
-    set -x
-    rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  set -x
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
 
-    # Enable noAtomicOperations
-    sed -i 's/noAtomicOperations *= false/noAtomicOperations = true/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/noAtomicOperations *= true/noAtomicOperations = false/g' prisma/schema.prisma
+  # Enable noAtomicOperations
+  sed -i 's/noAtomicOperations *= false/noAtomicOperations = true/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  sed -i 's/noAtomicOperations *= true/noAtomicOperations = false/g' prisma/schema.prisma
 
-    # Enable combineScalarFilters
-    sed -i 's/combineScalarFilters *= false/combineScalarFilters = true/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
+  # Enable combineScalarFilters
+  sed -i 's/combineScalarFilters *= false/combineScalarFilters = true/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
 
-    # Switching reExport
-    sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/reExport *= All/reExport = None/g' prisma/schema.prisma
+  # Switching reExport
+  sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  sed -i 's/reExport *= All/reExport = None/g' prisma/schema.prisma
 
-    # emitSingle and emitCompiled
-    sed -i 's/emitSingle *= false/emitSingle = true/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g
-    npx tsc --noEmit --skipLibCheck --experimentalDecorators ./@generated/index.ts
-    npx ts-node ./@generated/index.ts
+  # emitSingle and emitCompiled
+  sed -i 's/emitSingle *= false/emitSingle = true/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g
+  npx tsc --noEmit --skipLibCheck --experimentalDecorators ./@generated/index.ts
+  npx ts-node ./@generated/index.ts
 
-    sed -i 's/emitCompiled *= false/emitCompiled = true/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g
-    node ./@generated/index.js
+  sed -i 's/emitCompiled *= false/emitCompiled = true/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g
+  node ./@generated/index.js
 
-    sed -i 's/emitCompiled *= true/emitCompiled = false/g' prisma/schema.prisma
-    sed -i 's/emitSingle *= true/emitSingle = false/g' prisma/schema.prisma
+  sed -i 's/emitCompiled *= true/emitCompiled = false/g' prisma/schema.prisma
+  sed -i 's/emitSingle *= true/emitSingle = false/g' prisma/schema.prisma
 
-    # requireSingleFieldsInWhereUniqueInput
-    sed -i 's/requireSingleFieldsInWhereUniqueInput *= false/requireSingleFieldsInWhereUniqueInput = true/g' prisma/schema.prisma
-    rm -rf ./@generated && npm run prisma:g && npm run tscheck
-    sed -i 's/requireSingleFieldsInWhereUniqueInput *= true/requireSingleFieldsInWhereUniqueInput = false/g' prisma/schema.prisma
+  # requireSingleFieldsInWhereUniqueInput
+  sed -i 's/requireSingleFieldsInWhereUniqueInput *= false/requireSingleFieldsInWhereUniqueInput = true/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  sed -i 's/requireSingleFieldsInWhereUniqueInput *= true/requireSingleFieldsInWhereUniqueInput = false/g' prisma/schema.prisma
 
-    set +x
+  set +x
 }
 
 bundle() {
-    set -x
-    npx tsup src/index.ts --format cjs --target es2018
-    cp -fv README.md LICENSE package.json dist
-    cp -fv src/bin.js dist
+  set -x
+  npx tsup src/index.ts --format cjs --target es2018
+  cp -fv README.md LICENSE package.json dist
+  cp -fv src/bin.js dist
 }
 
 commit_lint() {
-    if git-branch-is -q -r "^(master)"; then
-        commitlint --edit
-    else
-        true
-    fi
+  if git-branch-is -q -r "^(master)"; then
+    commitlint --edit
+  else
+    true
+  fi
 }
 
 commit_check() {
-    set -x
-    from=$(git_last_release_tag)
-    commitlint --from $from
+  set -x
+  from=$(git_last_release_tag)
+  commitlint --from $from
 }
 
 "$@"
