@@ -1,3 +1,10 @@
+### [15.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.0...v15.3.1) (2022-05-10)
+
+
+### Bug Fixes
+
+* **generate:** allow datamodels.type to be undefined ([faefc8f](https://github.com/unlight/nestjs-graphql-prisma/commit/faefc8f629378d9b6aeacdf6f8795590ad3e23ef)), closes [#106](https://github.com/unlight/nestjs-graphql-prisma/issues/106)
+
 ## [15.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.2.6...v15.3.0) (2022-05-06)
 
 
