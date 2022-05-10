@@ -129,7 +129,7 @@ export async function generate(
   }
 
   // Types behaves like model
-  for (const model of datamodel.types) {
+  for (const model of datamodel.types || []) {
     await eventEmitter.emit('Model', model, eventArguments);
   }
 
