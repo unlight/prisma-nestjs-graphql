@@ -338,16 +338,16 @@ It will affect all inputs and outputs types (including models).
 
 ## Documentation and field options
 
-Comments with double slash will projected to typescript code comments
+Comments with triple slash will projected to typescript code comments
 and some `@Field()` decorator options
 
 For example:
 
 ```prisma
 model Product {
-  // Old description
-  // @deprecated Use new name instead
-  oldName
+  /// Old description
+  /// @deprecated Use new name instead
+  oldName String
 }
 ```
 
