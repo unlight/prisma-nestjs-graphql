@@ -3,7 +3,7 @@
 
 ### ⚠ BREAKING CHANGES
 
-* @Type decorator will be added to all input classes
+* @Type decorator will be added to some input classes
 
 ### Bug Fixes
 
