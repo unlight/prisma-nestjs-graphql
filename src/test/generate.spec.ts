@@ -1284,9 +1284,15 @@ describe('scalar arrays with noAtomicOperations', () => {
   before(async () => {
     ({ project } = await testGenerate({
       schema: `
-        model Dummy {
+        model User {
           id String @id
           ints Int[]
+          articles Article[] @relation("ArticleAuthor")
+        }
+        model Article {
+          id String @id
+          author   User   @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
+          authorId String
         }
         `,
       options: [
@@ -1298,7 +1304,7 @@ describe('scalar arrays with noAtomicOperations', () => {
   });
 
   describe('ints should be array', () => {
-    for (const className of ['DummyCreateInput']) {
+    for (const className of ['UserCreateInput']) {
       it(className, () => {
         const s = testSourceFile({
           project,
@@ -1309,6 +1315,16 @@ describe('scalar arrays with noAtomicOperations', () => {
         expect(s.fieldDecoratorType).toEqual('() => [Int]');
       });
     }
+  });
+
+  it('create many inputs should not be deleted', () => {
+    const s = testSourceFile({
+      project,
+      class: 'UserCreateInput',
+      property: 'articles',
+    });
+
+    expect(s.property?.type).toBe('ArticleCreateNestedManyWithoutAuthorInput');
   });
 });
 

@@ -1,7 +1,5 @@
 import { first, memoize } from 'lodash';
 
-import { isListInput } from './is-list-input';
-
 export function createGetModelName(modelNames: string[]) {
   return memoize(tryGetName);
 
@@ -55,14 +53,6 @@ function getModelName(args: {
     }
   }
 
-  if (name.slice(-5) === 'Input') {
-    for (const model of modelNames) {
-      if (isListInput(name, model)) {
-        return model;
-      }
-    }
-  }
-
   // eslint-disable-next-line consistent-return, unicorn/no-useless-undefined
   return undefined;
 }
@@ -107,6 +97,8 @@ const splitKeywords = [
   'MinOrderBy',
   'MaxOrderBy',
   'AvgOrderBy',
+  'Create',
+  'Update',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [
