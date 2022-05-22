@@ -52,6 +52,7 @@ function getModelName(args: {
       return test;
     }
   }
+
   // eslint-disable-next-line consistent-return, unicorn/no-useless-undefined
   return undefined;
 }
@@ -96,6 +97,8 @@ const splitKeywords = [
   'MinOrderBy',
   'MaxOrderBy',
   'AvgOrderBy',
+  'Create',
+  'Update',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [

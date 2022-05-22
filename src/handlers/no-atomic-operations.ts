@@ -8,11 +8,18 @@ export function noAtomicOperations(eventEmitter: AwaitEventEmitter) {
 }
 
 function beforeInputType(args: EventArguments & { inputType: InputType }) {
-  const { inputType } = args;
+  const { inputType, getModelName } = args;
 
   for (const field of inputType.fields) {
+    const fieldName = field.name;
     field.inputTypes = field.inputTypes.filter(inputType => {
-      if (isAtomicOperation(String(inputType.type))) {
+      const inputTypeName = String(inputType.type);
+      const modelName = getModelName(inputTypeName);
+
+      if (
+        isAtomicOperation(inputTypeName) ||
+        (modelName && isListInput(inputTypeName, modelName, fieldName))
+      ) {
         return false;
       }
       return true;
@@ -25,12 +32,23 @@ function beforeGenerateFiles(args: EventArguments) {
 
   for (const sourceFile of project.getSourceFiles()) {
     const className = sourceFile.getClass(() => true)?.getName();
+
     if (className && isAtomicOperation(className)) {
       project.removeSourceFile(sourceFile);
     }
   }
 }
 
-function isAtomicOperation(name: string) {
-  return name.endsWith('FieldUpdateOperationsInput');
+function isAtomicOperation(typeName: string) {
+  if (typeName.endsWith('FieldUpdateOperationsInput')) {
+    return true;
+  }
+  return false;
+}
+
+function isListInput(typeName: string, model: string, field: string) {
+  return (
+    typeName === `${model}Create${field}Input` ||
+    typeName === `${model}Update${field}Input`
+  );
 }

@@ -10,7 +10,7 @@ import { Type } from 'class-transformer';
 import { DummyUpdatedecimalsInput } from '../prisma/dummy-updatedecimals.input';
 import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
-import { DummyUpdatefriendsInput } from '../prisma/dummy-updatefriends.input';
+import { DummyUpdatefriendsInput } from './dummy-updatefriends.input';
 
 @InputType()
 export class DummyUncheckedUpdateManyInput {

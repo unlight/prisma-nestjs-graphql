@@ -1,3 +1,10 @@
+### [15.3.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.1...v15.3.2) (2022-05-22)
+
+
+### Bug Fixes
+
+* No atomic operations for scalar input list ([d32b03c](https://github.com/unlight/nestjs-graphql-prisma/commit/d32b03c76091c8ba2aa6757e147c43e556754de1))
+
 ### [15.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.0...v15.3.1) (2022-05-10)
 
 
