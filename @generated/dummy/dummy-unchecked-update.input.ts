@@ -7,7 +7,7 @@ import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-floa
 import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
 import { Type } from 'class-transformer';
-import { DummyUpdatedecimalsInput } from '../prisma/dummy-updatedecimals.input';
+import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input';
 import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DummyUpdatefriendsInput } from './dummy-updatefriends.input';

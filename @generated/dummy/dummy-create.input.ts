@@ -7,7 +7,7 @@ import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { DummyCreatedecimalsInput } from '../prisma/dummy-createdecimals.input';
+import { DummyCreatedecimalsInput } from './dummy-createdecimals.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DummyCreatefriendsInput } from './dummy-createfriends.input';
 
