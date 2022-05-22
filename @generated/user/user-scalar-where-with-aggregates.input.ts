@@ -4,6 +4,8 @@ import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-fil
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
+import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input';
+import { Type } from 'class-transformer';
 import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullable-with-aggregates-filter.input';
 
 @InputType()
@@ -40,6 +42,10 @@ export class UserScalarWhereWithAggregatesInput {
 
   @Field(() => FloatNullableWithAggregatesFilter, { nullable: true })
   rating?: FloatNullableWithAggregatesFilter;
+
+  @Field(() => DecimalNullableWithAggregatesFilter, { nullable: true })
+  @Type(() => DecimalNullableWithAggregatesFilter)
+  money?: DecimalNullableWithAggregatesFilter;
 
   @Field(() => EnumRoleNullableWithAggregatesFilter, { nullable: true })
   role?: EnumRoleNullableWithAggregatesFilter;

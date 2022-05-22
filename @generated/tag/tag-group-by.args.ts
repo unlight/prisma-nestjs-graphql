@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { TagWhereInput } from './tag-where.input';
+import { Type } from 'class-transformer';
 import { TagOrderByWithAggregationInput } from './tag-order-by-with-aggregation.input';
 import { TagScalarFieldEnum } from './tag-scalar-field.enum';
 import { TagScalarWhereWithAggregatesInput } from './tag-scalar-where-with-aggregates.input';
@@ -12,6 +13,7 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 @ArgsType()
 export class TagGroupByArgs {
   @Field(() => TagWhereInput, { nullable: true })
+  @Type(() => TagWhereInput)
   where?: TagWhereInput;
 
   @Field(() => [TagOrderByWithAggregationInput], { nullable: true })

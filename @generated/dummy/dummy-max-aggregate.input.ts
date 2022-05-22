@@ -7,10 +7,7 @@ export class DummyMaxAggregateInput {
   id?: true;
 
   @Field(() => Boolean, { nullable: true })
-  created?: true;
-
-  @Field(() => Boolean, { nullable: true })
-  floaty?: true;
+  date?: true;
 
   @Field(() => Boolean, { nullable: true })
   int?: true;

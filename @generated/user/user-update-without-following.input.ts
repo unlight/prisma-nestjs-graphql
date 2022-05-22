@@ -8,6 +8,8 @@ import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-m
 import { CommentUpdateManyWithoutAuthorInput } from '../comment/comment-update-many-without-author.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
+import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
+import { Type } from 'class-transformer';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
 import { ProfileUpdateOneWithoutUserInput } from '../profile/profile-update-one-without-user.input';
 
@@ -48,6 +50,10 @@ export class UserUpdateWithoutFollowingInput {
 
   @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
   rating?: NullableFloatFieldUpdateOperationsInput;
+
+  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
+  @Type(() => NullableDecimalFieldUpdateOperationsInput)
+  money?: NullableDecimalFieldUpdateOperationsInput;
 
   @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
   role?: NullableEnumRoleFieldUpdateOperationsInput;

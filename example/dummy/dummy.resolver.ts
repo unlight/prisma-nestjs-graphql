@@ -36,11 +36,17 @@ export class DummyResolver {
   }
 
   @Mutation(() => Dummy)
-  createDummy(@Args('data') create: DummyCreateInput) {
-    console.log('create', create);
+  createDummy(@Args('data') data: DummyCreateInput) {
     const dummy = new Dummy();
 
-    dummy.created = new Date();
+    Object.assign(dummy, { id: '1', date: new Date() }, data);
+    if (data.decimals) {
+      dummy.decimals = data.decimals.set;
+    }
+
+    dummy.id = `decimal_ctor_${
+      (dummy.decimal as any)?.['constructor']?.name
+    }, decimals: ${data.decimals?.set?.map(d => d.constructor.name)}`;
 
     return dummy;
   }

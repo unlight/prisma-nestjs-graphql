@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { DummyWhereInput } from './dummy-where.input';
+import { Type } from 'class-transformer';
 import { DummyOrderByWithAggregationInput } from './dummy-order-by-with-aggregation.input';
 import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
 import { DummyScalarWhereWithAggregatesInput } from './dummy-scalar-where-with-aggregates.input';
@@ -14,6 +15,7 @@ import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 @ArgsType()
 export class DummyGroupByArgs {
   @Field(() => DummyWhereInput, { nullable: true })
+  @Type(() => DummyWhereInput)
   where?: DummyWhereInput;
 
   @Field(() => [DummyOrderByWithAggregationInput], { nullable: true })

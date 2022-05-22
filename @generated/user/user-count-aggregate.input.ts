@@ -28,6 +28,9 @@ export class UserCountAggregateInput {
   rating?: true;
 
   @Field(() => Boolean, { nullable: true })
+  money?: true;
+
+  @Field(() => Boolean, { nullable: true })
   role?: true;
 
   @Field(() => Boolean, { nullable: true })

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { Float } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { Float } from '@nestjs/graphql';
 import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
@@ -16,11 +16,8 @@ export class DummyGroupBy {
   @Field(() => String, { nullable: false })
   id!: string;
 
-  @Field(() => Date, { nullable: false })
-  created!: Date | string;
-
-  @Field(() => Float, { nullable: false })
-  floaty!: number;
+  @Field(() => Date, { nullable: true })
+  date?: Date | string;
 
   @Field(() => Int, { nullable: true })
   int?: number;
@@ -33,6 +30,9 @@ export class DummyGroupBy {
 
   @Field(() => GraphQLDecimal, { nullable: true })
   decimal?: Decimal;
+
+  @Field(() => [GraphQLDecimal], { nullable: true })
+  decimals?: Array<Decimal>;
 
   @Field(() => String, { nullable: true })
   bigInt?: bigint | number;

@@ -9,6 +9,7 @@ export enum UserScalarFieldEnum {
   image = 'image',
   countComments = 'countComments',
   rating = 'rating',
+  money = 'money',
   role = 'role',
 }
 

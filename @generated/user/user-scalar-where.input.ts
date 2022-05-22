@@ -4,6 +4,8 @@ import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
+import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input';
+import { Type } from 'class-transformer';
 import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input';
 
 @InputType()
@@ -40,6 +42,10 @@ export class UserScalarWhereInput {
 
   @Field(() => FloatNullableFilter, { nullable: true })
   rating?: FloatNullableFilter;
+
+  @Field(() => DecimalNullableFilter, { nullable: true })
+  @Type(() => DecimalNullableFilter)
+  money?: DecimalNullableFilter;
 
   @Field(() => EnumRoleNullableFilter, { nullable: true })
   role?: EnumRoleNullableFilter;

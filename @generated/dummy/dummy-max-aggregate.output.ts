@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { Float } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { Float } from '@nestjs/graphql';
 import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
@@ -11,10 +11,7 @@ export class DummyMaxAggregate {
   id?: string;
 
   @Field(() => Date, { nullable: true })
-  created?: Date | string;
-
-  @Field(() => Float, { nullable: true })
-  floaty?: number;
+  date?: Date | string;
 
   @Field(() => Int, { nullable: true })
   int?: number;

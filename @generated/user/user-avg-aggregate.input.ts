@@ -8,4 +8,7 @@ export class UserAvgAggregateInput {
 
   @Field(() => Boolean, { nullable: true })
   rating?: true;
+
+  @Field(() => Boolean, { nullable: true })
+  money?: true;
 }

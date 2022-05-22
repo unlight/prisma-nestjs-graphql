@@ -49,6 +49,9 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   rating?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
+  money?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
   role?: keyof typeof SortOrder;
 
   @Field(() => ProfileOrderByWithRelationAndSearchRelevanceInput, { nullable: true })

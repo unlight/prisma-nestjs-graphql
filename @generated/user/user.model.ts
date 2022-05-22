@@ -6,6 +6,8 @@ import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
+import { Decimal } from '@prisma/client/runtime';
 import { Role } from '../prisma/role.enum';
 import { Profile } from '../profile/profile.model';
 import { UserCount } from './user-count.output';
@@ -56,6 +58,9 @@ export class User {
 
   @Field(() => Float, { nullable: true })
   rating!: number | null;
+
+  @Field(() => GraphQLDecimal, { nullable: true })
+  money!: Decimal | null;
 
   @Field(() => Role, { nullable: true })
   role!: keyof typeof Role | null;

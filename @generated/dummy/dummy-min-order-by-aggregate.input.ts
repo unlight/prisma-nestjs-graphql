@@ -8,10 +8,7 @@ export class DummyMinOrderByAggregateInput {
   id?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
-  created?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  floaty?: keyof typeof SortOrder;
+  date?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
   int?: keyof typeof SortOrder;
