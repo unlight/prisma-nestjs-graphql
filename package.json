@@ -36,6 +36,7 @@
     "prisma:g": "node node_modules/prisma/build/index.js generate",
     "format": "npx prettier ./@generated --write",
     "regen": "rm -rf @generated && npm run prisma:g && npm run format",
+    "rt": "npm run regen && npm test",
     "example": "node-dev example/main.ts",
     "clean_cache": "rm -rf node_modules/.cache",
     "compatibilty_check": "sh Taskfile compatibilty_check",

@@ -129,6 +129,7 @@ export async function generate(
   }
 
   // Types behaves like model
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   for (const model of datamodel.types || []) {
     await eventEmitter.emit('Model', model, eventArguments);
   }

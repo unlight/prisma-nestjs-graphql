@@ -1,4 +1,5 @@
 import { ok } from 'assert';
+import { graphql } from 'graphql';
 import JSON5 from 'json5';
 import { castArray, last } from 'lodash';
 import pupa from 'pupa';
@@ -92,8 +93,8 @@ export function inputType(
       name: inputType.name,
       input: true,
     });
-    const isCustomsApplicable =
-      typeName === model?.fields.find(f => f.name === name)?.type;
+    const modelField = model?.fields.find(f => f.name === name);
+    const isCustomsApplicable = typeName === modelField?.type;
     const propertyType = castArray(
       propertySettings?.name ||
         getPropertyType({
@@ -186,6 +187,43 @@ export function inputType(
           }),
         ],
       });
+
+      if (graphqlType === 'GraphQLDecimal') {
+        importDeclarations.add('transformToDecimal', 'prisma-graphql-type-decimal');
+        importDeclarations.add('Transform', 'class-transformer');
+        importDeclarations.add('Type', 'class-transformer');
+
+        property.decorators.push(
+          {
+            name: 'Type',
+            arguments: ['() => Object'],
+          },
+          {
+            name: 'Transform',
+            arguments: ['transformToDecimal'],
+          },
+        );
+      } else if (
+        location === 'inputObjectTypes' &&
+        (modelField?.type === 'Decimal' ||
+          [
+            'data',
+            'where',
+            'create',
+            'connectOrCreate',
+            'upsert',
+            'set',
+            'disconnect',
+            'delete',
+            'connect',
+            'update',
+            'updateMany',
+            'deleteMany',
+          ].includes(name))
+      ) {
+        importDeclarations.add('Type', 'class-transformer');
+        property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
+      }
 
       if (isCustomsApplicable) {
         for (const options of settings || []) {
