@@ -24,7 +24,6 @@ let sourceFiles: SourceFile[];
 let importDeclarations: ImportDeclarationStructure[] = [];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
-const d = (name: string) => getPropertyStructure(sourceFile, name)?.decorators?.[0];
 const f = (name: string) =>
   getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
     ?.arguments;
@@ -1148,7 +1147,12 @@ describe('get rid of atomic number operations', () => {
               friends String[]
             }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`, `noAtomicOperations = true`],
+      options: [
+        `
+        outputFilePattern = "{name}.{type}.ts"
+        noAtomicOperations = true
+      `,
+      ],
     }));
   });
 
@@ -1165,37 +1169,70 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('id should be regular string', () => {
-      expect(getPropertyStructure(sourceFile, 'id')?.type).toEqual('string');
+      it('rating should be regular string', () => {
+        const s = testSourceFile({
+          project,
+          class: 'UserUpdateInput',
+          property: 'id',
+        });
+        expect(s.property?.type).toEqual('string');
+      });
     });
 
     it('id field type should be string', () => {
-      expect(t('id')).toEqual('() => String');
+      const s = testSourceFile({
+        project,
+        class: 'UserUpdateInput',
+        property: 'id',
+      });
+      expect(s.fieldDecoratorType).toEqual('() => String');
     });
 
     it('age should be regular string', () => {
-      expect(getPropertyStructure(sourceFile, 'age')?.type).toEqual('number');
+      it('rating should be regular string', () => {
+        const s = testSourceFile({
+          project,
+          class: 'UserUpdateInput',
+          property: 'age',
+        });
+        expect(s.property?.type).toEqual('number');
+      });
     });
 
     it('age field type should be string', () => {
-      expect(t('age')).toEqual('() => Int');
+      const s = testSourceFile({
+        project,
+        class: 'UserUpdateInput',
+        property: 'age',
+      });
+      expect(s.fieldDecoratorType).toEqual('() => Int');
     });
 
     it('rating should be regular string', () => {
-      expect(getPropertyStructure(sourceFile, 'rating')?.type).toEqual('number');
+      const s = testSourceFile({
+        project,
+        class: 'UserUpdateInput',
+        property: 'rating',
+      });
+      expect(s.property?.type).toEqual('number');
     });
 
     it('rating field type should be string', () => {
-      expect(t('rating')).toEqual('() => Float');
+      const s = testSourceFile({
+        project,
+        class: 'UserUpdateInput',
+        property: 'rating',
+      });
+      expect(s.fieldDecoratorType).toEqual('() => Float');
     });
 
     it('scalar array', () => {
-      expect(t('friends')).toEqual('() => UserUpdatefriendsInput');
-    });
-  });
-
-  describe('UserUpdatefriendsInput', () => {
-    before(() => {
-      setSourceFile('user-updatefriends.input.ts');
+      const s = testSourceFile({
+        project,
+        class: 'UserUpdateInput',
+        property: 'friends',
+      });
+      expect(s.fieldDecoratorType).toEqual('() => [String]');
     });
   });
 
@@ -1203,10 +1240,11 @@ describe('get rid of atomic number operations', () => {
     const dateFieldFiles = ['user-create.input.ts', 'user-unchecked-update.input.ts'];
 
     for (const file of dateFieldFiles) {
-      it(`date field files ${file}`, () => {
-        setSourceFile(file);
-        expect(p('born')?.type).toEqual('Date | string');
-        expect(t('born')).toEqual('() => Date');
+      it(`date field files [${file}]`, () => {
+        const s = testSourceFile({ project, file, property: 'born' });
+
+        expect(s.fieldDecoratorType).toEqual('() => Date');
+        expect(s.property?.type).toEqual('Date | string');
       });
     }
   });
@@ -1238,6 +1276,39 @@ describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
 
     const classDeclaration = s.sourceFile.getClass('IntFieldUpdateOperationsInput');
     expect(classDeclaration).toBeUndefined();
+  });
+});
+
+describe('scalar arrays with noAtomicOperations', () => {
+  let project: Project;
+  before(async () => {
+    ({ project } = await testGenerate({
+      schema: `
+        model Dummy {
+          id String @id
+          ints Int[]
+        }
+        `,
+      options: [
+        `
+        noAtomicOperations = true
+      `,
+      ],
+    }));
+  });
+
+  describe('ints should be array', () => {
+    for (const className of ['DummyCreateInput']) {
+      it(className, () => {
+        const s = testSourceFile({
+          project,
+          class: className,
+          property: 'ints',
+        });
+
+        expect(s.fieldDecoratorType).toEqual('() => [Int]');
+      });
+    }
   });
 });
 

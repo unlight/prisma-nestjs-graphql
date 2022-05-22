@@ -1,5 +1,7 @@
 import { first, memoize } from 'lodash';
 
+import { isListInput } from './is-list-input';
+
 export function createGetModelName(modelNames: string[]) {
   return memoize(tryGetName);
 
@@ -52,6 +54,15 @@ function getModelName(args: {
       return test;
     }
   }
+
+  if (name.slice(-5) === 'Input') {
+    for (const model of modelNames) {
+      if (isListInput(name, model)) {
+        return model;
+      }
+    }
+  }
+
   // eslint-disable-next-line consistent-return, unicorn/no-useless-undefined
   return undefined;
 }

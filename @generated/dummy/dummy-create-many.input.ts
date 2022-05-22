@@ -5,7 +5,7 @@ import { Int } from '@nestjs/graphql';
 import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
-import { DummyCreatefriendsInput } from '../prisma/dummy-createfriends.input';
+import { DummyCreatefriendsInput } from './dummy-createfriends.input';
 
 @InputType()
 export class DummyCreateManyInput {
