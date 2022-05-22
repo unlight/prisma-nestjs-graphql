@@ -121,7 +121,7 @@ model Dummy {
   int      Int?
   float    Float?
   bytes    Bytes?
-  decimal  Decimal?
+  decimal  Decimal // Keep as required (for compatibility check)
   decimals Decimal[]
   bigInt   BigInt?
   json     Json?

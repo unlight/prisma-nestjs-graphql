@@ -5,7 +5,7 @@ import * as P from '@prisma/client';
 import { Dummy } from '../../@generated/dummy/dummy.model';
 import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
 import { DateTimeFilter } from '../../@generated/prisma/date-time-filter.input';
-import { DecimalNullableFilter } from '../../@generated/prisma/decimal-nullable-filter.input';
+import { DecimalFilter } from '../../@generated/prisma/decimal-filter.input';
 import { IntFilter } from '../../@generated/prisma/int-filter.input';
 import { StringFilter } from '../../@generated/prisma/string-filter.input';
 import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
@@ -56,8 +56,7 @@ let $prisma = new PrismaClient();
   p;
 }
 {
-  // Nullable filter
-  let x: DecimalNullableFilter = {};
+  let x: DecimalFilter = {};
   let p: Prisma.DecimalNullableFilter = {};
   p = x;
   p;
@@ -123,8 +122,8 @@ let $prisma = new PrismaClient();
   x;
 }
 {
-  let x: DummyCreateInput = { id: '1' };
-  let p: Prisma.DummyCreateInput = { id: '2' };
+  let x: DummyCreateInput = { id: '1', decimal: 0 as any };
+  let p: Prisma.DummyCreateInput = { id: '2', decimal: 0 as any };
   p = x;
   p;
   x;

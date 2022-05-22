@@ -50,11 +50,13 @@ export class DummyResolver {
 
     Object.assign(dummy, { id: '1', date: new Date() }, data);
     if (data.decimals) {
+      // @ts-ignore
       dummy.decimals = data.decimals.set;
     }
 
     dummy.id = `decimal_ctor_${
       (dummy.decimal as any)?.['constructor']?.name
+      // @ts-ignore
     }, decimals: ${data.decimals?.set?.map(d => d.constructor.name)}`;
 
     return dummy;
