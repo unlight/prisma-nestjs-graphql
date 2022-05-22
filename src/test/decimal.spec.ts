@@ -272,3 +272,46 @@ describe('decimal graphql', () => {
     }
   });
 });
+
+describe('decimal graphql noAtomicOperations', () => {
+  let project: Project;
+  before(async () => {
+    ({ project } = await testGenerate({
+      schema: `
+        model User {
+          id String @id
+          transfers Decimal[]
+        }
+        `,
+      options: [
+        `
+        noAtomicOperations = true
+      `,
+      ],
+    }));
+  });
+
+  it('should be array', () => {
+    const s = testSourceFile({
+      project,
+      class: 'UserCreateInput',
+      property: 'transfers',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({
+        name: 'Type',
+        arguments: ['() => Object'],
+      }),
+    );
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({
+        name: 'Transform',
+        arguments: ['transformToDecimal'],
+      }),
+    );
+
+    expect(s.property?.type).toEqual('Array<Decimal>');
+  });
+});
