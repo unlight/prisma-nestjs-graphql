@@ -1,3 +1,10 @@
+### [16.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v16.0.0...v16.0.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* Decorate parent decimal inputs ([9a7da40](https://github.com/unlight/nestjs-graphql-prisma/commit/9a7da40cd9f10c9732475e1e3bb6e72fe72e8333)), closes [#113](https://github.com/unlight/nestjs-graphql-prisma/issues/113)
+
 ## [16.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.2...v16.0.0) (2022-05-22)
 
 
