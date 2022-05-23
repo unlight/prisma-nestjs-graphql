@@ -4,7 +4,7 @@ import AwaitEventEmitter from 'await-event-emitter/types';
 import { exec } from 'child_process';
 import crypto from 'crypto';
 import fs from 'fs';
-import { uniq } from 'lodash';
+import { castArray, uniq } from 'lodash';
 import cachePath from 'temp-dir';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
@@ -18,7 +18,7 @@ const { '@prisma/generator-helper': generatorVersion } =
 
 export async function testGenerate(args: {
   schema: string;
-  options?: string[];
+  options?: string[] | string;
   provider?: 'postgresql' | 'mongodb';
   createSouceFile?: {
     text: string;
@@ -111,7 +111,7 @@ export async function testGenerate(args: {
  */
 async function createGeneratorOptions(
   schema: string,
-  options?: string[],
+  options?: string[] | string,
   provider: 'postgresql' | 'mongodb' = 'postgresql',
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
   const schemaHeader = `
@@ -135,7 +135,7 @@ async function createGeneratorOptions(
                 provider = "node -r ts-node/register/transpile-only src/test/proxy-generator.ts"
                 output = "."
                 hash = "${hash}"
-                ${options?.join('\n') || ''}
+                ${castArray(options).join('\n')}
             }
             ${schema}
         `;

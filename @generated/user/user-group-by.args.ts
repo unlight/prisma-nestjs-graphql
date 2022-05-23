@@ -19,12 +19,14 @@ export class UserGroupByArgs {
   where?: UserWhereInput;
 
   @Field(() => [UserOrderByWithAggregationInput], { nullable: true })
+  @Type(() => UserOrderByWithAggregationInput)
   orderBy?: Array<UserOrderByWithAggregationInput>;
 
   @Field(() => [UserScalarFieldEnum], { nullable: false })
   by!: Array<keyof typeof UserScalarFieldEnum>;
 
   @Field(() => UserScalarWhereWithAggregatesInput, { nullable: true })
+  @Type(() => UserScalarWhereWithAggregatesInput)
   having?: UserScalarWhereWithAggregatesInput;
 
   @Field(() => Int, { nullable: true })
@@ -34,17 +36,22 @@ export class UserGroupByArgs {
   skip?: number;
 
   @Field(() => UserCountAggregateInput, { nullable: true })
+  @Type(() => UserCountAggregateInput)
   _count?: UserCountAggregateInput;
 
   @Field(() => UserAvgAggregateInput, { nullable: true })
+  @Type(() => UserAvgAggregateInput)
   _avg?: UserAvgAggregateInput;
 
   @Field(() => UserSumAggregateInput, { nullable: true })
+  @Type(() => UserSumAggregateInput)
   _sum?: UserSumAggregateInput;
 
   @Field(() => UserMinAggregateInput, { nullable: true })
+  @Type(() => UserMinAggregateInput)
   _min?: UserMinAggregateInput;
 
   @Field(() => UserMaxAggregateInput, { nullable: true })
+  @Type(() => UserMaxAggregateInput)
   _max?: UserMaxAggregateInput;
 }

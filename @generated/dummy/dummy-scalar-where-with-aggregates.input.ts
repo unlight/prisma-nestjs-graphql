@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Type } from 'class-transformer';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
 import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input';
-import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input';
-import { Type } from 'class-transformer';
+import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input';
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input';
 import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
@@ -15,12 +15,15 @@ import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.
 @InputType()
 export class DummyScalarWhereWithAggregatesInput {
   @Field(() => [DummyScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => DummyScalarWhereWithAggregatesInput)
   AND?: Array<DummyScalarWhereWithAggregatesInput>;
 
   @Field(() => [DummyScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => DummyScalarWhereWithAggregatesInput)
   OR?: Array<DummyScalarWhereWithAggregatesInput>;
 
   @Field(() => [DummyScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => DummyScalarWhereWithAggregatesInput)
   NOT?: Array<DummyScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
@@ -38,9 +41,9 @@ export class DummyScalarWhereWithAggregatesInput {
   @Field(() => BytesNullableWithAggregatesFilter, { nullable: true })
   bytes?: BytesNullableWithAggregatesFilter;
 
-  @Field(() => DecimalNullableWithAggregatesFilter, { nullable: true })
-  @Type(() => DecimalNullableWithAggregatesFilter)
-  decimal?: DecimalNullableWithAggregatesFilter;
+  @Field(() => DecimalWithAggregatesFilter, { nullable: true })
+  @Type(() => DecimalWithAggregatesFilter)
+  decimal?: DecimalWithAggregatesFilter;
 
   @Field(() => DecimalNullableListFilter, { nullable: true })
   @Type(() => DecimalNullableListFilter)

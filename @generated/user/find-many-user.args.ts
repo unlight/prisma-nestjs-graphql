@@ -14,9 +14,11 @@ export class FindManyUserArgs {
   where?: UserWhereInput;
 
   @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
+  @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
   orderBy?: Array<UserOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
   cursor?: UserWhereUniqueInput;
 
   @Field(() => Int, { nullable: true })

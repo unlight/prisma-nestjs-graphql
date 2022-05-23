@@ -19,12 +19,14 @@ export class DummyGroupByArgs {
   where?: DummyWhereInput;
 
   @Field(() => [DummyOrderByWithAggregationInput], { nullable: true })
+  @Type(() => DummyOrderByWithAggregationInput)
   orderBy?: Array<DummyOrderByWithAggregationInput>;
 
   @Field(() => [DummyScalarFieldEnum], { nullable: false })
   by!: Array<keyof typeof DummyScalarFieldEnum>;
 
   @Field(() => DummyScalarWhereWithAggregatesInput, { nullable: true })
+  @Type(() => DummyScalarWhereWithAggregatesInput)
   having?: DummyScalarWhereWithAggregatesInput;
 
   @Field(() => Int, { nullable: true })
@@ -34,17 +36,22 @@ export class DummyGroupByArgs {
   skip?: number;
 
   @Field(() => DummyCountAggregateInput, { nullable: true })
+  @Type(() => DummyCountAggregateInput)
   _count?: DummyCountAggregateInput;
 
   @Field(() => DummyAvgAggregateInput, { nullable: true })
+  @Type(() => DummyAvgAggregateInput)
   _avg?: DummyAvgAggregateInput;
 
   @Field(() => DummySumAggregateInput, { nullable: true })
+  @Type(() => DummySumAggregateInput)
   _sum?: DummySumAggregateInput;
 
   @Field(() => DummyMinAggregateInput, { nullable: true })
+  @Type(() => DummyMinAggregateInput)
   _min?: DummyMinAggregateInput;
 
   @Field(() => DummyMaxAggregateInput, { nullable: true })
+  @Type(() => DummyMaxAggregateInput)
   _max?: DummyMaxAggregateInput;
 }

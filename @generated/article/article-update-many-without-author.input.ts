@@ -25,6 +25,7 @@ export class ArticleUpdateManyWithoutAuthorInput {
   upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 
   @Field(() => ArticleCreateManyAuthorInputEnvelope, { nullable: true })
+  @Type(() => ArticleCreateManyAuthorInputEnvelope)
   createMany?: ArticleCreateManyAuthorInputEnvelope;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })

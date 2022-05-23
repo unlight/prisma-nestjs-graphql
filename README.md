@@ -23,7 +23,7 @@ generator nestgraphql {
     provider = "node node_modules/prisma-nestjs-graphql"
     // for yarn monorepos
     // provider = "prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
+    output = "../src/@generated"
 }
 ```
 
@@ -97,7 +97,7 @@ Example configuration:
 ```prisma
 generator nestgraphql {
     provider = "node node_modules/prisma-nestjs-graphql"
-    output = "../src/@generated/prisma-nestjs-graphql"
+    output = "../src/@generated"
     reExport = Directories
 }
 ```
@@ -182,7 +182,7 @@ to set `UserWhereInput` need to configure generator the following way:
 ```prisma
 generator nestgraphql {
   provider = "node node_modules/prisma-nestjs-graphql"
-  output = "../src/@generated/prisma-nestjs-graphql"
+  output = "../src/@generated"
   useInputType_WhereInput_ALL = "WhereInput"
 }
 ```

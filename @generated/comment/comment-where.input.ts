@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
+import { Type } from 'class-transformer';
 import { ArticleWhereInput } from '../article/article-where.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
@@ -30,6 +31,7 @@ export class CommentWhereInput {
   body?: StringFilter;
 
   @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
   author?: UserWhereInput;
 
   @Field(() => StringFilter, { nullable: true })

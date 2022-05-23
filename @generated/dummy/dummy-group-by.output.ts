@@ -28,8 +28,8 @@ export class DummyGroupBy {
   @Field(() => String, { nullable: true })
   bytes?: Buffer;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  decimal?: Decimal;
+  @Field(() => GraphQLDecimal, { nullable: false })
+  decimal!: Decimal;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   decimals?: Array<Decimal>;

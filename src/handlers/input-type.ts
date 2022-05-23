@@ -1,5 +1,4 @@
 import { ok } from 'assert';
-import { graphql } from 'graphql';
 import JSON5 from 'json5';
 import { castArray, last } from 'lodash';
 import pupa from 'pupa';
@@ -20,14 +19,15 @@ export function inputType(
   },
 ) {
   const {
-    inputType,
-    fileType,
-    getSourceFile,
+    classDecoratorName,
+    classTransformerTypeModels,
     config,
     eventEmitter,
-    classDecoratorName,
     fieldSettings,
+    fileType,
     getModelName,
+    getSourceFile,
+    inputType,
     models,
     removeTypes,
     typeNames,
@@ -188,6 +188,21 @@ export function inputType(
         ],
       });
 
+      // Debug
+      // if (classStructure.name === 'XCreateInput') {
+      //   console.log({
+      //     field,
+      //     property,
+      //     modelField,
+      //     graphqlInputType,
+      //     'args.inputType': args.inputType,
+      //     'classStructure.name': classStructure.name,
+      //     classTransformerTypeModels,
+      //     modelName,
+      //     graphqlType,
+      //   });
+      // }
+
       if (graphqlType === 'GraphQLDecimal') {
         importDeclarations.add('transformToDecimal', 'prisma-graphql-type-decimal');
         importDeclarations.add('Transform', 'class-transformer');
@@ -207,19 +222,21 @@ export function inputType(
         location === 'inputObjectTypes' &&
         (modelField?.type === 'Decimal' ||
           [
-            'data',
-            'where',
-            'create',
-            'connectOrCreate',
-            'upsert',
-            'set',
-            'disconnect',
-            'delete',
             'connect',
+            'connectOrCreate',
+            'create',
+            'createMany',
+            'data',
+            'delete',
+            'deleteMany',
+            'disconnect',
+            'set',
             'update',
             'updateMany',
-            'deleteMany',
-          ].includes(name))
+            'upsert',
+            'where',
+          ].includes(name) ||
+          classTransformerTypeModels.has(getModelName(graphqlType) || ''))
       ) {
         importDeclarations.add('Type', 'class-transformer');
         property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });

@@ -4,6 +4,7 @@ import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-one-required-without-articles.input';
+import { Type } from 'class-transformer';
 import { UserUpdateManyWithoutFavoriteArticlesInput } from '../user/user-update-many-without-favorite-articles.input';
 import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
@@ -35,9 +36,11 @@ export class ArticleUpdateWithoutTagsInput {
   favoritesCount?: IntFieldUpdateOperationsInput;
 
   @Field(() => UserUpdateOneRequiredWithoutArticlesInput, { nullable: true })
+  @Type(() => UserUpdateOneRequiredWithoutArticlesInput)
   author?: UserUpdateOneRequiredWithoutArticlesInput;
 
   @Field(() => UserUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
+  @Type(() => UserUpdateManyWithoutFavoriteArticlesInput)
   favoritedBy?: UserUpdateManyWithoutFavoriteArticlesInput;
 
   @Field(() => CommentUpdateManyWithoutArticleInput, { nullable: true })

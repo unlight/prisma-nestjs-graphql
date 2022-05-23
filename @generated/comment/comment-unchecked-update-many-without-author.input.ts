@@ -25,6 +25,7 @@ export class CommentUncheckedUpdateManyWithoutAuthorInput {
   upsert?: Array<CommentUpsertWithWhereUniqueWithoutAuthorInput>;
 
   @Field(() => CommentCreateManyAuthorInputEnvelope, { nullable: true })
+  @Type(() => CommentCreateManyAuthorInputEnvelope)
   createMany?: CommentCreateManyAuthorInputEnvelope;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })

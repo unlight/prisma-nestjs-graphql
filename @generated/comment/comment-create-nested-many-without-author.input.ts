@@ -17,6 +17,7 @@ export class CommentCreateNestedManyWithoutAuthorInput {
   connectOrCreate?: Array<CommentCreateOrConnectWithoutAuthorInput>;
 
   @Field(() => CommentCreateManyAuthorInputEnvelope, { nullable: true })
+  @Type(() => CommentCreateManyAuthorInputEnvelope)
   createMany?: CommentCreateManyAuthorInputEnvelope;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })

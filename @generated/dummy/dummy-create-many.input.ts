@@ -28,10 +28,10 @@ export class DummyCreateManyInput {
   @Field(() => String, { nullable: true })
   bytes?: Buffer;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
+  @Field(() => GraphQLDecimal, { nullable: false })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  decimal?: Decimal;
+  decimal!: Decimal;
 
   @Field(() => DummyCreatedecimalsInput, { nullable: true })
   @Type(() => DummyCreatedecimalsInput)
@@ -44,5 +44,6 @@ export class DummyCreateManyInput {
   json?: any;
 
   @Field(() => DummyCreatefriendsInput, { nullable: true })
+  @Type(() => DummyCreatefriendsInput)
   friends?: DummyCreatefriendsInput;
 }

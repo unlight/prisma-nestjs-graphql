@@ -4,6 +4,7 @@ import { TagCreateNestedManyWithoutArticlesInput } from '../tag/tag-create-neste
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nested-one-without-articles.input';
+import { Type } from 'class-transformer';
 import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-create-nested-many-without-article.input';
 
 @InputType()
@@ -36,6 +37,7 @@ export class ArticleCreateWithoutFavoritedByInput {
   favoritesCount?: number;
 
   @Field(() => UserCreateNestedOneWithoutArticlesInput, { nullable: false })
+  @Type(() => UserCreateNestedOneWithoutArticlesInput)
   author!: UserCreateNestedOneWithoutArticlesInput;
 
   @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })

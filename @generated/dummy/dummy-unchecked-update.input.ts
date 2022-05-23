@@ -5,7 +5,7 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input';
-import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
+import { DecimalFieldUpdateOperationsInput } from '../prisma/decimal-field-update-operations.input';
 import { Type } from 'class-transformer';
 import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input';
 import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
@@ -29,9 +29,9 @@ export class DummyUncheckedUpdateInput {
   @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
   bytes?: NullableBytesFieldUpdateOperationsInput;
 
-  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => NullableDecimalFieldUpdateOperationsInput)
-  decimal?: NullableDecimalFieldUpdateOperationsInput;
+  @Field(() => DecimalFieldUpdateOperationsInput, { nullable: true })
+  @Type(() => DecimalFieldUpdateOperationsInput)
+  decimal?: DecimalFieldUpdateOperationsInput;
 
   @Field(() => DummyUpdatedecimalsInput, { nullable: true })
   @Type(() => DummyUpdatedecimalsInput)
@@ -44,5 +44,6 @@ export class DummyUncheckedUpdateInput {
   json?: any;
 
   @Field(() => DummyUpdatefriendsInput, { nullable: true })
+  @Type(() => DummyUpdatefriendsInput)
   friends?: DummyUpdatefriendsInput;
 }

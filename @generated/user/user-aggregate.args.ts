@@ -18,9 +18,11 @@ export class UserAggregateArgs {
   where?: UserWhereInput;
 
   @Field(() => [UserOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
+  @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
   orderBy?: Array<UserOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
   cursor?: UserWhereUniqueInput;
 
   @Field(() => Int, { nullable: true })
@@ -30,17 +32,22 @@ export class UserAggregateArgs {
   skip?: number;
 
   @Field(() => UserCountAggregateInput, { nullable: true })
+  @Type(() => UserCountAggregateInput)
   _count?: UserCountAggregateInput;
 
   @Field(() => UserAvgAggregateInput, { nullable: true })
+  @Type(() => UserAvgAggregateInput)
   _avg?: UserAvgAggregateInput;
 
   @Field(() => UserSumAggregateInput, { nullable: true })
+  @Type(() => UserSumAggregateInput)
   _sum?: UserSumAggregateInput;
 
   @Field(() => UserMinAggregateInput, { nullable: true })
+  @Type(() => UserMinAggregateInput)
   _min?: UserMinAggregateInput;
 
   @Field(() => UserMaxAggregateInput, { nullable: true })
+  @Type(() => UserMaxAggregateInput)
   _max?: UserMaxAggregateInput;
 }

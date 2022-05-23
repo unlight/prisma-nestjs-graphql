@@ -18,9 +18,11 @@ export class DummyAggregateArgs {
   where?: DummyWhereInput;
 
   @Field(() => [DummyOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
+  @Type(() => DummyOrderByWithRelationAndSearchRelevanceInput)
   orderBy?: Array<DummyOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => DummyWhereUniqueInput, { nullable: true })
+  @Type(() => DummyWhereUniqueInput)
   cursor?: DummyWhereUniqueInput;
 
   @Field(() => Int, { nullable: true })
@@ -30,17 +32,22 @@ export class DummyAggregateArgs {
   skip?: number;
 
   @Field(() => DummyCountAggregateInput, { nullable: true })
+  @Type(() => DummyCountAggregateInput)
   _count?: DummyCountAggregateInput;
 
   @Field(() => DummyAvgAggregateInput, { nullable: true })
+  @Type(() => DummyAvgAggregateInput)
   _avg?: DummyAvgAggregateInput;
 
   @Field(() => DummySumAggregateInput, { nullable: true })
+  @Type(() => DummySumAggregateInput)
   _sum?: DummySumAggregateInput;
 
   @Field(() => DummyMinAggregateInput, { nullable: true })
+  @Type(() => DummyMinAggregateInput)
   _min?: DummyMinAggregateInput;
 
   @Field(() => DummyMaxAggregateInput, { nullable: true })
+  @Type(() => DummyMaxAggregateInput)
   _max?: DummyMaxAggregateInput;
 }

@@ -271,6 +271,30 @@ describe('decimal graphql', () => {
       expect(typeDecorator?.arguments).toEqual(['() => Object']);
     }
   });
+
+  it('special property data should be decorated', () => {
+    const s = testSourceFile({
+      project,
+      class: 'CreateOneUserArgs',
+      property: 'data',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'Type' }),
+    );
+  });
+
+  it('special property where should be decorated', () => {
+    const s = testSourceFile({
+      project,
+      file: 'delete-many-user.args.ts',
+      property: 'where',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'Type' }),
+    );
+  });
 });
 
 describe('decimal graphql noAtomicOperations', () => {
@@ -283,11 +307,9 @@ describe('decimal graphql noAtomicOperations', () => {
           transfers Decimal[]
         }
         `,
-      options: [
-        `
+      options: `
         noAtomicOperations = true
       `,
-      ],
     }));
   });
 
@@ -313,5 +335,82 @@ describe('decimal graphql noAtomicOperations', () => {
     );
 
     expect(s.property?.type).toEqual('Array<Decimal>');
+  });
+});
+
+describe('nested object decorate', () => {
+  let project: Project;
+  before(async () => {
+    ({ project } = await testGenerate({
+      schema: `
+        model Job {
+          id          Int      @id
+          salaryId    Int?
+          salary Salary? @relation(fields: [salaryId], references: [id], onDelete: Cascade)
+        }
+        model Salary {
+          id         Int      @id
+          from       Decimal
+          to         Decimal
+          job Job[]
+        }
+        `,
+      options: `
+        noAtomicOperations = true
+      `,
+    }));
+  });
+
+  it('deep field should be decorated up to root', () => {
+    const s = testSourceFile({
+      project,
+      class: 'JobCreateInput',
+      property: 'salary',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'Type' }),
+    );
+  });
+
+  describe('should be decorated by type', () => {
+    [
+      'create',
+      'connectOrCreate',
+      'upsert',
+      'createMany',
+      'set',
+      'disconnect',
+      'delete',
+      'connect',
+      'update',
+      'updateMany',
+      'deleteMany',
+      // eslint-disable-next-line unicorn/no-array-for-each
+    ].forEach(property => {
+      it(property, () => {
+        const s = testSourceFile({
+          project,
+          class: 'JobUncheckedUpdateManyWithoutSalaryInput',
+          property,
+        });
+
+        expect(s.propertyDecorators).toContainEqual(
+          expect.objectContaining({ name: 'Type' }),
+        );
+      });
+    });
+  });
+
+  it('property data should be decorated', () => {
+    const s = testSourceFile({
+      project,
+      class: 'JobCreateManySalaryInputEnvelope',
+      property: 'data',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'Type' }),
+    );
   });
 });

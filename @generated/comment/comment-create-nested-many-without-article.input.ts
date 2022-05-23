@@ -17,6 +17,7 @@ export class CommentCreateNestedManyWithoutArticleInput {
   connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
 
   @Field(() => CommentCreateManyArticleInputEnvelope, { nullable: true })
+  @Type(() => CommentCreateManyArticleInputEnvelope)
   createMany?: CommentCreateManyArticleInputEnvelope;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })

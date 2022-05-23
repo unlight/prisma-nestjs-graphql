@@ -116,6 +116,7 @@ export async function generate(
     enums: mapKeys(datamodel.enums, x => x.name),
     getModelName,
     removeTypes,
+    classTransformerTypeModels: new Set(),
   };
 
   if (connectCallback) {

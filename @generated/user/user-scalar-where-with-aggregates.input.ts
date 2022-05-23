@@ -1,22 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Type } from 'class-transformer';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
 import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input';
-import { Type } from 'class-transformer';
 import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class UserScalarWhereWithAggregatesInput {
   @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => UserScalarWhereWithAggregatesInput)
   AND?: Array<UserScalarWhereWithAggregatesInput>;
 
   @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => UserScalarWhereWithAggregatesInput)
   OR?: Array<UserScalarWhereWithAggregatesInput>;
 
   @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
+  @Type(() => UserScalarWhereWithAggregatesInput)
   NOT?: Array<UserScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })

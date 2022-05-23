@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { UserUncheckedUpdateManyWithoutFollowersInput } from './user-unchecked-update-many-without-followers.input';
+import { Type } from 'class-transformer';
 import { UserUncheckedUpdateManyWithoutFollowingInput } from './user-unchecked-update-many-without-following.input';
 import { ArticleUncheckedUpdateManyWithoutFavoritedByInput } from '../article/article-unchecked-update-many-without-favorited-by.input';
 import { ArticleUncheckedUpdateManyWithoutAuthorInput } from '../article/article-unchecked-update-many-without-author.input';
@@ -10,7 +11,6 @@ import { CommentUncheckedUpdateManyWithoutAuthorInput } from '../comment/comment
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
-import { Type } from 'class-transformer';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
 import { ProfileUncheckedUpdateOneWithoutUserInput } from '../profile/profile-unchecked-update-one-without-user.input';
 
@@ -35,9 +35,11 @@ export class UserUncheckedUpdateInput {
   image?: NullableStringFieldUpdateOperationsInput;
 
   @Field(() => UserUncheckedUpdateManyWithoutFollowersInput, { nullable: true })
+  @Type(() => UserUncheckedUpdateManyWithoutFollowersInput)
   following?: UserUncheckedUpdateManyWithoutFollowersInput;
 
   @Field(() => UserUncheckedUpdateManyWithoutFollowingInput, { nullable: true })
+  @Type(() => UserUncheckedUpdateManyWithoutFollowingInput)
   followers?: UserUncheckedUpdateManyWithoutFollowingInput;
 
   @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByInput, { nullable: true })

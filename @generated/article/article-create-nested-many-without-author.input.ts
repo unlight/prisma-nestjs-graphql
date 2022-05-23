@@ -17,6 +17,7 @@ export class ArticleCreateNestedManyWithoutAuthorInput {
   connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
 
   @Field(() => ArticleCreateManyAuthorInputEnvelope, { nullable: true })
+  @Type(() => ArticleCreateManyAuthorInputEnvelope)
   createMany?: ArticleCreateManyAuthorInputEnvelope;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })

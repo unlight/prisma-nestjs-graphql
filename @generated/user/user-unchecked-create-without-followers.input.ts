@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { UserUncheckedCreateNestedManyWithoutFollowersInput } from './user-unchecked-create-nested-many-without-followers.input';
+import { Type } from 'class-transformer';
 import { ArticleUncheckedCreateNestedManyWithoutFavoritedByInput } from '../article/article-unchecked-create-nested-many-without-favorited-by.input';
 import { ArticleUncheckedCreateNestedManyWithoutAuthorInput } from '../article/article-unchecked-create-nested-many-without-author.input';
 import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
@@ -12,7 +13,6 @@ import { Decimal } from '@prisma/client/runtime';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
-import { Type } from 'class-transformer';
 import { Role } from '../prisma/role.enum';
 import { ProfileUncheckedCreateNestedOneWithoutUserInput } from '../profile/profile-unchecked-create-nested-one-without-user.input';
 
@@ -39,6 +39,7 @@ export class UserUncheckedCreateWithoutFollowersInput {
   image?: string;
 
   @Field(() => UserUncheckedCreateNestedManyWithoutFollowersInput, { nullable: true })
+  @Type(() => UserUncheckedCreateNestedManyWithoutFollowersInput)
   following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
 
   @Field(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput, {

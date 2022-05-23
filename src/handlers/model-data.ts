@@ -2,7 +2,14 @@ import { createObjectSettings, ObjectSettings } from '../helpers/object-settings
 import { DMMF, EventArguments, Field } from '../types';
 
 export function modelData(model: DMMF.Model, args: EventArguments) {
-  const { config, modelNames, models, modelFields, fieldSettings } = args;
+  const {
+    config,
+    modelNames,
+    models,
+    modelFields,
+    fieldSettings,
+    classTransformerTypeModels,
+  } = args;
   modelNames.push(model.name);
   models.set(model.name, model);
 
@@ -22,5 +29,9 @@ export function modelData(model: DMMF.Model, args: EventArguments) {
       fieldSettingsValue.set(field.name, settings);
     }
     modelFieldsValue.set(field.name, field);
+  }
+
+  if (model.fields.some(field => field.type === 'Decimal')) {
+    classTransformerTypeModels.add(model.name);
   }
 }

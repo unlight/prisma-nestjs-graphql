@@ -24,8 +24,8 @@ export class Dummy {
   @Field(() => String, { nullable: true })
   bytes!: Buffer | null;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  decimal!: Decimal | null;
+  @Field(() => GraphQLDecimal, { nullable: false })
+  decimal!: Decimal;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   decimals!: Array<Decimal>;
