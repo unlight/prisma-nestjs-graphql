@@ -703,6 +703,7 @@ export class User {}
 
 ## Similar Projects
 
+- https://github.com/jasonraimondi/prisma-generator-nestjs-graphql
 - https://github.com/omar-dulaimi/prisma-class-validator-generator
 - https://github.com/kimjbstar/prisma-class-generator
 - https://github.com/odroe/nest-gql-mix
