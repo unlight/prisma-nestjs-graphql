@@ -41,6 +41,10 @@ export type EventArguments = {
   removeTypes: Set<string>;
   enums: Record<string, DMMF.DatamodelEnum | undefined>;
   getModelName(name: string): string | undefined;
+  /**
+   * Input types for this models should be decorated @Type(() => Self)
+   */
+  classTransformerTypeModels: Set<string>;
 };
 
 export type ImportNameSpec = { name: string; specifier?: string };

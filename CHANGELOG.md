@@ -1,9 +1,29 @@
+### [16.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v16.0.0...v16.0.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* Decorate parent decimal inputs ([9a7da40](https://github.com/unlight/nestjs-graphql-prisma/commit/9a7da40cd9f10c9732475e1e3bb6e72fe72e8333)), closes [#113](https://github.com/unlight/nestjs-graphql-prisma/issues/113)
+
+## [16.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.2...v16.0.0) (2022-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* @Type decorator will be added to some input classes
+
+### Bug Fixes
+
+* Create decimal value object ([f368231](https://github.com/unlight/nestjs-graphql-prisma/commit/f368231ac4c97a51a60b98e140623e84a28e3e63)), closes [#113](https://github.com/unlight/nestjs-graphql-prisma/issues/113)
+* No atomic operations for scalar input list ([e55767b](https://github.com/unlight/nestjs-graphql-prisma/commit/e55767b37ba2148453ef3bc9d6a0ff580e588cba))
+
 ### [15.3.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.2...v15.3.3) (2022-05-22)
 
 
 ### Bug Fixes
 
 * No atomic operations for scalar input list ([e55767b](https://github.com/unlight/nestjs-graphql-prisma/commit/e55767b37ba2148453ef3bc9d6a0ff580e588cba))
+
 
 ### [15.3.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v15.3.1...v15.3.2) (2022-05-22)
 

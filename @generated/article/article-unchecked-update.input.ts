@@ -5,6 +5,7 @@ import { TagUncheckedUpdateManyWithoutArticlesInput } from '../tag/tag-unchecked
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { UserUncheckedUpdateManyWithoutFavoriteArticlesInput } from '../user/user-unchecked-update-many-without-favorite-articles.input';
+import { Type } from 'class-transformer';
 import { CommentUncheckedUpdateManyWithoutArticleInput } from '../comment/comment-unchecked-update-many-without-article.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
@@ -41,6 +42,7 @@ export class ArticleUncheckedUpdateInput {
   authorId?: StringFieldUpdateOperationsInput;
 
   @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
+  @Type(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput)
   favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesInput;
 
   @Field(() => CommentUncheckedUpdateManyWithoutArticleInput, { nullable: true })

@@ -28,5 +28,8 @@ export class UserMinAggregateInput {
   rating?: true;
 
   @Field(() => Boolean, { nullable: true })
+  money?: true;
+
+  @Field(() => Boolean, { nullable: true })
   role?: true;
 }

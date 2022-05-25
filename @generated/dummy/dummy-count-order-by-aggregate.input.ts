@@ -8,10 +8,7 @@ export class DummyCountOrderByAggregateInput {
   id?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
-  created?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  floaty?: keyof typeof SortOrder;
+  date?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
   int?: keyof typeof SortOrder;
@@ -24,6 +21,9 @@ export class DummyCountOrderByAggregateInput {
 
   @Field(() => SortOrder, { nullable: true })
   decimal?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  decimals?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
   bigInt?: keyof typeof SortOrder;

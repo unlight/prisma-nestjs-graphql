@@ -8,10 +8,7 @@ export class DummyCountAggregate {
   id!: number;
 
   @Field(() => Int, { nullable: false })
-  created!: number;
-
-  @Field(() => Int, { nullable: false })
-  floaty!: number;
+  date!: number;
 
   @Field(() => Int, { nullable: false })
   int!: number;
@@ -24,6 +21,9 @@ export class DummyCountAggregate {
 
   @Field(() => Int, { nullable: false })
   decimal!: number;
+
+  @Field(() => Int, { nullable: false })
+  decimals!: number;
 
   @Field(() => Int, { nullable: false })
   bigInt!: number;

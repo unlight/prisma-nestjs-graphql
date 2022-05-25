@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { CommentWhereInput } from './comment-where.input';
+import { Type } from 'class-transformer';
 import { CommentOrderByWithRelationAndSearchRelevanceInput } from './comment-order-by-with-relation-and-search-relevance.input';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { Int } from '@nestjs/graphql';
@@ -11,6 +12,7 @@ import { CommentMaxAggregateInput } from './comment-max-aggregate.input';
 @ArgsType()
 export class CommentAggregateArgs {
   @Field(() => CommentWhereInput, { nullable: true })
+  @Type(() => CommentWhereInput)
   where?: CommentWhereInput;
 
   @Field(() => [CommentOrderByWithRelationAndSearchRelevanceInput], { nullable: true })

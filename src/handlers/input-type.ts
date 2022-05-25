@@ -19,14 +19,15 @@ export function inputType(
   },
 ) {
   const {
-    inputType,
-    fileType,
-    getSourceFile,
+    classDecoratorName,
+    classTransformerTypeModels,
     config,
     eventEmitter,
-    classDecoratorName,
     fieldSettings,
+    fileType,
     getModelName,
+    getSourceFile,
+    inputType,
     models,
     removeTypes,
     typeNames,
@@ -92,8 +93,8 @@ export function inputType(
       name: inputType.name,
       input: true,
     });
-    const isCustomsApplicable =
-      typeName === model?.fields.find(f => f.name === name)?.type;
+    const modelField = model?.fields.find(f => f.name === name);
+    const isCustomsApplicable = typeName === modelField?.type;
     const propertyType = castArray(
       propertySettings?.name ||
         getPropertyType({
@@ -186,6 +187,60 @@ export function inputType(
           }),
         ],
       });
+
+      // Debug
+      // if (classStructure.name === 'XCreateInput') {
+      //   console.log({
+      //     field,
+      //     property,
+      //     modelField,
+      //     graphqlInputType,
+      //     'args.inputType': args.inputType,
+      //     'classStructure.name': classStructure.name,
+      //     classTransformerTypeModels,
+      //     modelName,
+      //     graphqlType,
+      //   });
+      // }
+
+      if (graphqlType === 'GraphQLDecimal') {
+        importDeclarations.add('transformToDecimal', 'prisma-graphql-type-decimal');
+        importDeclarations.add('Transform', 'class-transformer');
+        importDeclarations.add('Type', 'class-transformer');
+
+        property.decorators.push(
+          {
+            name: 'Type',
+            arguments: ['() => Object'],
+          },
+          {
+            name: 'Transform',
+            arguments: ['transformToDecimal'],
+          },
+        );
+      } else if (
+        location === 'inputObjectTypes' &&
+        (modelField?.type === 'Decimal' ||
+          [
+            'connect',
+            'connectOrCreate',
+            'create',
+            'createMany',
+            'data',
+            'delete',
+            'deleteMany',
+            'disconnect',
+            'set',
+            'update',
+            'updateMany',
+            'upsert',
+            'where',
+          ].includes(name) ||
+          classTransformerTypeModels.has(getModelName(graphqlType) || ''))
+      ) {
+        importDeclarations.add('Type', 'class-transformer');
+        property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
+      }
 
       if (isCustomsApplicable) {
         for (const options of settings || []) {

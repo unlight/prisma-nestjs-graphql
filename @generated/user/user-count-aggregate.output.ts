@@ -30,6 +30,9 @@ export class UserCountAggregate {
   rating!: number;
 
   @Field(() => Int, { nullable: false })
+  money!: number;
+
+  @Field(() => Int, { nullable: false })
   role!: number;
 
   @Field(() => Int, { nullable: false })

@@ -4,9 +4,6 @@ import { InputType } from '@nestjs/graphql';
 @InputType()
 export class DummySumAggregateInput {
   @Field(() => Boolean, { nullable: true })
-  floaty?: true;
-
-  @Field(() => Boolean, { nullable: true })
   int?: true;
 
   @Field(() => Boolean, { nullable: true })
@@ -14,6 +11,9 @@ export class DummySumAggregateInput {
 
   @Field(() => Boolean, { nullable: true })
   decimal?: true;
+
+  @Field(() => Boolean, { nullable: true })
+  decimals?: true;
 
   @Field(() => Boolean, { nullable: true })
   bigInt?: true;

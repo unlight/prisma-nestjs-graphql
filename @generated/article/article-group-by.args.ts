@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { ArticleWhereInput } from './article-where.input';
+import { Type } from 'class-transformer';
 import { ArticleOrderByWithAggregationInput } from './article-order-by-with-aggregation.input';
 import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
 import { ArticleScalarWhereWithAggregatesInput } from './article-scalar-where-with-aggregates.input';
@@ -14,6 +15,7 @@ import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 @ArgsType()
 export class ArticleGroupByArgs {
   @Field(() => ArticleWhereInput, { nullable: true })
+  @Type(() => ArticleWhereInput)
   where?: ArticleWhereInput;
 
   @Field(() => [ArticleOrderByWithAggregationInput], { nullable: true })

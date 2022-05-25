@@ -28,5 +28,8 @@ export class UserMaxAggregateInput {
   rating?: true;
 
   @Field(() => Boolean, { nullable: true })
+  money?: true;
+
+  @Field(() => Boolean, { nullable: true })
   role?: true;
 }

@@ -5,6 +5,7 @@ import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
+import { Type } from 'class-transformer';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
@@ -48,12 +49,14 @@ export class ArticleWhereInput {
   favoritesCount?: IntFilter;
 
   @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
   author?: UserWhereInput;
 
   @Field(() => StringFilter, { nullable: true })
   authorId?: StringFilter;
 
   @Field(() => UserListRelationFilter, { nullable: true })
+  @Type(() => UserListRelationFilter)
   favoritedBy?: UserListRelationFilter;
 
   @Field(() => CommentListRelationFilter, { nullable: true })

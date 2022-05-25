@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { DummyOrderByRelevanceInput } from './dummy-order-by-relevance.input';
+import { Type } from 'class-transformer';
 
 @InputType()
 export class DummyOrderByWithRelationAndSearchRelevanceInput {
@@ -9,10 +10,7 @@ export class DummyOrderByWithRelationAndSearchRelevanceInput {
   id?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
-  created?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  floaty?: keyof typeof SortOrder;
+  date?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
   int?: keyof typeof SortOrder;
@@ -27,6 +25,9 @@ export class DummyOrderByWithRelationAndSearchRelevanceInput {
   decimal?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
+  decimals?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
   bigInt?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
@@ -36,5 +37,6 @@ export class DummyOrderByWithRelationAndSearchRelevanceInput {
   friends?: keyof typeof SortOrder;
 
   @Field(() => DummyOrderByRelevanceInput, { nullable: true })
+  @Type(() => DummyOrderByRelevanceInput)
   _relevance?: DummyOrderByRelevanceInput;
 }

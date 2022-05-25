@@ -7,10 +7,7 @@ export class DummyCountAggregateInput {
   id?: true;
 
   @Field(() => Boolean, { nullable: true })
-  created?: true;
-
-  @Field(() => Boolean, { nullable: true })
-  floaty?: true;
+  date?: true;
 
   @Field(() => Boolean, { nullable: true })
   int?: true;
@@ -23,6 +20,9 @@ export class DummyCountAggregateInput {
 
   @Field(() => Boolean, { nullable: true })
   decimal?: true;
+
+  @Field(() => Boolean, { nullable: true })
+  decimals?: true;
 
   @Field(() => Boolean, { nullable: true })
   bigInt?: true;

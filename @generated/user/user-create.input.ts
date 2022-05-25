@@ -3,12 +3,17 @@ import { InputType } from '@nestjs/graphql';
 import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input';
+import { Type } from 'class-transformer';
 import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input';
 import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input';
 import { ArticleCreateNestedManyWithoutAuthorInput } from '../article/article-create-nested-many-without-author.input';
 import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import { Decimal } from '@prisma/client/runtime';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
+import { transformToDecimal } from 'prisma-graphql-type-decimal';
+import { Transform } from 'class-transformer';
 import { Role } from '../prisma/role.enum';
 import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
 
@@ -35,9 +40,11 @@ export class UserCreateInput {
   image?: string;
 
   @Field(() => UserCreateNestedManyWithoutFollowersInput, { nullable: true })
+  @Type(() => UserCreateNestedManyWithoutFollowersInput)
   following?: UserCreateNestedManyWithoutFollowersInput;
 
   @Field(() => UserCreateNestedManyWithoutFollowingInput, { nullable: true })
+  @Type(() => UserCreateNestedManyWithoutFollowingInput)
   followers?: UserCreateNestedManyWithoutFollowingInput;
 
   @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, { nullable: true })
@@ -54,6 +61,11 @@ export class UserCreateInput {
 
   @Field(() => Float, { nullable: true })
   rating?: number;
+
+  @Field(() => GraphQLDecimal, { nullable: true })
+  @Type(() => Object)
+  @Transform(transformToDecimal)
+  money?: Decimal;
 
   @Field(() => Role, { nullable: true })
   role?: keyof typeof Role;

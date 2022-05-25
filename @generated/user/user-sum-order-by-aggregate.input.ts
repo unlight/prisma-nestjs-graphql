@@ -9,4 +9,7 @@ export class UserSumOrderByAggregateInput {
 
   @Field(() => SortOrder, { nullable: true })
   rating?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  money?: keyof typeof SortOrder;
 }

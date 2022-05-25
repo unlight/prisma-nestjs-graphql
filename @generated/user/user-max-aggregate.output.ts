@@ -3,6 +3,8 @@ import { ObjectType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import { Decimal } from '@prisma/client/runtime';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Role } from '../prisma/role.enum';
 
 @ObjectType()
@@ -30,6 +32,9 @@ export class UserMaxAggregate {
 
   @Field(() => Float, { nullable: true })
   rating?: number;
+
+  @Field(() => GraphQLDecimal, { nullable: true })
+  money?: Decimal;
 
   @Field(() => Role, { nullable: true })
   role?: keyof typeof Role;

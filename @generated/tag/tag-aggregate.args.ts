@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { TagWhereInput } from './tag-where.input';
+import { Type } from 'class-transformer';
 import { TagOrderByWithRelationAndSearchRelevanceInput } from './tag-order-by-with-relation-and-search-relevance.input';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { Int } from '@nestjs/graphql';
@@ -11,6 +12,7 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 @ArgsType()
 export class TagAggregateArgs {
   @Field(() => TagWhereInput, { nullable: true })
+  @Type(() => TagWhereInput)
   where?: TagWhereInput;
 
   @Field(() => [TagOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
