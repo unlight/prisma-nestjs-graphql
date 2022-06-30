@@ -1,3 +1,14 @@
+## [17.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v16.0.1...v17.0.0) (2022-06-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update library to support to Prisma v4
+
+### Miscellaneous Chores
+
+* Update library to support to Prisma v4 ([1456303](https://github.com/unlight/nestjs-graphql-prisma/commit/14563037196a50b5b8e97e3c4f45a158b399cc1f)), closes [#123](https://github.com/unlight/nestjs-graphql-prisma/issues/123)
+
 ### [16.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v16.0.0...v16.0.1) (2022-05-23)
 
 
