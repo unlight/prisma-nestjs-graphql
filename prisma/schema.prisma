@@ -5,7 +5,7 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["filterJson", "fullTextSearch"]
+  previewFeatures = ["fullTextSearch"]
 }
 
 generator nestgraphql {
@@ -54,9 +54,9 @@ model User {
   password         String
   bio              String?
   image            String?
-  following        User[]    @relation("UserFollows", references: [id])
-  followers        User[]    @relation("UserFollows", references: [id])
-  favoriteArticles Article[] @relation(name: "FavoritedArticles", references: [id])
+  following        User[]    @relation("UserFollows")
+  followers        User[]    @relation("UserFollows")
+  favoriteArticles Article[] @relation(name: "FavoritedArticles")
   articles         Article[] @relation("ArticleAuthor")
   comments         Comment[]
   countComments    Int?
@@ -87,7 +87,7 @@ model Article {
   favoritesCount Int       @default(0)
   author         User      @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
   authorId       String
-  favoritedBy    User[]    @relation(name: "FavoritedArticles", references: [id])
+  favoritedBy    User[]    @relation(name: "FavoritedArticles")
   comments       Comment[]
   active         Boolean?  @default(true)
 }

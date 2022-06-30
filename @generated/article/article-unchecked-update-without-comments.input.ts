@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { TagUncheckedUpdateManyWithoutArticlesInput } from '../tag/tag-unchecked-update-many-without-articles.input';
+import { TagUncheckedUpdateManyWithoutArticlesNestedInput } from '../tag/tag-unchecked-update-many-without-articles-nested.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { UserUncheckedUpdateManyWithoutFavoriteArticlesInput } from '../user/user-unchecked-update-many-without-favorite-articles.input';
+import { UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput } from '../user/user-unchecked-update-many-without-favorite-articles-nested.input';
 import { Type } from 'class-transformer';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
@@ -25,8 +25,8 @@ export class ArticleUncheckedUpdateWithoutCommentsInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => TagUncheckedUpdateManyWithoutArticlesInput, { nullable: true })
-  tags?: TagUncheckedUpdateManyWithoutArticlesInput;
+  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, { nullable: true })
+  tags?: TagUncheckedUpdateManyWithoutArticlesNestedInput;
 
   @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
   createdAt?: DateTimeFieldUpdateOperationsInput;
@@ -40,9 +40,11 @@ export class ArticleUncheckedUpdateWithoutCommentsInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   authorId?: StringFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput, { nullable: true })
-  @Type(() => UserUncheckedUpdateManyWithoutFavoriteArticlesInput)
-  favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesInput;
+  @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput, {
+    nullable: true,
+  })
+  @Type(() => UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput)
+  favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;

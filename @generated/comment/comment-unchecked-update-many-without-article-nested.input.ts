@@ -11,7 +11,7 @@ import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-
 import { CommentScalarWhereInput } from './comment-scalar-where.input';
 
 @InputType()
-export class CommentUpdateManyWithoutArticleInput {
+export class CommentUncheckedUpdateManyWithoutArticleNestedInput {
   @Field(() => [CommentCreateWithoutArticleInput], { nullable: true })
   @Type(() => CommentCreateWithoutArticleInput)
   create?: Array<CommentCreateWithoutArticleInput>;

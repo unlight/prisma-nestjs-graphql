@@ -8,7 +8,7 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserUpdateWithoutArticlesInput } from './user-update-without-articles.input';
 
 @InputType()
-export class UserUpdateOneRequiredWithoutArticlesInput {
+export class UserUpdateOneRequiredWithoutArticlesNestedInput {
   @Field(() => UserCreateWithoutArticlesInput, { nullable: true })
   @Type(() => UserCreateWithoutArticlesInput)
   create?: UserCreateWithoutArticlesInput;

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { ArticleUncheckedUpdateManyWithoutTagsInput } from '../article/article-unchecked-update-many-without-tags.input';
+import { ArticleUncheckedUpdateManyWithoutTagsNestedInput } from '../article/article-unchecked-update-many-without-tags-nested.input';
 
 @InputType()
 export class TagUncheckedUpdateInput {
@@ -11,6 +11,6 @@ export class TagUncheckedUpdateInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   name?: StringFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutTagsInput, { nullable: true })
-  articles?: ArticleUncheckedUpdateManyWithoutTagsInput;
+  @Field(() => ArticleUncheckedUpdateManyWithoutTagsNestedInput, { nullable: true })
+  articles?: ArticleUncheckedUpdateManyWithoutTagsNestedInput;
 }

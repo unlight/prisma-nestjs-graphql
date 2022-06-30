@@ -642,12 +642,16 @@ describe('nullish compatibility', () => {
               id     Int   @id
               User   User? @relation(fields: [userId], references: [id])
               userId String?
+
+              @@unique([userId])
             }
             model Profile {
               id                  Int                 @id @default(autoincrement())
               user                User                @relation(fields: [userId], references: [id])
               userId              String
-              dummy String?
+              dummy               String?
+
+              @@unique([userId])
             }
             enum Role {
                 USER
@@ -2338,6 +2342,8 @@ describe('non list optional properties should be nullable', () => {
               id String @id
               user User? @relation(fields: [userId], references: [id])
               userId String?
+
+              @@unique([userId])
             }
             model Article {
               id String @id
