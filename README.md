@@ -10,8 +10,16 @@ Generate object types, inputs, args, etc. from prisma schema file for usage with
 
 ## Install
 
+Prisma v3
+
 ```sh
 npm install --save-dev prisma-nestjs-graphql
+```
+
+Prisma v4
+
+```
+npm install --save-dev prisma-nestjs-graphql@next
 ```
 
 ## Usage
