@@ -10,7 +10,7 @@ import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-upd
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
 
 @InputType()
-export class ArticleUncheckedUpdateManyWithoutFavoritedByInput {
+export class ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput {
   @Field(() => [ArticleCreateWithoutFavoritedByInput], { nullable: true })
   @Type(() => ArticleCreateWithoutFavoritedByInput)
   create?: Array<ArticleCreateWithoutFavoritedByInput>;

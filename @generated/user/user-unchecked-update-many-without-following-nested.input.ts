@@ -10,7 +10,7 @@ import { UserUpdateManyWithWhereWithoutFollowingInput } from './user-update-many
 import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
-export class UserUpdateManyWithoutFollowingInput {
+export class UserUncheckedUpdateManyWithoutFollowingNestedInput {
   @Field(() => [UserCreateWithoutFollowingInput], { nullable: true })
   @Type(() => UserCreateWithoutFollowingInput)
   create?: Array<UserCreateWithoutFollowingInput>;

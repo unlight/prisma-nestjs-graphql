@@ -2,16 +2,16 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUncheckedUpdateManyWithoutFollowersInput } from './user-unchecked-update-many-without-followers.input';
+import { UserUncheckedUpdateManyWithoutFollowersNestedInput } from './user-unchecked-update-many-without-followers-nested.input';
 import { Type } from 'class-transformer';
-import { UserUncheckedUpdateManyWithoutFollowingInput } from './user-unchecked-update-many-without-following.input';
-import { ArticleUncheckedUpdateManyWithoutFavoritedByInput } from '../article/article-unchecked-update-many-without-favorited-by.input';
-import { ArticleUncheckedUpdateManyWithoutAuthorInput } from '../article/article-unchecked-update-many-without-author.input';
+import { UserUncheckedUpdateManyWithoutFollowingNestedInput } from './user-unchecked-update-many-without-following-nested.input';
+import { ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput } from '../article/article-unchecked-update-many-without-favorited-by-nested.input';
+import { ArticleUncheckedUpdateManyWithoutAuthorNestedInput } from '../article/article-unchecked-update-many-without-author-nested.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
-import { ProfileUncheckedUpdateOneWithoutUserInput } from '../profile/profile-unchecked-update-one-without-user.input';
+import { ProfileUncheckedUpdateOneWithoutUserNestedInput } from '../profile/profile-unchecked-update-one-without-user-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutCommentsInput {
@@ -33,19 +33,21 @@ export class UserUncheckedUpdateWithoutCommentsInput {
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
   image?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowersInput, { nullable: true })
-  @Type(() => UserUncheckedUpdateManyWithoutFollowersInput)
-  following?: UserUncheckedUpdateManyWithoutFollowersInput;
+  @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, { nullable: true })
+  @Type(() => UserUncheckedUpdateManyWithoutFollowersNestedInput)
+  following?: UserUncheckedUpdateManyWithoutFollowersNestedInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowingInput, { nullable: true })
-  @Type(() => UserUncheckedUpdateManyWithoutFollowingInput)
-  followers?: UserUncheckedUpdateManyWithoutFollowingInput;
+  @Field(() => UserUncheckedUpdateManyWithoutFollowingNestedInput, { nullable: true })
+  @Type(() => UserUncheckedUpdateManyWithoutFollowingNestedInput)
+  followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByInput, { nullable: true })
-  favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByInput;
+  @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput, {
+    nullable: true,
+  })
+  favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutAuthorInput, { nullable: true })
-  articles?: ArticleUncheckedUpdateManyWithoutAuthorInput;
+  @Field(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
   countComments?: NullableIntFieldUpdateOperationsInput;
@@ -60,6 +62,6 @@ export class UserUncheckedUpdateWithoutCommentsInput {
   @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
   role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-  @Field(() => ProfileUncheckedUpdateOneWithoutUserInput, { nullable: true })
-  profile?: ProfileUncheckedUpdateOneWithoutUserInput;
+  @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, { nullable: true })
+  profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 }

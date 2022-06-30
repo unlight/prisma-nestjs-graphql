@@ -8,7 +8,7 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.input';
 
 @InputType()
-export class UserUpdateOneRequiredWithoutCommentsInput {
+export class UserUpdateOneRequiredWithoutCommentsNestedInput {
   @Field(() => UserCreateWithoutCommentsInput, { nullable: true })
   @Type(() => UserCreateWithoutCommentsInput)
   create?: UserCreateWithoutCommentsInput;

@@ -8,7 +8,7 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comments.input';
 
 @InputType()
-export class ArticleUpdateOneWithoutCommentsInput {
+export class ArticleUpdateOneWithoutCommentsNestedInput {
   @Field(() => ArticleCreateWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleCreateWithoutCommentsInput)
   create?: ArticleCreateWithoutCommentsInput;

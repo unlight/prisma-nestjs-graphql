@@ -10,7 +10,7 @@ import { ArticleUpdateManyWithWhereWithoutTagsInput } from './article-update-man
 import { ArticleScalarWhereInput } from './article-scalar-where.input';
 
 @InputType()
-export class ArticleUpdateManyWithoutTagsInput {
+export class ArticleUncheckedUpdateManyWithoutTagsNestedInput {
   @Field(() => [ArticleCreateWithoutTagsInput], { nullable: true })
   @Type(() => ArticleCreateWithoutTagsInput)
   create?: Array<ArticleCreateWithoutTagsInput>;

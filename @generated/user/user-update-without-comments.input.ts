@@ -2,16 +2,16 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUpdateManyWithoutFollowersInput } from './user-update-many-without-followers.input';
+import { UserUpdateManyWithoutFollowersNestedInput } from './user-update-many-without-followers-nested.input';
 import { Type } from 'class-transformer';
-import { UserUpdateManyWithoutFollowingInput } from './user-update-many-without-following.input';
-import { ArticleUpdateManyWithoutFavoritedByInput } from '../article/article-update-many-without-favorited-by.input';
-import { ArticleUpdateManyWithoutAuthorInput } from '../article/article-update-many-without-author.input';
+import { UserUpdateManyWithoutFollowingNestedInput } from './user-update-many-without-following-nested.input';
+import { ArticleUpdateManyWithoutFavoritedByNestedInput } from '../article/article-update-many-without-favorited-by-nested.input';
+import { ArticleUpdateManyWithoutAuthorNestedInput } from '../article/article-update-many-without-author-nested.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
-import { ProfileUpdateOneWithoutUserInput } from '../profile/profile-update-one-without-user.input';
+import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 
 @InputType()
 export class UserUpdateWithoutCommentsInput {
@@ -33,19 +33,19 @@ export class UserUpdateWithoutCommentsInput {
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
   image?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateManyWithoutFollowersInput, { nullable: true })
-  @Type(() => UserUpdateManyWithoutFollowersInput)
-  following?: UserUpdateManyWithoutFollowersInput;
+  @Field(() => UserUpdateManyWithoutFollowersNestedInput, { nullable: true })
+  @Type(() => UserUpdateManyWithoutFollowersNestedInput)
+  following?: UserUpdateManyWithoutFollowersNestedInput;
 
-  @Field(() => UserUpdateManyWithoutFollowingInput, { nullable: true })
-  @Type(() => UserUpdateManyWithoutFollowingInput)
-  followers?: UserUpdateManyWithoutFollowingInput;
+  @Field(() => UserUpdateManyWithoutFollowingNestedInput, { nullable: true })
+  @Type(() => UserUpdateManyWithoutFollowingNestedInput)
+  followers?: UserUpdateManyWithoutFollowingNestedInput;
 
-  @Field(() => ArticleUpdateManyWithoutFavoritedByInput, { nullable: true })
-  favoriteArticles?: ArticleUpdateManyWithoutFavoritedByInput;
+  @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, { nullable: true })
+  favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
 
-  @Field(() => ArticleUpdateManyWithoutAuthorInput, { nullable: true })
-  articles?: ArticleUpdateManyWithoutAuthorInput;
+  @Field(() => ArticleUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  articles?: ArticleUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
   countComments?: NullableIntFieldUpdateOperationsInput;
@@ -60,6 +60,6 @@ export class UserUpdateWithoutCommentsInput {
   @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
   role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-  @Field(() => ProfileUpdateOneWithoutUserInput, { nullable: true })
-  profile?: ProfileUpdateOneWithoutUserInput;
+  @Field(() => ProfileUpdateOneWithoutUserNestedInput, { nullable: true })
+  profile?: ProfileUpdateOneWithoutUserNestedInput;
 }

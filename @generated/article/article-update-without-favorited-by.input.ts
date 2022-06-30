@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { TagUpdateManyWithoutArticlesInput } from '../tag/tag-update-many-without-articles.input';
+import { TagUpdateManyWithoutArticlesNestedInput } from '../tag/tag-update-many-without-articles-nested.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { UserUpdateOneRequiredWithoutArticlesInput } from '../user/user-update-one-required-without-articles.input';
+import { UserUpdateOneRequiredWithoutArticlesNestedInput } from '../user/user-update-one-required-without-articles-nested.input';
 import { Type } from 'class-transformer';
-import { CommentUpdateManyWithoutArticleInput } from '../comment/comment-update-many-without-article.input';
+import { CommentUpdateManyWithoutArticleNestedInput } from '../comment/comment-update-many-without-article-nested.input';
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
@@ -26,8 +26,8 @@ export class ArticleUpdateWithoutFavoritedByInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => TagUpdateManyWithoutArticlesInput, { nullable: true })
-  tags?: TagUpdateManyWithoutArticlesInput;
+  @Field(() => TagUpdateManyWithoutArticlesNestedInput, { nullable: true })
+  tags?: TagUpdateManyWithoutArticlesNestedInput;
 
   @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
   createdAt?: DateTimeFieldUpdateOperationsInput;
@@ -38,12 +38,12 @@ export class ArticleUpdateWithoutFavoritedByInput {
   @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
   favoritesCount?: IntFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutArticlesInput, { nullable: true })
-  @Type(() => UserUpdateOneRequiredWithoutArticlesInput)
-  author?: UserUpdateOneRequiredWithoutArticlesInput;
+  @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, { nullable: true })
+  @Type(() => UserUpdateOneRequiredWithoutArticlesNestedInput)
+  author?: UserUpdateOneRequiredWithoutArticlesNestedInput;
 
-  @Field(() => CommentUpdateManyWithoutArticleInput, { nullable: true })
-  comments?: CommentUpdateManyWithoutArticleInput;
+  @Field(() => CommentUpdateManyWithoutArticleNestedInput, { nullable: true })
+  comments?: CommentUpdateManyWithoutArticleNestedInput;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;

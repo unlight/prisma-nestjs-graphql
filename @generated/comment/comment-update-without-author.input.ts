@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { HideField } from '@nestjs/graphql';
-import { ArticleUpdateOneWithoutCommentsInput } from '../article/article-update-one-without-comments.input';
+import { ArticleUpdateOneWithoutCommentsNestedInput } from '../article/article-update-one-without-comments-nested.input';
 
 @InputType()
 export class CommentUpdateWithoutAuthorInput {
@@ -19,6 +19,6 @@ export class CommentUpdateWithoutAuthorInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUpdateOneWithoutCommentsInput, { nullable: true })
-  article?: ArticleUpdateOneWithoutCommentsInput;
+  @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, { nullable: true })
+  article?: ArticleUpdateOneWithoutCommentsNestedInput;
 }

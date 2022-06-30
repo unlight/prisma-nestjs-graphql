@@ -346,13 +346,13 @@ describe('nested object decorate', () => {
         model Job {
           id          Int      @id
           salaryId    Int?
-          salary Salary? @relation(fields: [salaryId], references: [id], onDelete: Cascade)
+          salary      Salary? @relation(fields: [salaryId], references: [id], onDelete: Cascade)
         }
         model Salary {
           id         Int      @id
           from       Decimal
           to         Decimal
-          job Job[]
+          job        Job[]
         }
         `,
       options: `
@@ -391,7 +391,7 @@ describe('nested object decorate', () => {
       it(property, () => {
         const s = testSourceFile({
           project,
-          class: 'JobUncheckedUpdateManyWithoutSalaryInput',
+          class: 'JobUncheckedUpdateManyWithoutSalaryNestedInput',
           property,
         });
 
