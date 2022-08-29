@@ -42,12 +42,15 @@ export class UserUpdateWithoutProfileInput {
   followers?: UserUpdateManyWithoutFollowingNestedInput;
 
   @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
   favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
 
   @Field(() => ArticleUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateManyWithoutAuthorNestedInput)
   articles?: ArticleUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => CommentUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => CommentUpdateManyWithoutAuthorNestedInput)
   comments?: CommentUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })

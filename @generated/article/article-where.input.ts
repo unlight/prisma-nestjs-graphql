@@ -60,6 +60,7 @@ export class ArticleWhereInput {
   favoritedBy?: UserListRelationFilter;
 
   @Field(() => CommentListRelationFilter, { nullable: true })
+  @Type(() => CommentListRelationFilter)
   comments?: CommentListRelationFilter;
 
   @Field(() => BoolNullableFilter, { nullable: true })

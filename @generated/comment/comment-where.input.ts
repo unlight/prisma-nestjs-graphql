@@ -38,6 +38,7 @@ export class CommentWhereInput {
   authorId?: StringFilter;
 
   @Field(() => ArticleWhereInput, { nullable: true })
+  @Type(() => ArticleWhereInput)
   article?: ArticleWhereInput;
 
   @Field(() => StringNullableFilter, { nullable: true })

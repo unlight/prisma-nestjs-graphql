@@ -49,6 +49,7 @@ export class ArticleOrderByWithRelationAndSearchRelevanceInput {
   favoritedBy?: UserOrderByRelationAggregateInput;
 
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
+  @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
 
   @Field(() => SortOrder, { nullable: true })

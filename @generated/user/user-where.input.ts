@@ -53,12 +53,15 @@ export class UserWhereInput {
   followers?: UserListRelationFilter;
 
   @Field(() => ArticleListRelationFilter, { nullable: true })
+  @Type(() => ArticleListRelationFilter)
   favoriteArticles?: ArticleListRelationFilter;
 
   @Field(() => ArticleListRelationFilter, { nullable: true })
+  @Type(() => ArticleListRelationFilter)
   articles?: ArticleListRelationFilter;
 
   @Field(() => CommentListRelationFilter, { nullable: true })
+  @Type(() => CommentListRelationFilter)
   comments?: CommentListRelationFilter;
 
   @Field(() => IntNullableFilter, { nullable: true })
@@ -75,5 +78,6 @@ export class UserWhereInput {
   role?: EnumRoleNullableFilter;
 
   @Field(() => ProfileWhereInput, { nullable: true })
+  @Type(() => ProfileWhereInput)
   profile?: ProfileWhereInput;
 }

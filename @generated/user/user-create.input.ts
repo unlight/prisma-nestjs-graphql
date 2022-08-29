@@ -48,12 +48,15 @@ export class UserCreateInput {
   followers?: UserCreateNestedManyWithoutFollowingInput;
 
   @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, { nullable: true })
+  @Type(() => ArticleCreateNestedManyWithoutFavoritedByInput)
   favoriteArticles?: ArticleCreateNestedManyWithoutFavoritedByInput;
 
   @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => ArticleCreateNestedManyWithoutAuthorInput)
   articles?: ArticleCreateNestedManyWithoutAuthorInput;
 
   @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => CommentCreateNestedManyWithoutAuthorInput)
   comments?: CommentCreateNestedManyWithoutAuthorInput;
 
   @Field(() => Int, { nullable: true })
@@ -71,5 +74,6 @@ export class UserCreateInput {
   role?: keyof typeof Role;
 
   @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
+  @Type(() => ProfileCreateNestedOneWithoutUserInput)
   profile?: ProfileCreateNestedOneWithoutUserInput;
 }

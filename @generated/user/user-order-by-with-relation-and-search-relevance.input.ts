@@ -37,12 +37,15 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   followers?: UserOrderByRelationAggregateInput;
 
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
+  @Type(() => ArticleOrderByRelationAggregateInput)
   favoriteArticles?: ArticleOrderByRelationAggregateInput;
 
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
+  @Type(() => ArticleOrderByRelationAggregateInput)
   articles?: ArticleOrderByRelationAggregateInput;
 
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
+  @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
 
   @Field(() => SortOrder, { nullable: true })
@@ -58,6 +61,7 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   role?: keyof typeof SortOrder;
 
   @Field(() => ProfileOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+  @Type(() => ProfileOrderByWithRelationAndSearchRelevanceInput)
   profile?: ProfileOrderByWithRelationAndSearchRelevanceInput;
 
   @Field(() => UserOrderByRelevanceInput, { nullable: true })

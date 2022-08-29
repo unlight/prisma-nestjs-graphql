@@ -23,5 +23,6 @@ export class CommentCreateInput {
   author!: UserCreateNestedOneWithoutCommentsInput;
 
   @Field(() => ArticleCreateNestedOneWithoutCommentsInput, { nullable: true })
+  @Type(() => ArticleCreateNestedOneWithoutCommentsInput)
   article?: ArticleCreateNestedOneWithoutCommentsInput;
 }

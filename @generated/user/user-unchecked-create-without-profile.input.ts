@@ -49,12 +49,15 @@ export class UserUncheckedCreateWithoutProfileInput {
   @Field(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput, {
     nullable: true,
   })
+  @Type(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput)
   favoriteArticles?: ArticleUncheckedCreateNestedManyWithoutFavoritedByInput;
 
   @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
   articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
 
   @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
   comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
 
   @Field(() => Int, { nullable: true })

@@ -38,12 +38,15 @@ export class UserUpdateWithoutFollowersInput {
   following?: UserUpdateManyWithoutFollowersNestedInput;
 
   @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
   favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
 
   @Field(() => ArticleUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateManyWithoutAuthorNestedInput)
   articles?: ArticleUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => CommentUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => CommentUpdateManyWithoutAuthorNestedInput)
   comments?: CommentUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
@@ -60,5 +63,6 @@ export class UserUpdateWithoutFollowersInput {
   role?: NullableEnumRoleFieldUpdateOperationsInput;
 
   @Field(() => ProfileUpdateOneWithoutUserNestedInput, { nullable: true })
+  @Type(() => ProfileUpdateOneWithoutUserNestedInput)
   profile?: ProfileUpdateOneWithoutUserNestedInput;
 }

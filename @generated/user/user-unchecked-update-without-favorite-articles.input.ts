@@ -42,9 +42,11 @@ export class UserUncheckedUpdateWithoutFavoriteArticlesInput {
   followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput;
 
   @Field(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput)
   articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput)
   comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
@@ -61,5 +63,6 @@ export class UserUncheckedUpdateWithoutFavoriteArticlesInput {
   role?: NullableEnumRoleFieldUpdateOperationsInput;
 
   @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, { nullable: true })
+  @Type(() => ProfileUncheckedUpdateOneWithoutUserNestedInput)
   profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 }

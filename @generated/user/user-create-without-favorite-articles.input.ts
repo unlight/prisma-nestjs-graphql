@@ -47,9 +47,11 @@ export class UserCreateWithoutFavoriteArticlesInput {
   followers?: UserCreateNestedManyWithoutFollowingInput;
 
   @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => ArticleCreateNestedManyWithoutAuthorInput)
   articles?: ArticleCreateNestedManyWithoutAuthorInput;
 
   @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => CommentCreateNestedManyWithoutAuthorInput)
   comments?: CommentCreateNestedManyWithoutAuthorInput;
 
   @Field(() => Int, { nullable: true })
@@ -67,5 +69,6 @@ export class UserCreateWithoutFavoriteArticlesInput {
   role?: keyof typeof Role;
 
   @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
+  @Type(() => ProfileCreateNestedOneWithoutUserInput)
   profile?: ProfileCreateNestedOneWithoutUserInput;
 }

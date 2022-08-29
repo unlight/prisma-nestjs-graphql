@@ -49,9 +49,11 @@ export class UserUncheckedCreateWithoutArticlesInput {
   @Field(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput, {
     nullable: true,
   })
+  @Type(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput)
   favoriteArticles?: ArticleUncheckedCreateNestedManyWithoutFavoritedByInput;
 
   @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
   comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
 
   @Field(() => Int, { nullable: true })
@@ -69,5 +71,6 @@ export class UserUncheckedCreateWithoutArticlesInput {
   role?: keyof typeof Role;
 
   @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, { nullable: true })
+  @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
   profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 }

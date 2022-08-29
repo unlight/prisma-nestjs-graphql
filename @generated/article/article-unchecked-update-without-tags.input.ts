@@ -44,6 +44,7 @@ export class ArticleUncheckedUpdateWithoutTagsInput {
   favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput;
 
   @Field(() => CommentUncheckedUpdateManyWithoutArticleNestedInput, { nullable: true })
+  @Type(() => CommentUncheckedUpdateManyWithoutArticleNestedInput)
   comments?: CommentUncheckedUpdateManyWithoutArticleNestedInput;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })

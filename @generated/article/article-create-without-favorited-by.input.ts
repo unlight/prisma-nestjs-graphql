@@ -41,6 +41,7 @@ export class ArticleCreateWithoutFavoritedByInput {
   author!: UserCreateNestedOneWithoutArticlesInput;
 
   @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
+  @Type(() => CommentCreateNestedManyWithoutArticleInput)
   comments?: CommentCreateNestedManyWithoutArticleInput;
 
   @Field(() => Boolean, { nullable: true })

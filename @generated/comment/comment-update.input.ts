@@ -26,5 +26,6 @@ export class CommentUpdateInput {
   author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
 
   @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
   article?: ArticleUpdateOneWithoutCommentsNestedInput;
 }

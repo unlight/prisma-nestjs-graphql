@@ -28,6 +28,7 @@ export class CommentOrderByWithRelationAndSearchRelevanceInput {
   authorId?: keyof typeof SortOrder;
 
   @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
+  @Type(() => ArticleOrderByWithRelationAndSearchRelevanceInput)
   article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
 
   @Field(() => SortOrder, { nullable: true })

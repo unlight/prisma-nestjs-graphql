@@ -43,6 +43,7 @@ export class ArticleUpdateWithoutAuthorInput {
   favoritedBy?: UserUpdateManyWithoutFavoriteArticlesNestedInput;
 
   @Field(() => CommentUpdateManyWithoutArticleNestedInput, { nullable: true })
+  @Type(() => CommentUpdateManyWithoutArticleNestedInput)
   comments?: CommentUpdateManyWithoutArticleNestedInput;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })

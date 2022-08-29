@@ -4,6 +4,7 @@ import { TagUncheckedCreateNestedManyWithoutArticlesInput } from '../tag/tag-unc
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { CommentUncheckedCreateNestedManyWithoutArticleInput } from '../comment/comment-unchecked-create-nested-many-without-article.input';
+import { Type } from 'class-transformer';
 
 @InputType()
 export class ArticleUncheckedCreateWithoutFavoritedByInput {
@@ -38,6 +39,7 @@ export class ArticleUncheckedCreateWithoutFavoritedByInput {
   authorId!: string;
 
   @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
+  @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
   comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 
   @Field(() => Boolean, { nullable: true })
