@@ -354,6 +354,27 @@ describe('nested object decorate', () => {
           to         Decimal
           job        Job[]
         }
+        model Employee {
+          id              String         @id @default(cuid())
+          salaryHistoryId String?        @unique
+          salaryHistory   SalaryHistory? @relation(name: "employeeSalaryHistory", fields: [salaryHistoryId], references: [id], onDelete: SetNull)
+        }
+        model SalaryHistory {
+          id         String   @id @default(cuid())
+          currencyId String   @db.Char(3)
+          createdAt  DateTime @default(now())
+          updatedAt  DateTime @updatedAt
+          history               SalaryHistoryRecord[]
+          employeeSalaryHistory Employee?             @relation(name: "employeeSalaryHistory")
+        }
+        model SalaryHistoryRecord {
+          id              String  @id @default(cuid())
+          salaryHistoryId String
+          year            Int     @db.SmallInt
+          from            Decimal @db.Decimal(15, 2)
+          to              Decimal @db.Decimal(15, 2)
+          salaryHistory SalaryHistory @relation(fields: [salaryHistoryId], references: [id], onDelete: Cascade)
+        }
         `,
       options: `
         noAtomicOperations = true
@@ -400,6 +421,18 @@ describe('nested object decorate', () => {
         );
       });
     });
+  });
+
+  it('property data should be decorated', () => {
+    const s = testSourceFile({
+      project,
+      class: 'EmployeeUpdateInput',
+      property: 'salaryHistory',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'Type' }),
+    );
   });
 
   it('property data should be decorated', () => {

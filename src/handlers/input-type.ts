@@ -189,7 +189,8 @@ export function inputType(
       });
 
       // Debug
-      // if (classStructure.name === 'XCreateInput') {
+      // if (classStructure.name === 'XInput') {
+      //   console.log('------------');
       //   console.log({
       //     field,
       //     property,
@@ -236,7 +237,15 @@ export function inputType(
             'upsert',
             'where',
           ].includes(name) ||
-          classTransformerTypeModels.has(getModelName(graphqlType) || ''))
+          classTransformerTypeModels.has(getModelName(graphqlType) || '') ||
+          (modelField?.kind === 'object' &&
+            models.get(modelField.type) &&
+            models
+              .get(modelField.type)
+              ?.fields.some(
+                field =>
+                  field.kind === 'object' && classTransformerTypeModels.has(field.type),
+              )))
       ) {
         importDeclarations.add('Type', 'class-transformer');
         property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
