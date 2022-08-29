@@ -1,3 +1,10 @@
+## [17.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.0...v17.0.1) (2022-08-29)
+
+
+### Bug Fixes
+
+* **other:** Decimal convert error ([67e6ccf](https://github.com/unlight/nestjs-graphql-prisma/commit/67e6ccfa8f965d23342539e20664f33b9abf940c)), closes [#113](https://github.com/unlight/nestjs-graphql-prisma/issues/113)
+
 ## [17.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v16.0.1...v17.0.0) (2022-06-30)
 
 
