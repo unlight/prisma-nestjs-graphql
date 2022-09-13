@@ -712,6 +712,7 @@ export class User {}
 - https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
 - https://github.com/EndyKaufman/typegraphql-prisma-nestjs
 - https://github.com/MichalLytek/typegraphql-prisma
+- https://github.com/mk668a/nestjs-prisma-graphql-crud-gen
 
 ## Resources
 
