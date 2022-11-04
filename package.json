@@ -1,13 +1,13 @@
 {
-  "name": "prisma-nestjs-graphql",
-  "version": "0.0.0-dev",
+  "name": "prisma-nestjs-graphql-swagger",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
   "main": "index.js",
   "bin": "bin.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unlight/nestjs-graphql-prisma.git"
+    "url": "git+https://github.com/wisekaa03/prisma-nestjs-graphql.git"
   },
   "bugs": {
     "url": "https://github.com/unlight/nestjs-graphql-prisma/issues"
@@ -16,9 +16,11 @@
   "keywords": [
     "nestjs",
     "graphql",
+    "swagger",
     "prisma",
     "prisma-generator",
-    "nestjs-graphql"
+    "nestjs-graphql",
+    "nestjs-swagger"
   ],
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
