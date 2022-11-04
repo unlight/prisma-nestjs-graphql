@@ -6,6 +6,7 @@ import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
+import { getSwaggerImport } from '../helpers/get-swagger-import';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { propertyStructure } from '../helpers/property-structure';
@@ -94,6 +95,7 @@ export function inputType(
       input: true,
     });
     const modelField = model?.fields.find(f => f.name === name);
+    const description = modelField?.documentation || '?';
     const isCustomsApplicable = typeName === modelField?.type;
     const propertyType = castArray(
       propertySettings?.name ||
@@ -119,6 +121,7 @@ export function inputType(
 
     // Get graphql type
     let graphqlType: string;
+    let swaggerType: string;
     const shouldHideField =
       settings?.shouldHideField({
         name: inputType.name,
@@ -139,6 +142,7 @@ export function inputType(
 
     if (fieldType && isCustomsApplicable && !shouldHideField) {
       graphqlType = fieldType.name;
+      swaggerType = graphqlType;
       importDeclarations.create({ ...fieldType });
     } else {
       // Import property type class
@@ -151,6 +155,17 @@ export function inputType(
       });
 
       graphqlType = graphqlImport.name;
+      const swaggerImport = getSwaggerImport({
+        config,
+        sourceFile,
+        location,
+        typeName,
+        getSourceFile,
+      });
+      swaggerType = swaggerImport.name;
+      if (modelField?.isList) {
+        swaggerType = `[${swaggerType}]`;
+      }
       let referenceName = propertyType[0];
       if (location === 'enumTypes') {
         referenceName = last(referenceName.split(' ')) as string;
@@ -259,7 +274,16 @@ export function inputType(
           ) {
             property.decorators.push({
               name: options.name,
-              arguments: options.arguments as string[],
+              arguments: (options.arguments as string[])?.map(x =>
+                pupa(x, {
+                  propertyType,
+                  modelField,
+                  description,
+                  graphqlType,
+                  swaggerType,
+                  isRequired,
+                }),
+              ),
             });
             ok(options.from, "Missed 'from' part in configuration or field setting");
             importDeclarations.create(options);
@@ -271,7 +295,16 @@ export function inputType(
         if (decorate.isMatchField(name) && decorate.isMatchType(inputType.name)) {
           property.decorators.push({
             name: decorate.name,
-            arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
+            arguments: decorate.arguments?.map(x =>
+              pupa(x, {
+                propertyType,
+                modelField,
+                description,
+                graphqlType,
+                swaggerType,
+                isRequired,
+              }),
+            ),
           });
           importDeclarations.create(decorate);
         }

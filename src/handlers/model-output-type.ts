@@ -12,6 +12,7 @@ import {
 
 import { createComment } from '../helpers/create-comment';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
+import { getSwaggerImport } from '../helpers/get-swagger-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
@@ -115,9 +116,11 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     let graphqlType: string;
+    let swaggerType: string;
 
     if (fieldType) {
       graphqlType = fieldType.name;
+      swaggerType = fieldType.name;
       importDeclarations.create({ ...fieldType });
     } else {
       const graphqlImport = getGraphqlImport({
@@ -130,8 +133,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         typeName: outputTypeName,
         getSourceFile,
       });
+      const swaggerImport = getSwaggerImport({
+        config,
+        sourceFile,
+        fileType,
+        location,
+        isId: modelField?.isId,
+        noTypeId: config.noTypeId,
+        typeName: outputTypeName,
+        getSourceFile,
+      });
 
       graphqlType = graphqlImport.name;
+      swaggerType = swaggerImport.name;
 
       if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
         importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
@@ -187,7 +201,16 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         if (shouldBeDecorated(setting) && (setting.match?.(field.name) ?? true)) {
           property.decorators.push({
             name: setting.name,
-            arguments: setting.arguments as string[],
+            arguments: (setting.arguments as string[])?.map(x =>
+              pupa(x, {
+                propertyType,
+                modelField,
+                description: modelField?.documentation || '',
+                graphqlType,
+                swaggerType,
+                isRequired: !Boolean(field.isNullable),
+              }),
+            ),
           });
           ok(setting.from, "Missed 'from' part in configuration or field setting");
           importDeclarations.create(setting);
@@ -198,7 +221,16 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         if (decorate.isMatchField(field.name) && decorate.isMatchType(outputTypeName)) {
           property.decorators.push({
             name: decorate.name,
-            arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
+            arguments: decorate.arguments?.map(x =>
+              pupa(x, {
+                propertyType,
+                modelField,
+                description: modelField?.documentation || '',
+                graphqlType,
+                swaggerType,
+                isRequired: !Boolean(field.isNullable),
+              }),
+            ),
           });
           importDeclarations.create(decorate);
         }

@@ -1,5 +1,6 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
+import pupa from 'pupa';
 import { castArray, last } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
@@ -174,7 +175,16 @@ export function outputType(outputType: OutputType, args: EventArguments) {
           ) {
             property.decorators.push({
               name: options.name,
-              arguments: options.arguments as string[],
+              arguments: (options?.arguments as string[])?.map(x =>
+                pupa(x, {
+                  propertyType,
+                  modelField: {},
+                  description: '',
+                  graphqlType,
+                  swaggerType: graphqlType,
+                  isRequired: false,
+                }),
+              ),
             });
             ok(options.from, "Missed 'from' part in configuration or field setting");
             importDeclarations.create(options);
