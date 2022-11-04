@@ -1,6 +1,6 @@
 {
   "name": "prisma-nestjs-graphql-swagger",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
   "main": "index.js",
