@@ -1,3 +1,11 @@
+## [17.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.1...v17.0.2) (2022-11-20)
+
+
+### Bug Fixes
+
+* Fix: Handle `FindUniq/First..OrThrowArgs` name ([0419d0d](https://github.com/unlight/nestjs-graphql-prisma/commit/0419d0d3e76f890d1b04c35b3fff12ba5cf42668))
+* Pin `ts-morph` to specific range ([d076fe9](https://github.com/unlight/nestjs-graphql-prisma/commit/d076fe9381771093b7f45a3b4676d06627c812e3)), closes [#146](https://github.com/unlight/nestjs-graphql-prisma/issues/146)
+
 ## [17.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.0...v17.0.1) (2022-08-29)
 
 
