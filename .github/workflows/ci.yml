@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: 'Install depependencies'
-        run: npm install
+        run: npm install --force
       - name: 'Test'
         run: |
           npm run regen
@@ -47,7 +47,7 @@ jobs:
         with:
           node-version: 18
       - name: 'Install depependencies'
-        run: npm install
+        run: npm install --force
       - name: 'Build'
         run: npm run build
       - name: 'Release'
