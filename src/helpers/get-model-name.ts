@@ -116,6 +116,8 @@ const endsWithKeywords = [
 ];
 
 const middleKeywords = [
+  ['FindFirst', 'OrThrowArgs'],
+  ['FindUnique', 'OrThrowArgs'],
   ['Aggregate', 'Args'],
   ['CreateOne', 'Args'],
   ['DeleteMany', 'Args'],
