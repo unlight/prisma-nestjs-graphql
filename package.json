@@ -62,7 +62,7 @@
     "outmatch": "^0.7.0",
     "pluralize": "^8.0.0",
     "pupa": "2.X",
-    "ts-morph": ">=11"
+    "ts-morph": ">=11 <=16"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
