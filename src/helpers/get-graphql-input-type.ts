@@ -60,6 +60,18 @@ export function getGraphqlInputType(
     }
   }
 
+  if (
+    (countTypes.scalar === 1 || countTypes.enumTypes === 1) &&
+    countTypes.fieldRefTypes === 1
+  ) {
+    result = inputTypes.find(
+      x => x.location === 'scalar' || x.location === 'enumTypes',
+    );
+    if (result) {
+      return result;
+    }
+  }
+
   throw new TypeError(
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     `Cannot get matching input type from ${

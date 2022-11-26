@@ -121,7 +121,7 @@ async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["fullTextSearch", "referentialIntegrity", "fullTextIndex"]
+            previewFeatures = ["fullTextSearch", "referentialIntegrity", "fullTextIndex", "fieldReference", "filteredRelationCount"]
         }
     `;
   // eslint-disable-next-line prefer-rest-params
