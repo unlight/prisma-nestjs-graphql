@@ -14,12 +14,14 @@ export function argsType(field: SchemaField, args: EventArguments) {
   const modelName = getModelName(className) || '';
 
   switch (className) {
-    case `Aggregate${modelName}Args`:
+    case `Aggregate${modelName}Args`: {
       className = `${modelName}AggregateArgs`;
       break;
-    case `GroupBy${modelName}Args`:
+    }
+    case `GroupBy${modelName}Args`: {
       className = `${modelName}GroupByArgs`;
       break;
+    }
   }
 
   const inputType: InputType = {

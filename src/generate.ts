@@ -97,12 +97,10 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     eventEmitter,
   });
-  const {
-    datamodel,
-    schema: { inputObjectTypes, outputObjectTypes, enumTypes },
-  } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
+    schema,
     models,
     config,
     modelNames,
@@ -134,6 +132,8 @@ export async function generate(
   for (const model of datamodel.types || []) {
     await eventEmitter.emit('Model', model, eventArguments);
   }
+
+  const { inputObjectTypes, outputObjectTypes, enumTypes } = schema;
 
   await eventEmitter.emit('PostBegin', eventArguments);
 

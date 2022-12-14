@@ -2,12 +2,15 @@ import { FieldLocation } from '../types';
 
 export function fileTypeByLocation(fieldLocation: FieldLocation) {
   switch (fieldLocation) {
-    case 'inputObjectTypes':
+    case 'inputObjectTypes': {
       return 'input';
-    case 'outputObjectTypes':
+    }
+    case 'outputObjectTypes': {
       return 'output';
-    case 'enumTypes':
+    }
+    case 'enumTypes': {
       return 'enum';
+    }
   }
   return 'object';
 }

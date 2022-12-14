@@ -1,4 +1,5 @@
 import AwaitEventEmitter from 'await-event-emitter';
+import { cloneDeep, keyBy, remove } from 'lodash';
 
 import { DMMF, EventArguments, InputType } from '../types';
 
@@ -8,6 +9,7 @@ import { DMMF, EventArguments, InputType } from '../types';
 export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
   eventEmitter.on('BeforeInputType', beforeInputType);
   eventEmitter.on('BeforeGenerateField', beforeGenerateField);
+  eventEmitter.on('PostBegin', postBegin);
 }
 
 function beforeInputType(
@@ -17,10 +19,11 @@ function beforeInputType(
     classDecoratorName: string;
   },
 ) {
-  const { inputType } = args;
+  const { inputType, removeTypes } = args;
 
   if (isContainBogus(inputType.name) && isScalarFilter(inputType)) {
-    inputType.name = replaceBogus(String(inputType.name));
+    removeTypes.add(inputType.name);
+    inputType.name = replaceBogus(inputType.name);
   }
 }
 
@@ -60,4 +63,49 @@ function isScalarFilter(inputType: InputType) {
     });
   }
   return result;
+}
+
+function postBegin(args: EventArguments) {
+  const { schema } = args;
+  const inputTypes = schema.inputObjectTypes.prisma;
+  const enumTypes = schema.enumTypes.model || [];
+  const types = ['Bool', 'Int', 'String', 'DateTime', 'Decimal', 'Float', 'Json'];
+
+  for (const enumType of enumTypes) {
+    const { name } = enumType;
+    types.push(`Enum${name}`);
+  }
+
+  const inputTypeByName = keyBy(inputTypes, inputType => inputType.name);
+  const replaceBogusFilters = (filterName: string, filterNameCandidates: string[]) => {
+    for (const filterNameCandidate of filterNameCandidates) {
+      const candidate = inputTypeByName[filterNameCandidate];
+      if (candidate as InputType | undefined) {
+        const inputType = cloneDeep({ ...candidate, name: filterName });
+        inputTypes.push(inputType);
+        inputTypeByName[filterName] = inputType;
+        break;
+      }
+    }
+  };
+
+  for (const type of types) {
+    // Scalar filters
+    replaceBogusFilters(`${type}Filter`, [
+      `${type}NullableFilter`,
+      `Nested${type}NullableFilter`,
+    ]);
+
+    replaceBogusFilters(`${type}WithAggregatesFilter`, [
+      `${type}NullableWithAggregatesFilter`,
+      `Nested${type}NullableWithAggregatesFilter`,
+    ]);
+
+    replaceBogusFilters(`${type}ListFilter`, [
+      `${type}NullableListFilter`,
+      `Nested${type}NullableListFilter`,
+    ]);
+  }
+
+  remove(inputTypes, inputType => isContainBogus(inputType.name));
 }

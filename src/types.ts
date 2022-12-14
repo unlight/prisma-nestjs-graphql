@@ -28,6 +28,7 @@ export type TypeRecord = Partial<{
 export type GeneratorConfiguration = ReturnType<typeof createConfig>;
 
 export type EventArguments = {
+  schema: DMMF.Schema;
   models: Map<string, Model>;
   modelNames: string[];
   modelFields: Map<string, Map<string, Field>>;

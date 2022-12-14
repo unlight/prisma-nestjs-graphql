@@ -75,6 +75,7 @@ export function inputType(
 
   for (const field of inputType.fields) {
     field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(String(t.type)));
+
     eventEmitter.emitSync('BeforeGenerateField', field, args);
 
     const { inputTypes, isRequired, name } = field;

@@ -37,20 +37,25 @@ export function getGraphqlImport(args: {
 
     switch (typeName) {
       case 'Float':
-      case 'Int':
+      case 'Int': {
         return { name: typeName, specifier: '@nestjs/graphql' };
-      case 'DateTime':
+      }
+      case 'DateTime': {
         return { name: 'Date', specifier: undefined };
+      }
       case 'true':
-      case 'Boolean':
+      case 'Boolean': {
         return { name: 'Boolean', specifier: undefined };
-      case 'Decimal':
+      }
+      case 'Decimal': {
         return {
           name: 'GraphQLDecimal',
           specifier: 'prisma-graphql-type-decimal',
         };
-      case 'Json':
+      }
+      case 'Json': {
         return { name: 'GraphQLJSON', specifier: 'graphql-type-json' };
+      }
     }
 
     return { name: 'String', specifier: undefined };

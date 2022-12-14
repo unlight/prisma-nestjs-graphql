@@ -63,7 +63,7 @@ export async function generateFiles(args: EventArguments) {
         continue;
       }
       switch (statement.kind) {
-        case StructureKind.ImportDeclaration:
+        case StructureKind.ImportDeclaration: {
           if (
             statement.moduleSpecifier.startsWith('./') ||
             statement.moduleSpecifier.startsWith('..')
@@ -89,12 +89,15 @@ export async function generateFiles(args: EventArguments) {
             });
           }
           break;
-        case StructureKind.Enum:
+        }
+        case StructureKind.Enum: {
           enums.unshift(statement);
           break;
-        case StructureKind.Class:
+        }
+        case StructureKind.Class: {
           classes.push(statement);
           break;
+        }
       }
     }
     sourceFile.set({

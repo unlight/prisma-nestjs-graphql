@@ -10,24 +10,33 @@ export function getPropertyType(args: {
   const { type, location } = args;
   switch (type) {
     case 'Float':
-    case 'Int':
+    case 'Int': {
       return ['number'];
-    case 'String':
+    }
+    case 'String': {
       return ['string'];
-    case 'Boolean':
+    }
+    case 'Boolean': {
       return ['boolean'];
-    case 'DateTime':
+    }
+    case 'DateTime': {
       return ['Date', 'string'];
-    case 'Decimal':
+    }
+    case 'Decimal': {
       return ['Decimal'];
-    case 'Json':
+    }
+    case 'Json': {
       return ['any'];
-    case 'Null':
+    }
+    case 'Null': {
       return ['null'];
-    case 'Bytes':
+    }
+    case 'Bytes': {
       return ['Buffer'];
-    case 'BigInt':
+    }
+    case 'BigInt': {
       return ['bigint', 'number'];
+    }
   }
   if (['inputObjectTypes', 'outputObjectTypes'].includes(location)) {
     return [type];
