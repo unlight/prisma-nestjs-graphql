@@ -20,6 +20,8 @@ describe('combine scalar filters', () => {
                 humanoid Boolean?
                 money Decimal?
                 data Json?
+                bytes Bytes?
+                bigint BigInt?
                 role Role?
             }
             enum Role {

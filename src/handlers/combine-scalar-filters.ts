@@ -69,7 +69,17 @@ function postBegin(args: EventArguments) {
   const { schema } = args;
   const inputTypes = schema.inputObjectTypes.prisma;
   const enumTypes = schema.enumTypes.model || [];
-  const types = ['Bool', 'Int', 'String', 'DateTime', 'Decimal', 'Float', 'Json'];
+  const types = [
+    'Bool',
+    'Int',
+    'String',
+    'DateTime',
+    'Decimal',
+    'Float',
+    'Json',
+    'Bytes',
+    'BigInt',
+  ];
 
   for (const enumType of enumTypes) {
     const { name } = enumType;
