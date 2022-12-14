@@ -1,3 +1,12 @@
+## [17.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.2...v17.0.3) (2022-12-14)
+
+
+### Bug Fixes
+
+* Combine scalar filters with `fieldReference` ([1f1ef9c](https://github.com/unlight/nestjs-graphql-prisma/commit/1f1ef9c39a2db9f86d83788cfc0eae2d9f55cda6)), closes [#148](https://github.com/unlight/nestjs-graphql-prisma/issues/148)
+* **combine scalars:** Bytes filter ([6b0a156](https://github.com/unlight/nestjs-graphql-prisma/commit/6b0a156535101a70dd40ccf1c103cde15ddccdeb))
+* Detect graphql type ([89a59cc](https://github.com/unlight/nestjs-graphql-prisma/commit/89a59cc7f496853c2627288aede37896efb33c08)), closes [#148](https://github.com/unlight/nestjs-graphql-prisma/issues/148)
+
 ## [17.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.1...v17.0.2) (2022-11-20)
 
 
