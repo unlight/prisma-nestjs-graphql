@@ -161,7 +161,17 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     ok(property.decorators, 'property.decorators is undefined');
 
-    if (settings?.shouldHideField({ name: outputType.name, output: true })) {
+    const shouldHideField =
+      settings?.shouldHideField({ name: outputType.name, output: true }) ||
+      config.decorate.some(
+        d =>
+          d.name === 'HideField' &&
+          d.from === '@nestjs/graphql' &&
+          d.isMatchField(field.name) &&
+          d.isMatchType(outputTypeName),
+      );
+
+    if (shouldHideField) {
       importDeclarations.add('HideField', nestjsGraphql);
       property.decorators.push({ name: 'HideField', arguments: [] });
     } else {

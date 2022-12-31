@@ -353,3 +353,41 @@ describe('hide with self reference', () => {
     );
   });
 });
+
+describe('hide _count', () => {
+  before(async () => {
+    ({ project } = await testGenerate({
+      schema: `
+        model Article {
+          id             String    @id
+          comments       Comment[]
+        }
+        model Comment {
+          id        String   @id
+          article   Article? @relation(fields: [articleId], references: [id])
+          articleId String?
+        }
+        `,
+      options: `
+  outputFilePattern = "{name}.{type}.ts"
+  decorate_1_type = "ArticleCount"
+  decorate_1_field = "_count"
+  decorate_1_name = "HideField"
+  decorate_1_from = "@nestjs/graphql"
+  decorate_1_arguments = "[]"
+        `,
+    }));
+  });
+
+  it('should hide _count in model', () => {
+    const s = testSourceFile({
+      project,
+      property: '_count',
+      class: 'Article',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({ name: 'HideField' }),
+    );
+  });
+});
