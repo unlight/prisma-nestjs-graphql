@@ -1,3 +1,10 @@
+## [17.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.3...v17.1.0) (2022-12-31)
+
+
+### Features
+
+* Allow hide property using decorate in config ([b83beeb](https://github.com/unlight/nestjs-graphql-prisma/commit/b83beeb15b289ee80d5ed96004273228625fab38))
+
 ## [17.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.2...v17.0.3) (2022-12-14)
 
 
