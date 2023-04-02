@@ -5,10 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ProfileCreateInput {
+  @Field(() => String, { nullable: true })
+  dummy?: string;
+
   @Field(() => UserCreateNestedOneWithoutProfileInput, { nullable: false })
   @Type(() => UserCreateNestedOneWithoutProfileInput)
   user!: UserCreateNestedOneWithoutProfileInput;
-
-  @Field(() => String, { nullable: true })
-  dummy?: string;
 }

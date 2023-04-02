@@ -2,15 +2,15 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { UserUpdateManyWithoutFollowersNestedInput } from './user-update-many-without-followers-nested.input';
-import { Type } from 'class-transformer';
-import { UserUpdateManyWithoutFollowingNestedInput } from './user-update-many-without-following-nested.input';
-import { ArticleUpdateManyWithoutFavoritedByNestedInput } from '../article/article-update-many-without-favorited-by-nested.input';
-import { ArticleUpdateManyWithoutAuthorNestedInput } from '../article/article-update-many-without-author-nested.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input';
+import { Type } from 'class-transformer';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
+import { UserUpdateManyWithoutFollowersNestedInput } from './user-update-many-without-followers-nested.input';
+import { UserUpdateManyWithoutFollowingNestedInput } from './user-update-many-without-following-nested.input';
+import { ArticleUpdateManyWithoutFavoritedByNestedInput } from '../article/article-update-many-without-favorited-by-nested.input';
+import { ArticleUpdateManyWithoutAuthorNestedInput } from '../article/article-update-many-without-author-nested.input';
 import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-update-one-without-user-nested.input';
 
 @InputType()
@@ -33,6 +33,19 @@ export class UserUpdateWithoutCommentsInput {
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
   image?: NullableStringFieldUpdateOperationsInput;
 
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  countComments?: NullableIntFieldUpdateOperationsInput;
+
+  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
+  rating?: NullableFloatFieldUpdateOperationsInput;
+
+  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
+  @Type(() => NullableDecimalFieldUpdateOperationsInput)
+  money?: NullableDecimalFieldUpdateOperationsInput;
+
+  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
+  role?: NullableEnumRoleFieldUpdateOperationsInput;
+
   @Field(() => UserUpdateManyWithoutFollowersNestedInput, { nullable: true })
   @Type(() => UserUpdateManyWithoutFollowersNestedInput)
   following?: UserUpdateManyWithoutFollowersNestedInput;
@@ -48,19 +61,6 @@ export class UserUpdateWithoutCommentsInput {
   @Field(() => ArticleUpdateManyWithoutAuthorNestedInput, { nullable: true })
   @Type(() => ArticleUpdateManyWithoutAuthorNestedInput)
   articles?: ArticleUpdateManyWithoutAuthorNestedInput;
-
-  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  countComments?: NullableIntFieldUpdateOperationsInput;
-
-  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  rating?: NullableFloatFieldUpdateOperationsInput;
-
-  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => NullableDecimalFieldUpdateOperationsInput)
-  money?: NullableDecimalFieldUpdateOperationsInput;
-
-  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-  role?: NullableEnumRoleFieldUpdateOperationsInput;
 
   @Field(() => ProfileUpdateOneWithoutUserNestedInput, { nullable: true })
   @Type(() => ProfileUpdateOneWithoutUserNestedInput)

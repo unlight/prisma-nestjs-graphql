@@ -1,14 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFilter } from '../prisma/string-filter.input';
-import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
+import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
 import { UserWhereInput } from '../user/user-where.input';
 import { Type } from 'class-transformer';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 
 @InputType()
 export class ArticleWhereInput {
@@ -36,9 +36,6 @@ export class ArticleWhereInput {
   @Field(() => StringFilter, { nullable: true })
   body?: StringFilter;
 
-  @Field(() => TagListRelationFilter, { nullable: true })
-  tags?: TagListRelationFilter;
-
   @Field(() => DateTimeFilter, { nullable: true })
   createdAt?: DateTimeFilter;
 
@@ -48,12 +45,18 @@ export class ArticleWhereInput {
   @Field(() => IntFilter, { nullable: true })
   favoritesCount?: IntFilter;
 
+  @Field(() => StringFilter, { nullable: true })
+  authorId?: StringFilter;
+
+  @Field(() => BoolNullableFilter, { nullable: true })
+  active?: BoolNullableFilter;
+
+  @Field(() => TagListRelationFilter, { nullable: true })
+  tags?: TagListRelationFilter;
+
   @Field(() => UserWhereInput, { nullable: true })
   @Type(() => UserWhereInput)
   author?: UserWhereInput;
-
-  @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
 
   @Field(() => UserListRelationFilter, { nullable: true })
   @Type(() => UserListRelationFilter)
@@ -62,7 +65,4 @@ export class ArticleWhereInput {
   @Field(() => CommentListRelationFilter, { nullable: true })
   @Type(() => CommentListRelationFilter)
   comments?: CommentListRelationFilter;
-
-  @Field(() => BoolNullableFilter, { nullable: true })
-  active?: BoolNullableFilter;
 }

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Tag } from '../tag/tag.model';
 import { Int } from '@nestjs/graphql';
+import { Tag } from '../tag/tag.model';
 import { User } from '../user/user.model';
 import { Comment } from '../comment/comment.model';
 import { ArticleCount } from './article-count.output';
@@ -24,9 +24,6 @@ export class Article {
   @Field(() => String, { nullable: false })
   body!: string;
 
-  @Field(() => [Tag], { nullable: true })
-  tags?: Array<Tag>;
-
   @Field(() => Date, { nullable: false })
   createdAt!: Date;
 
@@ -36,20 +33,23 @@ export class Article {
   @Field(() => Int, { nullable: false, defaultValue: 0 })
   favoritesCount!: number;
 
-  @Field(() => User, { nullable: false })
-  author?: User;
-
   @Field(() => String, { nullable: false })
   authorId!: string;
+
+  @Field(() => Boolean, { nullable: true, defaultValue: true })
+  active!: boolean | null;
+
+  @Field(() => [Tag], { nullable: true })
+  tags?: Array<Tag>;
+
+  @Field(() => User, { nullable: false })
+  author?: User;
 
   @Field(() => [User], { nullable: true })
   favoritedBy?: Array<User>;
 
   @Field(() => [Comment], { nullable: true })
   comments?: Array<Comment>;
-
-  @Field(() => Boolean, { nullable: true, defaultValue: true })
-  active!: boolean | null;
 
   @Field(() => ArticleCount, { nullable: false })
   _count?: ArticleCount;

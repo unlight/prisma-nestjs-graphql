@@ -25,9 +25,6 @@ export class ArticleOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   body?: keyof typeof SortOrder;
 
-  @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
-  tags?: TagOrderByRelationAggregateInput;
-
   @Field(() => SortOrder, { nullable: true })
   createdAt?: keyof typeof SortOrder;
 
@@ -37,12 +34,18 @@ export class ArticleOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   favoritesCount?: keyof typeof SortOrder;
 
+  @Field(() => SortOrder, { nullable: true })
+  authorId?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  active?: keyof typeof SortOrder;
+
+  @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
+  tags?: TagOrderByRelationAggregateInput;
+
   @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
   @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
   author?: UserOrderByWithRelationAndSearchRelevanceInput;
-
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
 
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)
@@ -51,9 +54,6 @@ export class ArticleOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
   @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
-
-  @Field(() => SortOrder, { nullable: true })
-  active?: keyof typeof SortOrder;
 
   @Field(() => ArticleOrderByRelevanceInput, { nullable: true })
   _relevance?: ArticleOrderByRelevanceInput;

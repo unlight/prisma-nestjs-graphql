@@ -28,6 +28,18 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   image?: keyof typeof SortOrder;
 
+  @Field(() => SortOrder, { nullable: true })
+  countComments?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  rating?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  money?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  role?: keyof typeof SortOrder;
+
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)
   following?: UserOrderByRelationAggregateInput;
@@ -47,18 +59,6 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
   @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
-
-  @Field(() => SortOrder, { nullable: true })
-  countComments?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  rating?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  money?: keyof typeof SortOrder;
-
-  @Field(() => SortOrder, { nullable: true })
-  role?: keyof typeof SortOrder;
 
   @Field(() => ProfileOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
   @Type(() => ProfileOrderByWithRelationAndSearchRelevanceInput)

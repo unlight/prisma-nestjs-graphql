@@ -20,19 +20,19 @@ export class CommentOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   body?: keyof typeof SortOrder;
 
+  @Field(() => SortOrder, { nullable: true })
+  authorId?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
+  articleId?: keyof typeof SortOrder;
+
   @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
   @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
   author?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
-
   @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
   @Type(() => ArticleOrderByWithRelationAndSearchRelevanceInput)
   article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
-
-  @Field(() => SortOrder, { nullable: true })
-  articleId?: keyof typeof SortOrder;
 
   @Field(() => CommentOrderByRelevanceInput, { nullable: true })
   _relevance?: CommentOrderByRelevanceInput;

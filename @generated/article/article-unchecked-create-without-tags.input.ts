@@ -35,6 +35,9 @@ export class ArticleUncheckedCreateWithoutTagsInput {
   @Field(() => String, { nullable: false })
   authorId!: string;
 
+  @Field(() => Boolean, { nullable: true })
+  active?: boolean;
+
   @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {
     nullable: true,
   })
@@ -44,7 +47,4 @@ export class ArticleUncheckedCreateWithoutTagsInput {
   @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
   @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
   comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
-
-  @Field(() => Boolean, { nullable: true })
-  active?: boolean;
 }
