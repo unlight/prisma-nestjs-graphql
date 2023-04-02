@@ -1,3 +1,15 @@
+## [18.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.1.0...v18.0.0) (2023-04-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require `@prisma/client` v4.12+
+Must be used with optional dependency `prisma-graphql-type-decimal` v3.0.0+
+
+### Bug Fixes
+
+* Deprecation warnings ([55b21fd](https://github.com/unlight/nestjs-graphql-prisma/commit/55b21fda4718db159083bfb01aeb6713165ff7ec)), closes [#161](https://github.com/unlight/nestjs-graphql-prisma/issues/161)
+
 ## [17.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.0.3...v17.1.0) (2022-12-31)
 
 
