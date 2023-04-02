@@ -1,4 +1,4 @@
-import { DMMF } from '@prisma/client/runtime';
+import { DMMF } from '@prisma/client/runtime/library';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 
@@ -53,4 +53,4 @@ export type ImportNameSpec = { name: string; specifier?: string };
 export type Field = DMMF.Field;
 
 export { ObjectSetting, ObjectSettings } from './helpers/object-settings';
-export { DMMF } from '@prisma/client/runtime';
+export { DMMF } from '@prisma/client/runtime/library';
