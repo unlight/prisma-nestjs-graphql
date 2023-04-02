@@ -4,7 +4,7 @@
 ### ⚠ BREAKING CHANGES
 
 * Require `@prisma/client` v4.12+
-Must be used with optional dependency `prisma-graphql-type-decimal` v3.0.0+
+* Must be used with optional dependency `prisma-graphql-type-decimal` v3.0.0+
 
 ### Bug Fixes
 
