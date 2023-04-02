@@ -1,7 +1,7 @@
 {
   "ts-node": {
     "transpileOnly": true,
-    "swc": true,
+    "swc": false,
     "compilerOptions": {
       "module": "commonjs"
     }
