@@ -1,3 +1,10 @@
+## [18.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.1...v18.0.2) (2023-05-09)
+
+
+### Bug Fixes
+
+* Error too many open files ([2e67b25](https://github.com/unlight/nestjs-graphql-prisma/commit/2e67b2553c55d3105c919f1a4a7a01e876dffd11)), closes [#162](https://github.com/unlight/nestjs-graphql-prisma/issues/162)
+
 ## [18.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.0...v18.0.1) (2023-05-09)
 
 
