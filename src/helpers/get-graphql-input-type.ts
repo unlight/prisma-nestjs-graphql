@@ -61,12 +61,21 @@ export function getGraphqlInputType(
   }
 
   if (
-    (countTypes.scalar === 1 || countTypes.enumTypes === 1) &&
+    (countTypes.scalar >= 1 || countTypes.enumTypes >= 1) &&
     countTypes.fieldRefTypes === 1
   ) {
     result = inputTypes.find(
+      x => (x.location === 'scalar' || x.location === 'enumTypes') && x.isList,
+    );
+
+    if (result) {
+      return result;
+    }
+
+    result = inputTypes.find(
       x => x.location === 'scalar' || x.location === 'enumTypes',
     );
+
     if (result) {
       return result;
     }
