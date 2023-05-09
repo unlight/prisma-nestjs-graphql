@@ -1,3 +1,10 @@
+## [18.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.0...v18.0.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* Select input type from multiple options ([81aeb02](https://github.com/unlight/nestjs-graphql-prisma/commit/81aeb02adf7a05210e414bd5d51d342d0cc23770))
+
 ## [18.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v17.1.0...v18.0.0) (2023-04-02)
 
 
