@@ -1,6 +1,6 @@
 import { generatorHandler } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import { promises as fs } from 'fs';
+import { promises as fs } from 'graceful-fs';
 
 generatorHandler({
   async onGenerate(options) {

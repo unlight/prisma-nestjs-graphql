@@ -1,7 +1,7 @@
 import { ok } from 'assert';
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
-import { existsSync } from 'fs';
+import { existsSync } from 'graceful-fs';
 import JSON5 from 'json5';
 import { Dictionary, memoize, merge, trim } from 'lodash';
 import outmatch from 'outmatch';

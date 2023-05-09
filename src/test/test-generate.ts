@@ -3,7 +3,7 @@ import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
 import { exec } from 'child_process';
 import crypto from 'crypto';
-import fs from 'fs';
+import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
 import cachePath from 'temp-dir';
 import { ImportSpecifierStructure, Project } from 'ts-morph';

@@ -1,5 +1,5 @@
 import AwaitEventEmitter from 'await-event-emitter';
-import { promises as fs } from 'fs';
+import { rmdirSync } from 'graceful-fs';
 
 import { EventArguments } from '../types';
 
@@ -18,7 +18,7 @@ function begin({ project, output }: EventArguments) {
   }
 }
 
-async function end({ project, output }: EventArguments) {
+function end({ project, output }: EventArguments) {
   const directories = project
     .getDirectory(output)
     ?.getDescendantDirectories()
@@ -27,7 +27,7 @@ async function end({ project, output }: EventArguments) {
 
   for (const directory of directories || []) {
     try {
-      await fs.rmdir(directory);
+      rmdirSync(directory);
       // eslint-disable-next-line no-empty
     } catch {}
   }
