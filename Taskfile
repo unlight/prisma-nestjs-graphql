@@ -59,7 +59,7 @@ compatibilty_check() {
 
 bundle() {
   set -x
-  npx tsup src/index.ts --format cjs --target es2020
+  npx tsup --entry src/index.ts --entry src/generate.ts --format cjs --target es2020
   cp -fv README.md LICENSE package.json dist
   cp -fv src/bin.js dist
 }
@@ -75,7 +75,7 @@ commit_lint() {
 commit_check() {
   set -x
   from=$(git_last_release_tag)
-  commitlint --from $from
+  commitlint --from "$from"
 }
 
 "$@"

@@ -5,6 +5,12 @@
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
   "main": "index.js",
   "bin": "bin.js",
+  "exports": {
+    ".": "./index.js",
+    "./generate": {
+      "require": "./generate.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unlight/nestjs-graphql-prisma.git"
