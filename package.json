@@ -3,7 +3,6 @@
   "version": "0.0.0-dev",
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
-  "main": "index.js",
   "bin": "bin.js",
   "repository": {
     "type": "git",
@@ -20,6 +19,25 @@
     "prisma-generator",
     "nestjs-graphql"
   ],
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./generate": {
+      "require": "./dist/generate.cjs",
+      "types": "./dist/generate.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "generate": [
+        "dist/generate.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "mocha": "node node_modules/mocha/bin/mocha",
@@ -32,7 +50,7 @@
     "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
     "eslint:w": "watchexec -w src \"npm run eslint\"",
     "eslint:fix": "npm run eslint -- --fix",
-    "build": "sh Taskfile bundle",
+    "build": "sh Taskfile build",
     "prisma:g": "node node_modules/prisma/build/index.js generate",
     "format": "npx prettier ./@generated --write",
     "regen": "rm -rf @generated && npm run prisma:g && npm run format",
