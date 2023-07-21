@@ -701,6 +701,12 @@ model User {
 export class User {}
 ```
 
+### Using lirary in other generators
+
+```ts
+import { generate } from 'prisma-nestjs-graphql/generate';
+```
+
 ## Similar Projects
 
 - https://github.com/jasonraimondi/prisma-generator-nestjs-graphql
