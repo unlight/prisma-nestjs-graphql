@@ -70,11 +70,12 @@ export async function testGenerate(args: {
         .getBaseNameWithoutExtension()
         .replace(/-/g, '')
         .split('.')[0];
-      const sources = sourceFiles.filter(s =>
-        s
-          .getClass(() => true)
-          ?.getProperties()
-          .find(p => String(p.getStructure().type).toLowerCase().includes(fileLower)),
+      const sources = sourceFiles.filter(
+        s =>
+          s
+            .getClass(() => true)
+            ?.getProperties()
+            .find(p => String(p.getStructure().type).toLowerCase().includes(fileLower)),
       );
       if (sources.length > 0) {
         message += `, reference: ${sources.map(s => s.getBaseName()).join(', ')}`;
@@ -121,7 +122,7 @@ async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["fullTextSearch", "fullTextIndex", "fieldReference"]
+            previewFeatures = ["fullTextSearch", "fullTextIndex"]
         }
     `;
   // eslint-disable-next-line prefer-rest-params

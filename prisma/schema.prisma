@@ -5,7 +5,7 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fieldReference"]
+  previewFeatures = ["fullTextSearch"]
 }
 
 generator nestgraphql {
