@@ -1,3 +1,10 @@
+## [18.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.1.0...v18.1.1) (2023-07-21)
+
+
+### Bug Fixes
+
+* Fix in getModelName helper ([190ab33](https://github.com/unlight/nestjs-graphql-prisma/commit/190ab33fda5b29a5396fa0dea6998059eced605f))
+
 ## [18.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.2...v18.1.0) (2023-07-04)
 
 
