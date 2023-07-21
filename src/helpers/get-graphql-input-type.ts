@@ -1,6 +1,6 @@
+import { Prisma } from '@prisma/client';
 import { countBy, isEqual, uniqWith } from 'lodash';
 import outmatch from 'outmatch';
-import { Prisma } from '@prisma/client';
 
 /**
  * Find input type for graphql field decorator.

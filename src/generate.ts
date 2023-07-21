@@ -1,9 +1,9 @@
+import { Prisma } from '@prisma/client';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
-import { Prisma } from '@prisma/client';
 
 import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
@@ -97,7 +97,9 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     eventEmitter,
   });
-  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Prisma.DMMF.Document;
+  const { datamodel, schema } = JSON.parse(
+    JSON.stringify(dmmf),
+  ) as Prisma.DMMF.Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
     schema,

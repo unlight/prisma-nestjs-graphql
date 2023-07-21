@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter/types';
@@ -7,7 +8,6 @@ import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
 import cachePath from 'temp-dir';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
-import { Prisma } from '@prisma/client';
 
 import { generate } from '../generate';
 import { generateFileName } from '../helpers/generate-file-name';
@@ -69,7 +69,7 @@ export async function testGenerate(args: {
       let message = `Project should not contain empty files: ${filePath}`;
       const fileLower = sourceFile
         .getBaseNameWithoutExtension()
-        .replace(/-/g, '')
+        .replaceAll('-', '')
         .split('.')[0];
       const sources = sourceFiles.filter(s =>
         s
@@ -122,7 +122,7 @@ async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["fullTextSearch", "fullTextIndex", "fieldReference", "filteredRelationCount"]
+            previewFeatures = ["fullTextSearch", "fullTextIndex"]
         }
     `;
   // eslint-disable-next-line prefer-rest-params

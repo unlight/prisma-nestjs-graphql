@@ -1,6 +1,6 @@
+import { Prisma } from '@prisma/client';
 import AwaitEventEmitter from 'await-event-emitter';
 import { PropertyDeclarationStructure } from 'ts-morph';
-import { Prisma } from '@prisma/client';
 
 export function emitSingle(emitter: AwaitEventEmitter) {
   emitter.on('ClassProperty', classProperty);

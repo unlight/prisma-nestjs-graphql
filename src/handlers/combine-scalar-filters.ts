@@ -1,6 +1,6 @@
+import { Prisma } from '@prisma/client';
 import AwaitEventEmitter from 'await-event-emitter';
 import { cloneDeep, keyBy, remove } from 'lodash';
-import { Prisma } from '@prisma/client';
 
 import { EventArguments, InputType } from '../types';
 
@@ -41,7 +41,7 @@ function beforeGenerateField(field: Prisma.DMMF.SchemaArg): void {
 }
 
 function replaceBogus(name: string) {
-  return name.replace(/(Nullable|Nested)/g, '');
+  return name.replaceAll(/(Nullable|Nested)/g, '');
 }
 
 function isContainBogus(name: string) {

@@ -36,8 +36,8 @@ export function createConfig(data: Record<string, unknown>) {
   let outputFilePattern = filenamify(configOutputFilePattern, {
     replacement: '/',
   })
-    .replace(/\.\./g, '/')
-    .replace(/\/+/g, '/');
+    .replaceAll('..', '/')
+    .replaceAll(/\/+/g, '/');
   outputFilePattern = trim(outputFilePattern, '/');
 
   if (outputFilePattern !== configOutputFilePattern) {
