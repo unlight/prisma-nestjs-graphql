@@ -1,3 +1,10 @@
+## [18.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.2...v18.1.0) (2023-07-04)
+
+
+### Features
+
+* Allow the use of the generate function without the `onGenerate` ([a566cca](https://github.com/unlight/nestjs-graphql-prisma/commit/a566ccad382753a4f5d87723d6865788b80ed8fa)), closes [#168](https://github.com/unlight/nestjs-graphql-prisma/issues/168) [#169](https://github.com/unlight/nestjs-graphql-prisma/issues/169)
+
 ## [18.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.0.1...v18.0.2) (2023-05-09)
 
 
