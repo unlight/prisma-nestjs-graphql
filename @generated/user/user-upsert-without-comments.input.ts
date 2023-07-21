@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.input';
 import { Type } from 'class-transformer';
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input';
+import { UserWhereInput } from './user-where.input';
 
 @InputType()
 export class UserUpsertWithoutCommentsInput {
@@ -13,4 +14,8 @@ export class UserUpsertWithoutCommentsInput {
   @Field(() => UserCreateWithoutCommentsInput, { nullable: false })
   @Type(() => UserCreateWithoutCommentsInput)
   create!: UserCreateWithoutCommentsInput;
+
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  where?: UserWhereInput;
 }

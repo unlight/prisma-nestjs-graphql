@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import { SortOrderInput } from '../prisma/sort-order.input';
 import { TagOrderByRelationAggregateInput } from '../tag/tag-order-by-relation-aggregate.input';
 import { UserOrderByWithRelationAndSearchRelevanceInput } from '../user/user-order-by-with-relation-and-search-relevance.input';
 import { Type } from 'class-transformer';
@@ -37,8 +38,8 @@ export class ArticleOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   authorId?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  active?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  active?: SortOrderInput;
 
   @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
   tags?: TagOrderByRelationAggregateInput;

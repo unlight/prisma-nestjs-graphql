@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comments.input';
 import { Type } from 'class-transformer';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input';
+import { ArticleWhereInput } from './article-where.input';
 
 @InputType()
 export class ArticleUpsertWithoutCommentsInput {
@@ -13,4 +14,8 @@ export class ArticleUpsertWithoutCommentsInput {
   @Field(() => ArticleCreateWithoutCommentsInput, { nullable: false })
   @Type(() => ArticleCreateWithoutCommentsInput)
   create!: ArticleCreateWithoutCommentsInput;
+
+  @Field(() => ArticleWhereInput, { nullable: true })
+  @Type(() => ArticleWhereInput)
+  where?: ArticleWhereInput;
 }

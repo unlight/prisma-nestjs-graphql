@@ -6,7 +6,7 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input';
 
 @InputType()
-export class ArticleUncheckedUpdateManyWithoutFavoriteArticlesInput {
+export class ArticleUncheckedUpdateManyWithoutAuthorInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   id?: StringFieldUpdateOperationsInput;
 
@@ -30,9 +30,6 @@ export class ArticleUncheckedUpdateManyWithoutFavoriteArticlesInput {
 
   @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
   favoritesCount?: IntFieldUpdateOperationsInput;
-
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  authorId?: StringFieldUpdateOperationsInput;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;

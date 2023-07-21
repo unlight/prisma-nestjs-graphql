@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
+import { SortOrderInput } from '../prisma/sort-order.input';
 import { Type } from 'class-transformer';
+import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { ProfileOrderByWithRelationAndSearchRelevanceInput } from '../profile/profile-order-by-with-relation-and-search-relevance.input';
@@ -22,23 +23,24 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   @Field(() => SortOrder, { nullable: true })
   password?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  bio?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  bio?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  image?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  image?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  countComments?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  countComments?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  rating?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  rating?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  money?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  @Type(() => SortOrderInput)
+  money?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  role?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  role?: SortOrderInput;
 
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)

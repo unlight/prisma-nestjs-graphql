@@ -4,8 +4,9 @@ import { ProfileCreateWithoutUserInput } from './profile-create-without-user.inp
 import { Type } from 'class-transformer';
 import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input';
 import { ProfileUpsertWithoutUserInput } from './profile-upsert-without-user.input';
+import { ProfileWhereInput } from './profile-where.input';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
-import { ProfileUpdateWithoutUserInput } from './profile-update-without-user.input';
+import { ProfileUpdateToOneWithWhereWithoutUserInput } from './profile-update-to-one-with-where-without-user.input';
 
 @InputType()
 export class ProfileUncheckedUpdateOneWithoutUserNestedInput {
@@ -21,17 +22,19 @@ export class ProfileUncheckedUpdateOneWithoutUserNestedInput {
   @Type(() => ProfileUpsertWithoutUserInput)
   upsert?: ProfileUpsertWithoutUserInput;
 
-  @Field(() => Boolean, { nullable: true })
-  disconnect?: boolean;
+  @Field(() => ProfileWhereInput, { nullable: true })
+  @Type(() => ProfileWhereInput)
+  disconnect?: ProfileWhereInput;
 
-  @Field(() => Boolean, { nullable: true })
-  delete?: boolean;
+  @Field(() => ProfileWhereInput, { nullable: true })
+  @Type(() => ProfileWhereInput)
+  delete?: ProfileWhereInput;
 
   @Field(() => ProfileWhereUniqueInput, { nullable: true })
   @Type(() => ProfileWhereUniqueInput)
   connect?: ProfileWhereUniqueInput;
 
-  @Field(() => ProfileUpdateWithoutUserInput, { nullable: true })
-  @Type(() => ProfileUpdateWithoutUserInput)
-  update?: ProfileUpdateWithoutUserInput;
+  @Field(() => ProfileUpdateToOneWithWhereWithoutUserInput, { nullable: true })
+  @Type(() => ProfileUpdateToOneWithWhereWithoutUserInput)
+  update?: ProfileUpdateToOneWithWhereWithoutUserInput;
 }

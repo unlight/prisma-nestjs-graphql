@@ -4,8 +4,9 @@ import { ArticleCreateWithoutCommentsInput } from './article-create-without-comm
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutCommentsInput } from './article-create-or-connect-without-comments.input';
 import { ArticleUpsertWithoutCommentsInput } from './article-upsert-without-comments.input';
+import { ArticleWhereInput } from './article-where.input';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
-import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comments.input';
+import { ArticleUpdateToOneWithWhereWithoutCommentsInput } from './article-update-to-one-with-where-without-comments.input';
 
 @InputType()
 export class ArticleUpdateOneWithoutCommentsNestedInput {
@@ -21,17 +22,19 @@ export class ArticleUpdateOneWithoutCommentsNestedInput {
   @Type(() => ArticleUpsertWithoutCommentsInput)
   upsert?: ArticleUpsertWithoutCommentsInput;
 
-  @Field(() => Boolean, { nullable: true })
-  disconnect?: boolean;
+  @Field(() => ArticleWhereInput, { nullable: true })
+  @Type(() => ArticleWhereInput)
+  disconnect?: ArticleWhereInput;
 
-  @Field(() => Boolean, { nullable: true })
-  delete?: boolean;
+  @Field(() => ArticleWhereInput, { nullable: true })
+  @Type(() => ArticleWhereInput)
+  delete?: ArticleWhereInput;
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
   connect?: ArticleWhereUniqueInput;
 
-  @Field(() => ArticleUpdateWithoutCommentsInput, { nullable: true })
-  @Type(() => ArticleUpdateWithoutCommentsInput)
-  update?: ArticleUpdateWithoutCommentsInput;
+  @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
+  @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)
+  update?: ArticleUpdateToOneWithWhereWithoutCommentsInput;
 }

@@ -5,7 +5,7 @@ import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutCommentsInput } from './user-create-or-connect-without-comments.input';
 import { UserUpsertWithoutCommentsInput } from './user-upsert-without-comments.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateWithoutCommentsInput } from './user-update-without-comments.input';
+import { UserUpdateToOneWithWhereWithoutCommentsInput } from './user-update-to-one-with-where-without-comments.input';
 
 @InputType()
 export class UserUpdateOneRequiredWithoutCommentsNestedInput {
@@ -25,7 +25,7 @@ export class UserUpdateOneRequiredWithoutCommentsNestedInput {
   @Type(() => UserWhereUniqueInput)
   connect?: UserWhereUniqueInput;
 
-  @Field(() => UserUpdateWithoutCommentsInput, { nullable: true })
-  @Type(() => UserUpdateWithoutCommentsInput)
-  update?: UserUpdateWithoutCommentsInput;
+  @Field(() => UserUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
+  @Type(() => UserUpdateToOneWithWhereWithoutCommentsInput)
+  update?: UserUpdateToOneWithWhereWithoutCommentsInput;
 }
