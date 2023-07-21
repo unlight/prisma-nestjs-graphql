@@ -9,7 +9,7 @@ import { Type } from 'class-transformer';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input';
 
 @InputType()
-export class UserUncheckedUpdateManyWithoutFavoritedByInput {
+export class UserUncheckedUpdateManyWithoutFavoriteArticlesInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   id?: StringFieldUpdateOperationsInput;
 

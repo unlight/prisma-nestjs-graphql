@@ -6,7 +6,7 @@ import { HideField } from '@nestjs/graphql';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 
 @InputType()
-export class CommentUncheckedUpdateManyWithoutCommentsInput {
+export class CommentUncheckedUpdateManyWithoutAuthorInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   id?: StringFieldUpdateOperationsInput;
 

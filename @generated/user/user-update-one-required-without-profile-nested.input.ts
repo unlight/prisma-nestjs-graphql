@@ -5,7 +5,7 @@ import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutProfileInput } from './user-create-or-connect-without-profile.input';
 import { UserUpsertWithoutProfileInput } from './user-upsert-without-profile.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateWithoutProfileInput } from './user-update-without-profile.input';
+import { UserUpdateToOneWithWhereWithoutProfileInput } from './user-update-to-one-with-where-without-profile.input';
 
 @InputType()
 export class UserUpdateOneRequiredWithoutProfileNestedInput {
@@ -25,7 +25,7 @@ export class UserUpdateOneRequiredWithoutProfileNestedInput {
   @Type(() => UserWhereUniqueInput)
   connect?: UserWhereUniqueInput;
 
-  @Field(() => UserUpdateWithoutProfileInput, { nullable: true })
-  @Type(() => UserUpdateWithoutProfileInput)
-  update?: UserUpdateWithoutProfileInput;
+  @Field(() => UserUpdateToOneWithWhereWithoutProfileInput, { nullable: true })
+  @Type(() => UserUpdateToOneWithWhereWithoutProfileInput)
+  update?: UserUpdateToOneWithWhereWithoutProfileInput;
 }

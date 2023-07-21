@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { ArticleWhereInput } from './article-where.input';
 
 @InputType()
-export class ArticleRelationFilter {
+export class ArticleNullableRelationFilter {
   @Field(() => ArticleWhereInput, { nullable: true })
   is?: ArticleWhereInput;
 

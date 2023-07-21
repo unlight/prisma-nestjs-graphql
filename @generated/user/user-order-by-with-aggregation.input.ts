@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { UserCountOrderByAggregateInput } from './user-count-order-by-aggregate.input';
+import { SortOrderInput } from '../prisma/sort-order.input';
 import { Type } from 'class-transformer';
+import { UserCountOrderByAggregateInput } from './user-count-order-by-aggregate.input';
 import { UserAvgOrderByAggregateInput } from './user-avg-order-by-aggregate.input';
 import { UserMaxOrderByAggregateInput } from './user-max-order-by-aggregate.input';
 import { UserMinOrderByAggregateInput } from './user-min-order-by-aggregate.input';
@@ -22,23 +23,24 @@ export class UserOrderByWithAggregationInput {
   @Field(() => SortOrder, { nullable: true })
   password?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  bio?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  bio?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  image?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  image?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  countComments?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  countComments?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  rating?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  rating?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  money?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  @Type(() => SortOrderInput)
+  money?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  role?: keyof typeof SortOrder;
+  @Field(() => SortOrderInput, { nullable: true })
+  role?: SortOrderInput;
 
   @Field(() => UserCountOrderByAggregateInput, { nullable: true })
   @Type(() => UserCountOrderByAggregateInput)
