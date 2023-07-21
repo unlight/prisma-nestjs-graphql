@@ -69,6 +69,7 @@ const splitKeywords = [
   'ManyWithout',
   'OrderByInput',
   'RelationFilter',
+  'NullableRelationFilter',
   'ListRelationFilter',
   'ScalarWhereInput',
   'UpdateInput',
