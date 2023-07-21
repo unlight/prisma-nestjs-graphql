@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -31,7 +31,7 @@ export class DummyCreateInput {
   @Field(() => GraphQLDecimal, { nullable: false })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  decimal!: Decimal;
+  decimal!: Prisma.Decimal;
 
   @Field(() => DummyCreatedecimalsInput, { nullable: true })
   @Type(() => DummyCreatedecimalsInput)

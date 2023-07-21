@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -13,37 +13,37 @@ export class NestedDecimalWithAggregatesFilter {
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  equals?: Decimal;
+  equals?: Prisma.Decimal;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  in?: Array<Decimal>;
+  in?: Array<Prisma.Decimal>;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  notIn?: Array<Decimal>;
+  notIn?: Array<Prisma.Decimal>;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  lt?: Decimal;
+  lt?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  lte?: Decimal;
+  lte?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  gt?: Decimal;
+  gt?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  gte?: Decimal;
+  gte?: Prisma.Decimal;
 
   @Field(() => NestedDecimalWithAggregatesFilter, { nullable: true })
   not?: NestedDecimalWithAggregatesFilter;

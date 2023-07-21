@@ -1,7 +1,9 @@
-import { createObjectSettings, ObjectSettings } from '../helpers/object-settings';
-import { DMMF, EventArguments, Field } from '../types';
+import { Prisma } from '@prisma/client';
 
-export function modelData(model: DMMF.Model, args: EventArguments) {
+import { createObjectSettings, ObjectSettings } from '../helpers/object-settings';
+import { EventArguments, Field } from '../types';
+
+export function modelData(model: Prisma.DMMF.Model, args: EventArguments) {
   const {
     config,
     modelNames,

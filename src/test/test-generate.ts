@@ -7,10 +7,11 @@ import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
 import cachePath from 'temp-dir';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
+import { Prisma } from '@prisma/client';
 
 import { generate } from '../generate';
 import { generateFileName } from '../helpers/generate-file-name';
-import { DMMF, EventArguments } from '../types';
+import { EventArguments } from '../types';
 
 const { '@prisma/generator-helper': generatorVersion } =
   // eslint-disable-next-line unicorn/prefer-module @typescript-eslint/no-var-requires
@@ -113,7 +114,7 @@ async function createGeneratorOptions(
   schema: string,
   options?: string[] | string,
   provider: 'postgresql' | 'mongodb' = 'postgresql',
-): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
+): Promise<GeneratorOptions & { prismaClientDmmf: Prisma.DMMF.Document }> {
   const schemaHeader = `
         datasource db {
             provider = "${provider}"

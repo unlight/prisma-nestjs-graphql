@@ -1,7 +1,8 @@
 import AwaitEventEmitter from 'await-event-emitter';
 import { cloneDeep, keyBy, remove } from 'lodash';
+import { Prisma } from '@prisma/client';
 
-import { DMMF, EventArguments, InputType } from '../types';
+import { EventArguments, InputType } from '../types';
 
 /**
  * Subscribes on 'BeforeInputType'
@@ -27,7 +28,7 @@ function beforeInputType(
   }
 }
 
-function beforeGenerateField(field: DMMF.SchemaArg): void {
+function beforeGenerateField(field: Prisma.DMMF.SchemaArg): void {
   for (const fieldInput of field.inputTypes) {
     if (fieldInput.location !== 'inputObjectTypes') {
       continue;

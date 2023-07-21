@@ -1,7 +1,6 @@
 import AwaitEventEmitter from 'await-event-emitter';
 import { PropertyDeclarationStructure } from 'ts-morph';
-
-import { DMMF } from '../types';
+import { Prisma } from '@prisma/client';
 
 export function emitSingle(emitter: AwaitEventEmitter) {
   emitter.on('ClassProperty', classProperty);
@@ -10,7 +9,7 @@ export function emitSingle(emitter: AwaitEventEmitter) {
 function classProperty(
   property: PropertyDeclarationStructure,
   eventArguments: {
-    location: DMMF.FieldLocation;
+    location: Prisma.DMMF.FieldLocation;
     isList: boolean;
     propertyType: string[];
   },

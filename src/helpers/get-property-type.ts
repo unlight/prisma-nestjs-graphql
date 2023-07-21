@@ -23,7 +23,7 @@ export function getPropertyType(args: {
       return ['Date', 'string'];
     }
     case 'Decimal': {
-      return ['Decimal'];
+      return ['Prisma.Decimal'];
     }
     case 'Json': {
       return ['any'];

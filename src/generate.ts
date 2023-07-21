@@ -3,6 +3,7 @@ import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
+import { Prisma } from '@prisma/client';
 
 import { argsType } from './handlers/args-type';
 import { combineScalarFilters } from './handlers/combine-scalar-filters';
@@ -23,7 +24,6 @@ import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import {
-  DMMF,
   EventArguments,
   Field,
   Model,
@@ -97,7 +97,7 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     eventEmitter,
   });
-  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Prisma.DMMF.Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
     schema,

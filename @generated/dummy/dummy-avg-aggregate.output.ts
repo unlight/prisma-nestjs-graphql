@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
@@ -13,10 +13,10 @@ export class DummyAvgAggregate {
   float?: number;
 
   @Field(() => GraphQLDecimal, { nullable: true })
-  decimal?: Decimal;
+  decimal?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
-  decimals?: Decimal;
+  decimals?: Prisma.Decimal;
 
   @Field(() => Float, { nullable: true })
   bigInt?: number;

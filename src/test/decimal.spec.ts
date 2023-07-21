@@ -27,8 +27,8 @@ describe('decimal type', () => {
     });
     expect(s.property?.type).toEqual('Decimal');
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 
@@ -40,8 +40,8 @@ describe('decimal type', () => {
     });
     expect(s.property?.type).toEqual('Decimal | null');
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 
@@ -53,8 +53,8 @@ describe('decimal type', () => {
     });
     expect(s.property?.type).toEqual('Decimal');
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 
@@ -67,8 +67,8 @@ describe('decimal type', () => {
     expect(s.property?.type).toEqual('Decimal');
     expect(s.property?.hasQuestionToken).toEqual(true);
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 
@@ -80,8 +80,8 @@ describe('decimal type', () => {
     });
     expect(s.property?.type).toEqual('Decimal');
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 
@@ -94,8 +94,8 @@ describe('decimal type', () => {
     expect(s.property?.type).toEqual('Decimal');
     expect(s.property?.hasQuestionToken).toEqual(true);
     expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client/runtime/library',
+      name: 'Prisma',
+      specifier: '@prisma/client',
     });
   });
 });

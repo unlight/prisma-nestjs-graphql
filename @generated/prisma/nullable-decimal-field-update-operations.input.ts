@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -11,25 +11,25 @@ export class NullableDecimalFieldUpdateOperationsInput {
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  set?: Decimal;
+  set?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  increment?: Decimal;
+  increment?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  decrement?: Decimal;
+  decrement?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  multiply?: Decimal;
+  multiply?: Prisma.Decimal;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  divide?: Decimal;
+  divide?: Prisma.Decimal;
 }

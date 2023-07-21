@@ -5,7 +5,7 @@ import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { Role } from '../prisma/role.enum';
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -45,7 +45,7 @@ export class User {
   rating!: number | null;
 
   @Field(() => GraphQLDecimal, { nullable: true })
-  money!: Decimal | null;
+  money!: Prisma.Decimal | null;
 
   @Field(() => Role, { nullable: true })
   role!: keyof typeof Role | null;

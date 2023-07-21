@@ -1,16 +1,15 @@
 import { countBy, isEqual, uniqWith } from 'lodash';
 import outmatch from 'outmatch';
-
-import { DMMF } from '../types';
+import { Prisma } from '@prisma/client';
 
 /**
  * Find input type for graphql field decorator.
  */
 export function getGraphqlInputType(
-  inputTypes: DMMF.SchemaArgInputType[],
+  inputTypes: Prisma.DMMF.SchemaArgInputType[],
   pattern?: string,
 ) {
-  let result: DMMF.SchemaArgInputType | undefined;
+  let result: Prisma.DMMF.SchemaArgInputType | undefined;
 
   inputTypes = inputTypes.filter(t => !['null', 'Null'].includes(String(t.type)));
   inputTypes = uniqWith(inputTypes, isEqual);

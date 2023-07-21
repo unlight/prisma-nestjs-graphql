@@ -1,16 +1,16 @@
-import { DMMF } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 
 import { createConfig } from './helpers/create-config';
 import { ObjectSettings } from './helpers/object-settings';
 
-export type InputType = DMMF.InputType;
-export type FieldLocation = DMMF.FieldLocation;
-export type OutputType = DMMF.OutputType;
-export type SchemaField = DMMF.SchemaField;
-export type SchemaEnum = DMMF.SchemaEnum;
-export type Model = DMMF.Model;
+export type InputType = Prisma.DMMF.InputType;
+export type FieldLocation = Prisma.DMMF.FieldLocation;
+export type OutputType = Prisma.DMMF.OutputType;
+export type SchemaField = Prisma.DMMF.SchemaField;
+export type SchemaEnum = Prisma.DMMF.SchemaEnum;
+export type Model = Prisma.DMMF.Model;
 
 export type FieldOutputType = SchemaField['outputType'];
 
@@ -28,7 +28,7 @@ export type TypeRecord = Partial<{
 export type GeneratorConfiguration = ReturnType<typeof createConfig>;
 
 export type EventArguments = {
-  schema: DMMF.Schema;
+  schema: Prisma.DMMF.Schema;
   models: Map<string, Model>;
   modelNames: string[];
   modelFields: Map<string, Map<string, Field>>;
@@ -40,7 +40,7 @@ export type EventArguments = {
   eventEmitter: AwaitEventEmitter;
   typeNames: Set<string>;
   removeTypes: Set<string>;
-  enums: Record<string, DMMF.DatamodelEnum | undefined>;
+  enums: Record<string, Prisma.DMMF.DatamodelEnum | undefined>;
   getModelName(name: string): string | undefined;
   /**
    * Input types for this models should be decorated @Type(() => Self)
@@ -50,7 +50,6 @@ export type EventArguments = {
 
 export type ImportNameSpec = { name: string; specifier?: string };
 
-export type Field = DMMF.Field;
+export type Field = Prisma.DMMF.Field;
 
 export { ObjectSetting, ObjectSettings } from './helpers/object-settings';
-export { DMMF } from '@prisma/client/runtime/library';

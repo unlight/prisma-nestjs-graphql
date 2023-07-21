@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -11,22 +11,22 @@ export class DecimalNullableListFilter {
   @Field(() => [GraphQLDecimal], { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  equals?: Array<Decimal>;
+  equals?: Array<Prisma.Decimal>;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  has?: Decimal;
+  has?: Prisma.Decimal;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  hasEvery?: Array<Decimal>;
+  hasEvery?: Array<Prisma.Decimal>;
 
   @Field(() => [GraphQLDecimal], { nullable: true })
   @Type(() => Object)
   @Transform(transformToDecimal)
-  hasSome?: Array<Decimal>;
+  hasSome?: Array<Prisma.Decimal>;
 
   @Field(() => Boolean, { nullable: true })
   isEmpty?: boolean;
