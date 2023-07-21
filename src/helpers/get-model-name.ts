@@ -27,11 +27,11 @@ function getModelName(args: {
   }
   for (const [start, end] of middleKeywords) {
     let test = name.slice(start.length).slice(0, -end.length);
-    if (modelNames.includes(test)) {
+    if (modelNames.includes(test) && name.startsWith(start) && name.endsWith(end)) {
       return test;
     }
     test = name.slice(0, -(start + end).length);
-    if (modelNames.includes(test)) {
+    if (modelNames.includes(test) && name.endsWith(start + end)) {
       return test;
     }
   }
@@ -105,6 +105,7 @@ const endsWithKeywords = [
   'Aggregate',
   'GroupBy',
   'CreateOne',
+  'CreateMany',
   'DeleteMany',
   'DeleteOne',
   'FindMany',
@@ -120,6 +121,7 @@ const middleKeywords = [
   ['FindUnique', 'OrThrowArgs'],
   ['Aggregate', 'Args'],
   ['CreateOne', 'Args'],
+  ['CreateMany', 'Args'],
   ['DeleteMany', 'Args'],
   ['DeleteOne', 'Args'],
   ['FindMany', 'Args'],
