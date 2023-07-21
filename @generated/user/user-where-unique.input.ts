@@ -18,16 +18,16 @@ import { ProfileNullableRelationFilter } from '../prisma/profile-nullable-relati
 
 @InputType()
 export class UserWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-  @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
-  email?: string;
+  @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
+  email!: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, { nullable: false })
   @Validator.MinLength(3)
   @Validator.MaxLength(50)
-  name?: string;
+  name!: string;
 
   @Field(() => UserEmailNameCompoundUniqueInput, { nullable: true })
   @Type(() => UserEmailNameCompoundUniqueInput)

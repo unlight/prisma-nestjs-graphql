@@ -8,11 +8,11 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ProfileWhereUniqueInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
+  @Field(() => Int, { nullable: false })
+  id!: number;
 
-  @Field(() => String, { nullable: true })
-  userId?: string;
+  @Field(() => String, { nullable: false })
+  userId!: string;
 
   @Field(() => [ProfileWhereInput], { nullable: true })
   AND?: Array<ProfileWhereInput>;

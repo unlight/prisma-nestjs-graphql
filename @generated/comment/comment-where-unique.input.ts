@@ -10,8 +10,8 @@ import { ArticleNullableRelationFilter } from '../prisma/article-nullable-relati
 
 @InputType()
 export class CommentWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
   @Field(() => [CommentWhereInput], { nullable: true })
   AND?: Array<CommentWhereInput>;

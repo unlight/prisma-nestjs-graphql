@@ -13,11 +13,11 @@ import { CommentListRelationFilter } from '../comment/comment-list-relation-filt
 
 @InputType()
 export class ArticleWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-  @Field(() => String, { nullable: true })
-  slug?: string;
+  @Field(() => String, { nullable: false })
+  slug!: string;
 
   @Field(() => [ArticleWhereInput], { nullable: true })
   AND?: Array<ArticleWhereInput>;

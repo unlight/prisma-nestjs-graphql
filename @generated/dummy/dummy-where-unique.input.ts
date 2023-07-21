@@ -14,8 +14,8 @@ import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.
 
 @InputType()
 export class DummyWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
   @Field(() => [DummyWhereInput], { nullable: true })
   @Type(() => DummyWhereInput)

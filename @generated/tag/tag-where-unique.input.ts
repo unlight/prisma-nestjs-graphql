@@ -6,11 +6,11 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class TagWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
 
-  @Field(() => String, { nullable: true })
-  name?: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
   @Field(() => [TagWhereInput], { nullable: true })
   AND?: Array<TagWhereInput>;

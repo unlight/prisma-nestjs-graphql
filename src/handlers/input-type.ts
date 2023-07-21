@@ -74,6 +74,8 @@ export function inputType(
   );
 
   for (const field of inputType.fields) {
+    const isWhereUniqueInput = inputType.name.endsWith('WhereUniqueInput');
+  
     field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(String(t.type)));
 
     eventEmitter.emitSync('BeforeGenerateField', field, args);
@@ -96,6 +98,9 @@ export function inputType(
     });
     const modelField = model?.fields.find(f => f.name === name);
     const isCustomsApplicable = typeName === modelField?.type;
+    const isId = modelField?.isId;
+    const isUnique = modelField?.isUnique;
+    const isNullable = !(((isId || isUnique) && isWhereUniqueInput) || isRequired);
     const propertyType = castArray(
       propertySettings?.name ||
         getPropertyType({
@@ -105,7 +110,7 @@ export function inputType(
     );
     const property = propertyStructure({
       name,
-      isNullable: !isRequired,
+      isNullable,
       propertyType,
       isList,
     });
@@ -184,7 +189,7 @@ export function inputType(
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
           JSON5.stringify({
             ...settings?.fieldArguments(),
-            nullable: !isRequired,
+            nullable: isNullable,
           }),
         ],
       });
