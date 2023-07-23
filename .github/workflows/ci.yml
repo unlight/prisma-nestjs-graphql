@@ -4,6 +4,9 @@ on:
   - pull_request
 jobs:
   build:
+    env:
+      DEBUG: 'prisma:*'
+      # PRISMA_GENERATE_SKIP_AUTOINSTALL: 1
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
@@ -25,7 +28,7 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: 'Install depependencies'
-        run: npm install --force --ignore-scripts
+        run: npm install --force
       - name: 'Regenerate'
         run: npm run regen
       - name: 'ESLint'
