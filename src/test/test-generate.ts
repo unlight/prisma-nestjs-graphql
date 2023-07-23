@@ -157,7 +157,7 @@ async function createGeneratorOptions(
       proc.stderr?.pipe(process.stderr);
       proc.on('error', reject);
       proc.on('exit', code => {
-        code === 0 ? resolve(0) : reject();
+        code === 0 ? resolve(0) : reject(code);
       });
     });
   }
