@@ -10,6 +10,8 @@ import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, InputType } from '../types';
+import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
+import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys';
 
 export function inputType(
   args: EventArguments & {
@@ -57,8 +59,6 @@ export function inputType(
   const modelFieldSettings = model && fieldSettings.get(model.name);
   const moduleSpecifier = '@nestjs/graphql';
 
-  // console.log('sourceFile.getBaseName()', sourceFile.getBaseName());
-
   importDeclarations
     .set('Field', {
       namedImports: [{ name: 'Field' }],
@@ -96,8 +96,13 @@ export function inputType(
     });
     const modelField = model?.fields.find(f => f.name === name);
     const isCustomsApplicable = typeName === modelField?.type;
+    const whereUniqueInputType =
+      isWhereUniqueInputType(typeName) &&
+      model &&
+      `Prisma.AtLeast<${typeName}, ${getWhereUniqueAtLeastKeys(model)}>`;
     const propertyType = castArray(
       propertySettings?.name ||
+        whereUniqueInputType ||
         getPropertyType({
           location,
           type: typeName,
@@ -115,7 +120,10 @@ export function inputType(
     if (propertySettings) {
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
+      // TODO: Deprecated and should be removed
       importDeclarations.add('Decimal', '@prisma/client/runtime/library');
+    } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
+      importDeclarations.add('Prisma', '@prisma/client');
     }
 
     // Get graphql type

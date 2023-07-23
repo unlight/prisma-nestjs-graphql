@@ -316,6 +316,16 @@ describe('model with one id int', () => {
 
     expect(s.classFile.getName()).toEqual('UserAggregateArgs');
   });
+
+  it('where uniq must be wrapped to prisma atleast', () => {
+    const s = testSourceFile({
+      project,
+      class: 'FindManyUserArgs',
+      property: 'cursor',
+    });
+
+    expect(s.property?.type).toEqual(`Prisma.AtLeast<UserWhereUniqueInput, 'id'>`);
+  });
 });
 
 describe('duplicated', () => {
@@ -1877,7 +1887,7 @@ describe('object model options', () => {
 });
 
 describe('compound index', () => {
-  it('user unique input compound', async () => {
+  before(async () => {
     ({ project, sourceFiles } = await testGenerate({
       schema: `
                 model User {
@@ -1899,9 +1909,28 @@ describe('compound index', () => {
         `fields_Validator_input = true`,
       ],
     }));
-    setSourceFile('user-email-name-compound-unique.input.ts');
-    const minLength = classFile.getProperty('name')?.getDecorator('MinLength');
+  });
+
+  it('user unique input compound', () => {
+    const s = testSourceFile({
+      project,
+      class: 'UserEmailNameCompoundUniqueInput',
+    });
+
+    const minLength = s.classFile.getProperty('name')?.getDecorator('MinLength');
     expect(minLength?.getText()).toEqual('@Validator.MinLength(3)');
+  });
+
+  it('compound uniq where must be wrapped to prisma atleast', () => {
+    const s = testSourceFile({
+      project,
+      class: 'FindManyUserArgs',
+      property: 'cursor',
+    });
+
+    expect(s.property?.type).toEqual(
+      `Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email_name'>`,
+    );
   });
 });
 
