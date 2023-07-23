@@ -40,7 +40,7 @@ function beforeGenerateField(field: DMMF.SchemaArg): void {
 }
 
 function replaceBogus(name: string) {
-  return name.replace(/(Nullable|Nested)/g, '');
+  return name.replaceAll(/(Nullable|Nested)/g, '');
 }
 
 function isContainBogus(name: string) {

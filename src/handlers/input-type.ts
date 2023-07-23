@@ -7,11 +7,11 @@ import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
 import { getPropertyType } from '../helpers/get-property-type';
+import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
 import { propertyStructure } from '../helpers/property-structure';
 import { EventArguments, InputType } from '../types';
-import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
-import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys';
 
 export function inputType(
   args: EventArguments & {

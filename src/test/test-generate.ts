@@ -68,7 +68,7 @@ export async function testGenerate(args: {
       let message = `Project should not contain empty files: ${filePath}`;
       const fileLower = sourceFile
         .getBaseNameWithoutExtension()
-        .replace(/-/g, '')
+        .replaceAll('-', '')
         .split('.')[0];
       const sources = sourceFiles.filter(
         s =>

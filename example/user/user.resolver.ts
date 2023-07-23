@@ -1,6 +1,5 @@
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
 import { GraphQLResolveInfo } from 'graphql';
 
 import { Profile } from '../../@generated/profile/profile.model';
