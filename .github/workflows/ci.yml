@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: 'Install depependencies'
-        run: npm install --force
+        run: npm install --force --ignore-scripts
       - name: 'Regenerate'
         run: npm run regen
       - name: 'ESLint'
