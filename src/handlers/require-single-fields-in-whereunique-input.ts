@@ -1,5 +1,6 @@
 import AwaitEventEmitter from 'await-event-emitter';
 
+import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
 import { EventArguments, InputType } from '../types';
 
 export function requireSingleFieldsInWhereUniqueInput(eventEmitter: AwaitEventEmitter) {
@@ -17,8 +18,4 @@ function beforeInputType(args: EventArguments & { inputType: InputType }) {
     field.isRequired = true;
     field.isNullable = false;
   }
-}
-
-function isWhereUniqueInputType(name: string) {
-  return name.endsWith('WhereUniqueInput');
 }
