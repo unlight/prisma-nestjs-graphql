@@ -39,7 +39,7 @@ jobs:
           npm run tscheck
       - name: 'Test'
         run: |
-          npm run test:cov
+          npm run test:cov -- --bail
       - name: 'Test Build'
         run: |
           npm run build
