@@ -13,7 +13,7 @@ import { generateFileName } from '../helpers/generate-file-name';
 import { DMMF, EventArguments } from '../types';
 
 const { '@prisma/generator-helper': generatorVersion } =
-  // eslint-disable-next-line unicorn/prefer-module @typescript-eslint/no-var-requires
+  // eslint-disable-next-line unicorn/prefer-module
   require('../../package.json').dependencies;
 
 export async function testGenerate(args: {

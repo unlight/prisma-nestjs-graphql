@@ -26,10 +26,19 @@ jobs:
           node-version: '${{ matrix.node }}'
       - name: 'Install depependencies'
         run: npm install --force
+      - name: 'Regenerate'
+        run: npm run regen
+      - name: 'ESLint'
+        run: |
+          npm run eslint
+      - name: 'tscheck'
+        run: |
+          npm run tscheck
       - name: 'Test'
         run: |
-          npm run regen
-          npm run test
+          npm run test:cov
+      - name: 'Test Build'
+        run: |
           npm run build
       - name: 'Compatibilty Check'
         run: |
