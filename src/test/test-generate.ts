@@ -127,9 +127,9 @@ async function createGeneratorOptions(
     `;
   // eslint-disable-next-line prefer-rest-params
   const hash = createHash(generatorVersion, schemaHeader, arguments);
-  const cacheFile = `${cachePath}/options-${hash}.js`;
+  const cacheFile = `${cachePath}/prisma-test/options-${hash}.js`;
   if (!fs.existsSync(cacheFile)) {
-    const schemaFile = `${cachePath}/schema-${hash}.prisma`;
+    const schemaFile = `${cachePath}/prisma-test/schema-${hash}.prisma`;
     const schemaContent = `
             ${schemaHeader}
             generator proxy {
