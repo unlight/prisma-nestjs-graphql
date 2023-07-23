@@ -5,6 +5,7 @@ import { Type } from 'class-transformer';
 import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input';
 import { ProfileUpsertWithoutUserInput } from './profile-upsert-without-user.input';
 import { ProfileWhereInput } from './profile-where.input';
+import { Prisma } from '@prisma/client';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 import { ProfileUpdateToOneWithWhereWithoutUserInput } from './profile-update-to-one-with-where-without-user.input';
 
@@ -32,7 +33,7 @@ export class ProfileUpdateOneWithoutUserNestedInput {
 
   @Field(() => ProfileWhereUniqueInput, { nullable: true })
   @Type(() => ProfileWhereUniqueInput)
-  connect?: ProfileWhereUniqueInput;
+  connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 
   @Field(() => ProfileUpdateToOneWithWhereWithoutUserInput, { nullable: true })
   @Type(() => ProfileUpdateToOneWithWhereWithoutUserInput)

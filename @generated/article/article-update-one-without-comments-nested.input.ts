@@ -5,6 +5,7 @@ import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutCommentsInput } from './article-create-or-connect-without-comments.input';
 import { ArticleUpsertWithoutCommentsInput } from './article-upsert-without-comments.input';
 import { ArticleWhereInput } from './article-where.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateToOneWithWhereWithoutCommentsInput } from './article-update-to-one-with-where-without-comments.input';
 
@@ -32,7 +33,7 @@ export class ArticleUpdateOneWithoutCommentsNestedInput {
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: ArticleWhereUniqueInput;
+  connect?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
   @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)

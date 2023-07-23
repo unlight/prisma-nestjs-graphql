@@ -5,6 +5,7 @@ import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
 import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input';
 import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input';
 import { ArticleUpdateManyWithWhereWithoutAuthorInput } from './article-update-many-with-where-without-author.input';
@@ -30,19 +31,19 @@ export class ArticleUpdateManyWithoutAuthorNestedInput {
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  set?: Array<ArticleWhereUniqueInput>;
+  set?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  disconnect?: Array<ArticleWhereUniqueInput>;
+  disconnect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  delete?: Array<ArticleWhereUniqueInput>;
+  delete?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<ArticleWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], { nullable: true })
   @Type(() => ArticleUpdateWithWhereUniqueWithoutAuthorInput)

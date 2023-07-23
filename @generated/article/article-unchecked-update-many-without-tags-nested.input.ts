@@ -4,6 +4,7 @@ import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.inp
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutTagsInput } from './article-create-or-connect-without-tags.input';
 import { ArticleUpsertWithWhereUniqueWithoutTagsInput } from './article-upsert-with-where-unique-without-tags.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateWithWhereUniqueWithoutTagsInput } from './article-update-with-where-unique-without-tags.input';
 import { ArticleUpdateManyWithWhereWithoutTagsInput } from './article-update-many-with-where-without-tags.input';
@@ -25,19 +26,19 @@ export class ArticleUncheckedUpdateManyWithoutTagsNestedInput {
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  set?: Array<ArticleWhereUniqueInput>;
+  set?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  disconnect?: Array<ArticleWhereUniqueInput>;
+  disconnect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  delete?: Array<ArticleWhereUniqueInput>;
+  delete?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<ArticleWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], { nullable: true })
   @Type(() => ArticleUpdateWithWhereUniqueWithoutTagsInput)

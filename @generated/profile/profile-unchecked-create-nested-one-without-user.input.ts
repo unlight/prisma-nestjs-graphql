@@ -4,6 +4,7 @@ import { ProfileCreateWithoutUserInput } from './profile-create-without-user.inp
 import { Type } from 'class-transformer';
 import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input';
 import { HideField } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class ProfileUncheckedCreateNestedOneWithoutUserInput {
   connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
 
   @HideField()
-  connect?: ProfileWhereUniqueInput;
+  connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

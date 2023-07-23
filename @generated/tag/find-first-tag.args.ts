@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { TagWhereInput } from './tag-where.input';
 import { Type } from 'class-transformer';
 import { TagOrderByWithRelationAndSearchRelevanceInput } from './tag-order-by-with-relation-and-search-relevance.input';
+import { Prisma } from '@prisma/client';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { TagScalarFieldEnum } from './tag-scalar-field.enum';
@@ -17,7 +18,7 @@ export class FindFirstTagArgs {
   orderBy?: Array<TagOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => TagWhereUniqueInput, { nullable: true })
-  cursor?: TagWhereUniqueInput;
+  cursor?: Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>;
 
   @Field(() => Int, { nullable: true })
   take?: number;

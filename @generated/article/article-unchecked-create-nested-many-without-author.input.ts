@@ -4,6 +4,7 @@ import { ArticleCreateWithoutAuthorInput } from './article-create-without-author
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
 import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
@@ -22,5 +23,5 @@ export class ArticleUncheckedCreateNestedManyWithoutAuthorInput {
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<ArticleWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 }

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutTagsInput } from './article-create-or-connect-without-tags.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
@@ -17,5 +18,5 @@ export class ArticleUncheckedCreateNestedManyWithoutTagsInput {
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<ArticleWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 }

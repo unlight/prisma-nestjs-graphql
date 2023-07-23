@@ -5,6 +5,7 @@ import { Type } from 'class-transformer';
 import { CommentCreateOrConnectWithoutAuthorInput } from './comment-create-or-connect-without-author.input';
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input';
 import { CommentCreateManyAuthorInputEnvelope } from './comment-create-many-author-input-envelope.input';
+import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { CommentUpdateWithWhereUniqueWithoutAuthorInput } from './comment-update-with-where-unique-without-author.input';
 import { CommentUpdateManyWithWhereWithoutAuthorInput } from './comment-update-many-with-where-without-author.input';
@@ -30,19 +31,19 @@ export class CommentUpdateManyWithoutAuthorNestedInput {
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)
-  set?: Array<CommentWhereUniqueInput>;
+  set?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)
-  disconnect?: Array<CommentWhereUniqueInput>;
+  disconnect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)
-  delete?: Array<CommentWhereUniqueInput>;
+  delete?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)
-  connect?: Array<CommentWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 
   @Field(() => [CommentUpdateWithWhereUniqueWithoutAuthorInput], { nullable: true })
   @Type(() => CommentUpdateWithWhereUniqueWithoutAuthorInput)

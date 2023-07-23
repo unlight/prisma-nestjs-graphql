@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { Type } from 'class-transformer';
 import { CommentCreateInput } from './comment-create.input';
@@ -9,7 +10,7 @@ import { CommentUpdateInput } from './comment-update.input';
 export class UpsertOneCommentArgs {
   @Field(() => CommentWhereUniqueInput, { nullable: false })
   @Type(() => CommentWhereUniqueInput)
-  where!: CommentWhereUniqueInput;
+  where!: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
 
   @Field(() => CommentCreateInput, { nullable: false })
   @Type(() => CommentCreateInput)

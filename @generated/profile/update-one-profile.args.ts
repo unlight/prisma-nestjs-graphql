@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { ProfileUpdateInput } from './profile-update.input';
 import { Type } from 'class-transformer';
+import { Prisma } from '@prisma/client';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @ArgsType()
@@ -12,5 +13,5 @@ export class UpdateOneProfileArgs {
 
   @Field(() => ProfileWhereUniqueInput, { nullable: false })
   @Type(() => ProfileWhereUniqueInput)
-  where!: ProfileWhereUniqueInput;
+  where!: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

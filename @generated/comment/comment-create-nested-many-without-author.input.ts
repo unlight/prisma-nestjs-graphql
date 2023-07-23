@@ -4,6 +4,7 @@ import { CommentCreateWithoutAuthorInput } from './comment-create-without-author
 import { Type } from 'class-transformer';
 import { CommentCreateOrConnectWithoutAuthorInput } from './comment-create-or-connect-without-author.input';
 import { CommentCreateManyAuthorInputEnvelope } from './comment-create-many-author-input-envelope.input';
+import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
@@ -22,5 +23,5 @@ export class CommentCreateNestedManyWithoutAuthorInput {
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)
-  connect?: Array<CommentWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 }

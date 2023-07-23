@@ -4,6 +4,7 @@ import { UserCreateWithoutArticlesInput } from './user-create-without-articles.i
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input';
 import { UserUpsertWithoutArticlesInput } from './user-upsert-without-articles.input';
+import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserUpdateToOneWithWhereWithoutArticlesInput } from './user-update-to-one-with-where-without-articles.input';
 
@@ -23,7 +24,10 @@ export class UserUpdateOneRequiredWithoutArticlesNestedInput {
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  connect?: UserWhereUniqueInput;
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'name' | 'email_name'
+  >;
 
   @Field(() => UserUpdateToOneWithWhereWithoutArticlesInput, { nullable: true })
   @Type(() => UserUpdateToOneWithWhereWithoutArticlesInput)

@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { DummyWhereInput } from './dummy-where.input';
 import { Type } from 'class-transformer';
 import { DummyOrderByWithRelationAndSearchRelevanceInput } from './dummy-order-by-with-relation-and-search-relevance.input';
+import { Prisma } from '@prisma/client';
 import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { DummyCountAggregateInput } from './dummy-count-aggregate.input';
@@ -23,7 +24,7 @@ export class DummyAggregateArgs {
 
   @Field(() => DummyWhereUniqueInput, { nullable: true })
   @Type(() => DummyWhereUniqueInput)
-  cursor?: DummyWhereUniqueInput;
+  cursor?: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
 
   @Field(() => Int, { nullable: true })
   take?: number;

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input';
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input';
+import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -17,5 +18,8 @@ export class UserCreateNestedOneWithoutArticlesInput {
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  connect?: UserWhereUniqueInput;
+  connect?: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'name' | 'email_name'
+  >;
 }

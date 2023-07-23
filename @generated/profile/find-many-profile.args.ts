@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { ProfileWhereInput } from './profile-where.input';
 import { Type } from 'class-transformer';
 import { ProfileOrderByWithRelationAndSearchRelevanceInput } from './profile-order-by-with-relation-and-search-relevance.input';
+import { Prisma } from '@prisma/client';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ProfileScalarFieldEnum } from './profile-scalar-field.enum';
@@ -17,7 +18,7 @@ export class FindManyProfileArgs {
   orderBy?: Array<ProfileOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => ProfileWhereUniqueInput, { nullable: true })
-  cursor?: ProfileWhereUniqueInput;
+  cursor?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 
   @Field(() => Int, { nullable: true })
   take?: number;

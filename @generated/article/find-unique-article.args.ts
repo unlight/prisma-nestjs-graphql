@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { Type } from 'class-transformer';
 
@@ -7,5 +8,5 @@ import { Type } from 'class-transformer';
 export class FindUniqueArticleArgs {
   @Field(() => ArticleWhereUniqueInput, { nullable: false })
   @Type(() => ArticleWhereUniqueInput)
-  where!: ArticleWhereUniqueInput;
+  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 }

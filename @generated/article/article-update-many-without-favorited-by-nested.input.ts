@@ -4,6 +4,7 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input';
 import { ArticleUpsertWithWhereUniqueWithoutFavoritedByInput } from './article-upsert-with-where-unique-without-favorited-by.input';
+import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { ArticleUpdateWithWhereUniqueWithoutFavoritedByInput } from './article-update-with-where-unique-without-favorited-by.input';
 import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-update-many-with-where-without-favorited-by.input';
@@ -27,19 +28,19 @@ export class ArticleUpdateManyWithoutFavoritedByNestedInput {
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  set?: Array<ArticleWhereUniqueInput>;
+  set?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  disconnect?: Array<ArticleWhereUniqueInput>;
+  disconnect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  delete?: Array<ArticleWhereUniqueInput>;
+  delete?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleWhereUniqueInput], { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<ArticleWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
   @Field(() => [ArticleUpdateWithWhereUniqueWithoutFavoritedByInput], {
     nullable: true,

@@ -4,6 +4,7 @@ import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.inp
 import { Type } from 'class-transformer';
 import { TagCreateOrConnectWithoutArticlesInput } from './tag-create-or-connect-without-articles.input';
 import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
+import { Prisma } from '@prisma/client';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
 import { TagUpdateManyWithWhereWithoutArticlesInput } from './tag-update-many-with-where-without-articles.input';
@@ -25,19 +26,19 @@ export class TagUncheckedUpdateManyWithoutArticlesNestedInput {
 
   @Field(() => [TagWhereUniqueInput], { nullable: true })
   @Type(() => TagWhereUniqueInput)
-  set?: Array<TagWhereUniqueInput>;
+  set?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
   @Field(() => [TagWhereUniqueInput], { nullable: true })
   @Type(() => TagWhereUniqueInput)
-  disconnect?: Array<TagWhereUniqueInput>;
+  disconnect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
   @Field(() => [TagWhereUniqueInput], { nullable: true })
   @Type(() => TagWhereUniqueInput)
-  delete?: Array<TagWhereUniqueInput>;
+  delete?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
   @Field(() => [TagWhereUniqueInput], { nullable: true })
   @Type(() => TagWhereUniqueInput)
-  connect?: Array<TagWhereUniqueInput>;
+  connect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
   @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], { nullable: true })
   @Type(() => TagUpdateWithWhereUniqueWithoutArticlesInput)

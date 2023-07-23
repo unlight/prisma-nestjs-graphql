@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { CommentWhereInput } from './comment-where.input';
 import { Type } from 'class-transformer';
 import { CommentOrderByWithRelationAndSearchRelevanceInput } from './comment-order-by-with-relation-and-search-relevance.input';
+import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { CommentScalarFieldEnum } from './comment-scalar-field.enum';
@@ -17,7 +18,7 @@ export class FindManyCommentArgs {
   orderBy?: Array<CommentOrderByWithRelationAndSearchRelevanceInput>;
 
   @Field(() => CommentWhereUniqueInput, { nullable: true })
-  cursor?: CommentWhereUniqueInput;
+  cursor?: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
 
   @Field(() => Int, { nullable: true })
   take?: number;

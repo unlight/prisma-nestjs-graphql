@@ -4,6 +4,7 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutFavoriteArticlesInput } from './user-create-or-connect-without-favorite-articles.input';
 import { UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput } from './user-upsert-with-where-unique-without-favorite-articles.input';
+import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput } from './user-update-with-where-unique-without-favorite-articles.input';
 import { UserUpdateManyWithWhereWithoutFavoriteArticlesInput } from './user-update-many-with-where-without-favorite-articles.input';
@@ -27,19 +28,27 @@ export class UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput {
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  set?: Array<UserWhereUniqueInput>;
+  set?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  disconnect?: Array<UserWhereUniqueInput>;
+  disconnect?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  delete?: Array<UserWhereUniqueInput>;
+  delete?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  connect?: Array<UserWhereUniqueInput>;
+  connect?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput], {
     nullable: true,

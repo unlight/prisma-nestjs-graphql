@@ -4,6 +4,7 @@ import { UserCreateWithoutFollowersInput } from './user-create-without-followers
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutFollowersInput } from './user-create-or-connect-without-followers.input';
 import { UserUpsertWithWhereUniqueWithoutFollowersInput } from './user-upsert-with-where-unique-without-followers.input';
+import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 import { UserUpdateWithWhereUniqueWithoutFollowersInput } from './user-update-with-where-unique-without-followers.input';
 import { UserUpdateManyWithWhereWithoutFollowersInput } from './user-update-many-with-where-without-followers.input';
@@ -25,19 +26,27 @@ export class UserUpdateManyWithoutFollowersNestedInput {
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  set?: Array<UserWhereUniqueInput>;
+  set?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  disconnect?: Array<UserWhereUniqueInput>;
+  disconnect?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  delete?: Array<UserWhereUniqueInput>;
+  delete?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  connect?: Array<UserWhereUniqueInput>;
+  connect?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 
   @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], { nullable: true })
   @Type(() => UserUpdateWithWhereUniqueWithoutFollowersInput)

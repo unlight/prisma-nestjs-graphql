@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input';
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutFavoriteArticlesInput } from './user-create-or-connect-without-favorite-articles.input';
+import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
@@ -17,5 +18,7 @@ export class UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput {
 
   @Field(() => [UserWhereUniqueInput], { nullable: true })
   @Type(() => UserWhereUniqueInput)
-  connect?: Array<UserWhereUniqueInput>;
+  connect?: Array<
+    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
+  >;
 }
