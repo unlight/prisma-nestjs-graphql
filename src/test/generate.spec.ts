@@ -1531,6 +1531,25 @@ describe('emit single', () => {
         }));
       expect(types).toHaveLength(0);
     });
+
+    it('type started with Prisma should not be wrapped to instanceof', async () => {
+      const types = sourceFile
+        .getClasses()
+        .flatMap(c => c.getProperties().map(p => ({ c, p })))
+        .map(({ c, p }) => ({
+          c,
+          p,
+          propertyType: p.getStructure().type,
+        }))
+        .map(({ propertyType }) => String(propertyType))
+        .filter(
+          propertyType =>
+            propertyType.includes('Prisma.') &&
+            propertyType.startsWith('InstanceType<'),
+        );
+
+      expect(types).toHaveLength(0);
+    });
   });
 
   describe('emit single second gen', () => {

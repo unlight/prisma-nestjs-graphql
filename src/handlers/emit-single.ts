@@ -1,4 +1,5 @@
 import AwaitEventEmitter from 'await-event-emitter';
+import { partition } from 'lodash';
 import { PropertyDeclarationStructure } from 'ts-morph';
 
 import { DMMF } from '../types';
@@ -17,11 +18,12 @@ function classProperty(
 ) {
   const { location, isList, propertyType } = eventArguments;
   if (['inputObjectTypes', 'outputObjectTypes'].includes(location) && !isList) {
-    const types = propertyType.filter(t => t !== 'null');
-    property.type = types.map(t => `InstanceType<typeof ${t}>`).join(' | ');
-    if (types.length !== propertyType.length) {
-      // If null was removed
-      property.type += ' | null';
-    }
+    const [safeTypes, instanceofTypes] = partition(
+      propertyType,
+      t => t === 'null' || t.startsWith('Prisma.'),
+    );
+    const mappedInstanceofTypes = instanceofTypes.map(t => `InstanceType<typeof ${t}>`);
+
+    property.type = [...mappedInstanceofTypes, ...safeTypes].join(' | ');
   }
 }
