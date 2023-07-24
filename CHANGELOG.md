@@ -1,3 +1,13 @@
+## [18.1.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.1.1...v18.1.2) (2023-07-24)
+
+
+### Bug Fixes
+
+* Combine scalars option with nullable relation filter ([471c405](https://github.com/unlight/nestjs-graphql-prisma/commit/471c405f88dc22e1874231f5770fc1e2474f6633))
+* Compatibility Issues with Prisma 5 ([1e1bee3](https://github.com/unlight/nestjs-graphql-prisma/commit/1e1bee3b2fb29dca6ce0a43afd3e8cdba4da1f17)), closes [#179](https://github.com/unlight/nestjs-graphql-prisma/issues/179)
+* Emit single with Prisma type ([94df9cf](https://github.com/unlight/nestjs-graphql-prisma/commit/94df9cf9dd78f63a6221fc5a3016288c15eeca63))
+* More precise get model name ([96323c1](https://github.com/unlight/nestjs-graphql-prisma/commit/96323c1ba62b9e43182585234ca58a9e92b17b9a))
+
 ## [18.1.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.1.0...v18.1.1) (2023-07-21)
 
 
