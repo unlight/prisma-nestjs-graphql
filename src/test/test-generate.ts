@@ -5,7 +5,6 @@ import { exec } from 'child_process';
 import crypto from 'crypto';
 import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
-import cachePath from 'temp-dir';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate';
@@ -107,6 +106,20 @@ export async function testGenerate(args: {
   return { project, sourceFiles };
 }
 
+async function prepareCachePath(): Promise<string> {
+  const base = process.env.CI
+    ? process.cwd()
+    : await import('temp-dir').then(x => x.default);
+
+  const result = `${base}/~prisma-test`;
+
+  if (!fs.existsSync(result)) {
+    fs.mkdirSync(result, { recursive: true });
+  }
+
+  return result;
+}
+
 /**
  * Get generator options after run prisma generate.
  */
@@ -127,10 +140,7 @@ async function createGeneratorOptions(
     `;
   // eslint-disable-next-line prefer-rest-params
   const hash = createHash(generatorVersion, schemaHeader, arguments);
-  const prismaTestPath = `${cachePath}/prisma-test`;
-  if (!fs.existsSync(prismaTestPath)) {
-    fs.mkdirSync(prismaTestPath);
-  }
+  const prismaTestPath = await prepareCachePath();
   const cacheFile = `${prismaTestPath}/options-${hash}.js`;
   if (!fs.existsSync(cacheFile)) {
     const schemaFile = `${prismaTestPath}/schema-${hash}.prisma`;
@@ -154,7 +164,7 @@ async function createGeneratorOptions(
         throw new Error('Generate error');
       }
       proc.stdout?.pipe(process.stdout);
-      proc.stderr?.pipe(process.stderr);
+      proc.stderr.pipe(process.stdout);
       proc.on('error', reject);
       proc.on('exit', code => {
         code === 0 ? resolve(0) : reject(code);
