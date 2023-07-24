@@ -25,28 +25,28 @@ compatibilty_check() {
   set -x
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
 
-  echo Check noAtomicOperations
+  echo === Check noAtomicOperations ===
   sed -i 's/noAtomicOperations *= false/noAtomicOperations = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/noAtomicOperations *= true/noAtomicOperations = false/g' prisma/schema.prisma
 
-  echo Check combineScalarFilters
+  echo === Check combineScalarFilters ===
   sed -i 's/combineScalarFilters *= false/combineScalarFilters = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
 
-  echo Check Switching reExport
+  echo === Switching reExport ===
   sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/reExport *= All/reExport = None/g' prisma/schema.prisma
 
-  echo Check emitSingle
+  echo === Check emitSingle ===
   sed -i 's/emitSingle *= false/emitSingle = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g
   npx tsc --noEmit --skipLibCheck --experimentalDecorators ./@generated/index.ts
   npx ts-node ./@generated/index.ts
 
-  echo Check emitCompiled
+  echo === Check emitCompiled ===
   sed -i 's/emitCompiled *= false/emitCompiled = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g
   node ./@generated/index.js
@@ -54,7 +54,7 @@ compatibilty_check() {
   sed -i 's/emitCompiled *= true/emitCompiled = false/g' prisma/schema.prisma
   sed -i 's/emitSingle *= true/emitSingle = false/g' prisma/schema.prisma
 
-  echo Check requireSingleFieldsInWhereUniqueInput
+  echo === Check requireSingleFieldsInWhereUniqueInput ===
   sed -i 's/requireSingleFieldsInWhereUniqueInput *= false/requireSingleFieldsInWhereUniqueInput = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/requireSingleFieldsInWhereUniqueInput *= true/requireSingleFieldsInWhereUniqueInput = false/g' prisma/schema.prisma

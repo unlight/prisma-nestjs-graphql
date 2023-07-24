@@ -40,7 +40,7 @@ function beforeGenerateField(field: DMMF.SchemaArg): void {
 }
 
 function replaceBogus(name: string) {
-  return name.replaceAll(/(Nullable|Nested)/g, '');
+  return name.replaceAll(/Nullable|Nested/g, '');
 }
 
 function isContainBogus(name: string) {
@@ -66,7 +66,7 @@ function isScalarFilter(inputType: InputType) {
 }
 
 function postBegin(args: EventArguments) {
-  const { schema } = args;
+  const { schema, modelNames } = args;
   const inputTypes = schema.inputObjectTypes.prisma;
   const enumTypes = schema.enumTypes.model || [];
   const types = [
@@ -114,6 +114,12 @@ function postBegin(args: EventArguments) {
     replaceBogusFilters(`${type}ListFilter`, [
       `${type}NullableListFilter`,
       `Nested${type}NullableListFilter`,
+    ]);
+  }
+
+  for (const modelName of modelNames) {
+    replaceBogusFilters(`${modelName}RelationFilter`, [
+      `${modelName}NullableRelationFilter`,
     ]);
   }
 

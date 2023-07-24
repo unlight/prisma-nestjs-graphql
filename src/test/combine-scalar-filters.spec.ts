@@ -235,3 +235,26 @@ describe('combine scalar filters on array', () => {
     'no errors';
   });
 });
+
+describe('empty relation filter input', () => {
+  before(async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      schema: `
+        model Article {
+          id             String    @id @default(cuid())
+          comments       Comment[]
+        }
+        model Comment {
+          id        String   @id @default(cuid())
+          article   Article? @relation(fields: [articleId], references: [id])
+          articleId String?
+        }
+        `,
+      options: [`combineScalarFilters = true`],
+    }));
+  });
+
+  it('smoke', () => {
+    'no errors';
+  });
+});
