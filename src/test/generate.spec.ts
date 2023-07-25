@@ -2241,7 +2241,6 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
   });
 
   it.skip('requireSingleFieldsInWhereUniqueInput single fields', async () => {
-    // TODO: Move to Prisma 4 tests or require new setting to disabl AND OR NOT fields to generate
     ({ project } = await testGenerate({
       schema: `
                 model User {
@@ -2268,7 +2267,6 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
   });
 
   it.skip('requireSingleFieldsInWhereUniqueInput compound', async () => {
-    // TODO: Move to Prisma 4 tests or require new setting to disabl AND OR NOT fields to generate
     ({ project } = await testGenerate({
       schema: `
                 model User {
