@@ -1,3 +1,10 @@
+## [19.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.0.0...v19.0.1) (2023-08-04)
+
+
+### Bug Fixes
+
+* Compound primary key generated type ([64a9854](https://github.com/unlight/nestjs-graphql-prisma/commit/64a98544195b60ba6dcf062e0a74186aaa7c71f3)), closes [#182](https://github.com/unlight/nestjs-graphql-prisma/issues/182)
+
 ## [19.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v18.1.2...v19.0.0) (2023-07-24)
 
 
