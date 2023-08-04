@@ -5,11 +5,19 @@ export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
     .filter(field => field.isUnique || field.isId)
     .map(field => field.name);
 
-  for (const uniqueIndex of model.uniqueIndexes) {
-    const name = uniqueIndex.name || uniqueIndex.fields.join('_');
+  if (model.primaryKey) {
+    names.push(createFieldName(model.primaryKey));
+  }
 
-    names.push(name);
+  for (const uniqueIndex of model.uniqueIndexes) {
+    names.push(createFieldName(uniqueIndex));
   }
 
   return names.map(name => `'${name}'`).join(' | ');
+}
+
+function createFieldName(args: { name?: string | null; fields: string[] }) {
+  const { name, fields } = args;
+
+  return name || fields.join('_');
 }
