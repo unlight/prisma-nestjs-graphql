@@ -7,10 +7,10 @@ import { DMMF } from '../types';
  * Find input type for graphql field decorator.
  */
 export function getGraphqlInputType(
-  inputTypes: DMMF.SchemaArgInputType[],
+  inputTypes: DMMF.InputTypeRef[],
   pattern?: string,
 ) {
-  let result: DMMF.SchemaArgInputType | undefined;
+  let result: DMMF.InputTypeRef | undefined;
 
   inputTypes = inputTypes.filter(t => !['null', 'Null'].includes(String(t.type)));
   inputTypes = uniqWith(inputTypes, isEqual);

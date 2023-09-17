@@ -94,4 +94,48 @@ describe('createConfig', () => {
 
     expect(result.tsConfigFilePath).toEqual('tsconfig.json');
   });
+
+  it('emitBlocks default', () => {
+    const result = createConfig({});
+
+    expect(result.emitBlocks.args).toEqual(true);
+    expect(result.emitBlocks.models).toEqual(true);
+    expect(result.emitBlocks.inputs).toEqual(true);
+    expect(result.emitBlocks.outputs).toEqual(true);
+    expect(result.emitBlocks.prismaEnums).toEqual(true);
+    expect(result.emitBlocks.schemaEnums).toEqual(true);
+  });
+
+  it('emitBlocks with models only', () => {
+    const result = createConfig({ emitBlocks: ['models'] });
+
+    expect(result.emitBlocks.args).toBeUndefined();
+    expect(result.emitBlocks.models).toEqual(true);
+    expect(result.emitBlocks.inputs).toBeUndefined();
+    expect(result.emitBlocks.outputs).toBeUndefined();
+    expect(result.emitBlocks.prismaEnums).toBeUndefined();
+    expect(result.emitBlocks.schemaEnums).toEqual(true);
+  });
+
+  it('emitBlocks with inputs only', () => {
+    const result = createConfig({ emitBlocks: ['inputs'] });
+
+    expect(result.emitBlocks.args).toBeUndefined();
+    expect(result.emitBlocks.models).toBeUndefined();
+    expect(result.emitBlocks.inputs).toEqual(true);
+    expect(result.emitBlocks.outputs).toBeUndefined();
+    expect(result.emitBlocks.prismaEnums).toEqual(true);
+    expect(result.emitBlocks.schemaEnums).toBeUndefined();
+  });
+
+  it('emitBlocks with enums only', () => {
+    const result = createConfig({ emitBlocks: ['enums'] });
+
+    expect(result.emitBlocks.args).toBeUndefined();
+    expect(result.emitBlocks.models).toBeUndefined();
+    expect(result.emitBlocks.inputs).toBeUndefined();
+    expect(result.emitBlocks.outputs).toBeUndefined();
+    expect(result.emitBlocks.prismaEnums).toEqual(true);
+    expect(result.emitBlocks.schemaEnums).toEqual(true);
+  });
 });

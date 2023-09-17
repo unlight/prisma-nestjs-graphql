@@ -4,7 +4,10 @@ import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments, SchemaEnum } from '../types';
 
 export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
-  const { getSourceFile, enums } = args;
+  const { getSourceFile, enums, config } = args;
+
+  if (!config.emitBlocks.prismaEnums && !enums[enumType.name]) return;
+
   const dataModelEnum = enums[enumType.name];
   const sourceFile = getSourceFile({
     name: enumType.name,

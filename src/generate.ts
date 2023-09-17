@@ -45,18 +45,23 @@ export async function generate(
   const generatorOutputValue = generator.output?.value;
   ok(generatorOutputValue, 'Missing generator configuration: output');
 
+  const config = createConfig(generator.config);
+
   const eventEmitter = new AwaitEventEmitter();
   eventEmitter.on('Warning', warning);
-  eventEmitter.on('Model', modelData);
-  eventEmitter.on('EnumType', registerEnum);
-  eventEmitter.on('OutputType', outputType);
-  eventEmitter.on('ModelOutputType', modelOutputType);
-  eventEmitter.on('AggregateOutput', createAggregateInput);
-  eventEmitter.on('InputType', inputType);
-  eventEmitter.on('ArgsType', argsType);
+  config.emitBlocks.models && eventEmitter.on('Model', modelData);
+  if (config.emitBlocks.prismaEnums || config.emitBlocks.schemaEnums) {
+    eventEmitter.on('EnumType', registerEnum);
+  }
+  if (config.emitBlocks.outputs || config.emitBlocks.models && !config.omitModelsCount) {
+    eventEmitter.on('OutputType', outputType);
+  }
+  config.emitBlocks.models && eventEmitter.on('ModelOutputType', modelOutputType);
+  config.emitBlocks.outputs && eventEmitter.on('AggregateOutput', createAggregateInput);
+  config.emitBlocks.inputs && eventEmitter.on('InputType', inputType);
+  config.emitBlocks.args && eventEmitter.on('ArgsType', argsType);
   eventEmitter.on('GenerateFiles', generateFiles);
 
-  const config = createConfig(generator.config);
   for (const message of config.$warnings) {
     eventEmitter.emitSync('Warning', message);
   }
