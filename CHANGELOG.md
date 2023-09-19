@@ -1,3 +1,10 @@
+## [19.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.0.1...v19.1.0) (2023-09-19)
+
+
+### Features
+
+* Add options to generate only selected blocks ([cabe9bd](https://github.com/unlight/nestjs-graphql-prisma/commit/cabe9bd93658554f3017619cca09c81b1ea5c3e3))
+
 ## [19.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.0.0...v19.0.1) (2023-08-04)
 
 
