@@ -80,6 +80,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   importDeclarations.add('ObjectType', nestjsGraphql);
 
   for (const field of outputType.fields) {
+    if (config.omitModelsCount && field.name === '_count') continue;
+
     let fileType = 'model';
     const { location, isList, type, namespace } = field.outputType;
 

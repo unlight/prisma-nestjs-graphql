@@ -8,6 +8,7 @@ import outmatch from 'outmatch';
 
 import { ReExport } from '../handlers/re-export';
 import { ImportNameSpec, ObjectSetting } from '../types';
+import { createEmitBlocks, EmitBlocksOption } from './create-emit-blocks';
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {
@@ -103,6 +104,8 @@ export function createConfig(data: Record<string, unknown>) {
     reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
     emitSingle: toBoolean(config.emitSingle),
     emitCompiled: toBoolean(config.emitCompiled),
+    emitBlocks: createEmitBlocks(config.emitBlocks as EmitBlocksOption[]),
+    omitModelsCount: toBoolean(config.omitModelsCount),
     $warnings,
     fields,
     purgeOutput: toBoolean(config.purgeOutput),
