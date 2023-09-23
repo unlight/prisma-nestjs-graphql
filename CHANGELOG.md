@@ -1,3 +1,10 @@
+## [19.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.1.0...v19.2.0) (2023-09-23)
+
+
+### Features
+
+* **compatibility:** New configuration option `unsafeCompatibleWhereUniqueInput` ([72a3dab](https://github.com/unlight/nestjs-graphql-prisma/commit/72a3dab1396716f1c570f9b03eb7d66e67f3703e)), closes [#177](https://github.com/unlight/nestjs-graphql-prisma/issues/177)
+
 ## [19.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.0.1...v19.1.0) (2023-09-19)
 
 
