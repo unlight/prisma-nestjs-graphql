@@ -114,6 +114,9 @@ export function createConfig(data: Record<string, unknown>) {
     requireSingleFieldsInWhereUniqueInput: toBoolean(
       config.requireSingleFieldsInWhereUniqueInput,
     ),
+    unsafeCompatibleWhereUniqueInput: toBoolean(
+      config.unsafeCompatibleWhereUniqueInput,
+    ),
     graphqlScalars: (config.graphqlScalars || {}) as Record<
       string,
       ImportNameSpec | undefined

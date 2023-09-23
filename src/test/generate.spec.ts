@@ -163,7 +163,7 @@ describe('model with one id int', () => {
   it('aggregate user output count', () => {
     const s = testSourceFile({
       project,
-      file: 'aggregate-user.output.ts',
+      class: 'AggregateUser',
       property: '_count',
     });
     expect(s.property?.type).toEqual('UserCountAggregate');
@@ -2409,5 +2409,65 @@ describe('deprecation reason', () => {
         deprecationReason: 'Use name2 instead',
       }),
     );
+  });
+});
+
+describe('unsafeCompatibleWhereUniqueInput', () => {
+  it('user id', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      schema: `
+      model User {
+        id String @id
+      }`,
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `unsafeCompatibleWhereUniqueInput = true`,
+      ],
+    }));
+    const s = testSourceFile({
+      project,
+      class: 'UserWhereUniqueInput',
+      property: 'id',
+    });
+    expect(s.property?.hasExclamationToken).toBe(true);
+  });
+
+  it('user id email', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      schema: `
+      model User {
+        id        String    @id @default(cuid())
+        name      String
+        email     String    @unique @db.VarChar(255)
+        password  String
+
+        @@unique([email, name])
+      }`,
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `unsafeCompatibleWhereUniqueInput = true`,
+      ],
+    }));
+
+    const id = testSourceFile({
+      project,
+      class: 'UserWhereUniqueInput',
+      property: 'id',
+    });
+    expect(id.property?.hasExclamationToken).toBe(true);
+
+    const email = testSourceFile({
+      project,
+      class: 'UserWhereUniqueInput',
+      property: 'email',
+    });
+    expect(email.property?.hasExclamationToken).toBe(true);
+
+    const emailName = testSourceFile({
+      project,
+      class: 'UserWhereUniqueInput',
+      property: 'email_name',
+    });
+    expect(emailName.property?.hasExclamationToken).toBe(true);
   });
 });

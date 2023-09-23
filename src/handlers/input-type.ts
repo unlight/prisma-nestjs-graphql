@@ -4,6 +4,7 @@ import { castArray, last } from 'lodash';
 import pupa from 'pupa';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
+import { BeforeGenerateField } from '../event-names';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
 import { getPropertyType } from '../helpers/get-property-type';
@@ -72,11 +73,12 @@ export function inputType(
   const useInputType = config.useInputType.find(x =>
     inputType.name.includes(x.typeName),
   );
+  const isWhereUnique = isWhereUniqueInputType(inputType.name);
 
   for (const field of inputType.fields) {
     field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(String(t.type)));
 
-    eventEmitter.emitSync('BeforeGenerateField', field, args);
+    eventEmitter.emitSync(BeforeGenerateField, field, args);
 
     const { inputTypes, isRequired, name } = field;
 
@@ -96,10 +98,14 @@ export function inputType(
     });
     const modelField = model?.fields.find(f => f.name === name);
     const isCustomsApplicable = typeName === modelField?.type;
+    const atLeastKeys = model && getWhereUniqueAtLeastKeys(model);
     const whereUniqueInputType =
       isWhereUniqueInputType(typeName) &&
-      model &&
-      `Prisma.AtLeast<${typeName}, ${getWhereUniqueAtLeastKeys(model)}>`;
+      atLeastKeys &&
+      `Prisma.AtLeast<${typeName}, ${atLeastKeys
+        .map(name => `'${name}'`)
+        .join(' | ')}>`;
+
     const propertyType = castArray(
       propertySettings?.name ||
         whereUniqueInputType ||
@@ -108,12 +114,21 @@ export function inputType(
           type: typeName,
         }),
     );
+
+    const hasExclamationToken = Boolean(
+      isWhereUnique &&
+        config.unsafeCompatibleWhereUniqueInput &&
+        atLeastKeys?.includes(name),
+    );
     const property = propertyStructure({
       name,
       isNullable: !isRequired,
+      hasExclamationToken: hasExclamationToken || undefined,
+      hasQuestionToken: hasExclamationToken ? false : undefined,
       propertyType,
       isList,
     });
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     classStructure.properties!.push(property);
 
@@ -136,7 +151,7 @@ export function inputType(
       config.decorate.some(
         d =>
           d.name === 'HideField' &&
-          d.from === '@nestjs/graphql' &&
+          d.from === moduleSpecifier &&
           d.isMatchField(name) &&
           d.isMatchType(inputType.name),
       );
@@ -182,7 +197,7 @@ export function inputType(
     ok(property.decorators, 'property.decorators is undefined');
 
     if (shouldHideField) {
-      importDeclarations.add('HideField', '@nestjs/graphql');
+      importDeclarations.add('HideField', moduleSpecifier);
       property.decorators.push({ name: 'HideField', arguments: [] });
     } else {
       // Generate `@Field()` decorator
@@ -196,22 +211,6 @@ export function inputType(
           }),
         ],
       });
-
-      // Debug
-      // if (classStructure.name === 'XInput') {
-      //   console.log('------------');
-      //   console.log({
-      //     field,
-      //     property,
-      //     modelField,
-      //     graphqlInputType,
-      //     'args.inputType': args.inputType,
-      //     'classStructure.name': classStructure.name,
-      //     classTransformerTypeModels,
-      //     modelName,
-      //     graphqlType,
-      //   });
-      // }
 
       if (graphqlType === 'GraphQLDecimal') {
         importDeclarations.add('transformToDecimal', 'prisma-graphql-type-decimal');

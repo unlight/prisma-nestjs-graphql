@@ -13,7 +13,7 @@ export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
     names.push(createFieldName(uniqueIndex));
   }
 
-  return names.map(name => `'${name}'`).join(' | ');
+  return names;
 }
 
 function createFieldName(args: { name?: string | null; fields: string[] }) {

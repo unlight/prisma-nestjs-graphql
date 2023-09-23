@@ -20,6 +20,8 @@ import { UserListRelationFilter } from '../../@generated/user/user-list-relation
 import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-order-by-aggregate.input';
 import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
+import { UserWhereUniqueInput } from '../../@generated/user/user-where-unique.input';
+import { Field } from '@nestjs/graphql';
 
 let $prisma = new PrismaClient();
 
@@ -198,4 +200,16 @@ let $prisma = new PrismaClient();
       let result: User[] = users;
       console.log('result', result);
     });
+}
+
+{
+  class UserWhereUniqueInput1 extends UserWhereUniqueInput {
+    @Field(() => String, { nullable: true })
+    id!: string;
+  }
+  const userWhereUniqueInput1: UserWhereUniqueInput1 = { id: '1' };
+
+  $prisma.user.findUnique({
+    where: userWhereUniqueInput1,
+  });
 }

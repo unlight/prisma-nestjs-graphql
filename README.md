@@ -145,6 +145,13 @@ Type: `boolean`
 Default: `false`  
 **Note**: It will break compatiblity between Prisma types and generated classes.
 
+#### `unsafeCompatibleWhereUniqueInput`
+
+This trick TypeScript and set property as non optional for all fields in `*WhereUniqueInput` classes.
+See [#177](https://github.com/unlight/prisma-nestjs-graphql/issues/177) for more details.  
+Type: `boolean`  
+Default: `false`
+
 #### `useInputType`
 
 Since GraphQL does not support input union type, this setting map

@@ -1,6 +1,7 @@
 import AwaitEventEmitter from 'await-event-emitter';
 import { cloneDeep, keyBy, remove } from 'lodash';
 
+import { BeforeGenerateField } from '../event-names';
 import { DMMF, EventArguments, InputType } from '../types';
 
 /**
@@ -8,7 +9,7 @@ import { DMMF, EventArguments, InputType } from '../types';
  */
 export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
   eventEmitter.on('BeforeInputType', beforeInputType);
-  eventEmitter.on('BeforeGenerateField', beforeGenerateField);
+  eventEmitter.on(BeforeGenerateField, beforeGenerateField);
   eventEmitter.on('PostBegin', postBegin);
 }
 
