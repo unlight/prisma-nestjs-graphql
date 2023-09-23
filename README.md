@@ -117,16 +117,19 @@ Type: `boolean`
 Default: `false`
 
 #### `emitBlocks`
+
 Emit only selected blocks. Be aware, that some blocks do depend on others, e.g. one can't emit `models` without emitting `enums`.  
 Type: `("args" | "inputs" | "outputs" | "models" | "enums")[]`  
 Default: `["args", "inputs", "outputs", "models", "enums"]`
 
 #### `omitModelsCount`
+
 Omit `_count` field from models.  
 Type: `boolean`  
 Default: `false`
 
 #### `purgeOutput`
+
 Delete all files in `output` folder.  
 Type: `boolean`  
 Default: `false`
@@ -147,7 +150,7 @@ Default: `false`
 
 #### `unsafeCompatibleWhereUniqueInput`
 
-This trick TypeScript and set property as non optional for all fields in `*WhereUniqueInput` classes.
+Set TypeScript property type as non optional for all fields in `*WhereUniqueInput` classes.
 See [#177](https://github.com/unlight/prisma-nestjs-graphql/issues/177) for more details.  
 Type: `boolean`  
 Default: `false`
