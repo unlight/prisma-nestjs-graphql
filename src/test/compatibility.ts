@@ -1,4 +1,5 @@
 /* eslint-disable prefer-const, unicorn/no-null */
+import { Field } from '@nestjs/graphql';
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
 
@@ -21,7 +22,6 @@ import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-ord
 import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
 import { UserWhereInput } from '../../@generated/user/user-where.input';
 import { UserWhereUniqueInput } from '../../@generated/user/user-where-unique.input';
-import { Field } from '@nestjs/graphql';
 
 let $prisma = new PrismaClient();
 

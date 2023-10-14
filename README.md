@@ -70,6 +70,12 @@ Path to `tsconfig.json` (absolute path or relative to current working directory)
 Type: `string | undefined`  
 Default: `tsconfig.json` if exists, `undefined` otherwise
 
+#### `prismaClientImport`
+
+The path to use to import the Prisma Client package
+Type: `string | undefined`
+Default: `@prisma/client`
+
 #### `combineScalarFilters`
 
 Combine nested/nullable scalar filters to single  

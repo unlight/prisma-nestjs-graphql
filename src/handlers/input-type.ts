@@ -138,7 +138,7 @@ export function inputType(
       // TODO: Deprecated and should be removed
       importDeclarations.add('Decimal', '@prisma/client/runtime/library');
     } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
-      importDeclarations.add('Prisma', '@prisma/client');
+      importDeclarations.add('Prisma', config.prismaClientImport);
     }
 
     // Get graphql type
