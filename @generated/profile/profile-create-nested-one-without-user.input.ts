@@ -3,20 +3,21 @@ import { InputType } from '@nestjs/graphql';
 import { ProfileCreateWithoutUserInput } from './profile-create-without-user.input';
 import { Type } from 'class-transformer';
 import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma-client';
 import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @InputType()
 export class ProfileCreateNestedOneWithoutUserInput {
-  @Field(() => ProfileCreateWithoutUserInput, { nullable: true })
-  @Type(() => ProfileCreateWithoutUserInput)
-  create?: ProfileCreateWithoutUserInput;
 
-  @Field(() => ProfileCreateOrConnectWithoutUserInput, { nullable: true })
-  @Type(() => ProfileCreateOrConnectWithoutUserInput)
-  connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+    @Field(() => ProfileCreateWithoutUserInput, {nullable:true})
+    @Type(() => ProfileCreateWithoutUserInput)
+    create?: ProfileCreateWithoutUserInput;
 
-  @Field(() => ProfileWhereUniqueInput, { nullable: true })
-  @Type(() => ProfileWhereUniqueInput)
-  connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
+    @Field(() => ProfileCreateOrConnectWithoutUserInput, {nullable:true})
+    @Type(() => ProfileCreateOrConnectWithoutUserInput)
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+
+    @Field(() => ProfileWhereUniqueInput, {nullable:true})
+    @Type(() => ProfileWhereUniqueInput)
+    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

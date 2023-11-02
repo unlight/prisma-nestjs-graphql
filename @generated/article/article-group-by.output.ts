@@ -9,48 +9,49 @@ import { ArticleMaxAggregate } from './article-max-aggregate.output';
 
 @ObjectType()
 export class ArticleGroupBy {
-  @Field(() => String, { nullable: false })
-  id!: string;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
-  @Field(() => String, { nullable: false })
-  title!: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  description!: string;
+    @Field(() => String, {nullable:false})
+    title!: string;
 
-  @Field(() => String, { nullable: false })
-  body!: string;
+    @Field(() => String, {nullable:false})
+    description!: string;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date | string;
+    @Field(() => String, {nullable:false})
+    body!: string;
 
-  @Field(() => Date, { nullable: false })
-  updatedAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
 
-  @Field(() => Int, { nullable: false })
-  favoritesCount!: number;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
 
-  @Field(() => String, { nullable: false })
-  authorId!: string;
+    @Field(() => Int, {nullable:false})
+    favoritesCount!: number;
 
-  @Field(() => Boolean, { nullable: true })
-  active?: boolean;
+    @Field(() => String, {nullable:false})
+    authorId!: string;
 
-  @Field(() => ArticleCountAggregate, { nullable: true })
-  _count?: ArticleCountAggregate;
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 
-  @Field(() => ArticleAvgAggregate, { nullable: true })
-  _avg?: ArticleAvgAggregate;
+    @Field(() => ArticleCountAggregate, {nullable:true})
+    _count?: ArticleCountAggregate;
 
-  @Field(() => ArticleSumAggregate, { nullable: true })
-  _sum?: ArticleSumAggregate;
+    @Field(() => ArticleAvgAggregate, {nullable:true})
+    _avg?: ArticleAvgAggregate;
 
-  @Field(() => ArticleMinAggregate, { nullable: true })
-  _min?: ArticleMinAggregate;
+    @Field(() => ArticleSumAggregate, {nullable:true})
+    _sum?: ArticleSumAggregate;
 
-  @Field(() => ArticleMaxAggregate, { nullable: true })
-  _max?: ArticleMaxAggregate;
+    @Field(() => ArticleMinAggregate, {nullable:true})
+    _min?: ArticleMinAggregate;
+
+    @Field(() => ArticleMaxAggregate, {nullable:true})
+    _max?: ArticleMaxAggregate;
 }

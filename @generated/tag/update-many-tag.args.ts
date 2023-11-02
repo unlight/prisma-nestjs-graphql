@@ -6,11 +6,12 @@ import { TagWhereInput } from './tag-where.input';
 
 @ArgsType()
 export class UpdateManyTagArgs {
-  @Field(() => TagUpdateManyMutationInput, { nullable: false })
-  @Type(() => TagUpdateManyMutationInput)
-  data!: TagUpdateManyMutationInput;
 
-  @Field(() => TagWhereInput, { nullable: true })
-  @Type(() => TagWhereInput)
-  where?: TagWhereInput;
+    @Field(() => TagUpdateManyMutationInput, {nullable:false})
+    @Type(() => TagUpdateManyMutationInput)
+    data!: TagUpdateManyMutationInput;
+
+    @Field(() => TagWhereInput, {nullable:true})
+    @Type(() => TagWhereInput)
+    where?: TagWhereInput;
 }

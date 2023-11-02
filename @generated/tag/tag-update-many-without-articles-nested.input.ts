@@ -4,7 +4,7 @@ import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.inp
 import { Type } from 'class-transformer';
 import { TagCreateOrConnectWithoutArticlesInput } from './tag-create-or-connect-without-articles.input';
 import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma-client';
 import { TagWhereUniqueInput } from './tag-where-unique.input';
 import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
 import { TagUpdateManyWithWhereWithoutArticlesInput } from './tag-update-many-with-where-without-articles.input';
@@ -12,43 +12,44 @@ import { TagScalarWhereInput } from './tag-scalar-where.input';
 
 @InputType()
 export class TagUpdateManyWithoutArticlesNestedInput {
-  @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
-  @Type(() => TagCreateWithoutArticlesInput)
-  create?: Array<TagCreateWithoutArticlesInput>;
 
-  @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
-  @Type(() => TagCreateOrConnectWithoutArticlesInput)
-  connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
+    @Field(() => [TagCreateWithoutArticlesInput], {nullable:true})
+    @Type(() => TagCreateWithoutArticlesInput)
+    create?: Array<TagCreateWithoutArticlesInput>;
 
-  @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], { nullable: true })
-  @Type(() => TagUpsertWithWhereUniqueWithoutArticlesInput)
-  upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
+    @Field(() => [TagCreateOrConnectWithoutArticlesInput], {nullable:true})
+    @Type(() => TagCreateOrConnectWithoutArticlesInput)
+    connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
 
-  @Field(() => [TagWhereUniqueInput], { nullable: true })
-  @Type(() => TagWhereUniqueInput)
-  set?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
+    @Field(() => [TagUpsertWithWhereUniqueWithoutArticlesInput], {nullable:true})
+    @Type(() => TagUpsertWithWhereUniqueWithoutArticlesInput)
+    upsert?: Array<TagUpsertWithWhereUniqueWithoutArticlesInput>;
 
-  @Field(() => [TagWhereUniqueInput], { nullable: true })
-  @Type(() => TagWhereUniqueInput)
-  disconnect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
+    @Field(() => [TagWhereUniqueInput], {nullable:true})
+    @Type(() => TagWhereUniqueInput)
+    set?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
-  @Field(() => [TagWhereUniqueInput], { nullable: true })
-  @Type(() => TagWhereUniqueInput)
-  delete?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
+    @Field(() => [TagWhereUniqueInput], {nullable:true})
+    @Type(() => TagWhereUniqueInput)
+    disconnect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
-  @Field(() => [TagWhereUniqueInput], { nullable: true })
-  @Type(() => TagWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
+    @Field(() => [TagWhereUniqueInput], {nullable:true})
+    @Type(() => TagWhereUniqueInput)
+    delete?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
-  @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], { nullable: true })
-  @Type(() => TagUpdateWithWhereUniqueWithoutArticlesInput)
-  update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
+    @Field(() => [TagWhereUniqueInput], {nullable:true})
+    @Type(() => TagWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 
-  @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], { nullable: true })
-  @Type(() => TagUpdateManyWithWhereWithoutArticlesInput)
-  updateMany?: Array<TagUpdateManyWithWhereWithoutArticlesInput>;
+    @Field(() => [TagUpdateWithWhereUniqueWithoutArticlesInput], {nullable:true})
+    @Type(() => TagUpdateWithWhereUniqueWithoutArticlesInput)
+    update?: Array<TagUpdateWithWhereUniqueWithoutArticlesInput>;
 
-  @Field(() => [TagScalarWhereInput], { nullable: true })
-  @Type(() => TagScalarWhereInput)
-  deleteMany?: Array<TagScalarWhereInput>;
+    @Field(() => [TagUpdateManyWithWhereWithoutArticlesInput], {nullable:true})
+    @Type(() => TagUpdateManyWithWhereWithoutArticlesInput)
+    updateMany?: Array<TagUpdateManyWithWhereWithoutArticlesInput>;
+
+    @Field(() => [TagScalarWhereInput], {nullable:true})
+    @Type(() => TagScalarWhereInput)
+    deleteMany?: Array<TagScalarWhereInput>;
 }

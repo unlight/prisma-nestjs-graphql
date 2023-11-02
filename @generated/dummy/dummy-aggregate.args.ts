@@ -3,7 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { DummyWhereInput } from './dummy-where.input';
 import { Type } from 'class-transformer';
 import { DummyOrderByWithRelationAndSearchRelevanceInput } from './dummy-order-by-with-relation-and-search-relevance.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma-client';
 import { DummyWhereUniqueInput } from './dummy-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { DummyCountAggregateInput } from './dummy-count-aggregate.input';
@@ -14,41 +14,42 @@ import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
 
 @ArgsType()
 export class DummyAggregateArgs {
-  @Field(() => DummyWhereInput, { nullable: true })
-  @Type(() => DummyWhereInput)
-  where?: DummyWhereInput;
 
-  @Field(() => [DummyOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
-  @Type(() => DummyOrderByWithRelationAndSearchRelevanceInput)
-  orderBy?: Array<DummyOrderByWithRelationAndSearchRelevanceInput>;
+    @Field(() => DummyWhereInput, {nullable:true})
+    @Type(() => DummyWhereInput)
+    where?: DummyWhereInput;
 
-  @Field(() => DummyWhereUniqueInput, { nullable: true })
-  @Type(() => DummyWhereUniqueInput)
-  cursor?: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
+    @Field(() => [DummyOrderByWithRelationAndSearchRelevanceInput], {nullable:true})
+    @Type(() => DummyOrderByWithRelationAndSearchRelevanceInput)
+    orderBy?: Array<DummyOrderByWithRelationAndSearchRelevanceInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => DummyWhereUniqueInput, {nullable:true})
+    @Type(() => DummyWhereUniqueInput)
+    cursor?: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => DummyCountAggregateInput, { nullable: true })
-  @Type(() => DummyCountAggregateInput)
-  _count?: DummyCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => DummyAvgAggregateInput, { nullable: true })
-  @Type(() => DummyAvgAggregateInput)
-  _avg?: DummyAvgAggregateInput;
+    @Field(() => DummyCountAggregateInput, {nullable:true})
+    @Type(() => DummyCountAggregateInput)
+    _count?: DummyCountAggregateInput;
 
-  @Field(() => DummySumAggregateInput, { nullable: true })
-  @Type(() => DummySumAggregateInput)
-  _sum?: DummySumAggregateInput;
+    @Field(() => DummyAvgAggregateInput, {nullable:true})
+    @Type(() => DummyAvgAggregateInput)
+    _avg?: DummyAvgAggregateInput;
 
-  @Field(() => DummyMinAggregateInput, { nullable: true })
-  @Type(() => DummyMinAggregateInput)
-  _min?: DummyMinAggregateInput;
+    @Field(() => DummySumAggregateInput, {nullable:true})
+    @Type(() => DummySumAggregateInput)
+    _sum?: DummySumAggregateInput;
 
-  @Field(() => DummyMaxAggregateInput, { nullable: true })
-  @Type(() => DummyMaxAggregateInput)
-  _max?: DummyMaxAggregateInput;
+    @Field(() => DummyMinAggregateInput, {nullable:true})
+    @Type(() => DummyMinAggregateInput)
+    _min?: DummyMinAggregateInput;
+
+    @Field(() => DummyMaxAggregateInput, {nullable:true})
+    @Type(() => DummyMaxAggregateInput)
+    _max?: DummyMaxAggregateInput;
 }

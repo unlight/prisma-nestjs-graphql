@@ -8,25 +8,26 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ProfileWhereInput {
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  AND?: Array<ProfileWhereInput>;
 
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  OR?: Array<ProfileWhereInput>;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    AND?: Array<ProfileWhereInput>;
 
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  NOT?: Array<ProfileWhereInput>;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    OR?: Array<ProfileWhereInput>;
 
-  @Field(() => IntFilter, { nullable: true })
-  id?: IntFilter;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    NOT?: Array<ProfileWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  userId?: StringFilter;
+    @Field(() => IntFilter, {nullable:true})
+    id?: IntFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  dummy?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    userId?: StringFilter;
 
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  user?: UserWhereInput;
+    @Field(() => StringNullableFilter, {nullable:true})
+    dummy?: StringNullableFilter;
+
+    @Field(() => UserWhereInput, {nullable:true})
+    @Type(() => UserWhereInput)
+    user?: UserWhereInput;
 }

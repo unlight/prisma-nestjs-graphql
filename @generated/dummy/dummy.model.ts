@@ -4,38 +4,39 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '../../prisma-client/runtime/library';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
 export class Dummy {
-  @Field(() => ID, { nullable: false })
-  id!: string;
 
-  @Field(() => Date, { nullable: true })
-  date!: Date | null;
+    @Field(() => ID, {nullable:false})
+    id!: string;
 
-  @Field(() => Int, { nullable: true })
-  int!: number | null;
+    @Field(() => Date, {nullable:true})
+    date!: Date | null;
 
-  @Field(() => Float, { nullable: true })
-  float!: number | null;
+    @Field(() => Int, {nullable:true})
+    int!: number | null;
 
-  @Field(() => String, { nullable: true })
-  bytes!: Buffer | null;
+    @Field(() => Float, {nullable:true})
+    float!: number | null;
 
-  @Field(() => GraphQLDecimal, { nullable: false })
-  decimal!: Decimal;
+    @Field(() => String, {nullable:true})
+    bytes!: Buffer | null;
 
-  @Field(() => [GraphQLDecimal], { nullable: true })
-  decimals!: Array<Decimal>;
+    @Field(() => GraphQLDecimal, {nullable:false})
+    decimal!: Decimal;
 
-  @Field(() => String, { nullable: true })
-  bigInt!: bigint | null;
+    @Field(() => [GraphQLDecimal], {nullable:true})
+    decimals!: Array<Decimal>;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  json!: any | null;
+    @Field(() => String, {nullable:true})
+    bigInt!: bigint | null;
 
-  @Field(() => [String], { nullable: true })
-  friends!: Array<string>;
+    @Field(() => GraphQLJSON, {nullable:true})
+    json!: any | null;
+
+    @Field(() => [String], {nullable:true})
+    friends!: Array<string>;
 }

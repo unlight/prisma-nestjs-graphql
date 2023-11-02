@@ -6,13 +6,14 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class TagUpdateInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUpdateManyWithoutTagsNestedInput, { nullable: true })
-  @Type(() => ArticleUpdateManyWithoutTagsNestedInput)
-  articles?: ArticleUpdateManyWithoutTagsNestedInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    name?: StringFieldUpdateOperationsInput;
+
+    @Field(() => ArticleUpdateManyWithoutTagsNestedInput, {nullable:true})
+    @Type(() => ArticleUpdateManyWithoutTagsNestedInput)
+    articles?: ArticleUpdateManyWithoutTagsNestedInput;
 }

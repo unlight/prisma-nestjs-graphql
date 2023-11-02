@@ -5,7 +5,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyDummyArgs {
-  @Field(() => DummyWhereInput, { nullable: true })
-  @Type(() => DummyWhereInput)
-  where?: DummyWhereInput;
+
+    @Field(() => DummyWhereInput, {nullable:true})
+    @Type(() => DummyWhereInput)
+    where?: DummyWhereInput;
 }

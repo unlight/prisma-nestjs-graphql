@@ -4,24 +4,25 @@ import { CommentCreateWithoutArticleInput } from './comment-create-without-artic
 import { Type } from 'class-transformer';
 import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input';
 import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma-client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
 export class CommentCreateNestedManyWithoutArticleInput {
-  @Field(() => [CommentCreateWithoutArticleInput], { nullable: true })
-  @Type(() => CommentCreateWithoutArticleInput)
-  create?: Array<CommentCreateWithoutArticleInput>;
 
-  @Field(() => [CommentCreateOrConnectWithoutArticleInput], { nullable: true })
-  @Type(() => CommentCreateOrConnectWithoutArticleInput)
-  connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
+    @Field(() => [CommentCreateWithoutArticleInput], {nullable:true})
+    @Type(() => CommentCreateWithoutArticleInput)
+    create?: Array<CommentCreateWithoutArticleInput>;
 
-  @Field(() => CommentCreateManyArticleInputEnvelope, { nullable: true })
-  @Type(() => CommentCreateManyArticleInputEnvelope)
-  createMany?: CommentCreateManyArticleInputEnvelope;
+    @Field(() => [CommentCreateOrConnectWithoutArticleInput], {nullable:true})
+    @Type(() => CommentCreateOrConnectWithoutArticleInput)
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
 
-  @Field(() => [CommentWhereUniqueInput], { nullable: true })
-  @Type(() => CommentWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
+    @Field(() => CommentCreateManyArticleInputEnvelope, {nullable:true})
+    @Type(() => CommentCreateManyArticleInputEnvelope)
+    createMany?: CommentCreateManyArticleInputEnvelope;
+
+    @Field(() => [CommentWhereUniqueInput], {nullable:true})
+    @Type(() => CommentWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 }

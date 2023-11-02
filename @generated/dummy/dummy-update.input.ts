@@ -14,36 +14,37 @@ import { DummyUpdatefriendsInput } from './dummy-updatefriends.input';
 
 @InputType()
 export class DummyUpdateInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
-  date?: NullableDateTimeFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  int?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    date?: NullableDateTimeFieldUpdateOperationsInput;
 
-  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  float?: NullableFloatFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    int?: NullableIntFieldUpdateOperationsInput;
 
-  @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
-  bytes?: NullableBytesFieldUpdateOperationsInput;
+    @Field(() => NullableFloatFieldUpdateOperationsInput, {nullable:true})
+    float?: NullableFloatFieldUpdateOperationsInput;
 
-  @Field(() => DecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => DecimalFieldUpdateOperationsInput)
-  decimal?: DecimalFieldUpdateOperationsInput;
+    @Field(() => NullableBytesFieldUpdateOperationsInput, {nullable:true})
+    bytes?: NullableBytesFieldUpdateOperationsInput;
 
-  @Field(() => DummyUpdatedecimalsInput, { nullable: true })
-  @Type(() => DummyUpdatedecimalsInput)
-  decimals?: DummyUpdatedecimalsInput;
+    @Field(() => DecimalFieldUpdateOperationsInput, {nullable:true})
+    @Type(() => DecimalFieldUpdateOperationsInput)
+    decimal?: DecimalFieldUpdateOperationsInput;
 
-  @Field(() => NullableBigIntFieldUpdateOperationsInput, { nullable: true })
-  bigInt?: NullableBigIntFieldUpdateOperationsInput;
+    @Field(() => DummyUpdatedecimalsInput, {nullable:true})
+    @Type(() => DummyUpdatedecimalsInput)
+    decimals?: DummyUpdatedecimalsInput;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  json?: any;
+    @Field(() => NullableBigIntFieldUpdateOperationsInput, {nullable:true})
+    bigInt?: NullableBigIntFieldUpdateOperationsInput;
 
-  @Field(() => DummyUpdatefriendsInput, { nullable: true })
-  @Type(() => DummyUpdatefriendsInput)
-  friends?: DummyUpdatefriendsInput;
+    @Field(() => GraphQLJSON, {nullable:true})
+    json?: any;
+
+    @Field(() => DummyUpdatefriendsInput, {nullable:true})
+    @Type(() => DummyUpdatefriendsInput)
+    friends?: DummyUpdatefriendsInput;
 }

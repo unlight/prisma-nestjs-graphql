@@ -5,11 +5,12 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class UserRelationFilter {
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  is?: UserWhereInput;
 
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  isNot?: UserWhereInput;
+    @Field(() => UserWhereInput, {nullable:true})
+    @Type(() => UserWhereInput)
+    is?: UserWhereInput;
+
+    @Field(() => UserWhereInput, {nullable:true})
+    @Type(() => UserWhereInput)
+    isNot?: UserWhereInput;
 }

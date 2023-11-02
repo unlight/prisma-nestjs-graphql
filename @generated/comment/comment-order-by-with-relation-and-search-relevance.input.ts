@@ -9,32 +9,33 @@ import { CommentOrderByRelevanceInput } from './comment-order-by-relevance.input
 
 @InputType()
 export class CommentOrderByWithRelationAndSearchRelevanceInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  body?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    body?: keyof typeof SortOrder;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  articleId?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    authorId?: keyof typeof SortOrder;
 
-  @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
-  @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
-  author?: UserOrderByWithRelationAndSearchRelevanceInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    articleId?: SortOrderInput;
 
-  @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
-  @Type(() => ArticleOrderByWithRelationAndSearchRelevanceInput)
-  article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
+    @Field(() => UserOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
+    @Type(() => UserOrderByWithRelationAndSearchRelevanceInput)
+    author?: UserOrderByWithRelationAndSearchRelevanceInput;
 
-  @Field(() => CommentOrderByRelevanceInput, { nullable: true })
-  _relevance?: CommentOrderByRelevanceInput;
+    @Field(() => ArticleOrderByWithRelationAndSearchRelevanceInput, {nullable:true})
+    @Type(() => ArticleOrderByWithRelationAndSearchRelevanceInput)
+    article?: ArticleOrderByWithRelationAndSearchRelevanceInput;
+
+    @Field(() => CommentOrderByRelevanceInput, {nullable:true})
+    _relevance?: CommentOrderByRelevanceInput;
 }

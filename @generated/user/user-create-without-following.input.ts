@@ -4,7 +4,7 @@ import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '../../prisma-client/runtime/library';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -18,57 +18,58 @@ import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-creat
 
 @InputType()
 export class UserCreateWithoutFollowingInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  @Validator.MinLength(3)
-  @Validator.MaxLength(50)
-  name!: string;
+    @Field(() => Scalars.GraphQLEmailAddress, {nullable:false})
+    email!: string;
 
-  @Field(() => String, { nullable: false })
-  password!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.MinLength(3)
+    @Validator.MaxLength(50)
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio?: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image?: string;
+    @Field(() => String, {nullable:true})
+    bio?: string;
 
-  @Field(() => Int, { nullable: true })
-  countComments?: number;
+    @Field(() => String, {nullable:true})
+    image?: string;
 
-  @Field(() => Float, { nullable: true })
-  rating?: number;
+    @Field(() => Int, {nullable:true})
+    countComments?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  money?: Decimal;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
 
-  @Field(() => Role, { nullable: true })
-  role?: keyof typeof Role;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    money?: Decimal;
 
-  @Field(() => UserCreateNestedManyWithoutFollowingInput, { nullable: true })
-  @Type(() => UserCreateNestedManyWithoutFollowingInput)
-  followers?: UserCreateNestedManyWithoutFollowingInput;
+    @Field(() => Role, {nullable:true})
+    role?: keyof typeof Role;
 
-  @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, { nullable: true })
-  @Type(() => ArticleCreateNestedManyWithoutFavoritedByInput)
-  favoriteArticles?: ArticleCreateNestedManyWithoutFavoritedByInput;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    @Type(() => UserCreateNestedManyWithoutFollowingInput)
+    followers?: UserCreateNestedManyWithoutFollowingInput;
 
-  @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
-  @Type(() => ArticleCreateNestedManyWithoutAuthorInput)
-  articles?: ArticleCreateNestedManyWithoutAuthorInput;
+    @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, {nullable:true})
+    @Type(() => ArticleCreateNestedManyWithoutFavoritedByInput)
+    favoriteArticles?: ArticleCreateNestedManyWithoutFavoritedByInput;
 
-  @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
-  @Type(() => CommentCreateNestedManyWithoutAuthorInput)
-  comments?: CommentCreateNestedManyWithoutAuthorInput;
+    @Field(() => ArticleCreateNestedManyWithoutAuthorInput, {nullable:true})
+    @Type(() => ArticleCreateNestedManyWithoutAuthorInput)
+    articles?: ArticleCreateNestedManyWithoutAuthorInput;
 
-  @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
-  @Type(() => ProfileCreateNestedOneWithoutUserInput)
-  profile?: ProfileCreateNestedOneWithoutUserInput;
+    @Field(() => CommentCreateNestedManyWithoutAuthorInput, {nullable:true})
+    @Type(() => CommentCreateNestedManyWithoutAuthorInput)
+    comments?: CommentCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ProfileCreateNestedOneWithoutUserInput, {nullable:true})
+    @Type(() => ProfileCreateNestedOneWithoutUserInput)
+    profile?: ProfileCreateNestedOneWithoutUserInput;
 }

@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '../../prisma-client/runtime/library';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -13,37 +13,38 @@ import { DummyCreatefriendsInput } from './dummy-createfriends.input';
 
 @InputType()
 export class DummyUncheckedCreateInput {
-  @Field(() => String, { nullable: false })
-  id!: string;
 
-  @Field(() => Date, { nullable: true })
-  date?: Date | string;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
-  @Field(() => Int, { nullable: true })
-  int?: number;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
 
-  @Field(() => Float, { nullable: true })
-  float?: number;
+    @Field(() => Int, {nullable:true})
+    int?: number;
 
-  @Field(() => String, { nullable: true })
-  bytes?: Buffer;
+    @Field(() => Float, {nullable:true})
+    float?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: false })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  decimal!: Decimal;
+    @Field(() => String, {nullable:true})
+    bytes?: Buffer;
 
-  @Field(() => DummyCreatedecimalsInput, { nullable: true })
-  @Type(() => DummyCreatedecimalsInput)
-  decimals?: DummyCreatedecimalsInput;
+    @Field(() => GraphQLDecimal, {nullable:false})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    decimal!: Decimal;
 
-  @Field(() => String, { nullable: true })
-  bigInt?: bigint | number;
+    @Field(() => DummyCreatedecimalsInput, {nullable:true})
+    @Type(() => DummyCreatedecimalsInput)
+    decimals?: DummyCreatedecimalsInput;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  json?: any;
+    @Field(() => String, {nullable:true})
+    bigInt?: bigint | number;
 
-  @Field(() => DummyCreatefriendsInput, { nullable: true })
-  @Type(() => DummyCreatefriendsInput)
-  friends?: DummyCreatefriendsInput;
+    @Field(() => GraphQLJSON, {nullable:true})
+    json?: any;
+
+    @Field(() => DummyCreatefriendsInput, {nullable:true})
+    @Type(() => DummyCreatefriendsInput)
+    friends?: DummyCreatefriendsInput;
 }

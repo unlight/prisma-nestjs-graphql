@@ -14,37 +14,38 @@ import { ProfileMaxAggregateInput } from './profile-max-aggregate.input';
 
 @ArgsType()
 export class ProfileGroupByArgs {
-  @Field(() => ProfileWhereInput, { nullable: true })
-  @Type(() => ProfileWhereInput)
-  where?: ProfileWhereInput;
 
-  @Field(() => [ProfileOrderByWithAggregationInput], { nullable: true })
-  orderBy?: Array<ProfileOrderByWithAggregationInput>;
+    @Field(() => ProfileWhereInput, {nullable:true})
+    @Type(() => ProfileWhereInput)
+    where?: ProfileWhereInput;
 
-  @Field(() => [ProfileScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof ProfileScalarFieldEnum>;
+    @Field(() => [ProfileOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<ProfileOrderByWithAggregationInput>;
 
-  @Field(() => ProfileScalarWhereWithAggregatesInput, { nullable: true })
-  having?: ProfileScalarWhereWithAggregatesInput;
+    @Field(() => [ProfileScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof ProfileScalarFieldEnum>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ProfileScalarWhereWithAggregatesInput, {nullable:true})
+    having?: ProfileScalarWhereWithAggregatesInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => ProfileCountAggregateInput, { nullable: true })
-  _count?: ProfileCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => ProfileAvgAggregateInput, { nullable: true })
-  _avg?: ProfileAvgAggregateInput;
+    @Field(() => ProfileCountAggregateInput, {nullable:true})
+    _count?: ProfileCountAggregateInput;
 
-  @Field(() => ProfileSumAggregateInput, { nullable: true })
-  _sum?: ProfileSumAggregateInput;
+    @Field(() => ProfileAvgAggregateInput, {nullable:true})
+    _avg?: ProfileAvgAggregateInput;
 
-  @Field(() => ProfileMinAggregateInput, { nullable: true })
-  _min?: ProfileMinAggregateInput;
+    @Field(() => ProfileSumAggregateInput, {nullable:true})
+    _sum?: ProfileSumAggregateInput;
 
-  @Field(() => ProfileMaxAggregateInput, { nullable: true })
-  _max?: ProfileMaxAggregateInput;
+    @Field(() => ProfileMinAggregateInput, {nullable:true})
+    _min?: ProfileMinAggregateInput;
+
+    @Field(() => ProfileMaxAggregateInput, {nullable:true})
+    _max?: ProfileMaxAggregateInput;
 }

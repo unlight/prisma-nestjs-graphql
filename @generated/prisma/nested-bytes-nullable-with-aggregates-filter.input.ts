@@ -5,24 +5,25 @@ import { NestedBytesNullableFilter } from './nested-bytes-nullable-filter.input'
 
 @InputType()
 export class NestedBytesNullableWithAggregatesFilter {
-  @Field(() => String, { nullable: true })
-  equals?: Buffer;
 
-  @Field(() => [String], { nullable: true })
-  in?: Array<Buffer>;
+    @Field(() => String, {nullable:true})
+    equals?: Buffer;
 
-  @Field(() => [String], { nullable: true })
-  notIn?: Array<Buffer>;
+    @Field(() => [String], {nullable:true})
+    in?: Array<Buffer>;
 
-  @Field(() => NestedBytesNullableWithAggregatesFilter, { nullable: true })
-  not?: NestedBytesNullableWithAggregatesFilter;
+    @Field(() => [String], {nullable:true})
+    notIn?: Array<Buffer>;
 
-  @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+    @Field(() => NestedBytesNullableWithAggregatesFilter, {nullable:true})
+    not?: NestedBytesNullableWithAggregatesFilter;
 
-  @Field(() => NestedBytesNullableFilter, { nullable: true })
-  _min?: NestedBytesNullableFilter;
+    @Field(() => NestedIntNullableFilter, {nullable:true})
+    _count?: NestedIntNullableFilter;
 
-  @Field(() => NestedBytesNullableFilter, { nullable: true })
-  _max?: NestedBytesNullableFilter;
+    @Field(() => NestedBytesNullableFilter, {nullable:true})
+    _min?: NestedBytesNullableFilter;
+
+    @Field(() => NestedBytesNullableFilter, {nullable:true})
+    _max?: NestedBytesNullableFilter;
 }

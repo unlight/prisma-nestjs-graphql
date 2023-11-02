@@ -4,18 +4,19 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class DummyAvgOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  int?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  float?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    int?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimal?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    float?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimals?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    decimal?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  bigInt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    decimals?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    bigInt?: keyof typeof SortOrder;
 }

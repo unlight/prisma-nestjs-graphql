@@ -6,22 +6,23 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class TagWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => String, { nullable: true })
-  name?: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => [TagWhereInput], { nullable: true })
-  AND?: Array<TagWhereInput>;
+    @Field(() => String, {nullable:true})
+    name?: string;
 
-  @Field(() => [TagWhereInput], { nullable: true })
-  OR?: Array<TagWhereInput>;
+    @Field(() => [TagWhereInput], {nullable:true})
+    AND?: Array<TagWhereInput>;
 
-  @Field(() => [TagWhereInput], { nullable: true })
-  NOT?: Array<TagWhereInput>;
+    @Field(() => [TagWhereInput], {nullable:true})
+    OR?: Array<TagWhereInput>;
 
-  @Field(() => ArticleListRelationFilter, { nullable: true })
-  @Type(() => ArticleListRelationFilter)
-  articles?: ArticleListRelationFilter;
+    @Field(() => [TagWhereInput], {nullable:true})
+    NOT?: Array<TagWhereInput>;
+
+    @Field(() => ArticleListRelationFilter, {nullable:true})
+    @Type(() => ArticleListRelationFilter)
+    articles?: ArticleListRelationFilter;
 }

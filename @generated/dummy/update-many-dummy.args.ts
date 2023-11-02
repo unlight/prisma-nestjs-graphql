@@ -6,11 +6,12 @@ import { DummyWhereInput } from './dummy-where.input';
 
 @ArgsType()
 export class UpdateManyDummyArgs {
-  @Field(() => DummyUpdateManyMutationInput, { nullable: false })
-  @Type(() => DummyUpdateManyMutationInput)
-  data!: DummyUpdateManyMutationInput;
 
-  @Field(() => DummyWhereInput, { nullable: true })
-  @Type(() => DummyWhereInput)
-  where?: DummyWhereInput;
+    @Field(() => DummyUpdateManyMutationInput, {nullable:false})
+    @Type(() => DummyUpdateManyMutationInput)
+    data!: DummyUpdateManyMutationInput;
+
+    @Field(() => DummyWhereInput, {nullable:true})
+    @Type(() => DummyWhereInput)
+    where?: DummyWhereInput;
 }

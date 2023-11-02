@@ -10,38 +10,39 @@ import { ArticleNullableRelationFilter } from '../article/article-nullable-relat
 
 @InputType()
 export class CommentWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  AND?: Array<CommentWhereInput>;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  OR?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    AND?: Array<CommentWhereInput>;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  NOT?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    OR?: Array<CommentWhereInput>;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    NOT?: Array<CommentWhereInput>;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    body?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  articleId?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    authorId?: StringFilter;
 
-  @Field(() => UserRelationFilter, { nullable: true })
-  @Type(() => UserRelationFilter)
-  author?: UserRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    articleId?: StringNullableFilter;
 
-  @Field(() => ArticleNullableRelationFilter, { nullable: true })
-  @Type(() => ArticleNullableRelationFilter)
-  article?: ArticleNullableRelationFilter;
+    @Field(() => UserRelationFilter, {nullable:true})
+    @Type(() => UserRelationFilter)
+    author?: UserRelationFilter;
+
+    @Field(() => ArticleNullableRelationFilter, {nullable:true})
+    @Type(() => ArticleNullableRelationFilter)
+    article?: ArticleNullableRelationFilter;
 }

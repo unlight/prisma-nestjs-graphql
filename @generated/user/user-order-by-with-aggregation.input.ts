@@ -11,54 +11,55 @@ import { UserSumOrderByAggregateInput } from './user-sum-order-by-aggregate.inpu
 
 @InputType()
 export class UserOrderByWithAggregationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  email?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    email?: keyof typeof SortOrder;
 
-  @Field(() => SortOrder, { nullable: true })
-  password?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  bio?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    password?: keyof typeof SortOrder;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  image?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    bio?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  countComments?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    image?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  rating?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    countComments?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  @Type(() => SortOrderInput)
-  money?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    rating?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  role?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    @Type(() => SortOrderInput)
+    money?: SortOrderInput;
 
-  @Field(() => UserCountOrderByAggregateInput, { nullable: true })
-  @Type(() => UserCountOrderByAggregateInput)
-  _count?: UserCountOrderByAggregateInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    role?: SortOrderInput;
 
-  @Field(() => UserAvgOrderByAggregateInput, { nullable: true })
-  @Type(() => UserAvgOrderByAggregateInput)
-  _avg?: UserAvgOrderByAggregateInput;
+    @Field(() => UserCountOrderByAggregateInput, {nullable:true})
+    @Type(() => UserCountOrderByAggregateInput)
+    _count?: UserCountOrderByAggregateInput;
 
-  @Field(() => UserMaxOrderByAggregateInput, { nullable: true })
-  @Type(() => UserMaxOrderByAggregateInput)
-  _max?: UserMaxOrderByAggregateInput;
+    @Field(() => UserAvgOrderByAggregateInput, {nullable:true})
+    @Type(() => UserAvgOrderByAggregateInput)
+    _avg?: UserAvgOrderByAggregateInput;
 
-  @Field(() => UserMinOrderByAggregateInput, { nullable: true })
-  @Type(() => UserMinOrderByAggregateInput)
-  _min?: UserMinOrderByAggregateInput;
+    @Field(() => UserMaxOrderByAggregateInput, {nullable:true})
+    @Type(() => UserMaxOrderByAggregateInput)
+    _max?: UserMaxOrderByAggregateInput;
 
-  @Field(() => UserSumOrderByAggregateInput, { nullable: true })
-  @Type(() => UserSumOrderByAggregateInput)
-  _sum?: UserSumOrderByAggregateInput;
+    @Field(() => UserMinOrderByAggregateInput, {nullable:true})
+    @Type(() => UserMinOrderByAggregateInput)
+    _min?: UserMinOrderByAggregateInput;
+
+    @Field(() => UserSumOrderByAggregateInput, {nullable:true})
+    @Type(() => UserSumOrderByAggregateInput)
+    _sum?: UserSumOrderByAggregateInput;
 }

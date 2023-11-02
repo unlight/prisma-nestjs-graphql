@@ -5,7 +5,7 @@ import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '../../prisma-client/runtime/library';
 import { Role } from '../prisma/role.enum';
 import { Article } from '../article/article.model';
 import { Comment } from '../comment/comment.model';
@@ -15,59 +15,60 @@ import { UserCount } from './user-count.output';
 /**
  * User really
  */
-@ObjectType({ description: 'User really' })
+@ObjectType({description:'User really'})
 export class User {
-  @Field(() => ID, { nullable: false })
-  id!: string;
 
-  @Field(() => String, { nullable: false })
-  email!: string;
+    @Field(() => ID, {nullable:false})
+    id!: string;
 
-  /**
-   * User's name
-   */
-  @Field(() => String, { nullable: false, description: "User's name" })
-  name!: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
 
-  @HideField()
-  password!: string;
+    /**
+     * User's name
+     */
+    @Field(() => String, {nullable:false,description:"User's name"})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio!: string | null;
+    @HideField()
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image!: string | null;
+    @Field(() => String, {nullable:true})
+    bio!: string | null;
 
-  @Field(() => Int, { nullable: true })
-  countComments!: number | null;
+    @Field(() => String, {nullable:true})
+    image!: string | null;
 
-  @Field(() => Float, { nullable: true })
-  rating!: number | null;
+    @Field(() => Int, {nullable:true})
+    countComments!: number | null;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  money!: Decimal | null;
+    @Field(() => Float, {nullable:true})
+    rating!: number | null;
 
-  @Field(() => Role, { nullable: true })
-  role!: keyof typeof Role | null;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    money!: Decimal | null;
 
-  @Field(() => [User], { nullable: true })
-  following?: Array<User>;
+    @Field(() => Role, {nullable:true})
+    role!: keyof typeof Role | null;
 
-  @Field(() => [User], { nullable: true })
-  followers?: Array<User>;
+    @Field(() => [User], {nullable:true})
+    following?: Array<User>;
 
-  @Field(() => [Article], { nullable: true })
-  favoriteArticles?: Array<Article>;
+    @Field(() => [User], {nullable:true})
+    followers?: Array<User>;
 
-  @Field(() => [Article], { nullable: true })
-  articles?: Array<Article>;
+    @Field(() => [Article], {nullable:true})
+    favoriteArticles?: Array<Article>;
 
-  @Field(() => [Comment], { nullable: true })
-  comments?: Array<Comment>;
+    @Field(() => [Article], {nullable:true})
+    articles?: Array<Article>;
 
-  @Field(() => Profile, { nullable: true })
-  profile?: Profile | null;
+    @Field(() => [Comment], {nullable:true})
+    comments?: Array<Comment>;
 
-  @Field(() => UserCount, { nullable: false })
-  _count?: UserCount;
+    @Field(() => Profile, {nullable:true})
+    profile?: Profile | null;
+
+    @Field(() => UserCount, {nullable:false})
+    _count?: UserCount;
 }

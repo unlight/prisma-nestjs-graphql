@@ -1,11 +1,9 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum ProfileOrderByRelevanceFieldEnum {
-  userId = 'userId',
-  dummy = 'dummy',
+    userId = "userId",
+    dummy = "dummy"
 }
 
-registerEnumType(ProfileOrderByRelevanceFieldEnum, {
-  name: 'ProfileOrderByRelevanceFieldEnum',
-  description: undefined,
-});
+
+registerEnumType(ProfileOrderByRelevanceFieldEnum, { name: 'ProfileOrderByRelevanceFieldEnum', description: undefined })

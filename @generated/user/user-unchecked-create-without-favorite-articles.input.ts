@@ -4,7 +4,7 @@ import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '../../prisma-client/runtime/library';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
@@ -18,57 +18,58 @@ import { ProfileUncheckedCreateNestedOneWithoutUserInput } from '../profile/prof
 
 @InputType()
 export class UserUncheckedCreateWithoutFavoriteArticlesInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  @Validator.MinLength(3)
-  @Validator.MaxLength(50)
-  name!: string;
+    @Field(() => Scalars.GraphQLEmailAddress, {nullable:false})
+    email!: string;
 
-  @Field(() => String, { nullable: false })
-  password!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.MinLength(3)
+    @Validator.MaxLength(50)
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio?: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image?: string;
+    @Field(() => String, {nullable:true})
+    bio?: string;
 
-  @Field(() => Int, { nullable: true })
-  countComments?: number;
+    @Field(() => String, {nullable:true})
+    image?: string;
 
-  @Field(() => Float, { nullable: true })
-  rating?: number;
+    @Field(() => Int, {nullable:true})
+    countComments?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  money?: Decimal;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
 
-  @Field(() => Role, { nullable: true })
-  role?: keyof typeof Role;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    money?: Decimal;
 
-  @Field(() => UserUncheckedCreateNestedManyWithoutFollowersInput, { nullable: true })
-  @Type(() => UserUncheckedCreateNestedManyWithoutFollowersInput)
-  following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
+    @Field(() => Role, {nullable:true})
+    role?: keyof typeof Role;
 
-  @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, { nullable: true })
-  @Type(() => UserUncheckedCreateNestedManyWithoutFollowingInput)
-  followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
+    @Field(() => UserUncheckedCreateNestedManyWithoutFollowersInput, {nullable:true})
+    @Type(() => UserUncheckedCreateNestedManyWithoutFollowersInput)
+    following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
 
-  @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
-  @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
-  articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
+    @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, {nullable:true})
+    @Type(() => UserUncheckedCreateNestedManyWithoutFollowingInput)
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
-  @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
-  comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+    @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
+    articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
 
-  @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, { nullable: true })
-  @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
-  profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
+    @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+
+    @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {nullable:true})
+    @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 }
