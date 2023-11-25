@@ -1,3 +1,10 @@
+## [19.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.2.0...v19.3.0) (2023-11-25)
+
+
+### Features
+
+* add the prisma client import option ([00c81d5](https://github.com/unlight/nestjs-graphql-prisma/commit/00c81d5f96493d05e8f84f0e88b00b4405a018a4))
+
 ## [19.2.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.1.0...v19.2.0) (2023-09-23)
 
 
