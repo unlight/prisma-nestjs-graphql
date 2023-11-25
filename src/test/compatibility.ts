@@ -1,5 +1,4 @@
 /* eslint-disable prefer-const, unicorn/no-null */
-import { Field } from '@nestjs/graphql';
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
 
