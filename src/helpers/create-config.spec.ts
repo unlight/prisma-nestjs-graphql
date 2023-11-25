@@ -14,6 +14,7 @@ describe('createConfig', () => {
     expect(result.noAtomicOperations).toEqual(false);
     expect(result.$warnings).toEqual([]);
     expect(result.reExport).toEqual(ReExport.None);
+    expect(result.prismaClientImport).toEqual('@prisma/client');
   });
 
   it('filename with parent reference should be not valid', () => {
@@ -145,5 +146,13 @@ describe('createConfig', () => {
     });
 
     expect(result.unsafeCompatibleWhereUniqueInput).toEqual(true);
+  });
+
+  it('prismaClientImport', () => {
+    const result = createConfig({
+      prismaClientImport: '@prisma/client/testing',
+    });
+
+    expect(result.prismaClientImport).toEqual('@prisma/client/testing');
   });
 });

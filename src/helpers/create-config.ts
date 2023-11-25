@@ -99,6 +99,7 @@ export function createConfig(data: Record<string, unknown>) {
   return {
     outputFilePattern,
     tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
+    prismaClientImport: createPrismaImport(config.prismaClientImport),
     combineScalarFilters: toBoolean(config.combineScalarFilters),
     noAtomicOperations: toBoolean(config.noAtomicOperations),
     reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
@@ -138,6 +139,11 @@ const tsConfigFileExists = memoize((filePath: string) => {
 function createTsConfigFilePathValue(value: unknown): string | undefined {
   if (typeof value === 'string') return value;
   if (tsConfigFileExists('tsconfig.json')) return 'tsconfig.json';
+}
+
+function createPrismaImport(value: unknown): string {
+  if (typeof value === 'string') return value;
+  return '@prisma/client';
 }
 
 function createUseInputType(data?: Record<string, ConfigInputItem>) {
