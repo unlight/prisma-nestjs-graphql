@@ -1,3 +1,14 @@
+## [20.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.3.1...v20.0.0) (2023-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* Bump version
+
+### Miscellaneous Chores
+
+* Bump version ([3267147](https://github.com/unlight/nestjs-graphql-prisma/commit/3267147d8e5bc28bc36e25cd3717198e61cb1e37))
+
 ## [19.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.3.0...v19.3.1) (2023-12-15)
 
 
