@@ -70,10 +70,4 @@ commit_lint() {
   fi
 }
 
-commit_check() {
-  set -x
-  from=$(git_last_release_tag)
-  commitlint --from $from
-}
-
 "$@"
