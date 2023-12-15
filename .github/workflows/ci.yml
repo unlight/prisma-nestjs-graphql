@@ -16,7 +16,7 @@ jobs:
       # max-parallel: 1
       matrix:
         node:
-          - 18
+          - 20
         os:
           - ubuntu-latest
           # - windows-latest
