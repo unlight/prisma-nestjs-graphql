@@ -133,6 +133,7 @@
     "graphql-type-json": "^0.3.2",
     "mocha": "^10.2.0",
     "ololog": "^1.1.175",
+    "pkgroll": "^2.0.1",
     "precise-commits": "^1.0.2",
     "prettier": "^3.1.1",
     "prisma": "^5.7.0",
