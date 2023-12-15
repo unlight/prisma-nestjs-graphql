@@ -1,3 +1,10 @@
+## [19.3.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.3.0...v19.3.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* Re-release 1.9.3 ([a52f31d](https://github.com/unlight/nestjs-graphql-prisma/commit/a52f31d2272120f8b3575ab22068a9a19ab30995))
+
 ## [19.3.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.2.0...v19.3.0) (2023-11-25)
 
 
