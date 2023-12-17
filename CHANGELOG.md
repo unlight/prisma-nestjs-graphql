@@ -1,3 +1,10 @@
+## [20.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.0...v20.0.1) (2023-12-17)
+
+
+### Bug Fixes
+
+* Dummy bump ([a161650](https://github.com/unlight/nestjs-graphql-prisma/commit/a161650e6b8aee5a0f4b153cfebc5e3adf857366))
+
 ## [20.0.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v19.3.1...v20.0.0) (2023-12-15)
 
 
