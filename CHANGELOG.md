@@ -1,3 +1,10 @@
+## [20.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.1...v20.0.2) (2023-12-17)
+
+
+### Bug Fixes
+
+* AwaitEventEmitter is not a constructor ([6f97126](https://github.com/unlight/nestjs-graphql-prisma/commit/6f971262fdc62d518b7eeeb99fa2361d28138416)), closes [#200](https://github.com/unlight/nestjs-graphql-prisma/issues/200)
+
 ## [20.0.1](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.0...v20.0.1) (2023-12-17)
 
 
