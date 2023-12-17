@@ -9,7 +9,7 @@ build() {
   # https://esbuild.github.io/api/#target
   cp -fv src/bin.js dist
   cp -fv README.md LICENSE dist
-  npx pkgroll --target=es2020
+  npx pkgroll --target=es2020 --export-condition=node
   cat package.json | jq '.main = "./index.cjs"' |
     jq '.types = "./index.d.ts"' |
     jq '.exports.".".require = "./index.cjs"' |

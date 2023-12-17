@@ -1,6 +1,5 @@
 import { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import AwaitEventEmitter from 'await-event-emitter';
 import { mapKeys } from 'lodash';
 import { Project, QuoteKind } from 'ts-morph';
 
@@ -30,12 +29,15 @@ import {
   ObjectSettings,
   OutputType,
 } from './types';
+const AwaitEventEmitter = require('await-event-emitter').default;
+
+import AEE from 'await-event-emitter';
 
 export async function generate(
   args: GeneratorOptions & {
     skipAddOutputSourceFiles?: boolean;
     connectCallback?: (
-      emitter: AwaitEventEmitter,
+      emitter: AEE,
       eventArguments: EventArguments,
     ) => void | Promise<void>;
   },
@@ -53,7 +55,10 @@ export async function generate(
   if (config.emitBlocks.prismaEnums || config.emitBlocks.schemaEnums) {
     eventEmitter.on('EnumType', registerEnum);
   }
-  if (config.emitBlocks.outputs || config.emitBlocks.models && !config.omitModelsCount) {
+  if (
+    config.emitBlocks.outputs ||
+    (config.emitBlocks.models && !config.omitModelsCount)
+  ) {
     eventEmitter.on('OutputType', outputType);
   }
   config.emitBlocks.models && eventEmitter.on('ModelOutputType', modelOutputType);
