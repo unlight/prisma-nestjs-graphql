@@ -19,7 +19,17 @@ export function propertyStructure(args: {
     hasQuestionToken,
     hasExclamationToken,
   } = args;
-  const type = propertyType.map(type => (isList ? `Array<${type}>` : type)).join(' | ');
+  const type = propertyType.map(type2 => {
+    if (isList) {
+        if (name === `AND`) {
+            return `Array<${type2}> | ${type2}`;
+        }
+
+        return `Array<${type2}>`;
+    }
+
+    return type2;
+  }).join(' | ');
 
   return {
     kind: StructureKind.Property,

@@ -3,6 +3,7 @@ import { cloneDeep, keyBy, remove } from 'lodash';
 
 import { BeforeGenerateField } from '../event-names';
 import { DMMF, EventArguments, InputType } from '../types';
+import { WritableDeep } from 'type-fest';
 
 /**
  * Subscribes on 'BeforeInputType'
@@ -28,7 +29,7 @@ function beforeInputType(
   }
 }
 
-function beforeGenerateField(field: DMMF.SchemaArg): void {
+function beforeGenerateField(field: WritableDeep<DMMF.SchemaArg>): void {
   for (const fieldInput of field.inputTypes) {
     if (fieldInput.location !== 'inputObjectTypes') {
       continue;
