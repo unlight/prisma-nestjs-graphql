@@ -32,6 +32,7 @@ import {
 const AwaitEventEmitter = require('await-event-emitter').default;
 
 import AEE from 'await-event-emitter';
+import { WritableDeep } from 'type-fest';
 
 export async function generate(
   args: GeneratorOptions & {
@@ -107,7 +108,7 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     eventEmitter,
   });
-  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as WritableDeep<DMMF.Document>;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
     schema,

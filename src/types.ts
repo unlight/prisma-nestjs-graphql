@@ -4,13 +4,14 @@ import { Project, SourceFile } from 'ts-morph';
 
 import { createConfig } from './helpers/create-config';
 import { ObjectSettings } from './helpers/object-settings';
+import { WritableDeep } from 'type-fest';
 
-export type InputType = DMMF.InputType;
+export type InputType = WritableDeep<DMMF.InputType>;
 export type FieldLocation = DMMF.FieldLocation;
-export type OutputType = DMMF.OutputType;
-export type SchemaField = DMMF.SchemaField;
+export type OutputType = WritableDeep<DMMF.OutputType>;
+export type SchemaField = WritableDeep<DMMF.SchemaField>;
 export type SchemaEnum = DMMF.SchemaEnum;
-export type Model = DMMF.Model;
+export type Model = WritableDeep<DMMF.Model>;
 
 export type FieldOutputType = SchemaField['outputType'];
 
@@ -28,7 +29,7 @@ export type TypeRecord = Partial<{
 export type GeneratorConfiguration = ReturnType<typeof createConfig>;
 
 export type EventArguments = {
-  schema: DMMF.Schema;
+  schema: WritableDeep<DMMF.Schema>;
   models: Map<string, Model>;
   modelNames: string[];
   modelFields: Map<string, Map<string, Field>>;

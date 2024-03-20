@@ -22,7 +22,20 @@ function classProperty(
       propertyType,
       t => t === 'null' || t.startsWith('Prisma.'),
     );
-    const mappedInstanceofTypes = instanceofTypes.map(t => `InstanceType<typeof ${t}>`);
+    const mappedInstanceofTypes = instanceofTypes.map((t) => {
+      if (t.endsWith(`RelationFilter`)) {
+          let whereInput;
+          if (isList) {
+              whereInput = whereInput.replace(`RelationFilter`, `WhereInput`);
+          } else {
+              whereInput = t.replace(`ListRelationFilter`, `WhereInput`);
+          }
+
+          return `XOR<InstanceType<typeof ${t}>, ${whereInput}>`;
+      }
+
+      return `InstanceType<typeof ${t}>`;
+  });
 
     property.type = [...mappedInstanceofTypes, ...safeTypes].join(' | ');
   }
