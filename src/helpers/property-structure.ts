@@ -21,7 +21,7 @@ export function propertyStructure(args: {
   } = args;
   const type = propertyType.map(type2 => {
     if (isList) {
-        if (name === `AND`) {
+        if (name === `AND` || name === `NOT`) {
             return `Array<${type2}> | ${type2}`;
         }
 

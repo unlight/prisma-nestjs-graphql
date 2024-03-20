@@ -35,6 +35,9 @@
       ]
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "mocha": "node node_modules/mocha/bin/mocha",
