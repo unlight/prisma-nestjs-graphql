@@ -726,7 +726,7 @@ model User {
 export class User {}
 ```
 
-### Using lirary in other generators
+### Using library in other generators
 
 ```ts
 import { generate } from 'prisma-nestjs-graphql/generate';
