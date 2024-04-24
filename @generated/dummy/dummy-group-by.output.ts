@@ -5,6 +5,7 @@ import { Float } from '@nestjs/graphql';
 import { Decimal } from '@prisma/client/runtime/library';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
+import * as Types from '../../example/dummy/dummy.types';
 import { DummyCountAggregate } from './dummy-count-aggregate.output';
 import { DummyAvgAggregate } from './dummy-avg-aggregate.output';
 import { DummySumAggregate } from './dummy-sum-aggregate.output';
@@ -39,6 +40,9 @@ export class DummyGroupBy {
 
   @Field(() => GraphQLJSON, { nullable: true })
   json?: any;
+
+  @Field(() => Types.DummyJsonType, { nullable: false })
+  jsonDefault!: Types.DummyJsonType;
 
   @Field(() => [String], { nullable: true })
   friends?: Array<string>;

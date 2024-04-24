@@ -188,7 +188,9 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             defaultValue: ['number', 'string', 'boolean'].includes(
               typeof modelField?.default,
             )
-              ? modelField?.default
+              ? modelField?.type == 'Json' && typeof modelField?.default == 'string'
+                ? JSON5.parse(modelField?.default)
+                : modelField?.default
               : undefined,
             description: modelField?.documentation,
           }),

@@ -10,6 +10,7 @@ import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-f
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input';
 import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
+import { JsonWithAggregatesFilter } from '../prisma/json-with-aggregates-filter.input';
 import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
 
 @InputType()
@@ -54,6 +55,9 @@ export class DummyScalarWhereWithAggregatesInput {
 
   @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
   json?: JsonNullableWithAggregatesFilter;
+
+  @Field(() => JsonWithAggregatesFilter, { nullable: true })
+  jsonDefault?: JsonWithAggregatesFilter;
 
   @Field(() => StringNullableListFilter, { nullable: true })
   friends?: StringNullableListFilter;

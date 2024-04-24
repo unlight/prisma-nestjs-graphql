@@ -43,6 +43,9 @@ export class DummyUncheckedUpdateManyInput {
   @Field(() => GraphQLJSON, { nullable: true })
   json?: any;
 
+  @Field(() => GraphQLJSON, { nullable: true })
+  jsonDefault?: any;
+
   @Field(() => DummyUpdatefriendsInput, { nullable: true })
   @Type(() => DummyUpdatefriendsInput)
   friends?: DummyUpdatefriendsInput;

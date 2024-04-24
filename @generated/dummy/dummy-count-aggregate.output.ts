@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import * as Types from '../../example/dummy/dummy.types';
 
 @ObjectType()
 export class DummyCountAggregate {
@@ -30,6 +31,9 @@ export class DummyCountAggregate {
 
   @Field(() => Int, { nullable: false })
   json!: number;
+
+  @Field(() => Int, { nullable: false })
+  jsonDefault!: Types.DummyJsonType;
 
   @Field(() => Int, { nullable: false })
   friends!: number;
