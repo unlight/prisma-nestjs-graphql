@@ -10,6 +10,7 @@ export enum DummyScalarFieldEnum {
   decimals = 'decimals',
   bigInt = 'bigInt',
   json = 'json',
+  jsonDefault = 'jsonDefault',
   friends = 'friends',
 }
 

@@ -43,6 +43,9 @@ export class DummyCreateInput {
   @Field(() => GraphQLJSON, { nullable: true })
   json?: any;
 
+  @Field(() => GraphQLJSON, { nullable: true })
+  jsonDefault?: any;
+
   @Field(() => DummyCreatefriendsInput, { nullable: true })
   @Type(() => DummyCreatefriendsInput)
   friends?: DummyCreatefriendsInput;
