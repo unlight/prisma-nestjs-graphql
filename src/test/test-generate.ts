@@ -69,12 +69,11 @@ export async function testGenerate(args: {
         .getBaseNameWithoutExtension()
         .replaceAll('-', '')
         .split('.')[0];
-      const sources = sourceFiles.filter(
-        s =>
-          s
-            .getClass(() => true)
-            ?.getProperties()
-            .find(p => String(p.getStructure().type).toLowerCase().includes(fileLower)),
+      const sources = sourceFiles.filter(s =>
+        s
+          .getClass(() => true)
+          ?.getProperties()
+          .find(p => String(p.getStructure().type).toLowerCase().includes(fileLower)),
       );
       if (sources.length > 0) {
         message += `, reference: ${sources.map(s => s.getBaseName()).join(', ')}`;

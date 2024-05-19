@@ -87,6 +87,7 @@ function beforeGenerateFiles(args: EventArguments) {
   if (config.reExport === ReExport.All) {
     const exportDeclarations: ExportDeclarationStructure[] = [];
     for (const directory of rootDirectory.getDirectories()) {
+      if (directory.getBaseName() === 'node_modules') continue;
       const sourceFile = directory.getSourceFileOrThrow('index.ts');
       exportDeclarations.push(getExportDeclaration(rootDirectory, sourceFile));
     }

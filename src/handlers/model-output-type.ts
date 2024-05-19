@@ -11,6 +11,7 @@ import {
 } from 'ts-morph';
 
 import { createComment } from '../helpers/create-comment';
+import { isCreateManyReturn } from '../helpers/create-many-return';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
@@ -28,6 +29,9 @@ const nestjsGraphql = '@nestjs/graphql';
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
   const { getSourceFile, models, config, modelFields, fieldSettings, eventEmitter } =
     args;
+
+  if (isCreateManyReturn(outputType.name)) return;
+
   const model = models.get(outputType.name);
   ok(model, `Cannot find model by name ${outputType.name}`);
 

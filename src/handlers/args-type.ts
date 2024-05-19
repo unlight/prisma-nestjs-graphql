@@ -1,3 +1,4 @@
+import { isCreateManyReturn } from '../helpers/create-many-return';
 import { pascalCase } from '../helpers/pascal-case';
 import { EventArguments, InputType, SchemaField } from '../types';
 
@@ -9,6 +10,8 @@ export function argsType(field: SchemaField, args: EventArguments) {
   if (['queryRaw', 'executeRaw'].includes(field.name)) {
     return;
   }
+  if (isCreateManyReturn(field.name)) return;
+
   const { eventEmitter, typeNames, getModelName } = args;
   let className = pascalCase(`${field.name}Args`);
   const modelName = getModelName(className) || '';
