@@ -1,16 +1,20 @@
 import { DMMF } from '@prisma/client/runtime/library';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
+import type { WritableDeep } from 'type-fest';
 
 import { createConfig } from './helpers/create-config';
 import { ObjectSettings } from './helpers/object-settings';
 
-export type InputType = DMMF.InputType;
+export type InputType = WritableDeep<DMMF.InputType>;
 export type FieldLocation = DMMF.FieldLocation;
-export type OutputType = DMMF.OutputType;
-export type SchemaField = DMMF.SchemaField;
+export type OutputType = WritableDeep<DMMF.OutputType>;
+export type SchemaField = WritableDeep<DMMF.SchemaField>;
 export type SchemaEnum = DMMF.SchemaEnum;
-export type Model = DMMF.Model;
+export type Model = WritableDeep<DMMF.Model>;
+export type SchemaArg = WritableDeep<DMMF.SchemaArg>;
+export type Schema = WritableDeep<DMMF.Schema>;
+export type Document = WritableDeep<DMMF.Document>;
 
 export type FieldOutputType = SchemaField['outputType'];
 
@@ -28,7 +32,7 @@ export type TypeRecord = Partial<{
 export type GeneratorConfiguration = ReturnType<typeof createConfig>;
 
 export type EventArguments = {
-  schema: DMMF.Schema;
+  schema: Schema;
   models: Map<string, Model>;
   modelNames: string[];
   modelFields: Map<string, Map<string, Field>>;

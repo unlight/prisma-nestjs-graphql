@@ -1,7 +1,7 @@
 import { createObjectSettings, ObjectSettings } from '../helpers/object-settings';
-import { DMMF, EventArguments, Field } from '../types';
+import { EventArguments, Field, Model } from '../types';
 
-export function modelData(model: DMMF.Model, args: EventArguments) {
+export function modelData(model: Model, args: EventArguments) {
   const {
     config,
     modelNames,

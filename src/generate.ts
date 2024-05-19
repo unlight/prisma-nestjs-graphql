@@ -22,7 +22,7 @@ import { createConfig } from './helpers/create-config';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import {
-  DMMF,
+  Document,
   EventArguments,
   Field,
   Model,
@@ -107,7 +107,7 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     eventEmitter,
   });
-  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as DMMF.Document;
+  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
     schema,
