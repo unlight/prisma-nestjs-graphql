@@ -1,3 +1,10 @@
+## [20.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.2...v20.0.3) (2024-05-19)
+
+
+### Bug Fixes
+
+* Adapted to Prisma 5.14 ([35da088](https://github.com/unlight/nestjs-graphql-prisma/commit/35da088ad4052ce27ad25380704244fbf4dc13fc)), closes [#214](https://github.com/unlight/nestjs-graphql-prisma/issues/214)
+
 ## [20.0.2](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.1...v20.0.2) (2023-12-17)
 
 
