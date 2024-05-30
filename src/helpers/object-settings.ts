@@ -184,6 +184,14 @@ function createSettingElement({
 
     return result;
   }
+  
+  if (line.startsWith('@complexity')) {
+    fieldElement.arguments!['complexity'] = parseInt(trim(line.slice(11))) ?? 1;
+
+    result.element = fieldElement;
+
+    return result;
+  }
 
   const name = match?.groups?.name;
 

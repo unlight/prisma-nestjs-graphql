@@ -372,6 +372,7 @@ For example:
 model Product {
   /// Old description
   /// @deprecated Use new name instead
+  /// @complexity 1
   oldName String
 }
 ```
@@ -388,6 +389,7 @@ export class Product {
   @Field(() => String, {
     description: 'Old description',
     deprecationReason: 'Use new name instead',
+    complexity: 1
   })
   oldName: string;
 }
