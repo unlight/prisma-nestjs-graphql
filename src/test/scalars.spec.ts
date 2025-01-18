@@ -19,7 +19,7 @@ describe('scalars', () => {
     }));
   });
 
-  it('bytes should have type equal to prisma', () => {
+  it('bytes should have type equal to prisma not null', () => {
     const s = testSourceFile({
       file: 'user.model.ts',
       project,
@@ -28,7 +28,7 @@ describe('scalars', () => {
     expect(s.property?.type).toEqual('Uint8Array');
   });
 
-  it('bytes should have type equal to prisma', () => {
+  it('bytes should have type equal to prisma nullable', () => {
     const s = testSourceFile({
       file: 'user.model.ts',
       project,
