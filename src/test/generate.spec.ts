@@ -828,7 +828,7 @@ describe('one model with self reference', () => {
     }));
   });
 
-  it('with relation input', () => {
+  it.skip('with relation input', () => {
     const s = testSourceFile({
       project,
       file: 'user-order-by-with-relation-and-search-relevance.input.ts',

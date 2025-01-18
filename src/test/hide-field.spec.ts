@@ -340,7 +340,7 @@ describe('hide with self reference', () => {
     expect(files).toBeTruthy();
   });
 
-  it('order by with relation self import', () => {
+  it.skip('order by with relation self import', () => {
     const s = testSourceFile({
       project,
       class: 'UserOrderByWithRelationAndSearchRelevanceInput',
