@@ -62,12 +62,4 @@ compatibilty_check() {
   set +x
 }
 
-commit_lint() {
-  if git-branch-is -q -r "^(master)"; then
-    commitlint --edit
-  else
-    true
-  fi
-}
-
 "$@"

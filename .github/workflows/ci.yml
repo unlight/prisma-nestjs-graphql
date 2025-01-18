@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '${{ matrix.node }}'
       - name: 'Install depependencies'
-        run: yarn install
+        run: npm install --force
       - name: 'Regenerate'
         run: npm run regen
       - name: 'ESLint'
@@ -59,7 +59,7 @@ jobs:
         with:
           node-version: 22
       - name: 'Install depependencies'
-        run: yarn install
+        run: npm install --force
       - name: 'Build'
         run: npm run build
       - name: 'Release'

@@ -59,13 +59,12 @@
     "compatibilty_check": "sh Taskfile compatibilty_check",
     "commit": "cz"
   },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
+  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
-    },
-    "ghooks": {
-      "pre-commit": "precise-commits",
-      "commit-msg": "sh Taskfile commit_lint"
     }
   },
   "dependencies": {
@@ -83,8 +82,6 @@
     "ts-morph": "11 - 16"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.6.1",
-    "@commitlint/config-conventional": "^19.6.0",
     "@eslint/compat": "^1.2.5",
     "@nestjs/apollo": "^13.0.1",
     "@nestjs/common": "^11.0.1",
@@ -128,7 +125,6 @@
     "eslint-plugin-unicorn": "^56.0.1",
     "eslint-plugin-wix-editor": "^3.3.0",
     "expect": "^29.7.0",
-    "git-branch-is": "^4.0.0",
     "graphql": "^16.10.0",
     "graphql-scalars": "^1.24.0",
     "graphql-type-json": "^0.3.2",
