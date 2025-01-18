@@ -124,5 +124,13 @@ function postBegin(args: EventArguments) {
     ]);
   }
 
-  remove(inputTypes, inputType => isContainBogus(inputType.name));
+  for (const modelName of modelNames) {
+    replaceBogusFilters(`${modelName}ScalarRelationFilter`, [
+      `${modelName}NullableScalarRelationFilter`,
+    ]);
+  }
+
+  remove(inputTypes, inputType => {
+    return isContainBogus(inputType.name);
+  });
 }

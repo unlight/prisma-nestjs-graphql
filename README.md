@@ -78,8 +78,6 @@ Default: `@prisma/client`
 
 #### `combineScalarFilters`
 
-DOESNT WORK IN v21+
-
 Combine nested/nullable scalar filters to single  
 Type: `boolean`  
 Default: `false`
@@ -764,3 +762,4 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 
 - keyof typeof SortOrder -> `SortOrder`
 - dummy-createfriends.input.ts -> `create-friends`
+- check 'TODO FIXME'

@@ -259,6 +259,7 @@ describe('enums are not imported in classes when decorated', () => {
 });
 
 describe.skip('hide enum', () => {
+  // not implemented
   before(async () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
@@ -340,15 +341,15 @@ describe('hide with self reference', () => {
     expect(files).toBeTruthy();
   });
 
-  it.skip('order by with relation self import', () => {
+  it('order by with relation self import', () => {
     const s = testSourceFile({
-      class: 'UserOrderByWithRelationAndSearchRelevanceInput',
+      class: 'UserOrderByWithRelationInput',
       project,
     });
 
     expect(s.namedImports).not.toContainEqual(
       expect.objectContaining({
-        name: 'UserOrderByWithRelationAndSearchRelevanceInput',
+        name: 'UserOrderByWithRelationInput',
       }),
     );
   });

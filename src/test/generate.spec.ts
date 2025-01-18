@@ -61,7 +61,7 @@ describe('model with one id int', () => {
   describe('model', () => {
     let s: ReturnType<typeof testSourceFile>;
     before(() => {
-      s = testSourceFile({ project, file: 'user.model.ts' });
+      s = testSourceFile({ file: 'user.model.ts', project });
     });
 
     it('class should be exported', () => {
@@ -70,8 +70,8 @@ describe('model with one id int', () => {
 
     it('argument decorated id', () => {
       const { fieldDecoratorType } = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'id',
       });
       expect(fieldDecoratorType).toEqual('() => ID');
@@ -93,8 +93,8 @@ describe('model with one id int', () => {
 
     it('should have exclamation mark for non null id field', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'id',
       });
       expect(s.property?.hasExclamationToken).toEqual(true);
@@ -102,8 +102,8 @@ describe('model with one id int', () => {
 
     it('default value', () => {
       const s = testSourceFile({
-        project,
         class: 'User',
+        project,
         property: 'id',
       });
       expect(s.fieldDecoratorOptions).toMatch(/nullable:\s*false/);
@@ -113,8 +113,8 @@ describe('model with one id int', () => {
 
     it('property description', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'id',
       });
       expect(s.fieldDecoratorOptions).toMatch(/nullable:\s*false/);
@@ -148,12 +148,12 @@ describe('model with one id int', () => {
   });
 
   it('aggregate user output class should be exported', () => {
-    const s = testSourceFile({ project, file: 'aggregate-user.output.ts' });
+    const s = testSourceFile({ file: 'aggregate-user.output.ts', project });
     expect(s.classFile.isExported()).toBe(true);
   });
 
   it('aggregate user output contains decorator ObjectType', () => {
-    const s = testSourceFile({ project, file: 'aggregate-user.output.ts' });
+    const s = testSourceFile({ file: 'aggregate-user.output.ts', project });
     expect(s.namedImports).toContainEqual({
       name: 'ObjectType',
       specifier: '@nestjs/graphql',
@@ -162,8 +162,8 @@ describe('model with one id int', () => {
 
   it('aggregate user output count', () => {
     const s = testSourceFile({
-      project,
       class: 'AggregateUser',
+      project,
       property: '_count',
     });
     expect(s.property?.type).toEqual('UserCountAggregate');
@@ -172,8 +172,8 @@ describe('model with one id int', () => {
 
   it('user count aggregate (usercountaggregate) id property', () => {
     const s = testSourceFile({
-      project,
       file: 'user-count-aggregate.output.ts',
+      project,
       property: 'id',
     });
     expect(s.property?.type).toEqual('number');
@@ -188,8 +188,8 @@ describe('model with one id int', () => {
   describe('where input', () => {
     it('should have id property', () => {
       const { property } = testSourceFile({
-        project,
         file: 'user-where.input.ts',
+        project,
         property: 'id',
       });
       expect(property?.name).toEqual('id');
@@ -197,8 +197,8 @@ describe('model with one id int', () => {
 
     it('should have type IntFilter', () => {
       const { property } = testSourceFile({
-        project,
         file: 'user-where.input.ts',
+        project,
         property: 'id',
       });
       expect(property?.type).toEqual('IntFilter');
@@ -206,8 +206,8 @@ describe('model with one id int', () => {
 
     it('field decorator returns IntFilter', () => {
       const { fieldDecoratorType } = testSourceFile({
-        project,
         file: 'user-where.input.ts',
+        project,
         property: 'id',
       });
       expect(fieldDecoratorType).toEqual('() => IntFilter');
@@ -215,8 +215,8 @@ describe('model with one id int', () => {
 
     it('field decorator IntFilter nullable', () => {
       const { fieldDecoratorOptions } = testSourceFile({
-        project,
         file: 'user-where.input.ts',
+        project,
         property: 'id',
       });
       expect(fieldDecoratorOptions).toMatch(/nullable:\s*true/);
@@ -224,8 +224,8 @@ describe('model with one id int', () => {
 
     it('property AND has one type', () => {
       const { property } = testSourceFile({
-        project,
         file: 'user-where.input.ts',
+        project,
         property: 'AND',
       });
       expect(property?.type).toEqual('Array<UserWhereInput>');
@@ -240,8 +240,8 @@ describe('model with one id int', () => {
 
     it('decorator name args', () => {
       const { classFile } = testSourceFile({
-        project,
         file: 'user-aggregate.args.ts',
+        project,
       });
       const decorator = classFile.getDecorator('ArgsType');
       expect(decorator?.getText()).toEqual('@ArgsType()');
@@ -281,8 +281,8 @@ describe('model with one id int', () => {
 
     it('property id should have true type', () => {
       const s = testSourceFile({
-        project,
         file: 'user-count-aggregate.input.ts',
+        project,
         property: 'id',
       });
 
@@ -301,8 +301,8 @@ describe('model with one id int', () => {
 
   it('rename to user-group-by args', () => {
     const s = testSourceFile({
-      project,
       file: 'user-group-by.args.ts',
+      project,
     });
 
     expect(s.classFile.getName()).toEqual('UserGroupByArgs');
@@ -310,8 +310,8 @@ describe('model with one id int', () => {
 
   it('rename to user aggregateargs', () => {
     const s = testSourceFile({
-      project,
       file: 'user-aggregate.args.ts',
+      project,
     });
 
     expect(s.classFile.getName()).toEqual('UserAggregateArgs');
@@ -319,8 +319,8 @@ describe('model with one id int', () => {
 
   it('where uniq must be wrapped to prisma atleast', () => {
     const s = testSourceFile({
-      project,
       class: 'FindManyUserArgs',
+      project,
       property: 'cursor',
     });
 
@@ -331,13 +331,7 @@ describe('model with one id int', () => {
 describe('duplicated', () => {
   it('duplicated fields in exising file', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `
-                model User {
-                    id Int @id
-                }
-            `,
       createSouceFile: {
-        type: 'input',
         name: 'UserCreateInput',
         text: `
             import { Int } from '@nestjs/graphql';
@@ -348,7 +342,13 @@ describe('duplicated', () => {
                 })
                 id?: string;
             `,
+        type: 'input',
       },
+      schema: `
+                model User {
+                    id Int @id
+                }
+            `,
     }));
     setSourceFile('/user-create.input.ts');
     const classFile = sourceFile.getClass(() => true)!;
@@ -358,15 +358,7 @@ describe('duplicated', () => {
 
   it('duplicated import decorators', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `
-                model User {
-                    id Int @id
-                    xl Int
-                    xs Int
-                }
-            `,
       createSouceFile: {
-        type: 'model',
         name: 'User',
         text: `
             import { Field, ObjectType } from '@nestjs/graphql';
@@ -377,7 +369,15 @@ describe('duplicated', () => {
                 @Field(() => Int) xl: number;
                 @Field(() => Int) xs: number;
             `,
+        type: 'model',
       },
+      schema: `
+                model User {
+                    id Int @id
+                    xl Int
+                    xs Int
+                }
+            `,
     }));
     setSourceFile('user.model.ts');
     expect(imports.filter(x => x.name === 'Field')).toHaveLength(1);
@@ -587,6 +587,7 @@ describe('one model with scalar types', () => {
 describe('model with scalar nullable types', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `model User {
                 id String @id
                 count Int?
@@ -597,7 +598,6 @@ describe('model with scalar nullable types', () => {
                 data Json?
                 biggy BigInt?
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
@@ -634,6 +634,7 @@ describe('scalar list type', () => {
 describe('nullish compatibility', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             model User {
                 id String @id
@@ -667,27 +668,26 @@ describe('nullish compatibility', () => {
                 USER
             }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
     setSourceFile('user.model.ts');
   });
 
   it('number', () => {
-    const s = testSourceFile({ project, file: 'user.model.ts', property: 'count' });
+    const s = testSourceFile({ file: 'user.model.ts', project, property: 'count' });
 
     expect(s.property?.type).toEqual('number | null');
     expect(s.property?.hasQuestionToken).toBe(false);
   });
 
   it('born', () => {
-    const s = testSourceFile({ project, file: 'user.model.ts', property: 'born' });
+    const s = testSourceFile({ file: 'user.model.ts', project, property: 'born' });
 
     expect(s.property?.type).toEqual('Date | null');
     expect(s.property?.hasQuestionToken).toBe(false);
   });
 
   it('money', () => {
-    const s = testSourceFile({ project, file: 'user.model.ts', property: 'money' });
+    const s = testSourceFile({ file: 'user.model.ts', project, property: 'money' });
     expect(s.property?.type).toEqual('Decimal | null');
     expect(s.property?.hasQuestionToken).toBe(false);
     expect(imports).toContainEqual({
@@ -697,7 +697,7 @@ describe('nullish compatibility', () => {
   });
 
   it('data', () => {
-    const s = testSourceFile({ project, file: 'user.model.ts', property: 'data' });
+    const s = testSourceFile({ file: 'user.model.ts', project, property: 'data' });
     expect(s.property?.type).toEqual('any | null');
     expect(imports).toContainEqual({
       name: 'GraphQLJSON',
@@ -708,8 +708,8 @@ describe('nullish compatibility', () => {
   describe('relation fields should hasQuestionToken (optional)', () => {
     it('profile', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'profile',
       });
       expect(s.property?.hasQuestionToken).toBe(true);
@@ -717,8 +717,8 @@ describe('nullish compatibility', () => {
 
     it('posts', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'posts',
       });
       expect(s.property?.hasQuestionToken).toBe(true);
@@ -744,7 +744,7 @@ describe('one model with enum', () => {
   });
 
   it('should import registerEnumType', () => {
-    const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
     expect(s.namedImports).toContainEqual({
       name: 'registerEnumType',
       specifier: '@nestjs/graphql',
@@ -752,32 +752,32 @@ describe('one model with enum', () => {
   });
 
   it('should register SortOrder', () => {
-    const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
     expect(s.sourceText).toContain(
       `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
     );
   });
 
   it('should have asc value', () => {
-    const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
     const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
     expect(members).toContainEqual(
       expect.objectContaining({
-        name: 'asc',
         initializer: '"asc"',
+        name: 'asc',
       }),
     );
   });
 
   it('should have desc value', () => {
-    const s = testSourceFile({ project, file: 'sort-order.enum.ts' });
+    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
     const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
     expect(members).toContainEqual(
       expect.objectContaining({
-        name: 'desc',
         initializer: '"desc"',
+        name: 'desc',
       }),
     );
   });
@@ -828,29 +828,29 @@ describe('one model with self reference', () => {
     }));
   });
 
-  it.skip('with relation input', () => {
+  it('with relation input', () => {
     const s = testSourceFile({
+      file: 'user-order-by-with-relation.input.ts',
       project,
-      file: 'user-order-by-with-relation-and-search-relevance.input.ts',
     });
 
     expect(s.namedImports).not.toContainEqual(
       expect.objectContaining({
-        name: 'UserOrderByWithRelationAndSearchRelevanceInput',
+        name: 'UserOrderByWithRelationInput',
       }),
     );
   });
 
   describe('model', () => {
     it('should not contain import to self file', () => {
-      const s = testSourceFile({ project, file: 'user.model.ts' });
+      const s = testSourceFile({ file: 'user.model.ts', project });
       expect(s.namedImports).not.toContainEqual(
         expect.objectContaining({ name: 'User' }),
       );
     });
 
     it('imports should contain user count', () => {
-      const s = testSourceFile({ project, file: 'user.model.ts' });
+      const s = testSourceFile({ file: 'user.model.ts', project });
       expect(s.namedImports).toContainEqual({
         name: 'UserCount',
         specifier: './user-count.output',
@@ -916,6 +916,14 @@ describe('two models with id only and relation', () => {
 
 it('enum with exists source', async () => {
   ({ project, sourceFiles } = await testGenerate({
+    createSouceFile: {
+      name: 'Role',
+      text: `
+                    export enum Role { USER = "USER" }
+                    registerEnumType(Role, { name: 'Role' })
+                `,
+      type: 'enum',
+    },
     schema: `enum Role {
                   USER
                 }
@@ -923,14 +931,6 @@ it('enum with exists source', async () => {
                   id    Int   @id
                   role  Role
                 }`,
-    createSouceFile: {
-      name: 'Role',
-      type: 'enum',
-      text: `
-                    export enum Role { USER = "USER" }
-                    registerEnumType(Role, { name: 'Role' })
-                `,
-    },
   }));
 
   sourceFile = project.getSourceFile(s => s.getFilePath().includes('role.enum.ts'))!;
@@ -949,12 +949,12 @@ describe('model with one id string', () => {
 
   it('extend', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema,
       createSouceFile: {
-        type: 'model',
         name: 'User',
         text: `@ObjectType() export class User {}`,
+        type: 'model',
       },
+      schema,
     }));
     sourceFile = project.getSourceFile(s => s.getFilePath().endsWith('user.model.ts'))!;
     sourceText = sourceFile.getText();
@@ -963,12 +963,12 @@ describe('model with one id string', () => {
 
   it('remove description', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema,
       createSouceFile: {
-        type: 'model',
         name: 'User',
         text: `@ObjectType({ description: 'user description' }) export class User {}`,
+        type: 'model',
       },
+      schema,
     }));
     setSourceFile('user.model.ts');
     const objectType = classFile.getDecorator('ObjectType')?.getText();
@@ -977,15 +977,15 @@ describe('model with one id string', () => {
 
   it('generated commented class if reexport found', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema,
       createSouceFile: {
-        type: 'model',
         name: 'User',
         text: `
                     export { User } from 'src/user/model'
                     export { User as UserModel } from 'src/user2/model'
                 `,
+        type: 'model',
       },
+      schema,
     }));
     setSourceFile('user.model.ts');
     expect(sourceText).toContain(`export { User } from 'src/user/model'`);
@@ -994,9 +994,7 @@ describe('model with one id string', () => {
 
   it('no generate another commented class', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema,
       createSouceFile: {
-        type: 'model',
         name: 'User',
         text: `
                 export { User } from 'src/user/model'
@@ -1004,7 +1002,9 @@ describe('model with one id string', () => {
                 // @ObjectType()
                 // export class User { }
                 `,
+        type: 'model',
       },
+      schema,
     }));
     setSourceFile('user.model.ts');
     expect(sourceText.match(/export class User/g)).toHaveLength(1);
@@ -1014,10 +1014,10 @@ describe('model with one id string', () => {
 
 it('generator option outputFilePattern', async () => {
   ({ project, sourceFiles } = await testGenerate({
+    options: [`outputFilePattern = "data/{type}/{name}.ts"`],
     schema: `model User {
                     id Int @id
                 }`,
-    options: [`outputFilePattern = "data/{type}/{name}.ts"`],
   }));
   const filePaths = sourceFiles.map(s => String(s.getFilePath()));
   expect(filePaths).toContainEqual(expect.stringContaining('/data/model/user.ts'));
@@ -1056,6 +1056,12 @@ it('several models', () => {
 describe('get rid of atomic number operations', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `
+        outputFilePattern = "{name}.{type}.ts"
+        noAtomicOperations = true
+      `,
+      ],
       schema: `
             model User {
               id String @id
@@ -1066,12 +1072,6 @@ describe('get rid of atomic number operations', () => {
               friends String[]
             }
             `,
-      options: [
-        `
-        outputFilePattern = "{name}.{type}.ts"
-        noAtomicOperations = true
-      `,
-      ],
     }));
   });
 
@@ -1090,8 +1090,8 @@ describe('get rid of atomic number operations', () => {
     it('id should be regular string', () => {
       it('rating should be regular string', () => {
         const s = testSourceFile({
-          project,
           class: 'UserUpdateInput',
+          project,
           property: 'id',
         });
         expect(s.property?.type).toEqual('string');
@@ -1100,8 +1100,8 @@ describe('get rid of atomic number operations', () => {
 
     it('id field type should be string', () => {
       const s = testSourceFile({
-        project,
         class: 'UserUpdateInput',
+        project,
         property: 'id',
       });
       expect(s.fieldDecoratorType).toEqual('() => String');
@@ -1110,8 +1110,8 @@ describe('get rid of atomic number operations', () => {
     it('age should be regular string', () => {
       it('rating should be regular string', () => {
         const s = testSourceFile({
-          project,
           class: 'UserUpdateInput',
+          project,
           property: 'age',
         });
         expect(s.property?.type).toEqual('number');
@@ -1120,8 +1120,8 @@ describe('get rid of atomic number operations', () => {
 
     it('age field type should be string', () => {
       const s = testSourceFile({
-        project,
         class: 'UserUpdateInput',
+        project,
         property: 'age',
       });
       expect(s.fieldDecoratorType).toEqual('() => Int');
@@ -1129,8 +1129,8 @@ describe('get rid of atomic number operations', () => {
 
     it('rating should be regular string', () => {
       const s = testSourceFile({
-        project,
         class: 'UserUpdateInput',
+        project,
         property: 'rating',
       });
       expect(s.property?.type).toEqual('number');
@@ -1138,8 +1138,8 @@ describe('get rid of atomic number operations', () => {
 
     it('rating field type should be string', () => {
       const s = testSourceFile({
-        project,
         class: 'UserUpdateInput',
+        project,
         property: 'rating',
       });
       expect(s.fieldDecoratorType).toEqual('() => Float');
@@ -1147,8 +1147,8 @@ describe('get rid of atomic number operations', () => {
 
     it('scalar array', () => {
       const s = testSourceFile({
-        project,
         class: 'UserUpdateInput',
+        project,
         property: 'friends',
       });
       expect(s.fieldDecoratorType).toEqual('() => [String]');
@@ -1160,7 +1160,7 @@ describe('get rid of atomic number operations', () => {
 
     for (const file of dateFieldFiles) {
       it(`date field files [${file}]`, () => {
-        const s = testSourceFile({ project, file, property: 'born' });
+        const s = testSourceFile({ file, project, property: 'born' });
 
         expect(s.fieldDecoratorType).toEqual('() => Date');
         expect(s.property?.type).toEqual('Date | string');
@@ -1172,25 +1172,25 @@ describe('get rid of atomic number operations', () => {
 describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `
-            model User {
-              id String @id
-              age Int
-            }
-            `,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `noAtomicOperations = true`,
         `emitSingle = true`,
         `combineScalarFilters = true`,
       ],
+      schema: `
+            model User {
+              id String @id
+              age Int
+            }
+            `,
     }));
   });
 
   it('FieldUpdateOperationsInput should not exists', () => {
     const s = testSourceFile({
-      project,
       file: 'index.ts',
+      project,
     });
 
     const classDeclaration = s.sourceFile.getClass('IntFieldUpdateOperationsInput');
@@ -1202,6 +1202,11 @@ describe('scalar arrays with noAtomicOperations', () => {
   let project: Project;
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `
+        noAtomicOperations = true
+      `,
+      ],
       schema: `
         model User {
           id String @id
@@ -1214,11 +1219,6 @@ describe('scalar arrays with noAtomicOperations', () => {
           authorId String
         }
         `,
-      options: [
-        `
-        noAtomicOperations = true
-      `,
-      ],
     }));
   });
 
@@ -1226,8 +1226,8 @@ describe('scalar arrays with noAtomicOperations', () => {
     for (const className of ['UserCreateInput']) {
       it(className, () => {
         const s = testSourceFile({
-          project,
           class: className,
+          project,
           property: 'ints',
         });
 
@@ -1238,8 +1238,8 @@ describe('scalar arrays with noAtomicOperations', () => {
 
   it('create many inputs should not be deleted', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCreateInput',
+      project,
       property: 'articles',
     });
 
@@ -1249,6 +1249,7 @@ describe('scalar arrays with noAtomicOperations', () => {
 
 it('model with prisma keyword output', async () => {
   ({ project, sourceFiles } = await testGenerate({
+    options: [`outputFilePattern = "{name}.{type}.ts"`],
     schema: `
             model Output {
               id        Int         @id
@@ -1268,7 +1269,6 @@ it('model with prisma keyword output', async () => {
               Aggregate Aggregate[]
             }
             `,
-    options: [`outputFilePattern = "{name}.{type}.ts"`],
   }));
 });
 
@@ -1276,11 +1276,11 @@ describe('reexport option', () => {
   describe('reexport directories clean', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: ['reExport = Directories'],
         schema: `
             model User {
                 id Int @id
             }`,
-        options: ['reExport = Directories'],
       }));
     });
 
@@ -1297,13 +1297,8 @@ describe('reexport option', () => {
   describe('reexport directories with existing file', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema: `
-            model User {
-                id Int @id
-            }`,
-        options: ['reExport = Directories'],
         onConnect(emitter) {
-          emitter.on('PostBegin', ({ project, output }: EventArguments) => {
+          emitter.on('PostBegin', ({ output, project }: EventArguments) => {
             project.createSourceFile(
               `${output}/user/index.ts`,
               `export { User } from './user.model';`,
@@ -1311,6 +1306,11 @@ describe('reexport option', () => {
             );
           });
         },
+        options: ['reExport = Directories'],
+        schema: `
+            model User {
+                id Int @id
+            }`,
       }));
     });
 
@@ -1319,8 +1319,8 @@ describe('reexport option', () => {
         s.getFilePath().endsWith('/user/index.ts'),
       )!;
       const decls = sourceFile.getExportDeclarations().map(x => ({
-        specifier: x.getModuleSpecifierValue(),
         name: x.getNamedExports()[0].getName(),
+        specifier: x.getModuleSpecifierValue(),
       }));
       expect(decls).not.toContainEqual(
         expect.objectContaining({ specifier: './index' }),
@@ -1331,14 +1331,14 @@ describe('reexport option', () => {
   describe('reexport directories with output file pattern', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema: `
-                model User {
-                    id Int @id
-                }`,
         options: [
           'reExport = Directories',
           `outputFilePattern = "{model}/{plural.type}/{name}.{type}.ts"`,
         ],
+        schema: `
+                model User {
+                    id Int @id
+                }`,
       }));
     });
 
@@ -1362,11 +1362,11 @@ describe('reexport option', () => {
   describe('reexport single', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: ['reExport = Single'],
         schema: `
             model User {
                 id Int @id
             }`,
-        options: ['reExport = Single'],
       }));
     });
 
@@ -1386,11 +1386,11 @@ describe('reexport option', () => {
   describe('reexport all', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: ['reExport = All'],
         schema: `
             model User {
                 id Int @id
             }`,
-        options: ['reExport = All'],
       }));
     });
 
@@ -1423,6 +1423,12 @@ describe('reexport option', () => {
 describe('emit single and decorators', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `emitSingle = true`,
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `fields_Validator_from = "class-validator"`,
+        `fields_Validator_input = true`,
+      ],
       schema: `
                 model User {
                   id    Int    @id
@@ -1432,12 +1438,6 @@ describe('emit single and decorators', () => {
                   email String?
                 }
                 `,
-      options: [
-        `emitSingle = true`,
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `fields_Validator_from = "class-validator"`,
-        `fields_Validator_input = true`,
-      ],
     }));
     setSourceFile('index.ts');
   });
@@ -1489,8 +1489,8 @@ describe('emit single', () => {
   describe('emit single green', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema,
         options: [`emitSingle = true`, `outputFilePattern = "{name}.{type}.ts"`],
+        schema,
       }));
       setSourceFile('index.ts');
     });
@@ -1555,10 +1555,8 @@ describe('emit single', () => {
   describe('emit single second gen', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema,
-        options: [`emitSingle = true`, `outputFilePattern = "{name}.{type}.ts"`],
         onConnect(emitter) {
-          emitter.on('PostBegin', ({ project, output }: EventArguments) => {
+          emitter.on('PostBegin', ({ output, project }: EventArguments) => {
             project.createSourceFile(
               `${output}/index.ts`,
               `@ObjectType() export class User { }`,
@@ -1566,6 +1564,8 @@ describe('emit single', () => {
             );
           });
         },
+        options: [`emitSingle = true`, `outputFilePattern = "{name}.{type}.ts"`],
+        schema,
       }));
       setSourceFile('index.ts');
     });
@@ -1579,6 +1579,10 @@ describe('emit single', () => {
 describe('select input type', () => {
   it('select input type all', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `useInputType_PostWhereInput_ALL = "WhereInput"`,
+      ],
       schema: `
                 model User {
                   id Int @id
@@ -1590,10 +1594,6 @@ describe('select input type', () => {
                   userId Int?
                 }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `useInputType_PostWhereInput_ALL = "WhereInput"`,
-      ],
     }));
     setSourceFile('post-where.input.ts');
     expect(t('user')).toEqual('() => UserWhereInput');
@@ -1602,6 +1602,10 @@ describe('select input type', () => {
 
   it('select input type usercreateargs', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+      ],
       schema: `
                 model User {
                     userId String @id
@@ -1613,10 +1617,6 @@ describe('select input type', () => {
                     authorId       String?
                 }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `useInputType_CreateOne_ALL = "UncheckedCreate"`,
-      ],
     }));
     setSourceFile('create-one-user.args.ts');
     expect(t('data')).toEqual('() => UserUncheckedCreateInput');
@@ -1626,6 +1626,11 @@ describe('select input type', () => {
   describe('select input type articlewhereinput array config', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [
+          `outputFilePattern = "{name}.{type}.ts"`,
+          `useInputType_WhereInput_ALL = "WhereInput"`,
+          `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+        ],
         schema: `
                 model User {
                     userId String @id
@@ -1637,11 +1642,6 @@ describe('select input type', () => {
                     authorId       String?
                 }
             `,
-        options: [
-          `outputFilePattern = "{name}.{type}.ts"`,
-          `useInputType_WhereInput_ALL = "WhereInput"`,
-          `useInputType_CreateOne_ALL = "UncheckedCreate"`,
-        ],
       }));
     });
 
@@ -1666,6 +1666,12 @@ describe('select input type', () => {
   describe('select input type no atomic operations', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [
+          `outputFilePattern = "{name}.{type}.ts"`,
+          `useInputType_UpdateInput_ALL = "match:!*FieldUpdateOperationsInput"`,
+          `useInputType_UpdateMany_ALL = "match:!*FieldUpdateOperationsInput"`,
+          `useInputType_UpdateWithout_ALL = "match:!*FieldUpdateOperationsInput"`,
+        ],
         schema: `
                 model User {
                     userId Int @id
@@ -1678,12 +1684,6 @@ describe('select input type', () => {
                     authorId       Int?
                 }
             `,
-        options: [
-          `outputFilePattern = "{name}.{type}.ts"`,
-          `useInputType_UpdateInput_ALL = "match:!*FieldUpdateOperationsInput"`,
-          `useInputType_UpdateMany_ALL = "match:!*FieldUpdateOperationsInput"`,
-          `useInputType_UpdateWithout_ALL = "match:!*FieldUpdateOperationsInput"`,
-        ],
       }));
     });
 
@@ -1712,6 +1712,11 @@ describe('select input type', () => {
 
   it('select input type list filter', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `useInputType_CreateInput_friends = "String"`,
+        `useInputType_CreateInput_ints = "Int"`,
+      ],
       schema: `
                 model User {
                     userId String @id
@@ -1725,11 +1730,6 @@ describe('select input type', () => {
                     // jsons    Json[]
                 }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `useInputType_CreateInput_friends = "String"`,
-        `useInputType_CreateInput_ints = "Int"`,
-      ],
     }));
     setSourceFile('user-create.input.ts');
     expect(t('friends')).toEqual('() => [String]');
@@ -1771,6 +1771,7 @@ describe('model autoincrement int', () => {
 describe('output without fields', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
                 model Comment {
                   id String @id @default(cuid())
@@ -1783,7 +1784,6 @@ describe('output without fields', () => {
                   comments Comment[]
                 }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
@@ -1797,12 +1797,12 @@ describe('noTypeId config', () => {
   describe('disabled', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
         schema: `
                     model User {
                       id Int @id
                     }
                 `,
-        options: [`outputFilePattern = "{name}.{type}.ts"`],
       }));
       setSourceFile('user.model.ts');
     });
@@ -1822,12 +1822,12 @@ describe('noTypeId config', () => {
   describe('enabled int', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [`outputFilePattern = "{name}.{type}.ts"`, 'noTypeId = true'],
         schema: `
                     model User {
                       id Int @id
                     }
                 `,
-        options: [`outputFilePattern = "{name}.{type}.ts"`, 'noTypeId = true'],
       }));
       setSourceFile('user.model.ts');
     });
@@ -1848,15 +1848,15 @@ describe('noTypeId config', () => {
 describe('object model options', () => {
   it('abstract true by objecttype', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             /// @ObjectType({ isAbstract: true })
             model User {
                 id Int @id
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
 
-    const s = testSourceFile({ project, class: 'User' });
+    const s = testSourceFile({ class: 'User', project });
     const argument = s.classFile.getDecorator('ObjectType')?.getStructure()
       .arguments?.[0];
     const json = JSON5.parse(argument);
@@ -1866,13 +1866,13 @@ describe('object model options', () => {
 
   it('should have abstract true and name robot', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             /// user really
             /// @ObjectType({ name: 'Robot', isAbstract: true })
             model User {
                 id Int @id
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
 
     setSourceFile('user.model.ts');
@@ -1886,13 +1886,13 @@ describe('object model options', () => {
 
   it('name by first argument string', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             /// user really
             /// @ObjectType('Human', { isAbstract: true })
             model User {
                 id Int @id
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
 
     setSourceFile('user.model.ts');
@@ -1909,6 +1909,7 @@ describe('field type', () => {
   describe('it overwrites field type based on match expression', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
         schema: `
                 model User {
                   id Int @id
@@ -1916,7 +1917,6 @@ describe('field type', () => {
                   profile Json
                 }
                 `,
-        options: [`outputFilePattern = "{name}.{type}.ts"`],
       }));
     });
 
@@ -1949,6 +1949,7 @@ describe('field type', () => {
 
 it('fieldtype on groupby', async () => {
   ({ project, sourceFiles } = await testGenerate({
+    options: [`outputFilePattern = "{name}.{type}.ts"`],
     schema: `
             model User {
                 id Int @id
@@ -1957,7 +1958,6 @@ it('fieldtype on groupby', async () => {
                 profile Json
             }
             `,
-    options: [`outputFilePattern = "{name}.{type}.ts"`],
   }));
   setSourceFile('user-group-by.output.ts');
   expect(t('profile')).toEqual('() => GraphQLJSONObject');
@@ -1967,6 +1967,7 @@ describe('property type', () => {
   describe('it overwrites property type based on match expression', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: [`outputFilePattern = "{name}.{type}.ts"`],
         schema: `
               model User {
                 id Int @id
@@ -1974,7 +1975,6 @@ describe('property type', () => {
                 profile Json
               }
               `,
-        options: [`outputFilePattern = "{name}.{type}.ts"`],
       }));
     });
 
@@ -2007,13 +2007,6 @@ describe('property type', () => {
   describe('it respects input from generator level field configuration', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema: `
-              model User {
-                id Int @id
-                /// @PropertyType('JsonObject')
-                profile Json
-              }
-              `,
         options: [
           `
                   fields_JsonObject_from         = "type-fest"
@@ -2022,6 +2015,13 @@ describe('property type', () => {
                   fields_JsonObject_output       = false
                 `,
         ],
+        schema: `
+              model User {
+                id Int @id
+                /// @PropertyType('JsonObject')
+                profile Json
+              }
+              `,
       }));
     });
 
@@ -2039,13 +2039,6 @@ describe('property type', () => {
   describe('it respects output from generator level field configuration', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema: `
-              model User {
-                id Int @id
-                /// @PropertyType('JsonObject')
-                profile Json
-              }
-              `,
         options: [
           `
                   fields_JsonObject_from         = "type-fest"
@@ -2054,6 +2047,13 @@ describe('property type', () => {
                   fields_JsonObject_output       = true
                 `,
         ],
+        schema: `
+              model User {
+                id Int @id
+                /// @PropertyType('JsonObject')
+                profile Json
+              }
+              `,
       }));
     });
 
@@ -2072,6 +2072,7 @@ describe('property type', () => {
 describe('hidefield on groupby output', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             model User {
                 id Int @id
@@ -2081,7 +2082,6 @@ describe('hidefield on groupby output', () => {
                 profile Json
             }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
     setSourceFile('user-group-by.output.ts');
   });
@@ -2106,6 +2106,7 @@ describe('hidefield on groupby output', () => {
 describe('non list optional properties should be nullable', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             model User {
                 id String @id
@@ -2124,7 +2125,6 @@ describe('non list optional properties should be nullable', () => {
               author User? @relation(name: "ArticleAuthor", fields: [authorId], references: [id])
               authorId String?
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
@@ -2136,8 +2136,8 @@ describe('non list optional properties should be nullable', () => {
 
   it('user model count', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: '_count',
     });
     expect(s.property?.type).toEqual('UserCount');
@@ -2147,8 +2147,8 @@ describe('non list optional properties should be nullable', () => {
 
   it('user count output should undefineable ts type', () => {
     const s = testSourceFile({
-      project,
       file: 'user-count.output.ts',
+      project,
       property: 'articles',
     });
     expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
@@ -2169,16 +2169,16 @@ describe('non list optional properties should be nullable', () => {
 describe('requireSingleFieldsInWhereUniqueInput', () => {
   it('requireSingleFieldsInWhereUniqueInput several fields', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `
-                model User {
-                    id String @id
-                email String @unique
-            }
-            `,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `requireSingleFieldsInWhereUniqueInput = true`,
       ],
+      schema: `
+                model User {
+                  id String @id
+                  email String @unique
+            }
+            `,
     }));
     setSourceFile('user-where-unique.input.ts');
 
@@ -2193,33 +2193,53 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
   });
 
   it.skip('requireSingleFieldsInWhereUniqueInput single fields', async () => {
+    /* generates, looks like it's not actual
+export class UserWhereUniqueInput {
+
+    @Field(() => String, {nullable:true})
+    id?: string;
+
+    @Field(() => [UserWhereInput], {nullable:true})
+    AND?: Array<UserWhereInput>;
+
+    @Field(() => [UserWhereInput], {nullable:true})
+    OR?: Array<UserWhereInput>;
+
+    @Field(() => [UserWhereInput], {nullable:true})
+    NOT?: Array<UserWhereInput>;
+}
+     */
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `requireSingleFieldsInWhereUniqueInput = true`,
+      ],
       schema: `
                 model User {
                     id String @id
                 }
         `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `requireSingleFieldsInWhereUniqueInput = true`,
-      ],
     }));
 
     const s = testSourceFile({
-      project,
       file: 'user-where-unique.input.ts',
+      project,
       property: 'id',
     });
 
-    expect(s.property).toEqual(
-      expect.objectContaining({ hasQuestionToken: false, type: 'string' }),
-    );
+    expect(s.property?.hasQuestionToken).toEqual(false);
+    expect(s.property?.type).toEqual('string');
+
     expect(s.fieldDecoratorType).toEqual('() => String');
     expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
   });
 
   it.skip('requireSingleFieldsInWhereUniqueInput compound', async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `requireSingleFieldsInWhereUniqueInput = true`,
+      ],
       schema: `
                 model User {
                   name String
@@ -2228,15 +2248,11 @@ describe('requireSingleFieldsInWhereUniqueInput', () => {
                   @@unique([name,email])
                 }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `requireSingleFieldsInWhereUniqueInput = true`,
-      ],
     }));
 
     const s = testSourceFile({
-      project,
       file: 'user-where-unique.input.ts',
+      project,
       property: 'name_email',
     });
 
@@ -2251,23 +2267,23 @@ describe('configuration custom scalars', () => {
   describe('bigint', () => {
     before(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        schema: `
-            model User {
-              id String @id
-              bigInt BigInt
-            }`,
         options: [
           `outputFilePattern = "{name}.{type}.ts"`,
           `graphqlScalars_BigInt_name = "GraphQLBigInt"`,
           `graphqlScalars_BigInt_specifier = "graphql-scalars"`,
         ],
+        schema: `
+            model User {
+              id String @id
+              bigInt BigInt
+            }`,
       }));
     });
 
     it('big-int-filter equals', () => {
       const s = testSourceFile({
-        project,
         file: 'big-int-filter.input.ts',
+        project,
         property: 'equals',
       });
 
@@ -2281,8 +2297,8 @@ describe('configuration custom scalars', () => {
 
     it('big-int-filter in', () => {
       const s = testSourceFile({
-        project,
         file: 'big-int-filter.input.ts',
+        project,
         property: 'in',
       });
 
@@ -2291,8 +2307,8 @@ describe('configuration custom scalars', () => {
 
     it('user model', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'bigInt',
       });
 
@@ -2305,8 +2321,8 @@ describe('configuration custom scalars', () => {
 
     it('user-sum-aggregate', () => {
       const s = testSourceFile({
-        project,
         file: 'user-sum-aggregate.output.ts',
+        project,
         property: 'bigInt',
       });
 
@@ -2322,6 +2338,7 @@ describe('configuration custom scalars', () => {
 describe('multiple description', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             /// Model description
             /// Model 2
@@ -2331,12 +2348,11 @@ describe('multiple description', () => {
                 /// Second line
                 name String
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('field', () => {
-    const s = testSourceFile({ project, class: 'User' });
+    const s = testSourceFile({ class: 'User', project });
     expect(s.sourceText).toContain(`
     /**
      * Name description
@@ -2346,7 +2362,7 @@ describe('multiple description', () => {
   });
 
   it('model', () => {
-    const s = testSourceFile({ project, class: 'User' });
+    const s = testSourceFile({ class: 'User', project });
     expect(s.sourceText).toContain(`/**
  * Model description
  * Model 2
@@ -2357,6 +2373,7 @@ describe('multiple description', () => {
 describe('deprecation reason', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             model User {
                 id Int @id
@@ -2364,12 +2381,11 @@ describe('deprecation reason', () => {
                 /// @deprecated Use name2 instead
                 name String
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('deprecation reason default', async () => {
-    const s = testSourceFile({ project, class: 'User', property: 'name' });
+    const s = testSourceFile({ class: 'User', project, property: 'name' });
 
     expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
       expect.objectContaining({
@@ -2387,8 +2403,8 @@ describe('deprecation reason', () => {
   ]) {
     it(className, () => {
       const s = testSourceFile({
-        project,
         class: 'UserCountAggregateInput',
+        project,
         property: 'name',
       });
       expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
@@ -2398,15 +2414,15 @@ describe('deprecation reason', () => {
   }
 
   it('deprecated decorator in comment', () => {
-    const s = testSourceFile({ project, class: 'User', property: 'name' });
+    const s = testSourceFile({ class: 'User', project, property: 'name' });
     const jsdoc = s.classFile.getProperty('name')?.getJsDocs().at(0)?.getText();
     expect(jsdoc).toContain('* Name description');
     expect(jsdoc).toContain('* @deprecated Use name2 instead');
 
     expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
       expect.objectContaining({
-        description: 'Name description',
         deprecationReason: 'Use name2 instead',
+        description: 'Name description',
       }),
     );
   });
@@ -2415,18 +2431,18 @@ describe('deprecation reason', () => {
 describe('unsafeCompatibleWhereUniqueInput', () => {
   it('user id', async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `
-      model User {
-        id String @id
-      }`,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `unsafeCompatibleWhereUniqueInput = true`,
       ],
+      schema: `
+      model User {
+        id String @id
+      }`,
     }));
     const s = testSourceFile({
-      project,
       class: 'UserWhereUniqueInput',
+      project,
       property: 'id',
     });
     expect(s.property?.hasExclamationToken).toBe(true);
@@ -2434,6 +2450,10 @@ describe('unsafeCompatibleWhereUniqueInput', () => {
 
   it('user id email', async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `unsafeCompatibleWhereUniqueInput = true`,
+      ],
       schema: `
       model User {
         id        String    @id @default(cuid())
@@ -2443,29 +2463,25 @@ describe('unsafeCompatibleWhereUniqueInput', () => {
 
         @@unique([email, name])
       }`,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `unsafeCompatibleWhereUniqueInput = true`,
-      ],
     }));
 
     const id = testSourceFile({
-      project,
       class: 'UserWhereUniqueInput',
+      project,
       property: 'id',
     });
     expect(id.property?.hasExclamationToken).toBe(true);
 
     const email = testSourceFile({
-      project,
       class: 'UserWhereUniqueInput',
+      project,
       property: 'email',
     });
     expect(email.property?.hasExclamationToken).toBe(true);
 
     const emailName = testSourceFile({
-      project,
       class: 'UserWhereUniqueInput',
+      project,
       property: 'email_name',
     });
     expect(emailName.property?.hasExclamationToken).toBe(true);
