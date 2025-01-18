@@ -59,9 +59,6 @@
     "compatibilty_check": "sh Taskfile compatibilty_check",
     "commit": "cz"
   },
-  "overrides": {
-    "conventional-changelog-conventionalcommits": ">= 8.0.0"
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
@@ -109,6 +106,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "commitizen": "^4.3.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
     "cz-customizable": "^7.4.0",
     "decimal.js": "^10.4.3",
     "eslint": "^9.18.0",
