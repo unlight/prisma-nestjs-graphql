@@ -52,9 +52,6 @@ function getModelName(args: {
       return test;
     }
   }
-
-  // eslint-disable-next-line consistent-return, unicorn/no-useless-undefined
-  return undefined;
 }
 
 const splitKeywords = [
@@ -130,6 +127,7 @@ const middleKeywords = [
   ['FindOne', 'Args'],
   ['FindUnique', 'Args'],
   ['UpdateMany', 'Args'],
+  ['UpdateMany', 'AndReturnOutputType'],
   ['UpdateOne', 'Args'],
   ['UpsertOne', 'Args'],
   ['GroupBy', 'Args'],

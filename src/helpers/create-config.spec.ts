@@ -139,7 +139,7 @@ describe('createConfig', () => {
     expect(result.emitBlocks.prismaEnums).toEqual(true);
     expect(result.emitBlocks.schemaEnums).toEqual(true);
   });
-  
+
   it('unsafeCompatibleWhereUniqueInput', () => {
     const result = createConfig({
       unsafeCompatibleWhereUniqueInput: 'true',

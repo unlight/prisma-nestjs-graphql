@@ -1,7 +1,7 @@
-export function isCreateManyReturn(name: string): boolean {
+export function isManyAndReturnOutputType(name: string): boolean {
   const lowerName = name.toLowerCase();
   if (
-    lowerName.startsWith('createmany') &&
+    (lowerName.startsWith('createmany') || lowerName.startsWith('updatemany')) &&
     (lowerName.endsWith('andreturnoutputtype') || lowerName.endsWith('andreturn'))
   ) {
     return true;
