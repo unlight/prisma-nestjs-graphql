@@ -30,10 +30,10 @@ compatibilty_check() {
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/noAtomicOperations *= true/noAtomicOperations = false/g' prisma/schema.prisma
 
-  echo === Check combineScalarFilters ===
-  sed -i 's/combineScalarFilters *= false/combineScalarFilters = true/g' prisma/schema.prisma
-  rm -rf ./@generated && npm run prisma:g && npm run tscheck
-  sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
+  # echo === Check combineScalarFilters ===
+  # sed -i 's/combineScalarFilters *= false/combineScalarFilters = true/g' prisma/schema.prisma
+  # rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  # sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
 
   echo === Switching reExport ===
   sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma

@@ -78,6 +78,8 @@ Default: `@prisma/client`
 
 #### `combineScalarFilters`
 
+DOESNT WORK IN v21+
+
 Combine nested/nullable scalar filters to single  
 Type: `boolean`  
 Default: `false`

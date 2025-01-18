@@ -237,6 +237,7 @@ describe('combine scalar filters on array', () => {
 });
 
 describe.skip('empty relation filter input', () => {
+  // TODO: Enable Check combineScalarFilters in Taskfile
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [`combineScalarFilters = true`],
