@@ -184,10 +184,10 @@ function createSettingElement({
 
     return result;
   }
-  
+
   if (line.startsWith('@complexity')) {
     let n = Number.parseInt(trim(line.slice(11)));
-    if(n !== n || n < 1) n = 1;
+    if (n !== n || n < 1) n = 1;
     fieldElement.arguments!['complexity'] = n;
 
     result.element = fieldElement;
