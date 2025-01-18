@@ -1,3 +1,9 @@
+## [21.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.0...v21.0.1) (2025-01-18)
+
+### Bug Fixes
+
+* New names when `combineScalarFilters` enabled ([88862bd](https://github.com/unlight/prisma-nestjs-graphql/commit/88862bdad400eea1011225f053a95fe37e0d91a5))
+
 ## [21.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v20.1.0...v21.0.0) (2025-01-18)
 
 ### ⚠ BREAKING CHANGES
