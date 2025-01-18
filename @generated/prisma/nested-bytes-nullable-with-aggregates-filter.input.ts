@@ -6,13 +6,13 @@ import { NestedBytesNullableFilter } from './nested-bytes-nullable-filter.input'
 @InputType()
 export class NestedBytesNullableWithAggregatesFilter {
   @Field(() => String, { nullable: true })
-  equals?: Buffer;
+  equals?: Uint8Array;
 
   @Field(() => [String], { nullable: true })
-  in?: Array<Buffer>;
+  in?: Array<Uint8Array>;
 
   @Field(() => [String], { nullable: true })
-  notIn?: Array<Buffer>;
+  notIn?: Array<Uint8Array>;
 
   @Field(() => NestedBytesNullableWithAggregatesFilter, { nullable: true })
   not?: NestedBytesNullableWithAggregatesFilter;

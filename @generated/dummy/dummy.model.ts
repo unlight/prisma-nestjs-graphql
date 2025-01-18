@@ -22,7 +22,7 @@ export class Dummy {
   float!: number | null;
 
   @Field(() => String, { nullable: true })
-  bytes!: Buffer | null;
+  bytes!: Uint8Array | null;
 
   @Field(() => GraphQLDecimal, { nullable: false })
   decimal!: Decimal;

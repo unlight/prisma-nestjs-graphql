@@ -26,7 +26,7 @@ export class DummyCreateInput {
   float?: number;
 
   @Field(() => String, { nullable: true })
-  bytes?: Buffer;
+  bytes?: Uint8Array;
 
   @Field(() => GraphQLDecimal, { nullable: false })
   @Type(() => Object)
