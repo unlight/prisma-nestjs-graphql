@@ -8,6 +8,7 @@ describe('decimal type', () => {
   let project: Project;
   before(async () => {
     ({ project } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             model User {
                 id String @id
@@ -15,14 +16,13 @@ describe('decimal type', () => {
                 maybe Decimal?
             }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('user model money', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'money',
     });
     expect(s.property?.type).toEqual('Decimal');
@@ -34,8 +34,8 @@ describe('decimal type', () => {
 
   it('user model nullish', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'maybe',
     });
     expect(s.property?.type).toEqual('Decimal | null');
@@ -47,8 +47,8 @@ describe('decimal type', () => {
 
   it('user input money', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create.input.ts',
+      project,
       property: 'money',
     });
     expect(s.property?.type).toEqual('Decimal');
@@ -60,8 +60,8 @@ describe('decimal type', () => {
 
   it('user input maybe', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create.input.ts',
+      project,
       property: 'maybe',
     });
     expect(s.property?.type).toEqual('Decimal');
@@ -74,8 +74,8 @@ describe('decimal type', () => {
 
   it('user aggregate output money', () => {
     const s = testSourceFile({
-      project,
       file: 'user-sum-aggregate.output.ts',
+      project,
       property: 'money',
     });
     expect(s.property?.type).toEqual('Decimal');
@@ -87,8 +87,8 @@ describe('decimal type', () => {
 
   it('user aggregate output maybe', () => {
     const s = testSourceFile({
-      project,
       file: 'user-sum-aggregate.output.ts',
+      project,
       property: 'maybe',
     });
     expect(s.property?.type).toEqual('Decimal');
@@ -116,8 +116,8 @@ describe('decimal graphql', () => {
 
   it('should contain necessary imports', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCreateInput',
+      project,
     });
 
     expect(s.namedImports).toContainEqual({
@@ -136,45 +136,45 @@ describe('decimal graphql', () => {
 
   it('create input value', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCreateInput',
+      project,
       property: 'money',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => Object'],
+        name: 'Type',
       }),
     );
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Transform',
         arguments: ['transformToDecimal'],
+        name: 'Transform',
       }),
     );
   });
 
   it('array input should contain decorator type with same type', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCreateInput',
+      project,
       property: 'transfers',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => UserCreatetransfersInput'],
+        name: 'Type',
       }),
     );
   });
 
   it('should not contain type decorator for aggregate inputs', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCountAggregateInput',
+      project,
       property: 'transfers',
     });
 
@@ -187,8 +187,8 @@ describe('decimal graphql', () => {
 
   it('should not contain type decorator for order by', () => {
     const s = testSourceFile({
-      project,
       class: 'UserAvgOrderByAggregateInput',
+      project,
       property: 'transfers',
     });
 
@@ -201,15 +201,15 @@ describe('decimal graphql', () => {
 
   it('should type contain in findmanyuserargs', () => {
     const s = testSourceFile({
-      project,
       class: 'FindManyUserArgs',
+      project,
       property: 'where',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => UserWhereInput'],
+        name: 'Type',
       }),
     );
 
@@ -221,15 +221,15 @@ describe('decimal graphql', () => {
 
   it('should not contain type decorator for order by', () => {
     const s = testSourceFile({
-      project,
       class: 'UserWhereInput',
+      project,
       property: 'transfers',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => DecimalNullableListFilter'],
+        name: 'Type',
       }),
     );
 
@@ -241,8 +241,8 @@ describe('decimal graphql', () => {
 
   it('should not be added for id string filter', () => {
     const s = testSourceFile({
-      project,
       class: 'UserWhereInput',
+      project,
       property: 'id',
     });
 
@@ -253,8 +253,8 @@ describe('decimal graphql', () => {
 
   it('decimal list filter', () => {
     const s = testSourceFile({
-      project,
       class: 'DecimalNullableListFilter',
+      project,
     });
 
     expect(s.namedImports).toContainEqual({
@@ -274,8 +274,8 @@ describe('decimal graphql', () => {
 
   it('special property data should be decorated', () => {
     const s = testSourceFile({
-      project,
       class: 'CreateOneUserArgs',
+      project,
       property: 'data',
     });
 
@@ -286,8 +286,8 @@ describe('decimal graphql', () => {
 
   it('special property where should be decorated', () => {
     const s = testSourceFile({
-      project,
       file: 'delete-many-user.args.ts',
+      project,
       property: 'where',
     });
 
@@ -301,36 +301,36 @@ describe('decimal graphql noAtomicOperations', () => {
   let project: Project;
   before(async () => {
     ({ project } = await testGenerate({
+      options: `
+        noAtomicOperations = true
+      `,
       schema: `
         model User {
           id String @id
           transfers Decimal[]
         }
         `,
-      options: `
-        noAtomicOperations = true
-      `,
     }));
   });
 
   it('should be array', () => {
     const s = testSourceFile({
-      project,
       class: 'UserCreateInput',
+      project,
       property: 'transfers',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => Object'],
+        name: 'Type',
       }),
     );
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Transform',
         arguments: ['transformToDecimal'],
+        name: 'Transform',
       }),
     );
 
@@ -342,6 +342,9 @@ describe('nested object decorate', () => {
   let project: Project;
   before(async () => {
     ({ project } = await testGenerate({
+      options: `
+        noAtomicOperations = true
+      `,
       schema: `
         model Job {
           id          Int      @id
@@ -376,16 +379,13 @@ describe('nested object decorate', () => {
           salaryHistory SalaryHistory @relation(fields: [salaryHistoryId], references: [id], onDelete: Cascade)
         }
         `,
-      options: `
-        noAtomicOperations = true
-      `,
     }));
   });
 
   it('deep field should be decorated up to root', () => {
     const s = testSourceFile({
-      project,
       class: 'JobCreateInput',
+      project,
       property: 'salary',
     });
 
@@ -411,8 +411,8 @@ describe('nested object decorate', () => {
     ].forEach(property => {
       it(property, () => {
         const s = testSourceFile({
-          project,
           class: 'JobUncheckedUpdateManyWithoutSalaryNestedInput',
+          project,
           property,
         });
 
@@ -425,8 +425,8 @@ describe('nested object decorate', () => {
 
   it('property data should be decorated', () => {
     const s = testSourceFile({
-      project,
       class: 'EmployeeUpdateInput',
+      project,
       property: 'salaryHistory',
     });
 
@@ -437,8 +437,8 @@ describe('nested object decorate', () => {
 
   it('property data should be decorated', () => {
     const s = testSourceFile({
-      project,
       class: 'JobCreateManySalaryInputEnvelope',
+      project,
       property: 'data',
     });
 

@@ -10,6 +10,11 @@ let sourceFiles: SourceFile[];
 describe('compound index', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `fields_Validator_from = "class-validator"`,
+        `fields_Validator_input = true`,
+      ],
       schema: `
                 model User {
                   id    Int    @id
@@ -24,18 +29,13 @@ describe('compound index', () => {
                   id    Int    @id
                 }
                 `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `fields_Validator_from = "class-validator"`,
-        `fields_Validator_input = true`,
-      ],
     }));
   });
 
   it('user unique input compound', () => {
     const s = testSourceFile({
-      project,
       class: 'UserEmailNameCompoundUniqueInput',
+      project,
     });
 
     const minLength = s.classFile.getProperty('name')?.getDecorator('MinLength');
@@ -44,8 +44,8 @@ describe('compound index', () => {
 
   it('compound uniq where must be wrapped to prisma atleast', () => {
     const s = testSourceFile({
-      project,
       class: 'FindManyUserArgs',
+      project,
       property: 'cursor',
     });
 
@@ -58,6 +58,7 @@ describe('compound index', () => {
 describe('compound primary key', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
                 model User {
                   firstname String
@@ -67,14 +68,13 @@ describe('compound primary key', () => {
                   @@id([firstname, surname])
                 }
                 `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('compound primary key atleast keys', () => {
     const s = testSourceFile({
-      project,
       class: 'FindFirstUserArgs',
+      project,
       property: 'cursor',
     });
 

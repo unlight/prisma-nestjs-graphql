@@ -32,7 +32,7 @@ export function testSourceFile(args: {
   class?: string;
   property?: string;
 }) {
-  const { project, file, property, class: className } = args;
+  const { class: className, file, project, property } = args;
   let sourceFile: SourceFile;
   if (file) {
     sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(file));
@@ -73,15 +73,15 @@ export function testSourceFile(args: {
   }
 
   return {
-    sourceFile,
     classFile,
-    sourceText: sourceFile.getText(),
+    fieldDecorator,
+    fieldDecoratorOptions: fieldDecorator?.arguments?.[1],
+    fieldDecoratorType: fieldDecorator?.arguments?.[0],
     namedImports,
     namespaceImports,
     property: propertyStructure as PropertyDeclarationStructure | undefined,
     propertyDecorators,
-    fieldDecorator,
-    fieldDecoratorType: fieldDecorator?.arguments?.[0],
-    fieldDecoratorOptions: fieldDecorator?.arguments?.[1],
+    sourceFile,
+    sourceText: sourceFile.getText(),
   };
 }

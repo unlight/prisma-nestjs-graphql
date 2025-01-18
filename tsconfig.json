@@ -7,7 +7,7 @@
     }
   },
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es2020",
     "module": "commonjs",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -15,6 +15,7 @@
     "noImplicitAny": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "allowImportingTsExtensions": true,
     "outDir": "dist",
     "pretty": true,
     "esModuleInterop": true,
@@ -25,5 +26,5 @@
     "skipLibCheck": true,
     "lib": ["esnext"]
   },
-  "include": ["src", "example"]
+  "include": ["src", "example", "@generated"]
 }

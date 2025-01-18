@@ -757,3 +757,8 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 - JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
 - https://github.com/paljs/prisma-tools/tree/master/packages/plugins
 - https://github.com/wasp-lang/wasp
+
+## TODO
+
+- keyof typeof SortOrder -> `SortOrder`
+- dummy-createfriends.input.ts -> `create-friends`

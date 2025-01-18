@@ -7,7 +7,7 @@ export function getPropertyType(args: {
   type: string;
   location: FieldLocation;
 }): string[] {
-  const { type, location } = args;
+  const { location, type } = args;
   switch (type) {
     case 'Float':
     case 'Int': {
@@ -32,7 +32,7 @@ export function getPropertyType(args: {
       return ['null'];
     }
     case 'Bytes': {
-      return ['Buffer'];
+      return ['Uint8Array'];
     }
     case 'BigInt': {
       return ['bigint', 'number'];

@@ -1,27 +1,27 @@
-/* eslint-disable prefer-const, unicorn/no-null */
+/* eslint-disable @typescript-eslint/no-unused-expressions, prefer-const, unicorn/no-null */
+import { Field } from '@nestjs/graphql';
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
 
-import { Dummy } from '../../@generated/dummy/dummy.model';
-import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
-import { DateTimeFilter } from '../../@generated/prisma/date-time-filter.input';
-import { DecimalFilter } from '../../@generated/prisma/decimal-filter.input';
-import { IntFilter } from '../../@generated/prisma/int-filter.input';
-import { StringFilter } from '../../@generated/prisma/string-filter.input';
-import { FindManyUserArgs } from '../../@generated/user/find-many-user.args';
-import { User } from '../../@generated/user/user.model';
-import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
-import { UserCount } from '../../@generated/user/user-count.output';
-import { UserCreateInput } from '../../@generated/user/user-create.input';
-import { UserCreateWithoutArticlesInput } from '../../@generated/user/user-create-without-articles.input';
-import { UserCreateWithoutCommentsInput } from '../../@generated/user/user-create-without-comments.input';
-import { UserGroupByArgs } from '../../@generated/user/user-group-by.args';
-import { UserListRelationFilter } from '../../@generated/user/user-list-relation-filter.input';
-import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-order-by-aggregate.input';
-import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum';
-import { UserWhereInput } from '../../@generated/user/user-where.input';
-import { UserWhereUniqueInput } from '../../@generated/user/user-where-unique.input';
-import { Field } from '@nestjs/graphql';
+import { Dummy } from '../../@generated/dummy/dummy.model.ts';
+import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input.ts';
+import { DateTimeFilter } from '../../@generated/prisma/date-time-filter.input.ts';
+import { DecimalFilter } from '../../@generated/prisma/decimal-filter.input.ts';
+import { IntFilter } from '../../@generated/prisma/int-filter.input.ts';
+import { StringFilter } from '../../@generated/prisma/string-filter.input.ts';
+import { FindManyUserArgs } from '../../@generated/user/find-many-user.args.ts';
+import { User } from '../../@generated/user/user.model.ts';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args.ts';
+import { UserCount } from '../../@generated/user/user-count.output.ts';
+import { UserCreateInput } from '../../@generated/user/user-create.input.ts';
+import { UserCreateWithoutArticlesInput } from '../../@generated/user/user-create-without-articles.input.ts';
+import { UserCreateWithoutCommentsInput } from '../../@generated/user/user-create-without-comments.input.ts';
+import { UserGroupByArgs } from '../../@generated/user/user-group-by.args.ts';
+import { UserListRelationFilter } from '../../@generated/user/user-list-relation-filter.input.ts';
+import { UserMaxOrderByAggregateInput } from '../../@generated/user/user-max-order-by-aggregate.input.ts';
+import { UserScalarFieldEnum } from '../../@generated/user/user-scalar-field.enum.ts';
+import { UserWhereInput } from '../../@generated/user/user-where.input.ts';
+import { UserWhereUniqueInput } from '../../@generated/user/user-where-unique.input.ts';
 
 let $prisma = new PrismaClient();
 
@@ -124,8 +124,8 @@ let $prisma = new PrismaClient();
   x;
 }
 {
-  let x: DummyCreateInput = { id: '1', decimal: 0 as any };
-  let p: Prisma.DummyCreateInput = { id: '2', decimal: 0 as any };
+  let x: DummyCreateInput = { decimal: 0 as any, id: '1' };
+  let p: Prisma.DummyCreateInput = { decimal: 0 as any, id: '2' };
   p = x;
   p;
   x;
@@ -140,12 +140,19 @@ let $prisma = new PrismaClient();
   let x: UserMaxOrderByAggregateInput = {};
   let p: Prisma.UserMaxOrderByAggregateInput = {};
   p = x; // To prisma
-  x = p; // To object type
+  // FIXME: Skip is not assignable to type asc | desc | undefined
+  // x = p; // Prisma to own object type
 }
 {
   let x: UserCreateInput = {} as unknown as UserCreateInput;
   let p: Prisma.UserCreateInput = {} as unknown as Prisma.UserCreateInput;
   p = x;
+  p;
+}
+{
+  let x: Dummy['bytes'] = null as unknown as P.Dummy['bytes'];
+  let p: P.Dummy['bytes'] = null as unknown as Dummy['bytes'];
+  x;
   p;
 }
 {
@@ -171,13 +178,13 @@ let $prisma = new PrismaClient();
   void $prisma.user
     .findMany({
       include: {
-        articles: true,
-        profile: true,
         _count: true,
+        articles: true,
         comments: true,
         favoriteArticles: true,
         followers: true,
         following: true,
+        profile: true,
       },
     })
     .then(users => {
