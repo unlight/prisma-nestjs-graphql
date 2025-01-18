@@ -1,3 +1,10 @@
+## [20.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.3...v20.1.0) (2025-01-18)
+
+
+### Features
+
+* Support @Field() option 'complexity' through comment line ([ef8c327](https://github.com/unlight/nestjs-graphql-prisma/commit/ef8c3270f1bcb886f1f6566c6fc35705278a431b))
+
 ## [20.0.3](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.2...v20.0.3) (2024-05-19)
 
 
