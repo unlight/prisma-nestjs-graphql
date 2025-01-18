@@ -6,7 +6,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
 import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input';
 import { Type } from 'class-transformer';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
@@ -55,9 +55,9 @@ export class ArticleWhereUniqueInput {
   @Field(() => TagListRelationFilter, { nullable: true })
   tags?: TagListRelationFilter;
 
-  @Field(() => UserRelationFilter, { nullable: true })
-  @Type(() => UserRelationFilter)
-  author?: UserRelationFilter;
+  @Field(() => UserScalarRelationFilter, { nullable: true })
+  @Type(() => UserScalarRelationFilter)
+  author?: UserScalarRelationFilter;
 
   @Field(() => UserListRelationFilter, { nullable: true })
   @Type(() => UserListRelationFilter)

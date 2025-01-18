@@ -30,13 +30,13 @@ export class Article {
   @Field(() => Date, { nullable: false })
   updatedAt!: Date;
 
-  @Field(() => Int, { nullable: false, defaultValue: 0 })
+  @Field(() => Int, { defaultValue: 0, nullable: false })
   favoritesCount!: number;
 
   @Field(() => String, { nullable: false })
   authorId!: string;
 
-  @Field(() => Boolean, { nullable: true, defaultValue: true })
+  @Field(() => Boolean, { defaultValue: true, nullable: true })
   active!: boolean | null;
 
   @Field(() => [Tag], { nullable: true })

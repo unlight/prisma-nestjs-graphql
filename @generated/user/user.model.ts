@@ -26,7 +26,7 @@ export class User {
   /**
    * User's name
    */
-  @Field(() => String, { nullable: false, description: "User's name" })
+  @Field(() => String, { description: "User's name", nullable: false })
   name!: string;
 
   @HideField()

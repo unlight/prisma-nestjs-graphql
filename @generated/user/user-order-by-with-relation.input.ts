@@ -6,11 +6,11 @@ import { Type } from 'class-transformer';
 import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
-import { ProfileOrderByWithRelationAndSearchRelevanceInput } from '../profile/profile-order-by-with-relation-and-search-relevance.input';
+import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
 import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 
 @InputType()
-export class UserOrderByWithRelationAndSearchRelevanceInput {
+export class UserOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
   id?: keyof typeof SortOrder;
 
@@ -62,9 +62,9 @@ export class UserOrderByWithRelationAndSearchRelevanceInput {
   @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
 
-  @Field(() => ProfileOrderByWithRelationAndSearchRelevanceInput, { nullable: true })
-  @Type(() => ProfileOrderByWithRelationAndSearchRelevanceInput)
-  profile?: ProfileOrderByWithRelationAndSearchRelevanceInput;
+  @Field(() => ProfileOrderByWithRelationInput, { nullable: true })
+  @Type(() => ProfileOrderByWithRelationInput)
+  profile?: ProfileOrderByWithRelationInput;
 
   @Field(() => UserOrderByRelevanceInput, { nullable: true })
   @Type(() => UserOrderByRelevanceInput)

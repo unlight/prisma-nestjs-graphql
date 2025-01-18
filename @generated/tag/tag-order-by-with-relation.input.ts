@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 import { TagOrderByRelevanceInput } from './tag-order-by-relevance.input';
 
 @InputType()
-export class TagOrderByWithRelationAndSearchRelevanceInput {
+export class TagOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
   id?: keyof typeof SortOrder;
 

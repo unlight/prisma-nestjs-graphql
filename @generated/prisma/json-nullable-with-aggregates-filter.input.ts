@@ -22,13 +22,13 @@ export class JsonNullableWithAggregatesFilter {
   string_ends_with?: string;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  array_contains?: any;
-
-  @Field(() => GraphQLJSON, { nullable: true })
   array_starts_with?: any;
 
   @Field(() => GraphQLJSON, { nullable: true })
   array_ends_with?: any;
+
+  @Field(() => GraphQLJSON, { nullable: true })
+  array_contains?: any;
 
   @Field(() => GraphQLJSON, { nullable: true })
   lt?: any;

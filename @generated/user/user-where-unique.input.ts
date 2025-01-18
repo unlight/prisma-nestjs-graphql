@@ -14,7 +14,7 @@ import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.inpu
 import { UserListRelationFilter } from './user-list-relation-filter.input';
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { ProfileNullableRelationFilter } from '../profile/profile-nullable-relation-filter.input';
+import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -87,7 +87,7 @@ export class UserWhereUniqueInput {
   @Type(() => CommentListRelationFilter)
   comments?: CommentListRelationFilter;
 
-  @Field(() => ProfileNullableRelationFilter, { nullable: true })
-  @Type(() => ProfileNullableRelationFilter)
-  profile?: ProfileNullableRelationFilter;
+  @Field(() => ProfileNullableScalarRelationFilter, { nullable: true })
+  @Type(() => ProfileNullableScalarRelationFilter)
+  profile?: ProfileNullableScalarRelationFilter;
 }

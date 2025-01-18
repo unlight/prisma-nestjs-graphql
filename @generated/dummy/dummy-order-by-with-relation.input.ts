@@ -6,7 +6,7 @@ import { DummyOrderByRelevanceInput } from './dummy-order-by-relevance.input';
 import { Type } from 'class-transformer';
 
 @InputType()
-export class DummyOrderByWithRelationAndSearchRelevanceInput {
+export class DummyOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
   id?: keyof typeof SortOrder;
 

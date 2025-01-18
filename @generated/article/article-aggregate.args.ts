@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { ArticleWhereInput } from './article-where.input';
 import { Type } from 'class-transformer';
-import { ArticleOrderByWithRelationAndSearchRelevanceInput } from './article-order-by-with-relation-and-search-relevance.input';
+import { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input';
 import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input';
 import { Int } from '@nestjs/graphql';
@@ -18,8 +18,8 @@ export class ArticleAggregateArgs {
   @Type(() => ArticleWhereInput)
   where?: ArticleWhereInput;
 
-  @Field(() => [ArticleOrderByWithRelationAndSearchRelevanceInput], { nullable: true })
-  orderBy?: Array<ArticleOrderByWithRelationAndSearchRelevanceInput>;
+  @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
+  orderBy?: Array<ArticleOrderByWithRelationInput>;
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })
   cursor?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;

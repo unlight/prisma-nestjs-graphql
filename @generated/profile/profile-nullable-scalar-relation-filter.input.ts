@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { ProfileWhereInput } from './profile-where.input';
 
 @InputType()
-export class ProfileNullableRelationFilter {
+export class ProfileNullableScalarRelationFilter {
   @Field(() => ProfileWhereInput, { nullable: true })
   is?: ProfileWhereInput;
 

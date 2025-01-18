@@ -4,7 +4,7 @@ import { UserWhereInput } from './user-where.input';
 import { Type } from 'class-transformer';
 
 @InputType()
-export class UserRelationFilter {
+export class UserScalarRelationFilter {
   @Field(() => UserWhereInput, { nullable: true })
   @Type(() => UserWhereInput)
   is?: UserWhereInput;
