@@ -5,7 +5,7 @@ datasource database {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres"]
+  previewFeatures = ["fullTextSearchPostgres", "postgresqlExtensions", "nativeDistinct", "strictUndefinedChecks"]
 }
 
 generator nestgraphql {

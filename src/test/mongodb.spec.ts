@@ -10,6 +10,9 @@ let sourceFiles: SourceFile[];
 describe('type has been treated as model #99', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        // `outputFilePattern = "{name}.{type}.ts"`
+      ],
       provider: 'mongodb',
       schema: `
                 model User {
@@ -21,9 +24,6 @@ describe('type has been treated as model #99', () => {
                   value String
                 }
             `,
-      options: [
-        // `outputFilePattern = "{name}.{type}.ts"`
-      ],
     }));
   });
 
@@ -38,8 +38,8 @@ describe('type has been treated as model #99', () => {
 
   it('user model', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'preferences',
     });
     expect(s.namedImports).toContainEqual({
@@ -54,6 +54,7 @@ describe('type has been treated as model #99', () => {
 describe('mongodb json', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       provider: 'mongodb',
       schema: `
                 model User {
@@ -61,7 +62,6 @@ describe('mongodb json', () => {
                   json Json?
                 }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
@@ -73,20 +73,20 @@ describe('mongodb json', () => {
 describe('single model and field mongodb', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       provider: 'mongodb',
       schema: `
                 model Product {
                   id String @id @default(auto()) @map("_id") @db.ObjectId
                 }
             `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('example input update type', () => {
     const s = testSourceFile({
-      project,
       file: 'update-one-product.args.ts',
+      project,
     });
     // data field is missing because of single id field
     expect(s.classFile.getProperties()).toHaveLength(1);

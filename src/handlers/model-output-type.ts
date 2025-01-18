@@ -11,11 +11,11 @@ import {
 } from 'ts-morph';
 
 import { createComment } from '../helpers/create-comment';
-import { isManyAndReturnOutputType as isManyAndReturnOutputType } from '../helpers/is-many-and-return';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
+import { isManyAndReturnOutputType } from '../helpers/is-many-and-return';
 import {
   createObjectSettings,
   ObjectSetting,
@@ -27,7 +27,7 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-  const { getSourceFile, models, config, modelFields, fieldSettings, eventEmitter } =
+  const { config, eventEmitter, fieldSettings, getSourceFile, modelFields, models } =
     args;
 
   if (isManyAndReturnOutputType(outputType.name)) return;
@@ -46,15 +46,15 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   );
   const importDeclarations = new ImportDeclarationMap();
   const classStructure: ClassDeclarationStructure = {
-    kind: StructureKind.Class,
-    isExported: true,
-    name: outputType.name,
     decorators: [
       {
-        name: 'ObjectType',
         arguments: [],
+        name: 'ObjectType',
       },
     ],
+    isExported: true,
+    kind: StructureKind.Class,
+    name: outputType.name,
     properties: [],
   };
   (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
@@ -67,8 +67,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   if (model.documentation) {
     const objectTypeOptions: PlainObject = {};
     const { documentation, settings } = createObjectSettings({
-      text: model.documentation,
       config,
+      text: model.documentation,
     });
     if (documentation) {
       if (!classStructure.leadingTrivia) {
@@ -87,7 +87,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     if (config.omitModelsCount && field.name === '_count') continue;
 
     let fileType = 'model';
-    const { location, isList, type, namespace } = field.outputType;
+    const { isList, location, namespace, type } = field.outputType;
 
     let outputTypeName = String(type);
     if (namespace !== 'model') {
@@ -128,13 +128,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     } else {
       const graphqlImport = getGraphqlImport({
         config,
-        sourceFile,
         fileType,
-        location,
-        isId: modelField?.isId,
-        noTypeId: config.noTypeId,
-        typeName: outputTypeName,
         getSourceFile,
+        isId: modelField?.isId,
+        location,
+        noTypeId: config.noTypeId,
+        sourceFile,
+        typeName: outputTypeName,
       });
 
       graphqlType = graphqlImport.name;
@@ -145,12 +145,12 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     const property = propertyStructure({
-      name: field.name,
-      isNullable: field.isNullable,
       hasExclamationToken: true,
       hasQuestionToken: location === 'outputObjectTypes',
-      propertyType,
       isList,
+      isNullable: field.isNullable,
+      name: field.name,
+      propertyType,
     });
 
     if (typeof property.leadingTrivia === 'string' && modelField?.documentation) {
@@ -179,31 +179,31 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     if (shouldHideField) {
       importDeclarations.add('HideField', nestjsGraphql);
-      property.decorators.push({ name: 'HideField', arguments: [] });
+      property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
       // Generate `@Field()` decorator
       property.decorators.push({
-        name: 'Field',
         arguments: [
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
           JSON5.stringify({
             ...settings?.fieldArguments(),
-            nullable: Boolean(field.isNullable),
             defaultValue: ['number', 'string', 'boolean'].includes(
               typeof modelField?.default,
             )
               ? modelField?.default
               : undefined,
             description: modelField?.documentation,
+            nullable: Boolean(field.isNullable),
           }),
         ],
+        name: 'Field',
       });
 
       for (const setting of settings || []) {
         if (shouldBeDecorated(setting) && (setting.match?.(field.name) ?? true)) {
           property.decorators.push({
-            name: setting.name,
             arguments: setting.arguments as string[],
+            name: setting.name,
           });
           ok(setting.from, "Missed 'from' part in configuration or field setting");
           importDeclarations.create(setting);
@@ -213,8 +213,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       for (const decorate of config.decorate) {
         if (decorate.isMatchField(field.name) && decorate.isMatchType(outputTypeName)) {
           property.decorators.push({
-            name: decorate.name,
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
+            name: decorate.name,
           });
           importDeclarations.create(decorate);
         }
@@ -222,8 +222,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     eventEmitter.emitSync('ClassProperty', property, {
-      location,
       isList,
+      location,
       propertyType,
     });
   }
@@ -233,8 +233,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     if (shouldBeDecorated(setting)) {
       classStructure.decorators.push({
-        name: setting.name,
         arguments: setting.arguments as string[],
+        name: setting.name,
       });
       importDeclarations.create(setting);
     }

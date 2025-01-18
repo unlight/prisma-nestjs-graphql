@@ -67,7 +67,7 @@ function isScalarFilter(inputType: InputType) {
 }
 
 function postBegin(args: EventArguments) {
-  const { schema, modelNames } = args;
+  const { modelNames, schema } = args;
   const inputTypes = schema.inputObjectTypes.prisma;
   const enumTypes = schema.enumTypes.model || [];
   const types = [

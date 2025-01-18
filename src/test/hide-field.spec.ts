@@ -11,6 +11,7 @@ let s: ReturnType<typeof testSourceFile>;
 describe('scalar field', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [],
       schema: `
                 model User {
                     id String @id
@@ -22,30 +23,29 @@ describe('scalar field', () => {
                     password2 String
                 }
         `,
-      options: [],
     }));
   });
 
   describe('model', () => {
     it('TypeGraphQL omit should hide password1', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'password1',
       });
       expect(s.propertyDecorators).toContainEqual(
-        expect.objectContaining({ name: 'HideField', arguments: [] }),
+        expect.objectContaining({ arguments: [], name: 'HideField' }),
       );
     });
 
     it('HideField should hide field', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'password2',
       });
       expect(s.propertyDecorators).toContainEqual(
-        expect.objectContaining({ name: 'HideField', arguments: [] }),
+        expect.objectContaining({ arguments: [], name: 'HideField' }),
       );
     });
   });
@@ -53,17 +53,17 @@ describe('scalar field', () => {
   describe('other outputs', () => {
     it('user-max-aggregate', () => {
       const s = testSourceFile({
-        project,
         file: 'user-max-aggregate.output.ts',
+        project,
       });
 
       expect(
         s.classFile.getProperty('password1')?.getStructure().decorators,
-      ).toContainEqual(expect.objectContaining({ name: 'HideField', arguments: [] }));
+      ).toContainEqual(expect.objectContaining({ arguments: [], name: 'HideField' }));
 
       expect(
         s.classFile.getProperty('password2')?.getStructure().decorators,
-      ).toContainEqual(expect.objectContaining({ name: 'HideField', arguments: [] }));
+      ).toContainEqual(expect.objectContaining({ arguments: [], name: 'HideField' }));
     });
   });
 });
@@ -71,6 +71,7 @@ describe('scalar field', () => {
 describe('hide on non scalar', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [],
       schema: `
                 model User {
                   id       String @id
@@ -83,15 +84,14 @@ describe('hide on non scalar', () => {
                   users User[]
                 }
         `,
-      options: [],
     }));
   });
 
   describe('model', () => {
     it('type should be imported', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
       });
 
       expect(s.namedImports).toContainEqual(
@@ -104,6 +104,7 @@ describe('hide on non scalar', () => {
 describe('hide field using match', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
                 model User {
                     id String @id
@@ -113,14 +114,13 @@ describe('hide field using match', () => {
                     updatedAt DateTime @updatedAt
                 }
                 `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('in model nothing should be hidden', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'createdAt',
     });
 
@@ -130,8 +130,8 @@ describe('hide field using match', () => {
 
   it('user-create-many.input', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create-many.input.ts',
+      project,
       property: 'createdAt',
     });
 
@@ -143,8 +143,8 @@ describe('hide field using match', () => {
 
   it('user-create.input', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create.input.ts',
+      project,
       property: 'createdAt',
     });
 
@@ -156,8 +156,8 @@ describe('hide field using match', () => {
 
   it('user-update-many-mutation.input', () => {
     const s = testSourceFile({
-      project,
       file: 'user-update-many-mutation.input.ts',
+      project,
       property: 'updatedAt',
     });
 
@@ -169,8 +169,8 @@ describe('hide field using match', () => {
 
   it('user-update.input', () => {
     const s = testSourceFile({
-      project,
       file: 'user-update.input.ts',
+      project,
       property: 'updatedAt',
     });
 
@@ -183,6 +183,7 @@ describe('hide field using match', () => {
 
 it('hidden relations result in un-imported types', async () => {
   ({ project } = await testGenerate({
+    options: [`outputFilePattern = "{name}.{type}.ts"`],
     schema: `
             model User {
               id           String @id @default(uuid())
@@ -196,27 +197,27 @@ it('hidden relations result in un-imported types', async () => {
               user      User     @relation(fields: [userId], references: [id])
             }
                 `,
-    options: [`outputFilePattern = "{name}.{type}.ts"`],
   }));
 
   const s = testSourceFile({
-    project,
     file: 'user-api-key-where.input.ts',
+    project,
   });
 
   expect(s.classFile.getProperty('user')?.getStructure().type).toEqual(
-    'UserRelationFilter',
+    'UserScalarRelationFilter',
   );
 
   expect(s.namedImports).toContainEqual({
-    name: 'UserRelationFilter',
-    specifier: './user-relation-filter.input',
+    name: 'UserScalarRelationFilter',
+    specifier: './user-scalar-relation-filter.input',
   });
 });
 
 describe('enums are not imported in classes when decorated', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
         model User {
           id Int @id
@@ -228,7 +229,6 @@ describe('enums are not imported in classes when decorated', () => {
           ADMIN
         }
         `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
@@ -241,8 +241,8 @@ describe('enums are not imported in classes when decorated', () => {
   ]) {
     it(`check files ${file}`, () => {
       const s = testSourceFile({
-        project,
         file,
+        project,
         property: 'role',
       });
 
@@ -261,6 +261,7 @@ describe('enums are not imported in classes when decorated', () => {
 describe.skip('hide enum', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
         model User {
           id Int @id
@@ -272,14 +273,13 @@ describe.skip('hide enum', () => {
           ADMIN
         }
         `,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('should not call registerEnumType', () => {
     const s = testSourceFile({
-      project,
       file: 'role.enum.ts',
+      project,
     });
 
     expect(s.namedImports).not.toContainEqual({
@@ -303,8 +303,8 @@ describe.skip('hide enum', () => {
 
     for (const file of files) {
       const s = testSourceFile({
-        project,
         file,
+        project,
         property: 'role',
       });
 
@@ -342,8 +342,8 @@ describe('hide with self reference', () => {
 
   it.skip('order by with relation self import', () => {
     const s = testSourceFile({
-      project,
       class: 'UserOrderByWithRelationAndSearchRelevanceInput',
+      project,
     });
 
     expect(s.namedImports).not.toContainEqual(
@@ -357,6 +357,14 @@ describe('hide with self reference', () => {
 describe('hide _count', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: `
+  outputFilePattern = "{name}.{type}.ts"
+  decorate_1_type = "ArticleCount"
+  decorate_1_field = "_count"
+  decorate_1_name = "HideField"
+  decorate_1_from = "@nestjs/graphql"
+  decorate_1_arguments = "[]"
+        `,
       schema: `
         model Article {
           id             String    @id
@@ -368,22 +376,14 @@ describe('hide _count', () => {
           articleId String?
         }
         `,
-      options: `
-  outputFilePattern = "{name}.{type}.ts"
-  decorate_1_type = "ArticleCount"
-  decorate_1_field = "_count"
-  decorate_1_name = "HideField"
-  decorate_1_from = "@nestjs/graphql"
-  decorate_1_arguments = "[]"
-        `,
     }));
   });
 
   it('should hide _count in model', () => {
     const s = testSourceFile({
+      class: 'Article',
       project,
       property: '_count',
-      class: 'Article',
     });
 
     expect(s.propertyDecorators).toContainEqual(

@@ -126,6 +126,7 @@ async function createGeneratorOptions(
   schema: string,
   options?: string[] | string,
   provider: 'postgresql' | 'mongodb' = 'postgresql',
+  previewFeatures: string[] = [],
 ): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
   const schemaHeader = `
         datasource db {
@@ -134,7 +135,7 @@ async function createGeneratorOptions(
         }
         generator client {
             provider        = "prisma-client-js"
-            previewFeatures = ["fullTextSearchPostgres", "fullTextIndex"]
+            previewFeatures = ${JSON.stringify(previewFeatures)}
         }
     `;
   // eslint-disable-next-line prefer-rest-params

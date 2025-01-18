@@ -12,7 +12,7 @@ function getModelName(args: {
   name: string;
   modelNames: string[];
 }): string | undefined {
-  const { name, modelNames } = args;
+  const { modelNames, name } = args;
   for (const keyword of splitKeywords) {
     const [test] = name.split(keyword, 1);
     if (modelNames.includes(test)) {
@@ -97,6 +97,8 @@ const splitKeywords = [
   'AvgOrderBy',
   'Create',
   'Update',
+  'ScalarRelationFilter',
+  'NullableScalarRelationFilter',
 ].sort((a, b) => b.length - a.length);
 
 const endsWithKeywords = [
