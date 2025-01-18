@@ -6,6 +6,7 @@ import { Float } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Decimal } from '@prisma/client/runtime/library';
 import { GraphQLJSON } from 'graphql-type-json';
+import * as Types from '../../example/dummy/dummy.types';
 
 @ObjectType()
 export class Dummy {
@@ -35,6 +36,9 @@ export class Dummy {
 
   @Field(() => GraphQLJSON, { nullable: true })
   json!: any | null;
+
+  @Field(() => Types.DummyJsonType, { nullable: false, defaultValue: { foo: 'bar' } })
+  jsonDefault!: Types.DummyJsonType;
 
   @Field(() => [String], { nullable: true })
   friends!: Array<string>;

@@ -22,6 +22,8 @@ generator nestgraphql {
   fields_Validator_input                = true
   fields_Scalars_from                   = "graphql-scalars"
   fields_Scalars_input                  = true
+  fields_Types_from                     = "../../example/dummy/dummy.types"
+  fields_Types_output                   = true
   useInputType_WhereInput_ALL           = "WhereInput"
   decorate_1_type                       = "Create@(One|Many)UserArgs"
   decorate_1_field                      = data
@@ -116,14 +118,17 @@ model Profile {
 }
 
 model Dummy {
-  id       String    @id
-  date     DateTime? @default(now())
-  int      Int?
-  float    Float?
-  bytes    Bytes?
-  decimal  Decimal // Keep as required (for compatibility check)
-  decimals Decimal[]
-  bigInt   BigInt?
-  json     Json?
-  friends  String[]
+  id          String    @id
+  date        DateTime? @default(now())
+  int         Int?
+  float       Float?
+  bytes       Bytes?
+  decimal     Decimal // Keep as required (for compatibility check)
+  decimals    Decimal[]
+  bigInt      BigInt?
+  json        Json?
+  /// @FieldType('Types.DummyJsonType')
+  /// @PropertyType('Types.DummyJsonType')
+  jsonDefault Json      @default("{\"foo\":\"bar\"}")
+  friends     String[]
 }

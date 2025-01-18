@@ -32,5 +32,8 @@ export class DummyCountOrderByAggregateInput {
   json?: keyof typeof SortOrder;
 
   @Field(() => SortOrder, { nullable: true })
+  jsonDefault?: keyof typeof SortOrder;
+
+  @Field(() => SortOrder, { nullable: true })
   friends?: keyof typeof SortOrder;
 }

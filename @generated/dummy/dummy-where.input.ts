@@ -10,6 +10,7 @@ import { DecimalFilter } from '../prisma/decimal-filter.input';
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input';
 import { BigIntNullableFilter } from '../prisma/big-int-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { JsonFilter } from '../prisma/json-filter.input';
 import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
 
 @InputType()
@@ -54,6 +55,9 @@ export class DummyWhereInput {
 
   @Field(() => JsonNullableFilter, { nullable: true })
   json?: JsonNullableFilter;
+
+  @Field(() => JsonFilter, { nullable: true })
+  jsonDefault?: JsonFilter;
 
   @Field(() => StringNullableListFilter, { nullable: true })
   friends?: StringNullableListFilter;
