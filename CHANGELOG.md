@@ -1,3 +1,18 @@
+## [21.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v20.1.0...v21.0.0) (2025-01-18)
+
+### ⚠ BREAKING CHANGES
+
+* Prisma 6
+
+### Bug Fixes
+
+* Cannot find model by name ([c69a10b](https://github.com/unlight/prisma-nestjs-graphql/commit/c69a10bc5abc5266c6e4ece8a68253717add881d)), closes [#228](https://github.com/unlight/prisma-nestjs-graphql/issues/228)
+* Change `Bytes` generated type to `Uint8Array` ([de3f17c](https://github.com/unlight/prisma-nestjs-graphql/commit/de3f17c9e543a253202eef95b7501d87e931376e))
+
+### Miscellaneous Chores
+
+* Update dependencies ([87cabfd](https://github.com/unlight/prisma-nestjs-graphql/commit/87cabfd0119c48bd39850275720c2dc5faafdba6))
+
 ## [20.1.0](https://github.com/unlight/nestjs-graphql-prisma/compare/v20.0.3...v20.1.0) (2025-01-18)
 
 
