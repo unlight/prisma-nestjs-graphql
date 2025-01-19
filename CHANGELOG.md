@@ -1,3 +1,9 @@
+## [21.0.2](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.1...v21.0.2) (2025-01-19)
+
+### Bug Fixes
+
+* Change generated enum type to ticked style ([2a0fe84](https://github.com/unlight/prisma-nestjs-graphql/commit/2a0fe848fc79a5225ff75abfcd26f89cf2373959))
+
 ## [21.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.0...v21.0.1) (2025-01-18)
 
 ### Bug Fixes
