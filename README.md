@@ -764,3 +764,7 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'
 - 22.12 node require esm (update all deps to latest)
+
+## License
+
+[MIT License](https://opensource.org/licenses/MIT) (c) 2025
