@@ -763,3 +763,4 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 - keyof typeof SortOrder -> `SortOrder`
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'
+- 22.12 node require esm (update all deps to latest)

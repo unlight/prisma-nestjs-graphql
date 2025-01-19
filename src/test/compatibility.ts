@@ -120,21 +120,24 @@ let $prisma = new PrismaClient();
     by: ['id'] as UserScalarFieldEnum[],
   };
   p = x;
-  p;
-  x;
 }
 {
   let x: DummyCreateInput = { decimal: 0 as any, id: '1' };
   let p: Prisma.DummyCreateInput = { decimal: 0 as any, id: '2' };
   p = x;
-  p;
-  x;
 }
 {
   let x: DummyCreateInput['json'] = {};
   let p: Prisma.DummyCreateInput['json'] = {};
   p = x;
   p;
+}
+{
+  // Will not be fixed, but can by adding id?: `${SortOrder}` | Prisma.Types.Skip
+  // let x: UserMaxOrderByAggregateInput['id'] =
+  //   null as unknown as Prisma.UserMaxOrderByAggregateInput['id'];
+  let p: Prisma.UserMaxOrderByAggregateInput['id'] =
+    null as unknown as UserMaxOrderByAggregateInput['id'];
 }
 {
   let x: UserMaxOrderByAggregateInput = {};
@@ -146,14 +149,12 @@ let $prisma = new PrismaClient();
 {
   let x: UserCreateInput = {} as unknown as UserCreateInput;
   let p: Prisma.UserCreateInput = {} as unknown as Prisma.UserCreateInput;
-  p = x;
-  p;
 }
 {
   let x: Dummy['bytes'] = null as unknown as P.Dummy['bytes'];
   let p: P.Dummy['bytes'] = null as unknown as Dummy['bytes'];
-  x;
-  p;
+  p = x;
+  x = p;
 }
 {
   let x: Dummy = {} as unknown as Dummy;
@@ -208,7 +209,6 @@ let $prisma = new PrismaClient();
       console.log('result', result);
     });
 }
-
 {
   class UserWhereUniqueInput1 extends UserWhereUniqueInput {
     @Field(() => String, { nullable: true })

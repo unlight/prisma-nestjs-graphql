@@ -10,7 +10,7 @@ import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments } from '../types';
 
 export async function generateFiles(args: EventArguments) {
-  const { project, config, output, eventEmitter } = args;
+  const { config, eventEmitter, output, project } = args;
 
   if (config.emitSingle) {
     const rootDirectory =
@@ -76,9 +76,9 @@ export async function generateFiles(args: EventArguments) {
           }
           if (statement.defaultImport) {
             imports.create({
+              defaultImport: statement.defaultImport,
               from: statement.moduleSpecifier,
               name: statement.defaultImport,
-              defaultImport: statement.defaultImport,
             });
           }
           if (statement.namespaceImport) {
@@ -110,9 +110,9 @@ export async function generateFiles(args: EventArguments) {
     project.compilerOptions.set({
       declaration: true,
       declarationDir: output,
-      rootDir: output,
-      outDir: output,
       emitDecoratorMetadata: false,
+      outDir: output,
+      rootDir: output,
       skipLibCheck: true,
     });
     const emitResult = await project.emit();

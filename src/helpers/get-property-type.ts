@@ -42,7 +42,9 @@ export function getPropertyType(args: {
     return [type];
   }
   if (location === 'enumTypes') {
-    return [`keyof typeof ${type}`];
+    const enumType = '`${' + type + '}`';
+
+    return [enumType];
   }
   if (location === 'scalar') {
     return [type];

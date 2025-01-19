@@ -809,9 +809,9 @@ describe('one model with enum', () => {
       });
     });
 
-    it('role type should use typeof keyof trick', () => {
+    it('role type should use tick trick', () => {
       const role = p('role');
-      expect(role?.type).toEqual('keyof typeof Role');
+      expect(role?.type).toEqual('`${Role}`');
     });
   });
 });

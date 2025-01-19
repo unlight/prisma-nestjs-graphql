@@ -1,8 +1,9 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray, last } from 'lodash';
+import { castArray } from 'lodash';
 import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
+import { getEnumName } from '../helpers/get-enum-name';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
@@ -13,7 +14,7 @@ import { EventArguments, OutputType } from '../types';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-  const { getSourceFile, models, eventEmitter, fieldSettings, getModelName, config } =
+  const { config, eventEmitter, fieldSettings, getModelName, getSourceFile, models } =
     args;
   const importDeclarations = new ImportDeclarationMap();
 
@@ -42,15 +43,15 @@ export function outputType(outputType: OutputType, args: EventArguments) {
   });
 
   const classStructure: ClassDeclarationStructure = {
-    kind: StructureKind.Class,
-    isExported: true,
-    name: outputType.name,
     decorators: [
       {
-        name: 'ObjectType',
         arguments: [],
+        name: 'ObjectType',
       },
     ],
+    isExported: true,
+    kind: StructureKind.Class,
+    name: outputType.name,
     properties: [],
   };
 
@@ -58,7 +59,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
   importDeclarations.add('ObjectType', nestjsGraphql);
 
   for (const field of outputType.fields) {
-    const { location, isList, type } = field.outputType;
+    const { isList, location, type } = field.outputType;
     const outputTypeName = getOutputTypeName(String(type));
     const settings = isCountOutput
       ? undefined
@@ -67,6 +68,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
       name: outputType.name,
       output: true,
     });
+
     const isCustomsApplicable =
       outputTypeName === model?.fields.find(f => f.name === field.name)?.type;
 
@@ -81,11 +83,11 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     );
 
     const property = propertyStructure({
-      name: field.name,
-      isNullable: field.isNullable,
       hasQuestionToken: isCountOutput ? true : undefined,
-      propertyType,
       isList,
+      isNullable: field.isNullable,
+      name: field.name,
+      propertyType,
     });
 
     classStructure.properties?.push(property);
@@ -122,19 +124,17 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     } else {
       const graphqlImport = getGraphqlImport({
         config,
-        sourceFile,
         fileType,
-        location,
-        isId: false,
-        typeName: outputTypeName,
         getSourceFile,
+        isId: false,
+        location,
+        sourceFile,
+        typeName: outputTypeName,
       });
+      const referenceName =
+        location === 'enumTypes' ? getEnumName(propertyType[0]) : propertyType[0];
 
       graphqlType = graphqlImport.name;
-      let referenceName = propertyType[0];
-      if (location === 'enumTypes') {
-        referenceName = last(referenceName.split(' ')) as string;
-      }
 
       if (
         graphqlImport.specifier &&
@@ -143,8 +143,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
           (shouldHideField && referenceName === graphqlImport.name))
       ) {
         importDeclarations.set(graphqlImport.name, {
-          namedImports: [{ name: graphqlImport.name }],
           moduleSpecifier: graphqlImport.specifier,
+          namedImports: [{ name: graphqlImport.name }],
         });
       }
     }
@@ -153,11 +153,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
     if (shouldHideField) {
       importDeclarations.add('HideField', nestjsGraphql);
-      property.decorators.push({ name: 'HideField', arguments: [] });
+      property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
       // Generate `@Field()` decorator
       property.decorators.push({
-        name: 'Field',
         arguments: [
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
           JSON5.stringify({
@@ -165,6 +164,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             nullable: Boolean(field.isNullable),
           }),
         ],
+        name: 'Field',
       });
 
       if (isCustomsApplicable) {
@@ -176,8 +176,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
             true
           ) {
             property.decorators.push({
-              name: options.name,
               arguments: options.arguments as string[],
+              name: options.name,
             });
             ok(options.from, "Missed 'from' part in configuration or field setting");
             importDeclarations.create(options);
@@ -187,8 +187,8 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     }
 
     eventEmitter.emitSync('ClassProperty', property, {
-      location,
       isList,
+      location,
       propertyType,
     });
   }

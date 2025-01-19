@@ -17,12 +17,12 @@ export function getGraphqlImport(args: {
   const {
     config,
     fileType,
-    location,
-    typeName,
+    getSourceFile,
     isId,
+    location,
     noTypeId,
     sourceFile,
-    getSourceFile,
+    typeName,
   } = args;
 
   if (location === 'scalar') {
@@ -69,8 +69,8 @@ export function getGraphqlImport(args: {
   const specifier = relativePath(
     sourceFile.getFilePath(),
     getSourceFile({
-      type: sourceFileType,
       name: typeName,
+      type: sourceFileType,
     }).getFilePath(),
   );
 

@@ -8,16 +8,16 @@ export function generateFileName(args: {
   getModelName(name: string): string | undefined;
   template: string;
 }) {
-  const { template, type, name, getModelName } = args;
+  const { getModelName, name, template, type } = args;
 
   return pupa(template, {
-    type,
     get model() {
       const result = getModelName(name) || 'prisma';
       return kebabCase(result);
     },
     get name() {
       let result = kebabCase(name);
+
       for (const suffix of ['input', 'args', 'enum']) {
         const ending = `-${suffix}`;
         if (type === suffix && result.endsWith(ending)) {
@@ -31,5 +31,6 @@ export function generateFileName(args: {
         return pluralize(type);
       },
     },
+    type,
   });
 }

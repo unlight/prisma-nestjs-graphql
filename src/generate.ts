@@ -42,7 +42,7 @@ export async function generate(
     ) => void | Promise<void>;
   },
 ) {
-  const { connectCallback, generator, skipAddOutputSourceFiles, dmmf } = args;
+  const { connectCallback, dmmf, generator, skipAddOutputSourceFiles } = args;
 
   const generatorOutputValue = generator.output?.value;
   ok(generatorOutputValue, 'Missing generator configuration: output');
@@ -72,12 +72,12 @@ export async function generate(
   }
 
   const project = new Project({
-    tsConfigFilePath: config.tsConfigFilePath,
-    skipAddingFilesFromTsConfig: true,
-    skipLoadingLibFiles: !config.emitCompiled,
     manipulationSettings: {
       quoteKind: QuoteKind.Single,
     },
+    skipAddingFilesFromTsConfig: true,
+    skipLoadingLibFiles: !config.emitCompiled,
+    tsConfigFilePath: config.tsConfigFilePath,
   });
 
   if (!skipAddOutputSourceFiles) {
@@ -101,30 +101,30 @@ export async function generate(
   const fieldSettings = new Map<string, Map<string, ObjectSettings>>();
   const getModelName = createGetModelName(modelNames);
   const getSourceFile = factoryGetSourceFile({
-    output: generatorOutputValue,
-    project,
-    getModelName,
-    outputFilePattern: config.outputFilePattern,
     eventEmitter,
+    getModelName,
+    output: generatorOutputValue,
+    outputFilePattern: config.outputFilePattern,
+    project,
   });
   const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
-    schema,
-    models,
-    config,
-    modelNames,
-    modelFields,
-    fieldSettings,
-    project,
-    output: generatorOutputValue,
-    getSourceFile,
-    eventEmitter,
-    typeNames: new Set<string>(),
-    enums: mapKeys(datamodel.enums, x => x.name),
-    getModelName,
-    removeTypes,
     classTransformerTypeModels: new Set(),
+    config,
+    enums: mapKeys(datamodel.enums, x => x.name),
+    eventEmitter,
+    fieldSettings,
+    getModelName,
+    getSourceFile,
+    modelFields,
+    modelNames,
+    models,
+    output: generatorOutputValue,
+    project,
+    removeTypes,
+    schema,
+    typeNames: new Set<string>(),
   };
 
   if (connectCallback) {
@@ -143,7 +143,7 @@ export async function generate(
     await eventEmitter.emit('Model', model, eventArguments);
   }
 
-  const { inputObjectTypes, outputObjectTypes, enumTypes } = schema;
+  const { enumTypes, inputObjectTypes, outputObjectTypes } = schema;
 
   await eventEmitter.emit('PostBegin', eventArguments);
 
@@ -170,9 +170,9 @@ export async function generate(
   for (const inputType of inputTypes) {
     const event = {
       ...eventArguments,
-      inputType,
-      fileType: 'input',
       classDecoratorName: 'InputType',
+      fileType: 'input',
+      inputType,
     };
     if (inputType.fields.length === 0) {
       removeTypes.add(inputType.name);
