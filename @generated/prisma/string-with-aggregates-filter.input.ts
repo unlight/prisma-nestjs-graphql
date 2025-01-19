@@ -41,7 +41,7 @@ export class StringWithAggregatesFilter {
   search?: string;
 
   @Field(() => QueryMode, { nullable: true })
-  mode?: keyof typeof QueryMode;
+  mode?: `${QueryMode}`;
 
   @Field(() => NestedStringWithAggregatesFilter, { nullable: true })
   not?: NestedStringWithAggregatesFilter;

@@ -5,23 +5,23 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class DummyMaxOrderByAggregateInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  date?: keyof typeof SortOrder;
+  date?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  int?: keyof typeof SortOrder;
+  int?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  float?: keyof typeof SortOrder;
+  float?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  bytes?: keyof typeof SortOrder;
+  bytes?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  decimal?: keyof typeof SortOrder;
+  decimal?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  bigInt?: keyof typeof SortOrder;
+  bigInt?: `${SortOrder}`;
 }

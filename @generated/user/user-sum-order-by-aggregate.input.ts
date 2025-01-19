@@ -5,11 +5,11 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class UserSumOrderByAggregateInput {
   @Field(() => SortOrder, { nullable: true })
-  countComments?: keyof typeof SortOrder;
+  countComments?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  rating?: keyof typeof SortOrder;
+  rating?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  money?: keyof typeof SortOrder;
+  money?: `${SortOrder}`;
 }

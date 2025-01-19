@@ -5,20 +5,20 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class CommentMaxOrderByAggregateInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+  createdAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+  updatedAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  body?: keyof typeof SortOrder;
+  body?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
+  authorId?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  articleId?: keyof typeof SortOrder;
+  articleId?: `${SortOrder}`;
 }

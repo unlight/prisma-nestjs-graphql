@@ -5,11 +5,11 @@ import { SortOrder } from '../prisma/sort-order.enum';
 @InputType()
 export class ProfileMaxOrderByAggregateInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  userId?: keyof typeof SortOrder;
+  userId?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  dummy?: keyof typeof SortOrder;
+  dummy?: `${SortOrder}`;
 }

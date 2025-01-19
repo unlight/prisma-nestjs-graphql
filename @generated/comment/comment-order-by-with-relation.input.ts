@@ -10,19 +10,19 @@ import { CommentOrderByRelevanceInput } from './comment-order-by-relevance.input
 @InputType()
 export class CommentOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+  createdAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+  updatedAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  body?: keyof typeof SortOrder;
+  body?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
+  authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   articleId?: SortOrderInput;

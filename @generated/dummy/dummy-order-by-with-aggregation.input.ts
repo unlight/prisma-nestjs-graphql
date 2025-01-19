@@ -12,7 +12,7 @@ import { DummySumOrderByAggregateInput } from './dummy-sum-order-by-aggregate.in
 @InputType()
 export class DummyOrderByWithAggregationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   date?: SortOrderInput;
@@ -27,10 +27,10 @@ export class DummyOrderByWithAggregationInput {
   bytes?: SortOrderInput;
 
   @Field(() => SortOrder, { nullable: true })
-  decimal?: keyof typeof SortOrder;
+  decimal?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  decimals?: keyof typeof SortOrder;
+  decimals?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   bigInt?: SortOrderInput;
@@ -39,7 +39,7 @@ export class DummyOrderByWithAggregationInput {
   json?: SortOrderInput;
 
   @Field(() => SortOrder, { nullable: true })
-  friends?: keyof typeof SortOrder;
+  friends?: `${SortOrder}`;
 
   @Field(() => DummyCountOrderByAggregateInput, { nullable: true })
   @Type(() => DummyCountOrderByAggregateInput)

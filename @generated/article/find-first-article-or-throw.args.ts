@@ -27,5 +27,5 @@ export class FindFirstArticleOrThrowArgs {
   skip?: number;
 
   @Field(() => [ArticleScalarFieldEnum], { nullable: true })
-  distinct?: Array<keyof typeof ArticleScalarFieldEnum>;
+  distinct?: Array<`${ArticleScalarFieldEnum}`>;
 }

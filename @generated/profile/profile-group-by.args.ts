@@ -22,7 +22,7 @@ export class ProfileGroupByArgs {
   orderBy?: Array<ProfileOrderByWithAggregationInput>;
 
   @Field(() => [ProfileScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof ProfileScalarFieldEnum>;
+  by!: Array<`${ProfileScalarFieldEnum}`>;
 
   @Field(() => ProfileScalarWhereWithAggregatesInput, { nullable: true })
   having?: ProfileScalarWhereWithAggregatesInput;

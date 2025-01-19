@@ -29,5 +29,5 @@ export class FindFirstDummyOrThrowArgs {
   skip?: number;
 
   @Field(() => [DummyScalarFieldEnum], { nullable: true })
-  distinct?: Array<keyof typeof DummyScalarFieldEnum>;
+  distinct?: Array<`${DummyScalarFieldEnum}`>;
 }

@@ -8,7 +8,7 @@ import { Type } from 'class-transformer';
 @InputType()
 export class DummyOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   date?: SortOrderInput;
@@ -23,10 +23,10 @@ export class DummyOrderByWithRelationInput {
   bytes?: SortOrderInput;
 
   @Field(() => SortOrder, { nullable: true })
-  decimal?: keyof typeof SortOrder;
+  decimal?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  decimals?: keyof typeof SortOrder;
+  decimals?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   bigInt?: SortOrderInput;
@@ -35,7 +35,7 @@ export class DummyOrderByWithRelationInput {
   json?: SortOrderInput;
 
   @Field(() => SortOrder, { nullable: true })
-  friends?: keyof typeof SortOrder;
+  friends?: `${SortOrder}`;
 
   @Field(() => DummyOrderByRelevanceInput, { nullable: true })
   @Type(() => DummyOrderByRelevanceInput)

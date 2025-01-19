@@ -9,10 +9,10 @@ import { ProfileOrderByRelevanceInput } from './profile-order-by-relevance.input
 @InputType()
 export class ProfileOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  userId?: keyof typeof SortOrder;
+  userId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   dummy?: SortOrderInput;

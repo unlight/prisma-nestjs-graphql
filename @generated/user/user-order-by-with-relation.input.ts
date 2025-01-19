@@ -12,16 +12,16 @@ import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 @InputType()
 export class UserOrderByWithRelationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  email?: keyof typeof SortOrder;
+  email?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  name?: keyof typeof SortOrder;
+  name?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  password?: keyof typeof SortOrder;
+  password?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   bio?: SortOrderInput;

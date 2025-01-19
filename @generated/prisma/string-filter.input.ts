@@ -39,7 +39,7 @@ export class StringFilter {
   search?: string;
 
   @Field(() => QueryMode, { nullable: true })
-  mode?: keyof typeof QueryMode;
+  mode?: `${QueryMode}`;
 
   @Field(() => NestedStringFilter, { nullable: true })
   not?: NestedStringFilter;

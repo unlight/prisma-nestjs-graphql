@@ -11,10 +11,10 @@ import { ProfileSumOrderByAggregateInput } from './profile-sum-order-by-aggregat
 @InputType()
 export class ProfileOrderByWithAggregationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  userId?: keyof typeof SortOrder;
+  userId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   dummy?: SortOrderInput;

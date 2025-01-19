@@ -23,7 +23,7 @@ export class DummyGroupByArgs {
   orderBy?: Array<DummyOrderByWithAggregationInput>;
 
   @Field(() => [DummyScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof DummyScalarFieldEnum>;
+  by!: Array<`${DummyScalarFieldEnum}`>;
 
   @Field(() => DummyScalarWhereWithAggregatesInput, { nullable: true })
   @Type(() => DummyScalarWhereWithAggregatesInput)

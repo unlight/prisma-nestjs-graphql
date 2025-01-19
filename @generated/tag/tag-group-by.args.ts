@@ -20,7 +20,7 @@ export class TagGroupByArgs {
   orderBy?: Array<TagOrderByWithAggregationInput>;
 
   @Field(() => [TagScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof TagScalarFieldEnum>;
+  by!: Array<`${TagScalarFieldEnum}`>;
 
   @Field(() => TagScalarWhereWithAggregatesInput, { nullable: true })
   having?: TagScalarWhereWithAggregatesInput;

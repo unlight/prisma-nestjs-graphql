@@ -22,7 +22,7 @@ export class ArticleGroupByArgs {
   orderBy?: Array<ArticleOrderByWithAggregationInput>;
 
   @Field(() => [ArticleScalarFieldEnum], { nullable: false })
-  by!: Array<keyof typeof ArticleScalarFieldEnum>;
+  by!: Array<`${ArticleScalarFieldEnum}`>;
 
   @Field(() => ArticleScalarWhereWithAggregatesInput, { nullable: true })
   having?: ArticleScalarWhereWithAggregatesInput;

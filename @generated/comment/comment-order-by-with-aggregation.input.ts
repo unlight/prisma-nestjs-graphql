@@ -9,19 +9,19 @@ import { CommentMinOrderByAggregateInput } from './comment-min-order-by-aggregat
 @InputType()
 export class CommentOrderByWithAggregationInput {
   @Field(() => SortOrder, { nullable: true })
-  id?: keyof typeof SortOrder;
+  id?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  createdAt?: keyof typeof SortOrder;
+  createdAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  updatedAt?: keyof typeof SortOrder;
+  updatedAt?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  body?: keyof typeof SortOrder;
+  body?: `${SortOrder}`;
 
   @Field(() => SortOrder, { nullable: true })
-  authorId?: keyof typeof SortOrder;
+  authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
   articleId?: SortOrderInput;

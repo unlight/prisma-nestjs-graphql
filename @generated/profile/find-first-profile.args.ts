@@ -27,5 +27,5 @@ export class FindFirstProfileArgs {
   skip?: number;
 
   @Field(() => [ProfileScalarFieldEnum], { nullable: true })
-  distinct?: Array<keyof typeof ProfileScalarFieldEnum>;
+  distinct?: Array<`${ProfileScalarFieldEnum}`>;
 }

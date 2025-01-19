@@ -37,5 +37,5 @@ export class UserMinAggregate {
   money?: Decimal;
 
   @Field(() => Role, { nullable: true })
-  role?: keyof typeof Role;
+  role?: `${Role}`;
 }

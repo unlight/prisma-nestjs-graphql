@@ -50,7 +50,7 @@ export class UserCreateWithoutFollowingInput {
   money?: Decimal;
 
   @Field(() => Role, { nullable: true })
-  role?: keyof typeof Role;
+  role?: `${Role}`;
 
   @Field(() => UserCreateNestedManyWithoutFollowingInput, { nullable: true })
   @Type(() => UserCreateNestedManyWithoutFollowingInput)
