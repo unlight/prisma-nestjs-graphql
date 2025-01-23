@@ -361,6 +361,28 @@ export class BigIntFilter {
 
 It will affect all inputs and outputs types (including models).
 
+#### `customImport`
+
+Allow to declare custom import statements. (Only works with emitSingle = true)
+
+```sh
+generator nestgraphql {
+    decorate_{key}_from = "module specifier"
+    decorate_{key}_name = "import name"
+    decorate_{key}_defaultImport = "default import name" | true
+    decorate_{key}_namespaceImport = "namespace import name"
+    decorate_{key}_namedImport = "import name" | true
+}
+```
+
+Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
+
+- `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
+- `decorate_{key}_name` - import name or name with namespace
+- `decorate_{key}_defaultImport` - import as default
+- `decorate_{key}_namespaceImport` - use this name as import namespace
+- `decorate_{key}_namedImport` - named import (without namespace)
+
 ## Documentation and field options
 
 Comments with triple slash will projected to typescript code comments
@@ -736,27 +758,27 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 
 ## Similar Projects
 
-- https://github.com/jasonraimondi/prisma-generator-nestjs-graphql
-- https://github.com/omar-dulaimi/prisma-class-validator-generator
-- https://github.com/kimjbstar/prisma-class-generator
-- https://github.com/odroe/nest-gql-mix
-- https://github.com/rfermann/nestjs-prisma-graphql-generator
-- https://github.com/madscience/graphql-codegen-nestjs
-- https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs
-- https://github.com/EndyKaufman/typegraphql-prisma-nestjs
-- https://github.com/MichalLytek/typegraphql-prisma
-- https://github.com/mk668a/nestjs-prisma-graphql-crud-gen
+- <https://github.com/jasonraimondi/prisma-generator-nestjs-graphql>
+- <https://github.com/omar-dulaimi/prisma-class-validator-generator>
+- <https://github.com/kimjbstar/prisma-class-generator>
+- <https://github.com/odroe/nest-gql-mix>
+- <https://github.com/rfermann/nestjs-prisma-graphql-generator>
+- <https://github.com/madscience/graphql-codegen-nestjs>
+- <https://github.com/wSedlacek/prisma-generators/tree/master/libs/nestjs>
+- <https://github.com/EndyKaufman/typegraphql-prisma-nestjs>
+- <https://github.com/MichalLytek/typegraphql-prisma>
+- <https://github.com/mk668a/nestjs-prisma-graphql-crud-gen>
 
 ## Resources
 
-- Todo - https://github.com/unlight/prisma-nestjs-graphql/issues/2
-- https://github.com/prisma/prisma/blob/main/packages/client/src/generation/TSClient/TSClient.ts
-- https://ts-ast-viewer.com/
-- https://github.com/unlight/nestjs-graphql-prisma-realworld-example-app
-- https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model
-- JSON type for the code first approach - https://github.com/nestjs/graphql/issues/111#issuecomment-631452899
-- https://github.com/paljs/prisma-tools/tree/master/packages/plugins
-- https://github.com/wasp-lang/wasp
+- Todo - <https://github.com/unlight/prisma-nestjs-graphql/issues/2>
+- <https://github.com/prisma/prisma/blob/main/packages/client/src/generation/TSClient/TSClient.ts>
+- <https://ts-ast-viewer.com/>
+- <https://github.com/unlight/nestjs-graphql-prisma-realworld-example-app>
+- <https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/data-model>
+- JSON type for the code first approach - <https://github.com/nestjs/graphql/issues/111#issuecomment-631452899>
+- <https://github.com/paljs/prisma-tools/tree/master/packages/plugins>
+- <https://github.com/wasp-lang/wasp>
 
 ## TODO
 

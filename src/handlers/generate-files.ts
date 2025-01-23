@@ -100,6 +100,9 @@ export async function generateFiles(args: EventArguments) {
         }
       }
     }
+    for (const customImport of config.customImport) {
+      imports.create(customImport);
+    }
     sourceFile.set({
       kind: StructureKind.SourceFile,
       statements: [...imports.toStatements(), ...enums, ...classes],
