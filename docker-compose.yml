@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=prisma_nest
+      - DEBUG=false
+    ports:
+      - '5432:5432'
+    volumes:
+      - ${TEMP}/pg15data:/var/lib/postgresql/data
