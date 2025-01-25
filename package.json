@@ -79,6 +79,7 @@
     "ts-morph": "11 - 16"
   },
   "devDependencies": {
+    "@apollo/server": "^4.11.3",
     "@eslint/compat": "^1.2.5",
     "@nestjs/apollo": "^13.0.1",
     "@nestjs/common": "^11.0.1",
@@ -127,6 +128,7 @@
     "graphql-scalars": "^1.24.0",
     "graphql-type-json": "^0.3.2",
     "mocha": "^11.0.1",
+    "node-dev": "^8.0.0",
     "ololog": "^1.1.175",
     "pkgroll": "^2.6.1",
     "precise-commits": "^1.0.2",
