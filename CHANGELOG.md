@@ -1,3 +1,9 @@
+## [21.1.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.2...v21.1.0) (2025-01-25)
+
+### Features
+
+* Add generator option for custom import for `emitSingle` ([46fed69](https://github.com/unlight/prisma-nestjs-graphql/commit/46fed69343a2c88d61dfa8432c9827281145019f))
+
 ## [21.0.2](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.1...v21.0.2) (2025-01-19)
 
 ### Bug Fixes
