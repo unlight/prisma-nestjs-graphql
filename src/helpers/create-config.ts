@@ -21,6 +21,13 @@ type DecorateElement = {
   defaultImport?: string | true;
   namespaceImport?: string;
 };
+type CustomImport = {
+  from: string;
+  name: string;
+  namedImport: boolean;
+  defaultImport?: string | true;
+  namespaceImport?: string;
+};
 
 export function createConfig(data: Record<string, unknown>) {
   const config = merge({}, unflatten(data, { delimiter: '_' })) as Record<
@@ -96,6 +103,24 @@ export function createConfig(data: Record<string, unknown>) {
     });
   }
 
+  const customImport: CustomImport[] = []
+  const configCustomImport: (Record<string, string> | undefined)[] = Object.values(
+    (config.customImport as any) || {},
+  );
+  for (const element of configCustomImport) {
+    if (!element) continue;
+    ok(
+      element.from && element.name,
+      `Missed 'from' or 'name' part in configuration for customImport`,
+    );
+    customImport.push({
+      from: element.from,
+      name: element.name,
+      namedImport: toBoolean(element.namedImport),
+      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
+      namespaceImport: element.namespaceImport,
+    });
+  }
   return {
     outputFilePattern,
     tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
@@ -123,6 +148,7 @@ export function createConfig(data: Record<string, unknown>) {
       ImportNameSpec | undefined
     >,
     decorate,
+    customImport,
   };
 }
 
