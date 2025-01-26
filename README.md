@@ -367,21 +367,21 @@ Allow to declare custom import statements. (Only works with emitSingle = true)
 
 ```sh
 generator nestgraphql {
-    decorate_{key}_from = "module specifier"
-    decorate_{key}_name = "import name"
-    decorate_{key}_defaultImport = "default import name" | true
-    decorate_{key}_namespaceImport = "namespace import name"
-    decorate_{key}_namedImport = "import name" | true
+    customImport_{key}_from = "module specifier"
+    customImport_{key}_name = "import name"
+    customImport_{key}_defaultImport = "default import name" | true
+    customImport_{key}_namespaceImport = "namespace import name"
+    customImport_{key}_namedImport = "import name" | true
 }
 ```
 
 Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
 
-- `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
-- `decorate_{key}_name` - import name or name with namespace
-- `decorate_{key}_defaultImport` - import as default
-- `decorate_{key}_namespaceImport` - use this name as import namespace
-- `decorate_{key}_namedImport` - named import (without namespace)
+- `customImport_{key}_from` - module specifier to import from (e.g `nestjs-i18n`)
+- `customImport_{key}_name` - import name or name with namespace
+- `customImport_{key}_defaultImport` - import as default
+- `customImport_{key}_namespaceImport` - use this name as import namespace
+- `customImport_{key}_namedImport` - named import (without namespace)
 
 ## Documentation and field options
 
