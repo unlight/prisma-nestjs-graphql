@@ -1,3 +1,9 @@
+## [21.1.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.1.0...v21.1.1) (2025-01-26)
+
+### Bug Fixes
+
+* Correct customImport description ([0933486](https://github.com/unlight/prisma-nestjs-graphql/commit/09334867f0b066ca25eafb413720dddeff8fb65c))
+
 ## [21.1.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.0.2...v21.1.0) (2025-01-25)
 
 ### Features
