@@ -104,11 +104,19 @@ model Comment {
   articleId String?
 }
 
+/// user access control
 enum Role {
+  /// default user access control
   USER
+  /// have full access control
+  NINGA
+  /// @deprecated Use USER instead
+  ADMIN
+  REVIEWER // no comment and won't show in registerenum valuemaps
 }
 
 model Profile {
+  /// @deprecated Use new name instead
   id     Int     @id @default(autoincrement())
   user   User    @relation(fields: [userId], references: [id])
   userId String  @unique
