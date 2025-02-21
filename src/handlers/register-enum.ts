@@ -9,6 +9,7 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   if (!config.emitBlocks.prismaEnums && !enums[enumType.name]) return;
 
   const dataModelEnum = enums[enumType.name];
+  const enumTypesData = dataModelEnum?.values || [];
   const sourceFile = getSourceFile({
     name: enumType.name,
     type: 'enum',
@@ -20,6 +21,13 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
     namedImports: [{ name: 'registerEnumType' }],
     moduleSpecifier: '@nestjs/graphql',
   });
+
+  const valuesMap = Object.fromEntries(
+  enumTypesData.map(({ name, documentation }) => [
+    name,
+    documentation ? { description: documentation } : {},
+  ])
+  );
 
   const enumStructure: EnumDeclarationStructure = {
     kind: StructureKind.Enum,
@@ -38,7 +46,7 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
       '\n',
       `registerEnumType(${enumType.name}, { name: '${
         enumType.name
-      }', description: ${JSON.stringify(dataModelEnum?.documentation)} })`,
+      }', description: ${JSON.stringify(dataModelEnum?.documentation)}, valuesMap: ${JSON.stringify(valuesMap)} })`,
     ],
   });
 }
