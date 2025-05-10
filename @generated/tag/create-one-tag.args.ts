@@ -5,7 +5,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneTagArgs {
-  @Field(() => TagCreateInput, { nullable: false })
-  @Type(() => TagCreateInput)
-  data!: TagCreateInput;
+
+    @Field(() => TagCreateInput, {nullable:false})
+    @Type(() => TagCreateInput)
+    data!: TagCreateInput;
 }

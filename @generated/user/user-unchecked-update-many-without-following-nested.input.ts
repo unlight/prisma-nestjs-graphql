@@ -12,51 +12,44 @@ import { UserScalarWhereInput } from './user-scalar-where.input';
 
 @InputType()
 export class UserUncheckedUpdateManyWithoutFollowingNestedInput {
-  @Field(() => [UserCreateWithoutFollowingInput], { nullable: true })
-  @Type(() => UserCreateWithoutFollowingInput)
-  create?: Array<UserCreateWithoutFollowingInput>;
 
-  @Field(() => [UserCreateOrConnectWithoutFollowingInput], { nullable: true })
-  @Type(() => UserCreateOrConnectWithoutFollowingInput)
-  connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
+    @Field(() => [UserCreateWithoutFollowingInput], {nullable:true})
+    @Type(() => UserCreateWithoutFollowingInput)
+    create?: Array<UserCreateWithoutFollowingInput>;
 
-  @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], { nullable: true })
-  @Type(() => UserUpsertWithWhereUniqueWithoutFollowingInput)
-  upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutFollowingInput)
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  set?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {nullable:true})
+    @Type(() => UserUpsertWithWhereUniqueWithoutFollowingInput)
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  disconnect?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    set?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  delete?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    disconnect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  connect?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    delete?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 
-  @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], { nullable: true })
-  @Type(() => UserUpdateWithWhereUniqueWithoutFollowingInput)
-  update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 
-  @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], { nullable: true })
-  @Type(() => UserUpdateManyWithWhereWithoutFollowingInput)
-  updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {nullable:true})
+    @Type(() => UserUpdateWithWhereUniqueWithoutFollowingInput)
+    update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
 
-  @Field(() => [UserScalarWhereInput], { nullable: true })
-  @Type(() => UserScalarWhereInput)
-  deleteMany?: Array<UserScalarWhereInput>;
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {nullable:true})
+    @Type(() => UserUpdateManyWithWhereWithoutFollowingInput)
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
+
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    @Type(() => UserScalarWhereInput)
+    deleteMany?: Array<UserScalarWhereInput>;
 }

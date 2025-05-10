@@ -10,48 +10,49 @@ import { ArticleSumOrderByAggregateInput } from './article-sum-order-by-aggregat
 
 @InputType()
 export class ArticleOrderByWithAggregationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  slug?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  title?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    slug?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  description?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    title?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  body?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    description?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    body?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  favoritesCount?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    favoritesCount?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  active?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    authorId?: `${SortOrder}`;
 
-  @Field(() => ArticleCountOrderByAggregateInput, { nullable: true })
-  _count?: ArticleCountOrderByAggregateInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    active?: SortOrderInput;
 
-  @Field(() => ArticleAvgOrderByAggregateInput, { nullable: true })
-  _avg?: ArticleAvgOrderByAggregateInput;
+    @Field(() => ArticleCountOrderByAggregateInput, {nullable:true})
+    _count?: ArticleCountOrderByAggregateInput;
 
-  @Field(() => ArticleMaxOrderByAggregateInput, { nullable: true })
-  _max?: ArticleMaxOrderByAggregateInput;
+    @Field(() => ArticleAvgOrderByAggregateInput, {nullable:true})
+    _avg?: ArticleAvgOrderByAggregateInput;
 
-  @Field(() => ArticleMinOrderByAggregateInput, { nullable: true })
-  _min?: ArticleMinOrderByAggregateInput;
+    @Field(() => ArticleMaxOrderByAggregateInput, {nullable:true})
+    _max?: ArticleMaxOrderByAggregateInput;
 
-  @Field(() => ArticleSumOrderByAggregateInput, { nullable: true })
-  _sum?: ArticleSumOrderByAggregateInput;
+    @Field(() => ArticleMinOrderByAggregateInput, {nullable:true})
+    _min?: ArticleMinOrderByAggregateInput;
+
+    @Field(() => ArticleSumOrderByAggregateInput, {nullable:true})
+    _sum?: ArticleSumOrderByAggregateInput;
 }

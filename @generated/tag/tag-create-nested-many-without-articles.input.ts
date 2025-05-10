@@ -8,15 +8,16 @@ import { TagWhereUniqueInput } from './tag-where-unique.input';
 
 @InputType()
 export class TagCreateNestedManyWithoutArticlesInput {
-  @Field(() => [TagCreateWithoutArticlesInput], { nullable: true })
-  @Type(() => TagCreateWithoutArticlesInput)
-  create?: Array<TagCreateWithoutArticlesInput>;
 
-  @Field(() => [TagCreateOrConnectWithoutArticlesInput], { nullable: true })
-  @Type(() => TagCreateOrConnectWithoutArticlesInput)
-  connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
+    @Field(() => [TagCreateWithoutArticlesInput], {nullable:true})
+    @Type(() => TagCreateWithoutArticlesInput)
+    create?: Array<TagCreateWithoutArticlesInput>;
 
-  @Field(() => [TagWhereUniqueInput], { nullable: true })
-  @Type(() => TagWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
+    @Field(() => [TagCreateOrConnectWithoutArticlesInput], {nullable:true})
+    @Type(() => TagCreateOrConnectWithoutArticlesInput)
+    connectOrCreate?: Array<TagCreateOrConnectWithoutArticlesInput>;
+
+    @Field(() => [TagWhereUniqueInput], {nullable:true})
+    @Type(() => TagWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>>;
 }

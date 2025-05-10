@@ -2,7 +2,7 @@ import AwaitEventEmitter from 'await-event-emitter';
 import { cloneDeep, keyBy, remove } from 'lodash';
 
 import { BeforeGenerateField } from '../event-names';
-import { EventArguments, InputType, SchemaArg } from '../types';
+import { EventArguments, InputType, SchemaArg as SchemaArgument } from '../types';
 
 /**
  * Subscribes on 'BeforeInputType'
@@ -28,7 +28,7 @@ function beforeInputType(
   }
 }
 
-function beforeGenerateField(field: SchemaArg): void {
+function beforeGenerateField(field: SchemaArgument): void {
   for (const fieldInput of field.inputTypes) {
     if (fieldInput.location !== 'inputObjectTypes') {
       continue;

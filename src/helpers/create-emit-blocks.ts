@@ -18,11 +18,11 @@ const allEmmittedBlocks: EmittedBlockType[] = [
 ];
 
 const blocksDependencyMap: Record<EmitBlocksOption, EmittedBlockType[]> = {
-  enums: ['schemaEnums', 'prismaEnums'],
-  models: ['models', 'schemaEnums'],
-  inputs: ['inputs', 'prismaEnums'],
-  outputs: ['outputs'],
   args: ['args', 'inputs', 'prismaEnums'],
+  enums: ['schemaEnums', 'prismaEnums'],
+  inputs: ['inputs', 'prismaEnums'],
+  models: ['models', 'schemaEnums'],
+  outputs: ['outputs'],
 };
 
 export function createEmitBlocks(data?: string[]): Record<EmittedBlockType, boolean> {

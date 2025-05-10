@@ -7,11 +7,12 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 
 @InputType()
 export class ArticleCreateOrConnectWithoutFavoritedByInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutFavoritedByInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutFavoritedByInput)
-  create!: ArticleCreateWithoutFavoritedByInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleCreateWithoutFavoritedByInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutFavoritedByInput)
+    create!: ArticleCreateWithoutFavoritedByInput;
 }

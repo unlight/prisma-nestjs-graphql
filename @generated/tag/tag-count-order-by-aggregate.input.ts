@@ -4,9 +4,10 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class TagCountOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  name?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    name?: `${SortOrder}`;
 }

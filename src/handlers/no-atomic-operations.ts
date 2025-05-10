@@ -8,7 +8,7 @@ export function noAtomicOperations(eventEmitter: AwaitEventEmitter) {
 }
 
 function beforeInputType(args: EventArguments & { inputType: InputType }) {
-  const { inputType, getModelName } = args;
+  const { getModelName, inputType } = args;
 
   for (const field of inputType.fields) {
     const fieldName = field.name;

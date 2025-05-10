@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class NullableBytesFieldUpdateOperationsInput {
-  @Field(() => String, { nullable: true })
-  set?: Uint8Array;
+
+    @Field(() => String, {nullable:true})
+    set?: Uint8Array;
 }

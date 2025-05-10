@@ -15,59 +15,60 @@ import { UserCount } from './user-count.output';
 /**
  * User really
  */
-@ObjectType({ description: 'User really' })
+@ObjectType({description:'User really'})
 export class User {
-  @Field(() => ID, { nullable: false })
-  id!: string;
 
-  @Field(() => String, { nullable: false })
-  email!: string;
+    @Field(() => ID, {nullable:false})
+    id!: string;
 
-  /**
-   * User's name
-   */
-  @Field(() => String, { description: "User's name", nullable: false })
-  name!: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
 
-  @HideField()
-  password!: string;
+    /**
+     * User's name
+     */
+    @Field(() => String, {description:"User's name",nullable:false})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio!: string | null;
+    @HideField()
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image!: string | null;
+    @Field(() => String, {nullable:true})
+    bio!: string | null;
 
-  @Field(() => Int, { nullable: true })
-  countComments!: number | null;
+    @Field(() => String, {nullable:true})
+    image!: string | null;
 
-  @Field(() => Float, { nullable: true })
-  rating!: number | null;
+    @Field(() => Int, {nullable:true})
+    countComments!: number | null;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  money!: Decimal | null;
+    @Field(() => Float, {nullable:true})
+    rating!: number | null;
 
-  @Field(() => Role, { nullable: true })
-  role!: `${Role}` | null;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    money!: Decimal | null;
 
-  @Field(() => [User], { nullable: true })
-  following?: Array<User>;
+    @Field(() => Role, {nullable:true})
+    role!: `${Role}` | null;
 
-  @Field(() => [User], { nullable: true })
-  followers?: Array<User>;
+    @Field(() => [User], {nullable:true})
+    following?: Array<User>;
 
-  @Field(() => [Article], { nullable: true })
-  favoriteArticles?: Array<Article>;
+    @Field(() => [User], {nullable:true})
+    followers?: Array<User>;
 
-  @Field(() => [Article], { nullable: true })
-  articles?: Array<Article>;
+    @Field(() => [Article], {nullable:true})
+    favoriteArticles?: Array<Article>;
 
-  @Field(() => [Comment], { nullable: true })
-  comments?: Array<Comment>;
+    @Field(() => [Article], {nullable:true})
+    articles?: Array<Article>;
 
-  @Field(() => Profile, { nullable: true })
-  profile?: Profile | null;
+    @Field(() => [Comment], {nullable:true})
+    comments?: Array<Comment>;
 
-  @Field(() => UserCount, { nullable: false })
-  _count?: UserCount;
+    @Field(() => Profile, {nullable:true})
+    profile?: Profile | null;
+
+    @Field(() => UserCount, {nullable:false})
+    _count?: UserCount;
 }

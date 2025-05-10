@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions, prefer-const, unicorn/no-null */
+/* eslint-disable @typescript-eslint/no-unused-expressions, prefer-const */
 import { Field } from '@nestjs/graphql';
 import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';

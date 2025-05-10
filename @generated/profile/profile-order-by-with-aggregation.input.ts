@@ -10,27 +10,28 @@ import { ProfileSumOrderByAggregateInput } from './profile-sum-order-by-aggregat
 
 @InputType()
 export class ProfileOrderByWithAggregationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  userId?: `${SortOrder}`;
+    @Field(() => SortOrder, {deprecationReason:'Use new name instead',nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  dummy?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: `${SortOrder}`;
 
-  @Field(() => ProfileCountOrderByAggregateInput, { nullable: true })
-  _count?: ProfileCountOrderByAggregateInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    dummy?: SortOrderInput;
 
-  @Field(() => ProfileAvgOrderByAggregateInput, { nullable: true })
-  _avg?: ProfileAvgOrderByAggregateInput;
+    @Field(() => ProfileCountOrderByAggregateInput, {nullable:true})
+    _count?: ProfileCountOrderByAggregateInput;
 
-  @Field(() => ProfileMaxOrderByAggregateInput, { nullable: true })
-  _max?: ProfileMaxOrderByAggregateInput;
+    @Field(() => ProfileAvgOrderByAggregateInput, {nullable:true})
+    _avg?: ProfileAvgOrderByAggregateInput;
 
-  @Field(() => ProfileMinOrderByAggregateInput, { nullable: true })
-  _min?: ProfileMinOrderByAggregateInput;
+    @Field(() => ProfileMaxOrderByAggregateInput, {nullable:true})
+    _max?: ProfileMaxOrderByAggregateInput;
 
-  @Field(() => ProfileSumOrderByAggregateInput, { nullable: true })
-  _sum?: ProfileSumOrderByAggregateInput;
+    @Field(() => ProfileMinOrderByAggregateInput, {nullable:true})
+    _min?: ProfileMinOrderByAggregateInput;
+
+    @Field(() => ProfileSumOrderByAggregateInput, {nullable:true})
+    _sum?: ProfileSumOrderByAggregateInput;
 }

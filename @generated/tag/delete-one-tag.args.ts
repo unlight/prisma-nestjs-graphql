@@ -6,7 +6,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteOneTagArgs {
-  @Field(() => TagWhereUniqueInput, { nullable: false })
-  @Type(() => TagWhereUniqueInput)
-  where!: Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>;
+
+    @Field(() => TagWhereUniqueInput, {nullable:false})
+    @Type(() => TagWhereUniqueInput)
+    where!: Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>;
 }

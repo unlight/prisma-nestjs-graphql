@@ -7,11 +7,12 @@ import { ArticleCreateWithoutCommentsInput } from './article-create-without-comm
 
 @InputType()
 export class ArticleCreateOrConnectWithoutCommentsInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutCommentsInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutCommentsInput)
-  create!: ArticleCreateWithoutCommentsInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleCreateWithoutCommentsInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutCommentsInput)
+    create!: ArticleCreateWithoutCommentsInput;
 }

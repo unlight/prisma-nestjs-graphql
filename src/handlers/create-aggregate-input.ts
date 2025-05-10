@@ -14,27 +14,26 @@ export function createAggregateInput(
   // console.dir({ outputType, className, __filename }, { depth: 5 });
 
   const inputType: InputType = {
-    // eslint-disable-next-line unicorn/no-null
     constraints: { maxNumFields: null, minNumFields: null },
-    name: className,
     fields: outputType.fields.map(x => ({
-      name: x.name,
-      isNullable: x.isNullable ?? true,
-      isRequired: false,
       inputTypes: [
         {
           isList: false,
-          type: 'true',
           location: 'scalar',
+          type: 'true',
         },
       ],
+      isNullable: x.isNullable ?? true,
+      isRequired: false,
+      name: x.name,
     })),
+    name: className,
   };
 
   eventEmitter.emitSync('InputType', {
     ...args,
-    inputType,
-    fileType: 'input',
     classDecoratorName: 'InputType',
+    fileType: 'input',
+    inputType,
   });
 }

@@ -19,9 +19,9 @@ export function updateObjectProperty(args: {
 
   if (!propertyAssignment) {
     propertyAssignment = expression.addProperty({
-      name,
-      kind: StructureKind.PropertyAssignment,
       initializer: 'undefined',
+      kind: StructureKind.PropertyAssignment,
+      name,
     }) as PropertyAssignment;
   }
 

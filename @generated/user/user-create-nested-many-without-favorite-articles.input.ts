@@ -8,17 +8,16 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserCreateNestedManyWithoutFavoriteArticlesInput {
-  @Field(() => [UserCreateWithoutFavoriteArticlesInput], { nullable: true })
-  @Type(() => UserCreateWithoutFavoriteArticlesInput)
-  create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-  @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], { nullable: true })
-  @Type(() => UserCreateOrConnectWithoutFavoriteArticlesInput)
-  connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
+    @Field(() => [UserCreateWithoutFavoriteArticlesInput], {nullable:true})
+    @Type(() => UserCreateWithoutFavoriteArticlesInput)
+    create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  connect?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutFavoriteArticlesInput)
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
+
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 }

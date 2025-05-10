@@ -7,11 +7,12 @@ import { CommentCreateWithoutArticleInput } from './comment-create-without-artic
 
 @InputType()
 export class CommentCreateOrConnectWithoutArticleInput {
-  @Field(() => CommentWhereUniqueInput, { nullable: false })
-  @Type(() => CommentWhereUniqueInput)
-  where!: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
 
-  @Field(() => CommentCreateWithoutArticleInput, { nullable: false })
-  @Type(() => CommentCreateWithoutArticleInput)
-  create!: CommentCreateWithoutArticleInput;
+    @Field(() => CommentWhereUniqueInput, {nullable:false})
+    @Type(() => CommentWhereUniqueInput)
+    where!: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
+
+    @Field(() => CommentCreateWithoutArticleInput, {nullable:false})
+    @Type(() => CommentCreateWithoutArticleInput)
+    create!: CommentCreateWithoutArticleInput;
 }

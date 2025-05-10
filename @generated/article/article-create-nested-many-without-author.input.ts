@@ -9,19 +9,20 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedManyWithoutAuthorInput {
-  @Field(() => [ArticleCreateWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleCreateWithoutAuthorInput)
-  create?: Array<ArticleCreateWithoutAuthorInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleCreateOrConnectWithoutAuthorInput)
-  connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
+    @Field(() => [ArticleCreateWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleCreateWithoutAuthorInput)
+    create?: Array<ArticleCreateWithoutAuthorInput>;
 
-  @Field(() => ArticleCreateManyAuthorInputEnvelope, { nullable: true })
-  @Type(() => ArticleCreateManyAuthorInputEnvelope)
-  createMany?: ArticleCreateManyAuthorInputEnvelope;
+    @Field(() => [ArticleCreateOrConnectWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleCreateOrConnectWithoutAuthorInput)
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => ArticleCreateManyAuthorInputEnvelope, {nullable:true})
+    @Type(() => ArticleCreateManyAuthorInputEnvelope)
+    createMany?: ArticleCreateManyAuthorInputEnvelope;
+
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 }

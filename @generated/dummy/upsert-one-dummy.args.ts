@@ -8,15 +8,16 @@ import { DummyUpdateInput } from './dummy-update.input';
 
 @ArgsType()
 export class UpsertOneDummyArgs {
-  @Field(() => DummyWhereUniqueInput, { nullable: false })
-  @Type(() => DummyWhereUniqueInput)
-  where!: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
 
-  @Field(() => DummyCreateInput, { nullable: false })
-  @Type(() => DummyCreateInput)
-  create!: DummyCreateInput;
+    @Field(() => DummyWhereUniqueInput, {nullable:false})
+    @Type(() => DummyWhereUniqueInput)
+    where!: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
 
-  @Field(() => DummyUpdateInput, { nullable: false })
-  @Type(() => DummyUpdateInput)
-  update!: DummyUpdateInput;
+    @Field(() => DummyCreateInput, {nullable:false})
+    @Type(() => DummyCreateInput)
+    create!: DummyCreateInput;
+
+    @Field(() => DummyUpdateInput, {nullable:false})
+    @Type(() => DummyUpdateInput)
+    update!: DummyUpdateInput;
 }

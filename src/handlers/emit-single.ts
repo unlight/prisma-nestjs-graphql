@@ -16,7 +16,7 @@ function classProperty(
     propertyType: string[];
   },
 ) {
-  const { location, isList, propertyType } = eventArguments;
+  const { isList, location, propertyType } = eventArguments;
   if (['inputObjectTypes', 'outputObjectTypes'].includes(location) && !isList) {
     const [safeTypes, instanceofTypes] = partition(
       propertyType,

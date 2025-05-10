@@ -13,37 +13,38 @@ import { Role } from '../prisma/role.enum';
 
 @InputType()
 export class UserCreateManyInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => Scalars.GraphQLEmailAddress, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  @Validator.MinLength(3)
-  @Validator.MaxLength(50)
-  name!: string;
+    @Field(() => Scalars.GraphQLEmailAddress, {nullable:false})
+    email!: string;
 
-  @Field(() => String, { nullable: false })
-  password!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.MinLength(3)
+    @Validator.MaxLength(50)
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio?: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image?: string;
+    @Field(() => String, {nullable:true})
+    bio?: string;
 
-  @Field(() => Int, { nullable: true })
-  countComments?: number;
+    @Field(() => String, {nullable:true})
+    image?: string;
 
-  @Field(() => Float, { nullable: true })
-  rating?: number;
+    @Field(() => Int, {nullable:true})
+    countComments?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  money?: Decimal;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
 
-  @Field(() => Role, { nullable: true })
-  role?: `${Role}`;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    money?: Decimal;
+
+    @Field(() => Role, {nullable:true})
+    role?: `${Role}`;
 }

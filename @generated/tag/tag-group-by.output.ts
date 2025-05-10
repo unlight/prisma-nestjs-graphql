@@ -6,18 +6,19 @@ import { TagMaxAggregate } from './tag-max-aggregate.output';
 
 @ObjectType()
 export class TagGroupBy {
-  @Field(() => String, { nullable: false })
-  id!: string;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
-  @Field(() => TagCountAggregate, { nullable: true })
-  _count?: TagCountAggregate;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => TagMinAggregate, { nullable: true })
-  _min?: TagMinAggregate;
+    @Field(() => TagCountAggregate, {nullable:true})
+    _count?: TagCountAggregate;
 
-  @Field(() => TagMaxAggregate, { nullable: true })
-  _max?: TagMaxAggregate;
+    @Field(() => TagMinAggregate, {nullable:true})
+    _min?: TagMinAggregate;
+
+    @Field(() => TagMaxAggregate, {nullable:true})
+    _max?: TagMaxAggregate;
 }

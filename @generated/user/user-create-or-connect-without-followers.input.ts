@@ -7,11 +7,12 @@ import { UserCreateWithoutFollowersInput } from './user-create-without-followers
 
 @InputType()
 export class UserCreateOrConnectWithoutFollowersInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserCreateWithoutFollowersInput, { nullable: false })
-  @Type(() => UserCreateWithoutFollowersInput)
-  create!: UserCreateWithoutFollowersInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserCreateWithoutFollowersInput, {nullable:false})
+    @Type(() => UserCreateWithoutFollowersInput)
+    create!: UserCreateWithoutFollowersInput;
 }

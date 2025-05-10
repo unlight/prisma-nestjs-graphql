@@ -7,11 +7,12 @@ import { ArticleUpdateWithoutFavoritedByInput } from './article-update-without-f
 
 @InputType()
 export class ArticleUpdateWithWhereUniqueWithoutFavoritedByInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateWithoutFavoritedByInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutFavoritedByInput)
-  data!: ArticleUpdateWithoutFavoritedByInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleUpdateWithoutFavoritedByInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutFavoritedByInput)
+    data!: ArticleUpdateWithoutFavoritedByInput;
 }

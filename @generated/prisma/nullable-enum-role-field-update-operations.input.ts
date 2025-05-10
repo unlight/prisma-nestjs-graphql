@@ -4,6 +4,7 @@ import { Role } from './role.enum';
 
 @InputType()
 export class NullableEnumRoleFieldUpdateOperationsInput {
-  @Field(() => Role, { nullable: true })
-  set?: `${Role}`;
+
+    @Field(() => Role, {nullable:true})
+    set?: `${Role}`;
 }

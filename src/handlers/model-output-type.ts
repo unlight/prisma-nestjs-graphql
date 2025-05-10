@@ -230,7 +230,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
   // Generate class decorators from model settings
   for (const setting of modelSettings || []) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     if (shouldBeDecorated(setting)) {
       classStructure.decorators.push({
         arguments: setting.arguments as string[],

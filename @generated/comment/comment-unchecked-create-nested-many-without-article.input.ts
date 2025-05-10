@@ -9,19 +9,20 @@ import { CommentWhereUniqueInput } from './comment-where-unique.input';
 
 @InputType()
 export class CommentUncheckedCreateNestedManyWithoutArticleInput {
-  @Field(() => [CommentCreateWithoutArticleInput], { nullable: true })
-  @Type(() => CommentCreateWithoutArticleInput)
-  create?: Array<CommentCreateWithoutArticleInput>;
 
-  @Field(() => [CommentCreateOrConnectWithoutArticleInput], { nullable: true })
-  @Type(() => CommentCreateOrConnectWithoutArticleInput)
-  connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
+    @Field(() => [CommentCreateWithoutArticleInput], {nullable:true})
+    @Type(() => CommentCreateWithoutArticleInput)
+    create?: Array<CommentCreateWithoutArticleInput>;
 
-  @Field(() => CommentCreateManyArticleInputEnvelope, { nullable: true })
-  @Type(() => CommentCreateManyArticleInputEnvelope)
-  createMany?: CommentCreateManyArticleInputEnvelope;
+    @Field(() => [CommentCreateOrConnectWithoutArticleInput], {nullable:true})
+    @Type(() => CommentCreateOrConnectWithoutArticleInput)
+    connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
 
-  @Field(() => [CommentWhereUniqueInput], { nullable: true })
-  @Type(() => CommentWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
+    @Field(() => CommentCreateManyArticleInputEnvelope, {nullable:true})
+    @Type(() => CommentCreateManyArticleInputEnvelope)
+    createMany?: CommentCreateManyArticleInputEnvelope;
+
+    @Field(() => [CommentWhereUniqueInput], {nullable:true})
+    @Type(() => CommentWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 }

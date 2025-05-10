@@ -9,41 +9,42 @@ import { NestedDecimalNullableFilter } from './nested-decimal-nullable-filter.in
 
 @InputType()
 export class DecimalNullableFilter {
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  equals?: Decimal;
 
-  @Field(() => [GraphQLDecimal], { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  in?: Array<Decimal>;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    equals?: Decimal;
 
-  @Field(() => [GraphQLDecimal], { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  notIn?: Array<Decimal>;
+    @Field(() => [GraphQLDecimal], {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    in?: Array<Decimal>;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  lt?: Decimal;
+    @Field(() => [GraphQLDecimal], {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    notIn?: Array<Decimal>;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  lte?: Decimal;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    lt?: Decimal;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  gt?: Decimal;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    lte?: Decimal;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  gte?: Decimal;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    gt?: Decimal;
 
-  @Field(() => NestedDecimalNullableFilter, { nullable: true })
-  not?: NestedDecimalNullableFilter;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    gte?: Decimal;
+
+    @Field(() => NestedDecimalNullableFilter, {nullable:true})
+    not?: NestedDecimalNullableFilter;
 }

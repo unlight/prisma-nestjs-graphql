@@ -8,15 +8,16 @@ import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-f
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateWithoutFavoritedByInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutFavoritedByInput)
-  update!: ArticleUpdateWithoutFavoritedByInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutFavoritedByInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutFavoritedByInput)
-  create!: ArticleCreateWithoutFavoritedByInput;
+    @Field(() => ArticleUpdateWithoutFavoritedByInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutFavoritedByInput)
+    update!: ArticleUpdateWithoutFavoritedByInput;
+
+    @Field(() => ArticleCreateWithoutFavoritedByInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutFavoritedByInput)
+    create!: ArticleCreateWithoutFavoritedByInput;
 }

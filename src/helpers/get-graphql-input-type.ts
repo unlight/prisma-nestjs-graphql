@@ -79,7 +79,6 @@ export function getGraphqlInputType(inputTypes: DMMF.InputTypeRef[], pattern?: s
   }
 
   throw new TypeError(
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     `Cannot get matching input type from ${
       inputTypes.map(x => x.type).join(', ') || 'zero length inputTypes'
     }`,

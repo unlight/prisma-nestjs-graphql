@@ -8,15 +8,16 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedManyWithoutFavoritedByInput {
-  @Field(() => [ArticleCreateWithoutFavoritedByInput], { nullable: true })
-  @Type(() => ArticleCreateWithoutFavoritedByInput)
-  create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
-  @Type(() => ArticleCreateOrConnectWithoutFavoritedByInput)
-  connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
+    @Field(() => [ArticleCreateWithoutFavoritedByInput], {nullable:true})
+    @Type(() => ArticleCreateWithoutFavoritedByInput)
+    create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], {nullable:true})
+    @Type(() => ArticleCreateOrConnectWithoutFavoritedByInput)
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
+
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 }

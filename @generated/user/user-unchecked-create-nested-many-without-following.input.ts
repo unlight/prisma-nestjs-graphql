@@ -8,17 +8,16 @@ import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()
 export class UserUncheckedCreateNestedManyWithoutFollowingInput {
-  @Field(() => [UserCreateWithoutFollowingInput], { nullable: true })
-  @Type(() => UserCreateWithoutFollowingInput)
-  create?: Array<UserCreateWithoutFollowingInput>;
 
-  @Field(() => [UserCreateOrConnectWithoutFollowingInput], { nullable: true })
-  @Type(() => UserCreateOrConnectWithoutFollowingInput)
-  connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
+    @Field(() => [UserCreateWithoutFollowingInput], {nullable:true})
+    @Type(() => UserCreateWithoutFollowingInput)
+    create?: Array<UserCreateWithoutFollowingInput>;
 
-  @Field(() => [UserWhereUniqueInput], { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  connect?: Array<
-    Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
-  >;
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutFollowingInput)
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
+
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>>;
 }

@@ -7,11 +7,12 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 
 @InputType()
 export class UserCreateOrConnectWithoutFavoriteArticlesInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
-  @Type(() => UserCreateWithoutFavoriteArticlesInput)
-  create!: UserCreateWithoutFavoriteArticlesInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserCreateWithoutFavoriteArticlesInput, {nullable:false})
+    @Type(() => UserCreateWithoutFavoriteArticlesInput)
+    create!: UserCreateWithoutFavoriteArticlesInput;
 }

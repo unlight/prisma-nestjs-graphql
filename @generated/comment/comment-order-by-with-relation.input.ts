@@ -9,32 +9,33 @@ import { CommentOrderByRelevanceInput } from './comment-order-by-relevance.input
 
 @InputType()
 export class CommentOrderByWithRelationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  body?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    body?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  articleId?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    authorId?: `${SortOrder}`;
 
-  @Field(() => UserOrderByWithRelationInput, { nullable: true })
-  @Type(() => UserOrderByWithRelationInput)
-  author?: UserOrderByWithRelationInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    articleId?: SortOrderInput;
 
-  @Field(() => ArticleOrderByWithRelationInput, { nullable: true })
-  @Type(() => ArticleOrderByWithRelationInput)
-  article?: ArticleOrderByWithRelationInput;
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    @Type(() => UserOrderByWithRelationInput)
+    author?: UserOrderByWithRelationInput;
 
-  @Field(() => CommentOrderByRelevanceInput, { nullable: true })
-  _relevance?: CommentOrderByRelevanceInput;
+    @Field(() => ArticleOrderByWithRelationInput, {nullable:true})
+    @Type(() => ArticleOrderByWithRelationInput)
+    article?: ArticleOrderByWithRelationInput;
+
+    @Field(() => CommentOrderByRelevanceInput, {nullable:true})
+    _relevance?: CommentOrderByRelevanceInput;
 }

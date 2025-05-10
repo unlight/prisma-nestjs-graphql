@@ -7,11 +7,12 @@ import { ArticleUpdateWithoutTagsInput } from './article-update-without-tags.inp
 
 @InputType()
 export class ArticleUpdateWithWhereUniqueWithoutTagsInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateWithoutTagsInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutTagsInput)
-  data!: ArticleUpdateWithoutTagsInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleUpdateWithoutTagsInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutTagsInput)
+    data!: ArticleUpdateWithoutTagsInput;
 }

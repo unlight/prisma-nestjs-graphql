@@ -8,13 +8,14 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class DummyUpdatedecimalsInput {
-  @Field(() => [GraphQLDecimal], { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  set?: Array<Decimal>;
 
-  @Field(() => [GraphQLDecimal], { nullable: true })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  push?: Array<Decimal>;
+    @Field(() => [GraphQLDecimal], {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    set?: Array<Decimal>;
+
+    @Field(() => [GraphQLDecimal], {nullable:true})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    push?: Array<Decimal>;
 }

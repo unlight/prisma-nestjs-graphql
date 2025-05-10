@@ -8,15 +8,16 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFavoriteArticlesInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
-  @Type(() => UserUpdateWithoutFavoriteArticlesInput)
-  update!: UserUpdateWithoutFavoriteArticlesInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
-  @Type(() => UserCreateWithoutFavoriteArticlesInput)
-  create!: UserCreateWithoutFavoriteArticlesInput;
+    @Field(() => UserUpdateWithoutFavoriteArticlesInput, {nullable:false})
+    @Type(() => UserUpdateWithoutFavoriteArticlesInput)
+    update!: UserUpdateWithoutFavoriteArticlesInput;
+
+    @Field(() => UserCreateWithoutFavoriteArticlesInput, {nullable:false})
+    @Type(() => UserCreateWithoutFavoriteArticlesInput)
+    create!: UserCreateWithoutFavoriteArticlesInput;
 }

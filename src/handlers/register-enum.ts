@@ -2,6 +2,7 @@ import { EnumDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments, SchemaEnum } from '../types';
+import { extractEnumValueDocs } from './prisma-enum-doc';
 
 export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   const { config, enums, getSourceFile } = args;
@@ -24,41 +25,19 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   });
 
   // Create valuesMap based on documentation
-  const valuesMap = Object.fromEntries(
-    enumTypesData.map(({ name, documentation }) => {
-      let entry = {};
-      if (documentation) {
-        if (documentation.startsWith('@deprecated')) {
-          entry = {
-            deprecationReason: documentation.slice(11).trim(), // Extract deprecation reason
-          };
-        } else {
-          entry = {
-            description: documentation, // Use the documentation as description
-          };
-        }
-      }
-      return [name, entry]; // Return entry, even if empty
-    }),
-  );
+  const valuesMap = extractEnumValueDocs(enumTypesData);
 
-  // Filter out empty entries (those that don't have description or deprecationReason)
-  const filteredValuesMap = Object.fromEntries(
-    Object.entries(valuesMap).filter(([key, value]) => Object.keys(value).length > 0),
-  );
-
-  // Format valuesMap for the final output
-  const formattedValuesMap = JSON.stringify(filteredValuesMap, null, 2).replace(
-    /"([^"]+)":/g,
-    '$1:',
-  );
+  const valuesMapString =
+    Object.keys(valuesMap).length > 0
+      ? `, valuesMap: ${JSON.stringify(valuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')}`
+      : '';
 
   const enumStructure: EnumDeclarationStructure = {
     isExported: true,
     kind: StructureKind.Enum,
     members: enumType.values.map(v => ({
-      initializer: JSON.stringify(v),
-      name: v,
+      initializer: JSON.stringify(v.name),
+      name: v.name,
     })),
     name: enumType.name,
   };
@@ -68,9 +47,9 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
       ...importDeclarations.toStatements(),
       enumStructure,
       '\n',
-      `registerEnumType(${enumType.name}, { name: '${
-        enumType.name
-      }', description: ${JSON.stringify(dataModelEnum?.documentation)}, valuesMap: ${formattedValuesMap} })`,
+      `registerEnumType(${enumType.name}, { name: '${enumType.name}', description: ${JSON.stringify(
+        dataModelEnum?.documentation,
+      )}${valuesMapString} })`,
     ],
   });
 }

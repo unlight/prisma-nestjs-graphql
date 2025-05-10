@@ -407,7 +407,6 @@ describe('nested object decorate', () => {
       'update',
       'updateMany',
       'deleteMany',
-      // eslint-disable-next-line unicorn/no-array-for-each
     ].forEach(property => {
       it(property, () => {
         const s = testSourceFile({

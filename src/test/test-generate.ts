@@ -12,7 +12,6 @@ import { generateFileName } from '../helpers/generate-file-name';
 import { DMMF, EventArguments } from '../types';
 
 const { '@prisma/generator-helper': generatorVersion } =
-  // eslint-disable-next-line unicorn/prefer-module
   require('../../package.json').dependencies;
 
 export async function testGenerate(args: {
@@ -26,19 +25,19 @@ export async function testGenerate(args: {
   };
   onConnect?: (emitter: AwaitEventEmitter) => void;
 }) {
-  const { schema, options, provider, createSouceFile, onConnect } = args;
+  const { createSouceFile, onConnect, options, provider, schema } = args;
   let project: Project | undefined;
   const connectCallback = (emitter: AwaitEventEmitter) => {
     onConnect && onConnect(emitter);
     if (createSouceFile) {
       emitter.on(
         'PostBegin',
-        ({ config, project, output, getModelName }: EventArguments) => {
+        ({ config, getModelName, output, project }: EventArguments) => {
           const filePath = generateFileName({
-            type: createSouceFile.type,
-            name: createSouceFile.name,
             getModelName,
+            name: createSouceFile.name,
             template: config.outputFilePattern,
+            type: createSouceFile.type,
           });
           project.createSourceFile(`${output}/${filePath}`, createSouceFile.text, {
             overwrite: true,
@@ -52,8 +51,8 @@ export async function testGenerate(args: {
   };
   await generate({
     ...(await createGeneratorOptions(schema, options, provider)),
-    skipAddOutputSourceFiles: true,
     connectCallback,
+    skipAddOutputSourceFiles: true,
   });
 
   ok(project, 'Project is not defined');
@@ -171,7 +170,7 @@ async function createGeneratorOptions(
       });
     });
   }
-  // eslint-disable-next-line unicorn/prefer-module
+
   return require(cacheFile);
 }
 
