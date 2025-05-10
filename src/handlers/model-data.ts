@@ -3,12 +3,12 @@ import { EventArguments, Field, Model } from '../types';
 
 export function modelData(model: Model, args: EventArguments) {
   const {
+    classTransformerTypeModels,
     config,
+    fieldSettings,
+    modelFields,
     modelNames,
     models,
-    modelFields,
-    fieldSettings,
-    classTransformerTypeModels,
   } = args;
   modelNames.push(model.name);
   models.set(model.name, model);
@@ -22,8 +22,8 @@ export function modelData(model: Model, args: EventArguments) {
   for (const field of model.fields) {
     if (field.documentation) {
       const { documentation, settings } = createObjectSettings({
-        text: field.documentation,
         config,
+        text: field.documentation,
       });
       field.documentation = documentation;
       fieldSettingsValue.set(field.name, settings);

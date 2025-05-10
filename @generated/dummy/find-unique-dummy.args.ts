@@ -6,7 +6,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueDummyArgs {
-  @Field(() => DummyWhereUniqueInput, { nullable: false })
-  @Type(() => DummyWhereUniqueInput)
-  where!: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
+
+    @Field(() => DummyWhereUniqueInput, {nullable:false})
+    @Type(() => DummyWhereUniqueInput)
+    where!: Prisma.AtLeast<DummyWhereUniqueInput, 'id'>;
 }

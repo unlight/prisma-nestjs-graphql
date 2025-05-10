@@ -14,48 +14,49 @@ import { UserMaxAggregate } from './user-max-aggregate.output';
 
 @ObjectType()
 export class UserGroupBy {
-  @Field(() => String, { nullable: false })
-  id!: string;
 
-  @Field(() => String, { nullable: false })
-  email!: string;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
 
-  @HideField()
-  password!: string;
+    @Field(() => String, {nullable:false})
+    name!: string;
 
-  @Field(() => String, { nullable: true })
-  bio?: string;
+    @HideField()
+    password!: string;
 
-  @Field(() => String, { nullable: true })
-  image?: string;
+    @Field(() => String, {nullable:true})
+    bio?: string;
 
-  @Field(() => Int, { nullable: true })
-  countComments?: number;
+    @Field(() => String, {nullable:true})
+    image?: string;
 
-  @Field(() => Float, { nullable: true })
-  rating?: number;
+    @Field(() => Int, {nullable:true})
+    countComments?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  money?: Decimal;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
 
-  @Field(() => Role, { nullable: true })
-  role?: `${Role}`;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    money?: Decimal;
 
-  @Field(() => UserCountAggregate, { nullable: true })
-  _count?: UserCountAggregate;
+    @Field(() => Role, {nullable:true})
+    role?: `${Role}`;
 
-  @Field(() => UserAvgAggregate, { nullable: true })
-  _avg?: UserAvgAggregate;
+    @Field(() => UserCountAggregate, {nullable:true})
+    _count?: UserCountAggregate;
 
-  @Field(() => UserSumAggregate, { nullable: true })
-  _sum?: UserSumAggregate;
+    @Field(() => UserAvgAggregate, {nullable:true})
+    _avg?: UserAvgAggregate;
 
-  @Field(() => UserMinAggregate, { nullable: true })
-  _min?: UserMinAggregate;
+    @Field(() => UserSumAggregate, {nullable:true})
+    _sum?: UserSumAggregate;
 
-  @Field(() => UserMaxAggregate, { nullable: true })
-  _max?: UserMaxAggregate;
+    @Field(() => UserMinAggregate, {nullable:true})
+    _min?: UserMinAggregate;
+
+    @Field(() => UserMaxAggregate, {nullable:true})
+    _max?: UserMaxAggregate;
 }

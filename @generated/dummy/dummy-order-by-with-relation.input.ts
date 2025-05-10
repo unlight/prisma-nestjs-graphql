@@ -7,37 +7,38 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class DummyOrderByWithRelationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  date?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  int?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    date?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  float?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    int?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  bytes?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    float?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimal?: `${SortOrder}`;
+    @Field(() => SortOrderInput, {nullable:true})
+    bytes?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimals?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    decimal?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  bigInt?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    decimals?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  json?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    bigInt?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  friends?: `${SortOrder}`;
+    @Field(() => SortOrderInput, {nullable:true})
+    json?: SortOrderInput;
 
-  @Field(() => DummyOrderByRelevanceInput, { nullable: true })
-  @Type(() => DummyOrderByRelevanceInput)
-  _relevance?: DummyOrderByRelevanceInput;
+    @Field(() => SortOrder, {nullable:true})
+    friends?: `${SortOrder}`;
+
+    @Field(() => DummyOrderByRelevanceInput, {nullable:true})
+    @Type(() => DummyOrderByRelevanceInput)
+    _relevance?: DummyOrderByRelevanceInput;
 }

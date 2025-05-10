@@ -10,22 +10,23 @@ import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
 
 @ArgsType()
 export class FindManyArticleArgs {
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
 
-  @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<ArticleOrderByWithRelationInput>;
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    where?: ArticleWhereInput;
 
-  @Field(() => ArticleWhereUniqueInput, { nullable: true })
-  cursor?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+    @Field(() => [ArticleOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ArticleOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ArticleWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => [ArticleScalarFieldEnum], { nullable: true })
-  distinct?: Array<`${ArticleScalarFieldEnum}`>;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => [ArticleScalarFieldEnum], {nullable:true})
+    distinct?: Array<`${ArticleScalarFieldEnum}`>;
 }

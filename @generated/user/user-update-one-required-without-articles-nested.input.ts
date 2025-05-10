@@ -10,26 +10,24 @@ import { UserUpdateToOneWithWhereWithoutArticlesInput } from './user-update-to-o
 
 @InputType()
 export class UserUpdateOneRequiredWithoutArticlesNestedInput {
-  @Field(() => UserCreateWithoutArticlesInput, { nullable: true })
-  @Type(() => UserCreateWithoutArticlesInput)
-  create?: UserCreateWithoutArticlesInput;
 
-  @Field(() => UserCreateOrConnectWithoutArticlesInput, { nullable: true })
-  @Type(() => UserCreateOrConnectWithoutArticlesInput)
-  connectOrCreate?: UserCreateOrConnectWithoutArticlesInput;
+    @Field(() => UserCreateWithoutArticlesInput, {nullable:true})
+    @Type(() => UserCreateWithoutArticlesInput)
+    create?: UserCreateWithoutArticlesInput;
 
-  @Field(() => UserUpsertWithoutArticlesInput, { nullable: true })
-  @Type(() => UserUpsertWithoutArticlesInput)
-  upsert?: UserUpsertWithoutArticlesInput;
+    @Field(() => UserCreateOrConnectWithoutArticlesInput, {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutArticlesInput)
+    connectOrCreate?: UserCreateOrConnectWithoutArticlesInput;
 
-  @Field(() => UserWhereUniqueInput, { nullable: true })
-  @Type(() => UserWhereUniqueInput)
-  connect?: Prisma.AtLeast<
-    UserWhereUniqueInput,
-    'id' | 'email' | 'name' | 'email_name'
-  >;
+    @Field(() => UserUpsertWithoutArticlesInput, {nullable:true})
+    @Type(() => UserUpsertWithoutArticlesInput)
+    upsert?: UserUpsertWithoutArticlesInput;
 
-  @Field(() => UserUpdateToOneWithWhereWithoutArticlesInput, { nullable: true })
-  @Type(() => UserUpdateToOneWithWhereWithoutArticlesInput)
-  update?: UserUpdateToOneWithWhereWithoutArticlesInput;
+    @Field(() => UserWhereUniqueInput, {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserUpdateToOneWithWhereWithoutArticlesInput, {nullable:true})
+    @Type(() => UserUpdateToOneWithWhereWithoutArticlesInput)
+    update?: UserUpdateToOneWithWhereWithoutArticlesInput;
 }

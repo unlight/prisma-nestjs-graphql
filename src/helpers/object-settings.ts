@@ -31,8 +31,8 @@ interface ObjectSettingsFilterArgs {
 
 export class ObjectSettings extends Array<ObjectSetting> {
   shouldHideField({
-    name,
     input = false,
+    name,
     output = false,
   }: ObjectSettingsFilterArgs): boolean {
     const hideField = this.find(s => s.name === 'HideField');
@@ -45,8 +45,8 @@ export class ObjectSettings extends Array<ObjectSetting> {
   }
 
   getFieldType({
-    name,
     input,
+    name,
     output,
   }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
     const fieldType = this.find(s => s.kind === 'FieldType');
@@ -56,7 +56,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
     }
 
     if (fieldType.match) {
-      // eslint-disable-next-line unicorn/prefer-regexp-test
       return fieldType.match(name) ? fieldType : undefined;
     }
 
@@ -72,8 +71,8 @@ export class ObjectSettings extends Array<ObjectSetting> {
   }
 
   getPropertyType({
-    name,
     input,
+    name,
     output,
   }: ObjectSettingsFilterArgs): ObjectSetting | undefined {
     const propertyType = this.find(s => s.kind === 'PropertyType');
@@ -83,7 +82,6 @@ export class ObjectSettings extends Array<ObjectSetting> {
     }
 
     if (propertyType.match) {
-      // eslint-disable-next-line unicorn/prefer-regexp-test
       return propertyType.match(name) ? propertyType : undefined;
     }
 
@@ -132,18 +130,18 @@ export function createObjectSettings(args: {
   let fieldElement = result.find(item => item.kind === 'Field');
   if (!fieldElement) {
     fieldElement = {
-      name: '',
-      kind: 'Field',
       arguments: {},
+      kind: 'Field',
+      name: '',
     } as ObjectSetting;
   }
 
   for (const line of textLines) {
     const match = /^@(?<name>\w+(\.(\w+))?)\((?<args>.*)\)/.exec(line);
-    const { element, documentLine } = createSettingElement({
-      line,
+    const { documentLine, element } = createSettingElement({
       config,
       fieldElement,
+      line,
       match,
     });
 
@@ -157,15 +155,15 @@ export function createObjectSettings(args: {
   }
 
   return {
-    settings: result,
     documentation: documentationLines.filter(Boolean).join('\n') || undefined,
+    settings: result,
   };
 }
 
 function createSettingElement({
-  line,
   config,
   fieldElement,
+  line,
   match,
 }: {
   line: string;
@@ -203,13 +201,13 @@ function createSettingElement({
   }
 
   const element: ObjectSetting = {
-    kind: 'Decorator',
-    name: '',
     arguments: [],
-    input: false,
-    output: false,
-    model: false,
     from: '',
+    input: false,
+    kind: 'Decorator',
+    model: false,
+    name: '',
+    output: false,
   };
 
   result.element = element;
@@ -238,8 +236,8 @@ function createSettingElement({
       merge(options, options[1]);
     }
     element.arguments = {
-      name: options.name,
       isAbstract: options.isAbstract,
+      name: options.name,
     };
 
     return result;
@@ -247,13 +245,13 @@ function createSettingElement({
 
   if (name === 'Directive' && match.groups?.args) {
     const options = customType(match.groups.args);
-    merge(element, { model: true, from: '@nestjs/graphql' }, options, {
-      name,
-      namespace: false,
-      kind: 'Decorator',
+    merge(element, { from: '@nestjs/graphql', model: true }, options, {
       arguments: Array.isArray(options.arguments)
         ? options.arguments.map(s => JSON5.stringify(s))
         : options.arguments,
+      kind: 'Decorator',
+      name,
+      namespace: false,
     });
 
     return result;
@@ -262,11 +260,11 @@ function createSettingElement({
   const namespace = getNamespace(name);
   element.namespaceImport = namespace;
   const options = {
-    name,
     arguments: (match.groups?.args || '')
       .split(',')
       .map(s => trim(s))
       .filter(Boolean),
+    name,
   };
   merge(element, namespace && config.fields[namespace], options);
 
@@ -295,12 +293,12 @@ function customType(args: string) {
 
 function hideFieldDecorator(match: RegExpExecArray) {
   const result: Partial<ObjectSetting> = {
-    name: 'HideField',
     arguments: [],
-    from: '@nestjs/graphql',
     defaultImport: undefined,
-    namespaceImport: undefined,
+    from: '@nestjs/graphql',
     match: undefined,
+    name: 'HideField',
+    namespaceImport: undefined,
   };
   if (!match.groups?.args) {
     result.output = true;
@@ -346,6 +344,6 @@ function getNamespace(name: unknown): string | undefined {
   if (result.includes('.')) {
     [result] = result.split('.');
   }
-  // eslint-disable-next-line consistent-return
+
   return result;
 }

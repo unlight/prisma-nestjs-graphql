@@ -8,15 +8,16 @@ import { ArticleUpdateInput } from './article-update.input';
 
 @ArgsType()
 export class UpsertOneArticleArgs {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateInput, { nullable: false })
-  @Type(() => ArticleCreateInput)
-  create!: ArticleCreateInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateInput, { nullable: false })
-  @Type(() => ArticleUpdateInput)
-  update!: ArticleUpdateInput;
+    @Field(() => ArticleCreateInput, {nullable:false})
+    @Type(() => ArticleCreateInput)
+    create!: ArticleCreateInput;
+
+    @Field(() => ArticleUpdateInput, {nullable:false})
+    @Type(() => ArticleUpdateInput)
+    update!: ArticleUpdateInput;
 }

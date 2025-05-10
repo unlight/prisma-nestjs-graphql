@@ -14,7 +14,7 @@ export function getFieldOptions(
   if (typeof property === 'string') {
     propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
   }
-  const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
+  const result = propertyDeclaration?.getStructure().decorators?.[0]?.arguments?.[1];
   return result as string;
   // return new Function(`return ${text}`)();
 }

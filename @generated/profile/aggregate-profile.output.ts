@@ -8,18 +8,19 @@ import { ProfileMaxAggregate } from './profile-max-aggregate.output';
 
 @ObjectType()
 export class AggregateProfile {
-  @Field(() => ProfileCountAggregate, { nullable: true })
-  _count?: ProfileCountAggregate;
 
-  @Field(() => ProfileAvgAggregate, { nullable: true })
-  _avg?: ProfileAvgAggregate;
+    @Field(() => ProfileCountAggregate, {nullable:true})
+    _count?: ProfileCountAggregate;
 
-  @Field(() => ProfileSumAggregate, { nullable: true })
-  _sum?: ProfileSumAggregate;
+    @Field(() => ProfileAvgAggregate, {nullable:true})
+    _avg?: ProfileAvgAggregate;
 
-  @Field(() => ProfileMinAggregate, { nullable: true })
-  _min?: ProfileMinAggregate;
+    @Field(() => ProfileSumAggregate, {nullable:true})
+    _sum?: ProfileSumAggregate;
 
-  @Field(() => ProfileMaxAggregate, { nullable: true })
-  _max?: ProfileMaxAggregate;
+    @Field(() => ProfileMinAggregate, {nullable:true})
+    _min?: ProfileMinAggregate;
+
+    @Field(() => ProfileMaxAggregate, {nullable:true})
+    _max?: ProfileMaxAggregate;
 }

@@ -2,13 +2,16 @@ import { EnumDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { EventArguments, SchemaEnum } from '../types';
+import { extractEnumValueDocs } from './prisma-enum-doc';
 
 export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
-  const { getSourceFile, enums, config } = args;
+  const { config, enums, getSourceFile } = args;
 
   if (!config.emitBlocks.prismaEnums && !enums[enumType.name]) return;
 
   const dataModelEnum = enums[enumType.name];
+  const enumTypesData = dataModelEnum?.values || [];
+  console.log('enumTypesData', enumTypesData);
   const sourceFile = getSourceFile({
     name: enumType.name,
     type: 'enum',
@@ -17,18 +20,26 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   const importDeclarations = new ImportDeclarationMap();
 
   importDeclarations.set('registerEnumType', {
-    namedImports: [{ name: 'registerEnumType' }],
     moduleSpecifier: '@nestjs/graphql',
+    namedImports: [{ name: 'registerEnumType' }],
   });
 
+  // Create valuesMap based on documentation
+  const valuesMap = extractEnumValueDocs(enumTypesData);
+
+  const valuesMapString =
+    Object.keys(valuesMap).length > 0
+      ? `, valuesMap: ${JSON.stringify(valuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')}`
+      : '';
+
   const enumStructure: EnumDeclarationStructure = {
-    kind: StructureKind.Enum,
     isExported: true,
-    name: enumType.name,
+    kind: StructureKind.Enum,
     members: enumType.values.map(v => ({
-      name: v,
-      initializer: JSON.stringify(v),
+      initializer: JSON.stringify(v.name),
+      name: v.name,
     })),
+    name: enumType.name,
   };
 
   sourceFile.set({
@@ -36,9 +47,9 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
       ...importDeclarations.toStatements(),
       enumStructure,
       '\n',
-      `registerEnumType(${enumType.name}, { name: '${
-        enumType.name
-      }', description: ${JSON.stringify(dataModelEnum?.documentation)} })`,
+      `registerEnumType(${enumType.name}, { name: '${enumType.name}', description: ${JSON.stringify(
+        dataModelEnum?.documentation,
+      )}${valuesMapString} })`,
     ],
   });
 }

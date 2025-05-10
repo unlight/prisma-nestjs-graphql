@@ -7,11 +7,12 @@ import { UserCreateWithoutProfileInput } from './user-create-without-profile.inp
 
 @InputType()
 export class UserCreateOrConnectWithoutProfileInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserCreateWithoutProfileInput, { nullable: false })
-  @Type(() => UserCreateWithoutProfileInput)
-  create!: UserCreateWithoutProfileInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserCreateWithoutProfileInput, {nullable:false})
+    @Type(() => UserCreateWithoutProfileInput)
+    create!: UserCreateWithoutProfileInput;
 }

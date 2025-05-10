@@ -8,15 +8,16 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input';
 
 @InputType()
 export class ArticleCreateNestedManyWithoutTagsInput {
-  @Field(() => [ArticleCreateWithoutTagsInput], { nullable: true })
-  @Type(() => ArticleCreateWithoutTagsInput)
-  create?: Array<ArticleCreateWithoutTagsInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutTagsInput], { nullable: true })
-  @Type(() => ArticleCreateOrConnectWithoutTagsInput)
-  connectOrCreate?: Array<ArticleCreateOrConnectWithoutTagsInput>;
+    @Field(() => [ArticleCreateWithoutTagsInput], {nullable:true})
+    @Type(() => ArticleCreateWithoutTagsInput)
+    create?: Array<ArticleCreateWithoutTagsInput>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => [ArticleCreateOrConnectWithoutTagsInput], {nullable:true})
+    @Type(() => ArticleCreateOrConnectWithoutTagsInput)
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutTagsInput>;
+
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 }

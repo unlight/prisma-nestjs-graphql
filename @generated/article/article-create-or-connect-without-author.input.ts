@@ -7,11 +7,12 @@ import { ArticleCreateWithoutAuthorInput } from './article-create-without-author
 
 @InputType()
 export class ArticleCreateOrConnectWithoutAuthorInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutAuthorInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutAuthorInput)
-  create!: ArticleCreateWithoutAuthorInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleCreateWithoutAuthorInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutAuthorInput)
+    create!: ArticleCreateWithoutAuthorInput;
 }

@@ -10,38 +10,39 @@ import { ArticleNullableScalarRelationFilter } from '../article/article-nullable
 
 @InputType()
 export class CommentWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  AND?: Array<CommentWhereInput>;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  OR?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    AND?: Array<CommentWhereInput>;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  NOT?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    OR?: Array<CommentWhereInput>;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    NOT?: Array<CommentWhereInput>;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    body?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  articleId?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    authorId?: StringFilter;
 
-  @Field(() => UserScalarRelationFilter, { nullable: true })
-  @Type(() => UserScalarRelationFilter)
-  author?: UserScalarRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    articleId?: StringNullableFilter;
 
-  @Field(() => ArticleNullableScalarRelationFilter, { nullable: true })
-  @Type(() => ArticleNullableScalarRelationFilter)
-  article?: ArticleNullableScalarRelationFilter;
+    @Field(() => UserScalarRelationFilter, {nullable:true})
+    @Type(() => UserScalarRelationFilter)
+    author?: UserScalarRelationFilter;
+
+    @Field(() => ArticleNullableScalarRelationFilter, {nullable:true})
+    @Type(() => ArticleNullableScalarRelationFilter)
+    article?: ArticleNullableScalarRelationFilter;
 }

@@ -7,11 +7,12 @@ import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.inp
 
 @InputType()
 export class ArticleCreateOrConnectWithoutTagsInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutTagsInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutTagsInput)
-  create!: ArticleCreateWithoutTagsInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleCreateWithoutTagsInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutTagsInput)
+    create!: ArticleCreateWithoutTagsInput;
 }

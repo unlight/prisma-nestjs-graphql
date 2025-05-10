@@ -39,26 +39,26 @@ describe('createConfig', () => {
     });
     expect(result.useInputType).toEqual([
       {
-        typeName: 'CreateInput',
         ALL: 'WhereInput',
         author: 'WhereInput',
+        typeName: 'CreateInput',
       },
     ]);
   });
 
   it('create config decorate from array', () => {
     const result = createConfig({
-      decorate_1_type: 'CreateOneUserArgs',
-      decorate_1_field: 'data',
-      decorate_1_name: 'ValidateNested',
-      decorate_1_from: 'class-validator',
       decorate_1_arguments: '[]',
-      decorate_2_type: 'CreateOneUserArgs',
+      decorate_1_field: 'data',
+      decorate_1_from: 'class-validator',
+      decorate_1_name: 'ValidateNested',
+      decorate_1_type: 'CreateOneUserArgs',
+      decorate_2_arguments: '[]',
       decorate_2_field: 'data',
       decorate_2_from: 'class-transformer',
-      decorate_2_arguments: '[]',
       decorate_2_name: 'Type',
       decorate_2_namedImport: true,
+      decorate_2_type: 'CreateOneUserArgs',
     });
     expect(result.decorate).toBeInstanceOf(Array);
     expect(result.decorate).toHaveLength(2);
@@ -66,17 +66,17 @@ describe('createConfig', () => {
 
   it('create config decorate from object', () => {
     const result = createConfig({
-      decorate_a_type: 'CreateOneUserArgs',
-      decorate_a_field: 'data',
-      decorate_a_name: 'ValidateNested',
-      decorate_a_from: 'class-validator',
       decorate_a_arguments: '[]',
-      decorate_b_type: 'CreateOneUserArgs',
+      decorate_a_field: 'data',
+      decorate_a_from: 'class-validator',
+      decorate_a_name: 'ValidateNested',
+      decorate_a_type: 'CreateOneUserArgs',
+      decorate_b_arguments: '[]',
       decorate_b_field: 'data',
       decorate_b_from: 'class-transformer',
-      decorate_b_arguments: '[]',
       decorate_b_name: 'Type',
       decorate_b_namedImport: true,
+      decorate_b_type: 'CreateOneUserArgs',
     });
     expect(result.decorate).toBeInstanceOf(Array);
     expect(result.decorate).toHaveLength(2);

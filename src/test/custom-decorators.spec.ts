@@ -9,6 +9,15 @@ let project: Project;
 describe('custom decorators namespace both input and output', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        // custom decorators (validate)
+        // import * as Validator from 'class-validator'
+        // @Validator.IsEmail()
+        // email: string
+        `fields_Validator_from = "class-validator"`,
+        `fields_Validator_input = true`,
+      ],
       schema: `
                 model User {
                     id Int @id
@@ -21,23 +30,14 @@ describe('custom decorators namespace both input and output', () => {
                     /// @FieldType({ name: 'Scalars.GraphQLEmailAddress', from: 'graphql-scalars', input: true })
                     email String?
                 }`,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        // custom decorators (validate)
-        // import * as Validator from 'class-validator'
-        // @Validator.IsEmail()
-        // email: string
-        `fields_Validator_from = "class-validator"`,
-        `fields_Validator_input = true`,
-      ],
     }));
   });
 
   describe('aggregates should not have validators', () => {
     it('user-count-aggregate.input', () => {
       const s = testSourceFile({
-        project,
         file: 'user-count-aggregate.input.ts',
+        project,
         property: 'email',
       });
       expect(s.propertyDecorators).toHaveLength(1);
@@ -51,8 +51,8 @@ describe('custom decorators namespace both input and output', () => {
 
     it('user-count-order-by-aggregate.input name is type of sort order', () => {
       const s = testSourceFile({
-        project,
         file: 'user-count-order-by-aggregate.input.ts',
+        project,
         property: 'email',
       });
       expect(
@@ -68,9 +68,9 @@ describe('custom decorators namespace both input and output', () => {
     let classFile: any;
 
     before(() => {
-      ({ sourceFile, classFile } = testSourceFile({
-        project,
+      ({ classFile, sourceFile } = testSourceFile({
         file: 'user-create.input.ts',
+        project,
       }));
       importDeclarations = sourceFile
         .getImportDeclarations()
@@ -88,16 +88,16 @@ describe('custom decorators namespace both input and output', () => {
     it('imports should contains custom import', () => {
       expect(importDeclarations).toContainEqual(
         expect.objectContaining({
-          namespaceImport: 'Validator',
           moduleSpecifier: 'class-validator',
+          namespaceImport: 'Validator',
         }),
       );
     });
 
     it('several decorators length', () => {
       const s = testSourceFile({
-        project,
         file: 'user-create.input.ts',
+        project,
         property: 'age',
       });
       expect(s.propertyDecorators).toHaveLength(3);
@@ -113,8 +113,8 @@ describe('custom decorators namespace both input and output', () => {
   describe('should not have metadata in description', () => {
     it('age', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'age',
       });
       expect(s.fieldDecoratorOptions).not.toContain('description');
@@ -122,8 +122,8 @@ describe('custom decorators namespace both input and output', () => {
 
     it('name', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'name',
       });
       expect(s.fieldDecoratorOptions).not.toContain('description');
@@ -131,8 +131,8 @@ describe('custom decorators namespace both input and output', () => {
 
     it('email', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'email',
       });
       expect(s.fieldDecoratorOptions).not.toContain('description');
@@ -141,8 +141,8 @@ describe('custom decorators namespace both input and output', () => {
 
   it('output model has no maxlength decorator', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'name',
     });
     expect(s.propertyDecorators?.find(d => d.name === 'MaxLength')).toBeFalsy();
@@ -152,6 +152,12 @@ describe('custom decorators namespace both input and output', () => {
 describe('fieldtype disable output', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `fields_Upload_from = "graphql-upload"`,
+        `fields_Upload_input = true`,
+        `fields_Upload_output = false`,
+      ],
       schema: `
                 model User {
                     id           String        @id @default(cuid())
@@ -159,19 +165,13 @@ describe('fieldtype disable output', () => {
                     image        String?
                 }
                 `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `fields_Upload_from = "graphql-upload"`,
-        `fields_Upload_input = true`,
-        `fields_Upload_output = false`,
-      ],
     }));
   });
 
   it('upload image output', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'image',
     });
     expect(s.fieldDecoratorType).toEqual('() => String');
@@ -181,6 +181,12 @@ describe('fieldtype disable output', () => {
 describe('custom decorators and description', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `fields_Validator_from = "class-validator"`,
+        `fields_Validator_output = true`,
+        `fields_Validator_input = true`,
+      ],
       schema: `
                 model User {
                     /// user id really
@@ -189,19 +195,13 @@ describe('custom decorators and description', () => {
                     /// @Validator.Length(5, 15, "check length")
                     name String
                 }`,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `fields_Validator_from = "class-validator"`,
-        `fields_Validator_output = true`,
-        `fields_Validator_input = true`,
-      ],
     }));
   });
 
   it('has description', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'name',
     });
     expect(s.fieldDecoratorOptions).toContain("description:'User name really'");
@@ -209,8 +209,8 @@ describe('custom decorators and description', () => {
 
   it('has decorator length', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'name',
     });
     expect(s.propertyDecorators).toHaveLength(2);
@@ -224,25 +224,25 @@ describe('custom decorators and description', () => {
 describe('custom decorators default import', () => {
   before(async () => {
     ({ project } = await testGenerate({
-      schema: `
-                model User {
-                    id Int @id
-                    /// @IsValidName()
-                    name String
-                }`,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `fields_IsValidName_from = "is-valid-name"`,
         `fields_IsValidName_input = true`,
         `fields_IsValidName_defaultImport = IsValidName`,
       ],
+      schema: `
+                model User {
+                    id Int @id
+                    /// @IsValidName()
+                    name String
+                }`,
     }));
   });
 
   it('importDeclarations should import default', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create.input.ts',
+      project,
     });
 
     const importDeclarations = s.sourceFile
@@ -264,25 +264,25 @@ describe('custom decorators default import', () => {
 describe('default import alternative syntax', () => {
   before(async () => {
     ({ project } = await testGenerate({
-      schema: `
-                model User {
-                    id Int @id
-                    /// @IsEmail()
-                    name String
-                }`,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `fields_IsEmail_from = "isvalidemail"`,
         `fields_IsEmail_input = true`,
         `fields_IsEmail_defaultImport = true`,
       ],
+      schema: `
+                model User {
+                    id Int @id
+                    /// @IsEmail()
+                    name String
+                }`,
     }));
   });
 
   it('test', () => {
     const s = testSourceFile({
-      project,
       file: 'user-create.input.ts',
+      project,
     });
     const importDeclarations = s.sourceFile
       .getImportDeclarations()
@@ -302,6 +302,13 @@ describe('default import alternative syntax', () => {
 describe('custom decorators field custom type namespace', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        // import { EmailAddress } from 'graphql-scalars'
+        // @Field(() => EmailAddress)
+        `fields_Scalars_from = "graphql-scalars"`,
+        `fields_Scalars_input = true`,
+      ],
       schema: `
                 model User {
                     id Int @id
@@ -310,21 +317,14 @@ describe('custom decorators field custom type namespace', () => {
                     /// @FieldType('Scalars.EmailAddress')
                     secondEmail String
                 }`,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        // import { EmailAddress } from 'graphql-scalars'
-        // @Field(() => EmailAddress)
-        `fields_Scalars_from = "graphql-scalars"`,
-        `fields_Scalars_input = true`,
-      ],
     }));
   });
 
   describe('user create input', () => {
     it('email field type', () => {
       const s = testSourceFile({
-        project,
         file: 'user-create.input.ts',
+        project,
         property: 'email',
       });
       expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
@@ -333,8 +333,8 @@ describe('custom decorators field custom type namespace', () => {
 
     it('field type secondemail', () => {
       const s = testSourceFile({
-        project,
         file: 'user-create.input.ts',
+        project,
         property: 'secondEmail',
       });
       expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
@@ -342,8 +342,8 @@ describe('custom decorators field custom type namespace', () => {
 
     it('importdeclarations should import namespace', () => {
       const s = testSourceFile({
-        project,
         file: 'user-create.input.ts',
+        project,
       });
       expect(s.namespaceImports).toContainEqual({
         name: 'Scalars',
@@ -355,8 +355,8 @@ describe('custom decorators field custom type namespace', () => {
   describe('custom type user model', () => {
     it('custom type user model email field type', () => {
       const s = testSourceFile({
-        project,
         file: 'user.model.ts',
+        project,
         property: 'email',
       });
       expect(s.fieldDecoratorType).toEqual('() => Scalars.EmailAddress');
@@ -367,13 +367,6 @@ describe('custom decorators field custom type namespace', () => {
 describe('decorate option', () => {
   before(async () => {
     ({ project } = await testGenerate({
-      schema: `
-            model User {
-                id Int @id @default(autoincrement())
-                /// @Validator.MinLength(3)
-                name String
-            }
-            `,
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `fields_Validator_from = "class-validator"`,
@@ -391,26 +384,33 @@ describe('decorate option', () => {
         // `decorate_2_namespaceImport = "Transform"`,
         // `decorate_2_name = "Transform.Type"`,
       ],
+      schema: `
+            model User {
+                id Int @id @default(autoincrement())
+                /// @Validator.MinLength(3)
+                name String
+            }
+            `,
     }));
   });
 
   it('validatenested create one user args', () => {
     const s = testSourceFile({
-      project,
       file: 'create-one-user.args.ts',
+      project,
       property: 'data',
     });
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'ValidateNested',
         arguments: [],
+        name: 'ValidateNested',
         typeArguments: [],
       }),
     );
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => UserCreateInput'],
+        name: 'Type',
         typeArguments: [],
       }),
     );
@@ -426,22 +426,22 @@ describe('decorate option', () => {
 
   it('validatenested create many user args', () => {
     const s = testSourceFile({
-      project,
       file: 'create-many-user.args.ts',
+      project,
       property: 'data',
     });
 
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'ValidateNested',
         arguments: [],
+        name: 'ValidateNested',
         typeArguments: [],
       }),
     );
     expect(s.propertyDecorators).toContainEqual(
       expect.objectContaining({
-        name: 'Type',
         arguments: ['() => UserCreateManyInput'],
+        name: 'Type',
         typeArguments: [],
       }),
     );
@@ -459,6 +459,12 @@ describe('decorate option', () => {
 describe('model decorate', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `fields_NG_from = "@nestjs/graphql"`,
+        `fields_NG_output = false`,
+        `fields_NG_model = true`,
+      ],
       schema: `
             /// @NG.Directive('@extends')
             /// @NG.Directive('@key(fields: "id")')
@@ -466,19 +472,13 @@ describe('model decorate', () => {
                 /// @NG.Directive('@external')
                 id String @id
             }`,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `fields_NG_from = "@nestjs/graphql"`,
-        `fields_NG_output = false`,
-        `fields_NG_model = true`,
-      ],
     }));
   });
 
   it('user model id property', () => {
     const { propertyDecorators } = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'id',
     });
     expect(propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
@@ -489,8 +489,8 @@ describe('model decorate', () => {
 
   it('user model class', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
     });
     expect(s.namespaceImports).toContainEqual({
       name: 'NG',
@@ -501,8 +501,8 @@ describe('model decorate', () => {
 
   it('usergroupby should not have ng.directive', () => {
     const s = testSourceFile({
-      project,
       file: 'user-group-by.output.ts',
+      project,
       property: 'id',
     });
     expect(s.propertyDecorators).toHaveLength(1);
@@ -513,6 +513,7 @@ describe('model decorate', () => {
 describe('model directive', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
             /// @Directive({ arguments: ['@extends'] })
             /// @Directive({ arguments: ['@key(fields: "id")'] })
@@ -520,14 +521,13 @@ describe('model directive', () => {
                 /// @Directive({ arguments: ['@external'] })
                 id String @id
             }`,
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
     }));
   });
 
   it('user model id property', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
       property: 'id',
     });
     expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
@@ -538,8 +538,8 @@ describe('model directive', () => {
 
   it('user model class', () => {
     const s = testSourceFile({
-      project,
       file: 'user.model.ts',
+      project,
     });
     expect(s.namedImports).toContainEqual({
       name: 'Directive',
@@ -550,8 +550,8 @@ describe('model directive', () => {
 
   it('usergroupby should not have ng.directive', () => {
     const s = testSourceFile({
-      project,
       file: 'user-group-by.output.ts',
+      project,
       property: 'id',
     });
     expect(s.propertyDecorators).toHaveLength(1);
@@ -566,6 +566,14 @@ describe('model directive', () => {
 describe('hide and decorate', () => {
   before(async () => {
     ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `decorate_3_type = "ProfileUncheckedCreateNestedOneWithoutUserInput"`,
+        `decorate_3_field = "!(create)"`,
+        `decorate_3_name = "HideField"`,
+        `decorate_3_from = "@nestjs/graphql"`,
+        `decorate_3_arguments = "[]"`,
+      ],
       schema: `
             model User {
                 id String @id
@@ -577,14 +585,6 @@ describe('hide and decorate', () => {
                 userId String  @unique
             }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `decorate_3_type = "ProfileUncheckedCreateNestedOneWithoutUserInput"`,
-        `decorate_3_field = "!(create)"`,
-        `decorate_3_name = "HideField"`,
-        `decorate_3_from = "@nestjs/graphql"`,
-        `decorate_3_arguments = "[]"`,
-      ],
     }));
   });
 
@@ -596,8 +596,8 @@ describe('hide and decorate', () => {
 
   it('should keep only create', () => {
     const s = testSourceFile({
-      project,
       class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
+      project,
       property: 'create',
     });
 
@@ -606,12 +606,11 @@ describe('hide and decorate', () => {
     );
   });
 
-  // eslint-disable-next-line unicorn/no-array-for-each
   ['connect', 'connectOrCreate'].forEach(property => {
     it(`${property} property should be disabled`, () => {
       const s = testSourceFile({
-        project,
         class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
+        project,
         property,
       });
 

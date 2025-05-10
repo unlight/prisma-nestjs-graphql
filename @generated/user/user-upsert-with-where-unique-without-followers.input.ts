@@ -8,15 +8,16 @@ import { UserCreateWithoutFollowersInput } from './user-create-without-followers
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowersInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserUpdateWithoutFollowersInput, { nullable: false })
-  @Type(() => UserUpdateWithoutFollowersInput)
-  update!: UserUpdateWithoutFollowersInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserCreateWithoutFollowersInput, { nullable: false })
-  @Type(() => UserCreateWithoutFollowersInput)
-  create!: UserCreateWithoutFollowersInput;
+    @Field(() => UserUpdateWithoutFollowersInput, {nullable:false})
+    @Type(() => UserUpdateWithoutFollowersInput)
+    update!: UserUpdateWithoutFollowersInput;
+
+    @Field(() => UserCreateWithoutFollowersInput, {nullable:false})
+    @Type(() => UserCreateWithoutFollowersInput)
+    create!: UserCreateWithoutFollowersInput;
 }

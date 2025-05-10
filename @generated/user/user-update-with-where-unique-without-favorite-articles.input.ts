@@ -7,11 +7,12 @@ import { UserUpdateWithoutFavoriteArticlesInput } from './user-update-without-fa
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
-  @Type(() => UserUpdateWithoutFavoriteArticlesInput)
-  data!: UserUpdateWithoutFavoriteArticlesInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserUpdateWithoutFavoriteArticlesInput, {nullable:false})
+    @Type(() => UserUpdateWithoutFavoriteArticlesInput)
+    data!: UserUpdateWithoutFavoriteArticlesInput;
 }

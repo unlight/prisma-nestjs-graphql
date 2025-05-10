@@ -7,24 +7,25 @@ import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
 export class DummyMaxAggregate {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => Date, { nullable: true })
-  date?: Date | string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => Int, { nullable: true })
-  int?: number;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
 
-  @Field(() => Float, { nullable: true })
-  float?: number;
+    @Field(() => Int, {nullable:true})
+    int?: number;
 
-  @Field(() => String, { nullable: true })
-  bytes?: Uint8Array;
+    @Field(() => Float, {nullable:true})
+    float?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: true })
-  decimal?: Decimal;
+    @Field(() => String, {nullable:true})
+    bytes?: Uint8Array;
 
-  @Field(() => String, { nullable: true })
-  bigInt?: bigint | number;
+    @Field(() => GraphQLDecimal, {nullable:true})
+    decimal?: Decimal;
+
+    @Field(() => String, {nullable:true})
+    bigInt?: bigint | number;
 }

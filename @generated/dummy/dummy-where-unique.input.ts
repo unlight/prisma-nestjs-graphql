@@ -14,47 +14,48 @@ import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.
 
 @InputType()
 export class DummyWhereUniqueInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => [DummyWhereInput], { nullable: true })
-  @Type(() => DummyWhereInput)
-  AND?: Array<DummyWhereInput>;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => [DummyWhereInput], { nullable: true })
-  @Type(() => DummyWhereInput)
-  OR?: Array<DummyWhereInput>;
+    @Field(() => [DummyWhereInput], {nullable:true})
+    @Type(() => DummyWhereInput)
+    AND?: Array<DummyWhereInput>;
 
-  @Field(() => [DummyWhereInput], { nullable: true })
-  @Type(() => DummyWhereInput)
-  NOT?: Array<DummyWhereInput>;
+    @Field(() => [DummyWhereInput], {nullable:true})
+    @Type(() => DummyWhereInput)
+    OR?: Array<DummyWhereInput>;
 
-  @Field(() => DateTimeNullableFilter, { nullable: true })
-  date?: DateTimeNullableFilter;
+    @Field(() => [DummyWhereInput], {nullable:true})
+    @Type(() => DummyWhereInput)
+    NOT?: Array<DummyWhereInput>;
 
-  @Field(() => IntNullableFilter, { nullable: true })
-  int?: IntNullableFilter;
+    @Field(() => DateTimeNullableFilter, {nullable:true})
+    date?: DateTimeNullableFilter;
 
-  @Field(() => FloatNullableFilter, { nullable: true })
-  float?: FloatNullableFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    int?: IntNullableFilter;
 
-  @Field(() => BytesNullableFilter, { nullable: true })
-  bytes?: BytesNullableFilter;
+    @Field(() => FloatNullableFilter, {nullable:true})
+    float?: FloatNullableFilter;
 
-  @Field(() => DecimalFilter, { nullable: true })
-  @Type(() => DecimalFilter)
-  decimal?: DecimalFilter;
+    @Field(() => BytesNullableFilter, {nullable:true})
+    bytes?: BytesNullableFilter;
 
-  @Field(() => DecimalNullableListFilter, { nullable: true })
-  @Type(() => DecimalNullableListFilter)
-  decimals?: DecimalNullableListFilter;
+    @Field(() => DecimalFilter, {nullable:true})
+    @Type(() => DecimalFilter)
+    decimal?: DecimalFilter;
 
-  @Field(() => BigIntNullableFilter, { nullable: true })
-  bigInt?: BigIntNullableFilter;
+    @Field(() => DecimalNullableListFilter, {nullable:true})
+    @Type(() => DecimalNullableListFilter)
+    decimals?: DecimalNullableListFilter;
 
-  @Field(() => JsonNullableFilter, { nullable: true })
-  json?: JsonNullableFilter;
+    @Field(() => BigIntNullableFilter, {nullable:true})
+    bigInt?: BigIntNullableFilter;
 
-  @Field(() => StringNullableListFilter, { nullable: true })
-  friends?: StringNullableListFilter;
+    @Field(() => JsonNullableFilter, {nullable:true})
+    json?: JsonNullableFilter;
+
+    @Field(() => StringNullableListFilter, {nullable:true})
+    friends?: StringNullableListFilter;
 }

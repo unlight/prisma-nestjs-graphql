@@ -44,15 +44,15 @@ export function inputType(
     type: fileType,
   });
   const classStructure: ClassDeclarationStructure = {
-    kind: StructureKind.Class,
-    isExported: true,
-    name: inputType.name,
     decorators: [
       {
-        name: classDecoratorName,
         arguments: [],
+        name: classDecoratorName,
       },
     ],
+    isExported: true,
+    kind: StructureKind.Class,
+    name: inputType.name,
     properties: [],
   };
   const modelName = getModelName(inputType.name) || '';
@@ -62,12 +62,12 @@ export function inputType(
 
   importDeclarations
     .set('Field', {
-      namedImports: [{ name: 'Field' }],
       moduleSpecifier,
+      namedImports: [{ name: 'Field' }],
     })
     .set(classDecoratorName, {
-      namedImports: [{ name: classDecoratorName }],
       moduleSpecifier,
+      namedImports: [{ name: classDecoratorName }],
     });
 
   const useInputType = config.useInputType.find(x =>
@@ -93,8 +93,8 @@ export function inputType(
     const typeName = String(type);
     const settings = modelFieldSettings?.get(name);
     const propertySettings = settings?.getPropertyType({
-      name: inputType.name,
       input: true,
+      name: inputType.name,
     });
     const modelField = model?.fields.find(f => f.name === name);
     const isCustomsApplicable = typeName === modelField?.type;
@@ -121,15 +121,14 @@ export function inputType(
         atLeastKeys?.includes(name),
     );
     const property = propertyStructure({
-      name,
-      isNullable: !isRequired,
       hasExclamationToken: hasExclamationToken || undefined,
       hasQuestionToken: hasExclamationToken ? false : undefined,
-      propertyType,
       isList,
+      isNullable: !isRequired,
+      name,
+      propertyType,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     classStructure.properties!.push(property);
 
     if (propertySettings) {
@@ -145,8 +144,8 @@ export function inputType(
     let graphqlType: string;
     const shouldHideField =
       settings?.shouldHideField({
-        name: inputType.name,
         input: true,
+        name: inputType.name,
       }) ||
       config.decorate.some(
         d =>
@@ -157,8 +156,8 @@ export function inputType(
       );
 
     const fieldType = settings?.getFieldType({
-      name: inputType.name,
       input: true,
+      name: inputType.name,
     });
 
     if (fieldType && isCustomsApplicable && !shouldHideField) {
@@ -168,10 +167,10 @@ export function inputType(
       // Import property type class
       const graphqlImport = getGraphqlImport({
         config,
-        sourceFile,
-        location,
-        typeName,
         getSourceFile,
+        location,
+        sourceFile,
+        typeName,
       });
 
       graphqlType = graphqlImport.name;
@@ -188,8 +187,8 @@ export function inputType(
         //     (shouldHideField && referenceName === graphqlImport.name))
       ) {
         importDeclarations.set(graphqlImport.name, {
-          namedImports: [{ name: graphqlImport.name }],
           moduleSpecifier: graphqlImport.specifier,
+          namedImports: [{ name: graphqlImport.name }],
         });
       }
     }
@@ -198,11 +197,10 @@ export function inputType(
 
     if (shouldHideField) {
       importDeclarations.add('HideField', moduleSpecifier);
-      property.decorators.push({ name: 'HideField', arguments: [] });
+      property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
       // Generate `@Field()` decorator
       property.decorators.push({
-        name: 'Field',
         arguments: [
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
           JSON5.stringify({
@@ -210,6 +208,7 @@ export function inputType(
             nullable: !isRequired,
           }),
         ],
+        name: 'Field',
       });
 
       if (graphqlType === 'GraphQLDecimal') {
@@ -219,12 +218,12 @@ export function inputType(
 
         property.decorators.push(
           {
-            name: 'Type',
             arguments: ['() => Object'],
+            name: 'Type',
           },
           {
-            name: 'Transform',
             arguments: ['transformToDecimal'],
+            name: 'Transform',
           },
         );
       } else if (
@@ -256,7 +255,7 @@ export function inputType(
               )))
       ) {
         importDeclarations.add('Type', 'class-transformer');
-        property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
+        property.decorators.push({ arguments: [`() => ${graphqlType}`], name: 'Type' });
       }
 
       if (isCustomsApplicable) {
@@ -266,8 +265,8 @@ export function inputType(
             true
           ) {
             property.decorators.push({
-              name: options.name,
               arguments: options.arguments as string[],
+              name: options.name,
             });
             ok(options.from, "Missed 'from' part in configuration or field setting");
             importDeclarations.create(options);
@@ -278,8 +277,8 @@ export function inputType(
       for (const decorate of config.decorate) {
         if (decorate.isMatchField(name) && decorate.isMatchType(inputType.name)) {
           property.decorators.push({
-            name: decorate.name,
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
+            name: decorate.name,
           });
           importDeclarations.create(decorate);
         }
@@ -287,8 +286,8 @@ export function inputType(
     }
 
     eventEmitter.emitSync('ClassProperty', property, {
-      location,
       isList,
+      location,
       propertyType,
     });
   }

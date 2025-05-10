@@ -7,11 +7,12 @@ import { ArticleUpdateWithoutAuthorInput } from './article-update-without-author
 
 @InputType()
 export class ArticleUpdateWithWhereUniqueWithoutAuthorInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateWithoutAuthorInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutAuthorInput)
-  data!: ArticleUpdateWithoutAuthorInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleUpdateWithoutAuthorInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutAuthorInput)
+    data!: ArticleUpdateWithoutAuthorInput;
 }

@@ -14,34 +14,35 @@ import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
 
 @ArgsType()
 export class ArticleAggregateArgs {
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
 
-  @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
-  orderBy?: Array<ArticleOrderByWithRelationInput>;
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    where?: ArticleWhereInput;
 
-  @Field(() => ArticleWhereUniqueInput, { nullable: true })
-  cursor?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+    @Field(() => [ArticleOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<ArticleOrderByWithRelationInput>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => ArticleWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => ArticleCountAggregateInput, { nullable: true })
-  _count?: ArticleCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => ArticleAvgAggregateInput, { nullable: true })
-  _avg?: ArticleAvgAggregateInput;
+    @Field(() => ArticleCountAggregateInput, {nullable:true})
+    _count?: ArticleCountAggregateInput;
 
-  @Field(() => ArticleSumAggregateInput, { nullable: true })
-  _sum?: ArticleSumAggregateInput;
+    @Field(() => ArticleAvgAggregateInput, {nullable:true})
+    _avg?: ArticleAvgAggregateInput;
 
-  @Field(() => ArticleMinAggregateInput, { nullable: true })
-  _min?: ArticleMinAggregateInput;
+    @Field(() => ArticleSumAggregateInput, {nullable:true})
+    _sum?: ArticleSumAggregateInput;
 
-  @Field(() => ArticleMaxAggregateInput, { nullable: true })
-  _max?: ArticleMaxAggregateInput;
+    @Field(() => ArticleMinAggregateInput, {nullable:true})
+    _min?: ArticleMinAggregateInput;
+
+    @Field(() => ArticleMaxAggregateInput, {nullable:true})
+    _max?: ArticleMaxAggregateInput;
 }

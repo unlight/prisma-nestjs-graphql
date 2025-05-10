@@ -12,7 +12,7 @@ export function argsType(field: SchemaField, args: EventArguments) {
   }
   if (isManyAndReturnOutputType(field.name)) return;
 
-  const { eventEmitter, typeNames, getModelName } = args;
+  const { eventEmitter, getModelName, typeNames } = args;
   let className = pascalCase(`${field.name}Args`);
   const modelName = getModelName(className) || '';
 
@@ -28,10 +28,9 @@ export function argsType(field: SchemaField, args: EventArguments) {
   }
 
   const inputType: InputType = {
-    // eslint-disable-next-line unicorn/no-null
     constraints: { maxNumFields: null, minNumFields: null },
-    name: className,
     fields: [...field.args],
+    name: className,
   };
 
   if (
@@ -52,24 +51,24 @@ export function argsType(field: SchemaField, args: EventArguments) {
       }
 
       inputType.fields.push({
-        name: `_${name.toLowerCase()}`,
-        isRequired: false,
-        isNullable: true,
         inputTypes: [
           {
+            isList: false,
             location: 'inputObjectTypes',
             type: `${modelName}${name}AggregateInput`,
-            isList: false,
           },
         ],
+        isNullable: true,
+        isRequired: false,
+        name: `_${name.toLowerCase()}`,
       });
     }
   }
 
   eventEmitter.emitSync('InputType', {
     ...args,
-    inputType,
-    fileType: 'args',
     classDecoratorName: 'ArgsType',
+    fileType: 'args',
+    inputType,
   });
 }

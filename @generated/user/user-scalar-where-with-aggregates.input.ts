@@ -10,46 +10,47 @@ import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullab
 
 @InputType()
 export class UserScalarWhereWithAggregatesInput {
-  @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
-  @Type(() => UserScalarWhereWithAggregatesInput)
-  AND?: Array<UserScalarWhereWithAggregatesInput>;
 
-  @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
-  @Type(() => UserScalarWhereWithAggregatesInput)
-  OR?: Array<UserScalarWhereWithAggregatesInput>;
+    @Field(() => [UserScalarWhereWithAggregatesInput], {nullable:true})
+    @Type(() => UserScalarWhereWithAggregatesInput)
+    AND?: Array<UserScalarWhereWithAggregatesInput>;
 
-  @Field(() => [UserScalarWhereWithAggregatesInput], { nullable: true })
-  @Type(() => UserScalarWhereWithAggregatesInput)
-  NOT?: Array<UserScalarWhereWithAggregatesInput>;
+    @Field(() => [UserScalarWhereWithAggregatesInput], {nullable:true})
+    @Type(() => UserScalarWhereWithAggregatesInput)
+    OR?: Array<UserScalarWhereWithAggregatesInput>;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+    @Field(() => [UserScalarWhereWithAggregatesInput], {nullable:true})
+    @Type(() => UserScalarWhereWithAggregatesInput)
+    NOT?: Array<UserScalarWhereWithAggregatesInput>;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  email?: StringWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    id?: StringWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  name?: StringWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    email?: StringWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  password?: StringWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: StringWithAggregatesFilter;
 
-  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  bio?: StringNullableWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    password?: StringWithAggregatesFilter;
 
-  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  image?: StringNullableWithAggregatesFilter;
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    bio?: StringNullableWithAggregatesFilter;
 
-  @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
-  countComments?: IntNullableWithAggregatesFilter;
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    image?: StringNullableWithAggregatesFilter;
 
-  @Field(() => FloatNullableWithAggregatesFilter, { nullable: true })
-  rating?: FloatNullableWithAggregatesFilter;
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    countComments?: IntNullableWithAggregatesFilter;
 
-  @Field(() => DecimalNullableWithAggregatesFilter, { nullable: true })
-  @Type(() => DecimalNullableWithAggregatesFilter)
-  money?: DecimalNullableWithAggregatesFilter;
+    @Field(() => FloatNullableWithAggregatesFilter, {nullable:true})
+    rating?: FloatNullableWithAggregatesFilter;
 
-  @Field(() => EnumRoleNullableWithAggregatesFilter, { nullable: true })
-  role?: EnumRoleNullableWithAggregatesFilter;
+    @Field(() => DecimalNullableWithAggregatesFilter, {nullable:true})
+    @Type(() => DecimalNullableWithAggregatesFilter)
+    money?: DecimalNullableWithAggregatesFilter;
+
+    @Field(() => EnumRoleNullableWithAggregatesFilter, {nullable:true})
+    role?: EnumRoleNullableWithAggregatesFilter;
 }

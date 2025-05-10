@@ -41,6 +41,11 @@ const setSourceFile = (name: string) => {
 describe.skip('user test', () => {
   before(async () => {
     ({ project, sourceFiles } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `useInputType_WhereInput_ALL = "WhereInput"`,
+        `useInputType_CreateOne_ALL = "UncheckedCreate"`,
+      ],
       schema: `
 model User {
   id    Int     @id @default(autoincrement())
@@ -58,11 +63,6 @@ model Post {
   authorId  Int?
 }
             `,
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `useInputType_WhereInput_ALL = "WhereInput"`,
-        `useInputType_CreateOne_ALL = "UncheckedCreate"`,
-      ],
     }));
   });
 

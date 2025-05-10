@@ -8,25 +8,26 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ProfileWhereUniqueInput {
-  @Field(() => Int, { nullable: true })
-  id?: number;
 
-  @Field(() => String, { nullable: true })
-  userId?: string;
+    @Field(() => Int, {deprecationReason:'Use new name instead',nullable:true})
+    id?: number;
 
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  AND?: Array<ProfileWhereInput>;
+    @Field(() => String, {nullable:true})
+    userId?: string;
 
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  OR?: Array<ProfileWhereInput>;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    AND?: Array<ProfileWhereInput>;
 
-  @Field(() => [ProfileWhereInput], { nullable: true })
-  NOT?: Array<ProfileWhereInput>;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    OR?: Array<ProfileWhereInput>;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  dummy?: StringNullableFilter;
+    @Field(() => [ProfileWhereInput], {nullable:true})
+    NOT?: Array<ProfileWhereInput>;
 
-  @Field(() => UserScalarRelationFilter, { nullable: true })
-  @Type(() => UserScalarRelationFilter)
-  user?: UserScalarRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    dummy?: StringNullableFilter;
+
+    @Field(() => UserScalarRelationFilter, {nullable:true})
+    @Type(() => UserScalarRelationFilter)
+    user?: UserScalarRelationFilter;
 }

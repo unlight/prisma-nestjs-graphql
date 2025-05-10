@@ -1047,7 +1047,7 @@ it('several models', () => {
       .flatMap(s => s.getClasses())
       .flatMap(d => d.getProperties())
       .flatMap(p => p.getDecorators())) {
-      const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+      const argument = d.getCallExpression()?.getArguments()[0].getText();
       expect(argument).not.toContain('null');
     }
   });

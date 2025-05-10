@@ -11,31 +11,32 @@ import { ArticleUpdateToOneWithWhereWithoutCommentsInput } from './article-updat
 
 @InputType()
 export class ArticleUpdateOneWithoutCommentsNestedInput {
-  @Field(() => ArticleCreateWithoutCommentsInput, { nullable: true })
-  @Type(() => ArticleCreateWithoutCommentsInput)
-  create?: ArticleCreateWithoutCommentsInput;
 
-  @Field(() => ArticleCreateOrConnectWithoutCommentsInput, { nullable: true })
-  @Type(() => ArticleCreateOrConnectWithoutCommentsInput)
-  connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
+    @Field(() => ArticleCreateWithoutCommentsInput, {nullable:true})
+    @Type(() => ArticleCreateWithoutCommentsInput)
+    create?: ArticleCreateWithoutCommentsInput;
 
-  @Field(() => ArticleUpsertWithoutCommentsInput, { nullable: true })
-  @Type(() => ArticleUpsertWithoutCommentsInput)
-  upsert?: ArticleUpsertWithoutCommentsInput;
+    @Field(() => ArticleCreateOrConnectWithoutCommentsInput, {nullable:true})
+    @Type(() => ArticleCreateOrConnectWithoutCommentsInput)
+    connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
 
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  disconnect?: ArticleWhereInput;
+    @Field(() => ArticleUpsertWithoutCommentsInput, {nullable:true})
+    @Type(() => ArticleUpsertWithoutCommentsInput)
+    upsert?: ArticleUpsertWithoutCommentsInput;
 
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  delete?: ArticleWhereInput;
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    disconnect?: ArticleWhereInput;
 
-  @Field(() => ArticleWhereUniqueInput, { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  connect?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    delete?: ArticleWhereInput;
 
-  @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
-  @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)
-  update?: ArticleUpdateToOneWithWhereWithoutCommentsInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    connect?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
+
+    @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, {nullable:true})
+    @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)
+    update?: ArticleUpdateToOneWithWhereWithoutCommentsInput;
 }

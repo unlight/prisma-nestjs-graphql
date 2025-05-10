@@ -9,41 +9,42 @@ import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-c
 
 @InputType()
 export class ArticleCreateWithoutFavoritedByInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  title!: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  description!: string;
+    @Field(() => String, {nullable:false})
+    title!: string;
 
-  @Field(() => String, { nullable: false })
-  body!: string;
+    @Field(() => String, {nullable:false})
+    description!: string;
 
-  @HideField()
-  createdAt?: Date | string;
+    @Field(() => String, {nullable:false})
+    body!: string;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @HideField()
+    createdAt?: Date | string;
 
-  @Field(() => Int, { nullable: true })
-  favoritesCount?: number;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 
-  @Field(() => Boolean, { nullable: true })
-  active?: boolean;
+    @Field(() => Int, {nullable:true})
+    favoritesCount?: number;
 
-  @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
-  tags?: TagCreateNestedManyWithoutArticlesInput;
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 
-  @Field(() => UserCreateNestedOneWithoutArticlesInput, { nullable: false })
-  @Type(() => UserCreateNestedOneWithoutArticlesInput)
-  author!: UserCreateNestedOneWithoutArticlesInput;
+    @Field(() => TagCreateNestedManyWithoutArticlesInput, {nullable:true})
+    tags?: TagCreateNestedManyWithoutArticlesInput;
 
-  @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
-  @Type(() => CommentCreateNestedManyWithoutArticleInput)
-  comments?: CommentCreateNestedManyWithoutArticleInput;
+    @Field(() => UserCreateNestedOneWithoutArticlesInput, {nullable:false})
+    @Type(() => UserCreateNestedOneWithoutArticlesInput)
+    author!: UserCreateNestedOneWithoutArticlesInput;
+
+    @Field(() => CommentCreateNestedManyWithoutArticleInput, {nullable:true})
+    @Type(() => CommentCreateNestedManyWithoutArticleInput)
+    comments?: CommentCreateNestedManyWithoutArticleInput;
 }

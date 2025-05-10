@@ -7,11 +7,12 @@ import { CommentUpdateWithoutArticleInput } from './comment-update-without-artic
 
 @InputType()
 export class CommentUpdateWithWhereUniqueWithoutArticleInput {
-  @Field(() => CommentWhereUniqueInput, { nullable: false })
-  @Type(() => CommentWhereUniqueInput)
-  where!: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
 
-  @Field(() => CommentUpdateWithoutArticleInput, { nullable: false })
-  @Type(() => CommentUpdateWithoutArticleInput)
-  data!: CommentUpdateWithoutArticleInput;
+    @Field(() => CommentWhereUniqueInput, {nullable:false})
+    @Type(() => CommentWhereUniqueInput)
+    where!: Prisma.AtLeast<CommentWhereUniqueInput, 'id'>;
+
+    @Field(() => CommentUpdateWithoutArticleInput, {nullable:false})
+    @Type(() => CommentUpdateWithoutArticleInput)
+    data!: CommentUpdateWithoutArticleInput;
 }

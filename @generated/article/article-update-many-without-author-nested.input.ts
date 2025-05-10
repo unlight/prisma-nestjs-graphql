@@ -13,47 +13,48 @@ import { ArticleScalarWhereInput } from './article-scalar-where.input';
 
 @InputType()
 export class ArticleUpdateManyWithoutAuthorNestedInput {
-  @Field(() => [ArticleCreateWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleCreateWithoutAuthorInput)
-  create?: Array<ArticleCreateWithoutAuthorInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleCreateOrConnectWithoutAuthorInput)
-  connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
+    @Field(() => [ArticleCreateWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleCreateWithoutAuthorInput)
+    create?: Array<ArticleCreateWithoutAuthorInput>;
 
-  @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleUpsertWithWhereUniqueWithoutAuthorInput)
-  upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
+    @Field(() => [ArticleCreateOrConnectWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleCreateOrConnectWithoutAuthorInput)
+    connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
 
-  @Field(() => ArticleCreateManyAuthorInputEnvelope, { nullable: true })
-  @Type(() => ArticleCreateManyAuthorInputEnvelope)
-  createMany?: ArticleCreateManyAuthorInputEnvelope;
+    @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleUpsertWithWhereUniqueWithoutAuthorInput)
+    upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  set?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => ArticleCreateManyAuthorInputEnvelope, {nullable:true})
+    @Type(() => ArticleCreateManyAuthorInputEnvelope)
+    createMany?: ArticleCreateManyAuthorInputEnvelope;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  disconnect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    set?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  delete?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    disconnect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleWhereUniqueInput], { nullable: true })
-  @Type(() => ArticleWhereUniqueInput)
-  connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    delete?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleUpdateWithWhereUniqueWithoutAuthorInput)
-  update?: Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
+    @Field(() => [ArticleWhereUniqueInput], {nullable:true})
+    @Type(() => ArticleWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], { nullable: true })
-  @Type(() => ArticleUpdateManyWithWhereWithoutAuthorInput)
-  updateMany?: Array<ArticleUpdateManyWithWhereWithoutAuthorInput>;
+    @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleUpdateWithWhereUniqueWithoutAuthorInput)
+    update?: Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
 
-  @Field(() => [ArticleScalarWhereInput], { nullable: true })
-  @Type(() => ArticleScalarWhereInput)
-  deleteMany?: Array<ArticleScalarWhereInput>;
+    @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], {nullable:true})
+    @Type(() => ArticleUpdateManyWithWhereWithoutAuthorInput)
+    updateMany?: Array<ArticleUpdateManyWithWhereWithoutAuthorInput>;
+
+    @Field(() => [ArticleScalarWhereInput], {nullable:true})
+    @Type(() => ArticleScalarWhereInput)
+    deleteMany?: Array<ArticleScalarWhereInput>;
 }

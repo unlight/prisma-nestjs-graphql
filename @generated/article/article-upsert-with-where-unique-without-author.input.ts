@@ -8,15 +8,16 @@ import { ArticleCreateWithoutAuthorInput } from './article-create-without-author
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutAuthorInput {
-  @Field(() => ArticleWhereUniqueInput, { nullable: false })
-  @Type(() => ArticleWhereUniqueInput)
-  where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateWithoutAuthorInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutAuthorInput)
-  update!: ArticleUpdateWithoutAuthorInput;
+    @Field(() => ArticleWhereUniqueInput, {nullable:false})
+    @Type(() => ArticleWhereUniqueInput)
+    where!: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleCreateWithoutAuthorInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutAuthorInput)
-  create!: ArticleCreateWithoutAuthorInput;
+    @Field(() => ArticleUpdateWithoutAuthorInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutAuthorInput)
+    update!: ArticleUpdateWithoutAuthorInput;
+
+    @Field(() => ArticleCreateWithoutAuthorInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutAuthorInput)
+    create!: ArticleCreateWithoutAuthorInput;
 }

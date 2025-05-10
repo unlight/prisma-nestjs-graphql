@@ -6,12 +6,13 @@ import { TagMaxAggregate } from './tag-max-aggregate.output';
 
 @ObjectType()
 export class AggregateTag {
-  @Field(() => TagCountAggregate, { nullable: true })
-  _count?: TagCountAggregate;
 
-  @Field(() => TagMinAggregate, { nullable: true })
-  _min?: TagMinAggregate;
+    @Field(() => TagCountAggregate, {nullable:true})
+    _count?: TagCountAggregate;
 
-  @Field(() => TagMaxAggregate, { nullable: true })
-  _max?: TagMaxAggregate;
+    @Field(() => TagMinAggregate, {nullable:true})
+    _min?: TagMinAggregate;
+
+    @Field(() => TagMaxAggregate, {nullable:true})
+    _max?: TagMaxAggregate;
 }

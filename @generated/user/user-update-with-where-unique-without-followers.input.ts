@@ -7,11 +7,12 @@ import { UserUpdateWithoutFollowersInput } from './user-update-without-followers
 
 @InputType()
 export class UserUpdateWithWhereUniqueWithoutFollowersInput {
-  @Field(() => UserWhereUniqueInput, { nullable: false })
-  @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
 
-  @Field(() => UserUpdateWithoutFollowersInput, { nullable: false })
-  @Type(() => UserUpdateWithoutFollowersInput)
-  data!: UserUpdateWithoutFollowersInput;
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+
+    @Field(() => UserUpdateWithoutFollowersInput, {nullable:false})
+    @Type(() => UserUpdateWithoutFollowersInput)
+    data!: UserUpdateWithoutFollowersInput;
 }

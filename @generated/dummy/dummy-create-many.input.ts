@@ -13,37 +13,38 @@ import { DummyCreatefriendsInput } from './dummy-createfriends.input';
 
 @InputType()
 export class DummyCreateManyInput {
-  @Field(() => String, { nullable: false })
-  id!: string;
 
-  @Field(() => Date, { nullable: true })
-  date?: Date | string;
+    @Field(() => String, {nullable:false})
+    id!: string;
 
-  @Field(() => Int, { nullable: true })
-  int?: number;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
 
-  @Field(() => Float, { nullable: true })
-  float?: number;
+    @Field(() => Int, {nullable:true})
+    int?: number;
 
-  @Field(() => String, { nullable: true })
-  bytes?: Uint8Array;
+    @Field(() => Float, {nullable:true})
+    float?: number;
 
-  @Field(() => GraphQLDecimal, { nullable: false })
-  @Type(() => Object)
-  @Transform(transformToDecimal)
-  decimal!: Decimal;
+    @Field(() => String, {nullable:true})
+    bytes?: Uint8Array;
 
-  @Field(() => DummyCreatedecimalsInput, { nullable: true })
-  @Type(() => DummyCreatedecimalsInput)
-  decimals?: DummyCreatedecimalsInput;
+    @Field(() => GraphQLDecimal, {nullable:false})
+    @Type(() => Object)
+    @Transform(transformToDecimal)
+    decimal!: Decimal;
 
-  @Field(() => String, { nullable: true })
-  bigInt?: bigint | number;
+    @Field(() => DummyCreatedecimalsInput, {nullable:true})
+    @Type(() => DummyCreatedecimalsInput)
+    decimals?: DummyCreatedecimalsInput;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  json?: any;
+    @Field(() => String, {nullable:true})
+    bigInt?: bigint | number;
 
-  @Field(() => DummyCreatefriendsInput, { nullable: true })
-  @Type(() => DummyCreatefriendsInput)
-  friends?: DummyCreatefriendsInput;
+    @Field(() => GraphQLJSON, {nullable:true})
+    json?: any;
+
+    @Field(() => DummyCreatefriendsInput, {nullable:true})
+    @Type(() => DummyCreatefriendsInput)
+    friends?: DummyCreatefriendsInput;
 }

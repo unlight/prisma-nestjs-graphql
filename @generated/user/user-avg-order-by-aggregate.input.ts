@@ -4,12 +4,13 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class UserAvgOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  countComments?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  rating?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    countComments?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  money?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    rating?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    money?: `${SortOrder}`;
 }

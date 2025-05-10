@@ -9,13 +9,14 @@ import { ProfileWhereUniqueInput } from './profile-where-unique.input';
 
 @InputType()
 export class ProfileUncheckedCreateNestedOneWithoutUserInput {
-  @Field(() => ProfileCreateWithoutUserInput, { nullable: true })
-  @Type(() => ProfileCreateWithoutUserInput)
-  create?: ProfileCreateWithoutUserInput;
 
-  @HideField()
-  connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+    @Field(() => ProfileCreateWithoutUserInput, {nullable:true})
+    @Type(() => ProfileCreateWithoutUserInput)
+    create?: ProfileCreateWithoutUserInput;
 
-  @HideField()
-  connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
+    @HideField()
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
+
+    @HideField()
+    connect?: Prisma.AtLeast<ProfileWhereUniqueInput, 'id' | 'userId'>;
 }

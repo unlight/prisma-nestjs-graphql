@@ -8,15 +8,16 @@ import { TagUpdateInput } from './tag-update.input';
 
 @ArgsType()
 export class UpsertOneTagArgs {
-  @Field(() => TagWhereUniqueInput, { nullable: false })
-  @Type(() => TagWhereUniqueInput)
-  where!: Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>;
 
-  @Field(() => TagCreateInput, { nullable: false })
-  @Type(() => TagCreateInput)
-  create!: TagCreateInput;
+    @Field(() => TagWhereUniqueInput, {nullable:false})
+    @Type(() => TagWhereUniqueInput)
+    where!: Prisma.AtLeast<TagWhereUniqueInput, 'id' | 'name'>;
 
-  @Field(() => TagUpdateInput, { nullable: false })
-  @Type(() => TagUpdateInput)
-  update!: TagUpdateInput;
+    @Field(() => TagCreateInput, {nullable:false})
+    @Type(() => TagCreateInput)
+    create!: TagCreateInput;
+
+    @Field(() => TagUpdateInput, {nullable:false})
+    @Type(() => TagUpdateInput)
+    update!: TagUpdateInput;
 }
