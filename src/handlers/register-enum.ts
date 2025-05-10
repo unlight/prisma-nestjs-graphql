@@ -11,7 +11,6 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
 
   const dataModelEnum = enums[enumType.name];
   const enumTypesData = dataModelEnum?.values || [];
-  console.log('enumTypesData', enumTypesData);
   const sourceFile = getSourceFile({
     name: enumType.name,
     type: 'enum',
@@ -24,33 +23,29 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
     namedImports: [{ name: 'registerEnumType' }],
   });
 
-  // Create valuesMap based on documentation
+  // Extract valuesMap from enum documentation
   const valuesMap = extractEnumValueDocs(enumTypesData);
 
-  const valuesMapString =
-    Object.keys(valuesMap).length > 0
-      ? `, valuesMap: ${JSON.stringify(valuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')}`
-      : '';
-
-  // Filter out empty entries (those that don't have description or deprecationReason)
+  // Remove entries with no description or deprecationReason
   const filteredValuesMap = Object.fromEntries(
-    Object.entries(valuesMap).filter(([key, value]) => Object.keys(value).length > 0),
+    Object.entries(valuesMap).filter(([_, v]) => Object.keys(v).length > 0),
   );
 
-  // Format valuesMap for the final output
-  const formattedValuesMap = JSON.stringify(filteredValuesMap, null, 2).replace(
-    /"([^"]+)":/g,
-    '$1:',
-  );
+  // Format only if needed
+  const hasValuesMap = Object.keys(filteredValuesMap).length > 0;
+  const formattedValuesMap = hasValuesMap
+    ? JSON.stringify(filteredValuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')
+    : '';
+  const valuesMapEntry = hasValuesMap ? `, valuesMap: ${formattedValuesMap}` : '';
 
   const enumStructure: EnumDeclarationStructure = {
-    isExported: true,
     kind: StructureKind.Enum,
-    members: enumType.values.map(v => ({
-      initializer: JSON.stringify(v),
-      name: v,
-    })),
+    isExported: true,
     name: enumType.name,
+    members: enumType.values.map(v => ({
+      name: v,
+      initializer: JSON.stringify(v),
+    })),
   };
 
   sourceFile.set({
@@ -58,9 +53,9 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
       ...importDeclarations.toStatements(),
       enumStructure,
       '\n',
-      `registerEnumType(${enumType.name}, { name: '${
-        enumType.name
-      }', description: ${JSON.stringify(dataModelEnum?.documentation)}, valuesMap: ${formattedValuesMap} })`,
+      `registerEnumType(${enumType.name}, { name: '${enumType.name}', description: ${JSON.stringify(
+        dataModelEnum?.documentation,
+      )}${valuesMapEntry} })`,
     ],
   });
 }
