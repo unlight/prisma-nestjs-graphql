@@ -1,3 +1,9 @@
+## [21.2.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.1.1...v21.2.0) (2025-05-11)
+
+### Features
+
+* Add enum value-level descriptions and deprecation metadata ([4a2d0d7](https://github.com/unlight/prisma-nestjs-graphql/commit/4a2d0d7a1bb39bb08d83fb8ae96fbf14dbc62efb))
+
 ## [21.1.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.1.0...v21.1.1) (2025-01-26)
 
 ### Bug Fixes
