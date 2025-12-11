@@ -5,10 +5,11 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ArticleCreateManyAuthorInputEnvelope {
-  @Field(() => [ArticleCreateManyAuthorInput], { nullable: false })
-  @Type(() => ArticleCreateManyAuthorInput)
-  data!: Array<ArticleCreateManyAuthorInput>;
 
-  @Field(() => Boolean, { nullable: true })
-  skipDuplicates?: boolean;
+    @Field(() => [ArticleCreateManyAuthorInput], {nullable:false})
+    @Type(() => ArticleCreateManyAuthorInput)
+    data!: Array<ArticleCreateManyAuthorInput>;
+
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
 }

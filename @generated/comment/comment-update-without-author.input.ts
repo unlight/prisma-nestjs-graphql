@@ -8,19 +8,20 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class CommentUpdateWithoutAuthorInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @HideField()
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: StringFieldUpdateOperationsInput;
+    @HideField()
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, { nullable: true })
-  @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
-  article?: ArticleUpdateOneWithoutCommentsNestedInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    body?: StringFieldUpdateOperationsInput;
+
+    @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, {nullable:true})
+    @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
+    article?: ArticleUpdateOneWithoutCommentsNestedInput;
 }

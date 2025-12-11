@@ -4,6 +4,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 
 @InputType()
 export class ProfileUpdateManyMutationInput {
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  dummy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    dummy?: NullableStringFieldUpdateOperationsInput;
 }

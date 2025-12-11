@@ -8,40 +8,41 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ArticleUncheckedCreateWithoutFavoritedByInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => String, { nullable: false })
-  slug!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => String, { nullable: false })
-  title!: string;
+    @Field(() => String, {nullable:false})
+    slug!: string;
 
-  @Field(() => String, { nullable: false })
-  description!: string;
+    @Field(() => String, {nullable:false})
+    title!: string;
 
-  @Field(() => String, { nullable: false })
-  body!: string;
+    @Field(() => String, {nullable:false})
+    description!: string;
 
-  @HideField()
-  createdAt?: Date | string;
+    @Field(() => String, {nullable:false})
+    body!: string;
 
-  @Field(() => Date, { nullable: true })
-  updatedAt?: Date | string;
+    @HideField()
+    createdAt?: Date | string;
 
-  @Field(() => Int, { nullable: true })
-  favoritesCount?: number;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 
-  @Field(() => String, { nullable: false })
-  authorId!: string;
+    @Field(() => Int, {nullable:true})
+    favoritesCount?: number;
 
-  @Field(() => Boolean, { nullable: true })
-  active?: boolean;
+    @Field(() => String, {nullable:false})
+    authorId!: string;
 
-  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, { nullable: true })
-  tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
+    @Field(() => Boolean, {nullable:true})
+    active?: boolean;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
-  @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
-  comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
+    @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {nullable:true})
+    tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
+
+    @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, {nullable:true})
+    @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
+    comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 }

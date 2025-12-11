@@ -5,13 +5,14 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class TagUncheckedCreateInput {
-  @Field(() => String, { nullable: true })
-  id?: string;
 
-  @Field(() => String, { nullable: false })
-  name!: string;
+    @Field(() => String, {nullable:true})
+    id?: string;
 
-  @Field(() => ArticleUncheckedCreateNestedManyWithoutTagsInput, { nullable: true })
-  @Type(() => ArticleUncheckedCreateNestedManyWithoutTagsInput)
-  articles?: ArticleUncheckedCreateNestedManyWithoutTagsInput;
+    @Field(() => String, {nullable:false})
+    name!: string;
+
+    @Field(() => ArticleUncheckedCreateNestedManyWithoutTagsInput, {nullable:true})
+    @Type(() => ArticleUncheckedCreateNestedManyWithoutTagsInput)
+    articles?: ArticleUncheckedCreateNestedManyWithoutTagsInput;
 }

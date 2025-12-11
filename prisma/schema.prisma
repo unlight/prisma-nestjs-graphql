@@ -1,11 +1,13 @@
 datasource database {
   provider = "postgres"
-  url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres", "postgresqlExtensions", "nativeDistinct", "strictUndefinedChecks"]
+  provider        = "prisma-client"
+  output          = "../prisma/client"
+  previewFeatures = ["postgresqlExtensions"]
+  engineType      = "library"
+  moduleFormat    = "esm"
 }
 
 generator nestgraphql {
@@ -39,6 +41,7 @@ generator nestgraphql {
   decorate_3_name                       = "HideField"
   decorate_3_from                       = "@nestjs/graphql"
   decorate_3_arguments                  = "[]"
+  prismaClientImport                    = "../../prisma/client"
 }
 
 /// User really

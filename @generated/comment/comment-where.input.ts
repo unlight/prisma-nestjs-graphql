@@ -9,38 +9,39 @@ import { ArticleWhereInput } from '../article/article-where.input';
 
 @InputType()
 export class CommentWhereInput {
-  @Field(() => [CommentWhereInput], { nullable: true })
-  AND?: Array<CommentWhereInput>;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  OR?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    AND?: Array<CommentWhereInput>;
 
-  @Field(() => [CommentWhereInput], { nullable: true })
-  NOT?: Array<CommentWhereInput>;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    OR?: Array<CommentWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+    @Field(() => [CommentWhereInput], {nullable:true})
+    NOT?: Array<CommentWhereInput>;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+    @Field(() => StringFilter, {nullable:true})
+    id?: StringFilter;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    body?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  articleId?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    authorId?: StringFilter;
 
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  author?: UserWhereInput;
+    @Field(() => StringNullableFilter, {nullable:true})
+    articleId?: StringNullableFilter;
 
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  article?: ArticleWhereInput;
+    @Field(() => UserWhereInput, {nullable:true})
+    @Type(() => UserWhereInput)
+    author?: UserWhereInput;
+
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    article?: ArticleWhereInput;
 }

@@ -5,15 +5,16 @@ import { User } from '../user/user.model';
 
 @ObjectType()
 export class Profile {
-  @Field(() => ID, { nullable: false })
-  id!: number;
 
-  @Field(() => String, { nullable: false })
-  userId!: string;
+    @Field(() => ID, {deprecationReason:'Use new name instead',nullable:false})
+    id!: number;
 
-  @Field(() => String, { nullable: true })
-  dummy!: string | null;
+    @Field(() => String, {nullable:false})
+    userId!: string;
 
-  @Field(() => User, { nullable: false })
-  user?: User;
+    @Field(() => String, {nullable:true})
+    dummy!: string | null;
+
+    @Field(() => User, {nullable:false})
+    user?: User;
 }

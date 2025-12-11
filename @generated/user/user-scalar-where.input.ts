@@ -10,46 +10,47 @@ import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.inpu
 
 @InputType()
 export class UserScalarWhereInput {
-  @Field(() => [UserScalarWhereInput], { nullable: true })
-  @Type(() => UserScalarWhereInput)
-  AND?: Array<UserScalarWhereInput>;
 
-  @Field(() => [UserScalarWhereInput], { nullable: true })
-  @Type(() => UserScalarWhereInput)
-  OR?: Array<UserScalarWhereInput>;
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    @Type(() => UserScalarWhereInput)
+    AND?: Array<UserScalarWhereInput>;
 
-  @Field(() => [UserScalarWhereInput], { nullable: true })
-  @Type(() => UserScalarWhereInput)
-  NOT?: Array<UserScalarWhereInput>;
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    @Type(() => UserScalarWhereInput)
+    OR?: Array<UserScalarWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    @Type(() => UserScalarWhereInput)
+    NOT?: Array<UserScalarWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  email?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    id?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  name?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    email?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  password?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    name?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  bio?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    password?: StringFilter;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  image?: StringNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    bio?: StringNullableFilter;
 
-  @Field(() => IntNullableFilter, { nullable: true })
-  countComments?: IntNullableFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    image?: StringNullableFilter;
 
-  @Field(() => FloatNullableFilter, { nullable: true })
-  rating?: FloatNullableFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    countComments?: IntNullableFilter;
 
-  @Field(() => DecimalNullableFilter, { nullable: true })
-  @Type(() => DecimalNullableFilter)
-  money?: DecimalNullableFilter;
+    @Field(() => FloatNullableFilter, {nullable:true})
+    rating?: FloatNullableFilter;
 
-  @Field(() => EnumRoleNullableFilter, { nullable: true })
-  role?: EnumRoleNullableFilter;
+    @Field(() => DecimalNullableFilter, {nullable:true})
+    @Type(() => DecimalNullableFilter)
+    money?: DecimalNullableFilter;
+
+    @Field(() => EnumRoleNullableFilter, {nullable:true})
+    role?: EnumRoleNullableFilter;
 }

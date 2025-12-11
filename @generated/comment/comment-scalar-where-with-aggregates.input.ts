@@ -6,30 +6,31 @@ import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-wi
 
 @InputType()
 export class CommentScalarWhereWithAggregatesInput {
-  @Field(() => [CommentScalarWhereWithAggregatesInput], { nullable: true })
-  AND?: Array<CommentScalarWhereWithAggregatesInput>;
 
-  @Field(() => [CommentScalarWhereWithAggregatesInput], { nullable: true })
-  OR?: Array<CommentScalarWhereWithAggregatesInput>;
+    @Field(() => [CommentScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<CommentScalarWhereWithAggregatesInput>;
 
-  @Field(() => [CommentScalarWhereWithAggregatesInput], { nullable: true })
-  NOT?: Array<CommentScalarWhereWithAggregatesInput>;
+    @Field(() => [CommentScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<CommentScalarWhereWithAggregatesInput>;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+    @Field(() => [CommentScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<CommentScalarWhereWithAggregatesInput>;
 
-  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  createdAt?: DateTimeWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    id?: StringWithAggregatesFilter;
 
-  @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  updatedAt?: DateTimeWithAggregatesFilter;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: DateTimeWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  body?: StringWithAggregatesFilter;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: DateTimeWithAggregatesFilter;
 
-  @Field(() => StringWithAggregatesFilter, { nullable: true })
-  authorId?: StringWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    body?: StringWithAggregatesFilter;
 
-  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  articleId?: StringNullableWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    authorId?: StringWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    articleId?: StringNullableWithAggregatesFilter;
 }

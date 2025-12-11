@@ -5,7 +5,8 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneDummyArgs {
-  @Field(() => DummyCreateInput, { nullable: false })
-  @Type(() => DummyCreateInput)
-  data!: DummyCreateInput;
+
+    @Field(() => DummyCreateInput, {nullable:false})
+    @Type(() => DummyCreateInput)
+    data!: DummyCreateInput;
 }

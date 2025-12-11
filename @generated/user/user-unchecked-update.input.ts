@@ -16,60 +16,59 @@ import { ProfileUncheckedUpdateOneWithoutUserNestedInput } from '../profile/prof
 
 @InputType()
 export class UserUncheckedUpdateInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  email?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  password?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    name?: StringFieldUpdateOperationsInput;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  bio?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: StringFieldUpdateOperationsInput;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  image?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    bio?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  countComments?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    image?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  rating?: NullableFloatFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    countComments?: NullableIntFieldUpdateOperationsInput;
 
-  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => NullableDecimalFieldUpdateOperationsInput)
-  money?: NullableDecimalFieldUpdateOperationsInput;
+    @Field(() => NullableFloatFieldUpdateOperationsInput, {nullable:true})
+    rating?: NullableFloatFieldUpdateOperationsInput;
 
-  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-  role?: NullableEnumRoleFieldUpdateOperationsInput;
+    @Field(() => NullableDecimalFieldUpdateOperationsInput, {nullable:true})
+    @Type(() => NullableDecimalFieldUpdateOperationsInput)
+    money?: NullableDecimalFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, { nullable: true })
-  @Type(() => UserUncheckedUpdateManyWithoutFollowersNestedInput)
-  following?: UserUncheckedUpdateManyWithoutFollowersNestedInput;
+    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowingNestedInput, { nullable: true })
-  @Type(() => UserUncheckedUpdateManyWithoutFollowingNestedInput)
-  followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput;
+    @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, {nullable:true})
+    @Type(() => UserUncheckedUpdateManyWithoutFollowersNestedInput)
+    following?: UserUncheckedUpdateManyWithoutFollowersNestedInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput, {
-    nullable: true,
-  })
-  @Type(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput)
-  favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput;
+    @Field(() => UserUncheckedUpdateManyWithoutFollowingNestedInput, {nullable:true})
+    @Type(() => UserUncheckedUpdateManyWithoutFollowingNestedInput)
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
-  @Type(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput)
-  articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput;
+    @Field(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput, {nullable:true})
+    @Type(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput)
+    favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput;
 
-  @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
-  @Type(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput)
-  comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput;
+    @Field(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    @Type(() => ArticleUncheckedUpdateManyWithoutAuthorNestedInput)
+    articles?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput;
 
-  @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, { nullable: true })
-  @Type(() => ProfileUncheckedUpdateOneWithoutUserNestedInput)
-  profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
+    @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
+    @Type(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput)
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput;
+
+    @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, {nullable:true})
+    @Type(() => ProfileUncheckedUpdateOneWithoutUserNestedInput)
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 }

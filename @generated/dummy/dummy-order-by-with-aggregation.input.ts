@@ -11,53 +11,54 @@ import { DummySumOrderByAggregateInput } from './dummy-sum-order-by-aggregate.in
 
 @InputType()
 export class DummyOrderByWithAggregationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  date?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  int?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    date?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  float?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    int?: SortOrderInput;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  bytes?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    float?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimal?: `${SortOrder}`;
+    @Field(() => SortOrderInput, {nullable:true})
+    bytes?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimals?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    decimal?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  bigInt?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    decimals?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  json?: SortOrderInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    bigInt?: SortOrderInput;
 
-  @Field(() => SortOrder, { nullable: true })
-  friends?: `${SortOrder}`;
+    @Field(() => SortOrderInput, {nullable:true})
+    json?: SortOrderInput;
 
-  @Field(() => DummyCountOrderByAggregateInput, { nullable: true })
-  @Type(() => DummyCountOrderByAggregateInput)
-  _count?: DummyCountOrderByAggregateInput;
+    @Field(() => SortOrder, {nullable:true})
+    friends?: `${SortOrder}`;
 
-  @Field(() => DummyAvgOrderByAggregateInput, { nullable: true })
-  @Type(() => DummyAvgOrderByAggregateInput)
-  _avg?: DummyAvgOrderByAggregateInput;
+    @Field(() => DummyCountOrderByAggregateInput, {nullable:true})
+    @Type(() => DummyCountOrderByAggregateInput)
+    _count?: DummyCountOrderByAggregateInput;
 
-  @Field(() => DummyMaxOrderByAggregateInput, { nullable: true })
-  @Type(() => DummyMaxOrderByAggregateInput)
-  _max?: DummyMaxOrderByAggregateInput;
+    @Field(() => DummyAvgOrderByAggregateInput, {nullable:true})
+    @Type(() => DummyAvgOrderByAggregateInput)
+    _avg?: DummyAvgOrderByAggregateInput;
 
-  @Field(() => DummyMinOrderByAggregateInput, { nullable: true })
-  @Type(() => DummyMinOrderByAggregateInput)
-  _min?: DummyMinOrderByAggregateInput;
+    @Field(() => DummyMaxOrderByAggregateInput, {nullable:true})
+    @Type(() => DummyMaxOrderByAggregateInput)
+    _max?: DummyMaxOrderByAggregateInput;
 
-  @Field(() => DummySumOrderByAggregateInput, { nullable: true })
-  @Type(() => DummySumOrderByAggregateInput)
-  _sum?: DummySumOrderByAggregateInput;
+    @Field(() => DummyMinOrderByAggregateInput, {nullable:true})
+    @Type(() => DummyMinOrderByAggregateInput)
+    _min?: DummyMinOrderByAggregateInput;
+
+    @Field(() => DummySumOrderByAggregateInput, {nullable:true})
+    @Type(() => DummySumOrderByAggregateInput)
+    _sum?: DummySumOrderByAggregateInput;
 }

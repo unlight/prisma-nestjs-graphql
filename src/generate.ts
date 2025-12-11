@@ -16,9 +16,15 @@ import { outputType } from './handlers/output-type';
 import { purgeOutput } from './handlers/purge-output';
 import { ReExport, reExport } from './handlers/re-export';
 import { registerEnum } from './handlers/register-enum';
+import { generateRegisterAllTypes } from './handlers/register-all-types';
 import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input';
+import { generateTypeRegistry } from './handlers/type-registry';
 import { warning } from './handlers/warning';
 import { createConfig } from './helpers/create-config';
+import {
+  buildDependencyGraph,
+  detectCircularDependencies,
+} from './helpers/detect-circular-deps';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file';
 import { createGetModelName } from './helpers/get-model-name';
 import {
@@ -109,7 +115,14 @@ export async function generate(
   });
   const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Document;
   const removeTypes = new Set<string>();
+
+  // Build circular dependency detection for ESM compatibility
+  const allModels = [...datamodel.models, ...(datamodel.types || [])] as Model[];
+  const dependencyGraph = buildDependencyGraph(allModels);
+  const circularDependencies = detectCircularDependencies(dependencyGraph);
+
   const eventArguments: EventArguments = {
+    circularDependencies,
     classTransformerTypeModels: new Set(),
     config,
     enums: mapKeys(datamodel.enums, x => x.name),
@@ -132,6 +145,12 @@ export async function generate(
   }
 
   await eventEmitter.emit('Begin', eventArguments);
+
+  // Generate type registry file for ESM compatibility
+  // Must be after 'Begin' event since purgeOutput deletes all files on Begin
+  if (config.esmCompatible) {
+    generateTypeRegistry(eventArguments);
+  }
 
   for (const model of datamodel.models) {
     await eventEmitter.emit('Model', model, eventArguments);
@@ -186,6 +205,12 @@ export async function generate(
     for (const field of outputType.fields) {
       await eventEmitter.emit('ArgsType', field, eventArguments);
     }
+  }
+
+  // Generate register-all-types.ts for ESM compatibility
+  // Must be after all types are generated so it can find all files with registerType()
+  if (config.esmCompatible) {
+    generateRegisterAllTypes(eventArguments);
   }
 
   await eventEmitter.emit('BeforeGenerateFiles', eventArguments);

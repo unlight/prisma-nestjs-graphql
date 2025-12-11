@@ -4,18 +4,19 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class DummySumOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  int?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  float?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    int?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimal?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    float?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  decimals?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    decimal?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  bigInt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    decimals?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    bigInt?: `${SortOrder}`;
 }

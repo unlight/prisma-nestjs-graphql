@@ -12,57 +12,58 @@ import { CommentListRelationFilter } from '../comment/comment-list-relation-filt
 
 @InputType()
 export class ArticleWhereInput {
-  @Field(() => [ArticleWhereInput], { nullable: true })
-  AND?: Array<ArticleWhereInput>;
 
-  @Field(() => [ArticleWhereInput], { nullable: true })
-  OR?: Array<ArticleWhereInput>;
+    @Field(() => [ArticleWhereInput], {nullable:true})
+    AND?: Array<ArticleWhereInput>;
 
-  @Field(() => [ArticleWhereInput], { nullable: true })
-  NOT?: Array<ArticleWhereInput>;
+    @Field(() => [ArticleWhereInput], {nullable:true})
+    OR?: Array<ArticleWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+    @Field(() => [ArticleWhereInput], {nullable:true})
+    NOT?: Array<ArticleWhereInput>;
 
-  @Field(() => StringFilter, { nullable: true })
-  slug?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    id?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  title?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    slug?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  description?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    title?: StringFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+    @Field(() => StringFilter, {nullable:true})
+    description?: StringFilter;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+    @Field(() => StringFilter, {nullable:true})
+    body?: StringFilter;
 
-  @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
 
-  @Field(() => IntFilter, { nullable: true })
-  favoritesCount?: IntFilter;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
 
-  @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+    @Field(() => IntFilter, {nullable:true})
+    favoritesCount?: IntFilter;
 
-  @Field(() => BoolNullableFilter, { nullable: true })
-  active?: BoolNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    authorId?: StringFilter;
 
-  @Field(() => TagListRelationFilter, { nullable: true })
-  tags?: TagListRelationFilter;
+    @Field(() => BoolNullableFilter, {nullable:true})
+    active?: BoolNullableFilter;
 
-  @Field(() => UserWhereInput, { nullable: true })
-  @Type(() => UserWhereInput)
-  author?: UserWhereInput;
+    @Field(() => TagListRelationFilter, {nullable:true})
+    tags?: TagListRelationFilter;
 
-  @Field(() => UserListRelationFilter, { nullable: true })
-  @Type(() => UserListRelationFilter)
-  favoritedBy?: UserListRelationFilter;
+    @Field(() => UserWhereInput, {nullable:true})
+    @Type(() => UserWhereInput)
+    author?: UserWhereInput;
 
-  @Field(() => CommentListRelationFilter, { nullable: true })
-  @Type(() => CommentListRelationFilter)
-  comments?: CommentListRelationFilter;
+    @Field(() => UserListRelationFilter, {nullable:true})
+    @Type(() => UserListRelationFilter)
+    favoritedBy?: UserListRelationFilter;
+
+    @Field(() => CommentListRelationFilter, {nullable:true})
+    @Type(() => CommentListRelationFilter)
+    comments?: CommentListRelationFilter;
 }

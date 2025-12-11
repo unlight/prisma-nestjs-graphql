@@ -11,42 +11,43 @@ import { CommentUpdateManyWithoutArticleNestedInput } from '../comment/comment-u
 
 @InputType()
 export class ArticleUpdateWithoutTagsInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  slug?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  title?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    slug?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  description?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    title?: StringFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: StringFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    description?: StringFieldUpdateOperationsInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
-  favoritesCount?: IntFieldUpdateOperationsInput;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
-  active?: NullableBoolFieldUpdateOperationsInput;
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    favoritesCount?: IntFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, { nullable: true })
-  @Type(() => UserUpdateOneRequiredWithoutArticlesNestedInput)
-  author?: UserUpdateOneRequiredWithoutArticlesNestedInput;
+    @Field(() => NullableBoolFieldUpdateOperationsInput, {nullable:true})
+    active?: NullableBoolFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, { nullable: true })
-  @Type(() => UserUpdateManyWithoutFavoriteArticlesNestedInput)
-  favoritedBy?: UserUpdateManyWithoutFavoriteArticlesNestedInput;
+    @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, {nullable:true})
+    @Type(() => UserUpdateOneRequiredWithoutArticlesNestedInput)
+    author?: UserUpdateOneRequiredWithoutArticlesNestedInput;
 
-  @Field(() => CommentUpdateManyWithoutArticleNestedInput, { nullable: true })
-  @Type(() => CommentUpdateManyWithoutArticleNestedInput)
-  comments?: CommentUpdateManyWithoutArticleNestedInput;
+    @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, {nullable:true})
+    @Type(() => UserUpdateManyWithoutFavoriteArticlesNestedInput)
+    favoritedBy?: UserUpdateManyWithoutFavoriteArticlesNestedInput;
+
+    @Field(() => CommentUpdateManyWithoutArticleNestedInput, {nullable:true})
+    @Type(() => CommentUpdateManyWithoutArticleNestedInput)
+    comments?: CommentUpdateManyWithoutArticleNestedInput;
 }

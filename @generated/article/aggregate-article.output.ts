@@ -8,18 +8,19 @@ import { ArticleMaxAggregate } from './article-max-aggregate.output';
 
 @ObjectType()
 export class AggregateArticle {
-  @Field(() => ArticleCountAggregate, { nullable: true })
-  _count?: ArticleCountAggregate;
 
-  @Field(() => ArticleAvgAggregate, { nullable: true })
-  _avg?: ArticleAvgAggregate;
+    @Field(() => ArticleCountAggregate, {nullable:true})
+    _count?: ArticleCountAggregate;
 
-  @Field(() => ArticleSumAggregate, { nullable: true })
-  _sum?: ArticleSumAggregate;
+    @Field(() => ArticleAvgAggregate, {nullable:true})
+    _avg?: ArticleAvgAggregate;
 
-  @Field(() => ArticleMinAggregate, { nullable: true })
-  _min?: ArticleMinAggregate;
+    @Field(() => ArticleSumAggregate, {nullable:true})
+    _sum?: ArticleSumAggregate;
 
-  @Field(() => ArticleMaxAggregate, { nullable: true })
-  _max?: ArticleMaxAggregate;
+    @Field(() => ArticleMinAggregate, {nullable:true})
+    _min?: ArticleMinAggregate;
+
+    @Field(() => ArticleMaxAggregate, {nullable:true})
+    _max?: ArticleMaxAggregate;
 }

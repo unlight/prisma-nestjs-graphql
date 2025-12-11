@@ -12,31 +12,32 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input';
 
 @ArgsType()
 export class TagGroupByArgs {
-  @Field(() => TagWhereInput, { nullable: true })
-  @Type(() => TagWhereInput)
-  where?: TagWhereInput;
 
-  @Field(() => [TagOrderByWithAggregationInput], { nullable: true })
-  orderBy?: Array<TagOrderByWithAggregationInput>;
+    @Field(() => TagWhereInput, {nullable:true})
+    @Type(() => TagWhereInput)
+    where?: TagWhereInput;
 
-  @Field(() => [TagScalarFieldEnum], { nullable: false })
-  by!: Array<`${TagScalarFieldEnum}`>;
+    @Field(() => [TagOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TagOrderByWithAggregationInput>;
 
-  @Field(() => TagScalarWhereWithAggregatesInput, { nullable: true })
-  having?: TagScalarWhereWithAggregatesInput;
+    @Field(() => [TagScalarFieldEnum], {nullable:false})
+    by!: Array<`${TagScalarFieldEnum}`>;
 
-  @Field(() => Int, { nullable: true })
-  take?: number;
+    @Field(() => TagScalarWhereWithAggregatesInput, {nullable:true})
+    having?: TagScalarWhereWithAggregatesInput;
 
-  @Field(() => Int, { nullable: true })
-  skip?: number;
+    @Field(() => Int, {nullable:true})
+    take?: number;
 
-  @Field(() => TagCountAggregateInput, { nullable: true })
-  _count?: TagCountAggregateInput;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
 
-  @Field(() => TagMinAggregateInput, { nullable: true })
-  _min?: TagMinAggregateInput;
+    @Field(() => TagCountAggregateInput, {nullable:true})
+    _count?: TagCountAggregateInput;
 
-  @Field(() => TagMaxAggregateInput, { nullable: true })
-  _max?: TagMaxAggregateInput;
+    @Field(() => TagMinAggregateInput, {nullable:true})
+    _min?: TagMinAggregateInput;
+
+    @Field(() => TagMaxAggregateInput, {nullable:true})
+    _max?: TagMaxAggregateInput;
 }

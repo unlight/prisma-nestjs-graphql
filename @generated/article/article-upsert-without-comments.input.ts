@@ -7,15 +7,16 @@ import { ArticleWhereInput } from './article-where.input';
 
 @InputType()
 export class ArticleUpsertWithoutCommentsInput {
-  @Field(() => ArticleUpdateWithoutCommentsInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutCommentsInput)
-  update!: ArticleUpdateWithoutCommentsInput;
 
-  @Field(() => ArticleCreateWithoutCommentsInput, { nullable: false })
-  @Type(() => ArticleCreateWithoutCommentsInput)
-  create!: ArticleCreateWithoutCommentsInput;
+    @Field(() => ArticleUpdateWithoutCommentsInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutCommentsInput)
+    update!: ArticleUpdateWithoutCommentsInput;
 
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
+    @Field(() => ArticleCreateWithoutCommentsInput, {nullable:false})
+    @Type(() => ArticleCreateWithoutCommentsInput)
+    create!: ArticleCreateWithoutCommentsInput;
+
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    where?: ArticleWhereInput;
 }

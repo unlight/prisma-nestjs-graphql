@@ -6,11 +6,12 @@ import { ArticleUpdateWithoutCommentsInput } from './article-update-without-comm
 
 @InputType()
 export class ArticleUpdateToOneWithWhereWithoutCommentsInput {
-  @Field(() => ArticleWhereInput, { nullable: true })
-  @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
 
-  @Field(() => ArticleUpdateWithoutCommentsInput, { nullable: false })
-  @Type(() => ArticleUpdateWithoutCommentsInput)
-  data!: ArticleUpdateWithoutCommentsInput;
+    @Field(() => ArticleWhereInput, {nullable:true})
+    @Type(() => ArticleWhereInput)
+    where?: ArticleWhereInput;
+
+    @Field(() => ArticleUpdateWithoutCommentsInput, {nullable:false})
+    @Type(() => ArticleUpdateWithoutCommentsInput)
+    data!: ArticleUpdateWithoutCommentsInput;
 }

@@ -9,23 +9,24 @@ import { ArticleUpdateOneWithoutCommentsNestedInput } from '../article/article-u
 
 @InputType()
 export class CommentUpdateInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: StringFieldUpdateOperationsInput;
 
-  @HideField()
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: StringFieldUpdateOperationsInput;
+    @HideField()
+    updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, { nullable: true })
-  @Type(() => UserUpdateOneRequiredWithoutCommentsNestedInput)
-  author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, { nullable: true })
-  @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
-  article?: ArticleUpdateOneWithoutCommentsNestedInput;
+    @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, {nullable:true})
+    @Type(() => UserUpdateOneRequiredWithoutCommentsNestedInput)
+    author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+
+    @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, {nullable:true})
+    @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
+    article?: ArticleUpdateOneWithoutCommentsNestedInput;
 }

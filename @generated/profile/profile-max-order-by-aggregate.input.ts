@@ -4,12 +4,13 @@ import { SortOrder } from '../prisma/sort-order.enum';
 
 @InputType()
 export class ProfileMaxOrderByAggregateInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  userId?: `${SortOrder}`;
+    @Field(() => SortOrder, {deprecationReason:'Use new name instead',nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  dummy?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    dummy?: `${SortOrder}`;
 }

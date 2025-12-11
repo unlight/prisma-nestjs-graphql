@@ -6,10 +6,11 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ProfileUpdateInput {
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  dummy?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutProfileNestedInput, { nullable: true })
-  @Type(() => UserUpdateOneRequiredWithoutProfileNestedInput)
-  user?: UserUpdateOneRequiredWithoutProfileNestedInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    dummy?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => UserUpdateOneRequiredWithoutProfileNestedInput, {nullable:true})
+    @Type(() => UserUpdateOneRequiredWithoutProfileNestedInput)
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput;
 }

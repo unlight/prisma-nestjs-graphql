@@ -7,42 +7,43 @@ import { NestedFloatFilter } from './nested-float-filter.input';
 
 @InputType()
 export class IntWithAggregatesFilter {
-  @Field(() => Int, { nullable: true })
-  equals?: number;
 
-  @Field(() => [Int], { nullable: true })
-  in?: Array<number>;
+    @Field(() => Int, {nullable:true})
+    equals?: number;
 
-  @Field(() => [Int], { nullable: true })
-  notIn?: Array<number>;
+    @Field(() => [Int], {nullable:true})
+    in?: Array<number>;
 
-  @Field(() => Int, { nullable: true })
-  lt?: number;
+    @Field(() => [Int], {nullable:true})
+    notIn?: Array<number>;
 
-  @Field(() => Int, { nullable: true })
-  lte?: number;
+    @Field(() => Int, {nullable:true})
+    lt?: number;
 
-  @Field(() => Int, { nullable: true })
-  gt?: number;
+    @Field(() => Int, {nullable:true})
+    lte?: number;
 
-  @Field(() => Int, { nullable: true })
-  gte?: number;
+    @Field(() => Int, {nullable:true})
+    gt?: number;
 
-  @Field(() => NestedIntWithAggregatesFilter, { nullable: true })
-  not?: NestedIntWithAggregatesFilter;
+    @Field(() => Int, {nullable:true})
+    gte?: number;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _count?: NestedIntFilter;
+    @Field(() => NestedIntWithAggregatesFilter, {nullable:true})
+    not?: NestedIntWithAggregatesFilter;
 
-  @Field(() => NestedFloatFilter, { nullable: true })
-  _avg?: NestedFloatFilter;
+    @Field(() => NestedIntFilter, {nullable:true})
+    _count?: NestedIntFilter;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _sum?: NestedIntFilter;
+    @Field(() => NestedFloatFilter, {nullable:true})
+    _avg?: NestedFloatFilter;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _min?: NestedIntFilter;
+    @Field(() => NestedIntFilter, {nullable:true})
+    _sum?: NestedIntFilter;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _max?: NestedIntFilter;
+    @Field(() => NestedIntFilter, {nullable:true})
+    _min?: NestedIntFilter;
+
+    @Field(() => NestedIntFilter, {nullable:true})
+    _max?: NestedIntFilter;
 }

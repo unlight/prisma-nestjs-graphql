@@ -7,55 +7,52 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 import { Type } from 'class-transformer';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
-import { ArticleOrderByRelevanceInput } from './article-order-by-relevance.input';
 
 @InputType()
 export class ArticleOrderByWithRelationInput {
-  @Field(() => SortOrder, { nullable: true })
-  id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  slug?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    id?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  title?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    slug?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  description?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    title?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  body?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    description?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  createdAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    body?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  updatedAt?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  favoritesCount?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: `${SortOrder}`;
 
-  @Field(() => SortOrder, { nullable: true })
-  authorId?: `${SortOrder}`;
+    @Field(() => SortOrder, {nullable:true})
+    favoritesCount?: `${SortOrder}`;
 
-  @Field(() => SortOrderInput, { nullable: true })
-  active?: SortOrderInput;
+    @Field(() => SortOrder, {nullable:true})
+    authorId?: `${SortOrder}`;
 
-  @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
-  tags?: TagOrderByRelationAggregateInput;
+    @Field(() => SortOrderInput, {nullable:true})
+    active?: SortOrderInput;
 
-  @Field(() => UserOrderByWithRelationInput, { nullable: true })
-  @Type(() => UserOrderByWithRelationInput)
-  author?: UserOrderByWithRelationInput;
+    @Field(() => TagOrderByRelationAggregateInput, {nullable:true})
+    tags?: TagOrderByRelationAggregateInput;
 
-  @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
-  @Type(() => UserOrderByRelationAggregateInput)
-  favoritedBy?: UserOrderByRelationAggregateInput;
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    @Type(() => UserOrderByWithRelationInput)
+    author?: UserOrderByWithRelationInput;
 
-  @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
-  @Type(() => CommentOrderByRelationAggregateInput)
-  comments?: CommentOrderByRelationAggregateInput;
+    @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
+    @Type(() => UserOrderByRelationAggregateInput)
+    favoritedBy?: UserOrderByRelationAggregateInput;
 
-  @Field(() => ArticleOrderByRelevanceInput, { nullable: true })
-  _relevance?: ArticleOrderByRelevanceInput;
+    @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
+    @Type(() => CommentOrderByRelationAggregateInput)
+    comments?: CommentOrderByRelationAggregateInput;
 }
