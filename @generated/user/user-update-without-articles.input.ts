@@ -15,55 +15,54 @@ import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-updat
 
 @InputType()
 export class UserUpdateWithoutArticlesInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    email?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  bio?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    bio?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  image?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    image?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
+  countComments?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    countComments?: NullableIntFieldUpdateOperationsInput;
+  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
+  rating?: NullableFloatFieldUpdateOperationsInput;
 
-    @Field(() => NullableFloatFieldUpdateOperationsInput, {nullable:true})
-    rating?: NullableFloatFieldUpdateOperationsInput;
+  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
+  @Type(() => NullableDecimalFieldUpdateOperationsInput)
+  money?: NullableDecimalFieldUpdateOperationsInput;
 
-    @Field(() => NullableDecimalFieldUpdateOperationsInput, {nullable:true})
-    @Type(() => NullableDecimalFieldUpdateOperationsInput)
-    money?: NullableDecimalFieldUpdateOperationsInput;
+  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
+  role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-    @Field(() => NullableEnumRoleFieldUpdateOperationsInput, {nullable:true})
-    role?: NullableEnumRoleFieldUpdateOperationsInput;
+  @Field(() => UserUpdateManyWithoutFollowersNestedInput, { nullable: true })
+  @Type(() => UserUpdateManyWithoutFollowersNestedInput)
+  following?: UserUpdateManyWithoutFollowersNestedInput;
 
-    @Field(() => UserUpdateManyWithoutFollowersNestedInput, {nullable:true})
-    @Type(() => UserUpdateManyWithoutFollowersNestedInput)
-    following?: UserUpdateManyWithoutFollowersNestedInput;
+  @Field(() => UserUpdateManyWithoutFollowingNestedInput, { nullable: true })
+  @Type(() => UserUpdateManyWithoutFollowingNestedInput)
+  followers?: UserUpdateManyWithoutFollowingNestedInput;
 
-    @Field(() => UserUpdateManyWithoutFollowingNestedInput, {nullable:true})
-    @Type(() => UserUpdateManyWithoutFollowingNestedInput)
-    followers?: UserUpdateManyWithoutFollowingNestedInput;
+  @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, { nullable: true })
+  @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
+  favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
 
-    @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, {nullable:true})
-    @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
-    favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
+  @Field(() => CommentUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Type(() => CommentUpdateManyWithoutAuthorNestedInput)
+  comments?: CommentUpdateManyWithoutAuthorNestedInput;
 
-    @Field(() => CommentUpdateManyWithoutAuthorNestedInput, {nullable:true})
-    @Type(() => CommentUpdateManyWithoutAuthorNestedInput)
-    comments?: CommentUpdateManyWithoutAuthorNestedInput;
-
-    @Field(() => ProfileUpdateOneWithoutUserNestedInput, {nullable:true})
-    @Type(() => ProfileUpdateOneWithoutUserNestedInput)
-    profile?: ProfileUpdateOneWithoutUserNestedInput;
+  @Field(() => ProfileUpdateOneWithoutUserNestedInput, { nullable: true })
+  @Type(() => ProfileUpdateOneWithoutUserNestedInput)
+  profile?: ProfileUpdateOneWithoutUserNestedInput;
 }
