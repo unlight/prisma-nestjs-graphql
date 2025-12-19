@@ -53,8 +53,8 @@ export function generateTypeRegistry(args: EventArguments): void {
         isExported: true,
         name: 'getType',
         parameters: [{ name: 'name', type: 'string' }],
-        returnType: '() => unknown',
-        statements: ['return () => registry.get(name);'],
+        returnType: 'unknown',
+        statements: ['return registry.get(name);'],
       },
     ],
   });

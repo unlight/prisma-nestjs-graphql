@@ -226,10 +226,9 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       // Use getType() for lazy loading if there's a circular dependency
       let typeExpression: string;
       if (useGetType) {
-        // Wrap in arrow function for lazy evaluation by NestJS
         typeExpression = isList
-          ? `() => [getType('${graphqlType}')()]`
-          : `() => getType('${graphqlType}')()`;
+          ? `() => [getType('${graphqlType}')]`
+          : `() => getType('${graphqlType}')`;
       } else {
         typeExpression = isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`;
       }

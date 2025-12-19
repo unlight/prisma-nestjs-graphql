@@ -148,7 +148,7 @@ When this option is enabled:
 - Circular dependencies are detected using dependency graph analysis
 - A `type-registry.ts` file is generated for lazy type resolution
 - Type-only imports are used for circular dependencies
-- `@Field()` decorators use `getType()` lazy lookup for circular refs
+- `@Field()` decorators use `getType()` for lazy lookup of circular refs
 - `registerType()` calls are added after class definitions
 
 Type: `boolean`
