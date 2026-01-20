@@ -131,10 +131,10 @@ async function createGeneratorOptions(
   const schemaHeader = `
         datasource db {
             provider = "${provider}"
-            url = env("DATABASE_URL")
         }
         generator client {
-            provider        = "prisma-client-js"
+            provider        = "prisma-client"
+            output          = "./client"
             previewFeatures = ${JSON.stringify(previewFeatures)}
         }
     `;
