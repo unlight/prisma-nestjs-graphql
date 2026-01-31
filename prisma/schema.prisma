@@ -41,7 +41,7 @@ generator nestgraphql {
   decorate_3_name                       = "HideField"
   decorate_3_from                       = "@nestjs/graphql"
   decorate_3_arguments                  = "[]"
-  prismaClientImport                    = "../../prisma/client"
+  prismaClientImport                    = "../../prisma/client/client"
 }
 
 /// User really

@@ -134,7 +134,7 @@
     "precise-commits": "^1.0.2",
     "prettier": "^3.4.2",
     "prisma": "5 - 7",
-    "prisma-graphql-type-decimal": "^3.0.0",
+    "prisma-graphql-type-decimal": "^4.0.2",
     "reflect-metadata": "^0.2.2",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",
