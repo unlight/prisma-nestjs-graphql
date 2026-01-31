@@ -149,6 +149,7 @@ export function createConfig(data: Record<string, unknown>) {
     >,
     decorate,
     customImport,
+    esmCompatible: toBoolean(config.esmCompatible),
   };
 }
 

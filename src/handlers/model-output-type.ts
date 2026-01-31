@@ -11,6 +11,7 @@ import {
 } from 'ts-morph';
 
 import { createComment } from '../helpers/create-comment';
+import { hasCircularDependency } from '../helpers/detect-circular-deps';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getOutputTypeName } from '../helpers/get-output-type-name';
 import { getPropertyType } from '../helpers/get-property-type';
@@ -22,13 +23,22 @@ import {
   ObjectSettings,
 } from '../helpers/object-settings';
 import { propertyStructure } from '../helpers/property-structure';
+import { relativePath } from '../helpers/relative-path';
 import { EventArguments, OutputType } from '../types';
 
 const nestjsGraphql = '@nestjs/graphql';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-  const { config, eventEmitter, fieldSettings, getSourceFile, modelFields, models } =
-    args;
+  const {
+    circularDependencies,
+    config,
+    eventEmitter,
+    fieldSettings,
+    getSourceFile,
+    modelFields,
+    models,
+    output,
+  } = args;
 
   if (isManyAndReturnOutputType(outputType.name)) return;
 
@@ -83,6 +93,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   importDeclarations.add('Field', nestjsGraphql);
   importDeclarations.add('ObjectType', nestjsGraphql);
 
+  // Track types that need lazy loading due to circular dependencies
+  const lazyTypes = new Set<string>();
+
+  // Add type registry imports if ESM compatible mode is enabled
+  if (config.esmCompatible) {
+    const typeRegistryPath = relativePath(
+      sourceFile.getFilePath(),
+      `${output}/type-registry.ts`,
+    );
+    importDeclarations.add('registerType', typeRegistryPath);
+    importDeclarations.add('getType', typeRegistryPath);
+  }
+
   for (const field of outputType.fields) {
     if (config.omitModelsCount && field.name === '_count') continue;
 
@@ -121,6 +144,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
 
     let graphqlType: string;
+    let useGetType = false;
 
     if (fieldType) {
       graphqlType = fieldType.name;
@@ -140,7 +164,23 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       graphqlType = graphqlImport.name;
 
       if (graphqlImport.name !== outputType.name && graphqlImport.specifier) {
-        importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
+        // Check for circular dependency in ESM mode
+        const isCircular =
+          config.esmCompatible &&
+          location === 'outputObjectTypes' &&
+          namespace === 'model' &&
+          hasCircularDependency(circularDependencies, outputType.name, outputTypeName);
+
+        if (isCircular) {
+          // Use TYPE-ONLY import to avoid circular loading at runtime
+          // The actual type registration happens in register-all-types.ts
+          // getType() provides runtime resolution from the registry
+          importDeclarations.addType(graphqlImport.name, graphqlImport.specifier);
+          lazyTypes.add(graphqlImport.name);
+          useGetType = true;
+        } else {
+          importDeclarations.add(graphqlImport.name, graphqlImport.specifier);
+        }
       }
     }
 
@@ -162,7 +202,8 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     if (propertySettings) {
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
-      importDeclarations.add('Decimal', `${config.prismaClientImport}/runtime/library`);
+      // TODO: Deprecated and should be removed
+      importDeclarations.add('Decimal', `${config.prismaClientImport}/../internal/prismaNamespace`);
     }
 
     ok(property.decorators, 'property.decorators is undefined');
@@ -182,9 +223,19 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
       // Generate `@Field()` decorator
+      // Use getType() for lazy loading if there's a circular dependency
+      let typeExpression: string;
+      if (useGetType) {
+        typeExpression = isList
+          ? `() => [getType('${graphqlType}')]`
+          : `() => getType('${graphqlType}')`;
+      } else {
+        typeExpression = isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`;
+      }
+
       property.decorators.push({
         arguments: [
-          isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
+          typeExpression,
           JSON5.stringify({
             ...settings?.fieldArguments(),
             defaultValue: ['number', 'string', 'boolean'].includes(
@@ -240,6 +291,17 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     }
   }
 
+  // Build statements array
+  const statements: (StatementStructures | string)[] = [
+    ...importDeclarations.toStatements(),
+    classStructure,
+  ];
+
+  // Add registerType call if ESM compatible mode is enabled
+  if (config.esmCompatible) {
+    statements.push(`\nregisterType('${outputType.name}', ${outputType.name});`);
+  }
+
   if (exportDeclaration) {
     sourceFile.set({
       statements: [exportDeclaration, '\n', classStructure],
@@ -253,7 +315,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     sourceFile.addStatements(['\n', ...commentedText]);
   } else {
     sourceFile.set({
-      statements: [...importDeclarations.toStatements(), classStructure],
+      statements,
     });
   }
 }

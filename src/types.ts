@@ -1,4 +1,4 @@
-import { DMMF } from '@prisma/client/runtime/library';
+import { DMMF } from '@prisma/generator-helper';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
@@ -50,6 +50,11 @@ export type EventArguments = {
    * Input types for this models should be decorated @Type(() => Self)
    */
   classTransformerTypeModels: Set<string>;
+  /**
+   * Set of model pairs that have circular dependencies (for ESM compatibility)
+   * Format: "ModelA:ModelB" where ModelA < ModelB alphabetically
+   */
+  circularDependencies: Set<string>;
 };
 
 export type ImportNameSpec = { name: string; specifier?: string };
@@ -57,4 +62,4 @@ export type ImportNameSpec = { name: string; specifier?: string };
 export type Field = DMMF.Field;
 
 export { ObjectSetting, ObjectSettings } from './helpers/object-settings';
-export { DMMF } from '@prisma/client/runtime/library';
+export { DMMF } from '@prisma/generator-helper';

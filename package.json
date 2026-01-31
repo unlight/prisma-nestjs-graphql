@@ -36,6 +36,7 @@
     }
   },
   "scripts": {
+    "prepare": "sh Taskfile build",
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "mocha": "node node_modules/mocha/bin/mocha",
     "test:r": "npm run mocha -- -r ts-node/register --no-timeouts src/**/*.spec.ts",
@@ -65,7 +66,7 @@
     }
   },
   "dependencies": {
-    "@prisma/generator-helper": "5 - 6",
+    "@prisma/generator-helper": "^7.0.0",
     "await-event-emitter": "^2.0.2",
     "filenamify": "4.X",
     "flat": "5.X",
@@ -76,10 +77,10 @@
     "outmatch": "^1.0.0",
     "pluralize": "^8.0.0",
     "pupa": "2.X",
-    "ts-morph": "11 - 16"
+    "ts-morph": "11 - 24"
   },
   "devDependencies": {
-    "@apollo/server": "^4.11.3",
+    "@apollo/server": "^5.0.0",
     "@eslint/compat": "^1.2.5",
     "@nestjs/apollo": "^13.0.1",
     "@nestjs/common": "^11.0.1",
@@ -87,7 +88,7 @@
     "@nestjs/graphql": "^13.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@paljs/plugins": "^8.1.0",
-    "@prisma/client": "5 - 6",
+    "@prisma/client": "^7.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.1",
@@ -113,7 +114,6 @@
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-etc": "^2.0.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-perfectionist": "^4.6.0",
@@ -133,8 +133,8 @@
     "pkgroll": "^2.6.1",
     "precise-commits": "^1.0.2",
     "prettier": "^3.4.2",
-    "prisma": "5 - 6",
-    "prisma-graphql-type-decimal": "^3.0.0",
+    "prisma": "5 - 7",
+    "prisma-graphql-type-decimal": "^4.0.2",
     "reflect-metadata": "^0.2.2",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",

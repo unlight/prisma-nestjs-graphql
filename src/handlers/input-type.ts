@@ -2,9 +2,10 @@ import { ok } from 'assert';
 import JSON5 from 'json5';
 import { castArray, last } from 'lodash';
 import pupa from 'pupa';
-import { ClassDeclarationStructure, StructureKind } from 'ts-morph';
+import { ClassDeclarationStructure, StatementStructures, StructureKind } from 'ts-morph';
 
 import { BeforeGenerateField } from '../event-names';
+import { hasCircularDependency } from '../helpers/detect-circular-deps';
 import { getGraphqlImport } from '../helpers/get-graphql-import';
 import { getGraphqlInputType } from '../helpers/get-graphql-input-type';
 import { getPropertyType } from '../helpers/get-property-type';
@@ -12,6 +13,7 @@ import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-
 import { ImportDeclarationMap } from '../helpers/import-declaration-map';
 import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
 import { propertyStructure } from '../helpers/property-structure';
+import { relativePath } from '../helpers/relative-path';
 import { EventArguments, InputType } from '../types';
 
 export function inputType(
@@ -22,6 +24,7 @@ export function inputType(
   },
 ) {
   const {
+    circularDependencies,
     classDecoratorName,
     classTransformerTypeModels,
     config,
@@ -32,6 +35,7 @@ export function inputType(
     getSourceFile,
     inputType,
     models,
+    output,
     removeTypes,
     typeNames,
   } = args;
@@ -60,6 +64,9 @@ export function inputType(
   const modelFieldSettings = model && fieldSettings.get(model.name);
   const moduleSpecifier = '@nestjs/graphql';
 
+  // Track types that need lazy loading due to circular dependencies
+  const lazyTypes = new Set<string>();
+
   importDeclarations
     .set('Field', {
       namedImports: [{ name: 'Field' }],
@@ -70,10 +77,23 @@ export function inputType(
       moduleSpecifier,
     });
 
+  // Add type registry imports if ESM compatible mode is enabled
+  if (config.esmCompatible) {
+    const typeRegistryPath = relativePath(
+      sourceFile.getFilePath(),
+      `${output}/type-registry.ts`,
+    );
+    importDeclarations.add('registerType', typeRegistryPath);
+    importDeclarations.add('getType', typeRegistryPath);
+  }
+
   const useInputType = config.useInputType.find(x =>
     inputType.name.includes(x.typeName),
   );
   const isWhereUnique = isWhereUniqueInputType(inputType.name);
+
+  // Get the model name for this input type to check circular dependencies
+  const currentModelName = getModelName(inputType.name);
 
   for (const field of inputType.fields) {
     field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(String(t.type)));
@@ -136,13 +156,14 @@ export function inputType(
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
       // TODO: Deprecated and should be removed
-      importDeclarations.add('Decimal', `${config.prismaClientImport}/runtime/library`);
+      importDeclarations.add('Decimal', `${config.prismaClientImport}/../internal/prismaNamespace`);
     } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
       importDeclarations.add('Prisma', config.prismaClientImport);
     }
 
     // Get graphql type
     let graphqlType: string;
+    let useGetType = false;
     const shouldHideField =
       settings?.shouldHideField({
         name: inputType.name,
@@ -180,17 +201,37 @@ export function inputType(
         referenceName = last(referenceName.split(' ')) as string;
       }
 
-      if (
+      // In ESM mode, always use getType() for input object types (including self-references)
+      // Input types have complex interdependencies that can cause circular import issues
+      const shouldUseLazyType =
+        config.esmCompatible && location === 'inputObjectTypes';
+
+      // Handle self-references (type references itself)
+      if (graphqlImport.name === inputType.name && shouldUseLazyType) {
+        lazyTypes.add(graphqlImport.name);
+        useGetType = true;
+      } else if (
         graphqlImport.specifier &&
         !importDeclarations.has(graphqlImport.name) &&
         graphqlImport.name !== inputType.name
-        // ((graphqlImport.name !== inputType.name && !shouldHideField) ||
-        //     (shouldHideField && referenceName === graphqlImport.name))
       ) {
-        importDeclarations.set(graphqlImport.name, {
-          namedImports: [{ name: graphqlImport.name }],
-          moduleSpecifier: graphqlImport.specifier,
-        });
+        if (shouldUseLazyType) {
+          // Use TYPE-ONLY import to avoid circular loading at runtime
+          // The actual type registration happens in register-all-types.ts
+          // getType() provides runtime resolution from the registry
+          importDeclarations.addType(graphqlImport.name, graphqlImport.specifier);
+          lazyTypes.add(graphqlImport.name);
+        } else {
+          importDeclarations.set(graphqlImport.name, {
+            namedImports: [{ name: graphqlImport.name }],
+            moduleSpecifier: graphqlImport.specifier,
+          });
+        }
+      }
+
+      // Check if this type should use lazy loading (check lazyTypes, not just current iteration)
+      if (lazyTypes.has(graphqlImport.name)) {
+        useGetType = true;
       }
     }
 
@@ -201,10 +242,20 @@ export function inputType(
       property.decorators.push({ name: 'HideField', arguments: [] });
     } else {
       // Generate `@Field()` decorator
+      // Use getType() for lazy loading if there's a circular dependency
+      let typeExpression: string;
+      if (useGetType) {
+        typeExpression = isList
+          ? `() => [getType('${graphqlType}')]`
+          : `() => getType('${graphqlType}')`;
+      } else {
+        typeExpression = isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`;
+      }
+
       property.decorators.push({
         name: 'Field',
         arguments: [
-          isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
+          typeExpression,
           JSON5.stringify({
             ...settings?.fieldArguments(),
             nullable: !isRequired,
@@ -256,7 +307,15 @@ export function inputType(
               )))
       ) {
         importDeclarations.add('Type', 'class-transformer');
-        property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
+        // For lazy types, also use getType in the @Type decorator
+        if (useGetType) {
+          property.decorators.push({
+            name: 'Type',
+            arguments: [`getType('${graphqlType}')`],
+          });
+        } else {
+          property.decorators.push({ name: 'Type', arguments: [`() => ${graphqlType}`] });
+        }
       }
 
       if (isCustomsApplicable) {
@@ -293,7 +352,18 @@ export function inputType(
     });
   }
 
+  // Build statements array
+  const statements: (StatementStructures | string)[] = [
+    ...importDeclarations.toStatements(),
+    classStructure,
+  ];
+
+  // Add registerType call if ESM compatible mode is enabled
+  if (config.esmCompatible) {
+    statements.push(`\nregisterType('${inputType.name}', ${inputType.name});`);
+  }
+
   sourceFile.set({
-    statements: [...importDeclarations.toStatements(), classStructure],
+    statements,
   });
 }

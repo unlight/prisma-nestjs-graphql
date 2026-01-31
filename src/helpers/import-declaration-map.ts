@@ -9,16 +9,34 @@ export class ImportDeclarationMap extends Map<
   string,
   OptionalKind<ImportDeclarationStructure>
 > {
-  add(name: string, moduleSpecifier: string): void;
+  add(name: string, moduleSpecifier: string, isTypeOnly?: boolean): void;
   add(name: string, value: OptionalKind<ImportDeclarationStructure>): void;
 
-  add(name: string, value: OptionalKind<ImportDeclarationStructure> | string): void {
+  add(
+    name: string,
+    value: OptionalKind<ImportDeclarationStructure> | string,
+    isTypeOnly?: boolean,
+  ): void {
     if (!this.has(name)) {
       const structure: OptionalKind<ImportDeclarationStructure> =
         typeof value === 'string'
-          ? { moduleSpecifier: value, namedImports: [{ name }] }
+          ? { moduleSpecifier: value, namedImports: [{ name }], isTypeOnly }
           : value;
       this.set(name, structure);
+    }
+  }
+
+  /**
+   * Add a type-only import for ESM circular dependency resolution
+   */
+  addType(name: string, moduleSpecifier: string): void {
+    const typeOnlyKey = `type:${name}`;
+    if (!this.has(typeOnlyKey) && !this.has(name)) {
+      this.set(typeOnlyKey, {
+        moduleSpecifier,
+        namedImports: [{ name }],
+        isTypeOnly: true,
+      });
     }
   }
 
@@ -28,14 +46,16 @@ export class ImportDeclarationMap extends Map<
     defaultImport?: string | true;
     namespaceImport?: string;
     namedImport?: boolean;
+    isTypeOnly?: boolean;
   }) {
-    const { from, defaultImport, namespaceImport, namedImport } = args;
+    const { from, defaultImport, namespaceImport, namedImport, isTypeOnly } = args;
     let name = args.name;
-    const value = {
+    const value: OptionalKind<ImportDeclarationStructure> = {
       moduleSpecifier: from,
       namedImports: [] as OptionalKind<ImportSpecifierStructure>[],
       defaultImport: undefined as string | undefined,
       namespaceImport: undefined as string | undefined,
+      isTypeOnly,
     };
     if (namedImport === true && namespaceImport) {
       value.namedImports = [{ name: namespaceImport }];
@@ -49,7 +69,10 @@ export class ImportDeclarationMap extends Map<
     } else {
       value.namedImports = [{ name }];
     }
-    this.add(name, value);
+    const key = isTypeOnly ? `type:${name}` : name;
+    if (!this.has(key)) {
+      this.set(key, value);
+    }
   }
 
   *toStatements(): Iterable<ImportDeclarationStructure> {
