@@ -4,7 +4,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-plugin-prettier/recommended';
-import * as unicorn from 'eslint-plugin-unicorn';
+import unicorn from 'eslint-plugin-unicorn';
 import perfectionist from 'eslint-plugin-perfectionist';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import wixEditor from 'eslint-plugin-wix-editor';
@@ -49,7 +49,7 @@ export default [
     },
   },
   {
-    ...unicorn.configs['flat/recommended'],
+    ...unicorn.configs.recommended,
     rules: {
       'unicorn/prevent-abbreviations': [
         'warn',

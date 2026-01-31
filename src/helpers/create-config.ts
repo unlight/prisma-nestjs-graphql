@@ -1,14 +1,17 @@
 import { ok } from 'assert';
 import filenamify from 'filenamify';
 import { unflatten } from 'flat';
-import { existsSync } from 'graceful-fs';
+import fs from 'graceful-fs';
 import JSON5 from 'json5';
-import { Dictionary, memoize, merge, trim } from 'lodash';
+import type { Dictionary } from 'lodash';
+import lodash from 'lodash';
 import outmatch from 'outmatch';
 
-import { ReExport } from '../handlers/re-export';
-import { ImportNameSpec, ObjectSetting } from '../types';
-import { createEmitBlocks, EmitBlocksOption } from './create-emit-blocks';
+import { ReExport } from '../handlers/re-export.ts';
+import type { ImportNameSpec, ObjectSetting } from '../types.ts';
+import { createEmitBlocks, type EmitBlocksOption } from './create-emit-blocks.ts';
+
+const { memoize, merge, trim } = lodash;
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {
@@ -40,7 +43,6 @@ export function createConfig(data: Record<string, unknown>) {
     config.outputFilePattern || `{model}/{name}.{type}.ts`,
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   let outputFilePattern = filenamify(configOutputFilePattern, {
     replacement: '/',
   })
@@ -69,12 +71,12 @@ export function createConfig(data: Record<string, unknown>) {
       .map(([name, value]) => {
         const fieldSetting: ConfigFieldSetting = {
           arguments: [],
-          output: toBoolean(value.output),
+          defaultImport: toBoolean(value.defaultImport) ? true : value.defaultImport,
+          from: value.from,
           input: toBoolean(value.input),
           model: toBoolean(value.model),
-          from: value.from,
-          defaultImport: toBoolean(value.defaultImport) ? true : value.defaultImport,
           namespaceImport: value.namespaceImport,
+          output: toBoolean(value.output),
         };
         return [name, fieldSetting];
       }),
@@ -92,18 +94,18 @@ export function createConfig(data: Record<string, unknown>) {
       `Missed 'from' or 'name' part in configuration for decorate`,
     );
     decorate.push({
+      arguments: element.arguments ? JSON5.parse(element.arguments) : undefined,
+      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
+      from: element.from,
       isMatchField: outmatch(element.field, { separator: false }),
       isMatchType: outmatch(element.type, { separator: false }),
-      from: element.from,
       name: element.name,
       namedImport: toBoolean(element.namedImport),
-      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
       namespaceImport: element.namespaceImport,
-      arguments: element.arguments ? JSON5.parse(element.arguments) : undefined,
     });
   }
 
-  const customImport: CustomImport[] = []
+  const customImport: CustomImport[] = [];
   const configCustomImport: (Record<string, string> | undefined)[] = Object.values(
     (config.customImport as any) || {},
   );
@@ -114,41 +116,41 @@ export function createConfig(data: Record<string, unknown>) {
       `Missed 'from' or 'name' part in configuration for customImport`,
     );
     customImport.push({
+      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
       from: element.from,
       name: element.name,
       namedImport: toBoolean(element.namedImport),
-      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
       namespaceImport: element.namespaceImport,
     });
   }
   return {
-    outputFilePattern,
-    tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
-    prismaClientImport: createPrismaImport(config.prismaClientImport),
-    combineScalarFilters: toBoolean(config.combineScalarFilters),
-    noAtomicOperations: toBoolean(config.noAtomicOperations),
-    reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
-    emitSingle: toBoolean(config.emitSingle),
-    emitCompiled: toBoolean(config.emitCompiled),
-    emitBlocks: createEmitBlocks(config.emitBlocks as EmitBlocksOption[]),
-    omitModelsCount: toBoolean(config.omitModelsCount),
     $warnings,
+    combineScalarFilters: toBoolean(config.combineScalarFilters),
+    customImport,
+    decorate,
+    emitBlocks: createEmitBlocks(config.emitBlocks as EmitBlocksOption[]),
+    emitCompiled: toBoolean(config.emitCompiled),
+    emitSingle: toBoolean(config.emitSingle),
     fields,
-    purgeOutput: toBoolean(config.purgeOutput),
-    useInputType: createUseInputType(config.useInputType as any),
-    noTypeId: toBoolean(config.noTypeId),
-    requireSingleFieldsInWhereUniqueInput: toBoolean(
-      config.requireSingleFieldsInWhereUniqueInput,
-    ),
-    unsafeCompatibleWhereUniqueInput: toBoolean(
-      config.unsafeCompatibleWhereUniqueInput,
-    ),
     graphqlScalars: (config.graphqlScalars || {}) as Record<
       string,
       ImportNameSpec | undefined
     >,
-    decorate,
-    customImport,
+    noAtomicOperations: toBoolean(config.noAtomicOperations),
+    noTypeId: toBoolean(config.noTypeId),
+    omitModelsCount: toBoolean(config.omitModelsCount),
+    outputFilePattern,
+    prismaClientImport: createPrismaImport(config.prismaClientImport),
+    purgeOutput: toBoolean(config.purgeOutput),
+    reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
+    requireSingleFieldsInWhereUniqueInput: toBoolean(
+      config.requireSingleFieldsInWhereUniqueInput,
+    ),
+    tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
+    unsafeCompatibleWhereUniqueInput: toBoolean(
+      config.unsafeCompatibleWhereUniqueInput,
+    ),
+    useInputType: createUseInputType(config.useInputType as any),
   };
 }
 
@@ -159,7 +161,7 @@ type ConfigInputItem = {
 };
 
 const tsConfigFileExists = memoize((filePath: string) => {
-  return existsSync(filePath);
+  return fs.existsSync(filePath);
 });
 
 function createTsConfigFilePathValue(value: unknown): string | undefined {
@@ -179,8 +181,8 @@ function createUseInputType(data?: Record<string, ConfigInputItem>) {
   const result: ConfigInputItem[] = [];
   for (const [typeName, useInputs] of Object.entries(data)) {
     const entry: ConfigInputItem = {
-      typeName,
       ALL: undefined,
+      typeName,
     };
     if (useInputs.ALL) {
       entry.ALL = useInputs.ALL;

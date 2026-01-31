@@ -1,15 +1,14 @@
 datasource database {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres", "postgresqlExtensions", "nativeDistinct", "strictUndefinedChecks"]
+  previewFeatures = []
 }
 
 generator nestgraphql {
-  provider                              = "node -r ts-node/register/transpile-only src/index.ts"
+  provider                              = "node --import=@poppinss/ts-exec src/index.ts"
   output                                = "../@generated"
   noAtomicOperations                    = false
   combineScalarFilters                  = false

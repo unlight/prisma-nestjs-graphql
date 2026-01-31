@@ -1,13 +1,13 @@
 import { ok } from 'assert';
 import {
-  ClassDeclarationStructure,
-  ImportSpecifierStructure,
-  StatementStructures,
+  type ClassDeclarationStructure,
+  type ImportSpecifierStructure,
+  type StatementStructures,
   StructureKind,
 } from 'ts-morph';
 
-import { ImportDeclarationMap } from '../helpers/import-declaration-map';
-import { EventArguments } from '../types';
+import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
+import type { EventArguments } from '../types.ts';
 
 export async function generateFiles(args: EventArguments) {
   const { config, eventEmitter, output, project } = args;

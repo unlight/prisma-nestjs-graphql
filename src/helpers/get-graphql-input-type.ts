@@ -1,7 +1,9 @@
-import { countBy, isEqual, uniqWith } from 'lodash';
+import lodash from 'lodash';
 import outmatch from 'outmatch';
 
-import { DMMF } from '../types';
+import type { DMMF } from '../types.ts';
+
+const { countBy, isEqual, uniqWith } = lodash;
 
 /**
  * Find input type for graphql field decorator.
@@ -79,7 +81,6 @@ export function getGraphqlInputType(inputTypes: DMMF.InputTypeRef[], pattern?: s
   }
 
   throw new TypeError(
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     `Cannot get matching input type from ${
       inputTypes.map(x => x.type).join(', ') || 'zero length inputTypes'
     }`,

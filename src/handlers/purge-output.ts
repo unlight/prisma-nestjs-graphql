@@ -1,14 +1,14 @@
 import AwaitEventEmitter from 'await-event-emitter';
-import { rmdirSync } from 'graceful-fs';
+import fs from 'graceful-fs';
 
-import { EventArguments } from '../types';
+import type { EventArguments } from '../types.ts';
 
 export function purgeOutput(emitter: AwaitEventEmitter) {
   emitter.on('Begin', begin);
   emitter.on('End', end);
 }
 
-function begin({ project, output }: EventArguments) {
+function begin({ output, project }: EventArguments) {
   const sourceFiles = project.getDirectory(output)?.getDescendantSourceFiles();
 
   if (sourceFiles) {
@@ -18,7 +18,7 @@ function begin({ project, output }: EventArguments) {
   }
 }
 
-function end({ project, output }: EventArguments) {
+function end({ output, project }: EventArguments) {
   const directories = project
     .getDirectory(output)
     ?.getDescendantDirectories()
@@ -27,7 +27,7 @@ function end({ project, output }: EventArguments) {
 
   for (const directory of directories || []) {
     try {
-      rmdirSync(directory);
+      fs.rmdirSync(directory);
       // eslint-disable-next-line no-empty
     } catch {}
   }

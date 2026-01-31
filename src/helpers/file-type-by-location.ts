@@ -1,4 +1,4 @@
-import { FieldLocation } from '../types';
+import type { FieldLocation } from '../types.ts';
 
 export function fileTypeByLocation(fieldLocation: FieldLocation) {
   switch (fieldLocation) {

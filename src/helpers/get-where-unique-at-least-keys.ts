@@ -1,4 +1,4 @@
-import { DMMF } from '../types';
+import type { DMMF } from '../types.ts';
 
 export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
   const names = model.fields
@@ -17,7 +17,7 @@ export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
 }
 
 function createFieldName(args: { name?: string | null; fields: Readonly<string[]> }) {
-  const { name, fields } = args;
+  const { fields, name } = args;
 
   return name || fields.join('_');
 }

@@ -1,10 +1,10 @@
-import { DMMF } from '@prisma/client/runtime/library';
+import type { DMMF } from '@prisma/generator-helper';
 import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
 
-import { createConfig } from './helpers/create-config';
-import { ObjectSettings } from './helpers/object-settings';
+import { createConfig } from './helpers/create-config.ts';
+import { type ObjectSetting, ObjectSettings } from './helpers/object-settings.ts';
 
 export type InputType = WritableDeep<DMMF.InputType>;
 export type FieldLocation = DMMF.FieldLocation;
@@ -56,5 +56,5 @@ export type ImportNameSpec = { name: string; specifier?: string };
 
 export type Field = DMMF.Field;
 
-export { ObjectSetting, ObjectSettings } from './helpers/object-settings';
-export { DMMF } from '@prisma/client/runtime/library';
+export type { DMMF, ObjectSetting };
+export type { ObjectSettings };

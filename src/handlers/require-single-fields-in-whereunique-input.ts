@@ -1,7 +1,7 @@
 import AwaitEventEmitter from 'await-event-emitter';
 
-import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type';
-import { EventArguments, InputType } from '../types';
+import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
+import type { EventArguments, InputType } from '../types.ts';
 
 export function requireSingleFieldsInWhereUniqueInput(eventEmitter: AwaitEventEmitter) {
   eventEmitter.on('BeforeInputType', beforeInputType);

@@ -1,4 +1,4 @@
-import { FieldLocation } from '../types';
+import type { FieldLocation } from '../types.ts';
 
 /**
  * Returns typescript property type.

@@ -1,37 +1,36 @@
-import { GeneratorOptions } from '@prisma/generator-helper';
+import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import { mapKeys } from 'lodash';
+import AwaitEventEmitter from 'await-event-emitter';
+import AEE from 'await-event-emitter';
 import { Project, QuoteKind } from 'ts-morph';
 
-import { argsType } from './handlers/args-type';
-import { combineScalarFilters } from './handlers/combine-scalar-filters';
-import { createAggregateInput } from './handlers/create-aggregate-input';
-import { emitSingle } from './handlers/emit-single';
-import { generateFiles } from './handlers/generate-files';
-import { inputType } from './handlers/input-type';
-import { modelData } from './handlers/model-data';
-import { modelOutputType } from './handlers/model-output-type';
-import { noAtomicOperations } from './handlers/no-atomic-operations';
-import { outputType } from './handlers/output-type';
-import { purgeOutput } from './handlers/purge-output';
-import { ReExport, reExport } from './handlers/re-export';
-import { registerEnum } from './handlers/register-enum';
-import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input';
-import { warning } from './handlers/warning';
-import { createConfig } from './helpers/create-config';
-import { factoryGetSourceFile } from './helpers/factory-get-source-file';
-import { createGetModelName } from './helpers/get-model-name';
-import {
+import { argsType } from './handlers/args-type.ts';
+import { combineScalarFilters } from './handlers/combine-scalar-filters.ts';
+import { createAggregateInput } from './handlers/create-aggregate-input.ts';
+import { emitSingle } from './handlers/emit-single.ts';
+import { generateFiles } from './handlers/generate-files.ts';
+import { inputType } from './handlers/input-type.ts';
+import { modelData } from './handlers/model-data.ts';
+import { modelOutputType } from './handlers/model-output-type.ts';
+import { noAtomicOperations } from './handlers/no-atomic-operations.ts';
+import { outputType } from './handlers/output-type.ts';
+import { purgeOutput } from './handlers/purge-output.ts';
+import { ReExport, reExport } from './handlers/re-export.ts';
+import { registerEnum } from './handlers/register-enum.ts';
+import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input.ts';
+import { warning } from './handlers/warning.ts';
+import { createConfig } from './helpers/create-config.ts';
+import { factoryGetSourceFile } from './helpers/factory-get-source-file.ts';
+import { createGetModelName } from './helpers/get-model-name.ts';
+import { mapKeys } from './helpers/lodash.ts';
+import type {
   Document,
   EventArguments,
   Field,
   Model,
   ObjectSettings,
   OutputType,
-} from './types';
-const AwaitEventEmitter = require('await-event-emitter').default;
-
-import AEE from 'await-event-emitter';
+} from './types.ts';
 
 export async function generate(
   args: GeneratorOptions & {

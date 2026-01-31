@@ -1,8 +1,8 @@
 import { SourceFile } from 'ts-morph';
 
-import { FieldLocation, GeneratorConfiguration } from '../types';
-import { fileTypeByLocation } from './file-type-by-location';
-import { relativePath } from './relative-path';
+import type { FieldLocation, GeneratorConfiguration } from '../types.ts';
+import { fileTypeByLocation } from './file-type-by-location.ts';
+import { relativePath } from './relative-path.ts';
 
 export function getGraphqlImport(args: {
   sourceFile: SourceFile;

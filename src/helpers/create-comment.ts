@@ -1,4 +1,4 @@
-import { ObjectSettings } from '../types';
+import type { ObjectSettings } from '../types.ts';
 
 export function createComment(documentation: string, settings?: ObjectSettings) {
   const documentationLines = documentation.split('\n');

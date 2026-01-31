@@ -3,11 +3,11 @@ import JSON5 from 'json5';
 import { trim } from 'lodash';
 import {
   ClassDeclaration,
-  ImportDeclarationStructure,
-  ImportSpecifierStructure,
+  type ImportDeclarationStructure,
+  type ImportSpecifierStructure,
   Project,
   PropertyDeclaration,
-  PropertyDeclarationStructure,
+  type PropertyDeclarationStructure,
   SourceFile,
 } from 'ts-morph';
 

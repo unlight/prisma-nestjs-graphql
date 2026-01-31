@@ -1,4 +1,6 @@
-import { first, memoize } from 'lodash';
+// import { first, memoize } from 'lodash';
+
+import { first, memoize } from './lodash.ts';
 
 export function createGetModelName(modelNames: string[]) {
   return memoize(tryGetName);

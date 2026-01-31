@@ -1,28 +1,28 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import { castArray } from 'lodash';
 import pupa from 'pupa';
-import { PlainObject } from 'simplytyped';
+import type { PlainObject } from 'simplytyped';
 import {
-  ClassDeclarationStructure,
-  ExportSpecifierStructure,
-  StatementStructures,
+  type ClassDeclarationStructure,
+  type ExportSpecifierStructure,
+  type StatementStructures,
   StructureKind,
 } from 'ts-morph';
 
-import { createComment } from '../helpers/create-comment';
-import { getGraphqlImport } from '../helpers/get-graphql-import';
-import { getOutputTypeName } from '../helpers/get-output-type-name';
-import { getPropertyType } from '../helpers/get-property-type';
-import { ImportDeclarationMap } from '../helpers/import-declaration-map';
-import { isManyAndReturnOutputType } from '../helpers/is-many-and-return';
+import { createComment } from '../helpers/create-comment.ts';
+import { getGraphqlImport } from '../helpers/get-graphql-import.ts';
+import { getOutputTypeName } from '../helpers/get-output-type-name.ts';
+import { getPropertyType } from '../helpers/get-property-type.ts';
+import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
+import { isManyAndReturnOutputType } from '../helpers/is-many-and-return.ts';
+import { castArray } from '../helpers/lodash.ts';
 import {
-  createObjectSettings,
-  ObjectSetting,
+  type createObjectSettings,
+  type ObjectSetting,
   ObjectSettings,
-} from '../helpers/object-settings';
-import { propertyStructure } from '../helpers/property-structure';
-import { EventArguments, OutputType } from '../types';
+} from '../helpers/object-settings.ts';
+import { propertyStructure } from '../helpers/property-structure.ts';
+import type { EventArguments, OutputType } from '../types.ts';
 
 const nestjsGraphql = '@nestjs/graphql';
 
@@ -230,7 +230,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
   // Generate class decorators from model settings
   for (const setting of modelSettings || []) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     if (shouldBeDecorated(setting)) {
       classStructure.decorators.push({
         arguments: setting.arguments as string[],
