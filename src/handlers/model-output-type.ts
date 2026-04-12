@@ -17,7 +17,7 @@ import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { isManyAndReturnOutputType } from '../helpers/is-many-and-return.ts';
 import { castArray } from '../helpers/lodash.ts';
 import {
-  type createObjectSettings,
+  createObjectSettings,
   type ObjectSetting,
   ObjectSettings,
 } from '../helpers/object-settings.ts';

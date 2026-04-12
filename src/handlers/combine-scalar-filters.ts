@@ -1,19 +1,16 @@
-import AwaitEventEmitter from 'await-event-emitter';
-import lodash from 'lodash';
-
 import { BeforeGenerateField } from '../event-names.ts';
+import { cloneDeep, keyBy, remove } from '../helpers/lodash.ts';
 import type {
   EventArguments,
   InputType,
   SchemaArg as SchemaArgument,
+  TAwaitEventEmitter,
 } from '../types.ts';
-
-const { cloneDeep, keyBy, remove } = lodash;
 
 /**
  * Subscribes on 'BeforeInputType'
  */
-export function combineScalarFilters(eventEmitter: AwaitEventEmitter) {
+export function combineScalarFilters(eventEmitter: TAwaitEventEmitter) {
   eventEmitter.on('BeforeInputType', beforeInputType);
   eventEmitter.on(BeforeGenerateField, beforeGenerateField);
   eventEmitter.on('PostBegin', postBegin);
@@ -74,7 +71,7 @@ function isScalarFilter(inputType: InputType) {
 
 function postBegin(args: EventArguments) {
   const { modelNames, schema } = args;
-  const inputTypes = schema.inputObjectTypes.prisma;
+  const inputTypes = schema.inputObjectTypes.prisma ?? [];
   const enumTypes = schema.enumTypes.model || [];
   const types = [
     'Bool',

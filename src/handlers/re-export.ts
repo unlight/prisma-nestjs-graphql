@@ -1,8 +1,8 @@
-import AwaitEventEmitter from 'await-event-emitter';
 import type { ExportDeclarationStructure } from 'ts-morph';
 import { Directory, SourceFile, StructureKind } from 'ts-morph';
+import type { ValueOf } from 'type-fest';
 
-import type { EventArguments } from '../types.ts';
+import type { EventArguments, TAwaitEventEmitter } from '../types.ts';
 
 export const ReExport = {
   All: 'All',
@@ -11,7 +11,9 @@ export const ReExport = {
   Single: 'Single',
 } as const;
 
-export function reExport(emitter: AwaitEventEmitter) {
+export type ReExportType = ValueOf<typeof ReExport>;
+
+export function reExport(emitter: TAwaitEventEmitter) {
   emitter.on('BeforeGenerateFiles', beforeGenerateFiles);
 }
 
@@ -19,7 +21,9 @@ function beforeGenerateFiles(args: EventArguments) {
   const { config, output, project } = args;
   const rootDirectory = project.getDirectoryOrThrow(output);
 
-  if ([ReExport.Directories, ReExport.All].includes(config.reExport)) {
+  if (
+    ([ReExport.Directories, ReExport.All] as ReExportType[]).includes(config.reExport)
+  ) {
     for (const directory of rootDirectory.getDescendantDirectories()) {
       let indexSourceFile: SourceFile | undefined;
 

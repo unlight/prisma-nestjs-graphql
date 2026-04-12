@@ -1,9 +1,8 @@
-import AwaitEventEmitter from 'await-event-emitter';
 import fs from 'graceful-fs';
 
-import type { EventArguments } from '../types.ts';
+import type { EventArguments, TAwaitEventEmitter } from '../types.ts';
 
-export function purgeOutput(emitter: AwaitEventEmitter) {
+export function purgeOutput(emitter: TAwaitEventEmitter) {
   emitter.on('Begin', begin);
   emitter.on('End', end);
 }

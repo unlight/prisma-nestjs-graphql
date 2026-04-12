@@ -7,6 +7,7 @@ import { getGraphqlImport } from '../helpers/get-graphql-import.ts';
 import { getOutputTypeName } from '../helpers/get-output-type-name.ts';
 import { getPropertyType } from '../helpers/get-property-type.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
+import { castArray } from '../helpers/lodash.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import type { EventArguments, OutputType } from '../types.ts';
 

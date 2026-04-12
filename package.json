@@ -9,7 +9,13 @@
     "url": "https://github.com/unlight/prisma-nestjs-graphql.git"
   },
   "homepage": "https://github.com/unlight/prisma-nestjs-graphql",
-  "keywords": ["nestjs", "graphql", "prisma", "prisma-generator", "nestjs-graphql"],
+  "keywords": [
+    "nestjs",
+    "graphql",
+    "prisma",
+    "prisma-generator",
+    "nestjs-graphql"
+  ],
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -24,7 +30,9 @@
   },
   "typesVersions": {
     "*": {
-      "generate": ["dist/generate.d.ts"]
+      "generate": [
+        "dist/generate.d.ts"
+      ]
     }
   },
   "scripts": {
@@ -39,7 +47,7 @@
     "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
     "eslint:w": "watchexec -w src \"npm run eslint\"",
     "eslint:fix": "npm run eslint -- --fix",
-    "build": "sh Taskfile build",
+    "build": "sh Taskfile buildMicrobundle6",
     "prisma:g": "node node_modules/prisma/build/index.js generate",
     "prisma:custom:g": "node node_modules/prisma/build/index.js generate --schema=./custom-package-generator/schema.prisma",
     "format": "npx prettier ./@generated --write",
@@ -104,6 +112,7 @@
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "cz-customizable": "^7.5.1",
     "decimal.js": "^10.6.0",
+    "dts-bundle-generator": "^9.5.1",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-node": "^0.3.9",
@@ -121,6 +130,7 @@
     "graphql": "^16.12.0",
     "graphql-scalars": "^1.25.0",
     "graphql-type-json": "^0.3.2",
+    "microbundle": "^0.15.1",
     "mocha": "^11.7.5",
     "node-dev": "^8.0.0",
     "ololog": "^1.1.175",

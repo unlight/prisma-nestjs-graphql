@@ -2,6 +2,27 @@
 PATH="$PWD/node_modules/.bin":$PATH
 set -e
 
+buildMicrobundle6() {
+  set -x
+  rm -rf dist
+  mkdir dist
+  dts-bundle-generator --no-banner --project tsconfig.json -o dist/index.d.ts src/index.ts
+  microbundle -i src/index.ts --tsconfig tsconfig.json --no-generateTypes --no-sourcemap --no-compress --no-pkg-main --target node -f esm -o dist
+  name=$(cat package.json | jq -r '.name')
+  cp -fv src/bin.js dist
+  cp -v README.md package.json dist
+  cd dist
+  mv index.d.ts "$name.d.ts"
+  mv "$name.js" "$name.mjs"
+  cat ../package.json | jq --arg name "$name" '
+    .module = "./\($name).mjs" |
+    .types = "./\($name).d.ts" |
+    .exports.".".default = "./\($name).mjs"
+  ' > package.json
+  cd ..
+  set +x
+}
+
 build() {
   set -x
   rm -rf dist

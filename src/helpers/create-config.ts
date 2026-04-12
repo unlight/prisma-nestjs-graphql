@@ -7,7 +7,7 @@ import type { Dictionary } from 'lodash';
 import lodash from 'lodash';
 import outmatch from 'outmatch';
 
-import { ReExport } from '../handlers/re-export.ts';
+import { ReExport, type ReExportType } from '../handlers/re-export.ts';
 import type { ImportNameSpec, ObjectSetting } from '../types.ts';
 import { createEmitBlocks, type EmitBlocksOption } from './create-emit-blocks.ts';
 
@@ -142,7 +142,7 @@ export function createConfig(data: Record<string, unknown>) {
     outputFilePattern,
     prismaClientImport: createPrismaImport(config.prismaClientImport),
     purgeOutput: toBoolean(config.purgeOutput),
-    reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExport,
+    reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExportType,
     requireSingleFieldsInWhereUniqueInput: toBoolean(
       config.requireSingleFieldsInWhereUniqueInput,
     ),

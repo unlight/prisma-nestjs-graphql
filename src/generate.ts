@@ -1,7 +1,6 @@
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import AwaitEventEmitter from 'await-event-emitter';
-import AEE from 'await-event-emitter';
 import { Project, QuoteKind } from 'ts-morph';
 
 import { argsType } from './handlers/args-type.ts';
@@ -30,13 +29,14 @@ import type {
   Model,
   ObjectSettings,
   OutputType,
+  TAwaitEventEmitter,
 } from './types.ts';
 
 export async function generate(
   args: GeneratorOptions & {
     skipAddOutputSourceFiles?: boolean;
     connectCallback?: (
-      emitter: AEE,
+      emitter: TAwaitEventEmitter,
       eventArguments: EventArguments,
     ) => void | Promise<void>;
   },
@@ -48,6 +48,7 @@ export async function generate(
 
   const config = createConfig(generator.config);
 
+  // @ts-ignore This expression is not constructable
   const eventEmitter = new AwaitEventEmitter();
   eventEmitter.on('Warning', warning);
   config.emitBlocks.models && eventEmitter.on('Model', modelData);
@@ -164,7 +165,8 @@ export async function generate(
     await eventEmitter.emit('OutputType', outputType, eventArguments);
   }
 
-  const inputTypes = inputObjectTypes.prisma.concat(inputObjectTypes.model || []);
+  const inputTypes =
+    inputObjectTypes.prisma?.concat(inputObjectTypes.model ?? []) ?? [];
 
   for (const inputType of inputTypes) {
     const event = {

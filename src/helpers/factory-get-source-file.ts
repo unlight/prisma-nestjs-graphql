@@ -1,6 +1,6 @@
-import type AwaitEventEmitter from 'await-event-emitter/types';
 import { Project } from 'ts-morph';
 
+import type { TAwaitEventEmitter } from '../types.ts';
 import { generateFileName } from './generate-file-name.ts';
 
 export function factoryGetSourceFile(args: {
@@ -8,7 +8,7 @@ export function factoryGetSourceFile(args: {
   outputFilePattern: string;
   project: Project;
   getModelName(name: string): string | undefined;
-  eventEmitter: AwaitEventEmitter;
+  eventEmitter: TAwaitEventEmitter;
 }) {
   const { getModelName, output, outputFilePattern, project } = args;
 

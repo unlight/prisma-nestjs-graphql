@@ -1,10 +1,11 @@
 import type { DMMF } from '@prisma/generator-helper';
-import AwaitEventEmitter from 'await-event-emitter';
 import { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
 
 import { createConfig } from './helpers/create-config.ts';
 import { type ObjectSetting, ObjectSettings } from './helpers/object-settings.ts';
+
+export type TAwaitEventEmitter = any;
 
 export type InputType = WritableDeep<DMMF.InputType>;
 export type FieldLocation = DMMF.FieldLocation;
@@ -41,7 +42,7 @@ export type EventArguments = {
   project: Project;
   output: string;
   getSourceFile(args: { type: string; name: string }): SourceFile;
-  eventEmitter: AwaitEventEmitter;
+  eventEmitter: TAwaitEventEmitter;
   typeNames: Set<string>;
   removeTypes: Set<string>;
   enums: Record<string, DMMF.DatamodelEnum | undefined>;
