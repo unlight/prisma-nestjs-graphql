@@ -4,6 +4,7 @@ import { exec } from 'child_process';
 import crypto from 'crypto';
 import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
+import { normalize } from 'path';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate.ts';
@@ -20,7 +21,7 @@ async function getGeneratorVersion() {
   return generatorVersion;
 }
 
-export async function testGenerate(args: {
+type TestGenerateArgs = {
   schema: string;
   options?: string[] | string;
   provider?: 'postgresql' | 'mongodb';
@@ -30,11 +31,13 @@ export async function testGenerate(args: {
     type: string;
   };
   onConnect?: (emitter: TAwaitEventEmitter) => void;
-}) {
+};
+
+export async function testGenerate(args: TestGenerateArgs) {
   const { createSouceFile, onConnect, options, provider, schema } = args;
   let project: Project | undefined;
   const connectCallback = (emitter: TAwaitEventEmitter) => {
-    onConnect && onConnect(emitter);
+    onConnect?.(emitter);
     if (createSouceFile) {
       emitter.on(
         'PostBegin',
@@ -137,7 +140,6 @@ async function createGeneratorOptions(
   const schemaHeader = `
         datasource db {
             provider = "${provider}"
-            url = env("DATABASE_URL")
         }
         generator client {
             provider        = "prisma-client-js"
@@ -151,11 +153,14 @@ async function createGeneratorOptions(
   const prismaTestPath = await prepareCachePath();
   const cacheFile = `${prismaTestPath}/options-${hash}.js`;
   if (!fs.existsSync(cacheFile)) {
+    const proxyGeneratorPath = normalize(
+      process.cwd() + '/src/test/proxy-generator.ts',
+    ).replaceAll('\\', '/');
     const schemaFile = `${prismaTestPath}/schema-${hash}.prisma`;
     const schemaContent = `
             ${schemaHeader}
             generator proxy {
-                provider = "node -r ts-node/register/transpile-only src/test/proxy-generator.ts"
+                provider = "node --import=@poppinss/ts-exec ${proxyGeneratorPath}"
                 output = "."
                 hash = "${hash}"
                 ${castArray(options).join('\n')}
@@ -166,7 +171,7 @@ async function createGeneratorOptions(
 
     await new Promise((resolve, reject) => {
       const proc = exec(
-        `node node_modules/prisma/build/index.js generate --schema=${schemaFile}`,
+        `node node_modules/prisma/build/index.js generate --no-hints --schema=${schemaFile}`,
       );
       if (!proc.stderr) {
         throw new Error('Generate error');

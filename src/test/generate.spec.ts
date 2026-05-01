@@ -9,7 +9,7 @@ import {
   type PropertyDeclarationStructure,
   SourceFile,
 } from 'ts-morph';
-import { beforeAllAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import type { EventArguments } from '../types.ts';
 import { getFieldOptions, getPropertyStructure, testSourceFile } from './helpers.ts';
@@ -45,6 +45,15 @@ const objectTypeArguments = () =>
     .getClass(() => true)
     ?.getDecorator('ObjectType')
     ?.getStructure().arguments;
+
+it('smoke', async () => {
+  ({ project, sourceFiles } = await testGenerate({
+    schema: `
+    model User {
+      id Int @id
+    }`,
+  }));
+});
 
 describe('model with one id int', () => {
   beforeAll(async () => {

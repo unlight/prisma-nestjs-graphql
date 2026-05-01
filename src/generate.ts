@@ -32,7 +32,11 @@ import type {
   TAwaitEventEmitter,
 } from './types.ts';
 
-const { default: AwaitEventEmitter } = awaitEventEmitterModule;
+function resolveAwaitEventEmitter(): any {
+  if (typeof awaitEventEmitterModule === 'function') return awaitEventEmitterModule;
+  if (typeof awaitEventEmitterModule.default === 'function')
+    return awaitEventEmitterModule.default;
+}
 
 export async function generate(
   args: GeneratorOptions & {
@@ -50,6 +54,7 @@ export async function generate(
 
   const config = createConfig(generator.config);
 
+  const AwaitEventEmitter = resolveAwaitEventEmitter();
   const eventEmitter: TAwaitEventEmitter = new AwaitEventEmitter();
   eventEmitter.on('Warning', warning);
   config.emitBlocks.models && eventEmitter.on('Model', modelData);
