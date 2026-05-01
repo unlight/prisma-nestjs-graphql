@@ -2,8 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
-import { DummyOrderByRelevanceInput } from './dummy-order-by-relevance.input';
-import { Type } from 'class-transformer';
 
 @InputType()
 export class DummyOrderByWithRelationInput {
@@ -36,8 +34,4 @@ export class DummyOrderByWithRelationInput {
 
   @Field(() => SortOrder, { nullable: true })
   friends?: `${SortOrder}`;
-
-  @Field(() => DummyOrderByRelevanceInput, { nullable: true })
-  @Type(() => DummyOrderByRelevanceInput)
-  _relevance?: DummyOrderByRelevanceInput;
 }

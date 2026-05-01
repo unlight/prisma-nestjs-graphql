@@ -7,7 +7,6 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 import { Type } from 'class-transformer';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
-import { ArticleOrderByRelevanceInput } from './article-order-by-relevance.input';
 
 @InputType()
 export class ArticleOrderByWithRelationInput {
@@ -55,7 +54,4 @@ export class ArticleOrderByWithRelationInput {
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
   @Type(() => CommentOrderByRelationAggregateInput)
   comments?: CommentOrderByRelationAggregateInput;
-
-  @Field(() => ArticleOrderByRelevanceInput, { nullable: true })
-  _relevance?: ArticleOrderByRelevanceInput;
 }

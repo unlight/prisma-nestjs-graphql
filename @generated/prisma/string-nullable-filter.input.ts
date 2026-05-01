@@ -35,9 +35,6 @@ export class StringNullableFilter {
   @Field(() => String, { nullable: true })
   endsWith?: string;
 
-  @Field(() => String, { nullable: true })
-  search?: string;
-
   @Field(() => QueryMode, { nullable: true })
   mode?: `${QueryMode}`;
 

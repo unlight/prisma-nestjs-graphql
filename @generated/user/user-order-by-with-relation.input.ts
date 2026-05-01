@@ -7,7 +7,6 @@ import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggr
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
-import { UserOrderByRelevanceInput } from './user-order-by-relevance.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -65,8 +64,4 @@ export class UserOrderByWithRelationInput {
   @Field(() => ProfileOrderByWithRelationInput, { nullable: true })
   @Type(() => ProfileOrderByWithRelationInput)
   profile?: ProfileOrderByWithRelationInput;
-
-  @Field(() => UserOrderByRelevanceInput, { nullable: true })
-  @Type(() => UserOrderByRelevanceInput)
-  _relevance?: UserOrderByRelevanceInput;
 }

@@ -4,7 +4,6 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
 import { Type } from 'class-transformer';
-import { ProfileOrderByRelevanceInput } from './profile-order-by-relevance.input';
 
 @InputType()
 export class ProfileOrderByWithRelationInput {
@@ -20,7 +19,4 @@ export class ProfileOrderByWithRelationInput {
   @Field(() => UserOrderByWithRelationInput, { nullable: true })
   @Type(() => UserOrderByWithRelationInput)
   user?: UserOrderByWithRelationInput;
-
-  @Field(() => ProfileOrderByRelevanceInput, { nullable: true })
-  _relevance?: ProfileOrderByRelevanceInput;
 }

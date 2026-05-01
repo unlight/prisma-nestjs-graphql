@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { TagUpdateManyMutationInput } from './tag-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { TagWhereInput } from './tag-where.input';
+import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class UpdateManyTagArgs {
@@ -13,4 +14,7 @@ export class UpdateManyTagArgs {
   @Field(() => TagWhereInput, { nullable: true })
   @Type(() => TagWhereInput)
   where?: TagWhereInput;
+
+  @Field(() => Int, { nullable: true })
+  limit?: number;
 }

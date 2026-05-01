@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { QueryMode } from './query-mode.enum';
 
 @InputType()
 export class NestedJsonNullableFilter {
@@ -9,6 +10,9 @@ export class NestedJsonNullableFilter {
 
   @Field(() => [String], { nullable: true })
   path?: Array<string>;
+
+  @Field(() => QueryMode, { nullable: true })
+  mode?: `${QueryMode}`;
 
   @Field(() => String, { nullable: true })
   string_contains?: string;

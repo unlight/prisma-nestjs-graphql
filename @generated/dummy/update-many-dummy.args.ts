@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { DummyUpdateManyMutationInput } from './dummy-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { DummyWhereInput } from './dummy-where.input';
+import { Int } from '@nestjs/graphql';
 
 @ArgsType()
 export class UpdateManyDummyArgs {
@@ -13,4 +14,7 @@ export class UpdateManyDummyArgs {
   @Field(() => DummyWhereInput, { nullable: true })
   @Type(() => DummyWhereInput)
   where?: DummyWhereInput;
+
+  @Field(() => Int, { nullable: true })
+  limit?: number;
 }

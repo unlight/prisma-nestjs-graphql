@@ -5,7 +5,6 @@ import { SortOrderInput } from '../prisma/sort-order.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
 import { Type } from 'class-transformer';
 import { ArticleOrderByWithRelationInput } from '../article/article-order-by-with-relation.input';
-import { CommentOrderByRelevanceInput } from './comment-order-by-relevance.input';
 
 @InputType()
 export class CommentOrderByWithRelationInput {
@@ -34,7 +33,4 @@ export class CommentOrderByWithRelationInput {
   @Field(() => ArticleOrderByWithRelationInput, { nullable: true })
   @Type(() => ArticleOrderByWithRelationInput)
   article?: ArticleOrderByWithRelationInput;
-
-  @Field(() => CommentOrderByRelevanceInput, { nullable: true })
-  _relevance?: CommentOrderByRelevanceInput;
 }

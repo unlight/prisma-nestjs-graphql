@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
 import { Type } from 'class-transformer';
-import { TagOrderByRelevanceInput } from './tag-order-by-relevance.input';
 
 @InputType()
 export class TagOrderByWithRelationInput {
@@ -16,7 +15,4 @@ export class TagOrderByWithRelationInput {
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
   @Type(() => ArticleOrderByRelationAggregateInput)
   articles?: ArticleOrderByRelationAggregateInput;
-
-  @Field(() => TagOrderByRelevanceInput, { nullable: true })
-  _relevance?: TagOrderByRelevanceInput;
 }
