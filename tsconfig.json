@@ -3,13 +3,13 @@
     "transpileOnly": true,
     "swc": false,
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "NodeNext"
     }
   },
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2024",
     "rewriteRelativeImportExtensions": true,
-    "module": "commonjs",
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
     "importHelpers": true,
     "strict": true,

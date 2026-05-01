@@ -32,7 +32,6 @@ import type {
   TAwaitEventEmitter,
 } from './types.ts';
 
-// @ts-expect-error Wrong export
 const { default: AwaitEventEmitter } = awaitEventEmitterModule;
 
 export async function generate(

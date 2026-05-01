@@ -1,18 +1,24 @@
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import AwaitEventEmitter from 'await-event-emitter/types';
 import { exec } from 'child_process';
 import crypto from 'crypto';
 import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
-import { generate } from '../generate';
-import { generateFileName } from '../helpers/generate-file-name';
-import { DMMF, EventArguments } from '../types';
+import { generate } from '../generate.ts';
+import { generateFileName } from '../helpers/generate-file-name.ts';
+import type { DMMF, EventArguments, TAwaitEventEmitter } from '../types.ts';
 
-const { '@prisma/generator-helper': generatorVersion } =
-  require('../../package.json').dependencies;
+async function getGeneratorVersion() {
+  // @ts-expect-error No types
+  const { dependencies } = await import('@prisma/generator-helper/package.json', {
+    with: { type: 'json' },
+  });
+  const generatorVersion = dependencies['@prisma/generator-helper'];
+
+  return generatorVersion;
+}
 
 export async function testGenerate(args: {
   schema: string;
@@ -23,11 +29,11 @@ export async function testGenerate(args: {
     name: string;
     type: string;
   };
-  onConnect?: (emitter: AwaitEventEmitter) => void;
+  onConnect?: (emitter: TAwaitEventEmitter) => void;
 }) {
   const { createSouceFile, onConnect, options, provider, schema } = args;
   let project: Project | undefined;
-  const connectCallback = (emitter: AwaitEventEmitter) => {
+  const connectCallback = (emitter: TAwaitEventEmitter) => {
     onConnect && onConnect(emitter);
     if (createSouceFile) {
       emitter.on(
@@ -49,6 +55,7 @@ export async function testGenerate(args: {
       ({ project } = args);
     });
   };
+
   await generate({
     ...(await createGeneratorOptions(schema, options, provider)),
     connectCallback,
@@ -137,6 +144,8 @@ async function createGeneratorOptions(
             previewFeatures = ${JSON.stringify(previewFeatures)}
         }
     `;
+
+  const generatorVersion = await getGeneratorVersion();
   // eslint-disable-next-line prefer-rest-params
   const hash = createHash(generatorVersion, schemaHeader, arguments);
   const prismaTestPath = await prepareCachePath();

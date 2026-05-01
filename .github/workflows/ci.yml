@@ -1,68 +1,52 @@
-name: CI
+name: Continuous Integration
 on:
   - push
   - pull_request
+
 jobs:
   build:
-    # env:
-    #   # DEBUG: 'prisma:*'
-    #   # PRISMA_GENERATE_SKIP_AUTOINSTALL: 1
-    concurrency:
-      group: ${{ github.ref }}
-      cancel-in-progress: true
-    name: 'Test on Node ${{ matrix.node }} and ${{ matrix.os }}'
-    runs-on: '${{ matrix.os }}'
-    strategy:
-      # max-parallel: 1
-      matrix:
-        node:
-          - 22
-        os:
-          - ubuntu-latest
-          # - windows-latest
+    name: 'Test, build, release'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - name: 'Checkout repository'
-        uses: actions/checkout@v3
-      - name: 'Setup Node ${{ matrix.node }}'
-        uses: actions/setup-node@v3
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v6
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v6
         with:
-          node-version: '${{ matrix.node }}'
-      - name: 'Install depependencies'
+          node-version: 24
+
+      - name: 'Install Depependencies'
         run: npm install --force
+
       - name: 'Regenerate'
         run: npm run regen
+
       - name: 'ESLint'
         run: |
           npm run eslint
+
       - name: 'tscheck'
         run: |
           npm run tscheck
+
       - name: 'Test'
         run: |
           npm run test:cov -- --bail
+
       - name: 'Test Build'
         run: |
           npm run build
+
       - name: 'Compatibilty Check'
         run: |
           npm run compatibilty_check
-  release:
-    name: 'Release'
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/next')
-    steps:
-      - name: 'Checkout repository'
-        uses: actions/checkout@v3
-      - name: 'Setup Node'
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-      - name: 'Install depependencies'
-        run: npm install --force
-      - name: 'Build'
-        run: npm run build
+
       - name: 'Release'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/next')
         run: |
           npx semantic-release
         env:
