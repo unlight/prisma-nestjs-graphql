@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
 
 import { testSourceFile } from './helpers.ts';
@@ -8,7 +8,7 @@ let project: Project;
 let sourceFiles: SourceFile[];
 
 describe('type has been treated as model #99', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         // `outputFilePattern = "{name}.{type}.ts"`
@@ -52,7 +52,7 @@ describe('type has been treated as model #99', () => {
 });
 
 describe('mongodb json', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       provider: 'mongodb',
@@ -71,7 +71,7 @@ describe('mongodb json', () => {
 });
 
 describe('single model and field mongodb', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       provider: 'mongodb',

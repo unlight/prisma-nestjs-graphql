@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
 
 import { testSourceFile } from './helpers.ts';
@@ -7,7 +7,7 @@ import { testGenerate } from './test-generate.ts';
 let project: Project;
 
 describe('custom decorators namespace both input and output', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -67,7 +67,7 @@ describe('custom decorators namespace both input and output', () => {
     let importDeclarations: any[];
     let classFile: any;
 
-    before(() => {
+    beforeAll(() => {
       ({ classFile, sourceFile } = testSourceFile({
         file: 'user-create.input.ts',
         project,
@@ -150,7 +150,7 @@ describe('custom decorators namespace both input and output', () => {
 });
 
 describe('fieldtype disable output', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -179,7 +179,7 @@ describe('fieldtype disable output', () => {
 });
 
 describe('custom decorators and description', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -222,7 +222,7 @@ describe('custom decorators and description', () => {
 });
 
 describe('custom decorators default import', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -262,7 +262,7 @@ describe('custom decorators default import', () => {
 });
 
 describe('default import alternative syntax', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -300,7 +300,7 @@ describe('default import alternative syntax', () => {
 });
 
 describe('custom decorators field custom type namespace', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -365,7 +365,7 @@ describe('custom decorators field custom type namespace', () => {
 });
 
 describe('decorate option', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -457,7 +457,7 @@ describe('decorate option', () => {
 });
 
 describe('model decorate', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -511,7 +511,7 @@ describe('model decorate', () => {
 });
 
 describe('model directive', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
@@ -564,7 +564,7 @@ describe('model directive', () => {
 });
 
 describe('hide and decorate', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,

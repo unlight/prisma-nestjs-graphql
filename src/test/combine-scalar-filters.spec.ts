@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
 
 import { testSourceFile } from './helpers.ts';
@@ -8,7 +8,7 @@ let project: Project;
 let sourceFiles: SourceFile[];
 
 describe('combine scalar filters', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -215,7 +215,7 @@ describe('combine scalar filters', () => {
 });
 
 describe('combine scalar filters on array', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -237,7 +237,7 @@ describe('combine scalar filters on array', () => {
 });
 
 describe('empty relation filter input', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [`combineScalarFilters = true`],
       schema: `

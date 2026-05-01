@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
 
 import { testSourceFile } from './helpers.ts';
@@ -9,7 +9,7 @@ let imports: { name: string; specifier: string }[];
 let s: ReturnType<typeof testSourceFile>;
 
 describe('scalar field', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [],
       schema: `
@@ -69,7 +69,7 @@ describe('scalar field', () => {
 });
 
 describe('hide on non scalar', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [],
       schema: `
@@ -102,7 +102,7 @@ describe('hide on non scalar', () => {
 });
 
 describe('hide field using match', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
@@ -215,7 +215,7 @@ it('hidden relations result in un-imported types', async () => {
 });
 
 describe('enums are not imported in classes when decorated', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
@@ -260,7 +260,7 @@ describe('enums are not imported in classes when decorated', () => {
 
 describe.skip('hide enum', () => {
   // not implemented
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
@@ -323,7 +323,7 @@ describe.skip('hide enum', () => {
 });
 
 describe('hide with self reference', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       schema: `model User {
                   id     Int    @id
@@ -356,7 +356,7 @@ describe('hide with self reference', () => {
 });
 
 describe('hide _count', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project } = await testGenerate({
       options: `
   outputFilePattern = "{name}.{type}.ts"

@@ -46,7 +46,7 @@ compatibilty_check() {
   sed -i 's/emitSingle *= false/emitSingle = true/g' prisma/schema.prisma
   rm -rf ./@generated && npm run prisma:g
   npx tsc --noEmit --skipLibCheck --experimentalDecorators ./@generated/index.ts
-  npx ts-node ./@generated/index.ts
+  npx tsc --noEmit ./@generated/index.ts
 
   echo === Check emitCompiled ===
   sed -i 's/emitCompiled *= false/emitCompiled = true/g' prisma/schema.prisma

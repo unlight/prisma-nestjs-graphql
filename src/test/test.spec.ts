@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { expect, describe, it, before } from 'vitest';
 import {
   ClassDeclaration,
   ImportDeclarationStructure,

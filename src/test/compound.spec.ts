@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
 
 import { testSourceFile } from './helpers.ts';
@@ -8,7 +8,7 @@ let project: Project;
 let sourceFiles: SourceFile[];
 
 describe('compound index', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -56,7 +56,7 @@ describe('compound index', () => {
 });
 
 describe('compound primary key', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
