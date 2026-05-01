@@ -1,8 +1,8 @@
 import { expect } from 'expect';
 import { Project } from 'ts-morph';
 
-import { testSourceFile } from './helpers';
-import { testGenerate } from './test-generate';
+import { testSourceFile } from './helpers.ts';
+import { testGenerate } from './test-generate.ts';
 
 describe('decimal type', () => {
   let project: Project;
@@ -407,7 +407,6 @@ describe('nested object decorate', () => {
       'update',
       'updateMany',
       'deleteMany',
-      // eslint-disable-next-line unicorn/no-array-for-each
     ].forEach(property => {
       it(property, () => {
         const s = testSourceFile({

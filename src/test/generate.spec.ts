@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { expect } from 'expect';
 import JSON5 from 'json5';
 import { trim } from 'lodash';
 import {
@@ -11,9 +11,9 @@ import {
   SourceFile,
 } from 'ts-morph';
 
-import { EventArguments } from '../types';
-import { getFieldOptions, getPropertyStructure, testSourceFile } from './helpers';
-import { testGenerate } from './test-generate';
+import type { EventArguments } from '../types.ts';
+import { getFieldOptions, getPropertyStructure, testSourceFile } from './helpers.ts';
+import { testGenerate } from './test-generate.ts';
 
 let sourceFile: SourceFile;
 let sourceText: string;

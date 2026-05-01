@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { expect } from 'expect';
 
 import { ReExport } from '../handlers/re-export.ts';
 import { createConfig } from './create-config.ts';

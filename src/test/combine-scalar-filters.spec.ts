@@ -1,8 +1,8 @@
-import expect from 'expect';
+import { expect } from 'expect';
 import { Project, SourceFile } from 'ts-morph';
 
-import { testSourceFile } from './helpers';
-import { testGenerate } from './test-generate';
+import { testSourceFile } from './helpers.ts';
+import { testGenerate } from './test-generate.ts';
 
 let project: Project;
 let sourceFiles: SourceFile[];

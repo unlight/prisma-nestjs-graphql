@@ -1,8 +1,8 @@
 import { expect } from 'expect';
 import { Project } from 'ts-morph';
 
-import { testSourceFile } from './helpers';
-import { testGenerate } from './test-generate';
+import { testSourceFile } from './helpers.ts';
+import { testGenerate } from './test-generate.ts';
 
 describe('scalars', () => {
   let project: Project;
