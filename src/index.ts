@@ -1,5 +1,5 @@
-import { type GeneratorOptions } from '@prisma/generator-helper';
-import { default as generatorHelper } from '@prisma/generator-helper';
+import type { GeneratorOptions } from '@prisma/generator-helper';
+import generatorHelper from '@prisma/generator-helper';
 
 const { generatorHandler } = generatorHelper;
 
@@ -10,7 +10,6 @@ generatorHandler({
     await generate(options);
   },
   onManifest() {
-    console.log('onManifest');
     return {
       defaultOutput: '.',
       prettyName: 'Prisma NestJS/GraphQL',

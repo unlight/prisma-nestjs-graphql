@@ -1,6 +1,6 @@
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import AwaitEventEmitter from 'await-event-emitter';
+import awaitEventEmitterModule from 'await-event-emitter';
 import { Project, QuoteKind } from 'ts-morph';
 
 import { argsType } from './handlers/args-type.ts';
@@ -32,6 +32,9 @@ import type {
   TAwaitEventEmitter,
 } from './types.ts';
 
+// @ts-expect-error Wrong export
+const { default: AwaitEventEmitter } = awaitEventEmitterModule;
+
 export async function generate(
   args: GeneratorOptions & {
     skipAddOutputSourceFiles?: boolean;
@@ -48,8 +51,7 @@ export async function generate(
 
   const config = createConfig(generator.config);
 
-  // @ts-ignore This expression is not constructable
-  const eventEmitter = new AwaitEventEmitter();
+  const eventEmitter: TAwaitEventEmitter = new AwaitEventEmitter();
   eventEmitter.on('Warning', warning);
   config.emitBlocks.models && eventEmitter.on('Model', modelData);
   if (config.emitBlocks.prismaEnums || config.emitBlocks.schemaEnums) {

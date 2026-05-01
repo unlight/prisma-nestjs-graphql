@@ -42,13 +42,11 @@ export function createConfig(data: Record<string, unknown>) {
   const configOutputFilePattern = String(
     config.outputFilePattern || `{model}/{name}.{type}.ts`,
   );
-
-  let outputFilePattern = filenamify(configOutputFilePattern, {
-    replacement: '/',
-  })
-    .replaceAll('..', '/')
-    .replaceAll(/\/+/g, '/');
-  outputFilePattern = trim(outputFilePattern, '/');
+  const outputFilePattern = configOutputFilePattern
+    .replaceAll('\\', '/')
+    .split('/')
+    .map(path => filenamify(path))
+    .join('/');
 
   if (outputFilePattern !== configOutputFilePattern) {
     $warnings.push(

@@ -7,10 +7,10 @@
     }
   },
   "compilerOptions": {
-    "target": "es2024",
+    "target": "es2020",
     "rewriteRelativeImportExtensions": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": false,
@@ -27,5 +27,6 @@
     "skipLibCheck": true,
     "lib": ["esnext"]
   },
-  "include": ["src", "example", "@generated"]
+  "include": ["src"]
+  // "include": ["src", "example", "@generated"]
 }
