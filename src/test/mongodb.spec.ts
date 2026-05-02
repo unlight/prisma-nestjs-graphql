@@ -1,5 +1,5 @@
-import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { testSourceFile } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
@@ -44,7 +44,7 @@ describe('type has been treated as model #99', () => {
     });
     expect(s.namedImports).toContainEqual({
       name: 'Preference',
-      specifier: '../preference/preference.model',
+      specifier: '../preference/preference.model.ts',
     });
     expect(s.property?.type).toEqual('Array<Preference>');
     expect(s.fieldDecoratorType).toEqual('() => [Preference]');

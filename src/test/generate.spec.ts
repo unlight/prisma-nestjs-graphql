@@ -524,11 +524,11 @@ describe('one model with scalar types', () => {
     it('contains scalar filters', () => {
       expect(imports).toContainEqual({
         name: 'StringFilter',
-        specifier: '../prisma/string-filter.input',
+        specifier: '../prisma/string-filter.input.ts',
       });
       expect(imports).toContainEqual({
         name: 'IntFilter',
-        specifier: '../prisma/int-filter.input',
+        specifier: '../prisma/int-filter.input.ts',
       });
     });
   });
@@ -855,7 +855,7 @@ describe('one model with enum', () => {
     it('should import Role as enum', () => {
       expect(imports).toContainEqual({
         name: 'Role',
-        specifier: '../prisma/role.enum',
+        specifier: '../prisma/role.enum.ts',
       });
     });
 
@@ -903,7 +903,7 @@ describe('one model with self reference', () => {
       const s = testSourceFile({ file: 'user.model.ts', project });
       expect(s.namedImports).toContainEqual({
         name: 'UserCount',
-        specifier: './user-count.output',
+        specifier: './user-count.output.ts',
       });
     });
   });
@@ -1733,7 +1733,7 @@ describe('select input type', () => {
       expect(p('author')?.type).toEqual('UserWhereInput');
       expect(importDeclarations).toContainEqual(
         expect.objectContaining({
-          moduleSpecifier: './user-where.input',
+          moduleSpecifier: './user-where.input.ts',
         }),
       );
     });

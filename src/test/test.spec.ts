@@ -80,7 +80,7 @@ model Post {
       if (referencedSymbols.length > 1) {
         continue;
       }
-      console.log('class name', classDeclaration.getName());
+      // console.log('class name', classDeclaration.getName());
       // console.log('referencedSymbols.length', referencedSymbols.length);
       // for (const referencedSymbol of referencedSymbols) {
       //     for (const reference of referencedSymbol.getReferences()) {

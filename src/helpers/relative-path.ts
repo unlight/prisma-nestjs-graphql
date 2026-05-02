@@ -11,8 +11,10 @@ export function relativePath(from: string, to: string) {
   if (!result.startsWith('.')) {
     result = `./${result}`;
   }
-  if (result.endsWith('.ts')) {
-    result = result.slice(0, -3);
-  }
+
+  // if (result.endsWith('.ts')) {
+  //   result = result.slice(0, -3);
+  // }
+
   return result;
 }

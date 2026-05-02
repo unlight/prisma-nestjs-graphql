@@ -1,5 +1,5 @@
-import { beforeAll, describe, expect, it } from 'vitest';
 import { Project, SourceFile } from 'ts-morph';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { testSourceFile } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
@@ -216,7 +216,7 @@ it('hidden relations result in un-imported types', async () => {
 
   expect(s.namedImports).toContainEqual({
     name: 'UserScalarRelationFilter',
-    specifier: './user-scalar-relation-filter.input',
+    specifier: './user-scalar-relation-filter.input.ts',
   });
 });
 
@@ -254,7 +254,7 @@ describe('enums are not imported in classes when decorated', () => {
 
       expect(s.namedImports).toContainEqual({
         name: 'Role',
-        specifier: './role.enum',
+        specifier: './role.enum.ts',
       });
 
       expect(s.propertyDecorators).toContainEqual(
@@ -314,8 +314,6 @@ describe.skip('hide enum', () => {
         project,
         property: 'role',
       });
-
-      console.log('s', s);
 
       expect(s.namedImports).toContainEqual({
         name: 'Role',
