@@ -1,6 +1,6 @@
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import crypto from 'crypto';
 import fs from 'graceful-fs';
 import { castArray, uniq } from 'lodash';
@@ -151,7 +151,7 @@ async function createGeneratorOptions(
   // eslint-disable-next-line prefer-rest-params
   const hash = createHash(generatorVersion, schemaHeader, arguments);
   const prismaTestPath = await prepareCachePath();
-  const cacheFile = `${prismaTestPath}/options-${hash}.js`;
+  const cacheFile = `${prismaTestPath}/options-${hash}.mjs`;
   if (!fs.existsSync(cacheFile)) {
     const proxyGeneratorPath = normalize(
       process.cwd() + '/src/test/proxy-generator.ts',
@@ -185,7 +185,26 @@ async function createGeneratorOptions(
     });
   }
 
-  return require(cacheFile);
+  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
+    fs.writeFileSync(
+      `${prismaTestPath}/package.json`,
+      JSON.stringify(
+        {
+          devDependencies: {
+            '@prisma/client': '7',
+          },
+        },
+        undefined,
+        2,
+      ),
+    );
+  }
+
+  if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
+    execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
+  }
+
+  return import(cacheFile).then(x => x.default);
 }
 
 function createHash(...data: unknown[]) {
