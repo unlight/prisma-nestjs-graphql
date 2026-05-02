@@ -45,10 +45,12 @@ export function createConfig(data: Record<string, unknown>) {
   const configOutputFilePattern = String(
     config.outputFilePattern || `{model}/{name}.{type}.ts`,
   );
+
   const outputFilePattern = configOutputFilePattern
     .replaceAll('\\', '/')
     .split('/')
-    .map(path => filenamify(path))
+    .map(path => filenamify(path, { replacement: '' }))
+    .filter(Boolean)
     .join('/');
 
   if (outputFilePattern !== configOutputFilePattern) {

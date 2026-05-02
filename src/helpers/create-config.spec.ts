@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { expect, it } from 'vitest';
 
 import { ReExport } from '../handlers/re-export.ts';
 import { createConfig } from './create-config.ts';

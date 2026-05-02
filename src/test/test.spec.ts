@@ -1,4 +1,4 @@
-import { expect, describe, it, before } from 'vitest';
+import { expect, describe, it, beforeAll } from 'vitest';
 import {
   ClassDeclaration,
   ImportDeclarationStructure,
@@ -43,7 +43,7 @@ const setSourceFile = (name: string) => {
 };
 
 describe.skip('user test', () => {
-  before(async () => {
+  beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,

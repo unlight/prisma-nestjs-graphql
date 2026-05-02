@@ -4,7 +4,6 @@ export default defineConfig({
   test: {
     fileParallelism: false,
     hideSkippedTests: true,
-    reporters: 'dot',
     testTimeout: 30000,
     hookTimeout: 30000,
   },
