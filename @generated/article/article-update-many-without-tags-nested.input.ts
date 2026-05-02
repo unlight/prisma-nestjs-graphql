@@ -20,7 +20,9 @@ export class ArticleUpdateManyWithoutTagsNestedInput {
   @Type(() => ArticleCreateOrConnectWithoutTagsInput)
   connectOrCreate?: Array<ArticleCreateOrConnectWithoutTagsInput>;
 
-  @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], { nullable: true })
+  @Field(() => [ArticleUpsertWithWhereUniqueWithoutTagsInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpsertWithWhereUniqueWithoutTagsInput)
   upsert?: Array<ArticleUpsertWithWhereUniqueWithoutTagsInput>;
 
@@ -40,7 +42,9 @@ export class ArticleUpdateManyWithoutTagsNestedInput {
   @Type(() => ArticleWhereUniqueInput)
   connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], { nullable: true })
+  @Field(() => [ArticleUpdateWithWhereUniqueWithoutTagsInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateWithWhereUniqueWithoutTagsInput)
   update?: Array<ArticleUpdateWithWhereUniqueWithoutTagsInput>;
 

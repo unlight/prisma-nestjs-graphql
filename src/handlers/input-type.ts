@@ -78,7 +78,9 @@ export function inputType(
   const isWhereUnique = isWhereUniqueInputType(inputType.name);
 
   for (const field of inputType.fields) {
-    field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(String(t.type)));
+    field.inputTypes = field.inputTypes.filter(
+      t => !removeTypes.has(String(t.type)),
+    );
 
     eventEmitter.emitSync(BeforeGenerateField, field, args);
 
@@ -137,7 +139,10 @@ export function inputType(
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
       // TODO: Deprecated and should be removed
-      importDeclarations.add('Decimal', `${config.prismaClientImport}/runtime/library`);
+      importDeclarations.add(
+        'Decimal',
+        `${config.prismaClientImport}/runtime/library`,
+      );
     } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
       importDeclarations.add('Prisma', config.prismaClientImport);
     }
@@ -214,7 +219,10 @@ export function inputType(
       });
 
       if (graphqlType === 'GraphQLDecimal') {
-        importDeclarations.add('transformToDecimal', 'prisma-graphql-type-decimal');
+        importDeclarations.add(
+          'transformToDecimal',
+          'prisma-graphql-type-decimal',
+        );
         importDeclarations.add('Transform', 'class-transformer');
         importDeclarations.add('Type', 'class-transformer');
 
@@ -253,31 +261,43 @@ export function inputType(
               .get(modelField.type)
               ?.fields.some(
                 field =>
-                  field.kind === 'object' && classTransformerTypeModels.has(field.type),
+                  field.kind === 'object' &&
+                  classTransformerTypeModels.has(field.type),
               )))
       ) {
         importDeclarations.add('Type', 'class-transformer');
-        property.decorators.push({ arguments: [`() => ${graphqlType}`], name: 'Type' });
+        property.decorators.push({
+          arguments: [`() => ${graphqlType}`],
+          name: 'Type',
+        });
       }
 
       if (isCustomsApplicable) {
         for (const options of settings || []) {
           if (
-            (options.kind === 'Decorator' && options.input && options.match?.(name)) ??
+            (options.kind === 'Decorator' &&
+              options.input &&
+              options.match?.(name)) ??
             true
           ) {
             property.decorators.push({
               arguments: options.arguments as string[],
               name: options.name,
             });
-            ok(options.from, "Missed 'from' part in configuration or field setting");
+            ok(
+              options.from,
+              "Missed 'from' part in configuration or field setting",
+            );
             importDeclarations.create(options);
           }
         }
       }
 
       for (const decorate of config.decorate) {
-        if (decorate.isMatchField(name) && decorate.isMatchType(inputType.name)) {
+        if (
+          decorate.isMatchField(name) &&
+          decorate.isMatchType(inputType.name)
+        ) {
           property.decorators.push({
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
             name: decorate.name,

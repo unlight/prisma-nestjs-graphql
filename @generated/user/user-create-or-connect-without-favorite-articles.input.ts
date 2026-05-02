@@ -9,7 +9,10 @@ import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-fa
 export class UserCreateOrConnectWithoutFavoriteArticlesInput {
   @Field(() => UserWhereUniqueInput, { nullable: false })
   @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'name' | 'email_name'
+  >;
 
   @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
   @Type(() => UserCreateWithoutFavoriteArticlesInput)

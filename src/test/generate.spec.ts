@@ -12,7 +12,11 @@ import {
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import type { EventArguments } from '../types.ts';
-import { getFieldOptions, getPropertyStructure, testSourceFile } from './helpers.ts';
+import {
+  getFieldOptions,
+  getPropertyStructure,
+  testSourceFile,
+} from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let sourceFile: SourceFile;
@@ -25,14 +29,19 @@ let importDeclarations: ImportDeclarationStructure[] = [];
 
 const p = (name: string) => getPropertyStructure(sourceFile, name);
 const f = (name: string) =>
-  getPropertyStructure(sourceFile, name)?.decorators?.find(d => d.name === 'Field')
-    ?.arguments;
+  getPropertyStructure(sourceFile, name)?.decorators?.find(
+    d => d.name === 'Field',
+  )?.arguments;
 const t = (name: string) => f(name)?.[0];
 const setSourceFile = (name: string) => {
-  sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(name));
+  sourceFile = project.getSourceFileOrThrow(s =>
+    s.getFilePath().endsWith(name),
+  );
   sourceText = sourceFile.getText();
   classFile = sourceFile.getClass(() => true)!;
-  importDeclarations = sourceFile.getImportDeclarations().map(d => d.getStructure());
+  importDeclarations = sourceFile
+    .getImportDeclarations()
+    .map(d => d.getStructure());
   imports = importDeclarations.flatMap(d =>
     (d.namedImports as ImportSpecifierStructure[]).map(x => ({
       name: x.name,
@@ -46,7 +55,7 @@ const objectTypeArguments = () =>
     ?.getDecorator('ObjectType')
     ?.getStructure().arguments;
 
-it.only('smoke', async () => {
+it('smoke', async () => {
   ({ project, sourceFiles } = await testGenerate({
     schema: `
     model User {
@@ -127,7 +136,9 @@ describe('model with one id int', () => {
         property: 'id',
       });
       expect(s.fieldDecoratorOptions).toMatch(/nullable:\s*false/);
-      expect(s.fieldDecoratorOptions).toMatch(/description:\s*["']user id really["']/);
+      expect(s.fieldDecoratorOptions).toMatch(
+        /description:\s*["']user id really["']/,
+      );
     });
 
     it('property description in jsdoc', () => {
@@ -145,7 +156,9 @@ describe('model with one id int', () => {
     });
 
     it('has js comment', () => {
-      expect(s.classFile.getJsDocs()[0].getDescription()).toEqual('\nUser really');
+      expect(s.classFile.getJsDocs()[0].getDescription()).toEqual(
+        '\nUser really',
+      );
     });
 
     it('has import objecttype', () => {
@@ -333,7 +346,9 @@ describe('model with one id int', () => {
       property: 'cursor',
     });
 
-    expect(s.property?.type).toEqual(`Prisma.AtLeast<UserWhereUniqueInput, 'id'>`);
+    expect(s.property?.type).toEqual(
+      `Prisma.AtLeast<UserWhereUniqueInput, 'id'>`,
+    );
   });
 });
 
@@ -417,15 +432,21 @@ describe('one model with scalar types', () => {
     });
     describe('property types', () => {
       it('boolean', () => {
-        expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toEqual('boolean');
+        expect(getPropertyStructure(sourceFile, 'humanoid')?.type).toEqual(
+          'boolean',
+        );
       });
 
       it('rating', () => {
-        expect(getPropertyStructure(sourceFile, 'rating')?.type).toEqual('number');
+        expect(getPropertyStructure(sourceFile, 'rating')?.type).toEqual(
+          'number',
+        );
       });
 
       it('count', () => {
-        expect(getPropertyStructure(sourceFile, 'count')?.type).toEqual('number');
+        expect(getPropertyStructure(sourceFile, 'count')?.type).toEqual(
+          'number',
+        );
       });
 
       it('born', () => {
@@ -479,7 +500,9 @@ describe('one model with scalar types', () => {
     it('compatiblity datetime filter', () => {
       const classFile = sourceFile.getClass('DateTimeFilter')!;
       const fieldIn = classFile.getProperty('in')!;
-      expect(fieldIn.getStructure().type).toEqual('Array<Date> | Array<string>');
+      expect(fieldIn.getStructure().type).toEqual(
+        'Array<Date> | Array<string>',
+      );
     });
   });
 
@@ -571,7 +594,9 @@ describe('one model with scalar types', () => {
     });
 
     it('native string should not be imported', () => {
-      expect(imports).not.toContainEqual(expect.objectContaining({ name: 'String' }));
+      expect(imports).not.toContainEqual(
+        expect.objectContaining({ name: 'String' }),
+      );
     });
   });
 
@@ -682,21 +707,33 @@ describe('nullish compatibility', () => {
   });
 
   it('number', () => {
-    const s = testSourceFile({ file: 'user.model.ts', project, property: 'count' });
+    const s = testSourceFile({
+      file: 'user.model.ts',
+      project,
+      property: 'count',
+    });
 
     expect(s.property?.type).toEqual('number | null');
     expect(s.property?.hasQuestionToken).toBe(false);
   });
 
   it('born', () => {
-    const s = testSourceFile({ file: 'user.model.ts', project, property: 'born' });
+    const s = testSourceFile({
+      file: 'user.model.ts',
+      project,
+      property: 'born',
+    });
 
     expect(s.property?.type).toEqual('Date | null');
     expect(s.property?.hasQuestionToken).toBe(false);
   });
 
   it('money', () => {
-    const s = testSourceFile({ file: 'user.model.ts', project, property: 'money' });
+    const s = testSourceFile({
+      file: 'user.model.ts',
+      project,
+      property: 'money',
+    });
     expect(s.property?.type).toEqual('Decimal | null');
     expect(s.property?.hasQuestionToken).toBe(false);
     expect(imports).toContainEqual({
@@ -706,7 +743,11 @@ describe('nullish compatibility', () => {
   });
 
   it('data', () => {
-    const s = testSourceFile({ file: 'user.model.ts', project, property: 'data' });
+    const s = testSourceFile({
+      file: 'user.model.ts',
+      project,
+      property: 'data',
+    });
     expect(s.property?.type).toEqual('any | null');
     expect(imports).toContainEqual({
       name: 'GraphQLJSON',
@@ -942,7 +983,9 @@ it('enum with exists source', async () => {
                 }`,
   }));
 
-  sourceFile = project.getSourceFile(s => s.getFilePath().includes('role.enum.ts'))!;
+  sourceFile = project.getSourceFile(s =>
+    s.getFilePath().includes('role.enum.ts'),
+  )!;
   sourceText = sourceFile.getText();
 
   expect(sourceText.match(/registerEnumType/g)).toHaveLength(2);
@@ -965,7 +1008,9 @@ describe('model with one id string', () => {
       },
       schema,
     }));
-    sourceFile = project.getSourceFile(s => s.getFilePath().endsWith('user.model.ts'))!;
+    sourceFile = project.getSourceFile(s =>
+      s.getFilePath().endsWith('user.model.ts'),
+    )!;
     sourceText = sourceFile.getText();
     expect(sourceText.match(/export class User/g)?.length).toEqual(1);
   });
@@ -1029,7 +1074,9 @@ it('generator option outputFilePattern', async () => {
                 }`,
   }));
   const filePaths = sourceFiles.map(s => String(s.getFilePath()));
-  expect(filePaths).toContainEqual(expect.stringContaining('/data/model/user.ts'));
+  expect(filePaths).toContainEqual(
+    expect.stringContaining('/data/model/user.ts'),
+  );
 });
 
 it('several models', () => {
@@ -1165,7 +1212,10 @@ describe('get rid of atomic number operations', () => {
   });
 
   describe('date field files', () => {
-    const dateFieldFiles = ['user-create.input.ts', 'user-unchecked-update.input.ts'];
+    const dateFieldFiles = [
+      'user-create.input.ts',
+      'user-unchecked-update.input.ts',
+    ];
 
     for (const file of dateFieldFiles) {
       it(`date field files [${file}]`, () => {
@@ -1202,7 +1252,9 @@ describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
       project,
     });
 
-    const classDeclaration = s.sourceFile.getClass('IntFieldUpdateOperationsInput');
+    const classDeclaration = s.sourceFile.getClass(
+      'IntFieldUpdateOperationsInput',
+    );
     expect(classDeclaration).toBeUndefined();
   });
 });
@@ -1299,7 +1351,9 @@ describe('reexport option', () => {
       expect(sourceFile.getText()).toContain(
         `export { AggregateUser } from './aggregate-user.output'`,
       );
-      expect(sourceFile.getText()).toContain(`export { User } from './user.model'`);
+      expect(sourceFile.getText()).toContain(
+        `export { User } from './user.model'`,
+      );
     });
   });
 
@@ -1424,7 +1478,9 @@ describe('reexport option', () => {
       expect(sourceFile.getText()).toContain(
         `export { AggregateUser } from './aggregate-user.output'`,
       );
-      expect(sourceFile.getText()).toContain(`export { User } from './user.model'`);
+      expect(sourceFile.getText()).toContain(
+        `export { User } from './user.model'`,
+      );
     });
   });
 });
@@ -1477,7 +1533,9 @@ describe('emit single and decorators', () => {
     });
 
     it('decorator validator', () => {
-      const d = property.getDecorator(d => d.getFullText().includes('MinLength'));
+      const d = property.getDecorator(d =>
+        d.getFullText().includes('MinLength'),
+      );
       expect(trim(d?.getFullText())).toEqual('@Validator.MinLength(3)');
     });
   });
@@ -1498,7 +1556,10 @@ describe('emit single', () => {
   describe('emit single green', () => {
     beforeAll(async () => {
       ({ project, sourceFiles } = await testGenerate({
-        options: [`emitSingle = true`, `outputFilePattern = "{name}.{type}.ts"`],
+        options: [
+          `emitSingle = true`,
+          `outputFilePattern = "{name}.{type}.ts"`,
+        ],
         schema,
       }));
       setSourceFile('index.ts');
@@ -1522,7 +1583,10 @@ describe('emit single', () => {
     });
 
     it('should use InstanceType trick to avoid tdz', () => {
-      const struct = sourceFile.getClass('Post')?.getProperty('user')?.getStructure();
+      const struct = sourceFile
+        .getClass('Post')
+        ?.getProperty('user')
+        ?.getStructure();
       expect(struct?.type).toEqual('InstanceType<typeof User> | null');
       expect(struct?.hasQuestionToken).toEqual(true);
     });
@@ -1573,7 +1637,10 @@ describe('emit single', () => {
             );
           });
         },
-        options: [`emitSingle = true`, `outputFilePattern = "{name}.{type}.ts"`],
+        options: [
+          `emitSingle = true`,
+          `outputFilePattern = "{name}.{type}.ts"`,
+        ],
         schema,
       }));
       setSourceFile('index.ts');
@@ -1700,7 +1767,9 @@ describe('select input type', () => {
       for (const s of sourceFiles
         .filter(
           sourceFile =>
-            !sourceFile.getFilePath().endsWith('field-update-operations.input.ts') &&
+            !sourceFile
+              .getFilePath()
+              .endsWith('field-update-operations.input.ts') &&
             sourceFile.getClass(() => true),
         )
         .map(sourceFile => sourceFile.getClass(() => true))
@@ -2267,7 +2336,9 @@ export class UserWhereUniqueInput {
 
     expect(s.property?.hasQuestionToken).toEqual(false);
     expect(s.property?.type).toEqual('UserNameEmailCompoundUniqueInput');
-    expect(s.fieldDecoratorType).toEqual('() => UserNameEmailCompoundUniqueInput');
+    expect(s.fieldDecoratorType).toEqual(
+      '() => UserNameEmailCompoundUniqueInput',
+    );
     expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
   });
 });

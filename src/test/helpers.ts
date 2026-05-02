@@ -12,9 +12,12 @@ export function getFieldOptions(
 ) {
   let propertyDeclaration: PropertyDeclaration | undefined;
   if (typeof property === 'string') {
-    propertyDeclaration = sourceFile.getClass(() => true)?.getProperty(property);
+    propertyDeclaration = sourceFile
+      .getClass(() => true)
+      ?.getProperty(property);
   }
-  const result = propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
+  const result =
+    propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
   return result as string;
   // return new Function(`return ${text}`)();
 }
@@ -35,9 +38,13 @@ export function testSourceFile(args: {
   const { class: className, file, project, property } = args;
   let sourceFile: SourceFile;
   if (file) {
-    sourceFile = project.getSourceFileOrThrow(s => s.getFilePath().endsWith(file));
+    sourceFile = project.getSourceFileOrThrow(s =>
+      s.getFilePath().endsWith(file),
+    );
   } else if (className) {
-    sourceFile = project.getSourceFileOrThrow(s => Boolean(s.getClass(className)));
+    sourceFile = project.getSourceFileOrThrow(s =>
+      Boolean(s.getClass(className)),
+    );
   } else {
     throw new TypeError('file or class must be provided');
   }
@@ -47,7 +54,8 @@ export function testSourceFile(args: {
     .map(d => d.getStructure());
   const classFile = sourceFile.getClass(() => true)!;
   const propertyStructure =
-    property && classFile.getProperty(p => p.getName() === property)?.getStructure();
+    property &&
+    classFile.getProperty(p => p.getName() === property)?.getStructure();
   const propertyDecorators = (
     propertyStructure as PropertyDeclarationStructure | undefined
   )?.decorators;

@@ -16,7 +16,10 @@ export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
   return names;
 }
 
-function createFieldName(args: { name?: string | null; fields: Readonly<string[]> }) {
+function createFieldName(args: {
+  name?: string | null;
+  fields: Readonly<string[]>;
+}) {
   const { fields, name } = args;
 
   return name || fields.join('_');

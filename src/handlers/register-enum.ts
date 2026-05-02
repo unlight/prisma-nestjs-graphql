@@ -36,7 +36,9 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   const formattedValuesMap = hasValuesMap
     ? JSON.stringify(filteredValuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')
     : '';
-  const valuesMapEntry = hasValuesMap ? `, valuesMap: ${formattedValuesMap}` : '';
+  const valuesMapEntry = hasValuesMap
+    ? `, valuesMap: ${formattedValuesMap}`
+    : '';
 
   const enumStructure: EnumDeclarationStructure = {
     isExported: true,

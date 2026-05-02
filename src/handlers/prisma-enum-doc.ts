@@ -1,6 +1,8 @@
 // utils/prisma-enum-doc.ts
 
-type EnumValueDocumentInfo = { description: string } | { deprecationReason: string };
+type EnumValueDocumentInfo =
+  | { description: string }
+  | { deprecationReason: string };
 
 export function extractEnumValueDocs(
   values: readonly { name: string; [key: string]: any }[],
@@ -19,6 +21,8 @@ export function extractEnumValueDocs(
 
         return [name, { description: documentation }];
       })
-      .filter((entry): entry is [string, EnumValueDocumentInfo] => entry !== null),
+      .filter(
+        (entry): entry is [string, EnumValueDocumentInfo] => entry !== null,
+      ),
   );
 }

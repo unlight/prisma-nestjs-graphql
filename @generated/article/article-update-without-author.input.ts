@@ -41,7 +41,9 @@ export class ArticleUpdateWithoutAuthorInput {
   @Field(() => TagUpdateManyWithoutArticlesNestedInput, { nullable: true })
   tags?: TagUpdateManyWithoutArticlesNestedInput;
 
-  @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, { nullable: true })
+  @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUpdateManyWithoutFavoriteArticlesNestedInput)
   favoritedBy?: UserUpdateManyWithoutFavoriteArticlesNestedInput;
 

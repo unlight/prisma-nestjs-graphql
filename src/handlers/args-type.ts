@@ -42,7 +42,9 @@ export function argsType(field: SchemaField, args: EventArguments) {
       // Make `by` property array only, noEnumerable
       const byField = inputType.fields.find(f => f.name === 'by');
       if (byField?.inputTypes) {
-        byField.inputTypes = byField.inputTypes.filter(inputType => inputType.isList);
+        byField.inputTypes = byField.inputTypes.filter(
+          inputType => inputType.isList,
+        );
       }
     }
     for (const name of names) {

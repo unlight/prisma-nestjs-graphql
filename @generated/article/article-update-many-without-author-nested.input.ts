@@ -21,7 +21,9 @@ export class ArticleUpdateManyWithoutAuthorNestedInput {
   @Type(() => ArticleCreateOrConnectWithoutAuthorInput)
   connectOrCreate?: Array<ArticleCreateOrConnectWithoutAuthorInput>;
 
-  @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], { nullable: true })
+  @Field(() => [ArticleUpsertWithWhereUniqueWithoutAuthorInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpsertWithWhereUniqueWithoutAuthorInput)
   upsert?: Array<ArticleUpsertWithWhereUniqueWithoutAuthorInput>;
 
@@ -45,11 +47,15 @@ export class ArticleUpdateManyWithoutAuthorNestedInput {
   @Type(() => ArticleWhereUniqueInput)
   connect?: Array<Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>>;
 
-  @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], { nullable: true })
+  @Field(() => [ArticleUpdateWithWhereUniqueWithoutAuthorInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateWithWhereUniqueWithoutAuthorInput)
   update?: Array<ArticleUpdateWithWhereUniqueWithoutAuthorInput>;
 
-  @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], { nullable: true })
+  @Field(() => [ArticleUpdateManyWithWhereWithoutAuthorInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateManyWithWhereWithoutAuthorInput)
   updateMany?: Array<ArticleUpdateManyWithWhereWithoutAuthorInput>;
 

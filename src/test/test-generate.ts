@@ -13,9 +13,12 @@ import type { DMMF, EventArguments, TAwaitEventEmitter } from '../types.ts';
 
 async function getGeneratorVersion() {
   // @ts-expect-error No types
-  const { dependencies } = await import('@prisma/generator-helper/package.json', {
-    with: { type: 'json' },
-  });
+  const { dependencies } = await import(
+    '@prisma/generator-helper/package.json',
+    {
+      with: { type: 'json' },
+    }
+  );
   const generatorVersion = dependencies['@prisma/generator-helper'];
 
   return generatorVersion;
@@ -48,9 +51,13 @@ export async function testGenerate(args: TestGenerateArgs) {
             template: config.outputFilePattern,
             type: createSouceFile.type,
           });
-          project.createSourceFile(`${output}/${filePath}`, createSouceFile.text, {
-            overwrite: true,
-          });
+          project.createSourceFile(
+            `${output}/${filePath}`,
+            createSouceFile.text,
+            {
+              overwrite: true,
+            },
+          );
         },
       );
     }
@@ -82,7 +89,9 @@ export async function testGenerate(args: TestGenerateArgs) {
         s
           .getClass(() => true)
           ?.getProperties()
-          .find(p => String(p.getStructure().type).toLowerCase().includes(fileLower)),
+          .find(p =>
+            String(p.getStructure().type).toLowerCase().includes(fileLower),
+          ),
       );
       if (sources.length > 0) {
         message += `, reference: ${sources.map(s => s.getBaseName()).join(', ')}`;
@@ -94,12 +103,16 @@ export async function testGenerate(args: TestGenerateArgs) {
       .map(d => d.getStructure())
       .flatMap(s => {
         return [
-          ...((s.namedImports || []) as ImportSpecifierStructure[]).map(x => x.name),
+          ...((s.namedImports || []) as ImportSpecifierStructure[]).map(
+            x => x.name,
+          ),
           s.namespaceImport,
         ].filter(Boolean);
       });
     if (uniq(imports).length !== imports.length) {
-      throw new Error(`Duplicated import in ${filePath}: ${imports.toString()}`);
+      throw new Error(
+        `Duplicated import in ${filePath}: ${imports.toString()}`,
+      );
     }
     // Find classes without @Field() (must define one or more fields)
     const properties = sourceFile.getClass(() => true)?.getProperties();

@@ -40,10 +40,14 @@ export class ArticleUncheckedUpdateWithoutFavoritedByInput {
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;
 
-  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, { nullable: true })
+  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedUpdateManyWithoutArticlesNestedInput;
 
-  @Field(() => CommentUncheckedUpdateManyWithoutArticleNestedInput, { nullable: true })
+  @Field(() => CommentUncheckedUpdateManyWithoutArticleNestedInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedUpdateManyWithoutArticleNestedInput)
   comments?: CommentUncheckedUpdateManyWithoutArticleNestedInput;
 }

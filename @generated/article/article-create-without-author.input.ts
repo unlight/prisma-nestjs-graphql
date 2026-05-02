@@ -39,7 +39,9 @@ export class ArticleCreateWithoutAuthorInput {
   @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
   tags?: TagCreateNestedManyWithoutArticlesInput;
 
-  @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, { nullable: true })
+  @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
+    nullable: true,
+  })
   @Type(() => UserCreateNestedManyWithoutFavoriteArticlesInput)
   favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 

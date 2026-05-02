@@ -9,7 +9,10 @@ import outmatch from 'outmatch';
 
 import { ReExport, type ReExportType } from '../handlers/re-export.ts';
 import type { ImportNameSpec, ObjectSetting } from '../types.ts';
-import { createEmitBlocks, type EmitBlocksOption } from './create-emit-blocks.ts';
+import {
+  createEmitBlocks,
+  type EmitBlocksOption,
+} from './create-emit-blocks.ts';
 
 const { memoize, merge, trim } = lodash;
 
@@ -55,30 +58,35 @@ export function createConfig(data: Record<string, unknown>) {
   }
 
   if (config.reExportAll) {
-    $warnings.push(`Option 'reExportAll' is deprecated, use 'reExport' instead`);
+    $warnings.push(
+      `Option 'reExportAll' is deprecated, use 'reExport' instead`,
+    );
     if (toBoolean(config.reExportAll)) {
       config.reExport = 'All';
     }
   }
 
-  const fields: Record<string, ConfigFieldSetting | undefined> = Object.fromEntries(
-    Object.entries<Dictionary<string | undefined>>(
-      (config.fields ?? {}) as Record<string, Dictionary<string | undefined>>,
-    )
-      .filter(({ 1: value }) => typeof value === 'object')
-      .map(([name, value]) => {
-        const fieldSetting: ConfigFieldSetting = {
-          arguments: [],
-          defaultImport: toBoolean(value.defaultImport) ? true : value.defaultImport,
-          from: value.from,
-          input: toBoolean(value.input),
-          model: toBoolean(value.model),
-          namespaceImport: value.namespaceImport,
-          output: toBoolean(value.output),
-        };
-        return [name, fieldSetting];
-      }),
-  );
+  const fields: Record<string, ConfigFieldSetting | undefined> =
+    Object.fromEntries(
+      Object.entries<Dictionary<string | undefined>>(
+        (config.fields ?? {}) as Record<string, Dictionary<string | undefined>>,
+      )
+        .filter(({ 1: value }) => typeof value === 'object')
+        .map(([name, value]) => {
+          const fieldSetting: ConfigFieldSetting = {
+            arguments: [],
+            defaultImport: toBoolean(value.defaultImport)
+              ? true
+              : value.defaultImport,
+            from: value.from,
+            input: toBoolean(value.input),
+            model: toBoolean(value.model),
+            namespaceImport: value.namespaceImport,
+            output: toBoolean(value.output),
+          };
+          return [name, fieldSetting];
+        }),
+    );
 
   const decorate: DecorateElement[] = [];
   const configDecorate: (Record<string, string> | undefined)[] = Object.values(
@@ -93,7 +101,9 @@ export function createConfig(data: Record<string, unknown>) {
     );
     decorate.push({
       arguments: element.arguments ? JSON5.parse(element.arguments) : undefined,
-      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
+      defaultImport: toBoolean(element.defaultImport)
+        ? true
+        : element.defaultImport,
       from: element.from,
       isMatchField: outmatch(element.field, { separator: false }),
       isMatchType: outmatch(element.type, { separator: false }),
@@ -104,9 +114,8 @@ export function createConfig(data: Record<string, unknown>) {
   }
 
   const customImport: CustomImport[] = [];
-  const configCustomImport: (Record<string, string> | undefined)[] = Object.values(
-    (config.customImport as any) || {},
-  );
+  const configCustomImport: (Record<string, string> | undefined)[] =
+    Object.values((config.customImport as any) || {});
   for (const element of configCustomImport) {
     if (!element) continue;
     ok(
@@ -114,7 +123,9 @@ export function createConfig(data: Record<string, unknown>) {
       `Missed 'from' or 'name' part in configuration for customImport`,
     );
     customImport.push({
-      defaultImport: toBoolean(element.defaultImport) ? true : element.defaultImport,
+      defaultImport: toBoolean(element.defaultImport)
+        ? true
+        : element.defaultImport,
       from: element.from,
       name: element.name,
       namedImport: toBoolean(element.namedImport),
@@ -140,7 +151,8 @@ export function createConfig(data: Record<string, unknown>) {
     outputFilePattern,
     prismaClientImport: createPrismaImport(config.prismaClientImport),
     purgeOutput: toBoolean(config.purgeOutput),
-    reExport: (ReExport[String(config.reExport)] || ReExport.None) as ReExportType,
+    reExport: (ReExport[String(config.reExport)] ||
+      ReExport.None) as ReExportType,
     requireSingleFieldsInWhereUniqueInput: toBoolean(
       config.requireSingleFieldsInWhereUniqueInput,
     ),

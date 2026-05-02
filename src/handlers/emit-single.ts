@@ -23,7 +23,9 @@ function classProperty(
       propertyType,
       t => t === 'null' || t.startsWith('Prisma.'),
     );
-    const mappedInstanceofTypes = instanceofTypes.map(t => `InstanceType<typeof ${t}>`);
+    const mappedInstanceofTypes = instanceofTypes.map(
+      t => `InstanceType<typeof ${t}>`,
+    );
 
     property.type = [...mappedInstanceofTypes, ...safeTypes].join(' | ');
   }

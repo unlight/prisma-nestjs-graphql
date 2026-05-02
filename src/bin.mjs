@@ -8,7 +8,8 @@ generatorHelper.generatorHandler(generatorHandlerConfig);
 
 async function resoveGeneratorHandlerConfig() {
   try {
-    const { generatorHandlerConfig } = await import('./prisma-nestjs-graphql.mjs');
+    const { generatorHandlerConfig } =
+      await import('./prisma-nestjs-graphql.mjs');
     return generatorHandlerConfig;
   } catch {
     // Do nothing

@@ -38,7 +38,9 @@ export class ArticleUncheckedCreateWithoutCommentsInput {
   @Field(() => Boolean, { nullable: true })
   active?: boolean;
 
-  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, { nullable: true })
+  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
 
   @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {

@@ -19,7 +19,13 @@ export default [
   regexpPlugin.configs['flat/recommended'],
   prettier,
   {
-    ignores: ['dist/', 'coverage/', '@generated/**', '*.config.[cm]js', '.*rc.js'],
+    ignores: [
+      'dist/',
+      'coverage/',
+      '@generated/**',
+      '*.config.[cm]js',
+      '.*rc.js',
+    ],
     languageOptions: {
       globals: globals.node,
       parserOptions: {

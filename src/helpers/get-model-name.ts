@@ -29,7 +29,11 @@ function getModelName(args: {
   }
   for (const [start, end] of middleKeywords) {
     let test = name.slice(start.length).slice(0, -end.length);
-    if (modelNames.includes(test) && name.startsWith(start) && name.endsWith(end)) {
+    if (
+      modelNames.includes(test) &&
+      name.startsWith(start) &&
+      name.endsWith(end)
+    ) {
       return test;
     }
     test = name.slice(0, -(start + end).length);

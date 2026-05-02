@@ -1,4 +1,8 @@
-import type { EventArguments, InputType, TAwaitEventEmitter } from '../types.ts';
+import type {
+  EventArguments,
+  InputType,
+  TAwaitEventEmitter,
+} from '../types.ts';
 
 export function noAtomicOperations(eventEmitter: TAwaitEventEmitter) {
   eventEmitter.on('BeforeInputType', beforeInputType);

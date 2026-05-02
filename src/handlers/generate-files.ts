@@ -17,7 +17,9 @@ export async function generateFiles(args: EventArguments) {
       project.getDirectory(output) || project.createDirectory(output);
     const sourceFile =
       rootDirectory.getSourceFile('index.ts') ||
-      rootDirectory.createSourceFile('index.ts', undefined, { overwrite: true });
+      rootDirectory.createSourceFile('index.ts', undefined, {
+        overwrite: true,
+      });
     const statements = project.getSourceFiles().flatMap(s => {
       if (s === sourceFile) {
         return [];
@@ -29,7 +31,10 @@ export async function generateFiles(args: EventArguments) {
       if (Array.isArray(statements)) {
         for (const statement of statements) {
           if (
-            !(typeof statement === 'object' && statement.kind === StructureKind.Class)
+            !(
+              typeof statement === 'object' &&
+              statement.kind === StructureKind.Class
+            )
           ) {
             continue;
           }
@@ -119,7 +124,9 @@ export async function generateFiles(args: EventArguments) {
       skipLibCheck: true,
     });
     const emitResult = await project.emit();
-    const errors = emitResult.getDiagnostics().map(d => String(d.getMessageText()));
+    const errors = emitResult
+      .getDiagnostics()
+      .map(d => String(d.getMessageText()));
     if (errors.length > 0) {
       eventEmitter.emitSync('Warning', errors);
     }

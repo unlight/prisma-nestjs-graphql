@@ -50,7 +50,9 @@ export class UserUpdateWithoutFollowersInput {
   @Type(() => UserUpdateManyWithoutFollowersNestedInput)
   following?: UserUpdateManyWithoutFollowersNestedInput;
 
-  @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, { nullable: true })
+  @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
   favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
 

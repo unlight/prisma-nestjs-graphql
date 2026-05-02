@@ -91,7 +91,10 @@ function postBegin(args: EventArguments) {
   }
 
   const inputTypeByName = keyBy(inputTypes, inputType => inputType.name);
-  const replaceBogusFilters = (filterName: string, filterNameCandidates: string[]) => {
+  const replaceBogusFilters = (
+    filterName: string,
+    filterNameCandidates: string[],
+  ) => {
     for (const filterNameCandidate of filterNameCandidates) {
       const candidate = inputTypeByName[filterNameCandidate];
       if (candidate as InputType | undefined) {

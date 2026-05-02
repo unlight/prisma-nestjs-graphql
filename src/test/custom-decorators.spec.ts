@@ -482,9 +482,9 @@ describe('model decorate', () => {
       property: 'id',
     });
     expect(propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
-    expect(propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0]).toBe(
-      "'@external'",
-    );
+    expect(
+      propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0],
+    ).toBe("'@external'");
   });
 
   it('user model class', () => {
@@ -530,7 +530,9 @@ describe('model directive', () => {
       project,
       property: 'id',
     });
-    expect(s.propertyDecorators?.find(d => d.name === 'Directive')).toBeTruthy();
+    expect(
+      s.propertyDecorators?.find(d => d.name === 'Directive'),
+    ).toBeTruthy();
     expect(
       s.propertyDecorators?.find(d => d.name === 'Directive')?.arguments?.[0],
     ).toBe("'@external'");

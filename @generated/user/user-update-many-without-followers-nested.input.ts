@@ -20,7 +20,9 @@ export class UserUpdateManyWithoutFollowersNestedInput {
   @Type(() => UserCreateOrConnectWithoutFollowersInput)
   connectOrCreate?: Array<UserCreateOrConnectWithoutFollowersInput>;
 
-  @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], { nullable: true })
+  @Field(() => [UserUpsertWithWhereUniqueWithoutFollowersInput], {
+    nullable: true,
+  })
   @Type(() => UserUpsertWithWhereUniqueWithoutFollowersInput)
   upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowersInput>;
 
@@ -48,11 +50,15 @@ export class UserUpdateManyWithoutFollowersNestedInput {
     Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>
   >;
 
-  @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], { nullable: true })
+  @Field(() => [UserUpdateWithWhereUniqueWithoutFollowersInput], {
+    nullable: true,
+  })
   @Type(() => UserUpdateWithWhereUniqueWithoutFollowersInput)
   update?: Array<UserUpdateWithWhereUniqueWithoutFollowersInput>;
 
-  @Field(() => [UserUpdateManyWithWhereWithoutFollowersInput], { nullable: true })
+  @Field(() => [UserUpdateManyWithWhereWithoutFollowersInput], {
+    nullable: true,
+  })
   @Type(() => UserUpdateManyWithWhereWithoutFollowersInput)
   updateMany?: Array<UserUpdateManyWithWhereWithoutFollowersInput>;
 

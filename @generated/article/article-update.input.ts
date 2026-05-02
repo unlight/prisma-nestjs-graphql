@@ -42,11 +42,15 @@ export class ArticleUpdateInput {
   @Field(() => TagUpdateManyWithoutArticlesNestedInput, { nullable: true })
   tags?: TagUpdateManyWithoutArticlesNestedInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, { nullable: true })
+  @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUpdateOneRequiredWithoutArticlesNestedInput)
   author?: UserUpdateOneRequiredWithoutArticlesNestedInput;
 
-  @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, { nullable: true })
+  @Field(() => UserUpdateManyWithoutFavoriteArticlesNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUpdateManyWithoutFavoriteArticlesNestedInput)
   favoritedBy?: UserUpdateManyWithoutFavoriteArticlesNestedInput;
 

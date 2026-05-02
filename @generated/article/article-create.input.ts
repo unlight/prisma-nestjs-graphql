@@ -44,7 +44,9 @@ export class ArticleCreateInput {
   @Type(() => UserCreateNestedOneWithoutArticlesInput)
   author!: UserCreateNestedOneWithoutArticlesInput;
 
-  @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, { nullable: true })
+  @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
+    nullable: true,
+  })
   @Type(() => UserCreateNestedManyWithoutFavoriteArticlesInput)
   favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
 

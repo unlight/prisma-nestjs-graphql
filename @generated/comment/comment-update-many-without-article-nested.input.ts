@@ -21,7 +21,9 @@ export class CommentUpdateManyWithoutArticleNestedInput {
   @Type(() => CommentCreateOrConnectWithoutArticleInput)
   connectOrCreate?: Array<CommentCreateOrConnectWithoutArticleInput>;
 
-  @Field(() => [CommentUpsertWithWhereUniqueWithoutArticleInput], { nullable: true })
+  @Field(() => [CommentUpsertWithWhereUniqueWithoutArticleInput], {
+    nullable: true,
+  })
   @Type(() => CommentUpsertWithWhereUniqueWithoutArticleInput)
   upsert?: Array<CommentUpsertWithWhereUniqueWithoutArticleInput>;
 
@@ -45,11 +47,15 @@ export class CommentUpdateManyWithoutArticleNestedInput {
   @Type(() => CommentWhereUniqueInput)
   connect?: Array<Prisma.AtLeast<CommentWhereUniqueInput, 'id'>>;
 
-  @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], { nullable: true })
+  @Field(() => [CommentUpdateWithWhereUniqueWithoutArticleInput], {
+    nullable: true,
+  })
   @Type(() => CommentUpdateWithWhereUniqueWithoutArticleInput)
   update?: Array<CommentUpdateWithWhereUniqueWithoutArticleInput>;
 
-  @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], { nullable: true })
+  @Field(() => [CommentUpdateManyWithWhereWithoutArticleInput], {
+    nullable: true,
+  })
   @Type(() => CommentUpdateManyWithWhereWithoutArticleInput)
   updateMany?: Array<CommentUpdateManyWithWhereWithoutArticleInput>;
 

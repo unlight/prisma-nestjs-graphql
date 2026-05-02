@@ -9,7 +9,10 @@ import { UserCreateWithoutFollowingInput } from './user-create-without-following
 export class UserCreateOrConnectWithoutFollowingInput {
   @Field(() => UserWhereUniqueInput, { nullable: false })
   @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'name' | 'email_name'
+  >;
 
   @Field(() => UserCreateWithoutFollowingInput, { nullable: false })
   @Type(() => UserCreateWithoutFollowingInput)

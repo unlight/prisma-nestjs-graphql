@@ -1,6 +1,9 @@
 import type { ObjectSettings } from '../types.ts';
 
-export function createComment(documentation: string, settings?: ObjectSettings) {
+export function createComment(
+  documentation: string,
+  settings?: ObjectSettings,
+) {
   const documentationLines = documentation.split('\n');
   const commentLines = ['/**'];
 
@@ -8,7 +11,8 @@ export function createComment(documentation: string, settings?: ObjectSettings) 
     commentLines.push(` * ${line}`);
   }
 
-  const deprecationReason = settings?.fieldArguments()?.deprecationReason as string;
+  const deprecationReason = settings?.fieldArguments()
+    ?.deprecationReason as string;
 
   if (deprecationReason) {
     commentLines.push(` * @deprecated ${deprecationReason}`);

@@ -19,7 +19,9 @@ export function propertyStructure(args: {
     name,
     propertyType,
   } = args;
-  const type = propertyType.map(type => (isList ? `Array<${type}>` : type)).join(' | ');
+  const type = propertyType
+    .map(type => (isList ? `Array<${type}>` : type))
+    .join(' | ');
 
   return {
     decorators: [],

@@ -222,9 +222,14 @@ function createSettingElement({
 
   if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
     const options = customType(match.groups.args);
-    merge(element, options.namespace && config.fields[options.namespace], options, {
-      kind: name,
-    });
+    merge(
+      element,
+      options.namespace && config.fields[options.namespace],
+      options,
+      {
+        kind: name,
+      },
+    );
     return result;
   }
 

@@ -1,4 +1,8 @@
-import { ObjectLiteralExpression, PropertyAssignment, StructureKind } from 'ts-morph';
+import {
+  ObjectLiteralExpression,
+  PropertyAssignment,
+  StructureKind,
+} from 'ts-morph';
 
 export function updateObjectProperty(args: {
   expression: ObjectLiteralExpression;

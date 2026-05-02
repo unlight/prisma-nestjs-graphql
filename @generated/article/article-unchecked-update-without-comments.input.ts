@@ -40,7 +40,9 @@ export class ArticleUncheckedUpdateWithoutCommentsInput {
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;
 
-  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, { nullable: true })
+  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedUpdateManyWithoutArticlesNestedInput;
 
   @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput, {

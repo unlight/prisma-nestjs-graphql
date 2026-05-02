@@ -38,7 +38,9 @@ describe('compound index', () => {
       project,
     });
 
-    const minLength = s.classFile.getProperty('name')?.getDecorator('MinLength');
+    const minLength = s.classFile
+      .getProperty('name')
+      ?.getDecorator('MinLength');
     expect(minLength?.getText()).toEqual('@Validator.MinLength(3)');
   });
 

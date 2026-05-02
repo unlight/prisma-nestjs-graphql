@@ -59,11 +59,15 @@ describe('scalar field', () => {
 
       expect(
         s.classFile.getProperty('password1')?.getStructure().decorators,
-      ).toContainEqual(expect.objectContaining({ arguments: [], name: 'HideField' }));
+      ).toContainEqual(
+        expect.objectContaining({ arguments: [], name: 'HideField' }),
+      );
 
       expect(
         s.classFile.getProperty('password2')?.getStructure().decorators,
-      ).toContainEqual(expect.objectContaining({ arguments: [], name: 'HideField' }));
+      ).toContainEqual(
+        expect.objectContaining({ arguments: [], name: 'HideField' }),
+      );
     });
   });
 });
@@ -125,7 +129,9 @@ describe('hide field using match', () => {
     });
 
     expect(s.propertyDecorators).toHaveLength(1);
-    expect(s.fieldDecorator).toEqual(expect.objectContaining({ name: 'Field' }));
+    expect(s.fieldDecorator).toEqual(
+      expect.objectContaining({ name: 'Field' }),
+    );
   });
 
   it('user-create-many.input', () => {

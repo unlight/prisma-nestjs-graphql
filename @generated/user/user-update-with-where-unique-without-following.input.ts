@@ -9,7 +9,10 @@ import { UserUpdateWithoutFollowingInput } from './user-update-without-following
 export class UserUpdateWithWhereUniqueWithoutFollowingInput {
   @Field(() => UserWhereUniqueInput, { nullable: false })
   @Type(() => UserWhereUniqueInput)
-  where!: Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email' | 'name' | 'email_name'>;
+  where!: Prisma.AtLeast<
+    UserWhereUniqueInput,
+    'id' | 'email' | 'name' | 'email_name'
+  >;
 
   @Field(() => UserUpdateWithoutFollowingInput, { nullable: false })
   @Type(() => UserUpdateWithoutFollowingInput)

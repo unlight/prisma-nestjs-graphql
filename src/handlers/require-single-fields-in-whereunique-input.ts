@@ -1,5 +1,9 @@
 import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
-import type { EventArguments, InputType, TAwaitEventEmitter } from '../types.ts';
+import type {
+  EventArguments,
+  InputType,
+  TAwaitEventEmitter,
+} from '../types.ts';
 
 export function requireSingleFieldsInWhereUniqueInput(
   eventEmitter: TAwaitEventEmitter,
@@ -10,7 +14,10 @@ export function requireSingleFieldsInWhereUniqueInput(
 function beforeInputType(args: EventArguments & { inputType: InputType }) {
   const { inputType } = args;
 
-  if (!isWhereUniqueInputType(inputType.name) || inputType.fields.length !== 1) {
+  if (
+    !isWhereUniqueInputType(inputType.name) ||
+    inputType.fields.length !== 1
+  ) {
     return;
   }
 

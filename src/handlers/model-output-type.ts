@@ -27,8 +27,14 @@ import type { EventArguments, OutputType } from '../types.ts';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function modelOutputType(outputType: OutputType, args: EventArguments) {
-  const { config, eventEmitter, fieldSettings, getSourceFile, modelFields, models } =
-    args;
+  const {
+    config,
+    eventEmitter,
+    fieldSettings,
+    getSourceFile,
+    modelFields,
+    models,
+  } = args;
 
   if (isManyAndReturnOutputType(outputType.name)) return;
 
@@ -57,9 +63,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     name: outputType.name,
     properties: [],
   };
-  (sourceFileStructure.statements as StatementStructures[]).push(classStructure);
+  (sourceFileStructure.statements as StatementStructures[]).push(
+    classStructure,
+  );
   ok(classStructure.decorators, 'classStructure.decorators is undefined');
-  const decorator = classStructure.decorators.find(d => d.name === 'ObjectType');
+  const decorator = classStructure.decorators.find(
+    d => d.name === 'ObjectType',
+  );
   ok(decorator, 'ObjectType decorator not found');
 
   let modelSettings: ObjectSettings | undefined;
@@ -153,8 +163,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       propertyType,
     });
 
-    if (typeof property.leadingTrivia === 'string' && modelField?.documentation) {
-      property.leadingTrivia += createComment(modelField.documentation, settings);
+    if (
+      typeof property.leadingTrivia === 'string' &&
+      modelField?.documentation
+    ) {
+      property.leadingTrivia += createComment(
+        modelField.documentation,
+        settings,
+      );
     }
 
     classStructure.properties?.push(property);
@@ -162,7 +178,10 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     if (propertySettings) {
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
-      importDeclarations.add('Decimal', `${config.prismaClientImport}/runtime/library`);
+      importDeclarations.add(
+        'Decimal',
+        `${config.prismaClientImport}/runtime/library`,
+      );
     }
 
     ok(property.decorators, 'property.decorators is undefined');
@@ -200,18 +219,27 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       });
 
       for (const setting of settings || []) {
-        if (shouldBeDecorated(setting) && (setting.match?.(field.name) ?? true)) {
+        if (
+          shouldBeDecorated(setting) &&
+          (setting.match?.(field.name) ?? true)
+        ) {
           property.decorators.push({
             arguments: setting.arguments as string[],
             name: setting.name,
           });
-          ok(setting.from, "Missed 'from' part in configuration or field setting");
+          ok(
+            setting.from,
+            "Missed 'from' part in configuration or field setting",
+          );
           importDeclarations.create(setting);
         }
       }
 
       for (const decorate of config.decorate) {
-        if (decorate.isMatchField(field.name) && decorate.isMatchType(outputTypeName)) {
+        if (
+          decorate.isMatchField(field.name) &&
+          decorate.isMatchType(outputTypeName)
+        ) {
           property.decorators.push({
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
             name: decorate.name,

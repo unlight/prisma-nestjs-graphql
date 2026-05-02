@@ -38,7 +38,9 @@ export class ArticleUncheckedUpdateWithoutAuthorInput {
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
   active?: NullableBoolFieldUpdateOperationsInput;
 
-  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, { nullable: true })
+  @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedUpdateManyWithoutArticlesNestedInput;
 
   @Field(() => UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput, {
@@ -47,7 +49,9 @@ export class ArticleUncheckedUpdateWithoutAuthorInput {
   @Type(() => UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput)
   favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput;
 
-  @Field(() => CommentUncheckedUpdateManyWithoutArticleNestedInput, { nullable: true })
+  @Field(() => CommentUncheckedUpdateManyWithoutArticleNestedInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedUpdateManyWithoutArticleNestedInput)
   comments?: CommentUncheckedUpdateManyWithoutArticleNestedInput;
 }

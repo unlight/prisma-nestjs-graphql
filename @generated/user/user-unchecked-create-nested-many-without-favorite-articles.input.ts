@@ -12,7 +12,9 @@ export class UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput {
   @Type(() => UserCreateWithoutFavoriteArticlesInput)
   create?: Array<UserCreateWithoutFavoriteArticlesInput>;
 
-  @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], { nullable: true })
+  @Field(() => [UserCreateOrConnectWithoutFavoriteArticlesInput], {
+    nullable: true,
+  })
   @Type(() => UserCreateOrConnectWithoutFavoriteArticlesInput)
   connectOrCreate?: Array<UserCreateOrConnectWithoutFavoriteArticlesInput>;
 

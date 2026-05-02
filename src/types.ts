@@ -4,7 +4,10 @@ import { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
 
 import { createConfig } from './helpers/create-config.ts';
-import { type ObjectSetting, ObjectSettings } from './helpers/object-settings.ts';
+import {
+  type ObjectSetting,
+  ObjectSettings,
+} from './helpers/object-settings.ts';
 
 export type TAwaitEventEmitter = AwaitEventEmitter.default;
 

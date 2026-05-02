@@ -1,4 +1,7 @@
-import { createObjectSettings, ObjectSettings } from '../helpers/object-settings.ts';
+import {
+  createObjectSettings,
+  ObjectSettings,
+} from '../helpers/object-settings.ts';
 import type { EventArguments, Field, Model } from '../types.ts';
 
 export function modelData(model: Model, args: EventArguments) {

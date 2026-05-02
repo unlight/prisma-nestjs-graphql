@@ -11,7 +11,9 @@ export class TagUncheckedCreateInput {
   @Field(() => String, { nullable: false })
   name!: string;
 
-  @Field(() => ArticleUncheckedCreateNestedManyWithoutTagsInput, { nullable: true })
+  @Field(() => ArticleUncheckedCreateNestedManyWithoutTagsInput, {
+    nullable: true,
+  })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutTagsInput)
   articles?: ArticleUncheckedCreateNestedManyWithoutTagsInput;
 }

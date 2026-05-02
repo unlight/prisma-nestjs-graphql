@@ -39,7 +39,9 @@ export class ArticleUncheckedCreateInput {
   @Field(() => Boolean, { nullable: true })
   active?: boolean;
 
-  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, { nullable: true })
+  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
 
   @Field(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput, {
@@ -48,7 +50,9 @@ export class ArticleUncheckedCreateInput {
   @Type(() => UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput)
   favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteArticlesInput;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
+  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
   comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 }

@@ -46,11 +46,15 @@ export class UserUncheckedUpdateWithoutArticlesInput {
   @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
   role?: NullableEnumRoleFieldUpdateOperationsInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, { nullable: true })
+  @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUncheckedUpdateManyWithoutFollowersNestedInput)
   following?: UserUncheckedUpdateManyWithoutFollowersNestedInput;
 
-  @Field(() => UserUncheckedUpdateManyWithoutFollowingNestedInput, { nullable: true })
+  @Field(() => UserUncheckedUpdateManyWithoutFollowingNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUncheckedUpdateManyWithoutFollowingNestedInput)
   followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput;
 
@@ -60,11 +64,15 @@ export class UserUncheckedUpdateWithoutArticlesInput {
   @Type(() => ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput)
   favoriteArticles?: ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput;
 
-  @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, { nullable: true })
+  @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput)
   comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput;
 
-  @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, { nullable: true })
+  @Field(() => ProfileUncheckedUpdateOneWithoutUserNestedInput, {
+    nullable: true,
+  })
   @Type(() => ProfileUncheckedUpdateOneWithoutUserNestedInput)
   profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput;
 }

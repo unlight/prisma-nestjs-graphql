@@ -56,7 +56,9 @@ export class UserCreateWithoutFollowingInput {
   @Type(() => UserCreateNestedManyWithoutFollowingInput)
   followers?: UserCreateNestedManyWithoutFollowingInput;
 
-  @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, { nullable: true })
+  @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, {
+    nullable: true,
+  })
   @Type(() => ArticleCreateNestedManyWithoutFavoritedByInput)
   favoriteArticles?: ArticleCreateNestedManyWithoutFavoritedByInput;
 

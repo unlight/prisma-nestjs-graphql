@@ -52,7 +52,9 @@ export class UserUncheckedCreateWithoutFollowingInput {
   @Field(() => Role, { nullable: true })
   role?: `${Role}`;
 
-  @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, { nullable: true })
+  @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, {
+    nullable: true,
+  })
   @Type(() => UserUncheckedCreateNestedManyWithoutFollowingInput)
   followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
 
@@ -62,15 +64,21 @@ export class UserUncheckedCreateWithoutFollowingInput {
   @Type(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput)
   favoriteArticles?: ArticleUncheckedCreateNestedManyWithoutFavoritedByInput;
 
-  @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, {
+    nullable: true,
+  })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
   articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, { nullable: true })
+  @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
   comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
 
-  @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, { nullable: true })
+  @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {
+    nullable: true,
+  })
   @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
   profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
 }

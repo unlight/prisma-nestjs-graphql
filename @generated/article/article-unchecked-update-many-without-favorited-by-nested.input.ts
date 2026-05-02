@@ -16,7 +16,9 @@ export class ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput {
   @Type(() => ArticleCreateWithoutFavoritedByInput)
   create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
+  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], {
+    nullable: true,
+  })
   @Type(() => ArticleCreateOrConnectWithoutFavoritedByInput)
   connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
 
@@ -48,7 +50,9 @@ export class ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput {
   @Type(() => ArticleUpdateWithWhereUniqueWithoutFavoritedByInput)
   update?: Array<ArticleUpdateWithWhereUniqueWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], { nullable: true })
+  @Field(() => [ArticleUpdateManyWithWhereWithoutFavoritedByInput], {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateManyWithWhereWithoutFavoritedByInput)
   updateMany?: Array<ArticleUpdateManyWithWhereWithoutFavoritedByInput>;
 

@@ -35,7 +35,9 @@ export class ArticleUpdateOneWithoutCommentsNestedInput {
   @Type(() => ArticleWhereUniqueInput)
   connect?: Prisma.AtLeast<ArticleWhereUniqueInput, 'id' | 'slug'>;
 
-  @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
+  @Field(() => ArticleUpdateToOneWithWhereWithoutCommentsInput, {
+    nullable: true,
+  })
   @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)
   update?: ArticleUpdateToOneWithWhereWithoutCommentsInput;
 }

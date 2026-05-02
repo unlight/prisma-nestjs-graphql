@@ -22,7 +22,9 @@ function beforeGenerateFiles(args: EventArguments) {
   const rootDirectory = project.getDirectoryOrThrow(output);
 
   if (
-    ([ReExport.Directories, ReExport.All] as ReExportType[]).includes(config.reExport)
+    ([ReExport.Directories, ReExport.All] as ReExportType[]).includes(
+      config.reExport,
+    )
   ) {
     for (const directory of rootDirectory.getDescendantDirectories()) {
       let indexSourceFile: SourceFile | undefined;
@@ -50,11 +52,12 @@ function beforeGenerateFiles(args: EventArguments) {
         continue;
       }
 
-      const namespaceExportDeclarations: ExportDeclarationStructure[] = directory
-        .getDirectories()
-        .map(sourceDirectory =>
-          getNamespaceExportDeclaration(directory, sourceDirectory),
-        );
+      const namespaceExportDeclarations: ExportDeclarationStructure[] =
+        directory
+          .getDirectories()
+          .map(sourceDirectory =>
+            getNamespaceExportDeclaration(directory, sourceDirectory),
+          );
 
       project.createSourceFile(
         `${directory.getPath()}/index.ts`,
@@ -110,7 +113,9 @@ function getExportDeclaration(
   return {
     kind: StructureKind.ExportDeclaration,
     moduleSpecifier: directory.getRelativePathAsModuleSpecifierTo(sourceFile),
-    namedExports: sourceFile.getExportSymbols().map(s => ({ name: s.getName() })),
+    namedExports: sourceFile
+      .getExportSymbols()
+      .map(s => ({ name: s.getName() })),
   };
 }
 
@@ -120,6 +125,7 @@ function getNamespaceExportDeclaration(
 ): ExportDeclarationStructure {
   return {
     kind: StructureKind.ExportDeclaration,
-    moduleSpecifier: directory.getRelativePathAsModuleSpecifierTo(sourceDirectory),
+    moduleSpecifier:
+      directory.getRelativePathAsModuleSpecifierTo(sourceDirectory),
   };
 }

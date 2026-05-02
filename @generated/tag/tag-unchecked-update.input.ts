@@ -12,7 +12,9 @@ export class TagUncheckedUpdateInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   name?: StringFieldUpdateOperationsInput;
 
-  @Field(() => ArticleUncheckedUpdateManyWithoutTagsNestedInput, { nullable: true })
+  @Field(() => ArticleUncheckedUpdateManyWithoutTagsNestedInput, {
+    nullable: true,
+  })
   @Type(() => ArticleUncheckedUpdateManyWithoutTagsNestedInput)
   articles?: ArticleUncheckedUpdateManyWithoutTagsNestedInput;
 }

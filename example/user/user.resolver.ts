@@ -37,7 +37,10 @@ export class UserResolver {
    * Query for single user.
    */
   @Query(() => [User])
-  async users(@Args('where') where: UserWhereInput, @Info() info: GraphQLResolveInfo) {
+  async users(
+    @Args('where') where: UserWhereInput,
+    @Info() info: GraphQLResolveInfo,
+  ) {
     const select = new PrismaSelect(info).value;
     // console.log('select', select);
     return await prisma.user.findMany({ where, ...select });
@@ -61,12 +64,19 @@ export class UserResolver {
 
   @Mutation(() => User, { nullable: true })
   async userInfo(@Args('user') user: UserDateInput): Promise<any> {
-    console.log('userInfo Args', user.date, typeof user.date, user.date?.constructor);
+    console.log(
+      'userInfo Args',
+      user.date,
+      typeof user.date,
+      user.date?.constructor,
+    );
     return;
   }
 
   @Mutation(() => [User], { nullable: true })
-  async createManyUsers(@Args() createManyUserArgs: CreateManyUserArgs): Promise<any> {
+  async createManyUsers(
+    @Args() createManyUserArgs: CreateManyUserArgs,
+  ): Promise<any> {
     console.log('createManyUserArgs', createManyUserArgs);
     return;
   }

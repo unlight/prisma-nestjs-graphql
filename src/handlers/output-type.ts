@@ -14,8 +14,14 @@ import type { EventArguments, OutputType } from '../types.ts';
 const nestjsGraphql = '@nestjs/graphql';
 
 export function outputType(outputType: OutputType, args: EventArguments) {
-  const { config, eventEmitter, fieldSettings, getModelName, getSourceFile, models } =
-    args;
+  const {
+    config,
+    eventEmitter,
+    fieldSettings,
+    getModelName,
+    getSourceFile,
+    models,
+  } = args;
   const importDeclarations = new ImportDeclarationMap();
 
   const fileType = 'output';
@@ -95,7 +101,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     if (propertySettings) {
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
-      importDeclarations.add('Decimal', `${config.prismaClientImport}/runtime/library`);
+      importDeclarations.add(
+        'Decimal',
+        `${config.prismaClientImport}/runtime/library`,
+      );
     }
 
     // Get graphql type
@@ -132,7 +141,9 @@ export function outputType(outputType: OutputType, args: EventArguments) {
         typeName: outputTypeName,
       });
       const referenceName =
-        location === 'enumTypes' ? getEnumName(propertyType[0]) : propertyType[0];
+        location === 'enumTypes'
+          ? getEnumName(propertyType[0])
+          : propertyType[0];
 
       graphqlType = graphqlImport.name;
 
@@ -179,7 +190,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
               arguments: options.arguments as string[],
               name: options.name,
             });
-            ok(options.from, "Missed 'from' part in configuration or field setting");
+            ok(
+              options.from,
+              "Missed 'from' part in configuration or field setting",
+            );
             importDeclarations.create(options);
           }
         }

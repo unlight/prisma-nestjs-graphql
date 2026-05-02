@@ -9,7 +9,9 @@ export class ProfileUpdateInput {
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
   dummy?: NullableStringFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutProfileNestedInput, { nullable: true })
+  @Field(() => UserUpdateOneRequiredWithoutProfileNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUpdateOneRequiredWithoutProfileNestedInput)
   user?: UserUpdateOneRequiredWithoutProfileNestedInput;
 }

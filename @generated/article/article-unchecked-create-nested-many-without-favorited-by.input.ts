@@ -12,7 +12,9 @@ export class ArticleUncheckedCreateNestedManyWithoutFavoritedByInput {
   @Type(() => ArticleCreateWithoutFavoritedByInput)
   create?: Array<ArticleCreateWithoutFavoritedByInput>;
 
-  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], { nullable: true })
+  @Field(() => [ArticleCreateOrConnectWithoutFavoritedByInput], {
+    nullable: true,
+  })
   @Type(() => ArticleCreateOrConnectWithoutFavoritedByInput)
   connectOrCreate?: Array<ArticleCreateOrConnectWithoutFavoritedByInput>;
 

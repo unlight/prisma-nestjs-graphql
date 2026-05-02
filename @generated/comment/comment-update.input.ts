@@ -21,7 +21,9 @@ export class CommentUpdateInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
   body?: StringFieldUpdateOperationsInput;
 
-  @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, { nullable: true })
+  @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, {
+    nullable: true,
+  })
   @Type(() => UserUpdateOneRequiredWithoutCommentsNestedInput)
   author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
 

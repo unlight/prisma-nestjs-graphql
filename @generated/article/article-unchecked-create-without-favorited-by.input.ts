@@ -38,10 +38,14 @@ export class ArticleUncheckedCreateWithoutFavoritedByInput {
   @Field(() => Boolean, { nullable: true })
   active?: boolean;
 
-  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, { nullable: true })
+  @Field(() => TagUncheckedCreateNestedManyWithoutArticlesInput, {
+    nullable: true,
+  })
   tags?: TagUncheckedCreateNestedManyWithoutArticlesInput;
 
-  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, { nullable: true })
+  @Field(() => CommentUncheckedCreateNestedManyWithoutArticleInput, {
+    nullable: true,
+  })
   @Type(() => CommentUncheckedCreateNestedManyWithoutArticleInput)
   comments?: CommentUncheckedCreateNestedManyWithoutArticleInput;
 }

@@ -33,7 +33,8 @@ import type {
 } from './types.ts';
 
 function resolveAwaitEventEmitter(): any {
-  if (typeof awaitEventEmitterModule === 'function') return awaitEventEmitterModule;
+  if (typeof awaitEventEmitterModule === 'function')
+    return awaitEventEmitterModule;
   if (typeof awaitEventEmitterModule.default === 'function')
     return awaitEventEmitterModule.default;
 }
@@ -67,8 +68,10 @@ export async function generate(
   ) {
     eventEmitter.on('OutputType', outputType);
   }
-  config.emitBlocks.models && eventEmitter.on('ModelOutputType', modelOutputType);
-  config.emitBlocks.outputs && eventEmitter.on('AggregateOutput', createAggregateInput);
+  config.emitBlocks.models &&
+    eventEmitter.on('ModelOutputType', modelOutputType);
+  config.emitBlocks.outputs &&
+    eventEmitter.on('AggregateOutput', createAggregateInput);
   config.emitBlocks.inputs && eventEmitter.on('InputType', inputType);
   config.emitBlocks.args && eventEmitter.on('ArgsType', argsType);
   eventEmitter.on('GenerateFiles', generateFiles);
