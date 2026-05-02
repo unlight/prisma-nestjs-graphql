@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { NestedBoolNullableWithAggregatesFilter } from './nested-bool-nullable-with-aggregates-filter.input';
-import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
-import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input';
+import { NestedBoolNullableWithAggregatesFilter } from './nested-bool-nullable-with-aggregates-filter.input.ts';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
+import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input.ts';
 
 @InputType()
 export class BoolNullableWithAggregatesFilter {

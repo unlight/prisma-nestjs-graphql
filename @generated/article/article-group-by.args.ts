@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ArticleWhereInput } from './article-where.input';
+import { ArticleWhereInput } from './article-where.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleOrderByWithAggregationInput } from './article-order-by-with-aggregation.input';
-import { ArticleScalarFieldEnum } from './article-scalar-field.enum';
-import { ArticleScalarWhereWithAggregatesInput } from './article-scalar-where-with-aggregates.input';
+import { ArticleOrderByWithAggregationInput } from './article-order-by-with-aggregation.input.ts';
+import { ArticleScalarFieldEnum } from './article-scalar-field.enum.ts';
+import { ArticleScalarWhereWithAggregatesInput } from './article-scalar-where-with-aggregates.input.ts';
 import { Int } from '@nestjs/graphql';
-import { ArticleCountAggregateInput } from './article-count-aggregate.input';
-import { ArticleAvgAggregateInput } from './article-avg-aggregate.input';
-import { ArticleSumAggregateInput } from './article-sum-aggregate.input';
-import { ArticleMinAggregateInput } from './article-min-aggregate.input';
-import { ArticleMaxAggregateInput } from './article-max-aggregate.input';
+import { ArticleCountAggregateInput } from './article-count-aggregate.input.ts';
+import { ArticleAvgAggregateInput } from './article-avg-aggregate.input.ts';
+import { ArticleSumAggregateInput } from './article-sum-aggregate.input.ts';
+import { ArticleMinAggregateInput } from './article-min-aggregate.input.ts';
+import { ArticleMaxAggregateInput } from './article-max-aggregate.input.ts';
 
 @ArgsType()
 export class ArticleGroupByArgs {

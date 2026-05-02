@@ -2,7 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 
 @ObjectType()
@@ -20,7 +21,7 @@ export class DummyMinAggregate {
   float?: number;
 
   @Field(() => String, { nullable: true })
-  bytes?: Uint8Array;
+  bytes?: Prisma.Bytes;
 
   @Field(() => GraphQLDecimal, { nullable: true })
   decimal?: Decimal;

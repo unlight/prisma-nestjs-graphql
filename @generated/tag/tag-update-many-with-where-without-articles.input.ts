@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { TagScalarWhereInput } from './tag-scalar-where.input';
+import { TagScalarWhereInput } from './tag-scalar-where.input.ts';
 import { Type } from 'class-transformer';
-import { TagUpdateManyMutationInput } from './tag-update-many-mutation.input';
+import { TagUpdateManyMutationInput } from './tag-update-many-mutation.input.ts';
 
 @InputType()
 export class TagUpdateManyWithWhereWithoutArticlesInput {

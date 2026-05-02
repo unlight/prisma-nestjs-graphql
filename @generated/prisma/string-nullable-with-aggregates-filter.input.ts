@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { QueryMode } from './query-mode.enum';
-import { NestedStringNullableWithAggregatesFilter } from './nested-string-nullable-with-aggregates-filter.input';
-import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
-import { NestedStringNullableFilter } from './nested-string-nullable-filter.input';
+import { QueryMode } from './query-mode.enum.ts';
+import { NestedStringNullableWithAggregatesFilter } from './nested-string-nullable-with-aggregates-filter.input.ts';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
+import { NestedStringNullableFilter } from './nested-string-nullable-filter.input.ts';
 
 @InputType()
 export class StringNullableWithAggregatesFilter {

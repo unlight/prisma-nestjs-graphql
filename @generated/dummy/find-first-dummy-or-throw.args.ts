@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { DummyWhereInput } from './dummy-where.input';
+import { DummyWhereInput } from './dummy-where.input.ts';
 import { Type } from 'class-transformer';
-import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input';
+import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { DummyWhereUniqueInput } from './dummy-where-unique.input';
+import { DummyWhereUniqueInput } from './dummy-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { DummyScalarFieldEnum } from './dummy-scalar-field.enum';
+import { DummyScalarFieldEnum } from './dummy-scalar-field.enum.ts';
 
 @ArgsType()
 export class FindFirstDummyOrThrowArgs {

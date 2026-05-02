@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { UserUpdateWithoutFollowersInput } from './user-update-without-followers.input';
-import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input';
+import { UserUpdateWithoutFollowersInput } from './user-update-without-followers.input.ts';
+import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input.ts';
 
 @InputType()
 export class UserUpsertWithWhereUniqueWithoutFollowersInput {

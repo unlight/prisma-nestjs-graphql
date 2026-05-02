@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 
 @InputType()
 export class NestedBytesNullableFilter {
   @Field(() => String, { nullable: true })
-  equals?: Uint8Array;
+  equals?: Prisma.Bytes;
 
   @Field(() => [String], { nullable: true })
-  in?: Array<Uint8Array>;
+  in?: Array<Prisma.Bytes>;
 
   @Field(() => [String], { nullable: true })
-  notIn?: Array<Uint8Array>;
+  notIn?: Array<Prisma.Bytes>;
 
   @Field(() => NestedBytesNullableFilter, { nullable: true })
   not?: NestedBytesNullableFilter;

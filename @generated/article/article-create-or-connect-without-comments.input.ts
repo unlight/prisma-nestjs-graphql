@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input';
+import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input.ts';
 
 @InputType()
 export class ArticleCreateOrConnectWithoutCommentsInput {

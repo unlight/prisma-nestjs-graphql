@@ -3,8 +3,9 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
@@ -22,7 +23,7 @@ export class Dummy {
   float!: number | null;
 
   @Field(() => String, { nullable: true })
-  bytes!: Uint8Array | null;
+  bytes!: Prisma.Bytes | null;
 
   @Field(() => GraphQLDecimal, { nullable: false })
   decimal!: Decimal;

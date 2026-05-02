@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { Tag } from '../tag/tag.model';
-import { User } from '../user/user.model';
-import { Comment } from '../comment/comment.model';
-import { ArticleCount } from './article-count.output';
+import { Tag } from '../tag/tag.model.ts';
+import { User } from '../user/user.model.ts';
+import { Comment } from '../comment/comment.model.ts';
+import { ArticleCount } from './article-count.output.ts';
 
 @ObjectType()
 export class Article {

@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 
 @InputType()
 export class TagScalarWhereWithAggregatesInput {

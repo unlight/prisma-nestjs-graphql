@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { TagUpdateInput } from './tag-update.input';
+import { TagUpdateInput } from './tag-update.input.ts';
 import { Type } from 'class-transformer';
 import { Prisma } from '@prisma/client';
-import { TagWhereUniqueInput } from './tag-where-unique.input';
+import { TagWhereUniqueInput } from './tag-where-unique.input.ts';
 
 @ArgsType()
 export class UpdateOneTagArgs {

@@ -1,15 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleWhereInput } from './article-where.input';
-import { StringFilter } from '../prisma/string-filter.input';
-import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { IntFilter } from '../prisma/int-filter.input';
-import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input';
-import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input';
-import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input';
+import { ArticleWhereInput } from './article-where.input.ts';
+import { StringFilter } from '../prisma/string-filter.input.ts';
+import { DateTimeFilter } from '../prisma/date-time-filter.input.ts';
+import { IntFilter } from '../prisma/int-filter.input.ts';
+import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input.ts';
+import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input.ts';
+import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input.ts';
 import { Type } from 'class-transformer';
-import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
-import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
+import { UserListRelationFilter } from '../user/user-list-relation-filter.input.ts';
+import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input.ts';
 
 @InputType()
 export class ArticleWhereUniqueInput {

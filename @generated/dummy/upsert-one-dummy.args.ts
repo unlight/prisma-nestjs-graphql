@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { DummyWhereUniqueInput } from './dummy-where-unique.input';
+import { DummyWhereUniqueInput } from './dummy-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { DummyCreateInput } from './dummy-create.input';
-import { DummyUpdateInput } from './dummy-update.input';
+import { DummyCreateInput } from './dummy-create.input.ts';
+import { DummyUpdateInput } from './dummy-update.input.ts';
 
 @ArgsType()
 export class UpsertOneDummyArgs {

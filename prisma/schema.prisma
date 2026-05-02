@@ -8,7 +8,7 @@ generator client {
 }
 
 generator nestgraphql {
-  provider                              = "node --import=@poppinss/ts-exec ./src/index.ts"
+  provider                              = "node --import=@poppinss/ts-exec ./src/bin.mjs"
   output                                = "../@generated"
   noAtomicOperations                    = false
   combineScalarFilters                  = false

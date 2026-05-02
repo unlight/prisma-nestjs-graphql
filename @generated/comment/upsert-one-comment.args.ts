@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { CommentCreateInput } from './comment-create.input';
-import { CommentUpdateInput } from './comment-update.input';
+import { CommentCreateInput } from './comment-create.input.ts';
+import { CommentUpdateInput } from './comment-update.input.ts';
 
 @ArgsType()
 export class UpsertOneCommentArgs {

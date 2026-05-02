@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ArticleCreateInput } from './article-create.input';
+import { ArticleCreateInput } from './article-create.input.ts';
 import { Type } from 'class-transformer';
 
 @ArgsType()

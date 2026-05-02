@@ -1,14 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
+import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input';
-import { ArticleUpsertWithWhereUniqueWithoutFavoritedByInput } from './article-upsert-with-where-unique-without-favorited-by.input';
+import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input.ts';
+import { ArticleUpsertWithWhereUniqueWithoutFavoritedByInput } from './article-upsert-with-where-unique-without-favorited-by.input.ts';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
-import { ArticleUpdateWithWhereUniqueWithoutFavoritedByInput } from './article-update-with-where-unique-without-favorited-by.input';
-import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-update-many-with-where-without-favorited-by.input';
-import { ArticleScalarWhereInput } from './article-scalar-where.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
+import { ArticleUpdateWithWhereUniqueWithoutFavoritedByInput } from './article-update-with-where-unique-without-favorited-by.input.ts';
+import { ArticleUpdateManyWithWhereWithoutFavoritedByInput } from './article-update-many-with-where-without-favorited-by.input.ts';
+import { ArticleScalarWhereInput } from './article-scalar-where.input.ts';
 
 @InputType()
 export class ArticleUpdateManyWithoutFavoritedByNestedInput {

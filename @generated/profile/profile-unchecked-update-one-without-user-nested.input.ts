@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ProfileCreateWithoutUserInput } from './profile-create-without-user.input';
+import { ProfileCreateWithoutUserInput } from './profile-create-without-user.input.ts';
 import { Type } from 'class-transformer';
-import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input';
-import { ProfileUpsertWithoutUserInput } from './profile-upsert-without-user.input';
-import { ProfileWhereInput } from './profile-where.input';
+import { ProfileCreateOrConnectWithoutUserInput } from './profile-create-or-connect-without-user.input.ts';
+import { ProfileUpsertWithoutUserInput } from './profile-upsert-without-user.input.ts';
+import { ProfileWhereInput } from './profile-where.input.ts';
 import { Prisma } from '@prisma/client';
-import { ProfileWhereUniqueInput } from './profile-where-unique.input';
-import { ProfileUpdateToOneWithWhereWithoutUserInput } from './profile-update-to-one-with-where-without-user.input';
+import { ProfileWhereUniqueInput } from './profile-where-unique.input.ts';
+import { ProfileUpdateToOneWithWhereWithoutUserInput } from './profile-update-to-one-with-where-without-user.input.ts';
 
 @InputType()
 export class ProfileUncheckedUpdateOneWithoutUserNestedInput {

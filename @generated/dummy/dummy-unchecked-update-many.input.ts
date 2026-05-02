@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input';
-import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input';
-import { DecimalFieldUpdateOperationsInput } from '../prisma/decimal-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
+import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input.ts';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input.ts';
+import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input.ts';
+import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input.ts';
+import { DecimalFieldUpdateOperationsInput } from '../prisma/decimal-field-update-operations.input.ts';
 import { Type } from 'class-transformer';
-import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input';
-import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input';
+import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input.ts';
+import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input.ts';
 import { GraphQLJSON } from 'graphql-type-json';
-import { DummyUpdatefriendsInput } from './dummy-updatefriends.input';
+import { DummyUpdatefriendsInput } from './dummy-updatefriends.input.ts';
 
 @InputType()
 export class DummyUncheckedUpdateManyInput {

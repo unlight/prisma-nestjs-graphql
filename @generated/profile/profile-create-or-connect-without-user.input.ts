@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { ProfileWhereUniqueInput } from './profile-where-unique.input';
+import { ProfileWhereUniqueInput } from './profile-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { ProfileCreateWithoutUserInput } from './profile-create-without-user.input';
+import { ProfileCreateWithoutUserInput } from './profile-create-without-user.input.ts';
 
 @InputType()
 export class ProfileCreateOrConnectWithoutUserInput {

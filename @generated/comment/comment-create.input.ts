@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateNestedOneWithoutCommentsInput } from '../user/user-create-nested-one-without-comments.input';
+import { UserCreateNestedOneWithoutCommentsInput } from '../user/user-create-nested-one-without-comments.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateNestedOneWithoutCommentsInput } from '../article/article-create-nested-one-without-comments.input';
+import { ArticleCreateNestedOneWithoutCommentsInput } from '../article/article-create-nested-one-without-comments.input.ts';
 
 @InputType()
 export class CommentCreateInput {

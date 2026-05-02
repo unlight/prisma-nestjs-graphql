@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { Type } from 'class-transformer';
-import { UserCountOrderByAggregateInput } from './user-count-order-by-aggregate.input';
-import { UserAvgOrderByAggregateInput } from './user-avg-order-by-aggregate.input';
-import { UserMaxOrderByAggregateInput } from './user-max-order-by-aggregate.input';
-import { UserMinOrderByAggregateInput } from './user-min-order-by-aggregate.input';
-import { UserSumOrderByAggregateInput } from './user-sum-order-by-aggregate.input';
+import { UserCountOrderByAggregateInput } from './user-count-order-by-aggregate.input.ts';
+import { UserAvgOrderByAggregateInput } from './user-avg-order-by-aggregate.input.ts';
+import { UserMaxOrderByAggregateInput } from './user-max-order-by-aggregate.input.ts';
+import { UserMinOrderByAggregateInput } from './user-min-order-by-aggregate.input.ts';
+import { UserSumOrderByAggregateInput } from './user-sum-order-by-aggregate.input.ts';
 
 @InputType()
 export class UserOrderByWithAggregationInput {

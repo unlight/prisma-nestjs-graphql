@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { TagCountOrderByAggregateInput } from './tag-count-order-by-aggregate.input';
-import { TagMaxOrderByAggregateInput } from './tag-max-order-by-aggregate.input';
-import { TagMinOrderByAggregateInput } from './tag-min-order-by-aggregate.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { TagCountOrderByAggregateInput } from './tag-count-order-by-aggregate.input.ts';
+import { TagMaxOrderByAggregateInput } from './tag-max-order-by-aggregate.input.ts';
+import { TagMinOrderByAggregateInput } from './tag-min-order-by-aggregate.input.ts';
 
 @InputType()
 export class TagOrderByWithAggregationInput {

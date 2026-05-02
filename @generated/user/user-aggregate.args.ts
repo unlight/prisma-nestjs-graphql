@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { UserWhereInput } from './user-where.input';
+import { UserWhereInput } from './user-where.input.ts';
 import { Type } from 'class-transformer';
-import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input';
+import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { UserCountAggregateInput } from './user-count-aggregate.input';
-import { UserAvgAggregateInput } from './user-avg-aggregate.input';
-import { UserSumAggregateInput } from './user-sum-aggregate.input';
-import { UserMinAggregateInput } from './user-min-aggregate.input';
-import { UserMaxAggregateInput } from './user-max-aggregate.input';
+import { UserCountAggregateInput } from './user-count-aggregate.input.ts';
+import { UserAvgAggregateInput } from './user-avg-aggregate.input.ts';
+import { UserSumAggregateInput } from './user-sum-aggregate.input.ts';
+import { UserMinAggregateInput } from './user-min-aggregate.input.ts';
+import { UserMaxAggregateInput } from './user-max-aggregate.input.ts';
 
 @ArgsType()
 export class UserAggregateArgs {

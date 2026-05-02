@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { ProfileWhereInput } from './profile-where.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input';
+import { ProfileWhereInput } from './profile-where.input.ts';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
+import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

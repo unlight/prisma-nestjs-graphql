@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input';
+import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input';
+import { ArticleCreateOrConnectWithoutFavoritedByInput } from './article-create-or-connect-without-favorited-by.input.ts';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 
 @InputType()
 export class ArticleUncheckedCreateNestedManyWithoutFavoritedByInput {

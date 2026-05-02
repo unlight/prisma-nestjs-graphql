@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { TagWhereInput } from './tag-where.input';
+import { TagWhereInput } from './tag-where.input.ts';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
 

@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { DummyCountAggregate } from './dummy-count-aggregate.output';
-import { DummyAvgAggregate } from './dummy-avg-aggregate.output';
-import { DummySumAggregate } from './dummy-sum-aggregate.output';
-import { DummyMinAggregate } from './dummy-min-aggregate.output';
-import { DummyMaxAggregate } from './dummy-max-aggregate.output';
+import { DummyCountAggregate } from './dummy-count-aggregate.output.ts';
+import { DummyAvgAggregate } from './dummy-avg-aggregate.output.ts';
+import { DummySumAggregate } from './dummy-sum-aggregate.output.ts';
+import { DummyMinAggregate } from './dummy-min-aggregate.output.ts';
+import { DummyMaxAggregate } from './dummy-max-aggregate.output.ts';
 
 @ObjectType()
 export class AggregateDummy {

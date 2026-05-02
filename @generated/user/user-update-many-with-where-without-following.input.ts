@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserScalarWhereInput } from './user-scalar-where.input';
+import { UserScalarWhereInput } from './user-scalar-where.input.ts';
 import { Type } from 'class-transformer';
-import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
+import { UserUpdateManyMutationInput } from './user-update-many-mutation.input.ts';
 
 @InputType()
 export class UserUpdateManyWithWhereWithoutFollowingInput {

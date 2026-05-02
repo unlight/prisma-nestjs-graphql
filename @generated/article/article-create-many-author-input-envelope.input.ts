@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateManyAuthorInput } from './article-create-many-author.input';
+import { ArticleCreateManyAuthorInput } from './article-create-many-author.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

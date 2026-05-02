@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
-import { ProfileCountOrderByAggregateInput } from './profile-count-order-by-aggregate.input';
-import { ProfileAvgOrderByAggregateInput } from './profile-avg-order-by-aggregate.input';
-import { ProfileMaxOrderByAggregateInput } from './profile-max-order-by-aggregate.input';
-import { ProfileMinOrderByAggregateInput } from './profile-min-order-by-aggregate.input';
-import { ProfileSumOrderByAggregateInput } from './profile-sum-order-by-aggregate.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { SortOrderInput } from '../prisma/sort-order.input.ts';
+import { ProfileCountOrderByAggregateInput } from './profile-count-order-by-aggregate.input.ts';
+import { ProfileAvgOrderByAggregateInput } from './profile-avg-order-by-aggregate.input.ts';
+import { ProfileMaxOrderByAggregateInput } from './profile-max-order-by-aggregate.input.ts';
+import { ProfileMinOrderByAggregateInput } from './profile-min-order-by-aggregate.input.ts';
+import { ProfileSumOrderByAggregateInput } from './profile-sum-order-by-aggregate.input.ts';
 
 @InputType()
 export class ProfileOrderByWithAggregationInput {

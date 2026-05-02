@@ -1,11 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
+import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
-import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input';
+import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input.ts';
+import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 
 @InputType()
 export class ArticleUncheckedCreateNestedManyWithoutAuthorInput {

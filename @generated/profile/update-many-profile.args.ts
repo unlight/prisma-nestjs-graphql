@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ProfileUpdateManyMutationInput } from './profile-update-many-mutation.input';
+import { ProfileUpdateManyMutationInput } from './profile-update-many-mutation.input.ts';
 import { Type } from 'class-transformer';
-import { ProfileWhereInput } from './profile-where.input';
+import { ProfileWhereInput } from './profile-where.input.ts';
 import { Int } from '@nestjs/graphql';
 
 @ArgsType()

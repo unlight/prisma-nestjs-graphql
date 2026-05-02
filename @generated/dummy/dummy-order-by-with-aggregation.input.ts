@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
-import { DummyCountOrderByAggregateInput } from './dummy-count-order-by-aggregate.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { SortOrderInput } from '../prisma/sort-order.input.ts';
+import { DummyCountOrderByAggregateInput } from './dummy-count-order-by-aggregate.input.ts';
 import { Type } from 'class-transformer';
-import { DummyAvgOrderByAggregateInput } from './dummy-avg-order-by-aggregate.input';
-import { DummyMaxOrderByAggregateInput } from './dummy-max-order-by-aggregate.input';
-import { DummyMinOrderByAggregateInput } from './dummy-min-order-by-aggregate.input';
-import { DummySumOrderByAggregateInput } from './dummy-sum-order-by-aggregate.input';
+import { DummyAvgOrderByAggregateInput } from './dummy-avg-order-by-aggregate.input.ts';
+import { DummyMaxOrderByAggregateInput } from './dummy-max-order-by-aggregate.input.ts';
+import { DummyMinOrderByAggregateInput } from './dummy-min-order-by-aggregate.input.ts';
+import { DummySumOrderByAggregateInput } from './dummy-sum-order-by-aggregate.input.ts';
 
 @InputType()
 export class DummyOrderByWithAggregationInput {

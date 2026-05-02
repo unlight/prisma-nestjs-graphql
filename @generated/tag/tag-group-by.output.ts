@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { TagCountAggregate } from './tag-count-aggregate.output';
-import { TagMinAggregate } from './tag-min-aggregate.output';
-import { TagMaxAggregate } from './tag-max-aggregate.output';
+import { TagCountAggregate } from './tag-count-aggregate.output.ts';
+import { TagMinAggregate } from './tag-min-aggregate.output.ts';
+import { TagMaxAggregate } from './tag-max-aggregate.output.ts';
 
 @ObjectType()
 export class TagGroupBy {

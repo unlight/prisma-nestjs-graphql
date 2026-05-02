@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { NestedIntFilter } from './nested-int-filter.input';
-import { NestedFloatFilter } from './nested-float-filter.input';
+import { NestedIntFilter } from './nested-int-filter.input.ts';
+import { NestedFloatFilter } from './nested-float-filter.input.ts';
 
 @InputType()
 export class NestedIntWithAggregatesFilter {

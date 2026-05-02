@@ -4,12 +4,12 @@ import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { Role } from '../prisma/role.enum';
+import { Role } from '../prisma/role.enum.ts';
 
 @InputType()
 export class UserCreateManyInput {

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { TagWhereInput } from './tag-where.input';
-import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
+import { TagWhereInput } from './tag-where.input.ts';
+import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { Type } from 'class-transformer';
-import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input';
-import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
-import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
-import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input';
+import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input.ts';
+import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input.ts';
+import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input.ts';
+import { ProfileOrderByWithRelationInput } from '../profile/profile-order-by-with-relation.input.ts';
 
 @InputType()
 export class UserOrderByWithRelationInput {

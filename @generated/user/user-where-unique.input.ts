@@ -2,19 +2,19 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
-import { UserEmailNameCompoundUniqueInput } from './user-email-name-compound-unique.input';
+import { UserEmailNameCompoundUniqueInput } from './user-email-name-compound-unique.input.ts';
 import { Type } from 'class-transformer';
-import { UserWhereInput } from './user-where.input';
-import { StringFilter } from '../prisma/string-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { FloatNullableFilter } from '../prisma/float-nullable-filter.input';
-import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input';
-import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input';
-import { UserListRelationFilter } from './user-list-relation-filter.input';
-import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
-import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
-import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input';
+import { UserWhereInput } from './user-where.input.ts';
+import { StringFilter } from '../prisma/string-filter.input.ts';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input.ts';
+import { FloatNullableFilter } from '../prisma/float-nullable-filter.input.ts';
+import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input.ts';
+import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input.ts';
+import { UserListRelationFilter } from './user-list-relation-filter.input.ts';
+import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
+import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input.ts';
+import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input.ts';
 
 @InputType()
 export class UserWhereUniqueInput {

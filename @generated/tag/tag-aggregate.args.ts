@@ -1,14 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { TagWhereInput } from './tag-where.input';
+import { TagWhereInput } from './tag-where.input.ts';
 import { Type } from 'class-transformer';
-import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input';
+import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { TagWhereUniqueInput } from './tag-where-unique.input';
+import { TagWhereUniqueInput } from './tag-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { TagCountAggregateInput } from './tag-count-aggregate.input';
-import { TagMinAggregateInput } from './tag-min-aggregate.input';
-import { TagMaxAggregateInput } from './tag-max-aggregate.input';
+import { TagCountAggregateInput } from './tag-count-aggregate.input.ts';
+import { TagMinAggregateInput } from './tag-min-aggregate.input.ts';
+import { TagMaxAggregateInput } from './tag-max-aggregate.input.ts';
 
 @ArgsType()
 export class TagAggregateArgs {

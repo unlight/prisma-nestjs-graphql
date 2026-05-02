@@ -1,14 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input';
+import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input.ts';
 import { Type } from 'class-transformer';
-import { TagCreateOrConnectWithoutArticlesInput } from './tag-create-or-connect-without-articles.input';
-import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input';
+import { TagCreateOrConnectWithoutArticlesInput } from './tag-create-or-connect-without-articles.input.ts';
+import { TagUpsertWithWhereUniqueWithoutArticlesInput } from './tag-upsert-with-where-unique-without-articles.input.ts';
 import { Prisma } from '@prisma/client';
-import { TagWhereUniqueInput } from './tag-where-unique.input';
-import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input';
-import { TagUpdateManyWithWhereWithoutArticlesInput } from './tag-update-many-with-where-without-articles.input';
-import { TagScalarWhereInput } from './tag-scalar-where.input';
+import { TagWhereUniqueInput } from './tag-where-unique.input.ts';
+import { TagUpdateWithWhereUniqueWithoutArticlesInput } from './tag-update-with-where-unique-without-articles.input.ts';
+import { TagUpdateManyWithWhereWithoutArticlesInput } from './tag-update-many-with-where-without-articles.input.ts';
+import { TagScalarWhereInput } from './tag-scalar-where.input.ts';
 
 @InputType()
 export class TagUncheckedUpdateManyWithoutArticlesNestedInput {

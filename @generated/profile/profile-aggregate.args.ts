@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ProfileWhereInput } from './profile-where.input';
+import { ProfileWhereInput } from './profile-where.input.ts';
 import { Type } from 'class-transformer';
-import { ProfileOrderByWithRelationInput } from './profile-order-by-with-relation.input';
+import { ProfileOrderByWithRelationInput } from './profile-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { ProfileWhereUniqueInput } from './profile-where-unique.input';
+import { ProfileWhereUniqueInput } from './profile-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { ProfileCountAggregateInput } from './profile-count-aggregate.input';
-import { ProfileAvgAggregateInput } from './profile-avg-aggregate.input';
-import { ProfileSumAggregateInput } from './profile-sum-aggregate.input';
-import { ProfileMinAggregateInput } from './profile-min-aggregate.input';
-import { ProfileMaxAggregateInput } from './profile-max-aggregate.input';
+import { ProfileCountAggregateInput } from './profile-count-aggregate.input.ts';
+import { ProfileAvgAggregateInput } from './profile-avg-aggregate.input.ts';
+import { ProfileSumAggregateInput } from './profile-sum-aggregate.input.ts';
+import { ProfileMinAggregateInput } from './profile-min-aggregate.input.ts';
+import { ProfileMaxAggregateInput } from './profile-max-aggregate.input.ts';
 
 @ArgsType()
 export class ProfileAggregateArgs {

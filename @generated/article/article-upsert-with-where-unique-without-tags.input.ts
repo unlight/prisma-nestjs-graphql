@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleUpdateWithoutTagsInput } from './article-update-without-tags.input';
-import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input';
+import { ArticleUpdateWithoutTagsInput } from './article-update-without-tags.input.ts';
+import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input.ts';
 
 @InputType()
 export class ArticleUpsertWithWhereUniqueWithoutTagsInput {

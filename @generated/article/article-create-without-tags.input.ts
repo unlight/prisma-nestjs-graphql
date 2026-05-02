@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nested-one-without-articles.input';
+import { UserCreateNestedOneWithoutArticlesInput } from '../user/user-create-nested-one-without-articles.input.ts';
 import { Type } from 'class-transformer';
-import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-create-nested-many-without-favorite-articles.input';
-import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-create-nested-many-without-article.input';
+import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-create-nested-many-without-favorite-articles.input.ts';
+import { CommentCreateNestedManyWithoutArticleInput } from '../comment/comment-create-nested-many-without-article.input.ts';
 
 @InputType()
 export class ArticleCreateWithoutTagsInput {

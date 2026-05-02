@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input';
+import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input.ts';
 
 @InputType()
 export class FloatNullableFilter {

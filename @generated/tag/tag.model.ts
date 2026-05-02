@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Article } from '../article/article.model';
-import { TagCount } from './tag-count.output';
+import { Article } from '../article/article.model.ts';
+import { TagCount } from './tag-count.output.ts';
 
 @ObjectType()
 export class Tag {

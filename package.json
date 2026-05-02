@@ -22,7 +22,7 @@
     "./generate": "./prisma-nestjs-graphql.mjs"
   },
   "scripts": {
-    "test": "npm run eslint && npm run tscheck && npm run test:cov",
+    "test": "npm run eslint && npm run tscheck && npm run test:r",
     "remove_test:w": "npm run test:r -- --watch-files src --watch",
     "test:r": "vitest run",
     "test:cov": "vitest run --coverage",
@@ -37,9 +37,7 @@
     "format": "npx prettier ./@generated --write",
     "regen": "rm -rf @generated && npm run prisma:g && npm run format",
     "regen:custom": "rm -rf @generated-custom && npm run prisma:custom:g && npm run format",
-    "rt": "npm run regen && npm test",
     "example": "node-dev example/main.ts",
-    "clean_cache": "rm -rf node_modules/.cache",
     "compatibilty_check": "sh Taskfile compatibilty_check"
   },
   "config": {},
@@ -60,6 +58,7 @@
   },
   "devDependencies": {
     "@apollo/server": "^5.3.0",
+    "@eslint/js": "^10.0.1",
     "@eslint/compat": "^2.0.2",
     "@nestjs/apollo": "^13.2.3",
     "@nestjs/common": "^11.1.12",

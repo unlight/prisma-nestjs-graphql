@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { CommentUpdateInput } from './comment-update.input';
+import { CommentUpdateInput } from './comment-update.input.ts';
 import { Type } from 'class-transformer';
 import { Prisma } from '@prisma/client';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 
 @ArgsType()
 export class UpdateOneCommentArgs {

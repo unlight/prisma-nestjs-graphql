@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

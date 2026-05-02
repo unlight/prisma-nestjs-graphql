@@ -1,11 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
+import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input.ts';
 import { Type } from 'class-transformer';
-import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input';
-import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input';
+import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input.ts';
+import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 
 @InputType()
 export class CommentCreateNestedManyWithoutArticleInput {

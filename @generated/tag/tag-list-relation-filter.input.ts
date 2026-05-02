@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { TagWhereInput } from './tag-where.input';
+import { TagWhereInput } from './tag-where.input.ts';
 
 @InputType()
 export class TagListRelationFilter {

@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { UserUpdateInput } from './user-update.input';
+import { UserUpdateInput } from './user-update.input.ts';
 import { Type } from 'class-transformer';
 import { Prisma } from '@prisma/client';
-import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 
 @ArgsType()
 export class UpdateOneUserArgs {

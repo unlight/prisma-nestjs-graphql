@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateNestedManyWithoutTagsInput } from '../article/article-create-nested-many-without-tags.input';
+import { ArticleCreateNestedManyWithoutTagsInput } from '../article/article-create-nested-many-without-tags.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

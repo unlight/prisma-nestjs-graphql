@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { CommentCountAggregate } from './comment-count-aggregate.output';
-import { CommentMinAggregate } from './comment-min-aggregate.output';
-import { CommentMaxAggregate } from './comment-max-aggregate.output';
+import { CommentCountAggregate } from './comment-count-aggregate.output.ts';
+import { CommentMinAggregate } from './comment-min-aggregate.output.ts';
+import { CommentMaxAggregate } from './comment-max-aggregate.output.ts';
 
 @ObjectType()
 export class AggregateComment {

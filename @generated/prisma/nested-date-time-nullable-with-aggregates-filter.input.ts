@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
-import { NestedDateTimeNullableFilter } from './nested-date-time-nullable-filter.input';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
+import { NestedDateTimeNullableFilter } from './nested-date-time-nullable-filter.input.ts';
 
 @InputType()
 export class NestedDateTimeNullableWithAggregatesFilter {

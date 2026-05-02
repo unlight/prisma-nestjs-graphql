@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { NestedDecimalWithAggregatesFilter } from './nested-decimal-with-aggregates-filter.input';
-import { NestedIntFilter } from './nested-int-filter.input';
-import { NestedDecimalFilter } from './nested-decimal-filter.input';
+import { NestedDecimalWithAggregatesFilter } from './nested-decimal-with-aggregates-filter.input.ts';
+import { NestedIntFilter } from './nested-int-filter.input.ts';
+import { NestedDecimalFilter } from './nested-decimal-filter.input.ts';
 
 @InputType()
 export class DecimalWithAggregatesFilter {

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { UserUpdateManyMutationInput } from './user-update-many-mutation.input';
+import { UserUpdateManyMutationInput } from './user-update-many-mutation.input.ts';
 import { Type } from 'class-transformer';
-import { UserWhereInput } from './user-where.input';
+import { UserWhereInput } from './user-where.input.ts';
 import { Int } from '@nestjs/graphql';
 
 @ArgsType()

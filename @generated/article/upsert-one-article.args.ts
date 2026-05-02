@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateInput } from './article-create.input';
-import { ArticleUpdateInput } from './article-update.input';
+import { ArticleCreateInput } from './article-create.input.ts';
+import { ArticleUpdateInput } from './article-update.input.ts';
 
 @ArgsType()
 export class UpsertOneArticleArgs {

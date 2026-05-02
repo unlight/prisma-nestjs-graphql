@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ProfileUpdateInput } from './profile-update.input';
+import { ProfileUpdateInput } from './profile-update.input.ts';
 import { Type } from 'class-transformer';
 import { Prisma } from '@prisma/client';
-import { ProfileWhereUniqueInput } from './profile-where-unique.input';
+import { ProfileWhereUniqueInput } from './profile-where-unique.input.ts';
 
 @ArgsType()
 export class UpdateOneProfileArgs {

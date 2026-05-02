@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { SortOrder } from '../prisma/sort-order.enum';
-import { SortOrderInput } from '../prisma/sort-order.input';
-import { ArticleCountOrderByAggregateInput } from './article-count-order-by-aggregate.input';
-import { ArticleAvgOrderByAggregateInput } from './article-avg-order-by-aggregate.input';
-import { ArticleMaxOrderByAggregateInput } from './article-max-order-by-aggregate.input';
-import { ArticleMinOrderByAggregateInput } from './article-min-order-by-aggregate.input';
-import { ArticleSumOrderByAggregateInput } from './article-sum-order-by-aggregate.input';
+import { SortOrder } from '../prisma/sort-order.enum.ts';
+import { SortOrderInput } from '../prisma/sort-order.input.ts';
+import { ArticleCountOrderByAggregateInput } from './article-count-order-by-aggregate.input.ts';
+import { ArticleAvgOrderByAggregateInput } from './article-avg-order-by-aggregate.input.ts';
+import { ArticleMaxOrderByAggregateInput } from './article-max-order-by-aggregate.input.ts';
+import { ArticleMinOrderByAggregateInput } from './article-min-order-by-aggregate.input.ts';
+import { ArticleSumOrderByAggregateInput } from './article-sum-order-by-aggregate.input.ts';
 
 @InputType()
 export class ArticleOrderByWithAggregationInput {

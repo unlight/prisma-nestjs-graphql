@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { NestedFloatNullableWithAggregatesFilter } from './nested-float-nullable-with-aggregates-filter.input';
-import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
-import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input';
+import { NestedFloatNullableWithAggregatesFilter } from './nested-float-nullable-with-aggregates-filter.input.ts';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
+import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input.ts';
 
 @InputType()
 export class FloatNullableWithAggregatesFilter {

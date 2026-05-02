@@ -1,12 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { UserWhereInput } from './user-where.input';
+import { UserWhereInput } from './user-where.input.ts';
 import { Type } from 'class-transformer';
-import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input';
+import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { UserScalarFieldEnum } from './user-scalar-field.enum';
+import { UserScalarFieldEnum } from './user-scalar-field.enum.ts';
 
 @ArgsType()
 export class FindFirstUserOrThrowArgs {

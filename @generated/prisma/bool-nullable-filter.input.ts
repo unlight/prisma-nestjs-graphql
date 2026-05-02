@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input';
+import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input.ts';
 
 @InputType()
 export class BoolNullableFilter {

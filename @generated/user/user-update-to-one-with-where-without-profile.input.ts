@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserWhereInput } from './user-where.input';
+import { UserWhereInput } from './user-where.input.ts';
 import { Type } from 'class-transformer';
-import { UserUpdateWithoutProfileInput } from './user-update-without-profile.input';
+import { UserUpdateWithoutProfileInput } from './user-update-without-profile.input.ts';
 
 @InputType()
 export class UserUpdateToOneWithWhereWithoutProfileInput {

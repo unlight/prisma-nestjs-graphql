@@ -4,17 +4,17 @@ import * as Scalars from 'graphql-scalars';
 import * as Validator from 'class-validator';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { Role } from '../prisma/role.enum';
-import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input';
-import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input';
-import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input';
-import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input';
-import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input';
+import { Role } from '../prisma/role.enum.ts';
+import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input.ts';
+import { UserCreateNestedManyWithoutFollowingInput } from './user-create-nested-many-without-following.input.ts';
+import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input.ts';
+import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input.ts';
+import { ProfileCreateNestedOneWithoutUserInput } from '../profile/profile-create-nested-one-without-user.input.ts';
 
 @InputType()
 export class UserCreateWithoutArticlesInput {

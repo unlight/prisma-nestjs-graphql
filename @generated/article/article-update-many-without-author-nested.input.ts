@@ -1,15 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input';
+import { ArticleCreateWithoutAuthorInput } from './article-create-without-author.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input';
-import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input';
-import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input';
+import { ArticleCreateOrConnectWithoutAuthorInput } from './article-create-or-connect-without-author.input.ts';
+import { ArticleUpsertWithWhereUniqueWithoutAuthorInput } from './article-upsert-with-where-unique-without-author.input.ts';
+import { ArticleCreateManyAuthorInputEnvelope } from './article-create-many-author-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
-import { ArticleWhereUniqueInput } from './article-where-unique.input';
-import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input';
-import { ArticleUpdateManyWithWhereWithoutAuthorInput } from './article-update-many-with-where-without-author.input';
-import { ArticleScalarWhereInput } from './article-scalar-where.input';
+import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
+import { ArticleUpdateWithWhereUniqueWithoutAuthorInput } from './article-update-with-where-unique-without-author.input.ts';
+import { ArticleUpdateManyWithWhereWithoutAuthorInput } from './article-update-many-with-where-without-author.input.ts';
+import { ArticleScalarWhereInput } from './article-scalar-where.input.ts';
 
 @InputType()
 export class ArticleUpdateManyWithoutAuthorNestedInput {

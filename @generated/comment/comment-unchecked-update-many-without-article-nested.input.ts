@@ -1,15 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input';
+import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input.ts';
 import { Type } from 'class-transformer';
-import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input';
-import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input';
-import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input';
+import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input.ts';
+import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input.ts';
+import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
-import { CommentUpdateWithWhereUniqueWithoutArticleInput } from './comment-update-with-where-unique-without-article.input';
-import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-many-with-where-without-article.input';
-import { CommentScalarWhereInput } from './comment-scalar-where.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
+import { CommentUpdateWithWhereUniqueWithoutArticleInput } from './comment-update-with-where-unique-without-article.input.ts';
+import { CommentUpdateManyWithWhereWithoutArticleInput } from './comment-update-many-with-where-without-article.input.ts';
+import { CommentScalarWhereInput } from './comment-scalar-where.input.ts';
 
 @InputType()
 export class CommentUncheckedUpdateManyWithoutArticleNestedInput {

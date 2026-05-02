@@ -5,12 +5,12 @@ import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
-import { Decimal } from '@prisma/client/runtime/library';
-import { Role } from '../prisma/role.enum';
-import { Article } from '../article/article.model';
-import { Comment } from '../comment/comment.model';
-import { Profile } from '../profile/profile.model';
-import { UserCount } from './user-count.output';
+import { Decimal } from '@prisma/client-runtime-utils';
+import { Role } from '../prisma/role.enum.ts';
+import { Article } from '../article/article.model.ts';
+import { Comment } from '../comment/comment.model.ts';
+import { Profile } from '../profile/profile.model.ts';
+import { UserCount } from './user-count.output.ts';
 
 /**
  * User really

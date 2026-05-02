@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
-import { QueryMode } from './query-mode.enum';
+import { QueryMode } from './query-mode.enum.ts';
 
 @InputType()
 export class JsonNullableFilter {

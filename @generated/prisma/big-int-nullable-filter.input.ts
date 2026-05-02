@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { NestedBigIntNullableFilter } from './nested-big-int-nullable-filter.input';
+import { NestedBigIntNullableFilter } from './nested-big-int-nullable-filter.input.ts';
 
 @InputType()
 export class BigIntNullableFilter {

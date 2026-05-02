@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringFilter } from '../prisma/string-filter.input';
-import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input';
+import { StringFilter } from '../prisma/string-filter.input.ts';
+import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()

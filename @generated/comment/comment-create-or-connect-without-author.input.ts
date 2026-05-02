@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
-import { CommentWhereUniqueInput } from './comment-where-unique.input';
+import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 import { Type } from 'class-transformer';
-import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input';
+import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input.ts';
 
 @InputType()
 export class CommentCreateOrConnectWithoutAuthorInput {

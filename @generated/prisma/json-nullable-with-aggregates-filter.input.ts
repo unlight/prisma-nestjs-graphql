@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
-import { QueryMode } from './query-mode.enum';
-import { NestedIntNullableFilter } from './nested-int-nullable-filter.input';
-import { NestedJsonNullableFilter } from './nested-json-nullable-filter.input';
+import { QueryMode } from './query-mode.enum.ts';
+import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
+import { NestedJsonNullableFilter } from './nested-json-nullable-filter.input.ts';
 
 @InputType()
 export class JsonNullableWithAggregatesFilter {

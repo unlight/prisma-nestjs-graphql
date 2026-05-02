@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { DummyWhereInput } from './dummy-where.input';
+import { DummyWhereInput } from './dummy-where.input.ts';
 import { Type } from 'class-transformer';
-import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input';
+import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input.ts';
 import { Prisma } from '@prisma/client';
-import { DummyWhereUniqueInput } from './dummy-where-unique.input';
+import { DummyWhereUniqueInput } from './dummy-where-unique.input.ts';
 import { Int } from '@nestjs/graphql';
-import { DummyCountAggregateInput } from './dummy-count-aggregate.input';
-import { DummyAvgAggregateInput } from './dummy-avg-aggregate.input';
-import { DummySumAggregateInput } from './dummy-sum-aggregate.input';
-import { DummyMinAggregateInput } from './dummy-min-aggregate.input';
-import { DummyMaxAggregateInput } from './dummy-max-aggregate.input';
+import { DummyCountAggregateInput } from './dummy-count-aggregate.input.ts';
+import { DummyAvgAggregateInput } from './dummy-avg-aggregate.input.ts';
+import { DummySumAggregateInput } from './dummy-sum-aggregate.input.ts';
+import { DummyMinAggregateInput } from './dummy-min-aggregate.input.ts';
+import { DummyMaxAggregateInput } from './dummy-max-aggregate.input.ts';
 
 @ArgsType()
 export class DummyAggregateArgs {

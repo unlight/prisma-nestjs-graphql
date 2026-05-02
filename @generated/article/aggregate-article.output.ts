@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { ArticleCountAggregate } from './article-count-aggregate.output';
-import { ArticleAvgAggregate } from './article-avg-aggregate.output';
-import { ArticleSumAggregate } from './article-sum-aggregate.output';
-import { ArticleMinAggregate } from './article-min-aggregate.output';
-import { ArticleMaxAggregate } from './article-max-aggregate.output';
+import { ArticleCountAggregate } from './article-count-aggregate.output.ts';
+import { ArticleAvgAggregate } from './article-avg-aggregate.output.ts';
+import { ArticleSumAggregate } from './article-sum-aggregate.output.ts';
+import { ArticleMinAggregate } from './article-min-aggregate.output.ts';
+import { ArticleMaxAggregate } from './article-max-aggregate.output.ts';
 
 @ObjectType()
 export class AggregateArticle {

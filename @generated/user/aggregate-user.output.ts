@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { UserCountAggregate } from './user-count-aggregate.output';
-import { UserAvgAggregate } from './user-avg-aggregate.output';
-import { UserSumAggregate } from './user-sum-aggregate.output';
-import { UserMinAggregate } from './user-min-aggregate.output';
-import { UserMaxAggregate } from './user-max-aggregate.output';
+import { UserCountAggregate } from './user-count-aggregate.output.ts';
+import { UserAvgAggregate } from './user-avg-aggregate.output.ts';
+import { UserSumAggregate } from './user-sum-aggregate.output.ts';
+import { UserMinAggregate } from './user-min-aggregate.output.ts';
+import { UserMaxAggregate } from './user-max-aggregate.output.ts';
 
 @ObjectType()
 export class AggregateUser {

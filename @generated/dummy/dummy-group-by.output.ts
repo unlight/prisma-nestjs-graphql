@@ -2,14 +2,15 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
-import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
-import { DummyCountAggregate } from './dummy-count-aggregate.output';
-import { DummyAvgAggregate } from './dummy-avg-aggregate.output';
-import { DummySumAggregate } from './dummy-sum-aggregate.output';
-import { DummyMinAggregate } from './dummy-min-aggregate.output';
-import { DummyMaxAggregate } from './dummy-max-aggregate.output';
+import { DummyCountAggregate } from './dummy-count-aggregate.output.ts';
+import { DummyAvgAggregate } from './dummy-avg-aggregate.output.ts';
+import { DummySumAggregate } from './dummy-sum-aggregate.output.ts';
+import { DummyMinAggregate } from './dummy-min-aggregate.output.ts';
+import { DummyMaxAggregate } from './dummy-max-aggregate.output.ts';
 
 @ObjectType()
 export class DummyGroupBy {
@@ -26,7 +27,7 @@ export class DummyGroupBy {
   float?: number;
 
   @Field(() => String, { nullable: true })
-  bytes?: Uint8Array;
+  bytes?: Prisma.Bytes;
 
   @Field(() => GraphQLDecimal, { nullable: false })
   decimal!: Decimal;

@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input';
+import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input.ts';
 import { Type } from 'class-transformer';
-import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input';
+import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input.ts';
 import { Prisma } from '@prisma/client';
-import { UserWhereUniqueInput } from './user-where-unique.input';
+import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 
 @InputType()
 export class UserCreateNestedOneWithoutArticlesInput {

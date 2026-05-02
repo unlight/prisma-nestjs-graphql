@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Role } from './role.enum';
-import { NestedEnumRoleNullableFilter } from './nested-enum-role-nullable-filter.input';
+import { Role } from './role.enum.ts';
+import { NestedEnumRoleNullableFilter } from './nested-enum-role-nullable-filter.input.ts';
 
 @InputType()
 export class EnumRoleNullableFilter {

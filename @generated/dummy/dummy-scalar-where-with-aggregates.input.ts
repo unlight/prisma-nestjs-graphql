@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
-import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
-import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input';
-import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input';
-import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input';
-import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input';
-import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input';
-import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
-import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
+import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input.ts';
+import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input.ts';
+import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input.ts';
+import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input.ts';
+import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input.ts';
+import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input.ts';
+import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input.ts';
+import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input.ts';
+import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input.ts';
 
 @InputType()
 export class DummyScalarWhereWithAggregatesInput {
