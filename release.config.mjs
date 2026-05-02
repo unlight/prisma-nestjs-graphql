@@ -1,4 +1,7 @@
-module.exports = {
+/**
+ * @type {import('semantic-release').GlobalConfig}
+ */
+export default {
   plugins: [
     [
       '@semantic-release/commit-analyzer',
@@ -16,7 +19,7 @@ module.exports = {
     [
       '@semantic-release/npm',
       {
-        pkgRoot: 'dist',
+        pkgRoot: './dist',
       },
     ],
     '@semantic-release/github',

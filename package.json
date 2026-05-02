@@ -37,15 +37,9 @@
     "rt": "npm run regen && npm test",
     "example": "node-dev example/main.ts",
     "clean_cache": "rm -rf node_modules/.cache",
-    "compatibilty_check": "sh Taskfile compatibilty_check",
-    "commit": "cz",
-    "de": "node dist/prisma-nestjs-graphql.mjs"
+    "compatibilty_check": "sh Taskfile compatibilty_check"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    }
-  },
+  "config": {},
   "dependencies": {
     "@prisma/generator-helper": "7",
     "await-event-emitter": "^2.0.2",
@@ -88,7 +82,6 @@
     "class-validator": "^0.14.3",
     "commitizen": "^4.3.1",
     "conventional-changelog-conventionalcommits": "^9.1.0",
-    "cz-customizable": "^7.5.1",
     "decimal.js": "^10.6.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
