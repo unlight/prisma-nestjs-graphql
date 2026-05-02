@@ -17,7 +17,7 @@ export function getFieldOptions(
       ?.getProperty(property);
   }
   const result =
-    propertyDeclaration?.getStructure()?.decorators?.[0]?.arguments?.[1];
+    propertyDeclaration?.getStructure().decorators?.[0]?.arguments?.[1];
   return result as string;
   // return new Function(`return ${text}`)();
 }

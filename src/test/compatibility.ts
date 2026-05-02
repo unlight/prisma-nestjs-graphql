@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions, prefer-const */
 import { Field } from '@nestjs/graphql';
-import { Prisma, PrismaClient } from '@prisma/client';
 import * as P from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 import { Dummy } from '../../@generated/dummy/dummy.model.ts';
 import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input.ts';

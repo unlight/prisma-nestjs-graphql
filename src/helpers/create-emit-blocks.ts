@@ -42,7 +42,7 @@ export function createEmitBlocks(
   let blocksToEmit = {} as Record<EmittedBlockType, boolean>;
 
   for (const block of data) {
-    if (!Object.keys(blocksDependencyMap).includes(block as any)) continue;
+    if (!Object.keys(blocksDependencyMap).includes(block)) continue;
 
     blocksToEmit = {
       ...blocksToEmit,

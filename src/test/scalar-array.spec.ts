@@ -1,5 +1,5 @@
-import { beforeAll, describe, expect, it } from 'vitest';
 import { Project } from 'ts-morph';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { testGenerate } from './test-generate.ts';
 

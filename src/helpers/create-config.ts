@@ -14,7 +14,7 @@ import {
   type EmitBlocksOption,
 } from './create-emit-blocks.ts';
 
-const { memoize, merge, trim } = lodash;
+const { memoize, merge } = lodash;
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {

@@ -1,4 +1,3 @@
-import { expect, describe, it, beforeAll } from 'vitest';
 import {
   ClassDeclaration,
   ImportDeclarationStructure,
@@ -7,6 +6,7 @@ import {
   PropertyDeclarationStructure,
   SourceFile,
 } from 'ts-morph';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { getPropertyStructure } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
