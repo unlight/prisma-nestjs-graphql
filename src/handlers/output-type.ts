@@ -101,7 +101,10 @@ export function outputType(outputType: OutputType, args: EventArguments) {
     if (propertySettings) {
       importDeclarations.create({ ...propertySettings });
     } else if (propertyType.includes('Decimal')) {
+      // TODO: Should be removed
       importDeclarations.add('Decimal', '@prisma/client-runtime-utils');
+    } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
+      importDeclarations.add('Prisma', config.prismaClientImport);
     }
 
     // Get graphql type

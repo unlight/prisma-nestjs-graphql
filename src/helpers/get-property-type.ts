@@ -23,7 +23,7 @@ export function getPropertyType(args: {
       return ['Date', 'string'];
     }
     case 'Decimal': {
-      return ['Decimal'];
+      return ['Decimal']; // TODO: Use Prisma.Decimal
     }
     case 'Json': {
       return ['any'];
@@ -32,7 +32,7 @@ export function getPropertyType(args: {
       return ['null'];
     }
     case 'Bytes': {
-      return ['Uint8Array'];
+      return ['Prisma.Bytes'];
     }
     case 'BigInt': {
       return ['bigint', 'number'];
