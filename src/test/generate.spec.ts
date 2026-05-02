@@ -1079,22 +1079,31 @@ it('generator option outputFilePattern', async () => {
   );
 });
 
-it('several models', () => {
+describe('several models', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
-      schema: `model User {
-              id        Int      @id
-              name      String?
-              profile   Profile?
-              comments  Comment[]
-            }
-            model Profile {
-                id        Int      @id
-                sex       Boolean?
-            }
-            model Comment {
-                id        Int      @id
-            }`,
+      schema: `
+        model User {
+          id Int @id
+          name String?
+          profile Profile?
+          comments Comment[]
+          profileId Int?
+        }
+
+        model Profile {
+          id Int @id
+          sex Boolean?
+          user User? @relation(fields: [userId], references: [id])
+          userId Int? @unique
+        }
+
+        model Comment {
+          id Int @id
+          user User? @relation(fields: [userId], references: [id])
+          userId Int?
+        }
+  `,
     }));
   });
 
@@ -1143,15 +1152,13 @@ describe('get rid of atomic number operations', () => {
       setSourceFile('user-update.input.ts');
     });
 
-    it('id should be regular string', () => {
-      it('rating should be regular string', () => {
-        const s = testSourceFile({
-          class: 'UserUpdateInput',
-          project,
-          property: 'id',
-        });
-        expect(s.property?.type).toEqual('string');
+    it('id property type should be regular string', () => {
+      const s = testSourceFile({
+        class: 'UserUpdateInput',
+        project,
+        property: 'id',
       });
+      expect(s.property?.type).toEqual('string');
     });
 
     it('id field type should be string', () => {
@@ -1163,18 +1170,16 @@ describe('get rid of atomic number operations', () => {
       expect(s.fieldDecoratorType).toEqual('() => String');
     });
 
-    it('age should be regular string', () => {
-      it('rating should be regular string', () => {
-        const s = testSourceFile({
-          class: 'UserUpdateInput',
-          project,
-          property: 'age',
-        });
-        expect(s.property?.type).toEqual('number');
+    it('age property type should be number', () => {
+      const s = testSourceFile({
+        class: 'UserUpdateInput',
+        project,
+        property: 'age',
       });
+      expect(s.property?.type).toEqual('number');
     });
 
-    it('age field type should be string', () => {
+    it('age field type should be number', () => {
       const s = testSourceFile({
         class: 'UserUpdateInput',
         project,
@@ -1183,7 +1188,7 @@ describe('get rid of atomic number operations', () => {
       expect(s.fieldDecoratorType).toEqual('() => Int');
     });
 
-    it('rating should be regular string', () => {
+    it('rating should be regular number', () => {
       const s = testSourceFile({
         class: 'UserUpdateInput',
         project,
@@ -1192,7 +1197,7 @@ describe('get rid of atomic number operations', () => {
       expect(s.property?.type).toEqual('number');
     });
 
-    it('rating field type should be string', () => {
+    it('rating field type should be float', () => {
       const s = testSourceFile({
         class: 'UserUpdateInput',
         project,
@@ -1411,11 +1416,11 @@ describe('reexport option', () => {
       )!;
 
       for (const exp of [
-        `export * from './args';`,
-        `export * from './enums';`,
-        `export * from './inputs';`,
-        `export * from './models';`,
-        `export * from './outputs';`,
+        `export * from './args/index';`,
+        `export * from './enums/index';`,
+        `export * from './inputs/index';`,
+        `export * from './models/index';`,
+        `export * from './outputs/index';`,
       ]) {
         expect(sourceFile.getText()).toContain(exp);
       }
@@ -1460,12 +1465,13 @@ describe('reexport option', () => {
     it('root index', () => {
       const rootDirectory = project.getRootDirectories()[0].getParent();
       const sourceFile = rootDirectory?.getSourceFileOrThrow('index.ts')!;
+
       expect(sourceFile).toBeTruthy();
       expect(sourceFile.getText()).toMatch(
-        /export {.*AffectedRows,.*} from '\.\/prisma'/,
+        /export {.*AffectedRows,.*} from '\.\/prisma\/index'/,
       );
       expect(sourceFile.getText()).toMatch(
-        /export {.*UserWhereInput,.*} from '\.\/user'/,
+        /export {.*UserWhereInput,.*} from '\.\/user\/index'/,
       );
     });
 

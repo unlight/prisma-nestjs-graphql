@@ -189,8 +189,8 @@ async function createGeneratorOptions(
       if (!proc.stderr) {
         throw new Error('Generate error');
       }
-      proc.stdout?.pipe(process.stdout);
-      proc.stderr.pipe(process.stdout);
+      // proc.stdout?.pipe(process.stdout);
+      // proc.stderr.pipe(process.stdout);
       proc.on('error', reject);
       proc.on('exit', code => {
         code === 0 ? resolve(0) : reject(code);
@@ -214,7 +214,8 @@ async function createGeneratorOptions(
   }
 
   if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
-    execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
+    // execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
+    execSync('yarn', { cwd: prismaTestPath });
   }
 
   return import(cacheFile).then(x => x.default);
