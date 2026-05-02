@@ -6,20 +6,12 @@ buildMicrobundle6() {
   set -x
   rm -rf dist
   mkdir dist
-  dts-bundle-generator --no-banner --project tsconfig.build.json -o dist/index.d.ts src/index.ts
-  microbundle build -i src/index.ts --tsconfig ./tsconfig.build.json --no-generateTypes --no-sourcemap --no-compress --no-pkg-main --target node -f esm -o dist
+  microbundle build -i src/generate.ts --no-generateTypes --no-sourcemap --no-compress --no-pkg-main --target node -f esm -o dist
   name=$(cat package.json | jq -r '.name')
-  cp -fv src/bin.js dist
+  cp -fv src/bin.mjs dist
   cp -v README.md package.json dist
   cd dist
-  mv index.d.ts "$name.d.ts"
   mv "$name.js" "$name.mjs"
-  cat ../package.json | jq --arg name "$name" '
-    .module = "./\($name).mjs" |
-    .types = "./\($name).d.ts" |
-    .exports.".".default = "./\($name).mjs"
-  ' > package.json
-  cd ..
   set +x
 }
 

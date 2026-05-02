@@ -203,3 +203,15 @@ export async function generate(
     eventEmitter.off(name);
   }
 }
+
+export const generatorHandlerConfig = {
+  async onGenerate(options: GeneratorOptions) {
+    await generate(options);
+  },
+  onManifest() {
+    return {
+      defaultOutput: '.',
+      prettyName: 'Prisma NestJS/GraphQL',
+    };
+  },
+};

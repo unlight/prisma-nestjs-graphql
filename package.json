@@ -4,7 +4,7 @@
   "version": "0.0.0-dev",
   "license": "MIT",
   "description": "Generate object types, inputs, args, etc. from prisma schema file for usage with @nestjs/graphql module",
-  "bin": "bin.js",
+  "bin": "bin.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/unlight/prisma-nestjs-graphql.git"
@@ -14,19 +14,8 @@
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
-    },
-    "./generate": {
-      "require": "./dist/generate.cjs",
-      "types": "./dist/generate.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "generate": ["dist/generate.d.ts"]
-    }
+    ".": "./prisma-nestjs-graphql.mjs",
+    "./generate": "./prisma-nestjs-graphql.mjs"
   },
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
@@ -101,7 +90,6 @@
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "cz-customizable": "^7.5.1",
     "decimal.js": "^10.6.0",
-    "dts-bundle-generator": "^9.5.1",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-node": "^0.3.9",

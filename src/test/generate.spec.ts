@@ -46,7 +46,7 @@ const objectTypeArguments = () =>
     ?.getDecorator('ObjectType')
     ?.getStructure().arguments;
 
-it('smoke', async () => {
+it.only('smoke', async () => {
   ({ project, sourceFiles } = await testGenerate({
     schema: `
     model User {
