@@ -35,7 +35,7 @@ jobs:
 
       - name: 'Test'
         run: |
-          npm run test:cov -- --bail
+          npm run test:r -- --bail
 
       - name: 'Test Build'
         run: |
