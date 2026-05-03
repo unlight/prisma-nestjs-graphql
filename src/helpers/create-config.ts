@@ -59,15 +59,6 @@ export function createConfig(data: Record<string, unknown>) {
     );
   }
 
-  if (config.reExportAll) {
-    $warnings.push(
-      `Option 'reExportAll' is deprecated, use 'reExport' instead`,
-    );
-    if (toBoolean(config.reExportAll)) {
-      config.reExport = 'All';
-    }
-  }
-
   const fields: Record<string, ConfigFieldSetting | undefined> =
     Object.fromEntries(
       Object.entries<Dictionary<string | undefined>>(
