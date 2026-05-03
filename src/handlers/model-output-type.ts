@@ -124,7 +124,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     );
 
     // For model we keep only one type
-    propertyType.splice(1, propertyType.length);
+    propertyType.splice(1);
 
     if (field.isNullable && !isList) {
       propertyType.push('null');

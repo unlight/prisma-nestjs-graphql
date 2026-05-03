@@ -395,7 +395,7 @@ describe('nested object decorate', () => {
   });
 
   describe('should be decorated by type', () => {
-    [
+    for (const property of [
       'create',
       'connectOrCreate',
       'upsert',
@@ -407,7 +407,7 @@ describe('nested object decorate', () => {
       'update',
       'updateMany',
       'deleteMany',
-    ].forEach(property => {
+    ]) {
       it(property, () => {
         const s = testSourceFile({
           class: 'JobUncheckedUpdateManyWithoutSalaryNestedInput',
@@ -419,7 +419,7 @@ describe('nested object decorate', () => {
           expect.objectContaining({ name: 'Type' }),
         );
       });
-    });
+    }
   });
 
   it('property data should be decorated', () => {

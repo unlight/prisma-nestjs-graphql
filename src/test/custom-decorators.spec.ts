@@ -608,7 +608,7 @@ describe('hide and decorate', () => {
     );
   });
 
-  ['connect', 'connectOrCreate'].forEach(property => {
+  for (const property of ['connect', 'connectOrCreate']) {
     it(`${property} property should be disabled`, () => {
       const s = testSourceFile({
         class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
@@ -624,5 +624,5 @@ describe('hide and decorate', () => {
         expect.objectContaining({ name: 'HideField' }),
       );
     });
-  });
+  }
 });

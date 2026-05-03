@@ -34,7 +34,10 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   // Format only if needed
   const hasValuesMap = Object.keys(filteredValuesMap).length > 0;
   const formattedValuesMap = hasValuesMap
-    ? JSON.stringify(filteredValuesMap, null, 2).replace(/"([^"]+)":/g, '$1:')
+    ? JSON.stringify(filteredValuesMap, null, 2).replaceAll(
+        /"([^"]+)":/g,
+        '$1:',
+      )
     : '';
   const valuesMapEntry = hasValuesMap
     ? `, valuesMap: ${formattedValuesMap}`
