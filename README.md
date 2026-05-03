@@ -788,7 +788,8 @@ import { generate } from 'prisma-nestjs-graphql';
 
 ## TODO
 
-- fix typings
+- add package type-relation
+- run example, get rid of node-dev
 - keyof typeof SortOrder -> `SortOrder`
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'

@@ -23,6 +23,7 @@ function classProperty(
       propertyType,
       t => t === 'null' || t.startsWith('Prisma.'),
     );
+    // TODO: Use relation type here
     const mappedInstanceofTypes = instanceofTypes.map(
       t => `InstanceType<typeof ${t}>`,
     );

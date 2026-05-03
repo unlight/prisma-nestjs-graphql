@@ -40,12 +40,14 @@
     "format": "npx prettier ./@generated --write",
     "regen": "rm -rf @generated && npm run prisma:g && npm run format",
     "regen:custom": "rm -rf @generated-custom && npm run prisma:custom:g && npm run format",
-    "example": "node-dev example/main.ts",
+    "example": "node --import=@poppinss/ts-exec example/main.ts",
     "compatibilty_check": "sh Taskfile compatibilty_check"
   },
   "config": {},
+  "peerDependencies": {
+    "@prisma/generator-helper": "6 - 7"
+  },
   "dependencies": {
-    "@prisma/generator-helper": "7",
     "await-event-emitter": "^2.0.2",
     "filenamify": "^7.0.1",
     "flat": "^6.0.1",
@@ -72,6 +74,7 @@
     "@paljs/plugins": "^9.0.0",
     "@poppinss/ts-exec": "^1.4.4",
     "@prisma/client": "^7.8.0",
+    "@prisma/generator-helper": "^7.8.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.6",
@@ -103,7 +106,6 @@
     "graphql-scalars": "^1.25.0",
     "graphql-type-json": "^0.3.2",
     "microbundle": "^0.15.1",
-    "node-dev": "^8.0.0",
     "ololog": "^1.1.175",
     "precise-commits": "^1.0.2",
     "prettier": "^3.8.3",

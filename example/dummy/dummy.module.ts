@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { DummyResolver } from './dummy.resolver';
+import { DummyResolver } from './dummy.resolver.ts';
 
 @Module({
   imports: [],

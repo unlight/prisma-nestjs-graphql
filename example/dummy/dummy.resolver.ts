@@ -1,9 +1,9 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 
-import { Dummy } from '../../@generated/dummy/dummy.model';
-import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input';
-import { FindManyDummyArgs } from '../../@generated/dummy/find-many-dummy.args';
+import { Dummy } from '../../@generated/dummy/dummy.model.ts';
+import { DummyCreateInput } from '../../@generated/dummy/dummy-create.input.ts';
+import { FindManyDummyArgs } from '../../@generated/dummy/find-many-dummy.args.ts';
 
 /**
  * Resolves user object type.

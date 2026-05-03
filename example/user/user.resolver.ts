@@ -1,17 +1,16 @@
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
-
-import { Profile } from '../../@generated/profile/profile.model';
-import { AggregateUser } from '../../@generated/user/aggregate-user.output';
-import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args';
-import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args';
-import { User } from '../../@generated/user/user.model';
-import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args';
-import { UserCreateInput } from '../../@generated/user/user-create.input';
-import { UserUpdateInput } from '../../@generated/user/user-update.input';
-import { UserWhereInput } from '../../@generated/user/user-where.input';
-import { UserDateInput } from './user-date.input';
+import { Profile } from '../../@generated/profile/profile.model.ts';
+import { AggregateUser } from '../../@generated/user/aggregate-user.output.ts';
+import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args.ts';
+import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args.ts';
+import { User } from '../../@generated/user/user.model.ts';
+import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args.ts';
+import { UserCreateInput } from '../../@generated/user/user-create.input.ts';
+import { UserUpdateInput } from '../../@generated/user/user-update.input.ts';
+import { UserWhereInput } from '../../@generated/user/user-where.input.ts';
+import { UserDateInput } from './user-date.input.ts';
 import { Resolver, Query, Args, Mutation, Info } from '@nestjs/graphql';
 
 const prisma = new PrismaClient({
