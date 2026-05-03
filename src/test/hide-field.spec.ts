@@ -216,7 +216,7 @@ it('hidden relations result in un-imported types', async () => {
 
   expect(s.namedImports).toContainEqual({
     name: 'UserScalarRelationFilter',
-    specifier: './user-scalar-relation-filter.input.ts',
+    specifier: './user-scalar-relation-filter.input',
   });
 });
 
@@ -254,7 +254,7 @@ describe('enums are not imported in classes when decorated', () => {
 
       expect(s.namedImports).toContainEqual({
         name: 'Role',
-        specifier: './role.enum.ts',
+        specifier: './role.enum',
       });
 
       expect(s.propertyDecorators).toContainEqual(

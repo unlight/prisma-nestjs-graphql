@@ -17,6 +17,7 @@ export default [
   ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   regexpPlugin.configs['flat/recommended'],
+  unicorn.configs.recommended,
   prettier,
   {
     ignores: [
@@ -55,7 +56,6 @@ export default [
     },
   },
   {
-    ...unicorn.configs.recommended,
     rules: {
       'unicorn/prevent-abbreviations': [
         'warn',

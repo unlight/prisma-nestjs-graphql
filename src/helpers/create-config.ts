@@ -135,6 +135,7 @@ export function createConfig(data: Record<string, unknown>) {
       string,
       ImportNameSpec | undefined
     >,
+    importExtension: String(config.importExtension ?? ''),
     noAtomicOperations: toBoolean(config.noAtomicOperations),
     noTypeId: toBoolean(config.noTypeId),
     omitModelsCount: toBoolean(config.omitModelsCount),

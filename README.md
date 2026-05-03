@@ -76,6 +76,12 @@ The path to use to import the Prisma Client package
 Type: `string | undefined`
 Default: `@prisma/client`
 
+#### `importExtension`
+
+Append an extension to relative import and export module specifiers (without dot, eg. 'js, 'ts', 'mjs')
+Type: `string`
+Default: `''` (empty string)
+
 #### `combineScalarFilters`
 
 Combine nested/nullable scalar filters to single  
@@ -782,6 +788,7 @@ import { generate } from 'prisma-nestjs-graphql/generate';
 
 ## TODO
 
+- fix typings
 - keyof typeof SortOrder -> `SortOrder`
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'

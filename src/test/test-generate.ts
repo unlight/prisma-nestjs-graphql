@@ -165,7 +165,28 @@ async function createGeneratorOptions(
   // eslint-disable-next-line prefer-rest-params
   const hash = createHash(generatorVersion, schemaHeader, arguments);
   const prismaTestPath = await prepareCachePath();
+
+  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
+    fs.writeFileSync(
+      `${prismaTestPath}/package.json`,
+      JSON.stringify(
+        {
+          devDependencies: {
+            '@prisma/client': '7',
+          },
+        },
+        undefined,
+        2,
+      ),
+    );
+  }
+
+  if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
+    execSync('yarn', { cwd: prismaTestPath, stdio: 'ignore' });
+  }
+
   const cacheFile = `${prismaTestPath}/options-${hash}.mjs`;
+
   if (!fs.existsSync(cacheFile)) {
     const proxyGeneratorPath = normalize(
       process.cwd() + '/src/test/proxy-generator.ts',
@@ -190,33 +211,13 @@ async function createGeneratorOptions(
       if (!proc.stderr) {
         throw new Error('Generate error');
       }
-      // proc.stdout?.pipe(process.stdout);
-      // proc.stderr.pipe(process.stdout);
+      proc.stdout?.pipe(process.stdout);
+      proc.stderr.pipe(process.stdout);
       proc.on('error', reject);
       proc.on('exit', code => {
         code === 0 ? resolve(0) : reject(code);
       });
     });
-  }
-
-  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
-    fs.writeFileSync(
-      `${prismaTestPath}/package.json`,
-      JSON.stringify(
-        {
-          devDependencies: {
-            '@prisma/client': '7',
-          },
-        },
-        undefined,
-        2,
-      ),
-    );
-  }
-
-  if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
-    // execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
-    execSync('yarn', { cwd: prismaTestPath });
   }
 
   return import(cacheFile).then(x => x.default);

@@ -524,11 +524,11 @@ describe('one model with scalar types', () => {
     it('contains scalar filters', () => {
       expect(imports).toContainEqual({
         name: 'StringFilter',
-        specifier: '../prisma/string-filter.input.ts',
+        specifier: '../prisma/string-filter.input',
       });
       expect(imports).toContainEqual({
         name: 'IntFilter',
-        specifier: '../prisma/int-filter.input.ts',
+        specifier: '../prisma/int-filter.input',
       });
     });
   });
@@ -855,7 +855,7 @@ describe('one model with enum', () => {
     it('should import Role as enum', () => {
       expect(imports).toContainEqual({
         name: 'Role',
-        specifier: '../prisma/role.enum.ts',
+        specifier: '../prisma/role.enum',
       });
     });
 
@@ -903,7 +903,7 @@ describe('one model with self reference', () => {
       const s = testSourceFile({ file: 'user.model.ts', project });
       expect(s.namedImports).toContainEqual({
         name: 'UserCount',
-        specifier: './user-count.output.ts',
+        specifier: './user-count.output',
       });
     });
   });
@@ -1491,6 +1491,55 @@ describe('reexport option', () => {
   });
 });
 
+describe('import importExtension option reExport none', () => {
+  beforeAll(async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      options: ['reExport = None', 'importExtension = jsx'],
+      schema: `
+            model User {
+                id Int @id
+            }`,
+    }));
+  });
+
+  it('import ts extension in aggregate output', () => {
+    const { namedImports } = testSourceFile({
+      file: 'aggregate-user.output.ts',
+      project,
+    });
+    for (const importStruct of namedImports.filter(x =>
+      x.specifier.startsWith('.'),
+    )) {
+      expect(
+        importStruct.specifier.endsWith('.output.jsx'),
+        `${importStruct.specifier} invalid extension`,
+      ).toBeTruthy();
+    }
+  });
+});
+
+describe('import importExtension option reExport', () => {
+  beforeAll(async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      options: ['reExport = Directories', 'importExtension = js'],
+      schema: `
+            model User {
+                id Int @id
+            }`,
+    }));
+  });
+
+  it('re-export index should have .js extension', () => {
+    sourceFile = project.getSourceFile(s =>
+      s.getFilePath().endsWith('/user/index.ts'),
+    )!;
+    expect(sourceFile).toBeTruthy();
+    expect(sourceFile.getText()).toContain(
+      `export { User } from './user.model.js'`,
+    );
+  });
+});
+
 describe('emit single and decorators', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
@@ -1733,7 +1782,7 @@ describe('select input type', () => {
       expect(p('author')?.type).toEqual('UserWhereInput');
       expect(importDeclarations).toContainEqual(
         expect.objectContaining({
-          moduleSpecifier: './user-where.input.ts',
+          moduleSpecifier: './user-where.input',
         }),
       );
     });

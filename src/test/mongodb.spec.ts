@@ -44,7 +44,7 @@ describe('type has been treated as model #99', () => {
     });
     expect(s.namedImports).toContainEqual({
       name: 'Preference',
-      specifier: '../preference/preference.model.ts',
+      specifier: '../preference/preference.model',
     });
     expect(s.property?.type).toEqual('Array<Preference>');
     expect(s.fieldDecoratorType).toEqual('() => [Preference]');

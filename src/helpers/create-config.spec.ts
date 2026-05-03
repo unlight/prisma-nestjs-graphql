@@ -14,6 +14,7 @@ it('createConfig default', () => {
   expect(result.$warnings).toEqual([]);
   expect(result.reExport).toEqual(ReExport.None);
   expect(result.prismaClientImport).toEqual('@prisma/client');
+  expect(result.importExtension).toEqual('');
 });
 
 it('filename with parent reference should be not valid', () => {
@@ -153,4 +154,10 @@ it('prismaClientImport', () => {
   });
 
   expect(result.prismaClientImport).toEqual('@prisma/client/testing');
+});
+
+it('importExtension', () => {
+  const result = createConfig({ importExtension: 'js' });
+
+  expect(result.importExtension).toEqual('js');
 });
