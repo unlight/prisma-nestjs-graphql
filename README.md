@@ -759,7 +759,7 @@ export class User {}
 ### Using library in other generators
 
 ```ts
-import { generate } from 'prisma-nestjs-graphql/generate';
+import { generate } from 'prisma-nestjs-graphql';
 ```
 
 ## Similar Projects

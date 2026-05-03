@@ -18,8 +18,10 @@
     "nestjs-graphql"
   ],
   "exports": {
-    ".": "./prisma-nestjs-graphql.mjs",
-    "./generate": "./prisma-nestjs-graphql.mjs"
+    ".": {
+      "default": "./src/generate.ts",
+      "types": "./src/generate.ts"
+    }
   },
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:r",
@@ -83,6 +85,7 @@
     "class-validator": "^0.15.1",
     "conventional-changelog-conventionalcommits": "^9.3.1",
     "decimal.js": "^10.6.0",
+    "dts-bundle-generator": "^9.5.1",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-node": "^0.3.10",

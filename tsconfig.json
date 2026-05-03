@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowImportingTsExtensions": true,
+    "rootDir": ".",
     "outDir": "dist",
     "pretty": true,
     "esModuleInterop": true,
