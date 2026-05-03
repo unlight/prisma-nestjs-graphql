@@ -1,9 +1,7 @@
-import lodash from 'lodash';
 import outmatch from 'outmatch';
 
 import type { DMMF } from '../types.ts';
-
-const { countBy, isEqual, uniqWith } = lodash;
+import { countBy, isEqual, uniqWith } from './lodash.ts';
 
 /**
  * Find input type for graphql field decorator.

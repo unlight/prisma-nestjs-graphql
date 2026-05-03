@@ -1,9 +1,9 @@
-import lodash from 'lodash';
 import type { PropertyDeclarationStructure } from 'ts-morph';
 
+import { partition } from '../helpers/lodash.ts';
 import type { DMMF, TAwaitEventEmitter } from '../types.ts';
 
-const { partition } = lodash;
+// const { partition } = lodash;
 
 export function emitSingle(emitter: TAwaitEventEmitter) {
   emitter.on('ClassProperty', classProperty);

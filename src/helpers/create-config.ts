@@ -3,18 +3,15 @@ import filenamify from 'filenamify';
 import { unflatten } from 'flat';
 import fs from 'graceful-fs';
 import JSON5 from 'json5';
-import type { Dictionary } from 'lodash';
-import lodash from 'lodash';
 import outmatch from 'outmatch';
 
 import { ReExport, type ReExportType } from '../handlers/re-export.ts';
-import type { ImportNameSpec, ObjectSetting } from '../types.ts';
+import type { Dictionary, ImportNameSpec, ObjectSetting } from '../types.ts';
 import {
   createEmitBlocks,
   type EmitBlocksOption,
 } from './create-emit-blocks.ts';
-
-const { memoize, merge } = lodash;
+import { memoize, merge } from './lodash.ts';
 
 type ConfigFieldSetting = Partial<Omit<ObjectSetting, 'name'>>;
 type DecorateElement = {

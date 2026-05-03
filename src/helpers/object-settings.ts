@@ -1,11 +1,9 @@
 import JSON5 from 'json5';
-import lodash from 'lodash';
 import outmatch from 'outmatch';
 import type { PlainObject } from 'simplytyped';
 
 import type { GeneratorConfiguration } from '../types.ts';
-
-const { isObject, merge, omit, trim } = lodash;
+import { isObject, merge, omit, trim } from './lodash.ts';
 
 export type ObjectSetting = {
   /**

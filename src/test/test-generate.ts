@@ -1,14 +1,15 @@
+import { normalize } from 'node:path';
+
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import { ok } from 'assert';
 import { exec, execSync } from 'child_process';
 import crypto from 'crypto';
 import fs from 'graceful-fs';
-import { castArray, uniq } from 'lodash';
-import { normalize } from 'path';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate.ts';
 import { generateFileName } from '../helpers/generate-file-name.ts';
+import { castArray, uniq } from '../helpers/lodash.ts';
 import type { DMMF, EventArguments, TAwaitEventEmitter } from '../types.ts';
 
 async function getGeneratorVersion() {

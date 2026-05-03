@@ -1,5 +1,4 @@
 import JSON5 from 'json5';
-import { trim } from 'lodash';
 import {
   ClassDeclaration,
   type ImportDeclarationStructure,
@@ -11,6 +10,7 @@ import {
 } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
+import { trim } from '../helpers/lodash.ts';
 import type { EventArguments } from '../types.ts';
 import {
   getFieldOptions,

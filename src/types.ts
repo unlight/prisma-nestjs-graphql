@@ -4,10 +4,9 @@ import { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
 
 import { createConfig } from './helpers/create-config.ts';
-import {
-  type ObjectSetting,
-  ObjectSettings,
-} from './helpers/object-settings.ts';
+import { ObjectSettings } from './helpers/object-settings.ts';
+
+export type { Dictionary } from 'lodash';
 
 export type TAwaitEventEmitter = AwaitEventEmitter.default;
 
@@ -61,5 +60,8 @@ export type ImportNameSpec = { name: string; specifier?: string };
 
 export type Field = DMMF.Field;
 
-export type { DMMF, ObjectSetting };
-export type { ObjectSettings };
+export {
+  type ObjectSetting,
+  type ObjectSettings,
+} from './helpers/object-settings.ts';
+export { type DMMF } from '@prisma/generator-helper';

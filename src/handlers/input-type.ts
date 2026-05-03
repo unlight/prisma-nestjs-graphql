@@ -1,10 +1,7 @@
 import { ok } from 'assert';
 import JSON5 from 'json5';
-import lodash from 'lodash';
 import pupa from 'pupa';
 import { type ClassDeclarationStructure, StructureKind } from 'ts-morph';
-
-const { castArray, last } = lodash;
 
 import { BeforeGenerateField } from '../event-names.ts';
 import { getGraphqlImport } from '../helpers/get-graphql-import.ts';
@@ -13,6 +10,7 @@ import { getPropertyType } from '../helpers/get-property-type.ts';
 import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
+import { castArray, last } from '../helpers/lodash.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import type { EventArguments, InputType } from '../types.ts';
 
