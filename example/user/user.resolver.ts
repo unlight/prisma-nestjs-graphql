@@ -1,6 +1,6 @@
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
-import { GraphQLResolveInfo } from 'graphql';
+import type { GraphQLResolveInfo } from 'graphql';
 import { Profile } from '../../@generated/profile/profile.model.ts';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output.ts';
 import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args.ts';

@@ -5866,6 +5866,11 @@ icss-utils@^5.0.0:
   resolved "https://registry.yarnpkg.com/icss-utils/-/icss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
   integrity sha512-soFhflCVWLfRNOPU3iv5Z9VUdT44xFRbzjLsEzSr5AQmgqPMTHdU3PMT1Cf1ssx8fLNJDA1juftYl+PUcv3MqA==
 
+identity-type@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/identity-type/-/identity-type-1.0.0.tgz#e11fbdd171e410f85fa3a01772dde4cf3439801a"
+  integrity sha512-qklP/b1Ja5AAW58aMImDtcNWCjyfVfmpPVbiFtOd0ReWDcOyFsebfEYjY82sv3Sok8JYtKMR88kpk0r/xhoApg==
+
 ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"

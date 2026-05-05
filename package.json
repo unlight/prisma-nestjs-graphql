@@ -45,7 +45,8 @@
   },
   "config": {},
   "peerDependencies": {
-    "@prisma/generator-helper": "6 - 7"
+    "@prisma/generator-helper": "6 - 7",
+    "identity-type": "1"
   },
   "dependencies": {
     "await-event-emitter": "^2.0.2",
@@ -105,6 +106,7 @@
     "graphql": "^16.13.2",
     "graphql-scalars": "^1.25.0",
     "graphql-type-json": "^0.3.2",
+    "identity-type": "^1.0.0",
     "microbundle": "^0.15.1",
     "ololog": "^1.1.175",
     "precise-commits": "^1.0.2",
