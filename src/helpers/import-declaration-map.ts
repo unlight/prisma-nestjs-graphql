@@ -5,6 +5,9 @@ import type {
 } from 'ts-morph';
 import { StructureKind } from 'ts-morph';
 
+import type { GeneratorConfiguration } from '../types.ts';
+import type { ObjectSetting } from './object-settings.ts';
+
 export class ImportDeclarationMap extends Map<
   string,
   OptionalKind<ImportDeclarationStructure>
@@ -26,6 +29,31 @@ export class ImportDeclarationMap extends Map<
   }
 
   create(args: {
+    config: GeneratorConfiguration;
+    propertySettings?: ObjectSetting;
+    propertyType: string;
+  }) {
+    const { config, propertySettings, propertyType } = args;
+
+    if (propertySettings) {
+      return this.createFrom({ ...propertySettings });
+    }
+
+    if (propertyType.includes('Decimal')) {
+      // TODO: Deprecated and should be removed
+      this.add('Decimal', '@prisma/client-runtime-utils');
+    } else if (propertyType.includes('Prisma.')) {
+      this.add('Prisma', config.prismaClientImport);
+    } else if (propertyType.includes('Identity<')) {
+      this.add('Identity', {
+        isTypeOnly: true,
+        moduleSpecifier: 'identity-type',
+        namedImports: [{ name: 'Identity' }],
+      });
+    }
+  }
+
+  createFrom(args: {
     name: string;
     from: string;
     defaultImport?: string | true;

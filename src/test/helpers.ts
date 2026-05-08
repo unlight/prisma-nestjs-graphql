@@ -34,10 +34,29 @@ export function testSourceFile(args: {
   return {
     classFile,
     importDeclarations,
-    propertyList,
     propertyMap,
     sourceFile,
     sourceText: sourceFile.getText(),
+  };
+}
+
+export function getFieldDecoratorType(property: PropertyDeclarationStructure) {
+  return getFieldDecorator(property).type;
+}
+
+export function getFieldDecoratorOptions(
+  property: PropertyDeclarationStructure,
+) {
+  return getFieldDecorator(property).options;
+}
+
+function getFieldDecorator(property: PropertyDeclarationStructure) {
+  const decorator = property.decorators?.find(x => x.name === 'Field');
+
+  return {
+    decorator,
+    options: decorator?.arguments?.[1],
+    type: decorator?.arguments?.[0],
   };
 }
 
@@ -56,6 +75,9 @@ export function getFieldOptions(
   return result as string;
 }
 
+/**
+ * @deprecated
+ */
 export function getPropertyStructure(sourceFile: SourceFile, name: string) {
   return sourceFile
     .getClass(() => true)

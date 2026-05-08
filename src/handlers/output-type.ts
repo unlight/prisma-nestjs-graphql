@@ -92,20 +92,18 @@ export function outputType(outputType: OutputType, args: EventArguments) {
       hasQuestionToken: isCountOutput ? true : undefined,
       isList,
       isNullable: field.isNullable,
+      location,
       name: field.name,
       propertyType,
     });
 
     classStructure.properties?.push(property);
 
-    if (propertySettings) {
-      importDeclarations.create({ ...propertySettings });
-    } else if (propertyType.includes('Decimal')) {
-      // TODO: Should be removed
-      importDeclarations.add('Decimal', '@prisma/client-runtime-utils');
-    } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
-      importDeclarations.add('Prisma', config.prismaClientImport);
-    }
+    importDeclarations.create({
+      config,
+      propertySettings,
+      propertyType: property.type as string,
+    });
 
     // Get graphql type
     let graphqlType: string;
@@ -129,7 +127,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
     if (fieldType && isCustomsApplicable && !shouldHideField) {
       graphqlType = fieldType.name;
-      importDeclarations.create({ ...fieldType });
+      importDeclarations.createFrom({ ...fieldType });
     } else {
       const graphqlImport = getGraphqlImport({
         config,
@@ -194,7 +192,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
               options.from,
               "Missed 'from' part in configuration or field setting",
             );
-            importDeclarations.create(options);
+            importDeclarations.createFrom(options);
           }
         }
       }

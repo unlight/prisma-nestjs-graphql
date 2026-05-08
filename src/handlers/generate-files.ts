@@ -80,14 +80,14 @@ export async function generateFiles(args: EventArguments) {
             imports.add(name, statement.moduleSpecifier);
           }
           if (statement.defaultImport) {
-            imports.create({
+            imports.createFrom({
               defaultImport: statement.defaultImport,
               from: statement.moduleSpecifier,
               name: statement.defaultImport,
             });
           }
           if (statement.namespaceImport) {
-            imports.create({
+            imports.createFrom({
               from: statement.moduleSpecifier,
               name: statement.namespaceImport,
               namespaceImport: statement.namespaceImport,
@@ -106,7 +106,7 @@ export async function generateFiles(args: EventArguments) {
       }
     }
     for (const customImport of config.customImport) {
-      imports.create(customImport);
+      imports.createFrom(customImport);
     }
     sourceFile.set({
       kind: StructureKind.SourceFile,

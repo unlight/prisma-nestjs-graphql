@@ -13,7 +13,10 @@ import { UserWhereInput } from '../../@generated/user/user-where.input.ts';
 import { UserDateInput } from './user-date.input.ts';
 import { Resolver, Query, Args, Mutation, Info } from '@nestjs/graphql';
 
+import { PrismaPg } from '@prisma/adapter-pg';
+
 const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
   errorFormat: 'colorless',
   log: [
     {

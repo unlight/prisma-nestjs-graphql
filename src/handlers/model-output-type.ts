@@ -134,7 +134,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     if (fieldType) {
       graphqlType = fieldType.name;
-      importDeclarations.create({ ...fieldType });
+      importDeclarations.createFrom({ ...fieldType });
     } else {
       const graphqlImport = getGraphqlImport({
         config,
@@ -159,6 +159,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       hasQuestionToken: location === 'outputObjectTypes',
       isList,
       isNullable: field.isNullable,
+      location,
       name: field.name,
       propertyType,
     });
@@ -175,14 +176,11 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 
     classStructure.properties?.push(property);
 
-    if (propertySettings) {
-      importDeclarations.create({ ...propertySettings });
-    } else if (propertyType.includes('Decimal')) {
-      // TODO: Should be removed
-      importDeclarations.add('Decimal', '@prisma/client-runtime-utils');
-    } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
-      importDeclarations.add('Prisma', config.prismaClientImport);
-    }
+    importDeclarations.create({
+      config,
+      propertySettings,
+      propertyType: property.type as string,
+    });
 
     ok(property.decorators, 'property.decorators is undefined');
 
@@ -231,7 +229,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             setting.from,
             "Missed 'from' part in configuration or field setting",
           );
-          importDeclarations.create(setting);
+          importDeclarations.createFrom(setting);
         }
       }
 
@@ -244,7 +242,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
             name: decorate.name,
           });
-          importDeclarations.create(decorate);
+          importDeclarations.createFrom(decorate);
         }
       }
     }
@@ -263,7 +261,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         arguments: setting.arguments as string[],
         name: setting.name,
       });
-      importDeclarations.create(setting);
+      importDeclarations.createFrom(setting);
     }
   }
 

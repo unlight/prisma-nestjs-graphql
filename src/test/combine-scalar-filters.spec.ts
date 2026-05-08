@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFileLegacy } from './helpers.ts';
+import { testSourceFile } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -70,147 +70,140 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input count', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'count',
     });
-    expect(s.property?.type).toBe('IntFilter');
+    expect(propertyMap.count.type).toBe('Identity<IntFilter>');
   });
 
   it('user-where.input bio', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'bio',
     });
-    expect(s.property?.type).toBe('StringFilter');
+    expect(propertyMap.bio.type).toBe('Identity<StringFilter>');
   });
 
   it('user-where.input money', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'money',
     });
-    expect(s.property?.type).toBe('DecimalFilter');
+    expect(propertyMap.money.type).toBe('Identity<DecimalFilter>');
   });
 
   it('user-where.input rating', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'rating',
     });
-    expect(s.property?.type).toBe('FloatFilter');
+    expect(propertyMap.rating.type).toBe('Identity<FloatFilter>');
   });
 
   it('user-where.input born', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'born',
     });
-    expect(s.property?.type).toBe('DateTimeFilter');
+    expect(propertyMap.born.type).toBe('Identity<DateTimeFilter>');
   });
 
   it('user-where.input humanoid', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'humanoid',
     });
-    expect(s.property?.type).toBe('BoolFilter');
+    expect(propertyMap.humanoid.type).toBe('Identity<BoolFilter>');
   });
 
   it('user-where.input role', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-where.input.ts',
       project,
-      property: 'role',
     });
-    expect(s.property?.type).toBe('EnumRoleFilter');
+    expect(propertyMap.role.type).toBe('Identity<EnumRoleFilter>');
   });
 
   it('user scalar where with aggregates id', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'id',
     });
-    expect(s.property?.type).toBe('StringWithAggregatesFilter');
+    expect(propertyMap.id.type).toBe('Identity<StringWithAggregatesFilter>');
   });
 
   it('user scalar where with aggregates bio', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'bio',
     });
-    expect(s.property?.type).toBe('StringWithAggregatesFilter');
+    expect(propertyMap.bio.type).toBe('Identity<StringWithAggregatesFilter>');
   });
 
   it('user scalar where with aggregates count', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'count',
     });
-    expect(s.property?.type).toBe('IntWithAggregatesFilter');
+    expect(propertyMap.count.type).toBe('Identity<IntWithAggregatesFilter>');
   });
 
   it('user scalar where with aggregates rating', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'rating',
     });
-    expect(s.property?.type).toBe('FloatWithAggregatesFilter');
+    expect(propertyMap.rating.type).toBe('Identity<FloatWithAggregatesFilter>');
   });
 
   it('user scalar where with aggregates born', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'born',
     });
-    expect(s.property?.type).toBe('DateTimeWithAggregatesFilter');
+    expect(propertyMap.born.type).toBe(
+      'Identity<DateTimeWithAggregatesFilter>',
+    );
   });
 
   it('user scalar where with aggregates humanoid', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'humanoid',
     });
-    expect(s.property?.type).toBe('BoolWithAggregatesFilter');
+    expect(propertyMap.humanoid.type).toBe(
+      'Identity<BoolWithAggregatesFilter>',
+    );
   });
 
   it('user scalar where with aggregates money', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'money',
     });
-    expect(s.property?.type).toBe('DecimalWithAggregatesFilter');
+    expect(propertyMap.money.type).toBe(
+      'Identity<DecimalWithAggregatesFilter>',
+    );
   });
 
   it('user scalar where with aggregates data', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'data',
     });
-    expect(s.property?.type).toBe('JsonWithAggregatesFilter');
+    expect(propertyMap.data.type).toBe('Identity<JsonWithAggregatesFilter>');
   });
 
   it('user scalar where with aggregates role', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
-      property: 'role',
     });
-    expect(s.property?.type).toBe('EnumRoleWithAggregatesFilter');
+
+    expect(propertyMap.role.type).toBe(
+      'Identity<EnumRoleWithAggregatesFilter>',
+    );
   });
 });
 

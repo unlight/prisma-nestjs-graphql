@@ -122,25 +122,28 @@ export function inputType(
       config.unsafeCompatibleWhereUniqueInput &&
       atLeastKeys?.includes(name),
     );
+
     const property = propertyStructure({
       hasExclamationToken: hasExclamationToken || undefined,
       hasQuestionToken: hasExclamationToken ? false : undefined,
       isList,
       isNullable: !isRequired,
+      location,
       name,
       propertyType,
     });
 
     classStructure.properties!.push(property);
 
-    if (propertySettings) {
-      importDeclarations.create({ ...propertySettings });
-    } else if (propertyType.includes('Decimal')) {
-      // TODO: Deprecated and should be removed
-      importDeclarations.add('Decimal', '@prisma/client-runtime-utils');
-    } else if (propertyType.some(p => p.startsWith('Prisma.'))) {
-      importDeclarations.add('Prisma', config.prismaClientImport);
-    }
+    importDeclarations.create({
+      config,
+      propertySettings,
+      propertyType: property.type as string,
+    });
+
+    // if (inputType.name.includes('UserListRelationFilter')) {
+    //   // console.log({ importDeclarations, location, property, propertyType });
+    // }
 
     // Get graphql type
     let graphqlType: string;
@@ -164,7 +167,7 @@ export function inputType(
 
     if (fieldType && isCustomsApplicable && !shouldHideField) {
       graphqlType = fieldType.name;
-      importDeclarations.create({ ...fieldType });
+      importDeclarations.createFrom({ ...fieldType });
     } else {
       // Import property type class
       const graphqlImport = getGraphqlImport({
@@ -283,7 +286,7 @@ export function inputType(
               options.from,
               "Missed 'from' part in configuration or field setting",
             );
-            importDeclarations.create(options);
+            importDeclarations.createFrom(options);
           }
         }
       }
@@ -297,7 +300,7 @@ export function inputType(
             arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
             name: decorate.name,
           });
-          importDeclarations.create(decorate);
+          importDeclarations.createFrom(decorate);
         }
       }
     }

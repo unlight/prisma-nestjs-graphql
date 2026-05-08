@@ -13,8 +13,11 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { trim } from '../helpers/lodash.ts';
 import type { EventArguments } from '../types.ts';
 import {
+  getFieldDecoratorOptions,
+  getFieldDecoratorType,
   getFieldOptions,
   getPropertyStructure,
+  testSourceFile,
   testSourceFileLegacy,
 } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
@@ -194,7 +197,7 @@ describe('model with one id int', () => {
       project,
       property: '_count',
     });
-    expect(s.property?.type).toEqual('UserCountAggregate');
+    expect(s.property?.type).toEqual('Identity<UserCountAggregate>');
     expect(s.property?.hasQuestionToken).toEqual(true);
   });
 
@@ -224,12 +227,12 @@ describe('model with one id int', () => {
     });
 
     it('should have type IntFilter', () => {
-      const { property } = testSourceFileLegacy({
+      const { propertyMap, sourceText } = testSourceFile({
         file: 'user-where.input.ts',
         project,
-        property: 'id',
       });
-      expect(property?.type).toEqual('IntFilter');
+
+      expect(propertyMap.id.type).toEqual('Identity<IntFilter>');
     });
 
     it('field decorator returns IntFilter', () => {
@@ -284,19 +287,19 @@ describe('model with one id int', () => {
     });
 
     it('count', () => {
-      expect(p('_count')?.type).toEqual('UserCountAggregateInput');
+      expect(p('_count')?.type).toEqual('Identity<UserCountAggregateInput>');
     });
 
     it('sum', () => {
-      expect(p('_sum')?.type).toEqual('UserSumAggregateInput');
+      expect(p('_sum')?.type).toEqual('Identity<UserSumAggregateInput>');
     });
 
     it('min', () => {
-      expect(p('_min')?.type).toEqual('UserMinAggregateInput');
+      expect(p('_min')?.type).toEqual('Identity<UserMinAggregateInput>');
     });
 
     it('max', () => {
-      expect(p('_max')?.type).toEqual('UserMaxAggregateInput');
+      expect(p('_max')?.type).toEqual('Identity<UserMaxAggregateInput>');
     });
   });
 
@@ -519,7 +522,7 @@ describe('one model with scalar types', () => {
 
     it('number should have int filter', () => {
       const structure = getPropertyStructure(sourceFile, 'count');
-      expect(structure?.type).toEqual('IntFilter');
+      expect(structure?.type).toEqual('Identity<IntFilter>');
     });
 
     it('decorator argument int filter', () => {
@@ -665,7 +668,9 @@ describe('scalar list type', () => {
 
     it('user create input', () => {
       setSourceFile('user-create.input.ts');
-      expect(p('permissions')?.type).toEqual('UserCreatepermissionsInput');
+      expect(p('permissions')?.type).toEqual(
+        'Identity<UserCreatepermissionsInput>',
+      );
       expect(t('permissions')).toEqual('() => UserCreatepermissionsInput');
     });
   });
@@ -923,17 +928,17 @@ describe('one model with self reference', () => {
 
     it('every', () => {
       const structure = getPropertyStructure(sourceFile, 'every');
-      expect(structure?.type).toEqual('UserWhereInput');
+      expect(structure?.type).toEqual('Identity<UserWhereInput>');
     });
 
     it('some', () => {
       const structure = getPropertyStructure(sourceFile, 'some');
-      expect(structure?.type).toEqual('UserWhereInput');
+      expect(structure?.type).toEqual('Identity<UserWhereInput>');
     });
 
     it('none', () => {
       const structure = getPropertyStructure(sourceFile, 'none');
-      expect(structure?.type).toEqual('UserWhereInput');
+      expect(structure?.type).toEqual('Identity<UserWhereInput>');
     });
   });
 });
@@ -1309,13 +1314,14 @@ describe('scalar arrays with noAtomicOperations', () => {
   });
 
   it('create many inputs should not be deleted', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       class: 'UserCreateInput',
       project,
-      property: 'articles',
     });
 
-    expect(s.property?.type).toBe('ArticleCreateNestedManyWithoutAuthorInput');
+    expect(propertyMap.articles.type).toBe(
+      'Identity<ArticleCreateNestedManyWithoutAuthorInput>',
+    );
   });
 });
 
@@ -1732,9 +1738,15 @@ describe('select input type', () => {
                 }
             `,
     }));
-    setSourceFile('post-where.input.ts');
-    expect(t('user')).toEqual('() => UserWhereInput');
-    expect(p('user')?.type).toEqual('UserWhereInput');
+
+    const { propertyMap } = testSourceFile({
+      file: 'post-where.input.ts',
+      project,
+    });
+    expect(getFieldDecoratorType(propertyMap.user)).toEqual(
+      '() => UserWhereInput',
+    );
+    expect(propertyMap.user.type).toEqual('Identity<UserWhereInput>');
   });
 
   it('select input type usercreateargs', async () => {
@@ -1755,9 +1767,16 @@ describe('select input type', () => {
                 }
             `,
     }));
-    setSourceFile('create-one-user.args.ts');
-    expect(t('data')).toEqual('() => UserUncheckedCreateInput');
-    expect(p('data')?.type).toEqual('UserUncheckedCreateInput');
+
+    const { propertyMap } = testSourceFile({
+      file: 'create-one-user.args.ts',
+      project,
+    });
+
+    expect(propertyMap.data.type).toEqual('Identity<UserUncheckedCreateInput>');
+    expect(getFieldDecoratorType(propertyMap.data)).toEqual(
+      '() => UserUncheckedCreateInput',
+    );
   });
 
   describe('select input type articlewhereinput array config', () => {
@@ -1783,9 +1802,14 @@ describe('select input type', () => {
     });
 
     it('article-where.input', () => {
-      setSourceFile('article-where.input.ts');
-      expect(t('author')).toEqual('() => UserWhereInput');
-      expect(p('author')?.type).toEqual('UserWhereInput');
+      const { importDeclarations, propertyMap } = testSourceFile({
+        file: 'article-where.input.ts',
+        project,
+      });
+      expect(propertyMap.author.type).toEqual('Identity<UserWhereInput>');
+      expect(getFieldDecoratorType(propertyMap.author)).toEqual(
+        '() => UserWhereInput',
+      );
       expect(importDeclarations).toContainEqual(
         expect.objectContaining({
           moduleSpecifier: './user-where.input',
@@ -1794,9 +1818,18 @@ describe('select input type', () => {
     });
 
     it('select input type articlewhereinput array config', () => {
-      setSourceFile('create-one-user.args.ts');
-      expect(t('data')).toEqual('() => UserUncheckedCreateInput');
-      expect(p('data')?.type).toEqual('UserUncheckedCreateInput');
+      const { propertyMap } = testSourceFile({
+        file: 'create-one-user.args.ts',
+        project,
+      });
+
+      expect(propertyMap.data.type).toEqual(
+        'Identity<UserUncheckedCreateInput>',
+      );
+
+      expect(getFieldDecoratorType(propertyMap.data)).toEqual(
+        '() => UserUncheckedCreateInput',
+      );
     });
   });
 
@@ -2268,20 +2301,25 @@ describe('non list optional properties should be nullable', () => {
   });
 
   it('user model profile', () => {
-    setSourceFile('user.model.ts');
-    expect(p('profile')?.type).toEqual('Profile | null');
-    expect(p('profile')?.hasQuestionToken).toEqual(true);
+    const { propertyMap } = testSourceFile({
+      file: 'user.model.ts',
+      project,
+    });
+
+    expect(propertyMap.profile.type).toEqual('Identity<Profile> | null');
+    expect(propertyMap.profile.hasQuestionToken).toEqual(true);
   });
 
   it('user model count', () => {
-    const s = testSourceFileLegacy({
+    const { propertyMap } = testSourceFile({
       file: 'user.model.ts',
       project,
-      property: '_count',
     });
-    expect(s.property?.type).toEqual('UserCount');
-    expect(s.fieldDecoratorOptions).toEqual('{nullable:false}');
-    expect(s.property?.hasQuestionToken).toEqual(true);
+    expect(propertyMap._count.type).toEqual('Identity<UserCount>');
+    expect(getFieldDecoratorOptions(propertyMap._count)).toEqual(
+      '{nullable:false}',
+    );
+    expect(propertyMap._count.hasQuestionToken).toEqual(true);
   });
 
   it('user count output should undefineable ts type', () => {
@@ -2295,8 +2333,12 @@ describe('non list optional properties should be nullable', () => {
   });
 
   it('article model author', () => {
-    setSourceFile('article.model.ts');
-    expect(p('author')?.type).toEqual('User | null');
+    const { propertyMap } = testSourceFile({
+      file: 'article.model.ts',
+      project,
+    });
+
+    expect(propertyMap.author.type).toEqual('Identity<User> | null');
   });
 
   it('list articles should not have null', () => {

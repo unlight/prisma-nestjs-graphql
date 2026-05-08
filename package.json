@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@apollo/server": "^5.5.0",
+    "@as-integrations/express5": "^1.1.2",
     "@babel/preset-typescript": "^7.28.5",
     "@eslint/compat": "^2.0.5",
     "@eslint/js": "^10.0.1",
@@ -74,6 +75,7 @@
     "@nestjs/platform-express": "^11.1.19",
     "@paljs/plugins": "^9.0.0",
     "@poppinss/ts-exec": "^1.4.4",
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@prisma/generator-helper": "^7.8.0",
     "@semantic-release/changelog": "^6.0.3",

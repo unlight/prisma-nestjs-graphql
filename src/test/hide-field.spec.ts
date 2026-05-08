@@ -1,7 +1,8 @@
+import { chain } from 'lodash';
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFileLegacy } from './helpers.ts';
+import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -205,19 +206,20 @@ it('hidden relations result in un-imported types', async () => {
                 `,
   }));
 
-  const s = testSourceFileLegacy({
+  const { importDeclarations, propertyMap } = testSourceFile({
     file: 'user-api-key-where.input.ts',
     project,
   });
 
-  expect(s.classFile.getProperty('user')?.getStructure().type).toEqual(
-    'UserScalarRelationFilter',
-  );
+  expect(propertyMap.user.type).toEqual('Identity<UserScalarRelationFilter>');
 
-  expect(s.namedImports).toContainEqual({
-    name: 'UserScalarRelationFilter',
-    specifier: './user-scalar-relation-filter.input',
-  });
+  const namedImports = chain(importDeclarations)
+    .find(x => x.moduleSpecifier === './user-scalar-relation-filter.input')
+    .get('namedImports')
+    .value();
+
+  expect(namedImports).toHaveLength(1);
+  expect(namedImports[0].name).toEqual('UserScalarRelationFilter');
 });
 
 describe('enums are not imported in classes when decorated', () => {
