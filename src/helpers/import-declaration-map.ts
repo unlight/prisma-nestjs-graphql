@@ -20,11 +20,11 @@ export class ImportDeclarationMap extends Map<
     value: OptionalKind<ImportDeclarationStructure> | string,
   ): void {
     if (!this.has(name)) {
-      const structure: OptionalKind<ImportDeclarationStructure> =
-        typeof value === 'string'
-          ? { moduleSpecifier: value, namedImports: [{ name }] }
-          : value;
-      this.set(name, structure);
+      if (typeof value === 'string') {
+        this.set(name, { moduleSpecifier: value, namedImports: [{ name }] });
+      } else {
+        this.set(name, value);
+      }
     }
   }
 

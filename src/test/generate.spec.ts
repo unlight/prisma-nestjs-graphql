@@ -1,4 +1,5 @@
 import JSON5 from 'json5';
+import { chain } from 'lodash';
 import {
   ClassDeclaration,
   type ImportDeclarationStructure,
@@ -1262,16 +1263,31 @@ describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
     }));
   });
 
-  it('FieldUpdateOperationsInput should not exists', () => {
-    const s = testSourceFileLegacy({
+  it('import type identity', () => {
+    const { importDeclarations, sourceText } = testSourceFile({
       file: 'index.ts',
       project,
     });
-
-    const classDeclaration = s.sourceFile.getClass(
-      'IntFieldUpdateOperationsInput',
+    const importDeclaration = importDeclarations.find(
+      x => x.moduleSpecifier === 'identity-type',
     );
-    expect(classDeclaration).toBeUndefined();
+
+    expect(importDeclaration?.isTypeOnly).toEqual(true);
+
+    const namedImport = chain(importDeclaration)
+      .get('namedImports')
+      .castArray()
+      .first()
+      .value() as ImportSpecifierStructure;
+
+    expect(namedImport.name).toEqual('Identity');
+  });
+
+  it('FieldUpdateOperationsInput should not exists', () => {
+    const sourceFile = project.getSourceFileOrThrow('index.ts');
+    expect(
+      sourceFile.getClass('IntFieldUpdateOperationsInput'),
+    ).toBeUndefined();
   });
 });
 
@@ -1649,13 +1665,14 @@ describe('emit single', () => {
       expect(sourceText).toMatch(/export class Post {/);
     });
 
-    it('should use InstanceType trick to avoid tdz', () => {
-      const struct = sourceFile
-        .getClass('Post')
-        ?.getProperty('user')
-        ?.getStructure();
-      expect(struct?.type).toEqual('InstanceType<typeof User> | null');
-      expect(struct?.hasQuestionToken).toEqual(true);
+    it('should use identity type trick to avoid tdz', () => {
+      const { propertyMap, sourceClass } = testSourceFile({
+        class: 'Post',
+        project,
+      });
+
+      expect(propertyMap.user.type).toEqual('Identity<User> | null');
+      expect(propertyMap.user.hasQuestionToken).toEqual(true);
     });
 
     it('type for all properties should use InstanceType trick to avoid tdz', () => {

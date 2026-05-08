@@ -27,15 +27,16 @@ export function testSourceFile(args: {
     .getImportDeclarations()
     .map(d => d.getStructure());
 
-  const classFile = sourceFile.getClass(() => true)!;
-  const propertyList = classFile.getProperties().map(p => p.getStructure());
+  const sourceClass = sourceFile.getClass(d =>
+    className ? d.getName() === className : true,
+  )!;
+  const propertyList = sourceClass.getProperties().map(p => p.getStructure());
   const propertyMap = Object.fromEntries(propertyList.map(p => [p.name, p]));
 
   return {
-    classFile,
     importDeclarations,
     propertyMap,
-    sourceFile,
+    sourceClass,
     sourceText: sourceFile.getText(),
   };
 }

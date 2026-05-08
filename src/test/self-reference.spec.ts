@@ -52,7 +52,7 @@ describe('property type should be forward referenceced', () => {
   });
 
   it.skip('where input', () => {
-    const { classFile, sourceText } = testSourceFile({
+    const { sourceClass, sourceText } = testSourceFile({
       file: 'user-list-relation-filter.input.ts',
       project,
     });

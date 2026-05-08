@@ -24,21 +24,7 @@ export function propertyStructure(args: {
     propertyType,
   } = args;
 
-  const type = propertyType
-    .map(type => {
-      if (isList) return `Array<${type}>`;
-      if (type.startsWith('Prisma.')) return type;
-
-      if (
-        !['null'].includes(type) &&
-        ['inputObjectTypes', 'outputObjectTypes'].includes(location)
-      ) {
-        return `Identity<${type}>`;
-      }
-
-      return type;
-    })
-    .join(' | ');
+  const type = createProperyType({ isList, location, propertyType });
 
   return {
     decorators: [],
@@ -49,4 +35,26 @@ export function propertyStructure(args: {
     name,
     type,
   };
+}
+
+export function createProperyType(args: {
+  isList: boolean;
+  propertyType: string[];
+  location: FieldLocation;
+}): string {
+  const { isList, location, propertyType } = args;
+
+  return propertyType
+    .map(type => {
+      if (isList) return `Array<${type}>`;
+      if (type.startsWith('Prisma.')) return type;
+      if (type === 'null') return type;
+
+      if (['inputObjectTypes', 'outputObjectTypes'].includes(location)) {
+        return `Identity<${type}>`;
+      }
+
+      return type;
+    })
+    .join(' | ');
 }

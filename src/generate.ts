@@ -6,7 +6,6 @@ import { Project, QuoteKind } from 'ts-morph';
 import { argsType } from './handlers/args-type.ts';
 import { combineScalarFilters } from './handlers/combine-scalar-filters.ts';
 import { createAggregateInput } from './handlers/create-aggregate-input.ts';
-import { emitSingle } from './handlers/emit-single.ts';
 import { generateFiles } from './handlers/generate-files.ts';
 import { inputType } from './handlers/input-type.ts';
 import { modelData } from './handlers/model-data.ts';
@@ -99,7 +98,6 @@ export async function generate(
   config.combineScalarFilters && combineScalarFilters(eventEmitter);
   config.noAtomicOperations && noAtomicOperations(eventEmitter);
   config.reExport !== ReExport.None && reExport(eventEmitter);
-  config.emitSingle && emitSingle(eventEmitter);
   config.purgeOutput && purgeOutput(eventEmitter);
   config.requireSingleFieldsInWhereUniqueInput &&
     requireSingleFieldsInWhereUniqueInput(eventEmitter);

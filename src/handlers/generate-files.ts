@@ -67,6 +67,7 @@ export async function generateFiles(args: EventArguments) {
         }
         continue;
       }
+
       switch (statement.kind) {
         case StructureKind.ImportDeclaration: {
           if (
@@ -75,8 +76,14 @@ export async function generateFiles(args: EventArguments) {
           ) {
             continue;
           }
+
           for (const namedImport of statement.namedImports as ImportSpecifierStructure[]) {
             const name = namedImport.alias || namedImport.name;
+            if (statement.moduleSpecifier === 'identity-type') {
+              imports.add(name, statement);
+              continue;
+            }
+
             imports.add(name, statement.moduleSpecifier);
           }
           if (statement.defaultImport) {
