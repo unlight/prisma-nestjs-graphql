@@ -1,7 +1,7 @@
 import { Project } from 'ts-morph';
 import { beforeAll, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -19,7 +19,7 @@ beforeAll(async () => {
 });
 
 it('bytes should have type equal to prisma not null', () => {
-  const s = testSourceFile({
+  const s = testSourceFileLegacy({
     file: 'user.model.ts',
     project,
     property: 'bytes',
@@ -32,7 +32,7 @@ it('bytes should have type equal to prisma not null', () => {
 });
 
 it('bytes should have type equal to prisma nullable', () => {
-  const s = testSourceFile({
+  const s = testSourceFileLegacy({
     file: 'user.model.ts',
     project,
     property: 'maybeBytes',

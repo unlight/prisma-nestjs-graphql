@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -33,7 +33,7 @@ describe('compound index', () => {
   });
 
   it('user unique input compound', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserEmailNameCompoundUniqueInput',
       project,
     });
@@ -45,7 +45,7 @@ describe('compound index', () => {
   });
 
   it('compound uniq where must be wrapped to prisma atleast', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'FindManyUserArgs',
       project,
       property: 'cursor',
@@ -74,7 +74,7 @@ describe('compound primary key', () => {
   });
 
   it('compound primary key atleast keys', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'FindFirstUserArgs',
       project,
       property: 'cursor',

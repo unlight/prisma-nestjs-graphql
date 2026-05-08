@@ -15,7 +15,7 @@ import type { EventArguments } from '../types.ts';
 import {
   getFieldOptions,
   getPropertyStructure,
-  testSourceFile,
+  testSourceFileLegacy,
 } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
@@ -77,9 +77,9 @@ describe('model with one id int', () => {
   });
 
   describe('model', () => {
-    let s: ReturnType<typeof testSourceFile>;
+    let s: ReturnType<typeof testSourceFileLegacy>;
     beforeAll(() => {
-      s = testSourceFile({ file: 'user.model.ts', project });
+      s = testSourceFileLegacy({ file: 'user.model.ts', project });
     });
 
     it('class should be exported', () => {
@@ -87,7 +87,7 @@ describe('model with one id int', () => {
     });
 
     it('argument decorated id', () => {
-      const { fieldDecoratorType } = testSourceFile({
+      const { fieldDecoratorType } = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'id',
@@ -110,7 +110,7 @@ describe('model with one id int', () => {
     });
 
     it('should have exclamation mark for non null id field', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'id',
@@ -119,7 +119,7 @@ describe('model with one id int', () => {
     });
 
     it('default value', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'User',
         project,
         property: 'id',
@@ -130,7 +130,7 @@ describe('model with one id int', () => {
     });
 
     it('property description', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'id',
@@ -170,12 +170,18 @@ describe('model with one id int', () => {
   });
 
   it('aggregate user output class should be exported', () => {
-    const s = testSourceFile({ file: 'aggregate-user.output.ts', project });
+    const s = testSourceFileLegacy({
+      file: 'aggregate-user.output.ts',
+      project,
+    });
     expect(s.classFile.isExported()).toBe(true);
   });
 
   it('aggregate user output contains decorator ObjectType', () => {
-    const s = testSourceFile({ file: 'aggregate-user.output.ts', project });
+    const s = testSourceFileLegacy({
+      file: 'aggregate-user.output.ts',
+      project,
+    });
     expect(s.namedImports).toContainEqual({
       name: 'ObjectType',
       specifier: '@nestjs/graphql',
@@ -183,7 +189,7 @@ describe('model with one id int', () => {
   });
 
   it('aggregate user output count', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'AggregateUser',
       project,
       property: '_count',
@@ -193,7 +199,7 @@ describe('model with one id int', () => {
   });
 
   it('user count aggregate (usercountaggregate) id property', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-count-aggregate.output.ts',
       project,
       property: 'id',
@@ -209,7 +215,7 @@ describe('model with one id int', () => {
 
   describe('where input', () => {
     it('should have id property', () => {
-      const { property } = testSourceFile({
+      const { property } = testSourceFileLegacy({
         file: 'user-where.input.ts',
         project,
         property: 'id',
@@ -218,7 +224,7 @@ describe('model with one id int', () => {
     });
 
     it('should have type IntFilter', () => {
-      const { property } = testSourceFile({
+      const { property } = testSourceFileLegacy({
         file: 'user-where.input.ts',
         project,
         property: 'id',
@@ -227,7 +233,7 @@ describe('model with one id int', () => {
     });
 
     it('field decorator returns IntFilter', () => {
-      const { fieldDecoratorType } = testSourceFile({
+      const { fieldDecoratorType } = testSourceFileLegacy({
         file: 'user-where.input.ts',
         project,
         property: 'id',
@@ -236,7 +242,7 @@ describe('model with one id int', () => {
     });
 
     it('field decorator IntFilter nullable', () => {
-      const { fieldDecoratorOptions } = testSourceFile({
+      const { fieldDecoratorOptions } = testSourceFileLegacy({
         file: 'user-where.input.ts',
         project,
         property: 'id',
@@ -245,7 +251,7 @@ describe('model with one id int', () => {
     });
 
     it('property AND has one type', () => {
-      const { property } = testSourceFile({
+      const { property } = testSourceFileLegacy({
         file: 'user-where.input.ts',
         project,
         property: 'AND',
@@ -261,7 +267,7 @@ describe('model with one id int', () => {
     });
 
     it('decorator name args', () => {
-      const { classFile } = testSourceFile({
+      const { classFile } = testSourceFileLegacy({
         file: 'user-aggregate.args.ts',
         project,
       });
@@ -302,7 +308,7 @@ describe('model with one id int', () => {
     });
 
     it('property id should have true type', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-count-aggregate.input.ts',
         project,
         property: 'id',
@@ -322,7 +328,7 @@ describe('model with one id int', () => {
   });
 
   it('rename to user-group-by args', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-group-by.args.ts',
       project,
     });
@@ -331,7 +337,7 @@ describe('model with one id int', () => {
   });
 
   it('rename to user aggregateargs', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-aggregate.args.ts',
       project,
     });
@@ -340,7 +346,7 @@ describe('model with one id int', () => {
   });
 
   it('where uniq must be wrapped to prisma atleast', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'FindManyUserArgs',
       project,
       property: 'cursor',
@@ -707,7 +713,7 @@ describe('nullish compatibility', () => {
   });
 
   it('number', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'count',
@@ -718,7 +724,7 @@ describe('nullish compatibility', () => {
   });
 
   it('born', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'born',
@@ -729,7 +735,7 @@ describe('nullish compatibility', () => {
   });
 
   it('money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'money',
@@ -743,7 +749,7 @@ describe('nullish compatibility', () => {
   });
 
   it('data', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'data',
@@ -757,7 +763,7 @@ describe('nullish compatibility', () => {
 
   describe('relation fields should hasQuestionToken (optional)', () => {
     it('profile', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'profile',
@@ -766,7 +772,7 @@ describe('nullish compatibility', () => {
     });
 
     it('posts', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'posts',
@@ -794,7 +800,7 @@ describe('one model with enum', () => {
   });
 
   it('should import registerEnumType', () => {
-    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
+    const s = testSourceFileLegacy({ file: 'sort-order.enum.ts', project });
     expect(s.namedImports).toContainEqual({
       name: 'registerEnumType',
       specifier: '@nestjs/graphql',
@@ -802,14 +808,14 @@ describe('one model with enum', () => {
   });
 
   it('should register SortOrder', () => {
-    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
+    const s = testSourceFileLegacy({ file: 'sort-order.enum.ts', project });
     expect(s.sourceText).toContain(
       `registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })`,
     );
   });
 
   it('should have asc value', () => {
-    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
+    const s = testSourceFileLegacy({ file: 'sort-order.enum.ts', project });
     const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
     expect(members).toContainEqual(
@@ -821,7 +827,7 @@ describe('one model with enum', () => {
   });
 
   it('should have desc value', () => {
-    const s = testSourceFile({ file: 'sort-order.enum.ts', project });
+    const s = testSourceFileLegacy({ file: 'sort-order.enum.ts', project });
     const members = s.sourceFile.getEnum('SortOrder')?.getStructure().members;
 
     expect(members).toContainEqual(
@@ -879,7 +885,7 @@ describe('one model with self reference', () => {
   });
 
   it('with relation input', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-order-by-with-relation.input.ts',
       project,
     });
@@ -893,14 +899,14 @@ describe('one model with self reference', () => {
 
   describe('model', () => {
     it('should not contain import to self file', () => {
-      const s = testSourceFile({ file: 'user.model.ts', project });
+      const s = testSourceFileLegacy({ file: 'user.model.ts', project });
       expect(s.namedImports).not.toContainEqual(
         expect.objectContaining({ name: 'User' }),
       );
     });
 
     it('imports should contain user count', () => {
-      const s = testSourceFile({ file: 'user.model.ts', project });
+      const s = testSourceFileLegacy({ file: 'user.model.ts', project });
       expect(s.namedImports).toContainEqual({
         name: 'UserCount',
         specifier: './user-count.output',
@@ -1153,7 +1159,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('id property type should be regular string', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'id',
@@ -1162,7 +1168,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('id field type should be string', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'id',
@@ -1171,7 +1177,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('age property type should be number', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'age',
@@ -1180,7 +1186,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('age field type should be number', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'age',
@@ -1189,7 +1195,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('rating should be regular number', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'rating',
@@ -1198,7 +1204,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('rating field type should be float', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'rating',
@@ -1207,7 +1213,7 @@ describe('get rid of atomic number operations', () => {
     });
 
     it('scalar array', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserUpdateInput',
         project,
         property: 'friends',
@@ -1224,7 +1230,7 @@ describe('get rid of atomic number operations', () => {
 
     for (const file of dateFieldFiles) {
       it(`date field files [${file}]`, () => {
-        const s = testSourceFile({ file, project, property: 'born' });
+        const s = testSourceFileLegacy({ file, project, property: 'born' });
 
         expect(s.fieldDecoratorType).toEqual('() => Date');
         expect(s.property?.type).toEqual('Date | string');
@@ -1252,7 +1258,7 @@ describe('noAtomicOperations with emitSingle and combineScalarFilters', () => {
   });
 
   it('FieldUpdateOperationsInput should not exists', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'index.ts',
       project,
     });
@@ -1291,7 +1297,7 @@ describe('scalar arrays with noAtomicOperations', () => {
   describe('ints should be array', () => {
     for (const className of ['UserCreateInput']) {
       it(className, () => {
-        const s = testSourceFile({
+        const s = testSourceFileLegacy({
           class: className,
           project,
           property: 'ints',
@@ -1303,7 +1309,7 @@ describe('scalar arrays with noAtomicOperations', () => {
   });
 
   it('create many inputs should not be deleted', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCreateInput',
       project,
       property: 'articles',
@@ -1503,7 +1509,7 @@ describe('import importExtension option reExport none', () => {
   });
 
   it('import ts extension in aggregate output', () => {
-    const { namedImports } = testSourceFile({
+    const { namedImports } = testSourceFileLegacy({
       file: 'aggregate-user.output.ts',
       project,
     });
@@ -1989,7 +1995,7 @@ describe('object model options', () => {
             }`,
     }));
 
-    const s = testSourceFile({ class: 'User', project });
+    const s = testSourceFileLegacy({ class: 'User', project });
     const argument = s.classFile.getDecorator('ObjectType')?.getStructure()
       .arguments?.[0];
     const json = JSON5.parse(argument);
@@ -2268,7 +2274,7 @@ describe('non list optional properties should be nullable', () => {
   });
 
   it('user model count', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: '_count',
@@ -2279,7 +2285,7 @@ describe('non list optional properties should be nullable', () => {
   });
 
   it('user count output should undefineable ts type', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-count.output.ts',
       project,
       property: 'articles',
@@ -2354,7 +2360,7 @@ export class UserWhereUniqueInput {
         `,
     }));
 
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where-unique.input.ts',
       project,
       property: 'id',
@@ -2383,7 +2389,7 @@ export class UserWhereUniqueInput {
             `,
     }));
 
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where-unique.input.ts',
       project,
       property: 'name_email',
@@ -2416,7 +2422,7 @@ describe('configuration custom scalars', () => {
     });
 
     it('big-int-filter equals', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'big-int-filter.input.ts',
         project,
         property: 'equals',
@@ -2431,7 +2437,7 @@ describe('configuration custom scalars', () => {
     });
 
     it('big-int-filter in', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'big-int-filter.input.ts',
         project,
         property: 'in',
@@ -2441,7 +2447,7 @@ describe('configuration custom scalars', () => {
     });
 
     it('user model', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'bigInt',
@@ -2455,7 +2461,7 @@ describe('configuration custom scalars', () => {
     });
 
     it('user-sum-aggregate', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-sum-aggregate.output.ts',
         project,
         property: 'bigInt',
@@ -2487,7 +2493,7 @@ describe('multiple description', () => {
   });
 
   it('field', () => {
-    const s = testSourceFile({ class: 'User', project });
+    const s = testSourceFileLegacy({ class: 'User', project });
     expect(s.sourceText).toContain(`
     /**
      * Name description
@@ -2497,7 +2503,7 @@ describe('multiple description', () => {
   });
 
   it('model', () => {
-    const s = testSourceFile({ class: 'User', project });
+    const s = testSourceFileLegacy({ class: 'User', project });
     expect(s.sourceText).toContain(`/**
  * Model description
  * Model 2
@@ -2520,7 +2526,11 @@ describe('deprecation reason', () => {
   });
 
   it('deprecation reason default', async () => {
-    const s = testSourceFile({ class: 'User', project, property: 'name' });
+    const s = testSourceFileLegacy({
+      class: 'User',
+      project,
+      property: 'name',
+    });
 
     expect(JSON5.parse(s.fieldDecoratorOptions)).toEqual(
       expect.objectContaining({
@@ -2537,7 +2547,7 @@ describe('deprecation reason', () => {
     'UserMaxAggregateInput',
   ]) {
     it(className, () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'UserCountAggregateInput',
         project,
         property: 'name',
@@ -2549,7 +2559,11 @@ describe('deprecation reason', () => {
   }
 
   it('deprecated decorator in comment', () => {
-    const s = testSourceFile({ class: 'User', project, property: 'name' });
+    const s = testSourceFileLegacy({
+      class: 'User',
+      project,
+      property: 'name',
+    });
     const jsdoc = s.classFile.getProperty('name')?.getJsDocs().at(0)?.getText();
     expect(jsdoc).toContain('* Name description');
     expect(jsdoc).toContain('* @deprecated Use name2 instead');
@@ -2575,7 +2589,7 @@ describe('unsafeCompatibleWhereUniqueInput', () => {
         id String @id
       }`,
     }));
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserWhereUniqueInput',
       project,
       property: 'id',
@@ -2600,21 +2614,21 @@ describe('unsafeCompatibleWhereUniqueInput', () => {
       }`,
     }));
 
-    const id = testSourceFile({
+    const id = testSourceFileLegacy({
       class: 'UserWhereUniqueInput',
       project,
       property: 'id',
     });
     expect(id.property?.hasExclamationToken).toBe(true);
 
-    const email = testSourceFile({
+    const email = testSourceFileLegacy({
       class: 'UserWhereUniqueInput',
       project,
       property: 'email',
     });
     expect(email.property?.hasExclamationToken).toBe(true);
 
-    const emailName = testSourceFile({
+    const emailName = testSourceFileLegacy({
       class: 'UserWhereUniqueInput',
       project,
       property: 'email_name',

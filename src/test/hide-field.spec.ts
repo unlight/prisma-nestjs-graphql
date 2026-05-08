@@ -1,12 +1,12 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
 let imports: { name: string; specifier: string }[];
-let s: ReturnType<typeof testSourceFile>;
+let s: ReturnType<typeof testSourceFileLegacy>;
 
 describe('scalar field', () => {
   beforeAll(async () => {
@@ -28,7 +28,7 @@ describe('scalar field', () => {
 
   describe('model', () => {
     it('TypeGraphQL omit should hide password1', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'password1',
@@ -39,7 +39,7 @@ describe('scalar field', () => {
     });
 
     it('HideField should hide field', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'password2',
@@ -52,7 +52,7 @@ describe('scalar field', () => {
 
   describe('other outputs', () => {
     it('user-max-aggregate', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-max-aggregate.output.ts',
         project,
       });
@@ -93,7 +93,7 @@ describe('hide on non scalar', () => {
 
   describe('model', () => {
     it('type should be imported', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
       });
@@ -122,7 +122,7 @@ describe('hide field using match', () => {
   });
 
   it('in model nothing should be hidden', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'createdAt',
@@ -135,7 +135,7 @@ describe('hide field using match', () => {
   });
 
   it('user-create-many.input', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create-many.input.ts',
       project,
       property: 'createdAt',
@@ -148,7 +148,7 @@ describe('hide field using match', () => {
   });
 
   it('user-create.input', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create.input.ts',
       project,
       property: 'createdAt',
@@ -161,7 +161,7 @@ describe('hide field using match', () => {
   });
 
   it('user-update-many-mutation.input', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-update-many-mutation.input.ts',
       project,
       property: 'updatedAt',
@@ -174,7 +174,7 @@ describe('hide field using match', () => {
   });
 
   it('user-update.input', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-update.input.ts',
       project,
       property: 'updatedAt',
@@ -205,7 +205,7 @@ it('hidden relations result in un-imported types', async () => {
                 `,
   }));
 
-  const s = testSourceFile({
+  const s = testSourceFileLegacy({
     file: 'user-api-key-where.input.ts',
     project,
   });
@@ -246,7 +246,7 @@ describe('enums are not imported in classes when decorated', () => {
     'user.model.ts',
   ]) {
     it(`check files ${file}`, () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file,
         project,
         property: 'role',
@@ -284,7 +284,7 @@ describe.skip('hide enum', () => {
   });
 
   it('should not call registerEnumType', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'role.enum.ts',
       project,
     });
@@ -309,7 +309,7 @@ describe.skip('hide enum', () => {
     ];
 
     for (const file of files) {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file,
         project,
         property: 'role',
@@ -346,7 +346,7 @@ describe('hide with self reference', () => {
   });
 
   it('order by with relation self import', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserOrderByWithRelationInput',
       project,
     });
@@ -385,7 +385,7 @@ describe('hide _count', () => {
   });
 
   it('should hide _count in model', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'Article',
       project,
       property: '_count',

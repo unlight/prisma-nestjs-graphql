@@ -6,6 +6,41 @@ import {
   SourceFile,
 } from 'ts-morph';
 
+export function testSourceFile(args: {
+  project: Project;
+  file?: string;
+  class?: string;
+}) {
+  const { class: className, file, project } = args;
+  const getSourceFile = () => {
+    if (file) {
+      return project.getSourceFileOrThrow(s => s.getFilePath().endsWith(file));
+    }
+    if (className) {
+      return project.getSourceFileOrThrow(s => Boolean(s.getClass(className)));
+    }
+
+    throw new TypeError('file or class must be provided');
+  };
+  const sourceFile = getSourceFile();
+  const importDeclarations = sourceFile
+    .getImportDeclarations()
+    .map(d => d.getStructure());
+
+  const classFile = sourceFile.getClass(() => true)!;
+  const propertyList = classFile.getProperties().map(p => p.getStructure());
+  const propertyMap = Object.fromEntries(propertyList.map(p => [p.name, p]));
+
+  return {
+    classFile,
+    importDeclarations,
+    propertyList,
+    propertyMap,
+    sourceFile,
+    sourceText: sourceFile.getText(),
+  };
+}
+
 export function getFieldOptions(
   sourceFile: SourceFile,
   property: string | PropertyDeclaration,
@@ -28,7 +63,10 @@ export function getPropertyStructure(sourceFile: SourceFile, name: string) {
     ?.getStructure();
 }
 
-export function testSourceFile(args: {
+/**
+ * @deprecated Use testSourceFile instead
+ */
+export function testSourceFileLegacy(args: {
   project: Project;
   file?: string;
   class?: string;

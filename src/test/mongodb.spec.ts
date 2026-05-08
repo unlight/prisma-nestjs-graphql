@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -37,7 +37,7 @@ describe('type has been treated as model #99', () => {
   });
 
   it('user model', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'preferences',
@@ -84,7 +84,7 @@ describe('single model and field mongodb', () => {
   });
 
   it('example input update type', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'update-one-product.args.ts',
       project,
     });

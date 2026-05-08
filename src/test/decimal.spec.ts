@@ -1,7 +1,7 @@
 import { Project } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 describe('decimal type', () => {
@@ -20,7 +20,7 @@ describe('decimal type', () => {
   });
 
   it('user model money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'money',
@@ -33,7 +33,7 @@ describe('decimal type', () => {
   });
 
   it('user model nullish', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'maybe',
@@ -46,7 +46,7 @@ describe('decimal type', () => {
   });
 
   it('user input money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create.input.ts',
       project,
       property: 'money',
@@ -59,7 +59,7 @@ describe('decimal type', () => {
   });
 
   it('user input maybe', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create.input.ts',
       project,
       property: 'maybe',
@@ -73,7 +73,7 @@ describe('decimal type', () => {
   });
 
   it('user aggregate output money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-sum-aggregate.output.ts',
       project,
       property: 'money',
@@ -86,7 +86,7 @@ describe('decimal type', () => {
   });
 
   it('user aggregate output maybe', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-sum-aggregate.output.ts',
       project,
       property: 'maybe',
@@ -115,7 +115,7 @@ describe('decimal graphql', () => {
   });
 
   it('should contain necessary imports', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCreateInput',
       project,
     });
@@ -135,7 +135,7 @@ describe('decimal graphql', () => {
   });
 
   it('create input value', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCreateInput',
       project,
       property: 'money',
@@ -157,7 +157,7 @@ describe('decimal graphql', () => {
   });
 
   it('array input should contain decorator type with same type', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCreateInput',
       project,
       property: 'transfers',
@@ -172,7 +172,7 @@ describe('decimal graphql', () => {
   });
 
   it('should not contain type decorator for aggregate inputs', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCountAggregateInput',
       project,
       property: 'transfers',
@@ -186,7 +186,7 @@ describe('decimal graphql', () => {
   });
 
   it('should not contain type decorator for order by', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserAvgOrderByAggregateInput',
       project,
       property: 'transfers',
@@ -200,7 +200,7 @@ describe('decimal graphql', () => {
   });
 
   it('should type contain in findmanyuserargs', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'FindManyUserArgs',
       project,
       property: 'where',
@@ -220,7 +220,7 @@ describe('decimal graphql', () => {
   });
 
   it('should not contain type decorator for order by', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserWhereInput',
       project,
       property: 'transfers',
@@ -240,7 +240,7 @@ describe('decimal graphql', () => {
   });
 
   it('should not be added for id string filter', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserWhereInput',
       project,
       property: 'id',
@@ -252,7 +252,7 @@ describe('decimal graphql', () => {
   });
 
   it('decimal list filter', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'DecimalNullableListFilter',
       project,
     });
@@ -273,7 +273,7 @@ describe('decimal graphql', () => {
   });
 
   it('special property data should be decorated', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'CreateOneUserArgs',
       project,
       property: 'data',
@@ -285,7 +285,7 @@ describe('decimal graphql', () => {
   });
 
   it('special property where should be decorated', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'delete-many-user.args.ts',
       project,
       property: 'where',
@@ -314,7 +314,7 @@ describe('decimal graphql noAtomicOperations', () => {
   });
 
   it('should be array', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'UserCreateInput',
       project,
       property: 'transfers',
@@ -383,7 +383,7 @@ describe('nested object decorate', () => {
   });
 
   it('deep field should be decorated up to root', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'JobCreateInput',
       project,
       property: 'salary',
@@ -409,7 +409,7 @@ describe('nested object decorate', () => {
       'deleteMany',
     ]) {
       it(property, () => {
-        const s = testSourceFile({
+        const s = testSourceFileLegacy({
           class: 'JobUncheckedUpdateManyWithoutSalaryNestedInput',
           project,
           property,
@@ -423,7 +423,7 @@ describe('nested object decorate', () => {
   });
 
   it('property data should be decorated', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'EmployeeUpdateInput',
       project,
       property: 'salaryHistory',
@@ -435,7 +435,7 @@ describe('nested object decorate', () => {
   });
 
   it('property data should be decorated', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'JobCreateManySalaryInputEnvelope',
       project,
       property: 'data',

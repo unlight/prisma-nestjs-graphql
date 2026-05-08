@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -70,7 +70,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input count', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'count',
@@ -79,7 +79,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input bio', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'bio',
@@ -88,7 +88,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'money',
@@ -97,7 +97,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input rating', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'rating',
@@ -106,7 +106,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input born', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'born',
@@ -115,7 +115,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input humanoid', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'humanoid',
@@ -124,7 +124,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user-where.input role', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-where.input.ts',
       project,
       property: 'role',
@@ -133,7 +133,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates id', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'id',
@@ -142,7 +142,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates bio', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'bio',
@@ -151,7 +151,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates count', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'count',
@@ -160,7 +160,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates rating', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'rating',
@@ -169,7 +169,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates born', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'born',
@@ -178,7 +178,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates humanoid', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'humanoid',
@@ -187,7 +187,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates money', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'money',
@@ -196,7 +196,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates data', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'data',
@@ -205,7 +205,7 @@ describe('combine scalar filters', () => {
   });
 
   it('user scalar where with aggregates role', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-scalar-where-with-aggregates.input.ts',
       project,
       property: 'role',

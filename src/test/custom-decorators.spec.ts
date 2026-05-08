@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile } from './helpers.ts';
+import { testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -35,7 +35,7 @@ describe('custom decorators namespace both input and output', () => {
 
   describe('aggregates should not have validators', () => {
     it('user-count-aggregate.input', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-count-aggregate.input.ts',
         project,
         property: 'email',
@@ -50,7 +50,7 @@ describe('custom decorators namespace both input and output', () => {
     });
 
     it('user-count-order-by-aggregate.input name is type of sort order', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-count-order-by-aggregate.input.ts',
         project,
         property: 'email',
@@ -68,7 +68,7 @@ describe('custom decorators namespace both input and output', () => {
     let classFile: any;
 
     beforeAll(() => {
-      ({ classFile, sourceFile } = testSourceFile({
+      ({ classFile, sourceFile } = testSourceFileLegacy({
         file: 'user-create.input.ts',
         project,
       }));
@@ -95,7 +95,7 @@ describe('custom decorators namespace both input and output', () => {
     });
 
     it('several decorators length', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-create.input.ts',
         project,
         property: 'age',
@@ -112,7 +112,7 @@ describe('custom decorators namespace both input and output', () => {
 
   describe('should not have metadata in description', () => {
     it('age', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'age',
@@ -121,7 +121,7 @@ describe('custom decorators namespace both input and output', () => {
     });
 
     it('name', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'name',
@@ -130,7 +130,7 @@ describe('custom decorators namespace both input and output', () => {
     });
 
     it('email', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'email',
@@ -140,7 +140,7 @@ describe('custom decorators namespace both input and output', () => {
   });
 
   it('output model has no maxlength decorator', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'name',
@@ -169,7 +169,7 @@ describe('fieldtype disable output', () => {
   });
 
   it('upload image output', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'image',
@@ -199,7 +199,7 @@ describe('custom decorators and description', () => {
   });
 
   it('has description', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'name',
@@ -208,7 +208,7 @@ describe('custom decorators and description', () => {
   });
 
   it('has decorator length', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'name',
@@ -240,7 +240,7 @@ describe('custom decorators default import', () => {
   });
 
   it('importDeclarations should import default', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create.input.ts',
       project,
     });
@@ -280,7 +280,7 @@ describe('default import alternative syntax', () => {
   });
 
   it('test', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-create.input.ts',
       project,
     });
@@ -322,7 +322,7 @@ describe('custom decorators field custom type namespace', () => {
 
   describe('user create input', () => {
     it('email field type', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-create.input.ts',
         project,
         property: 'email',
@@ -332,7 +332,7 @@ describe('custom decorators field custom type namespace', () => {
     });
 
     it('field type secondemail', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-create.input.ts',
         project,
         property: 'secondEmail',
@@ -341,7 +341,7 @@ describe('custom decorators field custom type namespace', () => {
     });
 
     it('importdeclarations should import namespace', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user-create.input.ts',
         project,
       });
@@ -354,7 +354,7 @@ describe('custom decorators field custom type namespace', () => {
 
   describe('custom type user model', () => {
     it('custom type user model email field type', () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         file: 'user.model.ts',
         project,
         property: 'email',
@@ -395,7 +395,7 @@ describe('decorate option', () => {
   });
 
   it('validatenested create one user args', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'create-one-user.args.ts',
       project,
       property: 'data',
@@ -425,7 +425,7 @@ describe('decorate option', () => {
   });
 
   it('validatenested create many user args', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'create-many-user.args.ts',
       project,
       property: 'data',
@@ -476,7 +476,7 @@ describe('model decorate', () => {
   });
 
   it('user model id property', () => {
-    const { propertyDecorators } = testSourceFile({
+    const { propertyDecorators } = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'id',
@@ -488,7 +488,7 @@ describe('model decorate', () => {
   });
 
   it('user model class', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
     });
@@ -500,7 +500,7 @@ describe('model decorate', () => {
   });
 
   it('usergroupby should not have ng.directive', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-group-by.output.ts',
       project,
       property: 'id',
@@ -525,7 +525,7 @@ describe('model directive', () => {
   });
 
   it('user model id property', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
       property: 'id',
@@ -539,7 +539,7 @@ describe('model directive', () => {
   });
 
   it('user model class', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user.model.ts',
       project,
     });
@@ -551,7 +551,7 @@ describe('model directive', () => {
   });
 
   it('usergroupby should not have ng.directive', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       file: 'user-group-by.output.ts',
       project,
       property: 'id',
@@ -597,7 +597,7 @@ describe('hide and decorate', () => {
   });
 
   it('should keep only create', () => {
-    const s = testSourceFile({
+    const s = testSourceFileLegacy({
       class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
       project,
       property: 'create',
@@ -610,7 +610,7 @@ describe('hide and decorate', () => {
 
   for (const property of ['connect', 'connectOrCreate']) {
     it(`${property} property should be disabled`, () => {
-      const s = testSourceFile({
+      const s = testSourceFileLegacy({
         class: 'ProfileUncheckedCreateNestedOneWithoutUserInput',
         project,
         property,
