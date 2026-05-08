@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { UserCreateWithoutCommentsInput } from './user-create-without-comments.input.ts';
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutCommentsInput } from './user-create-or-connect-without-comments.input.ts';
@@ -12,15 +13,15 @@ import { UserUpdateToOneWithWhereWithoutCommentsInput } from './user-update-to-o
 export class UserUpdateOneRequiredWithoutCommentsNestedInput {
   @Field(() => UserCreateWithoutCommentsInput, { nullable: true })
   @Type(() => UserCreateWithoutCommentsInput)
-  create?: UserCreateWithoutCommentsInput;
+  create?: Identity<UserCreateWithoutCommentsInput>;
 
   @Field(() => UserCreateOrConnectWithoutCommentsInput, { nullable: true })
   @Type(() => UserCreateOrConnectWithoutCommentsInput)
-  connectOrCreate?: UserCreateOrConnectWithoutCommentsInput;
+  connectOrCreate?: Identity<UserCreateOrConnectWithoutCommentsInput>;
 
   @Field(() => UserUpsertWithoutCommentsInput, { nullable: true })
   @Type(() => UserUpsertWithoutCommentsInput)
-  upsert?: UserUpsertWithoutCommentsInput;
+  upsert?: Identity<UserUpsertWithoutCommentsInput>;
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
   @Type(() => UserWhereUniqueInput)
@@ -31,5 +32,5 @@ export class UserUpdateOneRequiredWithoutCommentsNestedInput {
 
   @Field(() => UserUpdateToOneWithWhereWithoutCommentsInput, { nullable: true })
   @Type(() => UserUpdateToOneWithWhereWithoutCommentsInput)
-  update?: UserUpdateToOneWithWhereWithoutCommentsInput;
+  update?: Identity<UserUpdateToOneWithWhereWithoutCommentsInput>;
 }

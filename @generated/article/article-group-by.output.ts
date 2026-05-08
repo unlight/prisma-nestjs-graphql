@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleCountAggregate } from './article-count-aggregate.output.ts';
 import { ArticleAvgAggregate } from './article-avg-aggregate.output.ts';
 import { ArticleSumAggregate } from './article-sum-aggregate.output.ts';
@@ -40,17 +41,17 @@ export class ArticleGroupBy {
   active?: boolean;
 
   @Field(() => ArticleCountAggregate, { nullable: true })
-  _count?: ArticleCountAggregate;
+  _count?: Identity<ArticleCountAggregate>;
 
   @Field(() => ArticleAvgAggregate, { nullable: true })
-  _avg?: ArticleAvgAggregate;
+  _avg?: Identity<ArticleAvgAggregate>;
 
   @Field(() => ArticleSumAggregate, { nullable: true })
-  _sum?: ArticleSumAggregate;
+  _sum?: Identity<ArticleSumAggregate>;
 
   @Field(() => ArticleMinAggregate, { nullable: true })
-  _min?: ArticleMinAggregate;
+  _min?: Identity<ArticleMinAggregate>;
 
   @Field(() => ArticleMaxAggregate, { nullable: true })
-  _max?: ArticleMaxAggregate;
+  _max?: Identity<ArticleMaxAggregate>;
 }

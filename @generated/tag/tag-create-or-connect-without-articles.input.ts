@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { TagWhereUniqueInput } from './tag-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TagCreateWithoutArticlesInput } from './tag-create-without-articles.input.ts';
 
 @InputType()
@@ -13,5 +14,5 @@ export class TagCreateOrConnectWithoutArticlesInput {
 
   @Field(() => TagCreateWithoutArticlesInput, { nullable: false })
   @Type(() => TagCreateWithoutArticlesInput)
-  create!: TagCreateWithoutArticlesInput;
+  create!: Identity<TagCreateWithoutArticlesInput>;
 }

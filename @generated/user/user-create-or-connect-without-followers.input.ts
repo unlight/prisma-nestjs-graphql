@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { UserCreateWithoutFollowersInput } from './user-create-without-followers.input.ts';
 
 @InputType()
@@ -16,5 +17,5 @@ export class UserCreateOrConnectWithoutFollowersInput {
 
   @Field(() => UserCreateWithoutFollowersInput, { nullable: false })
   @Type(() => UserCreateWithoutFollowersInput)
-  create!: UserCreateWithoutFollowersInput;
+  create!: Identity<UserCreateWithoutFollowersInput>;
 }

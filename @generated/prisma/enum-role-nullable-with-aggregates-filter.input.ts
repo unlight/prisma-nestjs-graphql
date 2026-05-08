@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Role } from './role.enum.ts';
+import type { Identity } from 'identity-type';
 import { NestedEnumRoleNullableWithAggregatesFilter } from './nested-enum-role-nullable-with-aggregates-filter.input.ts';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
 import { NestedEnumRoleNullableFilter } from './nested-enum-role-nullable-filter.input.ts';
@@ -17,14 +18,14 @@ export class EnumRoleNullableWithAggregatesFilter {
   notIn?: Array<`${Role}`>;
 
   @Field(() => NestedEnumRoleNullableWithAggregatesFilter, { nullable: true })
-  not?: NestedEnumRoleNullableWithAggregatesFilter;
+  not?: Identity<NestedEnumRoleNullableWithAggregatesFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+  _count?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedEnumRoleNullableFilter, { nullable: true })
-  _min?: NestedEnumRoleNullableFilter;
+  _min?: Identity<NestedEnumRoleNullableFilter>;
 
   @Field(() => NestedEnumRoleNullableFilter, { nullable: true })
-  _max?: NestedEnumRoleNullableFilter;
+  _max?: Identity<NestedEnumRoleNullableFilter>;
 }

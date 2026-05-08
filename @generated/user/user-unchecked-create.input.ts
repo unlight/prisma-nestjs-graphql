@@ -10,6 +10,7 @@ import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
 import { Role } from '../prisma/role.enum.ts';
+import type { Identity } from 'identity-type';
 import { UserUncheckedCreateNestedManyWithoutFollowersInput } from './user-unchecked-create-nested-many-without-followers.input.ts';
 import { UserUncheckedCreateNestedManyWithoutFollowingInput } from './user-unchecked-create-nested-many-without-following.input.ts';
 import { ArticleUncheckedCreateNestedManyWithoutFavoritedByInput } from '../article/article-unchecked-create-nested-many-without-favorited-by.input.ts';
@@ -57,35 +58,35 @@ export class UserUncheckedCreateInput {
     nullable: true,
   })
   @Type(() => UserUncheckedCreateNestedManyWithoutFollowersInput)
-  following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
+  following?: Identity<UserUncheckedCreateNestedManyWithoutFollowersInput>;
 
   @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, {
     nullable: true,
   })
   @Type(() => UserUncheckedCreateNestedManyWithoutFollowingInput)
-  followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
+  followers?: Identity<UserUncheckedCreateNestedManyWithoutFollowingInput>;
 
   @Field(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput, {
     nullable: true,
   })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutFavoritedByInput)
-  favoriteArticles?: ArticleUncheckedCreateNestedManyWithoutFavoritedByInput;
+  favoriteArticles?: Identity<ArticleUncheckedCreateNestedManyWithoutFavoritedByInput>;
 
   @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, {
     nullable: true,
   })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
-  articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
+  articles?: Identity<ArticleUncheckedCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {
     nullable: true,
   })
   @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
-  comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+  comments?: Identity<CommentUncheckedCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {
     nullable: true,
   })
   @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
-  profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
+  profile?: Identity<ProfileUncheckedCreateNestedOneWithoutUserInput>;
 }

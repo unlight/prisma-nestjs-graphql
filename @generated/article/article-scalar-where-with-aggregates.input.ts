@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input.ts';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input.ts';
@@ -17,32 +18,32 @@ export class ArticleScalarWhereWithAggregatesInput {
   NOT?: Array<ArticleScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+  id?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  slug?: StringWithAggregatesFilter;
+  slug?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  title?: StringWithAggregatesFilter;
+  title?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  description?: StringWithAggregatesFilter;
+  description?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  body?: StringWithAggregatesFilter;
+  body?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  createdAt?: DateTimeWithAggregatesFilter;
+  createdAt?: Identity<DateTimeWithAggregatesFilter>;
 
   @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  updatedAt?: DateTimeWithAggregatesFilter;
+  updatedAt?: Identity<DateTimeWithAggregatesFilter>;
 
   @Field(() => IntWithAggregatesFilter, { nullable: true })
-  favoritesCount?: IntWithAggregatesFilter;
+  favoritesCount?: Identity<IntWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  authorId?: StringWithAggregatesFilter;
+  authorId?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => BoolNullableWithAggregatesFilter, { nullable: true })
-  active?: BoolNullableWithAggregatesFilter;
+  active?: Identity<BoolNullableWithAggregatesFilter>;
 }

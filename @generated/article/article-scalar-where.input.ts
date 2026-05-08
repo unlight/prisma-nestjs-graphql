@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input.ts';
 import { DateTimeFilter } from '../prisma/date-time-filter.input.ts';
 import { IntFilter } from '../prisma/int-filter.input.ts';
@@ -17,32 +18,32 @@ export class ArticleScalarWhereInput {
   NOT?: Array<ArticleScalarWhereInput>;
 
   @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+  id?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  slug?: StringFilter;
+  slug?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  title?: StringFilter;
+  title?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  description?: StringFilter;
+  description?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+  body?: Identity<StringFilter>;
 
   @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+  createdAt?: Identity<DateTimeFilter>;
 
   @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+  updatedAt?: Identity<DateTimeFilter>;
 
   @Field(() => IntFilter, { nullable: true })
-  favoritesCount?: IntFilter;
+  favoritesCount?: Identity<IntFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+  authorId?: Identity<StringFilter>;
 
   @Field(() => BoolNullableFilter, { nullable: true })
-  active?: BoolNullableFilter;
+  active?: Identity<BoolNullableFilter>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleUncheckedCreateNestedManyWithoutTagsInput } from '../article/article-unchecked-create-nested-many-without-tags.input.ts';
 import { Type } from 'class-transformer';
 
@@ -15,5 +16,5 @@ export class TagUncheckedCreateInput {
     nullable: true,
   })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutTagsInput)
-  articles?: ArticleUncheckedCreateNestedManyWithoutTagsInput;
+  articles?: Identity<ArticleUncheckedCreateNestedManyWithoutTagsInput>;
 }

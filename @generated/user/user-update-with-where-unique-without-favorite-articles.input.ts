@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { UserUpdateWithoutFavoriteArticlesInput } from './user-update-without-favorite-articles.input.ts';
 
 @InputType()
@@ -16,5 +17,5 @@ export class UserUpdateWithWhereUniqueWithoutFavoriteArticlesInput {
 
   @Field(() => UserUpdateWithoutFavoriteArticlesInput, { nullable: false })
   @Type(() => UserUpdateWithoutFavoriteArticlesInput)
-  data!: UserUpdateWithoutFavoriteArticlesInput;
+  data!: Identity<UserUpdateWithoutFavoriteArticlesInput>;
 }

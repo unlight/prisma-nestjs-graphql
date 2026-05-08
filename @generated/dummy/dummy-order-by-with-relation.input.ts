@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 
 @InputType()
@@ -9,16 +10,16 @@ export class DummyOrderByWithRelationInput {
   id?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  date?: SortOrderInput;
+  date?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  int?: SortOrderInput;
+  int?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  float?: SortOrderInput;
+  float?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bytes?: SortOrderInput;
+  bytes?: Identity<SortOrderInput>;
 
   @Field(() => SortOrder, { nullable: true })
   decimal?: `${SortOrder}`;
@@ -27,10 +28,10 @@ export class DummyOrderByWithRelationInput {
   decimals?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bigInt?: SortOrderInput;
+  bigInt?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  json?: SortOrderInput;
+  json?: Identity<SortOrderInput>;
 
   @Field(() => SortOrder, { nullable: true })
   friends?: `${SortOrder}`;

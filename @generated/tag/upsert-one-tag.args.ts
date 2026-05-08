@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { TagWhereUniqueInput } from './tag-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TagCreateInput } from './tag-create.input.ts';
 import { TagUpdateInput } from './tag-update.input.ts';
 
@@ -14,9 +15,9 @@ export class UpsertOneTagArgs {
 
   @Field(() => TagCreateInput, { nullable: false })
   @Type(() => TagCreateInput)
-  create!: TagCreateInput;
+  create!: Identity<TagCreateInput>;
 
   @Field(() => TagUpdateInput, { nullable: false })
   @Type(() => TagUpdateInput)
-  update!: TagUpdateInput;
+  update!: Identity<TagUpdateInput>;
 }

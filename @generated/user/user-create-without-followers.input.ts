@@ -10,6 +10,7 @@ import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
 import { Role } from '../prisma/role.enum.ts';
+import type { Identity } from 'identity-type';
 import { UserCreateNestedManyWithoutFollowersInput } from './user-create-nested-many-without-followers.input.ts';
 import { ArticleCreateNestedManyWithoutFavoritedByInput } from '../article/article-create-nested-many-without-favorited-by.input.ts';
 import { ArticleCreateNestedManyWithoutAuthorInput } from '../article/article-create-nested-many-without-author.input.ts';
@@ -54,23 +55,23 @@ export class UserCreateWithoutFollowersInput {
 
   @Field(() => UserCreateNestedManyWithoutFollowersInput, { nullable: true })
   @Type(() => UserCreateNestedManyWithoutFollowersInput)
-  following?: UserCreateNestedManyWithoutFollowersInput;
+  following?: Identity<UserCreateNestedManyWithoutFollowersInput>;
 
   @Field(() => ArticleCreateNestedManyWithoutFavoritedByInput, {
     nullable: true,
   })
   @Type(() => ArticleCreateNestedManyWithoutFavoritedByInput)
-  favoriteArticles?: ArticleCreateNestedManyWithoutFavoritedByInput;
+  favoriteArticles?: Identity<ArticleCreateNestedManyWithoutFavoritedByInput>;
 
   @Field(() => ArticleCreateNestedManyWithoutAuthorInput, { nullable: true })
   @Type(() => ArticleCreateNestedManyWithoutAuthorInput)
-  articles?: ArticleCreateNestedManyWithoutAuthorInput;
+  articles?: Identity<ArticleCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => CommentCreateNestedManyWithoutAuthorInput, { nullable: true })
   @Type(() => CommentCreateNestedManyWithoutAuthorInput)
-  comments?: CommentCreateNestedManyWithoutAuthorInput;
+  comments?: Identity<CommentCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => ProfileCreateNestedOneWithoutUserInput, { nullable: true })
   @Type(() => ProfileCreateNestedOneWithoutUserInput)
-  profile?: ProfileCreateNestedOneWithoutUserInput;
+  profile?: Identity<ProfileCreateNestedOneWithoutUserInput>;
 }

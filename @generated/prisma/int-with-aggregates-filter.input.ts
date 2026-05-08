@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedIntWithAggregatesFilter } from './nested-int-with-aggregates-filter.input.ts';
 import { NestedIntFilter } from './nested-int-filter.input.ts';
 import { NestedFloatFilter } from './nested-float-filter.input.ts';
@@ -29,20 +30,20 @@ export class IntWithAggregatesFilter {
   gte?: number;
 
   @Field(() => NestedIntWithAggregatesFilter, { nullable: true })
-  not?: NestedIntWithAggregatesFilter;
+  not?: Identity<NestedIntWithAggregatesFilter>;
 
   @Field(() => NestedIntFilter, { nullable: true })
-  _count?: NestedIntFilter;
+  _count?: Identity<NestedIntFilter>;
 
   @Field(() => NestedFloatFilter, { nullable: true })
-  _avg?: NestedFloatFilter;
+  _avg?: Identity<NestedFloatFilter>;
 
   @Field(() => NestedIntFilter, { nullable: true })
-  _sum?: NestedIntFilter;
+  _sum?: Identity<NestedIntFilter>;
 
   @Field(() => NestedIntFilter, { nullable: true })
-  _min?: NestedIntFilter;
+  _min?: Identity<NestedIntFilter>;
 
   @Field(() => NestedIntFilter, { nullable: true })
-  _max?: NestedIntFilter;
+  _max?: Identity<NestedIntFilter>;
 }

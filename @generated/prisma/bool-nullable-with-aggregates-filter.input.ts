@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedBoolNullableWithAggregatesFilter } from './nested-bool-nullable-with-aggregates-filter.input.ts';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
 import { NestedBoolNullableFilter } from './nested-bool-nullable-filter.input.ts';
@@ -10,14 +11,14 @@ export class BoolNullableWithAggregatesFilter {
   equals?: boolean;
 
   @Field(() => NestedBoolNullableWithAggregatesFilter, { nullable: true })
-  not?: NestedBoolNullableWithAggregatesFilter;
+  not?: Identity<NestedBoolNullableWithAggregatesFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+  _count?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedBoolNullableFilter, { nullable: true })
-  _min?: NestedBoolNullableFilter;
+  _min?: Identity<NestedBoolNullableFilter>;
 
   @Field(() => NestedBoolNullableFilter, { nullable: true })
-  _max?: NestedBoolNullableFilter;
+  _max?: Identity<NestedBoolNullableFilter>;
 }

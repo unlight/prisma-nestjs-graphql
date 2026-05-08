@@ -4,6 +4,7 @@ import { CommentCreateWithoutArticleInput } from './comment-create-without-artic
 import { Type } from 'class-transformer';
 import { CommentCreateOrConnectWithoutArticleInput } from './comment-create-or-connect-without-article.input.ts';
 import { CommentUpsertWithWhereUniqueWithoutArticleInput } from './comment-upsert-with-where-unique-without-article.input.ts';
+import type { Identity } from 'identity-type';
 import { CommentCreateManyArticleInputEnvelope } from './comment-create-many-article-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
@@ -29,7 +30,7 @@ export class CommentUpdateManyWithoutArticleNestedInput {
 
   @Field(() => CommentCreateManyArticleInputEnvelope, { nullable: true })
   @Type(() => CommentCreateManyArticleInputEnvelope)
-  createMany?: CommentCreateManyArticleInputEnvelope;
+  createMany?: Identity<CommentCreateManyArticleInputEnvelope>;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)

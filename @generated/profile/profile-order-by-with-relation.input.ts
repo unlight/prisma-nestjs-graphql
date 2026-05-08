@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input.ts';
 import { Type } from 'class-transformer';
@@ -14,9 +15,9 @@ export class ProfileOrderByWithRelationInput {
   userId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  dummy?: SortOrderInput;
+  dummy?: Identity<SortOrderInput>;
 
   @Field(() => UserOrderByWithRelationInput, { nullable: true })
   @Type(() => UserOrderByWithRelationInput)
-  user?: UserOrderByWithRelationInput;
+  user?: Identity<UserOrderByWithRelationInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleWhereInput } from './article-where.input.ts';
 import { Type } from 'class-transformer';
 import { ArticleOrderByWithAggregationInput } from './article-order-by-with-aggregation.input.ts';
@@ -16,7 +17,7 @@ import { ArticleMaxAggregateInput } from './article-max-aggregate.input.ts';
 export class ArticleGroupByArgs {
   @Field(() => ArticleWhereInput, { nullable: true })
   @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
+  where?: Identity<ArticleWhereInput>;
 
   @Field(() => [ArticleOrderByWithAggregationInput], { nullable: true })
   orderBy?: Array<ArticleOrderByWithAggregationInput>;
@@ -25,7 +26,7 @@ export class ArticleGroupByArgs {
   by!: Array<`${ArticleScalarFieldEnum}`>;
 
   @Field(() => ArticleScalarWhereWithAggregatesInput, { nullable: true })
-  having?: ArticleScalarWhereWithAggregatesInput;
+  having?: Identity<ArticleScalarWhereWithAggregatesInput>;
 
   @Field(() => Int, { nullable: true })
   take?: number;
@@ -34,17 +35,17 @@ export class ArticleGroupByArgs {
   skip?: number;
 
   @Field(() => ArticleCountAggregateInput, { nullable: true })
-  _count?: ArticleCountAggregateInput;
+  _count?: Identity<ArticleCountAggregateInput>;
 
   @Field(() => ArticleAvgAggregateInput, { nullable: true })
-  _avg?: ArticleAvgAggregateInput;
+  _avg?: Identity<ArticleAvgAggregateInput>;
 
   @Field(() => ArticleSumAggregateInput, { nullable: true })
-  _sum?: ArticleSumAggregateInput;
+  _sum?: Identity<ArticleSumAggregateInput>;
 
   @Field(() => ArticleMinAggregateInput, { nullable: true })
-  _min?: ArticleMinAggregateInput;
+  _min?: Identity<ArticleMinAggregateInput>;
 
   @Field(() => ArticleMaxAggregateInput, { nullable: true })
-  _max?: ArticleMaxAggregateInput;
+  _max?: Identity<ArticleMaxAggregateInput>;
 }

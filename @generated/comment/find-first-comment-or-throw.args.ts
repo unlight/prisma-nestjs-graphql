@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CommentWhereInput } from './comment-where.input.ts';
 import { Type } from 'class-transformer';
 import { CommentOrderByWithRelationInput } from './comment-order-by-with-relation.input.ts';
@@ -12,7 +13,7 @@ import { CommentScalarFieldEnum } from './comment-scalar-field.enum.ts';
 export class FindFirstCommentOrThrowArgs {
   @Field(() => CommentWhereInput, { nullable: true })
   @Type(() => CommentWhereInput)
-  where?: CommentWhereInput;
+  where?: Identity<CommentWhereInput>;
 
   @Field(() => [CommentOrderByWithRelationInput], { nullable: true })
   orderBy?: Array<CommentOrderByWithRelationInput>;

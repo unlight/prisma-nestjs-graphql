@@ -6,6 +6,7 @@ import { Prisma } from '@prisma/client';
 import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { GraphQLJSON } from 'graphql-type-json';
+import type { Identity } from 'identity-type';
 import { DummyCountAggregate } from './dummy-count-aggregate.output.ts';
 import { DummyAvgAggregate } from './dummy-avg-aggregate.output.ts';
 import { DummySumAggregate } from './dummy-sum-aggregate.output.ts';
@@ -45,17 +46,17 @@ export class DummyGroupBy {
   friends?: Array<string>;
 
   @Field(() => DummyCountAggregate, { nullable: true })
-  _count?: DummyCountAggregate;
+  _count?: Identity<DummyCountAggregate>;
 
   @Field(() => DummyAvgAggregate, { nullable: true })
-  _avg?: DummyAvgAggregate;
+  _avg?: Identity<DummyAvgAggregate>;
 
   @Field(() => DummySumAggregate, { nullable: true })
-  _sum?: DummySumAggregate;
+  _sum?: Identity<DummySumAggregate>;
 
   @Field(() => DummyMinAggregate, { nullable: true })
-  _min?: DummyMinAggregate;
+  _min?: Identity<DummyMinAggregate>;
 
   @Field(() => DummyMaxAggregate, { nullable: true })
-  _max?: DummyMaxAggregate;
+  _max?: Identity<DummyMaxAggregate>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input.ts';
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutCommentsInput } from './article-create-or-connect-without-comments.input.ts';
@@ -10,11 +11,11 @@ import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 export class ArticleCreateNestedOneWithoutCommentsInput {
   @Field(() => ArticleCreateWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleCreateWithoutCommentsInput)
-  create?: ArticleCreateWithoutCommentsInput;
+  create?: Identity<ArticleCreateWithoutCommentsInput>;
 
   @Field(() => ArticleCreateOrConnectWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleCreateOrConnectWithoutCommentsInput)
-  connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
+  connectOrCreate?: Identity<ArticleCreateOrConnectWithoutCommentsInput>;
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })
   @Type(() => ArticleWhereUniqueInput)

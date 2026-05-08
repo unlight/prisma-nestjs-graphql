@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input.ts';
 import { Type } from 'class-transformer';
@@ -24,13 +25,13 @@ export class CommentOrderByWithRelationInput {
   authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  articleId?: SortOrderInput;
+  articleId?: Identity<SortOrderInput>;
 
   @Field(() => UserOrderByWithRelationInput, { nullable: true })
   @Type(() => UserOrderByWithRelationInput)
-  author?: UserOrderByWithRelationInput;
+  author?: Identity<UserOrderByWithRelationInput>;
 
   @Field(() => ArticleOrderByWithRelationInput, { nullable: true })
   @Type(() => ArticleOrderByWithRelationInput)
-  article?: ArticleOrderByWithRelationInput;
+  article?: Identity<ArticleOrderByWithRelationInput>;
 }

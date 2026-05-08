@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input.ts';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input.ts';
@@ -16,20 +17,20 @@ export class CommentScalarWhereWithAggregatesInput {
   NOT?: Array<CommentScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+  id?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  createdAt?: DateTimeWithAggregatesFilter;
+  createdAt?: Identity<DateTimeWithAggregatesFilter>;
 
   @Field(() => DateTimeWithAggregatesFilter, { nullable: true })
-  updatedAt?: DateTimeWithAggregatesFilter;
+  updatedAt?: Identity<DateTimeWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  body?: StringWithAggregatesFilter;
+  body?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  authorId?: StringWithAggregatesFilter;
+  authorId?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  articleId?: StringNullableWithAggregatesFilter;
+  articleId?: Identity<StringNullableWithAggregatesFilter>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
 import { NestedStringNullableFilter } from './nested-string-nullable-filter.input.ts';
 
@@ -36,14 +37,14 @@ export class NestedStringNullableWithAggregatesFilter {
   endsWith?: string;
 
   @Field(() => NestedStringNullableWithAggregatesFilter, { nullable: true })
-  not?: NestedStringNullableWithAggregatesFilter;
+  not?: Identity<NestedStringNullableWithAggregatesFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+  _count?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedStringNullableFilter, { nullable: true })
-  _min?: NestedStringNullableFilter;
+  _min?: Identity<NestedStringNullableFilter>;
 
   @Field(() => NestedStringNullableFilter, { nullable: true })
-  _max?: NestedStringNullableFilter;
+  _max?: Identity<NestedStringNullableFilter>;
 }

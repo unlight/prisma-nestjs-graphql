@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input.ts';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input.ts';
@@ -12,42 +13,42 @@ import { CommentUpdateManyWithoutArticleNestedInput } from '../comment/comment-u
 @InputType()
 export class ArticleUpdateWithoutFavoritedByInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
+  id?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  slug?: StringFieldUpdateOperationsInput;
+  slug?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  title?: StringFieldUpdateOperationsInput;
+  title?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  description?: StringFieldUpdateOperationsInput;
+  description?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: StringFieldUpdateOperationsInput;
+  body?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+  createdAt?: Identity<DateTimeFieldUpdateOperationsInput>;
 
   @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+  updatedAt?: Identity<DateTimeFieldUpdateOperationsInput>;
 
   @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
-  favoritesCount?: IntFieldUpdateOperationsInput;
+  favoritesCount?: Identity<IntFieldUpdateOperationsInput>;
 
   @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
-  active?: NullableBoolFieldUpdateOperationsInput;
+  active?: Identity<NullableBoolFieldUpdateOperationsInput>;
 
   @Field(() => TagUpdateManyWithoutArticlesNestedInput, { nullable: true })
-  tags?: TagUpdateManyWithoutArticlesNestedInput;
+  tags?: Identity<TagUpdateManyWithoutArticlesNestedInput>;
 
   @Field(() => UserUpdateOneRequiredWithoutArticlesNestedInput, {
     nullable: true,
   })
   @Type(() => UserUpdateOneRequiredWithoutArticlesNestedInput)
-  author?: UserUpdateOneRequiredWithoutArticlesNestedInput;
+  author?: Identity<UserUpdateOneRequiredWithoutArticlesNestedInput>;
 
   @Field(() => CommentUpdateManyWithoutArticleNestedInput, { nullable: true })
   @Type(() => CommentUpdateManyWithoutArticleNestedInput)
-  comments?: CommentUpdateManyWithoutArticleNestedInput;
+  comments?: Identity<CommentUpdateManyWithoutArticleNestedInput>;
 }

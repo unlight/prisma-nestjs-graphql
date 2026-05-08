@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { CommentCreateWithoutAuthorInput } from './comment-create-without-author.input.ts';
 
 @InputType()
@@ -13,5 +14,5 @@ export class CommentCreateOrConnectWithoutAuthorInput {
 
   @Field(() => CommentCreateWithoutAuthorInput, { nullable: false })
   @Type(() => CommentCreateWithoutAuthorInput)
-  create!: CommentCreateWithoutAuthorInput;
+  create!: Identity<CommentCreateWithoutAuthorInput>;
 }

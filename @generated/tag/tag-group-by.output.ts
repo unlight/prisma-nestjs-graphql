@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TagCountAggregate } from './tag-count-aggregate.output.ts';
 import { TagMinAggregate } from './tag-min-aggregate.output.ts';
 import { TagMaxAggregate } from './tag-max-aggregate.output.ts';
@@ -13,11 +14,11 @@ export class TagGroupBy {
   name!: string;
 
   @Field(() => TagCountAggregate, { nullable: true })
-  _count?: TagCountAggregate;
+  _count?: Identity<TagCountAggregate>;
 
   @Field(() => TagMinAggregate, { nullable: true })
-  _min?: TagMinAggregate;
+  _min?: Identity<TagMinAggregate>;
 
   @Field(() => TagMaxAggregate, { nullable: true })
-  _max?: TagMaxAggregate;
+  _max?: Identity<TagMaxAggregate>;
 }

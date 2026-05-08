@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ProfileWhereInput } from './profile-where.input.ts';
 import { Type } from 'class-transformer';
 import { ProfileOrderByWithAggregationInput } from './profile-order-by-with-aggregation.input.ts';
@@ -16,7 +17,7 @@ import { ProfileMaxAggregateInput } from './profile-max-aggregate.input.ts';
 export class ProfileGroupByArgs {
   @Field(() => ProfileWhereInput, { nullable: true })
   @Type(() => ProfileWhereInput)
-  where?: ProfileWhereInput;
+  where?: Identity<ProfileWhereInput>;
 
   @Field(() => [ProfileOrderByWithAggregationInput], { nullable: true })
   orderBy?: Array<ProfileOrderByWithAggregationInput>;
@@ -25,7 +26,7 @@ export class ProfileGroupByArgs {
   by!: Array<`${ProfileScalarFieldEnum}`>;
 
   @Field(() => ProfileScalarWhereWithAggregatesInput, { nullable: true })
-  having?: ProfileScalarWhereWithAggregatesInput;
+  having?: Identity<ProfileScalarWhereWithAggregatesInput>;
 
   @Field(() => Int, { nullable: true })
   take?: number;
@@ -34,17 +35,17 @@ export class ProfileGroupByArgs {
   skip?: number;
 
   @Field(() => ProfileCountAggregateInput, { nullable: true })
-  _count?: ProfileCountAggregateInput;
+  _count?: Identity<ProfileCountAggregateInput>;
 
   @Field(() => ProfileAvgAggregateInput, { nullable: true })
-  _avg?: ProfileAvgAggregateInput;
+  _avg?: Identity<ProfileAvgAggregateInput>;
 
   @Field(() => ProfileSumAggregateInput, { nullable: true })
-  _sum?: ProfileSumAggregateInput;
+  _sum?: Identity<ProfileSumAggregateInput>;
 
   @Field(() => ProfileMinAggregateInput, { nullable: true })
-  _min?: ProfileMinAggregateInput;
+  _min?: Identity<ProfileMinAggregateInput>;
 
   @Field(() => ProfileMaxAggregateInput, { nullable: true })
-  _max?: ProfileMaxAggregateInput;
+  _max?: Identity<ProfileMaxAggregateInput>;
 }

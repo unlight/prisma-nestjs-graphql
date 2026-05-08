@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { QueryMode } from './query-mode.enum.ts';
+import type { Identity } from 'identity-type';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
 import { NestedJsonNullableFilter } from './nested-json-nullable-filter.input.ts';
 
@@ -50,11 +51,11 @@ export class JsonNullableWithAggregatesFilter {
   not?: any;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+  _count?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedJsonNullableFilter, { nullable: true })
-  _min?: NestedJsonNullableFilter;
+  _min?: Identity<NestedJsonNullableFilter>;
 
   @Field(() => NestedJsonNullableFilter, { nullable: true })
-  _max?: NestedJsonNullableFilter;
+  _max?: Identity<NestedJsonNullableFilter>;
 }

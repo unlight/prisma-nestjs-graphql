@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input.ts';
 import { HideField } from '@nestjs/graphql';
@@ -10,24 +11,24 @@ import { ArticleUpdateOneWithoutCommentsNestedInput } from '../article/article-u
 @InputType()
 export class CommentUpdateInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
+  id?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: DateTimeFieldUpdateOperationsInput;
+  createdAt?: Identity<DateTimeFieldUpdateOperationsInput>;
 
   @HideField()
-  updatedAt?: DateTimeFieldUpdateOperationsInput;
+  updatedAt?: Identity<DateTimeFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: StringFieldUpdateOperationsInput;
+  body?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, {
     nullable: true,
   })
   @Type(() => UserUpdateOneRequiredWithoutCommentsNestedInput)
-  author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+  author?: Identity<UserUpdateOneRequiredWithoutCommentsNestedInput>;
 
   @Field(() => ArticleUpdateOneWithoutCommentsNestedInput, { nullable: true })
   @Type(() => ArticleUpdateOneWithoutCommentsNestedInput)
-  article?: ArticleUpdateOneWithoutCommentsNestedInput;
+  article?: Identity<ArticleUpdateOneWithoutCommentsNestedInput>;
 }

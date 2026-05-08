@@ -44,5 +44,5 @@ export class NestedDecimalFilter {
   gte?: Decimal;
 
   @Field(() => NestedDecimalFilter, { nullable: true })
-  not?: NestedDecimalFilter;
+  not?: Identity<NestedDecimalFilter>;
 }

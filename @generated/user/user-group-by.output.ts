@@ -6,6 +6,7 @@ import { Float } from '@nestjs/graphql';
 import { Decimal } from '@prisma/client-runtime-utils';
 import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { Role } from '../prisma/role.enum.ts';
+import type { Identity } from 'identity-type';
 import { UserCountAggregate } from './user-count-aggregate.output.ts';
 import { UserAvgAggregate } from './user-avg-aggregate.output.ts';
 import { UserSumAggregate } from './user-sum-aggregate.output.ts';
@@ -45,17 +46,17 @@ export class UserGroupBy {
   role?: `${Role}`;
 
   @Field(() => UserCountAggregate, { nullable: true })
-  _count?: UserCountAggregate;
+  _count?: Identity<UserCountAggregate>;
 
   @Field(() => UserAvgAggregate, { nullable: true })
-  _avg?: UserAvgAggregate;
+  _avg?: Identity<UserAvgAggregate>;
 
   @Field(() => UserSumAggregate, { nullable: true })
-  _sum?: UserSumAggregate;
+  _sum?: Identity<UserSumAggregate>;
 
   @Field(() => UserMinAggregate, { nullable: true })
-  _min?: UserMinAggregate;
+  _min?: Identity<UserMinAggregate>;
 
   @Field(() => UserMaxAggregate, { nullable: true })
-  _max?: UserMaxAggregate;
+  _max?: Identity<UserMaxAggregate>;
 }

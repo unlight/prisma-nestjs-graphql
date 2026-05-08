@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TagCreateInput } from './tag-create.input.ts';
 import { Type } from 'class-transformer';
 
@@ -7,5 +8,5 @@ import { Type } from 'class-transformer';
 export class CreateOneTagArgs {
   @Field(() => TagCreateInput, { nullable: false })
   @Type(() => TagCreateInput)
-  data!: TagCreateInput;
+  data!: Identity<TagCreateInput>;
 }

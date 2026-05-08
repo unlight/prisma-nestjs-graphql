@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleCreateNestedManyWithoutTagsInput } from '../article/article-create-nested-many-without-tags.input.ts';
 import { Type } from 'class-transformer';
 
@@ -13,5 +14,5 @@ export class TagCreateInput {
 
   @Field(() => ArticleCreateNestedManyWithoutTagsInput, { nullable: true })
   @Type(() => ArticleCreateNestedManyWithoutTagsInput)
-  articles?: ArticleCreateNestedManyWithoutTagsInput;
+  articles?: Identity<ArticleCreateNestedManyWithoutTagsInput>;
 }

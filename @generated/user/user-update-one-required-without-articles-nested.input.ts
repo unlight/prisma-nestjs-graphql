@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { UserCreateWithoutArticlesInput } from './user-create-without-articles.input.ts';
 import { Type } from 'class-transformer';
 import { UserCreateOrConnectWithoutArticlesInput } from './user-create-or-connect-without-articles.input.ts';
@@ -12,15 +13,15 @@ import { UserUpdateToOneWithWhereWithoutArticlesInput } from './user-update-to-o
 export class UserUpdateOneRequiredWithoutArticlesNestedInput {
   @Field(() => UserCreateWithoutArticlesInput, { nullable: true })
   @Type(() => UserCreateWithoutArticlesInput)
-  create?: UserCreateWithoutArticlesInput;
+  create?: Identity<UserCreateWithoutArticlesInput>;
 
   @Field(() => UserCreateOrConnectWithoutArticlesInput, { nullable: true })
   @Type(() => UserCreateOrConnectWithoutArticlesInput)
-  connectOrCreate?: UserCreateOrConnectWithoutArticlesInput;
+  connectOrCreate?: Identity<UserCreateOrConnectWithoutArticlesInput>;
 
   @Field(() => UserUpsertWithoutArticlesInput, { nullable: true })
   @Type(() => UserUpsertWithoutArticlesInput)
-  upsert?: UserUpsertWithoutArticlesInput;
+  upsert?: Identity<UserUpsertWithoutArticlesInput>;
 
   @Field(() => UserWhereUniqueInput, { nullable: true })
   @Type(() => UserWhereUniqueInput)
@@ -31,5 +32,5 @@ export class UserUpdateOneRequiredWithoutArticlesNestedInput {
 
   @Field(() => UserUpdateToOneWithWhereWithoutArticlesInput, { nullable: true })
   @Type(() => UserUpdateToOneWithWhereWithoutArticlesInput)
-  update?: UserUpdateToOneWithWhereWithoutArticlesInput;
+  update?: Identity<UserUpdateToOneWithWhereWithoutArticlesInput>;
 }

@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { HideField } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TagCreateNestedManyWithoutArticlesInput } from '../tag/tag-create-nested-many-without-articles.input.ts';
 import { UserCreateNestedManyWithoutFavoriteArticlesInput } from '../user/user-create-nested-many-without-favorite-articles.input.ts';
 import { Type } from 'class-transformer';
@@ -37,15 +38,15 @@ export class ArticleCreateWithoutAuthorInput {
   active?: boolean;
 
   @Field(() => TagCreateNestedManyWithoutArticlesInput, { nullable: true })
-  tags?: TagCreateNestedManyWithoutArticlesInput;
+  tags?: Identity<TagCreateNestedManyWithoutArticlesInput>;
 
   @Field(() => UserCreateNestedManyWithoutFavoriteArticlesInput, {
     nullable: true,
   })
   @Type(() => UserCreateNestedManyWithoutFavoriteArticlesInput)
-  favoritedBy?: UserCreateNestedManyWithoutFavoriteArticlesInput;
+  favoritedBy?: Identity<UserCreateNestedManyWithoutFavoriteArticlesInput>;
 
   @Field(() => CommentCreateNestedManyWithoutArticleInput, { nullable: true })
   @Type(() => CommentCreateNestedManyWithoutArticleInput)
-  comments?: CommentCreateNestedManyWithoutArticleInput;
+  comments?: Identity<CommentCreateNestedManyWithoutArticleInput>;
 }

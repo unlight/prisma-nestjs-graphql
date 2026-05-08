@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Article } from '../article/article.model.ts';
 import { TagCount } from './tag-count.output.ts';
+import type { Identity } from 'identity-type';
 
 @ObjectType()
 export class Tag {
@@ -16,5 +17,5 @@ export class Tag {
   articles?: Array<Article>;
 
   @Field(() => TagCount, { nullable: false })
-  _count?: TagCount;
+  _count?: Identity<TagCount>;
 }

@@ -1,11 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input.ts';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input.ts';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input.ts';
 import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input.ts';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input.ts';
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input.ts';
 import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input.ts';
@@ -27,34 +29,34 @@ export class DummyScalarWhereWithAggregatesInput {
   NOT?: Array<DummyScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+  id?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => DateTimeNullableWithAggregatesFilter, { nullable: true })
-  date?: DateTimeNullableWithAggregatesFilter;
+  date?: Identity<DateTimeNullableWithAggregatesFilter>;
 
   @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
-  int?: IntNullableWithAggregatesFilter;
+  int?: Identity<IntNullableWithAggregatesFilter>;
 
   @Field(() => FloatNullableWithAggregatesFilter, { nullable: true })
-  float?: FloatNullableWithAggregatesFilter;
+  float?: Identity<FloatNullableWithAggregatesFilter>;
 
   @Field(() => BytesNullableWithAggregatesFilter, { nullable: true })
-  bytes?: BytesNullableWithAggregatesFilter;
+  bytes?: Identity<BytesNullableWithAggregatesFilter>;
 
   @Field(() => DecimalWithAggregatesFilter, { nullable: true })
   @Type(() => DecimalWithAggregatesFilter)
-  decimal?: DecimalWithAggregatesFilter;
+  decimal?: Identity<DecimalWithAggregatesFilter>;
 
   @Field(() => DecimalNullableListFilter, { nullable: true })
   @Type(() => DecimalNullableListFilter)
-  decimals?: DecimalNullableListFilter;
+  decimals?: Identity<DecimalNullableListFilter>;
 
   @Field(() => BigIntNullableWithAggregatesFilter, { nullable: true })
-  bigInt?: BigIntNullableWithAggregatesFilter;
+  bigInt?: Identity<BigIntNullableWithAggregatesFilter>;
 
   @Field(() => JsonNullableWithAggregatesFilter, { nullable: true })
-  json?: JsonNullableWithAggregatesFilter;
+  json?: Identity<JsonNullableWithAggregatesFilter>;
 
   @Field(() => StringNullableListFilter, { nullable: true })
-  friends?: StringNullableListFilter;
+  friends?: Identity<StringNullableListFilter>;
 }

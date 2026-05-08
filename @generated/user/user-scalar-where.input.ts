@@ -1,10 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input.ts';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input.ts';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input.ts';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input.ts';
 import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input.ts';
 
@@ -23,33 +25,33 @@ export class UserScalarWhereInput {
   NOT?: Array<UserScalarWhereInput>;
 
   @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+  id?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  email?: StringFilter;
+  email?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  name?: StringFilter;
+  name?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  password?: StringFilter;
+  password?: Identity<StringFilter>;
 
   @Field(() => StringNullableFilter, { nullable: true })
-  bio?: StringNullableFilter;
+  bio?: Identity<StringNullableFilter>;
 
   @Field(() => StringNullableFilter, { nullable: true })
-  image?: StringNullableFilter;
+  image?: Identity<StringNullableFilter>;
 
   @Field(() => IntNullableFilter, { nullable: true })
-  countComments?: IntNullableFilter;
+  countComments?: Identity<IntNullableFilter>;
 
   @Field(() => FloatNullableFilter, { nullable: true })
-  rating?: FloatNullableFilter;
+  rating?: Identity<FloatNullableFilter>;
 
   @Field(() => DecimalNullableFilter, { nullable: true })
   @Type(() => DecimalNullableFilter)
-  money?: DecimalNullableFilter;
+  money?: Identity<DecimalNullableFilter>;
 
   @Field(() => EnumRoleNullableFilter, { nullable: true })
-  role?: EnumRoleNullableFilter;
+  role?: Identity<EnumRoleNullableFilter>;
 }

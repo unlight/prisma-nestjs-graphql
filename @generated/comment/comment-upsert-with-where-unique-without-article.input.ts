@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { CommentUpdateWithoutArticleInput } from './comment-update-without-article.input.ts';
 import { CommentCreateWithoutArticleInput } from './comment-create-without-article.input.ts';
 
@@ -14,9 +15,9 @@ export class CommentUpsertWithWhereUniqueWithoutArticleInput {
 
   @Field(() => CommentUpdateWithoutArticleInput, { nullable: false })
   @Type(() => CommentUpdateWithoutArticleInput)
-  update!: CommentUpdateWithoutArticleInput;
+  update!: Identity<CommentUpdateWithoutArticleInput>;
 
   @Field(() => CommentCreateWithoutArticleInput, { nullable: false })
   @Type(() => CommentCreateWithoutArticleInput)
-  create!: CommentCreateWithoutArticleInput;
+  create!: Identity<CommentCreateWithoutArticleInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { ArticleCountOrderByAggregateInput } from './article-count-order-by-aggregate.input.ts';
 import { ArticleAvgOrderByAggregateInput } from './article-avg-order-by-aggregate.input.ts';
@@ -38,20 +39,20 @@ export class ArticleOrderByWithAggregationInput {
   authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  active?: SortOrderInput;
+  active?: Identity<SortOrderInput>;
 
   @Field(() => ArticleCountOrderByAggregateInput, { nullable: true })
-  _count?: ArticleCountOrderByAggregateInput;
+  _count?: Identity<ArticleCountOrderByAggregateInput>;
 
   @Field(() => ArticleAvgOrderByAggregateInput, { nullable: true })
-  _avg?: ArticleAvgOrderByAggregateInput;
+  _avg?: Identity<ArticleAvgOrderByAggregateInput>;
 
   @Field(() => ArticleMaxOrderByAggregateInput, { nullable: true })
-  _max?: ArticleMaxOrderByAggregateInput;
+  _max?: Identity<ArticleMaxOrderByAggregateInput>;
 
   @Field(() => ArticleMinOrderByAggregateInput, { nullable: true })
-  _min?: ArticleMinOrderByAggregateInput;
+  _min?: Identity<ArticleMinOrderByAggregateInput>;
 
   @Field(() => ArticleSumOrderByAggregateInput, { nullable: true })
-  _sum?: ArticleSumOrderByAggregateInput;
+  _sum?: Identity<ArticleSumOrderByAggregateInput>;
 }

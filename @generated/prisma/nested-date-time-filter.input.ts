@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 
 @InputType()
 export class NestedDateTimeFilter {
@@ -25,5 +26,5 @@ export class NestedDateTimeFilter {
   gte?: Date | string;
 
   @Field(() => NestedDateTimeFilter, { nullable: true })
-  not?: NestedDateTimeFilter;
+  not?: Identity<NestedDateTimeFilter>;
 }

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ArticleUpdateWithoutFavoritedByInput } from './article-update-without-favorited-by.input.ts';
 import { ArticleCreateWithoutFavoritedByInput } from './article-create-without-favorited-by.input.ts';
 
@@ -14,9 +15,9 @@ export class ArticleUpsertWithWhereUniqueWithoutFavoritedByInput {
 
   @Field(() => ArticleUpdateWithoutFavoritedByInput, { nullable: false })
   @Type(() => ArticleUpdateWithoutFavoritedByInput)
-  update!: ArticleUpdateWithoutFavoritedByInput;
+  update!: Identity<ArticleUpdateWithoutFavoritedByInput>;
 
   @Field(() => ArticleCreateWithoutFavoritedByInput, { nullable: false })
   @Type(() => ArticleCreateWithoutFavoritedByInput)
-  create!: ArticleCreateWithoutFavoritedByInput;
+  create!: Identity<ArticleCreateWithoutFavoritedByInput>;
 }

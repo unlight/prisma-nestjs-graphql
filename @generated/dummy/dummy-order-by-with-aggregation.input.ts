@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { DummyCountOrderByAggregateInput } from './dummy-count-order-by-aggregate.input.ts';
 import { Type } from 'class-transformer';
@@ -15,16 +16,16 @@ export class DummyOrderByWithAggregationInput {
   id?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  date?: SortOrderInput;
+  date?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  int?: SortOrderInput;
+  int?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  float?: SortOrderInput;
+  float?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bytes?: SortOrderInput;
+  bytes?: Identity<SortOrderInput>;
 
   @Field(() => SortOrder, { nullable: true })
   decimal?: `${SortOrder}`;
@@ -33,31 +34,31 @@ export class DummyOrderByWithAggregationInput {
   decimals?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bigInt?: SortOrderInput;
+  bigInt?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  json?: SortOrderInput;
+  json?: Identity<SortOrderInput>;
 
   @Field(() => SortOrder, { nullable: true })
   friends?: `${SortOrder}`;
 
   @Field(() => DummyCountOrderByAggregateInput, { nullable: true })
   @Type(() => DummyCountOrderByAggregateInput)
-  _count?: DummyCountOrderByAggregateInput;
+  _count?: Identity<DummyCountOrderByAggregateInput>;
 
   @Field(() => DummyAvgOrderByAggregateInput, { nullable: true })
   @Type(() => DummyAvgOrderByAggregateInput)
-  _avg?: DummyAvgOrderByAggregateInput;
+  _avg?: Identity<DummyAvgOrderByAggregateInput>;
 
   @Field(() => DummyMaxOrderByAggregateInput, { nullable: true })
   @Type(() => DummyMaxOrderByAggregateInput)
-  _max?: DummyMaxOrderByAggregateInput;
+  _max?: Identity<DummyMaxOrderByAggregateInput>;
 
   @Field(() => DummyMinOrderByAggregateInput, { nullable: true })
   @Type(() => DummyMinOrderByAggregateInput)
-  _min?: DummyMinOrderByAggregateInput;
+  _min?: Identity<DummyMinOrderByAggregateInput>;
 
   @Field(() => DummySumOrderByAggregateInput, { nullable: true })
   @Type(() => DummySumOrderByAggregateInput)
-  _sum?: DummySumOrderByAggregateInput;
+  _sum?: Identity<DummySumOrderByAggregateInput>;
 }

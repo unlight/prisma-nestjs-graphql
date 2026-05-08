@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { UserWhereInput } from './user-where.input.ts';
 import { Type } from 'class-transformer';
 import { UserOrderByWithRelationInput } from './user-order-by-with-relation.input.ts';
@@ -12,7 +13,7 @@ import { UserScalarFieldEnum } from './user-scalar-field.enum.ts';
 export class FindManyUserArgs {
   @Field(() => UserWhereInput, { nullable: true })
   @Type(() => UserWhereInput)
-  where?: UserWhereInput;
+  where?: Identity<UserWhereInput>;
 
   @Field(() => [UserOrderByWithRelationInput], { nullable: true })
   @Type(() => UserOrderByWithRelationInput)

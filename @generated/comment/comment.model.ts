@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { User } from '../user/user.model.ts';
+import type { Identity } from 'identity-type';
 import { Article } from '../article/article.model.ts';
 
 @ObjectType()
@@ -25,8 +26,8 @@ export class Comment {
   articleId!: string | null;
 
   @Field(() => User, { nullable: false })
-  author?: User;
+  author?: Identity<User>;
 
   @Field(() => Article, { nullable: true })
-  article?: Article | null;
+  article?: Identity<Article> | null;
 }

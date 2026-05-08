@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input.ts';
 
 @InputType()
@@ -27,5 +28,5 @@ export class FloatNullableFilter {
   gte?: number;
 
   @Field(() => NestedFloatNullableFilter, { nullable: true })
-  not?: NestedFloatNullableFilter;
+  not?: Identity<NestedFloatNullableFilter>;
 }

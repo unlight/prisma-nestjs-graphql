@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { UserCreateNestedOneWithoutCommentsInput } from '../user/user-create-nested-one-without-comments.input.ts';
 import { Type } from 'class-transformer';
 
@@ -19,5 +20,5 @@ export class CommentCreateWithoutArticleInput {
 
   @Field(() => UserCreateNestedOneWithoutCommentsInput, { nullable: false })
   @Type(() => UserCreateNestedOneWithoutCommentsInput)
-  author!: UserCreateNestedOneWithoutCommentsInput;
+  author!: Identity<UserCreateNestedOneWithoutCommentsInput>;
 }

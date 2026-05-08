@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ArticleUpdateWithoutTagsInput } from './article-update-without-tags.input.ts';
 import { ArticleCreateWithoutTagsInput } from './article-create-without-tags.input.ts';
 
@@ -14,9 +15,9 @@ export class ArticleUpsertWithWhereUniqueWithoutTagsInput {
 
   @Field(() => ArticleUpdateWithoutTagsInput, { nullable: false })
   @Type(() => ArticleUpdateWithoutTagsInput)
-  update!: ArticleUpdateWithoutTagsInput;
+  update!: Identity<ArticleUpdateWithoutTagsInput>;
 
   @Field(() => ArticleCreateWithoutTagsInput, { nullable: false })
   @Type(() => ArticleCreateWithoutTagsInput)
-  create!: ArticleCreateWithoutTagsInput;
+  create!: Identity<ArticleCreateWithoutTagsInput>;
 }

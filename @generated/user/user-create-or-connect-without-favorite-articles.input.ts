@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { UserCreateWithoutFavoriteArticlesInput } from './user-create-without-favorite-articles.input.ts';
 
 @InputType()
@@ -16,5 +17,5 @@ export class UserCreateOrConnectWithoutFavoriteArticlesInput {
 
   @Field(() => UserCreateWithoutFavoriteArticlesInput, { nullable: false })
   @Type(() => UserCreateWithoutFavoriteArticlesInput)
-  create!: UserCreateWithoutFavoriteArticlesInput;
+  create!: Identity<UserCreateWithoutFavoriteArticlesInput>;
 }

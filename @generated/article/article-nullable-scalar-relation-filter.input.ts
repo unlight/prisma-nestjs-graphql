@@ -1,12 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleWhereInput } from './article-where.input.ts';
 
 @InputType()
 export class ArticleNullableScalarRelationFilter {
   @Field(() => ArticleWhereInput, { nullable: true })
-  is?: ArticleWhereInput;
+  is?: Identity<ArticleWhereInput>;
 
   @Field(() => ArticleWhereInput, { nullable: true })
-  isNot?: ArticleWhereInput;
+  isNot?: Identity<ArticleWhereInput>;
 }

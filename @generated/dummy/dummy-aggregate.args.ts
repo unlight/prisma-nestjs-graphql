@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { DummyWhereInput } from './dummy-where.input.ts';
 import { Type } from 'class-transformer';
 import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input.ts';
@@ -16,7 +17,7 @@ import { DummyMaxAggregateInput } from './dummy-max-aggregate.input.ts';
 export class DummyAggregateArgs {
   @Field(() => DummyWhereInput, { nullable: true })
   @Type(() => DummyWhereInput)
-  where?: DummyWhereInput;
+  where?: Identity<DummyWhereInput>;
 
   @Field(() => [DummyOrderByWithRelationInput], { nullable: true })
   @Type(() => DummyOrderByWithRelationInput)
@@ -34,21 +35,21 @@ export class DummyAggregateArgs {
 
   @Field(() => DummyCountAggregateInput, { nullable: true })
   @Type(() => DummyCountAggregateInput)
-  _count?: DummyCountAggregateInput;
+  _count?: Identity<DummyCountAggregateInput>;
 
   @Field(() => DummyAvgAggregateInput, { nullable: true })
   @Type(() => DummyAvgAggregateInput)
-  _avg?: DummyAvgAggregateInput;
+  _avg?: Identity<DummyAvgAggregateInput>;
 
   @Field(() => DummySumAggregateInput, { nullable: true })
   @Type(() => DummySumAggregateInput)
-  _sum?: DummySumAggregateInput;
+  _sum?: Identity<DummySumAggregateInput>;
 
   @Field(() => DummyMinAggregateInput, { nullable: true })
   @Type(() => DummyMinAggregateInput)
-  _min?: DummyMinAggregateInput;
+  _min?: Identity<DummyMinAggregateInput>;
 
   @Field(() => DummyMaxAggregateInput, { nullable: true })
   @Type(() => DummyMaxAggregateInput)
-  _max?: DummyMaxAggregateInput;
+  _max?: Identity<DummyMaxAggregateInput>;
 }

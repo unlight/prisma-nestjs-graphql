@@ -1,9 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input.ts';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input.ts';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input.ts';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input.ts';
 import { Type } from 'class-transformer';
 import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input.ts';
@@ -16,55 +18,55 @@ import { ProfileUpdateOneWithoutUserNestedInput } from '../profile/profile-updat
 @InputType()
 export class UserUpdateWithoutFollowingInput {
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: StringFieldUpdateOperationsInput;
+  id?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  email?: StringFieldUpdateOperationsInput;
+  email?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: StringFieldUpdateOperationsInput;
+  name?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  password?: StringFieldUpdateOperationsInput;
+  password?: Identity<StringFieldUpdateOperationsInput>;
 
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  bio?: NullableStringFieldUpdateOperationsInput;
+  bio?: Identity<NullableStringFieldUpdateOperationsInput>;
 
   @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  image?: NullableStringFieldUpdateOperationsInput;
+  image?: Identity<NullableStringFieldUpdateOperationsInput>;
 
   @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  countComments?: NullableIntFieldUpdateOperationsInput;
+  countComments?: Identity<NullableIntFieldUpdateOperationsInput>;
 
   @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  rating?: NullableFloatFieldUpdateOperationsInput;
+  rating?: Identity<NullableFloatFieldUpdateOperationsInput>;
 
   @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
   @Type(() => NullableDecimalFieldUpdateOperationsInput)
-  money?: NullableDecimalFieldUpdateOperationsInput;
+  money?: Identity<NullableDecimalFieldUpdateOperationsInput>;
 
   @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-  role?: NullableEnumRoleFieldUpdateOperationsInput;
+  role?: Identity<NullableEnumRoleFieldUpdateOperationsInput>;
 
   @Field(() => UserUpdateManyWithoutFollowingNestedInput, { nullable: true })
   @Type(() => UserUpdateManyWithoutFollowingNestedInput)
-  followers?: UserUpdateManyWithoutFollowingNestedInput;
+  followers?: Identity<UserUpdateManyWithoutFollowingNestedInput>;
 
   @Field(() => ArticleUpdateManyWithoutFavoritedByNestedInput, {
     nullable: true,
   })
   @Type(() => ArticleUpdateManyWithoutFavoritedByNestedInput)
-  favoriteArticles?: ArticleUpdateManyWithoutFavoritedByNestedInput;
+  favoriteArticles?: Identity<ArticleUpdateManyWithoutFavoritedByNestedInput>;
 
   @Field(() => ArticleUpdateManyWithoutAuthorNestedInput, { nullable: true })
   @Type(() => ArticleUpdateManyWithoutAuthorNestedInput)
-  articles?: ArticleUpdateManyWithoutAuthorNestedInput;
+  articles?: Identity<ArticleUpdateManyWithoutAuthorNestedInput>;
 
   @Field(() => CommentUpdateManyWithoutAuthorNestedInput, { nullable: true })
   @Type(() => CommentUpdateManyWithoutAuthorNestedInput)
-  comments?: CommentUpdateManyWithoutAuthorNestedInput;
+  comments?: Identity<CommentUpdateManyWithoutAuthorNestedInput>;
 
   @Field(() => ProfileUpdateOneWithoutUserNestedInput, { nullable: true })
   @Type(() => ProfileUpdateOneWithoutUserNestedInput)
-  profile?: ProfileUpdateOneWithoutUserNestedInput;
+  profile?: Identity<ProfileUpdateOneWithoutUserNestedInput>;
 }

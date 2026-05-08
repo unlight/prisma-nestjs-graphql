@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Tag } from '../tag/tag.model.ts';
 import { User } from '../user/user.model.ts';
+import type { Identity } from 'identity-type';
 import { Comment } from '../comment/comment.model.ts';
 import { ArticleCount } from './article-count.output.ts';
 
@@ -43,7 +44,7 @@ export class Article {
   tags?: Array<Tag>;
 
   @Field(() => User, { nullable: false })
-  author?: User;
+  author?: Identity<User>;
 
   @Field(() => [User], { nullable: true })
   favoritedBy?: Array<User>;
@@ -52,5 +53,5 @@ export class Article {
   comments?: Array<Comment>;
 
   @Field(() => ArticleCount, { nullable: false })
-  _count?: ArticleCount;
+  _count?: Identity<ArticleCount>;
 }

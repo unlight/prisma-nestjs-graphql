@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { Type } from 'class-transformer';
 import { UserOrderByRelationAggregateInput } from './user-order-by-relation-aggregate.input.ts';
@@ -23,45 +24,45 @@ export class UserOrderByWithRelationInput {
   password?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bio?: SortOrderInput;
+  bio?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  image?: SortOrderInput;
+  image?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  countComments?: SortOrderInput;
+  countComments?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  rating?: SortOrderInput;
+  rating?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
   @Type(() => SortOrderInput)
-  money?: SortOrderInput;
+  money?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  role?: SortOrderInput;
+  role?: Identity<SortOrderInput>;
 
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)
-  following?: UserOrderByRelationAggregateInput;
+  following?: Identity<UserOrderByRelationAggregateInput>;
 
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)
-  followers?: UserOrderByRelationAggregateInput;
+  followers?: Identity<UserOrderByRelationAggregateInput>;
 
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
   @Type(() => ArticleOrderByRelationAggregateInput)
-  favoriteArticles?: ArticleOrderByRelationAggregateInput;
+  favoriteArticles?: Identity<ArticleOrderByRelationAggregateInput>;
 
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
   @Type(() => ArticleOrderByRelationAggregateInput)
-  articles?: ArticleOrderByRelationAggregateInput;
+  articles?: Identity<ArticleOrderByRelationAggregateInput>;
 
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
   @Type(() => CommentOrderByRelationAggregateInput)
-  comments?: CommentOrderByRelationAggregateInput;
+  comments?: Identity<CommentOrderByRelationAggregateInput>;
 
   @Field(() => ProfileOrderByWithRelationInput, { nullable: true })
   @Type(() => ProfileOrderByWithRelationInput)
-  profile?: ProfileOrderByWithRelationInput;
+  profile?: Identity<ProfileOrderByWithRelationInput>;
 }

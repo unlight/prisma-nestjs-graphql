@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { ProfileCountOrderByAggregateInput } from './profile-count-order-by-aggregate.input.ts';
 import { ProfileAvgOrderByAggregateInput } from './profile-avg-order-by-aggregate.input.ts';
@@ -17,20 +18,20 @@ export class ProfileOrderByWithAggregationInput {
   userId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  dummy?: SortOrderInput;
+  dummy?: Identity<SortOrderInput>;
 
   @Field(() => ProfileCountOrderByAggregateInput, { nullable: true })
-  _count?: ProfileCountOrderByAggregateInput;
+  _count?: Identity<ProfileCountOrderByAggregateInput>;
 
   @Field(() => ProfileAvgOrderByAggregateInput, { nullable: true })
-  _avg?: ProfileAvgOrderByAggregateInput;
+  _avg?: Identity<ProfileAvgOrderByAggregateInput>;
 
   @Field(() => ProfileMaxOrderByAggregateInput, { nullable: true })
-  _max?: ProfileMaxOrderByAggregateInput;
+  _max?: Identity<ProfileMaxOrderByAggregateInput>;
 
   @Field(() => ProfileMinOrderByAggregateInput, { nullable: true })
-  _min?: ProfileMinOrderByAggregateInput;
+  _min?: Identity<ProfileMinOrderByAggregateInput>;
 
   @Field(() => ProfileSumOrderByAggregateInput, { nullable: true })
-  _sum?: ProfileSumOrderByAggregateInput;
+  _sum?: Identity<ProfileSumOrderByAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { TagOrderByRelationAggregateInput } from '../tag/tag-order-by-relation-aggregate.input.ts';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input.ts';
@@ -38,20 +39,20 @@ export class ArticleOrderByWithRelationInput {
   authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  active?: SortOrderInput;
+  active?: Identity<SortOrderInput>;
 
   @Field(() => TagOrderByRelationAggregateInput, { nullable: true })
-  tags?: TagOrderByRelationAggregateInput;
+  tags?: Identity<TagOrderByRelationAggregateInput>;
 
   @Field(() => UserOrderByWithRelationInput, { nullable: true })
   @Type(() => UserOrderByWithRelationInput)
-  author?: UserOrderByWithRelationInput;
+  author?: Identity<UserOrderByWithRelationInput>;
 
   @Field(() => UserOrderByRelationAggregateInput, { nullable: true })
   @Type(() => UserOrderByRelationAggregateInput)
-  favoritedBy?: UserOrderByRelationAggregateInput;
+  favoritedBy?: Identity<UserOrderByRelationAggregateInput>;
 
   @Field(() => CommentOrderByRelationAggregateInput, { nullable: true })
   @Type(() => CommentOrderByRelationAggregateInput)
-  comments?: CommentOrderByRelationAggregateInput;
+  comments?: Identity<CommentOrderByRelationAggregateInput>;
 }

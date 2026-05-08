@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { ArticleOrderByRelationAggregateInput } from '../article/article-order-by-relation-aggregate.input.ts';
 import { Type } from 'class-transformer';
 
@@ -14,5 +15,5 @@ export class TagOrderByWithRelationInput {
 
   @Field(() => ArticleOrderByRelationAggregateInput, { nullable: true })
   @Type(() => ArticleOrderByRelationAggregateInput)
-  articles?: ArticleOrderByRelationAggregateInput;
+  articles?: Identity<ArticleOrderByRelationAggregateInput>;
 }

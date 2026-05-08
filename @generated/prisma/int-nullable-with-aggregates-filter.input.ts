@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedIntNullableWithAggregatesFilter } from './nested-int-nullable-with-aggregates-filter.input.ts';
 import { NestedIntNullableFilter } from './nested-int-nullable-filter.input.ts';
 import { NestedFloatNullableFilter } from './nested-float-nullable-filter.input.ts';
@@ -29,20 +30,20 @@ export class IntNullableWithAggregatesFilter {
   gte?: number;
 
   @Field(() => NestedIntNullableWithAggregatesFilter, { nullable: true })
-  not?: NestedIntNullableWithAggregatesFilter;
+  not?: Identity<NestedIntNullableWithAggregatesFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _count?: NestedIntNullableFilter;
+  _count?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedFloatNullableFilter, { nullable: true })
-  _avg?: NestedFloatNullableFilter;
+  _avg?: Identity<NestedFloatNullableFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _sum?: NestedIntNullableFilter;
+  _sum?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _min?: NestedIntNullableFilter;
+  _min?: Identity<NestedIntNullableFilter>;
 
   @Field(() => NestedIntNullableFilter, { nullable: true })
-  _max?: NestedIntNullableFilter;
+  _max?: Identity<NestedIntNullableFilter>;
 }

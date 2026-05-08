@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { Type } from 'class-transformer';
 import { UserCountOrderByAggregateInput } from './user-count-order-by-aggregate.input.ts';
@@ -24,41 +25,41 @@ export class UserOrderByWithAggregationInput {
   password?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  bio?: SortOrderInput;
+  bio?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  image?: SortOrderInput;
+  image?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  countComments?: SortOrderInput;
+  countComments?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  rating?: SortOrderInput;
+  rating?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
   @Type(() => SortOrderInput)
-  money?: SortOrderInput;
+  money?: Identity<SortOrderInput>;
 
   @Field(() => SortOrderInput, { nullable: true })
-  role?: SortOrderInput;
+  role?: Identity<SortOrderInput>;
 
   @Field(() => UserCountOrderByAggregateInput, { nullable: true })
   @Type(() => UserCountOrderByAggregateInput)
-  _count?: UserCountOrderByAggregateInput;
+  _count?: Identity<UserCountOrderByAggregateInput>;
 
   @Field(() => UserAvgOrderByAggregateInput, { nullable: true })
   @Type(() => UserAvgOrderByAggregateInput)
-  _avg?: UserAvgOrderByAggregateInput;
+  _avg?: Identity<UserAvgOrderByAggregateInput>;
 
   @Field(() => UserMaxOrderByAggregateInput, { nullable: true })
   @Type(() => UserMaxOrderByAggregateInput)
-  _max?: UserMaxOrderByAggregateInput;
+  _max?: Identity<UserMaxOrderByAggregateInput>;
 
   @Field(() => UserMinOrderByAggregateInput, { nullable: true })
   @Type(() => UserMinOrderByAggregateInput)
-  _min?: UserMinOrderByAggregateInput;
+  _min?: Identity<UserMinOrderByAggregateInput>;
 
   @Field(() => UserSumOrderByAggregateInput, { nullable: true })
   @Type(() => UserSumOrderByAggregateInput)
-  _sum?: UserSumOrderByAggregateInput;
+  _sum?: Identity<UserSumOrderByAggregateInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CommentWhereInput } from './comment-where.input.ts';
 import { Type } from 'class-transformer';
 import { CommentOrderByWithAggregationInput } from './comment-order-by-with-aggregation.input.ts';
@@ -14,7 +15,7 @@ import { CommentMaxAggregateInput } from './comment-max-aggregate.input.ts';
 export class CommentGroupByArgs {
   @Field(() => CommentWhereInput, { nullable: true })
   @Type(() => CommentWhereInput)
-  where?: CommentWhereInput;
+  where?: Identity<CommentWhereInput>;
 
   @Field(() => [CommentOrderByWithAggregationInput], { nullable: true })
   orderBy?: Array<CommentOrderByWithAggregationInput>;
@@ -23,7 +24,7 @@ export class CommentGroupByArgs {
   by!: Array<`${CommentScalarFieldEnum}`>;
 
   @Field(() => CommentScalarWhereWithAggregatesInput, { nullable: true })
-  having?: CommentScalarWhereWithAggregatesInput;
+  having?: Identity<CommentScalarWhereWithAggregatesInput>;
 
   @Field(() => Int, { nullable: true })
   take?: number;
@@ -32,11 +33,11 @@ export class CommentGroupByArgs {
   skip?: number;
 
   @Field(() => CommentCountAggregateInput, { nullable: true })
-  _count?: CommentCountAggregateInput;
+  _count?: Identity<CommentCountAggregateInput>;
 
   @Field(() => CommentMinAggregateInput, { nullable: true })
-  _min?: CommentMinAggregateInput;
+  _min?: Identity<CommentMinAggregateInput>;
 
   @Field(() => CommentMaxAggregateInput, { nullable: true })
-  _max?: CommentMaxAggregateInput;
+  _max?: Identity<CommentMaxAggregateInput>;
 }

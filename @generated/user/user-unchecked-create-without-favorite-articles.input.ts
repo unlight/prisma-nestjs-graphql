@@ -10,6 +10,7 @@ import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
 import { Role } from '../prisma/role.enum.ts';
+import type { Identity } from 'identity-type';
 import { UserUncheckedCreateNestedManyWithoutFollowersInput } from './user-unchecked-create-nested-many-without-followers.input.ts';
 import { UserUncheckedCreateNestedManyWithoutFollowingInput } from './user-unchecked-create-nested-many-without-following.input.ts';
 import { ArticleUncheckedCreateNestedManyWithoutAuthorInput } from '../article/article-unchecked-create-nested-many-without-author.input.ts';
@@ -56,29 +57,29 @@ export class UserUncheckedCreateWithoutFavoriteArticlesInput {
     nullable: true,
   })
   @Type(() => UserUncheckedCreateNestedManyWithoutFollowersInput)
-  following?: UserUncheckedCreateNestedManyWithoutFollowersInput;
+  following?: Identity<UserUncheckedCreateNestedManyWithoutFollowersInput>;
 
   @Field(() => UserUncheckedCreateNestedManyWithoutFollowingInput, {
     nullable: true,
   })
   @Type(() => UserUncheckedCreateNestedManyWithoutFollowingInput)
-  followers?: UserUncheckedCreateNestedManyWithoutFollowingInput;
+  followers?: Identity<UserUncheckedCreateNestedManyWithoutFollowingInput>;
 
   @Field(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput, {
     nullable: true,
   })
   @Type(() => ArticleUncheckedCreateNestedManyWithoutAuthorInput)
-  articles?: ArticleUncheckedCreateNestedManyWithoutAuthorInput;
+  articles?: Identity<ArticleUncheckedCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {
     nullable: true,
   })
   @Type(() => CommentUncheckedCreateNestedManyWithoutAuthorInput)
-  comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+  comments?: Identity<CommentUncheckedCreateNestedManyWithoutAuthorInput>;
 
   @Field(() => ProfileUncheckedCreateNestedOneWithoutUserInput, {
     nullable: true,
   })
   @Type(() => ProfileUncheckedCreateNestedOneWithoutUserInput)
-  profile?: ProfileUncheckedCreateNestedOneWithoutUserInput;
+  profile?: Identity<ProfileUncheckedCreateNestedOneWithoutUserInput>;
 }

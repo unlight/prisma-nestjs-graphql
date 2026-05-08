@@ -8,6 +8,7 @@ import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
 import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { DummyCreatedecimalsInput } from './dummy-createdecimals.input.ts';
 import { GraphQLJSON } from 'graphql-type-json';
 import { DummyCreatefriendsInput } from './dummy-createfriends.input.ts';
@@ -36,7 +37,7 @@ export class DummyCreateInput {
 
   @Field(() => DummyCreatedecimalsInput, { nullable: true })
   @Type(() => DummyCreatedecimalsInput)
-  decimals?: DummyCreatedecimalsInput;
+  decimals?: Identity<DummyCreatedecimalsInput>;
 
   @Field(() => String, { nullable: true })
   bigInt?: bigint | number;
@@ -46,5 +47,5 @@ export class DummyCreateInput {
 
   @Field(() => DummyCreatefriendsInput, { nullable: true })
   @Type(() => DummyCreatefriendsInput)
-  friends?: DummyCreatefriendsInput;
+  friends?: Identity<DummyCreatefriendsInput>;
 }

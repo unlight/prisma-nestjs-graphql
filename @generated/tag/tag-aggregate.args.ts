@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TagWhereInput } from './tag-where.input.ts';
 import { Type } from 'class-transformer';
 import { TagOrderByWithRelationInput } from './tag-order-by-with-relation.input.ts';
@@ -14,7 +15,7 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input.ts';
 export class TagAggregateArgs {
   @Field(() => TagWhereInput, { nullable: true })
   @Type(() => TagWhereInput)
-  where?: TagWhereInput;
+  where?: Identity<TagWhereInput>;
 
   @Field(() => [TagOrderByWithRelationInput], { nullable: true })
   orderBy?: Array<TagOrderByWithRelationInput>;
@@ -29,11 +30,11 @@ export class TagAggregateArgs {
   skip?: number;
 
   @Field(() => TagCountAggregateInput, { nullable: true })
-  _count?: TagCountAggregateInput;
+  _count?: Identity<TagCountAggregateInput>;
 
   @Field(() => TagMinAggregateInput, { nullable: true })
-  _min?: TagMinAggregateInput;
+  _min?: Identity<TagMinAggregateInput>;
 
   @Field(() => TagMaxAggregateInput, { nullable: true })
-  _max?: TagMaxAggregateInput;
+  _max?: Identity<TagMaxAggregateInput>;
 }

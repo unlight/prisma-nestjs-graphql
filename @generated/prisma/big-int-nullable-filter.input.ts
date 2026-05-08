@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NestedBigIntNullableFilter } from './nested-big-int-nullable-filter.input.ts';
 
 @InputType()
@@ -26,5 +27,5 @@ export class BigIntNullableFilter {
   gte?: bigint | number;
 
   @Field(() => NestedBigIntNullableFilter, { nullable: true })
-  not?: NestedBigIntNullableFilter;
+  not?: Identity<NestedBigIntNullableFilter>;
 }

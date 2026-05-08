@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { UserWhereInput } from './user-where.input.ts';
 import { Type } from 'class-transformer';
 import { UserUpdateWithoutProfileInput } from './user-update-without-profile.input.ts';
@@ -8,9 +9,9 @@ import { UserUpdateWithoutProfileInput } from './user-update-without-profile.inp
 export class UserUpdateToOneWithWhereWithoutProfileInput {
   @Field(() => UserWhereInput, { nullable: true })
   @Type(() => UserWhereInput)
-  where?: UserWhereInput;
+  where?: Identity<UserWhereInput>;
 
   @Field(() => UserUpdateWithoutProfileInput, { nullable: false })
   @Type(() => UserUpdateWithoutProfileInput)
-  data!: UserUpdateWithoutProfileInput;
+  data!: Identity<UserUpdateWithoutProfileInput>;
 }

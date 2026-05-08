@@ -2,10 +2,12 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { DummyWhereInput } from './dummy-where.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input.ts';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input.ts';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input.ts';
 import { BytesNullableFilter } from '../prisma/bytes-nullable-filter.input.ts';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalFilter } from '../prisma/decimal-filter.input.ts';
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input.ts';
 import { BigIntNullableFilter } from '../prisma/big-int-nullable-filter.input.ts';
@@ -30,31 +32,31 @@ export class DummyWhereUniqueInput {
   NOT?: Array<DummyWhereInput>;
 
   @Field(() => DateTimeNullableFilter, { nullable: true })
-  date?: DateTimeNullableFilter;
+  date?: Identity<DateTimeNullableFilter>;
 
   @Field(() => IntNullableFilter, { nullable: true })
-  int?: IntNullableFilter;
+  int?: Identity<IntNullableFilter>;
 
   @Field(() => FloatNullableFilter, { nullable: true })
-  float?: FloatNullableFilter;
+  float?: Identity<FloatNullableFilter>;
 
   @Field(() => BytesNullableFilter, { nullable: true })
-  bytes?: BytesNullableFilter;
+  bytes?: Identity<BytesNullableFilter>;
 
   @Field(() => DecimalFilter, { nullable: true })
   @Type(() => DecimalFilter)
-  decimal?: DecimalFilter;
+  decimal?: Identity<DecimalFilter>;
 
   @Field(() => DecimalNullableListFilter, { nullable: true })
   @Type(() => DecimalNullableListFilter)
-  decimals?: DecimalNullableListFilter;
+  decimals?: Identity<DecimalNullableListFilter>;
 
   @Field(() => BigIntNullableFilter, { nullable: true })
-  bigInt?: BigIntNullableFilter;
+  bigInt?: Identity<BigIntNullableFilter>;
 
   @Field(() => JsonNullableFilter, { nullable: true })
-  json?: JsonNullableFilter;
+  json?: Identity<JsonNullableFilter>;
 
   @Field(() => StringNullableListFilter, { nullable: true })
-  friends?: StringNullableListFilter;
+  friends?: Identity<StringNullableListFilter>;
 }

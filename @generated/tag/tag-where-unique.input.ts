@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { TagWhereInput } from './tag-where.input.ts';
+import type { Identity } from 'identity-type';
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
 import { Type } from 'class-transformer';
 
@@ -23,5 +24,5 @@ export class TagWhereUniqueInput {
 
   @Field(() => ArticleListRelationFilter, { nullable: true })
   @Type(() => ArticleListRelationFilter)
-  articles?: ArticleListRelationFilter;
+  articles?: Identity<ArticleListRelationFilter>;
 }

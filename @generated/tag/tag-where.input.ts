@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input.ts';
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
 import { Type } from 'class-transformer';
@@ -16,12 +17,12 @@ export class TagWhereInput {
   NOT?: Array<TagWhereInput>;
 
   @Field(() => StringFilter, { nullable: true })
-  id?: StringFilter;
+  id?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  name?: StringFilter;
+  name?: Identity<StringFilter>;
 
   @Field(() => ArticleListRelationFilter, { nullable: true })
   @Type(() => ArticleListRelationFilter)
-  articles?: ArticleListRelationFilter;
+  articles?: Identity<ArticleListRelationFilter>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { DummyCreateInput } from './dummy-create.input.ts';
 import { Type } from 'class-transformer';
 
@@ -7,5 +8,5 @@ import { Type } from 'class-transformer';
 export class CreateOneDummyArgs {
   @Field(() => DummyCreateInput, { nullable: false })
   @Type(() => DummyCreateInput)
-  data!: DummyCreateInput;
+  data!: Identity<DummyCreateInput>;
 }

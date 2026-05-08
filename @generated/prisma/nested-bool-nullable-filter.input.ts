@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 
 @InputType()
 export class NestedBoolNullableFilter {
@@ -7,5 +8,5 @@ export class NestedBoolNullableFilter {
   equals?: boolean;
 
   @Field(() => NestedBoolNullableFilter, { nullable: true })
-  not?: NestedBoolNullableFilter;
+  not?: Identity<NestedBoolNullableFilter>;
 }

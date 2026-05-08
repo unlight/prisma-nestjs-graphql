@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input.ts';
 
 @InputType()
@@ -13,5 +14,5 @@ export class ArticleCreateOrConnectWithoutCommentsInput {
 
   @Field(() => ArticleCreateWithoutCommentsInput, { nullable: false })
   @Type(() => ArticleCreateWithoutCommentsInput)
-  create!: ArticleCreateWithoutCommentsInput;
+  create!: Identity<ArticleCreateWithoutCommentsInput>;
 }

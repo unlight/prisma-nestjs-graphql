@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ProfileWhereInput } from './profile-where.input.ts';
 import { Type } from 'class-transformer';
 import { ProfileOrderByWithRelationInput } from './profile-order-by-with-relation.input.ts';
@@ -12,7 +13,7 @@ import { ProfileScalarFieldEnum } from './profile-scalar-field.enum.ts';
 export class FindFirstProfileArgs {
   @Field(() => ProfileWhereInput, { nullable: true })
   @Type(() => ProfileWhereInput)
-  where?: ProfileWhereInput;
+  where?: Identity<ProfileWhereInput>;
 
   @Field(() => [ProfileOrderByWithRelationInput], { nullable: true })
   orderBy?: Array<ProfileOrderByWithRelationInput>;

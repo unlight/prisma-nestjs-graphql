@@ -10,6 +10,7 @@ import { Role } from '../prisma/role.enum.ts';
 import { Article } from '../article/article.model.ts';
 import { Comment } from '../comment/comment.model.ts';
 import { Profile } from '../profile/profile.model.ts';
+import type { Identity } from 'identity-type';
 import { UserCount } from './user-count.output.ts';
 
 /**
@@ -66,8 +67,8 @@ export class User {
   comments?: Array<Comment>;
 
   @Field(() => Profile, { nullable: true })
-  profile?: Profile | null;
+  profile?: Identity<Profile> | null;
 
   @Field(() => UserCount, { nullable: false })
-  _count?: UserCount;
+  _count?: Identity<UserCount>;
 }

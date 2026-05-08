@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum.ts';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input.ts';
 import { CommentCountOrderByAggregateInput } from './comment-count-order-by-aggregate.input.ts';
 import { CommentMaxOrderByAggregateInput } from './comment-max-order-by-aggregate.input.ts';
@@ -24,14 +25,14 @@ export class CommentOrderByWithAggregationInput {
   authorId?: `${SortOrder}`;
 
   @Field(() => SortOrderInput, { nullable: true })
-  articleId?: SortOrderInput;
+  articleId?: Identity<SortOrderInput>;
 
   @Field(() => CommentCountOrderByAggregateInput, { nullable: true })
-  _count?: CommentCountOrderByAggregateInput;
+  _count?: Identity<CommentCountOrderByAggregateInput>;
 
   @Field(() => CommentMaxOrderByAggregateInput, { nullable: true })
-  _max?: CommentMaxOrderByAggregateInput;
+  _max?: Identity<CommentMaxOrderByAggregateInput>;
 
   @Field(() => CommentMinOrderByAggregateInput, { nullable: true })
-  _min?: CommentMinOrderByAggregateInput;
+  _min?: Identity<CommentMinOrderByAggregateInput>;
 }

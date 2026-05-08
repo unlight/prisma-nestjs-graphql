@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { DummyWhereInput } from './dummy-where.input.ts';
 import { Type } from 'class-transformer';
 import { DummyOrderByWithRelationInput } from './dummy-order-by-with-relation.input.ts';
@@ -12,7 +13,7 @@ import { DummyScalarFieldEnum } from './dummy-scalar-field.enum.ts';
 export class FindManyDummyArgs {
   @Field(() => DummyWhereInput, { nullable: true })
   @Type(() => DummyWhereInput)
-  where?: DummyWhereInput;
+  where?: Identity<DummyWhereInput>;
 
   @Field(() => [DummyOrderByWithRelationInput], { nullable: true })
   @Type(() => DummyOrderByWithRelationInput)

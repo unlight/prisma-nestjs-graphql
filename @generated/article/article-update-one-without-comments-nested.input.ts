@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleCreateWithoutCommentsInput } from './article-create-without-comments.input.ts';
 import { Type } from 'class-transformer';
 import { ArticleCreateOrConnectWithoutCommentsInput } from './article-create-or-connect-without-comments.input.ts';
@@ -13,23 +14,23 @@ import { ArticleUpdateToOneWithWhereWithoutCommentsInput } from './article-updat
 export class ArticleUpdateOneWithoutCommentsNestedInput {
   @Field(() => ArticleCreateWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleCreateWithoutCommentsInput)
-  create?: ArticleCreateWithoutCommentsInput;
+  create?: Identity<ArticleCreateWithoutCommentsInput>;
 
   @Field(() => ArticleCreateOrConnectWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleCreateOrConnectWithoutCommentsInput)
-  connectOrCreate?: ArticleCreateOrConnectWithoutCommentsInput;
+  connectOrCreate?: Identity<ArticleCreateOrConnectWithoutCommentsInput>;
 
   @Field(() => ArticleUpsertWithoutCommentsInput, { nullable: true })
   @Type(() => ArticleUpsertWithoutCommentsInput)
-  upsert?: ArticleUpsertWithoutCommentsInput;
+  upsert?: Identity<ArticleUpsertWithoutCommentsInput>;
 
   @Field(() => ArticleWhereInput, { nullable: true })
   @Type(() => ArticleWhereInput)
-  disconnect?: ArticleWhereInput;
+  disconnect?: Identity<ArticleWhereInput>;
 
   @Field(() => ArticleWhereInput, { nullable: true })
   @Type(() => ArticleWhereInput)
-  delete?: ArticleWhereInput;
+  delete?: Identity<ArticleWhereInput>;
 
   @Field(() => ArticleWhereUniqueInput, { nullable: true })
   @Type(() => ArticleWhereUniqueInput)
@@ -39,5 +40,5 @@ export class ArticleUpdateOneWithoutCommentsNestedInput {
     nullable: true,
   })
   @Type(() => ArticleUpdateToOneWithWhereWithoutCommentsInput)
-  update?: ArticleUpdateToOneWithWhereWithoutCommentsInput;
+  update?: Identity<ArticleUpdateToOneWithWhereWithoutCommentsInput>;
 }

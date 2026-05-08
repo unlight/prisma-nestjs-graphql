@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleWhereInput } from './article-where.input.ts';
 import { Type } from 'class-transformer';
 import { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input.ts';
@@ -12,7 +13,7 @@ import { ArticleScalarFieldEnum } from './article-scalar-field.enum.ts';
 export class FindManyArticleArgs {
   @Field(() => ArticleWhereInput, { nullable: true })
   @Type(() => ArticleWhereInput)
-  where?: ArticleWhereInput;
+  where?: Identity<ArticleWhereInput>;
 
   @Field(() => [ArticleOrderByWithRelationInput], { nullable: true })
   orderBy?: Array<ArticleOrderByWithRelationInput>;

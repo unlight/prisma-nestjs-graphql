@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ArticleScalarWhereInput } from './article-scalar-where.input.ts';
 import { Type } from 'class-transformer';
 import { ArticleUpdateManyMutationInput } from './article-update-many-mutation.input.ts';
@@ -8,9 +9,9 @@ import { ArticleUpdateManyMutationInput } from './article-update-many-mutation.i
 export class ArticleUpdateManyWithWhereWithoutFavoritedByInput {
   @Field(() => ArticleScalarWhereInput, { nullable: false })
   @Type(() => ArticleScalarWhereInput)
-  where!: ArticleScalarWhereInput;
+  where!: Identity<ArticleScalarWhereInput>;
 
   @Field(() => ArticleUpdateManyMutationInput, { nullable: false })
   @Type(() => ArticleUpdateManyMutationInput)
-  data!: ArticleUpdateManyMutationInput;
+  data!: Identity<ArticleUpdateManyMutationInput>;
 }

@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { DummyWhereUniqueInput } from './dummy-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { DummyCreateInput } from './dummy-create.input.ts';
 import { DummyUpdateInput } from './dummy-update.input.ts';
 
@@ -14,9 +15,9 @@ export class UpsertOneDummyArgs {
 
   @Field(() => DummyCreateInput, { nullable: false })
   @Type(() => DummyCreateInput)
-  create!: DummyCreateInput;
+  create!: Identity<DummyCreateInput>;
 
   @Field(() => DummyUpdateInput, { nullable: false })
   @Type(() => DummyUpdateInput)
-  update!: DummyUpdateInput;
+  update!: Identity<DummyUpdateInput>;
 }

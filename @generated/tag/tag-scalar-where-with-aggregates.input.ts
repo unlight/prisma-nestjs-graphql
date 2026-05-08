@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 
 @InputType()
@@ -14,8 +15,8 @@ export class TagScalarWhereWithAggregatesInput {
   NOT?: Array<TagScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+  id?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  name?: StringWithAggregatesFilter;
+  name?: Identity<StringWithAggregatesFilter>;
 }

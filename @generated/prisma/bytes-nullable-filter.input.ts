@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
+import type { Identity } from 'identity-type';
 import { NestedBytesNullableFilter } from './nested-bytes-nullable-filter.input.ts';
 
 @InputType()
@@ -15,5 +16,5 @@ export class BytesNullableFilter {
   notIn?: Array<Prisma.Bytes>;
 
   @Field(() => NestedBytesNullableFilter, { nullable: true })
-  not?: NestedBytesNullableFilter;
+  not?: Identity<NestedBytesNullableFilter>;
 }

@@ -1,10 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input.ts';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input.ts';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input.ts';
+import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalNullableWithAggregatesFilter } from '../prisma/decimal-nullable-with-aggregates-filter.input.ts';
 import { EnumRoleNullableWithAggregatesFilter } from '../prisma/enum-role-nullable-with-aggregates-filter.input.ts';
 
@@ -23,33 +25,33 @@ export class UserScalarWhereWithAggregatesInput {
   NOT?: Array<UserScalarWhereWithAggregatesInput>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  id?: StringWithAggregatesFilter;
+  id?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  email?: StringWithAggregatesFilter;
+  email?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  name?: StringWithAggregatesFilter;
+  name?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringWithAggregatesFilter, { nullable: true })
-  password?: StringWithAggregatesFilter;
+  password?: Identity<StringWithAggregatesFilter>;
 
   @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  bio?: StringNullableWithAggregatesFilter;
+  bio?: Identity<StringNullableWithAggregatesFilter>;
 
   @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  image?: StringNullableWithAggregatesFilter;
+  image?: Identity<StringNullableWithAggregatesFilter>;
 
   @Field(() => IntNullableWithAggregatesFilter, { nullable: true })
-  countComments?: IntNullableWithAggregatesFilter;
+  countComments?: Identity<IntNullableWithAggregatesFilter>;
 
   @Field(() => FloatNullableWithAggregatesFilter, { nullable: true })
-  rating?: FloatNullableWithAggregatesFilter;
+  rating?: Identity<FloatNullableWithAggregatesFilter>;
 
   @Field(() => DecimalNullableWithAggregatesFilter, { nullable: true })
   @Type(() => DecimalNullableWithAggregatesFilter)
-  money?: DecimalNullableWithAggregatesFilter;
+  money?: Identity<DecimalNullableWithAggregatesFilter>;
 
   @Field(() => EnumRoleNullableWithAggregatesFilter, { nullable: true })
-  role?: EnumRoleNullableWithAggregatesFilter;
+  role?: Identity<EnumRoleNullableWithAggregatesFilter>;
 }

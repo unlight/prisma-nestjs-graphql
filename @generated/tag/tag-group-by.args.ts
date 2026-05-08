@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TagWhereInput } from './tag-where.input.ts';
 import { Type } from 'class-transformer';
 import { TagOrderByWithAggregationInput } from './tag-order-by-with-aggregation.input.ts';
@@ -14,7 +15,7 @@ import { TagMaxAggregateInput } from './tag-max-aggregate.input.ts';
 export class TagGroupByArgs {
   @Field(() => TagWhereInput, { nullable: true })
   @Type(() => TagWhereInput)
-  where?: TagWhereInput;
+  where?: Identity<TagWhereInput>;
 
   @Field(() => [TagOrderByWithAggregationInput], { nullable: true })
   orderBy?: Array<TagOrderByWithAggregationInput>;
@@ -23,7 +24,7 @@ export class TagGroupByArgs {
   by!: Array<`${TagScalarFieldEnum}`>;
 
   @Field(() => TagScalarWhereWithAggregatesInput, { nullable: true })
-  having?: TagScalarWhereWithAggregatesInput;
+  having?: Identity<TagScalarWhereWithAggregatesInput>;
 
   @Field(() => Int, { nullable: true })
   take?: number;
@@ -32,11 +33,11 @@ export class TagGroupByArgs {
   skip?: number;
 
   @Field(() => TagCountAggregateInput, { nullable: true })
-  _count?: TagCountAggregateInput;
+  _count?: Identity<TagCountAggregateInput>;
 
   @Field(() => TagMinAggregateInput, { nullable: true })
-  _min?: TagMinAggregateInput;
+  _min?: Identity<TagMinAggregateInput>;
 
   @Field(() => TagMaxAggregateInput, { nullable: true })
-  _max?: TagMaxAggregateInput;
+  _max?: Identity<TagMaxAggregateInput>;
 }

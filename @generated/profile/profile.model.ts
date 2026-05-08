@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { User } from '../user/user.model.ts';
+import type { Identity } from 'identity-type';
 
 @ObjectType()
 export class Profile {
@@ -15,5 +16,5 @@ export class Profile {
   dummy!: string | null;
 
   @Field(() => User, { nullable: false })
-  user?: User;
+  user?: Identity<User>;
 }

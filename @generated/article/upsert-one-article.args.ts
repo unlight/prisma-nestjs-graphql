@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { ArticleWhereUniqueInput } from './article-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ArticleCreateInput } from './article-create.input.ts';
 import { ArticleUpdateInput } from './article-update.input.ts';
 
@@ -14,9 +15,9 @@ export class UpsertOneArticleArgs {
 
   @Field(() => ArticleCreateInput, { nullable: false })
   @Type(() => ArticleCreateInput)
-  create!: ArticleCreateInput;
+  create!: Identity<ArticleCreateInput>;
 
   @Field(() => ArticleUpdateInput, { nullable: false })
   @Type(() => ArticleUpdateInput)
-  update!: ArticleUpdateInput;
+  update!: Identity<ArticleUpdateInput>;
 }

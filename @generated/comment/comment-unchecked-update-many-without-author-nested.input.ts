@@ -4,6 +4,7 @@ import { CommentCreateWithoutAuthorInput } from './comment-create-without-author
 import { Type } from 'class-transformer';
 import { CommentCreateOrConnectWithoutAuthorInput } from './comment-create-or-connect-without-author.input.ts';
 import { CommentUpsertWithWhereUniqueWithoutAuthorInput } from './comment-upsert-with-where-unique-without-author.input.ts';
+import type { Identity } from 'identity-type';
 import { CommentCreateManyAuthorInputEnvelope } from './comment-create-many-author-input-envelope.input.ts';
 import { Prisma } from '@prisma/client';
 import { CommentWhereUniqueInput } from './comment-where-unique.input.ts';
@@ -29,7 +30,7 @@ export class CommentUncheckedUpdateManyWithoutAuthorNestedInput {
 
   @Field(() => CommentCreateManyAuthorInputEnvelope, { nullable: true })
   @Type(() => CommentCreateManyAuthorInputEnvelope)
-  createMany?: CommentCreateManyAuthorInputEnvelope;
+  createMany?: Identity<CommentCreateManyAuthorInputEnvelope>;
 
   @Field(() => [CommentWhereUniqueInput], { nullable: true })
   @Type(() => CommentWhereUniqueInput)

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { CommentWhereInput } from './comment-where.input.ts';
+import type { Identity } from 'identity-type';
 import { DateTimeFilter } from '../prisma/date-time-filter.input.ts';
 import { StringFilter } from '../prisma/string-filter.input.ts';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
@@ -23,25 +24,25 @@ export class CommentWhereUniqueInput {
   NOT?: Array<CommentWhereInput>;
 
   @Field(() => DateTimeFilter, { nullable: true })
-  createdAt?: DateTimeFilter;
+  createdAt?: Identity<DateTimeFilter>;
 
   @Field(() => DateTimeFilter, { nullable: true })
-  updatedAt?: DateTimeFilter;
+  updatedAt?: Identity<DateTimeFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  body?: StringFilter;
+  body?: Identity<StringFilter>;
 
   @Field(() => StringFilter, { nullable: true })
-  authorId?: StringFilter;
+  authorId?: Identity<StringFilter>;
 
   @Field(() => StringNullableFilter, { nullable: true })
-  articleId?: StringNullableFilter;
+  articleId?: Identity<StringNullableFilter>;
 
   @Field(() => UserScalarRelationFilter, { nullable: true })
   @Type(() => UserScalarRelationFilter)
-  author?: UserScalarRelationFilter;
+  author?: Identity<UserScalarRelationFilter>;
 
   @Field(() => ArticleNullableScalarRelationFilter, { nullable: true })
   @Type(() => ArticleNullableScalarRelationFilter)
-  article?: ArticleNullableScalarRelationFilter;
+  article?: Identity<ArticleNullableScalarRelationFilter>;
 }

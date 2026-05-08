@@ -3,6 +3,7 @@ import { ArgsType } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 import { UserWhereUniqueInput } from './user-where-unique.input.ts';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { UserCreateInput } from './user-create.input.ts';
 import { UserUpdateInput } from './user-update.input.ts';
 
@@ -17,9 +18,9 @@ export class UpsertOneUserArgs {
 
   @Field(() => UserCreateInput, { nullable: false })
   @Type(() => UserCreateInput)
-  create!: UserCreateInput;
+  create!: Identity<UserCreateInput>;
 
   @Field(() => UserUpdateInput, { nullable: false })
   @Type(() => UserUpdateInput)
-  update!: UserUpdateInput;
+  update!: Identity<UserUpdateInput>;
 }
