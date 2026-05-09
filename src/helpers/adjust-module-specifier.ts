@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-const extensions = new Set(['.js', '.mjs', '.ts', '.mts']);
+const extensions = new Set(['.js', '.mjs', '.ts', '.mts', '.cts', '.cjs']);
 
 export function adjustModuleSpecifier(
   moduleSpecifier: string,
