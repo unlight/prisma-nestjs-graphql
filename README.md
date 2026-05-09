@@ -11,7 +11,7 @@ Generate object types, inputs, args, etc. from prisma schema file for usage with
 ## Install
 
 ```
-npm install --save-dev prisma-nestjs-graphql
+npm install --save-dev prisma-nestjs-graphql @prisma/generator-helper identity-type
 ```
 
 ## Usage
@@ -20,9 +20,9 @@ npm install --save-dev prisma-nestjs-graphql
 
 ```prisma
 generator nestgraphql {
-    provider = "node node_modules/prisma-nestjs-graphql"
-    // for yarn monorepos
-    // provider = "prisma-nestjs-graphql"
+    provider = "prisma-nestjs-graphql"
+    // Or explicit node execution
+    provider = "node node_modules/prisma-nestjs-graphql/bin.mjs"
     output = "../src/@generated"
 }
 ```
