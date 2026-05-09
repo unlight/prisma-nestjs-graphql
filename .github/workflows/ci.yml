@@ -35,7 +35,7 @@ jobs:
 
       - name: 'Test'
         run: |
-          npm run test:r -- --bail
+          npm run test:r -- --bail=1
 
       - name: 'Test Build'
         run: |
