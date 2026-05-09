@@ -1,3 +1,9 @@
+## [22.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v22.0.0...v22.0.1) (2026-05-09)
+
+### Bug Fixes
+
+* Update install documentation ([5d1b2f6](https://github.com/unlight/prisma-nestjs-graphql/commit/5d1b2f6e1e826b666d5c0ce84b385c527ab7ce5c))
+
 ## [22.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.2.0...v22.0.0) (2026-05-09)
 
 ### ⚠ BREAKING CHANGES
