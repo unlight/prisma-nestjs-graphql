@@ -1,3 +1,32 @@
+## [22.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.2.0...v22.0.0) (2026-05-09)
+
+### ⚠ BREAKING CHANGES
+
+* To use library in other generators
+```ts
+import { generate } from 'prisma-nestjs-graphql'
+```
+* Update to Prisma v7
+
+### Features
+
+* Option `importExtension` extension on import/export ([c168da0](https://github.com/unlight/prisma-nestjs-graphql/commit/c168da0aafb75940a17cb8e65e2c11005768e85f)), closes [#238](https://github.com/unlight/prisma-nestjs-graphql/issues/238)
+
+### Bug Fixes
+
+* Change path to generate submodule ([63c5a5d](https://github.com/unlight/prisma-nestjs-graphql/commit/63c5a5dd1623b13519036adce88443a0fa4b6280))
+* Changed binary type ([887aaa4](https://github.com/unlight/prisma-nestjs-graphql/commit/887aaa42e25022a678a5e9f6b60ab3088d540176))
+* Circular reference in ESM modules ([8bdb4f0](https://github.com/unlight/prisma-nestjs-graphql/commit/8bdb4f053e49ea28174fca687bb83e87e29759dc)), closes [#245](https://github.com/unlight/prisma-nestjs-graphql/issues/245)
+* Detect custom import types ([23c9e8d](https://github.com/unlight/prisma-nestjs-graphql/commit/23c9e8d3a6081b4e1a94dd31cecd869428576ebe))
+* Inherit stdio to show subprocess errors ([7777e53](https://github.com/unlight/prisma-nestjs-graphql/commit/7777e53b52aa3f41649f3ee105f70b843a329374))
+* Keep ts extension ([27f01da](https://github.com/unlight/prisma-nestjs-graphql/commit/27f01da2ab41fb686b1d25f2bb3fc28c3ca3ba24))
+* Removed deprecated option `reExportAll` ([991d6eb](https://github.com/unlight/prisma-nestjs-graphql/commit/991d6eb4a4fc70f6ff60a93ada13e70b0cdc6ac7))
+* Typescript errors ([74eff47](https://github.com/unlight/prisma-nestjs-graphql/commit/74eff4706fa321609c8214b15987ae8531eccee9))
+
+### Miscellaneous Chores
+
+* Update to Prisma v7 ([97d38d6](https://github.com/unlight/prisma-nestjs-graphql/commit/97d38d6fa2826baf8d415fc150a2628c97b4f092))
+
 ## [21.2.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v21.1.1...v21.2.0) (2025-05-11)
 
 ### Features
