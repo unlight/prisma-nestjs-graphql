@@ -9,7 +9,7 @@ import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate.ts';
 import { generateFileName } from '../helpers/generate-file-name.ts';
-import { castArray, uniq } from '../helpers/lodash.ts';
+import { castArray, uniq } from '../helpers/utils.ts';
 import type { DMMF, EventArguments, TAwaitEventEmitter } from '../types.ts';
 
 async function getGeneratorVersion() {

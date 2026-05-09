@@ -3,7 +3,7 @@ import outmatch from 'outmatch';
 import type { PlainObject } from 'simplytyped';
 
 import type { GeneratorConfiguration } from '../types.ts';
-import { isObject, merge, omit, trim } from './lodash.ts';
+import { isObject, merge, omit, trim } from './utils.ts';
 
 export type ObjectSetting = {
   /**

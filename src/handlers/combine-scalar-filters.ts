@@ -1,5 +1,5 @@
 import { BeforeGenerateField } from '../event-names.ts';
-import { cloneDeep, keyBy, remove } from '../helpers/lodash.ts';
+import { cloneDeep, keyBy, remove } from '../helpers/utils.ts';
 import type {
   EventArguments,
   InputType,

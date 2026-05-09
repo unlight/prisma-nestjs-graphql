@@ -1,4 +1,6 @@
+import { chain } from 'lodash';
 import {
+  ImportDeclarationStructure,
   ImportSpecifierStructure,
   Project,
   PropertyDeclaration,
@@ -34,10 +36,24 @@ export function testSourceFile(args: {
   const propertyMap = Object.fromEntries(propertyList.map(p => [p.name, p]));
 
   return {
+    getNamedImports: getNamedImportsFactory(importDeclarations),
     importDeclarations,
     propertyMap,
     sourceClass,
     sourceText: sourceFile.getText(),
+  };
+}
+
+function getNamedImportsFactory(
+  importDeclarations: ImportDeclarationStructure[],
+) {
+  return function getNamedImportsFactory(moduleSpecifier: string) {
+    return chain(importDeclarations)
+      .find({ moduleSpecifier })
+      .get('namedImports')
+      .castArray()
+      .compact()
+      .value() as ImportSpecifierStructure[];
   };
 }
 

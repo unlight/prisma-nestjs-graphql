@@ -1,7 +1,7 @@
 import pluralize from 'pluralize';
 import pupa from 'pupa';
 
-import { kebabCase } from './lodash.ts';
+import { kebabCase } from './utils.ts';
 
 export function generateFileName(args: {
   type: string;

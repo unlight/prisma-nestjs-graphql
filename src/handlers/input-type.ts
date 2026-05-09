@@ -10,8 +10,8 @@ import { getPropertyType } from '../helpers/get-property-type.ts';
 import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
-import { castArray, last } from '../helpers/lodash.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
+import { castArray, last } from '../helpers/utils.ts';
 import type { EventArguments, InputType } from '../types.ts';
 
 export function inputType(
@@ -74,6 +74,10 @@ export function inputType(
     inputType.name.includes(x.typeName),
   );
   const isWhereUnique = isWhereUniqueInputType(inputType.name);
+
+  // if (inputType.name.includes('DecimalNullableFilter')) {
+  //   console.log({ importDeclarations, location, property, propertyType });
+  // }
 
   for (const field of inputType.fields) {
     field.inputTypes = field.inputTypes.filter(
@@ -140,10 +144,6 @@ export function inputType(
       propertySettings,
       propertyType: property.type as string,
     });
-
-    // if (inputType.name.includes('UserListRelationFilter')) {
-    //   // console.log({ importDeclarations, location, property, propertyType });
-    // }
 
     // Get graphql type
     let graphqlType: string;

@@ -39,17 +39,23 @@ export class ImportDeclarationMap extends Map<
       return this.createFrom({ ...propertySettings });
     }
 
-    if (propertyType.includes('Decimal')) {
-      // TODO: Deprecated and should be removed
-      this.add('Decimal', '@prisma/client-runtime-utils');
-    } else if (propertyType.includes('Prisma.')) {
-      this.add('Prisma', config.prismaClientImport);
-    } else if (propertyType.includes('Identity<')) {
+    if (/\bIdentity</.test(propertyType)) {
       this.add('Identity', {
         isTypeOnly: true,
         moduleSpecifier: 'identity-type',
         namedImports: [{ name: 'Identity' }],
       });
+    }
+
+    if (
+      [/\bDecimal\b/, /\bArray<Decimal>\b/].some(re => re.test(propertyType))
+    ) {
+      // TODO: Deprecated and should be removed
+      this.add('Decimal', '@prisma/client-runtime-utils');
+    }
+
+    if (/\bPrisma\./.test(propertyType)) {
+      this.add('Prisma', config.prismaClientImport);
     }
   }
 

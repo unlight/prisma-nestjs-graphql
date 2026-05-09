@@ -22,3 +22,7 @@ export const {
   uniq,
   uniqWith,
 } = lodash;
+
+export function pascalCase(string: string) {
+  return startCase(camelCase(string)).replaceAll(' ', '');
+}

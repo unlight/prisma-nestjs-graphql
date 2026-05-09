@@ -1,5 +1,6 @@
+import { ok } from 'node:assert';
+
 import type { GeneratorOptions } from '@prisma/generator-helper';
-import { ok } from 'assert';
 import awaitEventEmitterModule from 'await-event-emitter';
 import { Project, QuoteKind } from 'ts-morph';
 
@@ -20,7 +21,7 @@ import { warning } from './handlers/warning.ts';
 import { createConfig } from './helpers/create-config.ts';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file.ts';
 import { createGetModelName } from './helpers/get-model-name.ts';
-import { mapKeys } from './helpers/lodash.ts';
+import { mapKeys } from './helpers/utils.ts';
 import type {
   Document,
   EventArguments,
@@ -114,7 +115,7 @@ export async function generate(
     outputFilePattern: config.outputFilePattern,
     project,
   });
-  const { datamodel, schema } = JSON.parse(JSON.stringify(dmmf)) as Document;
+  const { datamodel, schema } = structuredClone(dmmf) as Document;
   const removeTypes = new Set<string>();
   const eventArguments: EventArguments = {
     classTransformerTypeModels: new Set(),

@@ -1,11 +1,11 @@
 import { PrismaSelect } from '@paljs/plugins';
 import { PrismaClient } from '@prisma/client';
 import type { GraphQLResolveInfo } from 'graphql';
-import { Profile } from '../../@generated/profile/profile.model.ts';
+import { Profile } from '../../@generated/profile/index.ts';
 import { AggregateUser } from '../../@generated/user/aggregate-user.output.ts';
 import { CreateManyUserArgs } from '../../@generated/user/create-many-user.args.ts';
 import { CreateOneUserArgs } from '../../@generated/user/create-one-user.args.ts';
-import { User } from '../../@generated/user/user.model.ts';
+import { User } from '../../@generated/index.ts';
 import { UserAggregateArgs } from '../../@generated/user/user-aggregate.args.ts';
 import { UserCreateInput } from '../../@generated/user/user-create.input.ts';
 import { UserUpdateInput } from '../../@generated/user/user-update.input.ts';

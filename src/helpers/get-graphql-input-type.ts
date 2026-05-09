@@ -1,7 +1,7 @@
 import outmatch from 'outmatch';
 
 import type { DMMF } from '../types.ts';
-import { countBy, isEqual, uniqWith } from './lodash.ts';
+import { countBy, isEqual, uniqWith } from './utils.ts';
 
 /**
  * Find input type for graphql field decorator.

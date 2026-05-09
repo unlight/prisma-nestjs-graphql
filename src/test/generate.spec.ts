@@ -11,7 +11,7 @@ import {
 } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { trim } from '../helpers/lodash.ts';
+import { trim } from '../helpers/utils.ts';
 import type { EventArguments } from '../types.ts';
 import {
   getFieldDecoratorOptions,

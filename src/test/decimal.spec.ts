@@ -1,7 +1,7 @@
 import { Project } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFileLegacy } from './helpers.ts';
+import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 describe('decimal type', () => {
@@ -20,16 +20,23 @@ describe('decimal type', () => {
   });
 
   it('user model money', () => {
-    const s = testSourceFileLegacy({
+    const { getNamedImports, propertyMap } = testSourceFile({
       file: 'user.model.ts',
       project,
-      property: 'money',
     });
-    expect(s.property?.type).toEqual('Decimal');
-    expect(s.namedImports).toContainEqual({
-      name: 'Decimal',
-      specifier: '@prisma/client-runtime-utils',
+    expect(propertyMap.money.type).toEqual('Decimal');
+    const namedImport = getNamedImports('@prisma/client-runtime-utils').at(0);
+    expect(namedImport?.name).toEqual('Decimal');
+  });
+
+  it('DecimalFilter should import type identity', () => {
+    const { getNamedImports } = testSourceFile({
+      file: 'decimal-filter.input.ts',
+      project,
     });
+    const importType = getNamedImports('identity-type').at(0);
+
+    expect(importType).toBeDefined();
   });
 
   it('user model nullish', () => {
