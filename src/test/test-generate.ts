@@ -129,10 +129,7 @@ export async function testGenerate(args: TestGenerateArgs) {
 }
 
 async function prepareCachePath(): Promise<string> {
-  const base = process.env.CI
-    ? process.cwd()
-    : await import('temp-dir').then(x => x.default);
-
+  const base = await import('temp-dir').then(x => x.default);
   const result = `${base}/~prisma-test`;
 
   if (!fs.existsSync(result)) {
@@ -166,23 +163,10 @@ async function createGeneratorOptions(
   const hash = createHash(generatorVersion, schemaHeader, arguments);
   const prismaTestPath = await prepareCachePath();
 
-  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
-    fs.writeFileSync(
-      `${prismaTestPath}/package.json`,
-      JSON.stringify(
-        {
-          devDependencies: {
-            '@prisma/client': '7',
-          },
-        },
-        undefined,
-        2,
-      ),
-    );
-  }
+  createPackageJson(prismaTestPath);
 
   if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
-    execSync('yarn', { cwd: prismaTestPath, stdio: 'ignore' });
+    execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
   }
 
   const cacheFile = `${prismaTestPath}/options-${hash}.mjs`;
@@ -206,7 +190,7 @@ async function createGeneratorOptions(
 
     await new Promise((resolve, reject) => {
       const proc = exec(
-        `node node_modules/prisma/build/index.js generate --no-hints --schema=${schemaFile}`,
+        `npx prisma generate --no-hints --schema=${schemaFile}`,
       );
       if (!proc.stderr) {
         throw new Error('Generate error');
@@ -223,6 +207,29 @@ async function createGeneratorOptions(
   return import(cacheFile).then(x => x.default);
 }
 
+function createPackageJson(prismaTestPath: string) {
+  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
+    fs.writeFileSync(
+      `${prismaTestPath}/package.json`,
+      JSON.stringify(
+        {
+          devDependencies: {
+            '@prisma/client': '7',
+          },
+        },
+        undefined,
+        2,
+      ),
+    );
+  }
+}
+
 function createHash(...data: unknown[]) {
-  return crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');
+  const hashHex = crypto
+    .createHash('md5')
+    .update(JSON.stringify(data))
+    .digest('hex');
+  const hashBase36 = BigInt('0x' + hashHex).toString(36);
+
+  return hashBase36;
 }
