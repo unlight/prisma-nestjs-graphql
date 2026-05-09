@@ -788,12 +788,9 @@ import { generate } from 'prisma-nestjs-graphql';
 
 ## TODO
 
-- fin Use relation type here and fix
-- run example, get rid of node-dev
-- keyof typeof SortOrder -> `SortOrder`
+- Add logic to detect view models and skip generation of mutation inputs/args for them https://github.com/unlight/prisma-nestjs-graphql/issues/248
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'
-- 22.12 node require esm (update all deps to latest)
 
 ## License
 
