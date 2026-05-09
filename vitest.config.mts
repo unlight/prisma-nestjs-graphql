@@ -2,7 +2,8 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    fileParallelism: false,
+    fileParallelism: true,
+    maxWorkers: 2,
     hideSkippedTests: true,
     reporters: 'default',
     testTimeout: 60000,
