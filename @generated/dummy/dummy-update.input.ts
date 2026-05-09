@@ -6,7 +6,6 @@ import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-d
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input.ts';
 import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input.ts';
 import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input.ts';
-import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalFieldUpdateOperationsInput } from '../prisma/decimal-field-update-operations.input.ts';
 import { Type } from 'class-transformer';
 import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input.ts';

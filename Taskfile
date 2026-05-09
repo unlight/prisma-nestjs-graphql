@@ -22,6 +22,12 @@ buildMicrobundle6() {
 }
 
 compatibilty_check() {
+  if [ -n "$(git status --porcelain)" ]; then
+    echo "Repository is not clean. Commit, stash, or discard all changes before running compatibilty_check"
+    git status --short
+    exit 1
+  fi
+
   set -x
   rm -rf ./@generated && npm run prisma:g && npm run tscheck
 
@@ -36,9 +42,9 @@ compatibilty_check() {
   sed -i 's/combineScalarFilters *= true/combineScalarFilters = false/g' prisma/schema.prisma
 
   echo === Switching reExport ===
-  sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma
-  rm -rf ./@generated && npm run prisma:g && npm run tscheck
   sed -i 's/reExport *= All/reExport = None/g' prisma/schema.prisma
+  rm -rf ./@generated && npm run prisma:g && npm run tscheck
+  sed -i 's/reExport *= None/reExport = All/g' prisma/schema.prisma
 
   echo === Check emitSingle ===
   sed -i 's/emitSingle *= false/emitSingle = true/g' prisma/schema.prisma

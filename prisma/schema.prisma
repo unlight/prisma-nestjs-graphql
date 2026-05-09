@@ -13,7 +13,7 @@ generator nestgraphql {
   importExtension                       = ts
   noAtomicOperations                    = false
   combineScalarFilters                  = false
-  reExport                              = None
+  reExport                              = All
   emitSingle                            = false
   emitCompiled                          = false
   purgeOutput                           = false

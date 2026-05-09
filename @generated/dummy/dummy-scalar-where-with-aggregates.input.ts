@@ -7,7 +7,6 @@ import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullab
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input.ts';
 import { FloatNullableWithAggregatesFilter } from '../prisma/float-nullable-with-aggregates-filter.input.ts';
 import { BytesNullableWithAggregatesFilter } from '../prisma/bytes-nullable-with-aggregates-filter.input.ts';
-import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalWithAggregatesFilter } from '../prisma/decimal-with-aggregates-filter.input.ts';
 import { DecimalNullableListFilter } from '../prisma/decimal-nullable-list-filter.input.ts';
 import { BigIntNullableWithAggregatesFilter } from '../prisma/big-int-nullable-with-aggregates-filter.input.ts';

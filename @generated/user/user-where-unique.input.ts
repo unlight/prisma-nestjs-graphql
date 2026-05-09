@@ -10,7 +10,6 @@ import { StringFilter } from '../prisma/string-filter.input.ts';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input.ts';
 import { FloatNullableFilter } from '../prisma/float-nullable-filter.input.ts';
-import { Decimal } from '@prisma/client-runtime-utils';
 import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input.ts';
 import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input.ts';
 import { UserListRelationFilter } from './user-list-relation-filter.input.ts';
