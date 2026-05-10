@@ -803,4 +803,4 @@ import { generate } from 'prisma-nestjs-graphql';
 
 ## License
 
-[MIT License](https://opensource.org/licenses/MIT) (c) 2025
+[MIT License](https://opensource.org/licenses/MIT) (c) 2026
