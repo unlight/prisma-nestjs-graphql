@@ -1,3 +1,9 @@
+## [23.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v23.0.0...v23.0.1) (2026-05-10)
+
+### Bug Fixes
+
+* Make output relation list non-nullable ([f13eaea](https://github.com/unlight/prisma-nestjs-graphql/commit/f13eaead987ab8382912223d41e96e54ede338dd)), closes [#201](https://github.com/unlight/prisma-nestjs-graphql/issues/201)
+
 ## [23.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v22.0.1...v23.0.0) (2026-05-10)
 
 ### ⚠ BREAKING CHANGES
