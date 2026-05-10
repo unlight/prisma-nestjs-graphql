@@ -86,13 +86,13 @@ Default: `''` (empty string)
 
 Combine nested/nullable scalar filters to single  
 Type: `boolean`  
-Default: `false`
+Default: `true`
 
 #### `noAtomicOperations`
 
 Remove input types for atomic operations  
 Type: `boolean`  
-Default: `false`
+Default: `true`
 
 #### `reExport`
 
@@ -788,6 +788,8 @@ import { generate } from 'prisma-nestjs-graphql';
 
 ## TODO
 
+- noAtomicOperations = 1, IntFieldUpdateOperationsInput exists
+- CommentUncheckedUpdateManyWithoutAuthorNestedInput and CommentUpdateManyWithoutAuthorNestedInput are same
 - Add logic to detect view models and skip generation of mutation inputs/args for them https://github.com/unlight/prisma-nestjs-graphql/issues/248
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'

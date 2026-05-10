@@ -75,10 +75,6 @@ export function inputType(
   );
   const isWhereUnique = isWhereUniqueInputType(inputType.name);
 
-  // if (inputType.name.includes('DecimalNullableFilter')) {
-  //   console.log({ importDeclarations, location, property, propertyType });
-  // }
-
   for (const field of inputType.fields) {
     field.inputTypes = field.inputTypes.filter(
       t => !removeTypes.has(String(t.type)),

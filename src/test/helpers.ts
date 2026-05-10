@@ -47,9 +47,9 @@ export function testSourceFile(args: {
 function getNamedImportsFactory(
   importDeclarations: ImportDeclarationStructure[],
 ) {
-  return function getNamedImportsFactory(moduleSpecifier: string) {
+  return function getNamedImportsFactory(path: string) {
     return chain(importDeclarations)
-      .find({ moduleSpecifier })
+      .find({ moduleSpecifier: path })
       .get('namedImports')
       .castArray()
       .compact()

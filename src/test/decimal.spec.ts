@@ -1,7 +1,11 @@
 import { Project } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
+import {
+  getFieldDecoratorType,
+  testSourceFile,
+  testSourceFileLegacy,
+} from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 describe('decimal type', () => {
@@ -111,6 +115,7 @@ describe('decimal graphql', () => {
   let project: Project;
   beforeAll(async () => {
     ({ project } = await testGenerate({
+      options: ['combineScalarFilters = false', 'noAtomicOperations = false'],
       schema: `
         model User {
           id String @id
@@ -227,23 +232,20 @@ describe('decimal graphql', () => {
   });
 
   it('should not contain type decorator for order by', () => {
-    const s = testSourceFileLegacy({
+    const { getNamedImports, propertyMap } = testSourceFile({
       class: 'UserWhereInput',
       project,
-      property: 'transfers',
     });
-
-    expect(s.propertyDecorators).toContainEqual(
+    expect(propertyMap.transfers.decorators).toHaveLength(2);
+    expect(propertyMap.transfers.decorators?.[1]).toEqual(
       expect.objectContaining({
         arguments: ['() => DecimalNullableListFilter'],
         name: 'Type',
       }),
     );
-
-    expect(s.namedImports).toContainEqual({
-      name: 'Type',
-      specifier: 'class-transformer',
-    });
+    const imports = getNamedImports('class-transformer');
+    expect(imports).toHaveLength(1);
+    expect(imports[0].name).toEqual('Type');
   });
 
   it('should not be added for id string filter', () => {

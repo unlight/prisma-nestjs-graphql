@@ -39,9 +39,10 @@ export function createConfig(data: Record<string, unknown>) {
   >;
   const $warnings: string[] = [];
 
-  const configOutputFilePattern = String(
-    config.outputFilePattern || `{model}/{name}.{type}.ts`,
-  );
+  const configOutputFilePattern =
+    (typeof config.outputFilePattern === 'string' &&
+      config.outputFilePattern) ||
+    `{model}/{name}.{type}.ts`;
 
   const outputFilePattern = configOutputFilePattern
     .replaceAll('\\', '/')
@@ -122,9 +123,10 @@ export function createConfig(data: Record<string, unknown>) {
       namespaceImport: element.namespaceImport,
     });
   }
+
   return {
     $warnings,
-    combineScalarFilters: toBoolean(config.combineScalarFilters),
+    combineScalarFilters: toBoolean(config.combineScalarFilters ?? 'true'),
     customImport,
     decorate,
     emitBlocks: createEmitBlocks(config.emitBlocks as EmitBlocksOption[]),
@@ -135,8 +137,10 @@ export function createConfig(data: Record<string, unknown>) {
       string,
       ImportNameSpec | undefined
     >,
-    importExtension: String(config.importExtension ?? ''),
-    noAtomicOperations: toBoolean(config.noAtomicOperations),
+    importExtension:
+      (typeof config.importExtension === 'string' && config.importExtension) ||
+      '',
+    noAtomicOperations: toBoolean(config.noAtomicOperations ?? 'true'),
     noTypeId: toBoolean(config.noTypeId),
     omitModelsCount: toBoolean(config.omitModelsCount),
     outputFilePattern,

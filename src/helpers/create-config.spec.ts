@@ -9,8 +9,8 @@ it('createConfig smoke', () => {
 
 it('createConfig default', () => {
   const result = createConfig({});
-  expect(result.combineScalarFilters).toEqual(false);
-  expect(result.noAtomicOperations).toEqual(false);
+  expect(result.combineScalarFilters).toEqual(true);
+  expect(result.noAtomicOperations).toEqual(true);
   expect(result.$warnings).toEqual([]);
   expect(result.reExport).toEqual(ReExport.None);
   expect(result.prismaClientImport).toEqual('@prisma/client');

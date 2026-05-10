@@ -655,6 +655,7 @@ describe('scalar list type', () => {
   describe('general', () => {
     beforeAll(async () => {
       ({ project, sourceFiles } = await testGenerate({
+        options: ['combineScalarFilters = true', 'noAtomicOperations = false'],
         schema: `
             model User {
                 id    Int   @id
@@ -668,11 +669,17 @@ describe('scalar list type', () => {
     });
 
     it('user create input', () => {
-      setSourceFile('user-create.input.ts');
-      expect(p('permissions')?.type).toEqual(
+      const { propertyMap } = testSourceFile({
+        file: 'user-create.input.ts',
+        project,
+      });
+
+      expect(propertyMap.permissions.type).toEqual(
         'Identity<UserCreatepermissionsInput>',
       );
-      expect(t('permissions')).toEqual('() => UserCreatepermissionsInput');
+      expect(getFieldDecoratorType(propertyMap.permissions)).toEqual(
+        '() => UserCreatepermissionsInput',
+      );
     });
   });
 });
@@ -1124,7 +1131,7 @@ describe('several models', () => {
       .flatMap(s => s.getClasses())
       .flatMap(d => d.getProperties())
       .flatMap(p => p.getDecorators())) {
-      const argument = d.getCallExpression()?.getArguments()?.[0].getText();
+      const argument = d.getCallExpression()?.getArguments().at(0)?.getText();
       expect(argument).not.toContain('null');
     }
   });
@@ -1689,7 +1696,7 @@ describe('emit single', () => {
       expect(types).toHaveLength(0);
     });
 
-    it('type started with Prisma should not be wrapped to instanceof', async () => {
+    it('type started with Prisma should not be wrapped to instanceof', () => {
       const types = sourceFile
         .getClasses()
         .flatMap(c => c.getProperties().map(p => ({ c, p })))

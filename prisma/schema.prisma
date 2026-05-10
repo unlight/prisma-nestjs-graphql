@@ -8,37 +8,37 @@ generator client {
 }
 
 generator nestgraphql {
-  provider                              = "node --import=@poppinss/ts-exec ./src/bin.mjs"
-  output                                = "../@generated"
-  importExtension                       = ts
-  noAtomicOperations                    = false
-  combineScalarFilters                  = false
-  reExport                              = All
-  emitSingle                            = false
-  emitCompiled                          = false
-  purgeOutput                           = false
+  provider = "node --import=@poppinss/ts-exec ./src/bin.mjs"
+  output = "../@generated"
+  importExtension = ts
+  noAtomicOperations = true
+  combineScalarFilters = true
+  reExport = All
+  emitSingle = false
+  emitCompiled = false
+  purgeOutput = false
   requireSingleFieldsInWhereUniqueInput = false
-  fields_Validator_from                 = "class-validator"
-  fields_Validator_input                = true
-  fields_Scalars_from                   = "graphql-scalars"
-  fields_Scalars_input                  = true
-  useInputType_WhereInput_ALL           = "WhereInput"
-  decorate_1_type                       = "Create@(One|Many)UserArgs"
-  decorate_1_field                      = data
-  decorate_1_name                       = ValidateNested
-  decorate_1_from                       = "class-validator"
-  decorate_1_arguments                  = "[]"
-  decorate_2_type                       = "Create@(One|Many)UserArgs"
-  decorate_2_field                      = data
-  decorate_2_from                       = "class-transformer"
-  decorate_2_arguments                  = "['() => {propertyType.0}']"
-  decorate_2_name                       = Type
-  decorate_2_namedImport                = true
-  decorate_3_type                       = "ProfileUncheckedCreateNestedOneWithoutUserInput"
-  decorate_3_field                      = "!(create)"
-  decorate_3_name                       = "HideField"
-  decorate_3_from                       = "@nestjs/graphql"
-  decorate_3_arguments                  = "[]"
+  fields_Validator_from = "class-validator"
+  fields_Validator_input = true
+  fields_Scalars_from = "graphql-scalars"
+  fields_Scalars_input = true
+  useInputType_WhereInput_ALL = "WhereInput"
+  decorate_1_type = "Create@(One|Many)UserArgs"
+  decorate_1_field = data
+  decorate_1_name = ValidateNested
+  decorate_1_from = "class-validator"
+  decorate_1_arguments = "[]"
+  decorate_2_type = "Create@(One|Many)UserArgs"
+  decorate_2_field = data
+  decorate_2_from = "class-transformer"
+  decorate_2_arguments = "['() => {propertyType.0}']"
+  decorate_2_name = Type
+  decorate_2_namedImport = true
+  decorate_3_type = "ProfileUncheckedCreateNestedOneWithoutUserInput"
+  decorate_3_field = "!(create)"
+  decorate_3_name = "HideField"
+  decorate_3_from = "@nestjs/graphql"
+  decorate_3_arguments = "[]"
 }
 
 /// User really
