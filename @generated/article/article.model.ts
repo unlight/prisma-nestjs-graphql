@@ -40,16 +40,16 @@ export class Article {
   @Field(() => Boolean, { defaultValue: true, nullable: true })
   active!: boolean | null;
 
-  @Field(() => [Tag], { nullable: true })
+  @Field(() => [Tag], { nullable: false })
   tags?: Array<Tag>;
 
   @Field(() => User, { nullable: false })
   author?: Identity<User>;
 
-  @Field(() => [User], { nullable: true })
+  @Field(() => [User], { nullable: false })
   favoritedBy?: Array<User>;
 
-  @Field(() => [Comment], { nullable: true })
+  @Field(() => [Comment], { nullable: false })
   comments?: Array<Comment>;
 
   @Field(() => ArticleCount, { nullable: false })

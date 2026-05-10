@@ -13,7 +13,7 @@ export class Tag {
   @Field(() => String, { nullable: false })
   name!: string;
 
-  @Field(() => [Article], { nullable: true })
+  @Field(() => [Article], { nullable: false })
   articles?: Array<Article>;
 
   @Field(() => TagCount, { nullable: false })

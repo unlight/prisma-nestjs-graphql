@@ -908,16 +908,16 @@ describe('two models with id only and relation', () => {
 
     expect(posts.type, 'posts property').toEqual('Array<Post>');
     expect(posts.decorators?.[0]).toMatchObject({
-      arguments: ['() => [Post]', '{nullable:true}'],
+      arguments: ['() => [Post]', '{nullable:false}'],
       name: 'Field',
     });
   });
 });
 
-describe.skip('default list field type for models should be like [Type!]!', () => {
+describe('make list field type for models nullable', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
-      options: [],
+      options: [`typeListNullable = true`],
       schema: `
         model User {
           id    Int    @id
@@ -938,7 +938,7 @@ describe.skip('default list field type for models should be like [Type!]!', () =
 
     expect(posts.type, 'posts property').toEqual('Array<Post>');
     expect(posts.decorators?.[0]).toMatchObject({
-      arguments: ['() => [Post]', '{nullable:false}'],
+      arguments: ['() => [Post]', '{nullable:true}'],
       name: 'Field',
     });
   });

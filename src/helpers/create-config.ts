@@ -152,6 +152,7 @@ export function createConfig(data: Record<string, unknown>) {
       config.requireSingleFieldsInWhereUniqueInput,
     ),
     tsConfigFilePath: createTsConfigFilePathValue(config.tsConfigFilePath),
+    typeListNullable: toBoolean(config.typeListNullable ?? 'false'),
     unsafeCompatibleWhereUniqueInput: toBoolean(
       config.unsafeCompatibleWhereUniqueInput,
     ),

@@ -293,15 +293,20 @@ function generateFieldDecorator(args: {
 }): OptionalKind<DecoratorStructure> {
   const { config, field, graphqlType, modelField, settings } = args;
   const { isList, namespace } = field.outputType;
+  const { typeListNullable } = config;
   const { isNullable } = field;
 
   const firstArgumentType = isList
     ? `() => [${graphqlType}]`
     : `() => ${graphqlType}`;
+  const getNullable = () => {
+    if (!typeListNullable && namespace === 'model' && isList && isNullable) {
+      return false;
+    }
 
-  const nullable = Boolean(isNullable);
-  // const nullable =
-  //   namespace === 'model' && isList && isNullable ? false : Boolean(isNullable);
+    return Boolean(isNullable);
+  };
+
   const defaultValue = ['number', 'string', 'boolean'].includes(
     typeof modelField?.default,
   )
@@ -312,7 +317,7 @@ function generateFieldDecorator(args: {
     ...settings?.fieldArguments(),
     defaultValue,
     description: modelField?.documentation,
-    nullable,
+    nullable: getNullable(),
   });
 
   return {

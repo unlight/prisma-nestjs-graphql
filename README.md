@@ -152,6 +152,13 @@ Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id
 Type: `boolean`  
 Default: `false`
 
+#### `typeListNullable`
+
+Adds `nullable: true` for relation list properties out output models,
+it makes graphql field looks like `[Type!]`, default `[Type!]!`
+Type: `boolean`  
+Default: `false`
+
 #### `requireSingleFieldsInWhereUniqueInput`
 
 When a model `*WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).  
