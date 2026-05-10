@@ -6,9 +6,8 @@ import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
 import type { Identity } from 'identity-type';
-import { NestedDecimalWithAggregatesFilter } from './nested-decimal-with-aggregates-filter.input.ts';
-import { NestedIntFilter } from './nested-int-filter.input.ts';
-import { NestedDecimalFilter } from './nested-decimal-filter.input.ts';
+import { IntFilter } from './int-filter.input.ts';
+import { DecimalFilter } from './decimal-filter.input.ts';
 
 @InputType()
 export class DecimalWithAggregatesFilter {
@@ -47,21 +46,21 @@ export class DecimalWithAggregatesFilter {
   @Transform(transformToDecimal)
   gte?: Decimal;
 
-  @Field(() => NestedDecimalWithAggregatesFilter, { nullable: true })
-  not?: Identity<NestedDecimalWithAggregatesFilter>;
+  @Field(() => DecimalWithAggregatesFilter, { nullable: true })
+  not?: Identity<DecimalWithAggregatesFilter>;
 
-  @Field(() => NestedIntFilter, { nullable: true })
-  _count?: Identity<NestedIntFilter>;
+  @Field(() => IntFilter, { nullable: true })
+  _count?: Identity<IntFilter>;
 
-  @Field(() => NestedDecimalFilter, { nullable: true })
-  _avg?: Identity<NestedDecimalFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  _avg?: Identity<DecimalFilter>;
 
-  @Field(() => NestedDecimalFilter, { nullable: true })
-  _sum?: Identity<NestedDecimalFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  _sum?: Identity<DecimalFilter>;
 
-  @Field(() => NestedDecimalFilter, { nullable: true })
-  _min?: Identity<NestedDecimalFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  _min?: Identity<DecimalFilter>;
 
-  @Field(() => NestedDecimalFilter, { nullable: true })
-  _max?: Identity<NestedDecimalFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  _max?: Identity<DecimalFilter>;
 }

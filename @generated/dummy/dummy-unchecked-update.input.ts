@@ -1,50 +1,48 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import type { Identity } from 'identity-type';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
-import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input.ts';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input.ts';
-import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input.ts';
-import { NullableBytesFieldUpdateOperationsInput } from '../prisma/nullable-bytes-field-update-operations.input.ts';
-import { DecimalFieldUpdateOperationsInput } from '../prisma/decimal-field-update-operations.input.ts';
+import { Int } from '@nestjs/graphql';
+import { Float } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
+import { Decimal } from '@prisma/client-runtime-utils';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
+import { transformToDecimal } from 'prisma-graphql-type-decimal';
+import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { DummyUpdatedecimalsInput } from './dummy-updatedecimals.input.ts';
-import { NullableBigIntFieldUpdateOperationsInput } from '../prisma/nullable-big-int-field-update-operations.input.ts';
 import { GraphQLJSON } from 'graphql-type-json';
-import { DummyUpdatefriendsInput } from './dummy-updatefriends.input.ts';
 
 @InputType()
 export class DummyUncheckedUpdateInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
-  date?: Identity<NullableDateTimeFieldUpdateOperationsInput>;
+  @Field(() => Date, { nullable: true })
+  date?: Date | string;
 
-  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  int?: Identity<NullableIntFieldUpdateOperationsInput>;
+  @Field(() => Int, { nullable: true })
+  int?: number;
 
-  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  float?: Identity<NullableFloatFieldUpdateOperationsInput>;
+  @Field(() => Float, { nullable: true })
+  float?: number;
 
-  @Field(() => NullableBytesFieldUpdateOperationsInput, { nullable: true })
-  bytes?: Identity<NullableBytesFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  bytes?: Prisma.Bytes;
 
-  @Field(() => DecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => DecimalFieldUpdateOperationsInput)
-  decimal?: Identity<DecimalFieldUpdateOperationsInput>;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  @Type(() => Object)
+  @Transform(transformToDecimal)
+  decimal?: Decimal;
 
-  @Field(() => DummyUpdatedecimalsInput, { nullable: true })
-  @Type(() => DummyUpdatedecimalsInput)
-  decimals?: Identity<DummyUpdatedecimalsInput>;
+  @Field(() => [GraphQLDecimal], { nullable: true })
+  @Type(() => Object)
+  @Transform(transformToDecimal)
+  decimals?: Array<Decimal>;
 
-  @Field(() => NullableBigIntFieldUpdateOperationsInput, { nullable: true })
-  bigInt?: Identity<NullableBigIntFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  bigInt?: bigint | number;
 
   @Field(() => GraphQLJSON, { nullable: true })
   json?: any;
 
-  @Field(() => DummyUpdatefriendsInput, { nullable: true })
-  @Type(() => DummyUpdatefriendsInput)
-  friends?: Identity<DummyUpdatefriendsInput>;
+  @Field(() => [String], { nullable: true })
+  friends?: Array<string>;
 }

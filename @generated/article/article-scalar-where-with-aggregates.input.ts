@@ -4,7 +4,7 @@ import type { Identity } from 'identity-type';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input.ts';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input.ts';
-import { BoolNullableWithAggregatesFilter } from '../prisma/bool-nullable-with-aggregates-filter.input.ts';
+import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input.ts';
 
 @InputType()
 export class ArticleScalarWhereWithAggregatesInput {
@@ -44,6 +44,6 @@ export class ArticleScalarWhereWithAggregatesInput {
   @Field(() => StringWithAggregatesFilter, { nullable: true })
   authorId?: Identity<StringWithAggregatesFilter>;
 
-  @Field(() => BoolNullableWithAggregatesFilter, { nullable: true })
-  active?: Identity<BoolNullableWithAggregatesFilter>;
+  @Field(() => BoolWithAggregatesFilter, { nullable: true })
+  active?: Identity<BoolWithAggregatesFilter>;
 }

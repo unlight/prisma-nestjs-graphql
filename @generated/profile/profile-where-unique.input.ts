@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ProfileWhereInput } from './profile-where.input.ts';
 import type { Identity } from 'identity-type';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
+import { StringFilter } from '../prisma/string-filter.input.ts';
 import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input.ts';
 import { Type } from 'class-transformer';
 
@@ -24,8 +24,8 @@ export class ProfileWhereUniqueInput {
   @Field(() => [ProfileWhereInput], { nullable: true })
   NOT?: Array<ProfileWhereInput>;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  dummy?: Identity<StringNullableFilter>;
+  @Field(() => StringFilter, { nullable: true })
+  dummy?: Identity<StringFilter>;
 
   @Field(() => UserScalarRelationFilter, { nullable: true })
   @Type(() => UserScalarRelationFilter)

@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { QueryMode } from './query-mode.enum.ts';
 import type { Identity } from 'identity-type';
-import { NestedStringFilter } from './nested-string-filter.input.ts';
 
 @InputType()
 export class StringFilter {
@@ -39,6 +38,6 @@ export class StringFilter {
   @Field(() => QueryMode, { nullable: true })
   mode?: `${QueryMode}`;
 
-  @Field(() => NestedStringFilter, { nullable: true })
-  not?: Identity<NestedStringFilter>;
+  @Field(() => StringFilter, { nullable: true })
+  not?: Identity<StringFilter>;
 }

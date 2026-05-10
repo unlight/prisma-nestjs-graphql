@@ -1,18 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import type { Identity } from 'identity-type';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input.ts';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input.ts';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ProfileUncheckedUpdateInput {
-  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
-  id?: Identity<IntFieldUpdateOperationsInput>;
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  userId?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  userId?: string;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  dummy?: Identity<NullableStringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  dummy?: string;
 }

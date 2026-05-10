@@ -1,45 +1,42 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import type { Identity } from 'identity-type';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
-import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input.ts';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input.ts';
-import { NullableBoolFieldUpdateOperationsInput } from '../prisma/nullable-bool-field-update-operations.input.ts';
 import { TagUncheckedUpdateManyWithoutArticlesNestedInput } from '../tag/tag-unchecked-update-many-without-articles-nested.input.ts';
 import { UserUncheckedUpdateManyWithoutFavoriteArticlesNestedInput } from '../user/user-unchecked-update-many-without-favorite-articles-nested.input.ts';
 import { Type } from 'class-transformer';
 
 @InputType()
 export class ArticleUncheckedUpdateWithoutCommentsInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  slug?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  slug?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  title?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  title?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  description?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  description?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  body?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  body?: string;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  createdAt?: Identity<DateTimeFieldUpdateOperationsInput>;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
-  updatedAt?: Identity<DateTimeFieldUpdateOperationsInput>;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-  @Field(() => IntFieldUpdateOperationsInput, { nullable: true })
-  favoritesCount?: Identity<IntFieldUpdateOperationsInput>;
+  @Field(() => Int, { nullable: true })
+  favoritesCount?: number;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  authorId?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  authorId?: string;
 
-  @Field(() => NullableBoolFieldUpdateOperationsInput, { nullable: true })
-  active?: Identity<NullableBoolFieldUpdateOperationsInput>;
+  @Field(() => Boolean, { nullable: true })
+  active?: boolean;
 
   @Field(() => TagUncheckedUpdateManyWithoutArticlesNestedInput, {
     nullable: true,

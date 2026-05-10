@@ -5,7 +5,7 @@ import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input.ts';
 import { DateTimeFilter } from '../prisma/date-time-filter.input.ts';
 import { IntFilter } from '../prisma/int-filter.input.ts';
-import { BoolNullableFilter } from '../prisma/bool-nullable-filter.input.ts';
+import { BoolFilter } from '../prisma/bool-filter.input.ts';
 import { TagListRelationFilter } from '../tag/tag-list-relation-filter.input.ts';
 import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input.ts';
 import { Type } from 'class-transformer';
@@ -50,8 +50,8 @@ export class ArticleWhereUniqueInput {
   @Field(() => StringFilter, { nullable: true })
   authorId?: Identity<StringFilter>;
 
-  @Field(() => BoolNullableFilter, { nullable: true })
-  active?: Identity<BoolNullableFilter>;
+  @Field(() => BoolFilter, { nullable: true })
+  active?: Identity<BoolFilter>;
 
   @Field(() => TagListRelationFilter, { nullable: true })
   tags?: Identity<TagListRelationFilter>;

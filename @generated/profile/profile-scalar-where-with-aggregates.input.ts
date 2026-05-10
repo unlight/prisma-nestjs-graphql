@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input.ts';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input.ts';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input.ts';
 
 @InputType()
 export class ProfileScalarWhereWithAggregatesInput {
@@ -22,6 +21,6 @@ export class ProfileScalarWhereWithAggregatesInput {
   @Field(() => StringWithAggregatesFilter, { nullable: true })
   userId?: Identity<StringWithAggregatesFilter>;
 
-  @Field(() => StringNullableWithAggregatesFilter, { nullable: true })
-  dummy?: Identity<StringNullableWithAggregatesFilter>;
+  @Field(() => StringWithAggregatesFilter, { nullable: true })
+  dummy?: Identity<StringWithAggregatesFilter>;
 }

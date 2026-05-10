@@ -32,11 +32,11 @@ export { ArticleMaxOrderByAggregateInput } from './article-max-order-by-aggregat
 export { ArticleMinAggregateInput } from './article-min-aggregate.input.ts';
 export { ArticleMinAggregate } from './article-min-aggregate.output.ts';
 export { ArticleMinOrderByAggregateInput } from './article-min-order-by-aggregate.input.ts';
-export { ArticleNullableScalarRelationFilter } from './article-nullable-scalar-relation-filter.input.ts';
 export { ArticleOrderByRelationAggregateInput } from './article-order-by-relation-aggregate.input.ts';
 export { ArticleOrderByWithAggregationInput } from './article-order-by-with-aggregation.input.ts';
 export { ArticleOrderByWithRelationInput } from './article-order-by-with-relation.input.ts';
 export { ArticleScalarFieldEnum } from './article-scalar-field.enum.ts';
+export { ArticleScalarRelationFilter } from './article-scalar-relation-filter.input.ts';
 export { ArticleScalarWhereWithAggregatesInput } from './article-scalar-where-with-aggregates.input.ts';
 export { ArticleScalarWhereInput } from './article-scalar-where.input.ts';
 export { ArticleSumAggregateInput } from './article-sum-aggregate.input.ts';

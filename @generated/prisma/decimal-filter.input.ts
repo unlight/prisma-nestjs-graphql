@@ -6,7 +6,6 @@ import { transformToDecimal } from 'prisma-graphql-type-decimal';
 import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
 import type { Identity } from 'identity-type';
-import { NestedDecimalFilter } from './nested-decimal-filter.input.ts';
 
 @InputType()
 export class DecimalFilter {
@@ -45,6 +44,6 @@ export class DecimalFilter {
   @Transform(transformToDecimal)
   gte?: Decimal;
 
-  @Field(() => NestedDecimalFilter, { nullable: true })
-  not?: Identity<NestedDecimalFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  not?: Identity<DecimalFilter>;
 }

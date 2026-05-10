@@ -1,13 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import type { Identity } from 'identity-type';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input.ts';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input.ts';
-import { NullableFloatFieldUpdateOperationsInput } from '../prisma/nullable-float-field-update-operations.input.ts';
-import { NullableDecimalFieldUpdateOperationsInput } from '../prisma/nullable-decimal-field-update-operations.input.ts';
+import * as Scalars from 'graphql-scalars';
+import * as Validator from 'class-validator';
+import { Int } from '@nestjs/graphql';
+import { Float } from '@nestjs/graphql';
+import { Decimal } from '@prisma/client-runtime-utils';
+import { GraphQLDecimal } from 'prisma-graphql-type-decimal';
+import { transformToDecimal } from 'prisma-graphql-type-decimal';
+import { Transform } from 'class-transformer';
 import { Type } from 'class-transformer';
-import { NullableEnumRoleFieldUpdateOperationsInput } from '../prisma/nullable-enum-role-field-update-operations.input.ts';
+import { Role } from '../prisma/role.enum.ts';
+import type { Identity } from 'identity-type';
 import { UserUncheckedUpdateManyWithoutFollowersNestedInput } from './user-unchecked-update-many-without-followers-nested.input.ts';
 import { ArticleUncheckedUpdateManyWithoutFavoritedByNestedInput } from '../article/article-unchecked-update-many-without-favorited-by-nested.input.ts';
 import { ArticleUncheckedUpdateManyWithoutAuthorNestedInput } from '../article/article-unchecked-update-many-without-author-nested.input.ts';
@@ -16,36 +19,39 @@ import { ProfileUncheckedUpdateOneWithoutUserNestedInput } from '../profile/prof
 
 @InputType()
 export class UserUncheckedUpdateWithoutFollowersInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  email?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => Scalars.GraphQLEmailAddress, { nullable: true })
+  email?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  @Validator.MinLength(3)
+  @Validator.MaxLength(50)
+  name?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  password?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  password?: string;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  bio?: Identity<NullableStringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  bio?: string;
 
-  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
-  image?: Identity<NullableStringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  image?: string;
 
-  @Field(() => NullableIntFieldUpdateOperationsInput, { nullable: true })
-  countComments?: Identity<NullableIntFieldUpdateOperationsInput>;
+  @Field(() => Int, { nullable: true })
+  countComments?: number;
 
-  @Field(() => NullableFloatFieldUpdateOperationsInput, { nullable: true })
-  rating?: Identity<NullableFloatFieldUpdateOperationsInput>;
+  @Field(() => Float, { nullable: true })
+  rating?: number;
 
-  @Field(() => NullableDecimalFieldUpdateOperationsInput, { nullable: true })
-  @Type(() => NullableDecimalFieldUpdateOperationsInput)
-  money?: Identity<NullableDecimalFieldUpdateOperationsInput>;
+  @Field(() => GraphQLDecimal, { nullable: true })
+  @Type(() => Object)
+  @Transform(transformToDecimal)
+  money?: Decimal;
 
-  @Field(() => NullableEnumRoleFieldUpdateOperationsInput, { nullable: true })
-  role?: Identity<NullableEnumRoleFieldUpdateOperationsInput>;
+  @Field(() => Role, { nullable: true })
+  role?: `${Role}`;
 
   @Field(() => UserUncheckedUpdateManyWithoutFollowersNestedInput, {
     nullable: true,

@@ -4,10 +4,9 @@ import { CommentWhereInput } from './comment-where.input.ts';
 import type { Identity } from 'identity-type';
 import { DateTimeFilter } from '../prisma/date-time-filter.input.ts';
 import { StringFilter } from '../prisma/string-filter.input.ts';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
 import { UserScalarRelationFilter } from '../user/user-scalar-relation-filter.input.ts';
 import { Type } from 'class-transformer';
-import { ArticleNullableScalarRelationFilter } from '../article/article-nullable-scalar-relation-filter.input.ts';
+import { ArticleScalarRelationFilter } from '../article/article-scalar-relation-filter.input.ts';
 
 @InputType()
 export class CommentWhereUniqueInput {
@@ -35,14 +34,14 @@ export class CommentWhereUniqueInput {
   @Field(() => StringFilter, { nullable: true })
   authorId?: Identity<StringFilter>;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  articleId?: Identity<StringNullableFilter>;
+  @Field(() => StringFilter, { nullable: true })
+  articleId?: Identity<StringFilter>;
 
   @Field(() => UserScalarRelationFilter, { nullable: true })
   @Type(() => UserScalarRelationFilter)
   author?: Identity<UserScalarRelationFilter>;
 
-  @Field(() => ArticleNullableScalarRelationFilter, { nullable: true })
-  @Type(() => ArticleNullableScalarRelationFilter)
-  article?: Identity<ArticleNullableScalarRelationFilter>;
+  @Field(() => ArticleScalarRelationFilter, { nullable: true })
+  @Type(() => ArticleScalarRelationFilter)
+  article?: Identity<ArticleScalarRelationFilter>;
 }

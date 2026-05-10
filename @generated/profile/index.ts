@@ -28,10 +28,10 @@ export { ProfileMaxOrderByAggregateInput } from './profile-max-order-by-aggregat
 export { ProfileMinAggregateInput } from './profile-min-aggregate.input.ts';
 export { ProfileMinAggregate } from './profile-min-aggregate.output.ts';
 export { ProfileMinOrderByAggregateInput } from './profile-min-order-by-aggregate.input.ts';
-export { ProfileNullableScalarRelationFilter } from './profile-nullable-scalar-relation-filter.input.ts';
 export { ProfileOrderByWithAggregationInput } from './profile-order-by-with-aggregation.input.ts';
 export { ProfileOrderByWithRelationInput } from './profile-order-by-with-relation.input.ts';
 export { ProfileScalarFieldEnum } from './profile-scalar-field.enum.ts';
+export { ProfileScalarRelationFilter } from './profile-scalar-relation-filter.input.ts';
 export { ProfileScalarWhereWithAggregatesInput } from './profile-scalar-where-with-aggregates.input.ts';
 export { ProfileSumAggregateInput } from './profile-sum-aggregate.input.ts';
 export { ProfileSumAggregate } from './profile-sum-aggregate.output.ts';

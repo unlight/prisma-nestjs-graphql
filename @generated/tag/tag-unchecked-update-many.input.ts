@@ -1,13 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import type { Identity } from 'identity-type';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input.ts';
 
 @InputType()
 export class TagUncheckedUpdateManyInput {
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  id?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
-  name?: Identity<StringFieldUpdateOperationsInput>;
+  @Field(() => String, { nullable: true })
+  name?: string;
 }

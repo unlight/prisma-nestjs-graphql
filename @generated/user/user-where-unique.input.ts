@@ -7,15 +7,14 @@ import { UserEmailNameCompoundUniqueInput } from './user-email-name-compound-uni
 import { Type } from 'class-transformer';
 import { UserWhereInput } from './user-where.input.ts';
 import { StringFilter } from '../prisma/string-filter.input.ts';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input.ts';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input.ts';
-import { FloatNullableFilter } from '../prisma/float-nullable-filter.input.ts';
-import { DecimalNullableFilter } from '../prisma/decimal-nullable-filter.input.ts';
-import { EnumRoleNullableFilter } from '../prisma/enum-role-nullable-filter.input.ts';
+import { IntFilter } from '../prisma/int-filter.input.ts';
+import { FloatFilter } from '../prisma/float-filter.input.ts';
+import { DecimalFilter } from '../prisma/decimal-filter.input.ts';
+import { EnumRoleFilter } from '../prisma/enum-role-filter.input.ts';
 import { UserListRelationFilter } from './user-list-relation-filter.input.ts';
 import { ArticleListRelationFilter } from '../article/article-list-relation-filter.input.ts';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input.ts';
-import { ProfileNullableScalarRelationFilter } from '../profile/profile-nullable-scalar-relation-filter.input.ts';
+import { ProfileScalarRelationFilter } from '../profile/profile-scalar-relation-filter.input.ts';
 
 @InputType()
 export class UserWhereUniqueInput {
@@ -49,24 +48,24 @@ export class UserWhereUniqueInput {
   @Field(() => StringFilter, { nullable: true })
   password?: Identity<StringFilter>;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  bio?: Identity<StringNullableFilter>;
+  @Field(() => StringFilter, { nullable: true })
+  bio?: Identity<StringFilter>;
 
-  @Field(() => StringNullableFilter, { nullable: true })
-  image?: Identity<StringNullableFilter>;
+  @Field(() => StringFilter, { nullable: true })
+  image?: Identity<StringFilter>;
 
-  @Field(() => IntNullableFilter, { nullable: true })
-  countComments?: Identity<IntNullableFilter>;
+  @Field(() => IntFilter, { nullable: true })
+  countComments?: Identity<IntFilter>;
 
-  @Field(() => FloatNullableFilter, { nullable: true })
-  rating?: Identity<FloatNullableFilter>;
+  @Field(() => FloatFilter, { nullable: true })
+  rating?: Identity<FloatFilter>;
 
-  @Field(() => DecimalNullableFilter, { nullable: true })
-  @Type(() => DecimalNullableFilter)
-  money?: Identity<DecimalNullableFilter>;
+  @Field(() => DecimalFilter, { nullable: true })
+  @Type(() => DecimalFilter)
+  money?: Identity<DecimalFilter>;
 
-  @Field(() => EnumRoleNullableFilter, { nullable: true })
-  role?: Identity<EnumRoleNullableFilter>;
+  @Field(() => EnumRoleFilter, { nullable: true })
+  role?: Identity<EnumRoleFilter>;
 
   @Field(() => UserListRelationFilter, { nullable: true })
   @Type(() => UserListRelationFilter)
@@ -88,7 +87,7 @@ export class UserWhereUniqueInput {
   @Type(() => CommentListRelationFilter)
   comments?: Identity<CommentListRelationFilter>;
 
-  @Field(() => ProfileNullableScalarRelationFilter, { nullable: true })
-  @Type(() => ProfileNullableScalarRelationFilter)
-  profile?: Identity<ProfileNullableScalarRelationFilter>;
+  @Field(() => ProfileScalarRelationFilter, { nullable: true })
+  @Type(() => ProfileScalarRelationFilter)
+  profile?: Identity<ProfileScalarRelationFilter>;
 }
