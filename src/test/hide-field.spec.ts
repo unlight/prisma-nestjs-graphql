@@ -393,3 +393,31 @@ describe('hide _count', () => {
     );
   });
 });
+
+it('hide fields by decorators config with args', async () => {
+  // HideField extect no arguments decorate_1_arguments make no sense
+  ({ project } = await testGenerate({
+    options: `
+      decorate_1_type      = "*Create*Input"
+      decorate_1_field     = "createdAt"
+      decorate_1_name      = HideField
+      decorate_1_from      = "@nestjs/graphql"
+      decorate_1_arguments = "['{input: true}']"
+    `,
+    schema: `
+      model User {
+        id                Int     @id @default(autoincrement())
+        name              String
+        createdAt         DateTime  @default(now())
+      }
+    `,
+  }));
+
+  const userCreateInput = testSourceFile({ class: 'UserCreateInput', project });
+
+  expect(userCreateInput.propertyMap.createdAt.decorators).toHaveLength(1);
+  expect(userCreateInput.propertyMap.createdAt.decorators?.[0]).toMatchObject({
+    arguments: [],
+    name: 'HideField',
+  });
+});
