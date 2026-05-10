@@ -4,7 +4,9 @@ import pupa from 'pupa';
 import type { PlainObject } from 'simplytyped';
 import {
   type ClassDeclarationStructure,
+  DecoratorStructure,
   type ExportSpecifierStructure,
+  OptionalKind,
   type StatementStructures,
   StructureKind,
 } from 'ts-morph';
@@ -22,7 +24,13 @@ import {
 } from '../helpers/object-settings.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import { castArray } from '../helpers/utils.ts';
-import type { EventArguments, OutputType } from '../types.ts';
+import type {
+  EventArguments,
+  Field,
+  GeneratorConfiguration,
+  OutputType,
+  SchemaField,
+} from '../types.ts';
 
 const nestjsGraphql = '@nestjs/graphql';
 
@@ -45,6 +53,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     name: outputType.name,
     type: 'model',
   });
+
   const sourceFileStructure = sourceFile.getStructure();
   const exportDeclaration = getExportDeclaration(
     model.name,
@@ -198,23 +207,15 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       importDeclarations.add('HideField', nestjsGraphql);
       property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
-      // Generate `@Field()` decorator
-      property.decorators.push({
-        arguments: [
-          isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
-          JSON5.stringify({
-            ...settings?.fieldArguments(),
-            defaultValue: ['number', 'string', 'boolean'].includes(
-              typeof modelField?.default,
-            )
-              ? modelField?.default
-              : undefined,
-            description: modelField?.documentation,
-            nullable: Boolean(field.isNullable),
-          }),
-        ],
-        name: 'Field',
-      });
+      property.decorators.push(
+        generateFieldDecorator({
+          config,
+          field,
+          graphqlType,
+          modelField,
+          settings,
+        }),
+      );
 
       for (const setting of settings || []) {
         if (
@@ -233,16 +234,13 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         }
       }
 
-      for (const decorate of config.decorate) {
-        if (
-          decorate.isMatchField(field.name) &&
-          decorate.isMatchType(outputTypeName)
-        ) {
+      for (const d of config.decorate) {
+        if (d.isMatchField(field.name) && d.isMatchType(outputTypeName)) {
           property.decorators.push({
-            arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
-            name: decorate.name,
+            arguments: d.arguments?.map(x => pupa(x, { propertyType })),
+            name: d.name,
           });
-          importDeclarations.createFrom(decorate);
+          importDeclarations.createFrom(d);
         }
       }
     }
@@ -281,6 +279,46 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       statements: [...importDeclarations.toStatements(), classStructure],
     });
   }
+}
+
+/**
+ * Get structure for `@Field()` decorator
+ */
+function generateFieldDecorator(args: {
+  config: GeneratorConfiguration;
+  field: SchemaField;
+  graphqlType: string;
+  modelField?: Field;
+  settings?: ObjectSettings;
+}): OptionalKind<DecoratorStructure> {
+  const { config, field, graphqlType, modelField, settings } = args;
+  const { isList, namespace } = field.outputType;
+  const { isNullable } = field;
+
+  const firstArgumentType = isList
+    ? `() => [${graphqlType}]`
+    : `() => ${graphqlType}`;
+
+  const nullable = Boolean(isNullable);
+  // const nullable =
+  //   namespace === 'model' && isList && isNullable ? false : Boolean(isNullable);
+  const defaultValue = ['number', 'string', 'boolean'].includes(
+    typeof modelField?.default,
+  )
+    ? modelField?.default
+    : undefined;
+
+  const secondArgumentOptions = JSON5.stringify({
+    ...settings?.fieldArguments(),
+    defaultValue,
+    description: modelField?.documentation,
+    nullable,
+  });
+
+  return {
+    arguments: [firstArgumentType, secondArgumentOptions],
+    name: 'Field',
+  };
 }
 
 function shouldBeDecorated(setting: ObjectSetting) {

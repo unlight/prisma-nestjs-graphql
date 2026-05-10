@@ -35,11 +35,6 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    rules: {
-      'max-lines': [1, { max: 300 }],
-      'max-params': [1, { max: 5 }],
-      'no-unneeded-ternary': [1],
-    },
   },
   {
     plugins: {
@@ -96,7 +91,7 @@ export default [
       'consistent-return': [0, { treatUndefinedAsUnspecified: false }],
       quotes: [1, 'single', { allowTemplateLiterals: true, avoidEscape: true }],
       semi: [1, 'always'],
-      'max-lines': [1, { max: 300 }],
+      'max-lines': [1, { max: 400 }],
       'max-params': [1, { max: 5 }],
       'no-unneeded-ternary': [1],
       // wix-editor

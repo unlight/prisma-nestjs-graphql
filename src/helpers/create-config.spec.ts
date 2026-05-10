@@ -15,6 +15,7 @@ it('createConfig default', () => {
   expect(result.reExport).toEqual(ReExport.None);
   expect(result.prismaClientImport).toEqual('@prisma/client');
   expect(result.importExtension).toEqual('');
+  expect(result.importExtension).toEqual('');
 });
 
 it('filename with parent reference should be not valid', () => {

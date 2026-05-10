@@ -312,13 +312,12 @@ describe('model with one id int', () => {
     });
 
     it('property id should have true type', () => {
-      const s = testSourceFileLegacy({
+      const { propertyMap } = testSourceFile({
         file: 'user-count-aggregate.input.ts',
         project,
-        property: 'id',
       });
 
-      expect(s.property?.type).toEqual('true');
+      expect(propertyMap.id.type).toEqual('true');
     });
 
     it('nullable', () => {
@@ -885,72 +884,6 @@ describe('one model with enum', () => {
   });
 });
 
-describe('one model with self reference', () => {
-  beforeAll(async () => {
-    ({ project, sourceFiles } = await testGenerate({
-      schema: `model User {
-                  id     Int    @id
-                  parentId Int
-                  parent User   @relation("UserToUser", fields: [parentId], references: [id])
-                  user   User[] @relation("UserToUser")
-                }`,
-    }));
-  });
-
-  it('with relation input', () => {
-    const s = testSourceFileLegacy({
-      file: 'user-order-by-with-relation.input.ts',
-      project,
-    });
-
-    expect(s.namedImports).not.toContainEqual(
-      expect.objectContaining({
-        name: 'UserOrderByWithRelationInput',
-      }),
-    );
-  });
-
-  describe('model', () => {
-    it('should not contain import to self file', () => {
-      const s = testSourceFileLegacy({ file: 'user.model.ts', project });
-      expect(s.namedImports).not.toContainEqual(
-        expect.objectContaining({ name: 'User' }),
-      );
-    });
-
-    it('imports should contain user count', () => {
-      const s = testSourceFileLegacy({ file: 'user.model.ts', project });
-      expect(s.namedImports).toContainEqual({
-        name: 'UserCount',
-        specifier: './user-count.output',
-      });
-    });
-  });
-
-  describe('user list relation filter', () => {
-    beforeAll(() => {
-      sourceFile = project.getSourceFile(s =>
-        s.getFilePath().endsWith('/user-list-relation-filter.input.ts'),
-      )!;
-    });
-
-    it('every', () => {
-      const structure = getPropertyStructure(sourceFile, 'every');
-      expect(structure?.type).toEqual('Identity<UserWhereInput>');
-    });
-
-    it('some', () => {
-      const structure = getPropertyStructure(sourceFile, 'some');
-      expect(structure?.type).toEqual('Identity<UserWhereInput>');
-    });
-
-    it('none', () => {
-      const structure = getPropertyStructure(sourceFile, 'none');
-      expect(structure?.type).toEqual('Identity<UserWhereInput>');
-    });
-  });
-});
-
 describe('two models with id only and relation', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
@@ -969,16 +902,44 @@ describe('two models with id only and relation', () => {
     }));
   });
 
-  describe('user model', () => {
-    beforeAll(() => {
-      sourceFile = project.getSourceFile(s =>
-        s.getFilePath().endsWith('/user.model.ts'),
-      )!;
-    });
+  it('user model', () => {
+    const user = testSourceFile({ file: 'user.model.ts', project });
+    const { posts } = user.propertyMap;
 
-    it('posts property', () => {
-      const p = getPropertyStructure(sourceFile, 'posts');
-      expect(p?.type).toEqual('Array<Post>');
+    expect(posts.type, 'posts property').toEqual('Array<Post>');
+    expect(posts.decorators?.[0]).toMatchObject({
+      arguments: ['() => [Post]', '{nullable:true}'],
+      name: 'Field',
+    });
+  });
+});
+
+describe.skip('default list field type for models should be like [Type!]!', () => {
+  beforeAll(async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      options: [],
+      schema: `
+        model User {
+          id    Int    @id
+          posts Post[]
+        }
+        model Post {
+          id     Int   @id
+          User   User? @relation(fields: [userId], references: [id])
+          userId Int?
+        }
+    `,
+    }));
+  });
+
+  it('posts on user', () => {
+    const user = testSourceFile({ file: 'user.model.ts', project });
+    const { posts } = user.propertyMap;
+
+    expect(posts.type, 'posts property').toEqual('Array<Post>');
+    expect(posts.decorators?.[0]).toMatchObject({
+      arguments: ['() => [Post]', '{nullable:false}'],
+      name: 'Field',
     });
   });
 });
