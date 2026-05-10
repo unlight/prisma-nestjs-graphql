@@ -1,13 +1,11 @@
 import { chain } from 'lodash';
-import { Project, SourceFile } from 'ts-morph';
+import { Project } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
 import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
-let imports: { name: string; specifier: string }[];
-let s: ReturnType<typeof testSourceFileLegacy>;
 
 describe('scalar field', () => {
   beforeAll(async () => {
@@ -29,23 +27,18 @@ describe('scalar field', () => {
 
   describe('model', () => {
     it('TypeGraphQL omit should hide password1', () => {
-      const s = testSourceFileLegacy({
+      const { propertyMap } = testSourceFile({
         file: 'user.model.ts',
         project,
-        property: 'password1',
       });
-      expect(s.propertyDecorators).toContainEqual(
+      expect(propertyMap.password1.decorators).toContainEqual(
         expect.objectContaining({ arguments: [], name: 'HideField' }),
       );
     });
 
     it('HideField should hide field', () => {
-      const s = testSourceFileLegacy({
-        file: 'user.model.ts',
-        project,
-        property: 'password2',
-      });
-      expect(s.propertyDecorators).toContainEqual(
+      const s = testSourceFile({ file: 'user.model.ts', project });
+      expect(s.propertyMap.password2.decorators).toContainEqual(
         expect.objectContaining({ arguments: [], name: 'HideField' }),
       );
     });
@@ -188,22 +181,24 @@ describe('hide field using match', () => {
   });
 });
 
-it('hidden relations result in un-imported types', async () => {
+it('combineScalarFilters off hidden relations result in un-imported types', async () => {
   ({ project } = await testGenerate({
-    options: [`outputFilePattern = "{name}.{type}.ts"`],
+    options: [
+      `outputFilePattern = "{name}.{type}.ts"`,
+      `combineScalarFilters = false`,
+    ],
     schema: `
             model User {
-              id           String @id @default(uuid())
+              id String @id @default(uuid())
               userApiKey UserApiKey[]
             }
-
             model UserApiKey {
-              id        String   @id @default(uuid())
-              userId    String
+              id String @id @default(uuid())
+              userId String
               /// @HideField({ input: true })
-              user      User     @relation(fields: [userId], references: [id])
+              user User @relation(fields: [userId], references: [id])
             }
-                `,
+      `,
   }));
 
   const { importDeclarations, propertyMap } = testSourceFile({

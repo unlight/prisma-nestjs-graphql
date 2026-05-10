@@ -7,6 +7,27 @@ import { testGenerate } from './test-generate.ts';
 let project: Project;
 let sourceFiles: SourceFile[];
 
+it('combine scalar filters for simple model', async () => {
+  // Arrange/Act
+  ({ project, sourceFiles } = await testGenerate({
+    options: ['combineScalarFilters = true', 'noAtomicOperations = true'],
+    schema: `
+      model User {
+        id Int @id
+      }
+    `,
+  }));
+  // Assert
+  const intWithAggregatesFilter = testSourceFile({
+    class: 'IntWithAggregatesFilter',
+    project,
+  });
+  const intFilter =
+    intWithAggregatesFilter.getNamedImports('./int-filter.input');
+  expect(intFilter).toHaveLength(1);
+  expect(intFilter[0].name).toEqual('IntFilter');
+});
+
 describe('combine scalar filters', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({

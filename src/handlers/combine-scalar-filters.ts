@@ -31,12 +31,19 @@ function beforeInputType(
   }
 }
 
-function beforeGenerateField(field: SchemaArgument): void {
+function beforeGenerateField(
+  field: SchemaArgument,
+  args: { inputType: InputType },
+): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { inputType } = args;
+
   for (const fieldInput of field.inputTypes) {
     if (fieldInput.location !== 'inputObjectTypes') {
       continue;
     }
     const fieldInputType = String(fieldInput.type);
+
     if (isContainBogus(fieldInputType)) {
       fieldInput.type = replaceBogus(fieldInputType);
     }
@@ -83,20 +90,18 @@ function postBegin(args: EventArguments) {
     'Json',
     'Bytes',
     'BigInt',
+    ...enumTypes.map(x => `Enum${x.name}`),
   ];
 
-  for (const enumType of enumTypes) {
-    const { name } = enumType;
-    types.push(`Enum${name}`);
-  }
-
   const inputTypeByName = keyBy(inputTypes, inputType => inputType.name);
+
   const replaceBogusFilters = (
     filterName: string,
     filterNameCandidates: string[],
   ) => {
     for (const filterNameCandidate of filterNameCandidates) {
       const candidate = inputTypeByName[filterNameCandidate];
+
       if (candidate as InputType | undefined) {
         const inputType = cloneDeep({ ...candidate, name: filterName });
         inputTypes.push(inputType);
@@ -111,16 +116,19 @@ function postBegin(args: EventArguments) {
     replaceBogusFilters(`${type}Filter`, [
       `${type}NullableFilter`,
       `Nested${type}NullableFilter`,
+      `Nested${type}Filter`,
     ]);
 
     replaceBogusFilters(`${type}WithAggregatesFilter`, [
       `${type}NullableWithAggregatesFilter`,
       `Nested${type}NullableWithAggregatesFilter`,
+      `Nested${type}WithAggregatesFilter`,
     ]);
 
     replaceBogusFilters(`${type}ListFilter`, [
       `${type}NullableListFilter`,
       `Nested${type}NullableListFilter`,
+      `Nested${type}ListFilter`,
     ]);
   }
 
