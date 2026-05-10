@@ -1,3 +1,17 @@
+## [23.0.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v22.0.1...v23.0.0) (2026-05-10)
+
+### ⚠ BREAKING CHANGES
+
+* `combineScalarFilters` and `noAtomicOperations` enabled by default
+
+### Bug Fixes
+
+* Empty input type with combine scalar filters enabled ([39e5dd1](https://github.com/unlight/prisma-nestjs-graphql/commit/39e5dd172b24c1d633a1d5829d8e19be6e7e63ea))
+
+### Miscellaneous Chores
+
+* `combineScalarFilters` and `noAtomicOperations` enabled by default ([9fffcbc](https://github.com/unlight/prisma-nestjs-graphql/commit/9fffcbc528216e10a0f5613abb37a8dbe0eab148))
+
 ## [22.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v22.0.0...v22.0.1) (2026-05-09)
 
 ### Bug Fixes
