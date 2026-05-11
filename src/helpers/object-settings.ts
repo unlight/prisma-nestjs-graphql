@@ -212,6 +212,7 @@ function createSettingElement({
 
   result.element = element;
 
+  // TODO: Deprecate
   if (name === 'TypeGraphQL.omit' || name === 'HideField') {
     Object.assign(element, hideFieldDecorator(match));
 
