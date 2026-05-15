@@ -73,7 +73,7 @@ export class Configuration {
     ]) {
       if (this.schemaConfig[name]) {
         this.warnings.add(
-          `Configuration in schema (${name}) deprecated, prefer config file`,
+          `Generator options in schema (${name}) are deprecated, prefer config file`,
         );
       }
     }

@@ -59,7 +59,7 @@ it('useInputType from schema legacy config', async () => {
   });
   expect(config.warnings).toHaveLength(1);
   expect(config.warnings.values().toArray().at(0)).toEqual(
-    'Configuration in schema (useInputType) deprecated, prefer config file',
+    'Generator options in schema (useInputType) are deprecated, prefer config file',
   );
 });
 
@@ -322,6 +322,6 @@ it('graphqlScalars legacy', async () => {
   expect(config.getGraphqlScalar('DateTime')?.name).toEqual('DateTime');
   expect(config.warnings).toHaveLength(1);
   expect(config.warnings.values().toArray().at(0)).toEqual(
-    'Configuration in schema (graphqlScalars) deprecated, prefer config file',
+    'Generator options in schema (graphqlScalars) are deprecated, prefer config file',
   );
 });
