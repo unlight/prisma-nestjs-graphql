@@ -1,3 +1,9 @@
+## [23.1.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v23.0.1...v23.1.0) (2026-05-15)
+
+### Features
+
+* Generator options in the config file instead of using underscore-delimited keys in the schema ([965de6b](https://github.com/unlight/prisma-nestjs-graphql/commit/965de6bf396b463fcc440b6aa20fd628a695d799))
+
 ## [23.0.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v23.0.0...v23.0.1) (2026-05-10)
 
 ### Bug Fixes
