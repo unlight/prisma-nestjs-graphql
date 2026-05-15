@@ -1,4 +1,4 @@
-import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
+import { isWhereUniqueInputType } from '../helpers/type-checkers.ts';
 import type {
   EventArguments,
   InputType,

@@ -18,13 +18,13 @@ import { getGraphqlImport } from '../helpers/get-graphql-import.ts';
 import { getOutputTypeName } from '../helpers/get-output-type-name.ts';
 import { getPropertyType } from '../helpers/get-property-type.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
-import { isManyAndReturnOutputType } from '../helpers/is-many-and-return.ts';
 import {
   createObjectSettings,
   type ObjectSetting,
   ObjectSettings,
 } from '../helpers/object-settings.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
+import { isManyAndReturnOutputType } from '../helpers/type-checkers.ts';
 import { castArray } from '../helpers/utils.ts';
 import type {
   EventArguments,

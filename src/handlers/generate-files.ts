@@ -142,6 +142,7 @@ function combineToSingle(args: {
       }
     }
   }
+
   for (const customImport of config.customImports) {
     imports.createFrom(customImport);
   }

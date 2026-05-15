@@ -1,7 +1,7 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFileLegacy } from './helpers.ts';
+import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -454,6 +454,83 @@ describe('decorate option', () => {
       specifier: 'class-validator',
     });
   });
+});
+
+describe('decorate option should not leak to aggregate inputs', () => {
+  beforeAll(async () => {
+    ({ project } = await testGenerate({
+      options: [
+        `outputFilePattern = "{name}.{type}.ts"`,
+        `graphqlScalars_Decimal_name = "DecimalScalar"`,
+        `decorate_1_type = "*"`,
+        `decorate_1_field = price`,
+        `decorate_1_name = Transform`,
+        `decorate_1_from = "class-transformer"`,
+        `decorate_1_arguments = "['DecimalHelper.transformToDecimal']"`,
+        `fields_DecimalHelper_from = "@m/common/scalars/decimal.scalar"`,
+        `fields_DecimalHelper_input = true`,
+        `fields_DecimalHelper_output = true`,
+      ],
+      schema: `
+            model Item {
+                id Int @id
+                /// @DecimalHelper.dummy()
+                price Decimal
+            }
+            `,
+    }));
+  });
+
+  it('regular input should keep configured decorator and imports', () => {
+    const s = testSourceFileLegacy({
+      file: 'item-create.input.ts',
+      project,
+      property: 'price',
+    });
+
+    expect(s.propertyDecorators).toContainEqual(
+      expect.objectContaining({
+        arguments: ['DecimalHelper.transformToDecimal'],
+        name: 'Transform',
+      }),
+    );
+    expect(s.namespaceImports).toContainEqual({
+      name: 'DecimalHelper',
+      specifier: '@m/common/scalars/decimal.scalar',
+    });
+    expect(s.namedImports).toContainEqual({
+      name: 'Transform',
+      specifier: 'class-transformer',
+    });
+  });
+});
+
+it('aggregate input should not contain transform decorator', async () => {
+  ({ project } = await testGenerate({
+    externalConfig: {
+      decorators: [
+        {
+          arguments: [],
+          from: '@/transformers/to-decimal',
+          match: ({ propertyName }) => propertyName === 'price',
+          name: 'ToDecimal',
+          namedImport: true,
+        },
+      ],
+    },
+    schema: `
+      model Item {
+        id Int @id
+        price Decimal
+      }
+      `,
+  }));
+  const s = testSourceFile({
+    file: 'item-avg-aggregate.input.ts',
+    project,
+  });
+
+  expect(s.getImportByName('ToDecimal')).toBeTruthy();
 });
 
 describe('model decorate', () => {

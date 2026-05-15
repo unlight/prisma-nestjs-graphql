@@ -1,4 +1,4 @@
-import { isManyAndReturnOutputType } from '../helpers/is-many-and-return.ts';
+import { isManyAndReturnOutputType } from '../helpers/type-checkers.ts';
 import { pascalCase } from '../helpers/utils.ts';
 import type { EventArguments, InputType, SchemaField } from '../types.ts';
 

@@ -310,9 +310,13 @@ it('customImport from schema config', async () => {
     customImport_1_namedImport: 'true',
   });
   expect(config.customImports).toHaveLength(1);
-  expect(config.customImports[0].from).toEqual('lib');
-  expect(config.customImports[0].name).toEqual('custom');
-  expect(config.customImports[0].namedImport).toEqual(true);
+  expect(config.customImports[0]).toEqual(
+    expect.objectContaining({
+      from: 'lib',
+      name: 'custom',
+      namedImport: true,
+    }),
+  );
 });
 
 it('graphqlScalars legacy', async () => {

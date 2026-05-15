@@ -481,7 +481,8 @@ It will affect all inputs and outputs types (including models).
 
 #### `customImports`
 
-Allow to declare custom import statements. (Only works with emitSingle = true)
+Allow to declare custom import statements.  
+**Note**: Only works with `emitSingle = true`
 
 **New (config file)**:
 

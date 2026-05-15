@@ -9,8 +9,8 @@ import { getGraphqlInputType } from '../helpers/get-graphql-input-type.ts';
 import { getPropertyType } from '../helpers/get-property-type.ts';
 import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-keys.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
-import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
+import { isWhereUniqueInputType } from '../helpers/type-checkers.ts';
 import { castArray, last } from '../helpers/utils.ts';
 import type { EventArguments, FieldInfo, InputType } from '../types.ts';
 
@@ -172,7 +172,7 @@ export function inputType(
       graphqlType = graphqlImport.name;
       let referenceName = propertyType[0];
       if (location === 'enumTypes') {
-        referenceName = last(referenceName.split(' ')) as string;
+        referenceName = last(referenceName.split(' ')) ?? 'any';
       }
 
       if (

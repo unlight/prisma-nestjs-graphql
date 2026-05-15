@@ -217,7 +217,7 @@ export type DecoratorItem = {
   /** Decorator name. Can include namespace, e.g. `Transform.Type`. */
   name: string;
   /** Import as a named export. */
-  namedImport: boolean;
+  namedImport?: boolean;
   /** Import as default export.
    * Use `true` to import by decorator name. */
   defaultImport?: string | true;
