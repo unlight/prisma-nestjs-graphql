@@ -1,9 +1,11 @@
-import { ok } from 'node:assert';
+import assert from 'node:assert';
 
 import type { GeneratorOptions } from '@prisma/generator-helper';
 import awaitEventEmitterModule from 'await-event-emitter';
 import { Project, QuoteKind } from 'ts-morph';
+import type { Constructor } from 'type-fest';
 
+import { Configuration } from './configuration.class.ts';
 import { argsType } from './handlers/args-type.ts';
 import { combineScalarFilters } from './handlers/combine-scalar-filters.ts';
 import { createAggregateInput } from './handlers/create-aggregate-input.ts';
@@ -18,7 +20,6 @@ import { ReExport, reExport } from './handlers/re-export.ts';
 import { registerEnum } from './handlers/register-enum.ts';
 import { requireSingleFieldsInWhereUniqueInput } from './handlers/require-single-fields-in-whereunique-input.ts';
 import { warning } from './handlers/warning.ts';
-import { createConfig } from './helpers/create-config.ts';
 import { factoryGetSourceFile } from './helpers/factory-get-source-file.ts';
 import { createGetModelName } from './helpers/get-model-name.ts';
 import { mapKeys } from './helpers/utils.ts';
@@ -32,11 +33,13 @@ import type {
   TAwaitEventEmitter,
 } from './types.ts';
 
-function resolveAwaitEventEmitter(): any {
+function resolveAwaitEventEmitter(): Constructor<TAwaitEventEmitter> {
   if (typeof awaitEventEmitterModule === 'function')
     return awaitEventEmitterModule;
   if (typeof awaitEventEmitterModule.default === 'function')
     return awaitEventEmitterModule.default;
+
+  assert.fail('Failed to load awaitEventEmitterModule');
 }
 
 export async function generate(
@@ -49,36 +52,33 @@ export async function generate(
   },
 ) {
   const { connectCallback, dmmf, generator, skipAddOutputSourceFiles } = args;
-
-  const generatorOutputValue = generator.output?.value;
-  ok(generatorOutputValue, 'Missing generator configuration: output');
-
-  const config = createConfig(generator.config);
+  const config = await Configuration.create({
+    config: generator.config,
+    output: generator.output?.value as string,
+    sourceFilePath: generator.sourceFilePath,
+  });
 
   const AwaitEventEmitter = resolveAwaitEventEmitter();
   const eventEmitter: TAwaitEventEmitter = new AwaitEventEmitter();
   eventEmitter.on('Warning', warning);
-  config.emitBlocks.models && eventEmitter.on('Model', modelData);
-  if (config.emitBlocks.prismaEnums || config.emitBlocks.schemaEnums) {
+
+  if (config.emitBlocksModels) eventEmitter.on('Model', modelData);
+  if (config.emitBlocksPrismaEnums || config.emitBlocksSchemaEnums) {
     eventEmitter.on('EnumType', registerEnum);
   }
   if (
-    config.emitBlocks.outputs ||
-    (config.emitBlocks.models && !config.omitModelsCount)
+    config.emitBlocksOutputs ||
+    (config.emitBlocksModels && !config.omitModelsCount)
   ) {
     eventEmitter.on('OutputType', outputType);
   }
-  config.emitBlocks.models &&
+  if (config.emitBlocksModels)
     eventEmitter.on('ModelOutputType', modelOutputType);
-  config.emitBlocks.outputs &&
+  if (config.emitBlocksOutputs)
     eventEmitter.on('AggregateOutput', createAggregateInput);
-  config.emitBlocks.inputs && eventEmitter.on('InputType', inputType);
-  config.emitBlocks.args && eventEmitter.on('ArgsType', argsType);
+  if (config.emitBlocksInputs) eventEmitter.on('InputType', inputType);
+  if (config.emitBlocksArgs) eventEmitter.on('ArgsType', argsType);
   eventEmitter.on('GenerateFiles', generateFiles);
-
-  for (const message of config.$warnings) {
-    eventEmitter.emitSync('Warning', message);
-  }
 
   const project = new Project({
     manipulationSettings: {
@@ -91,16 +91,16 @@ export async function generate(
 
   if (!skipAddOutputSourceFiles) {
     project.addSourceFilesAtPaths([
-      `${generatorOutputValue}/**/*.ts`,
-      `!${generatorOutputValue}/**/*.d.ts`,
+      `${config.output}/**/*.ts`,
+      `!${config.output}/**/*.d.ts`,
     ]);
   }
 
-  config.combineScalarFilters && combineScalarFilters(eventEmitter);
-  config.noAtomicOperations && noAtomicOperations(eventEmitter);
-  config.reExport !== ReExport.None && reExport(eventEmitter);
-  config.purgeOutput && purgeOutput(eventEmitter);
-  config.requireSingleFieldsInWhereUniqueInput &&
+  if (config.combineScalarFilters) combineScalarFilters(eventEmitter);
+  if (config.noAtomicOperations) noAtomicOperations(eventEmitter);
+  if (config.reExport !== ReExport.None) reExport(eventEmitter);
+  if (config.purgeOutput) purgeOutput(eventEmitter);
+  if (config.requireSingleFieldsInWhereUniqueInput)
     requireSingleFieldsInWhereUniqueInput(eventEmitter);
 
   const models = new Map<string, Model>();
@@ -111,7 +111,7 @@ export async function generate(
   const getSourceFile = factoryGetSourceFile({
     eventEmitter,
     getModelName,
-    output: generatorOutputValue,
+    output: config.output,
     outputFilePattern: config.outputFilePattern,
     project,
   });
@@ -128,7 +128,7 @@ export async function generate(
     modelFields,
     modelNames,
     models,
-    output: generatorOutputValue,
+    output: config.output,
     project,
     removeTypes,
     schema,
@@ -137,6 +137,10 @@ export async function generate(
 
   if (connectCallback) {
     await connectCallback(eventEmitter, eventArguments);
+  }
+
+  for (const message of config.warnings) {
+    eventEmitter.emitSync('Warning', message);
   }
 
   await eventEmitter.emit('Begin', eventArguments);

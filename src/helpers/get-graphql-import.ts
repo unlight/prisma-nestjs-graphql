@@ -1,6 +1,7 @@
 import { SourceFile } from 'ts-morph';
 
-import type { FieldLocation, GeneratorConfiguration } from '../types.ts';
+import type { Configuration } from '../configuration.class.ts';
+import type { FieldLocation } from '../types.ts';
 import { adjustModuleSpecifier } from './adjust-module-specifier.ts';
 import { fileTypeByLocation } from './file-type-by-location.ts';
 import { relativePath } from './relative-path.ts';
@@ -11,9 +12,8 @@ export function getGraphqlImport(args: {
   location: FieldLocation;
   isId?: boolean;
   fileType?: string;
-  noTypeId?: boolean;
   getSourceFile(args: { type: string; name: string }): SourceFile;
-  config: GeneratorConfiguration;
+  config: Configuration;
 }): { name: string; specifier?: string } {
   const {
     config,
@@ -21,18 +21,17 @@ export function getGraphqlImport(args: {
     getSourceFile,
     isId,
     location,
-    noTypeId,
     sourceFile,
     typeName,
   } = args;
-  const { graphqlScalars, importExtension } = config;
 
   if (location === 'scalar') {
-    if (isId && !noTypeId) {
+    if (isId && !config.noTypeId) {
       return { name: 'ID', specifier: '@nestjs/graphql' };
     }
 
-    const graphqlType = graphqlScalars[typeName];
+    const graphqlType = config.getGraphqlScalar(typeName);
+
     if (graphqlType) {
       return { name: graphqlType.name, specifier: graphqlType.specifier };
     }
@@ -76,7 +75,7 @@ export function getGraphqlImport(args: {
         type: sourceFileType,
       }).getFilePath(),
     ),
-    importExtension,
+    config.importExtension,
   );
 
   return { name: typeName, specifier };

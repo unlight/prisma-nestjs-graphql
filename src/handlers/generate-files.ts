@@ -1,4 +1,4 @@
-import { ok } from 'node:assert';
+import assert from 'node:assert';
 
 import {
   type ClassDeclarationStructure,
@@ -8,8 +8,9 @@ import {
   StructureKind,
 } from 'ts-morph';
 
+import type { Configuration } from '../configuration.class.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
-import type { EventArguments, GeneratorConfiguration } from '../types.ts';
+import type { EventArguments } from '../types.ts';
 
 export async function generateFiles(args: EventArguments) {
   const { config, eventEmitter, output, project } = args;
@@ -22,7 +23,7 @@ export async function generateFiles(args: EventArguments) {
     project.compilerOptions.set({
       declaration: true,
       declarationDir: output,
-      emitDecoratorMetadata: false,
+      emitDecoratorMetadata: true,
       outDir: output,
       rootDir: output,
       skipLibCheck: true,
@@ -42,7 +43,7 @@ export async function generateFiles(args: EventArguments) {
 function combineToSingle(args: {
   project: Project;
   output: string;
-  config: GeneratorConfiguration;
+  config: Configuration;
 }) {
   const { config, output, project } = args;
   const rootDirectory =
@@ -76,7 +77,7 @@ function combineToSingle(args: {
               ?.getProperty(property.name)
               ?.getDecorator(decorator.name)
               ?.getFullName();
-            ok(
+            assert.ok(
               fullName,
               `Cannot get full name of decorator of class ${statement.name!}`,
             );
@@ -141,7 +142,7 @@ function combineToSingle(args: {
       }
     }
   }
-  for (const customImport of config.customImport) {
+  for (const customImport of config.customImports) {
     imports.createFrom(customImport);
   }
   sourceFile.set({

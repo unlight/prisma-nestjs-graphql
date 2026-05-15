@@ -21,6 +21,6 @@
     "skipLibCheck": true,
     "lib": ["esnext"]
   },
-  "include": ["src"]
+  "include": ["src", "prisma/nestgraphql.config.mjs"]
   // "include": ["src", "example", "@generated"]
 }

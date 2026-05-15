@@ -16,5 +16,6 @@ async function resoveGeneratorHandlerConfig() {
   }
 
   const { generatorHandlerConfig } = await import('./generate.ts');
+
   return generatorHandlerConfig;
 }

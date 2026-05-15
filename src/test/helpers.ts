@@ -1,4 +1,3 @@
-import { chain } from 'lodash';
 import {
   ImportDeclarationStructure,
   ImportSpecifierStructure,
@@ -7,6 +6,8 @@ import {
   PropertyDeclarationStructure,
   SourceFile,
 } from 'ts-morph';
+
+import { chain } from '../helpers/utils.ts';
 
 export function testSourceFile(args: {
   project: Project;
@@ -34,9 +35,25 @@ export function testSourceFile(args: {
   )!;
   const propertyList = sourceClass.getProperties().map(p => p.getStructure());
   const propertyMap = Object.fromEntries(propertyList.map(p => [p.name, p]));
+  const hasHideFiled = (property: string) => {
+    return propertyMap[property].decorators?.some(d => d.name === 'HideField');
+  };
+  const getImportByName = (name: string) => {
+    let declaration: ImportDeclarationStructure;
+    let specifier: ImportSpecifierStructure;
+    for (declaration of importDeclarations) {
+      if (declaration.namedImports) {
+        for (specifier of declaration.namedImports as ImportSpecifierStructure[]) {
+          if (specifier.name === name) return { declaration, specifier };
+        }
+      }
+    }
+  };
 
   return {
+    getImportByName,
     getNamedImports: getNamedImportsFactory(importDeclarations),
+    hasHideFiled,
     importDeclarations,
     propertyMap,
     sourceClass,

@@ -1,17 +1,4 @@
-type EmittedBlockType =
-  | 'prismaEnums'
-  | 'schemaEnums'
-  | 'models'
-  | 'inputs'
-  | 'args'
-  | 'outputs';
-
-export type EmitBlocksOption =
-  | 'enums'
-  | 'models'
-  | 'inputs'
-  | 'args'
-  | 'outputs';
+import type { EmitBlocksOption, EmittedBlockType } from '../types.ts';
 
 const allEmmittedBlocks: EmittedBlockType[] = [
   'prismaEnums',
@@ -31,9 +18,9 @@ const blocksDependencyMap: Record<EmitBlocksOption, EmittedBlockType[]> = {
 };
 
 export function createEmitBlocks(
-  data?: string[],
+  data?: unknown,
 ): Record<EmittedBlockType, boolean> {
-  if (!data) {
+  if (!Array.isArray(data)) {
     return Object.fromEntries(
       allEmmittedBlocks.map(block => [block, true]),
     ) as Record<EmittedBlockType, boolean>;
@@ -42,15 +29,13 @@ export function createEmitBlocks(
   let blocksToEmit = {} as Record<EmittedBlockType, boolean>;
 
   for (const block of data) {
+    if (typeof block !== 'string') continue;
     if (!Object.keys(blocksDependencyMap).includes(block)) continue;
 
     blocksToEmit = {
       ...blocksToEmit,
       ...Object.fromEntries(
-        (blocksDependencyMap[block] as EmittedBlockType[]).map(block => [
-          block,
-          true,
-        ]),
+        blocksDependencyMap[block].map(block => [block, true]),
       ),
     };
   }

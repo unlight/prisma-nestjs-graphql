@@ -1,29 +1,31 @@
-import { normalize } from 'node:path';
+import assert from 'node:assert';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import type { GeneratorOptions } from '@prisma/generator-helper';
-import { ok } from 'assert';
 import { exec, execSync } from 'child_process';
 import crypto from 'crypto';
-import fs from 'graceful-fs';
+import serialize from 'serialize-javascript';
 import { ImportSpecifierStructure, Project } from 'ts-morph';
 
 import { generate } from '../generate.ts';
 import { generateFileName } from '../helpers/generate-file-name.ts';
-import { castArray, uniq } from '../helpers/utils.ts';
-import type { DMMF, EventArguments, TAwaitEventEmitter } from '../types.ts';
+import { castArray, once, uniq } from '../helpers/utils.ts';
+import type {
+  Document,
+  EventArguments,
+  ExternalConfig,
+  TAwaitEventEmitter,
+} from '../types.ts';
 
-async function getGeneratorVersion() {
+const getGeneratorVersion = once(async () => {
   // @ts-expect-error No types
-  const { dependencies } = await import(
-    '@prisma/generator-helper/package.json',
-    {
-      with: { type: 'json' },
-    }
-  );
-  const generatorVersion = dependencies['@prisma/generator-helper'];
+  const { version } = await import('@prisma/generator-helper/package.json', {
+    with: { type: 'json' },
+  });
 
-  return generatorVersion;
-}
+  return version;
+});
 
 type TestGenerateArgs = {
   schema: string;
@@ -35,10 +37,18 @@ type TestGenerateArgs = {
     type: string;
   };
   onConnect?: (emitter: TAwaitEventEmitter) => void;
+  externalConfig?: ExternalConfig;
 };
 
 export async function testGenerate(args: TestGenerateArgs) {
-  const { createSouceFile, onConnect, options, provider, schema } = args;
+  const {
+    createSouceFile,
+    externalConfig,
+    onConnect,
+    options,
+    provider,
+    schema,
+  } = args;
   let project: Project | undefined;
   const connectCallback = (emitter: TAwaitEventEmitter) => {
     onConnect?.(emitter);
@@ -55,9 +65,7 @@ export async function testGenerate(args: TestGenerateArgs) {
           project.createSourceFile(
             `${output}/${filePath}`,
             createSouceFile.text,
-            {
-              overwrite: true,
-            },
+            { overwrite: true },
           );
         },
       );
@@ -68,12 +76,12 @@ export async function testGenerate(args: TestGenerateArgs) {
   };
 
   await generate({
-    ...(await createGeneratorOptions(schema, options, provider)),
+    ...(await generatorOptions({ externalConfig, options, provider, schema })),
     connectCallback,
     skipAddOutputSourceFiles: true,
   });
 
-  ok(project, 'Project is not defined');
+  assert.ok(project, 'Project is not defined');
   const sourceFiles = project.getSourceFiles();
   const emptyFieldsFiles: string[] = [];
 
@@ -142,50 +150,65 @@ async function prepareCachePath(): Promise<string> {
 /**
  * Get generator options after run prisma generate.
  */
-async function createGeneratorOptions(
-  schema: string,
-  options?: string[] | string,
-  provider: 'postgresql' | 'mongodb' = 'postgresql',
-  previewFeatures: string[] = [],
-): Promise<GeneratorOptions & { prismaClientDmmf: DMMF.Document }> {
-  const schemaHeader = `
-        datasource db {
-            provider = "${provider}"
-        }
-        generator client {
-            provider        = "prisma-client-js"
-            previewFeatures = ${JSON.stringify(previewFeatures)}
-        }
-    `;
-
+async function generatorOptions(args: {
+  schema: string;
+  options?: string[] | string;
+  provider?: 'postgresql' | 'mongodb';
+  previewFeatures?: string[];
+  externalConfig?: ExternalConfig;
+}): Promise<GeneratorOptions & { prismaClientDmmf: Document }> {
+  const {
+    externalConfig,
+    options,
+    previewFeatures = [],
+    provider = 'postgresql',
+    schema,
+  } = args;
   const generatorVersion = await getGeneratorVersion();
   // eslint-disable-next-line prefer-rest-params
-  const hash = createHash(generatorVersion, schemaHeader, arguments);
+  const hash = createHash(generatorVersion, arguments);
   const prismaTestPath = await prepareCachePath();
-
-  createPackageJson(prismaTestPath);
-
-  if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
-    execSync('yarn', { cwd: prismaTestPath, stdio: 'inherit' });
-  }
-
   const cacheFile = `${prismaTestPath}/options-${hash}.mjs`;
 
   if (!fs.existsSync(cacheFile)) {
-    const proxyGeneratorPath = normalize(
-      process.cwd() + '/src/test/proxy-generator.ts',
-    ).replaceAll('\\', '/');
+    if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
+      await createPackageJson(prismaTestPath);
+    }
+
+    if (!fs.existsSync(`${prismaTestPath}/node_modules/@prisma/client`)) {
+      execSync('yarn', { cwd: prismaTestPath, stdio: 'ignore' });
+    }
+
+    const proxyGeneratorPath = path
+      .normalize(`${process.cwd()}/src/test/proxy-generator.ts`)
+      .replaceAll('\\', '/');
+    let configFileLine = '';
+    if (externalConfig) {
+      fs.writeFileSync(
+        `${prismaTestPath}/config-${hash}.mjs`,
+        `export default ${serialize(externalConfig, { space: 2 })}`,
+      );
+      configFileLine = `configFile = "./config-${hash}.mjs"`;
+    }
+
     const schemaFile = `${prismaTestPath}/schema-${hash}.prisma`;
     const schemaContent = `
-            ${schemaHeader}
-            generator proxy {
-                provider = "node --import=@poppinss/ts-exec ${proxyGeneratorPath}"
-                output = "."
-                hash = "${hash}"
-                ${castArray(options).join('\n')}
-            }
-            ${schema}
-        `;
+      datasource db {
+        provider = "${provider}"
+      }
+      generator client {
+        provider = "prisma-client-js"
+        previewFeatures = ${JSON.stringify(previewFeatures)}
+      }
+      generator proxy {
+        provider = "node --import=@poppinss/ts-exec ${proxyGeneratorPath}"
+        output = "."
+        hash = "${hash}"
+        ${configFileLine}
+        ${castArray(options).join('\n')}
+      }
+      ${schema}
+    `;
     fs.writeFileSync(schemaFile, schemaContent);
 
     await new Promise((resolve, reject) => {
@@ -207,21 +230,16 @@ async function createGeneratorOptions(
   return import(cacheFile).then(x => x.default);
 }
 
-function createPackageJson(prismaTestPath: string) {
-  if (!fs.existsSync(`${prismaTestPath}/package.json`)) {
-    fs.writeFileSync(
-      `${prismaTestPath}/package.json`,
-      JSON.stringify(
-        {
-          devDependencies: {
-            '@prisma/client': '7',
-          },
-        },
-        undefined,
-        2,
-      ),
-    );
-  }
+async function createPackageJson(prismaTestPath: string) {
+  const version = await getGeneratorVersion();
+  fs.writeFileSync(
+    `${prismaTestPath}/package.json`,
+    JSON.stringify(
+      { devDependencies: { '@prisma/client': version } },
+      undefined,
+      2,
+    ),
+  );
 }
 
 function createHash(...data: unknown[]) {

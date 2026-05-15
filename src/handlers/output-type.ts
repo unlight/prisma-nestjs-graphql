@@ -9,7 +9,7 @@ import { getPropertyType } from '../helpers/get-property-type.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import { castArray } from '../helpers/utils.ts';
-import type { EventArguments, OutputType } from '../types.ts';
+import type { EventArguments, FieldInfo, OutputType } from '../types.ts';
 
 const nestjsGraphql = '@nestjs/graphql';
 
@@ -34,7 +34,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
   const isCountOutput =
     model?.name && outputType.name === `${model.name}CountOutputType`;
 
-  if (!config.emitBlocks.outputs && !isCountOutput) return;
+  if (!config.emitBlocksOutputs && !isCountOutput) return;
 
   // Get rid of bogus suffixes
   outputType.name = getOutputTypeName(outputType.name);
@@ -49,12 +49,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
   });
 
   const classStructure: ClassDeclarationStructure = {
-    decorators: [
-      {
-        arguments: [],
-        name: 'ObjectType',
-      },
-    ],
+    decorators: [{ arguments: [], name: 'ObjectType' }],
     isExported: true,
     kind: StructureKind.Class,
     name: outputType.name,
@@ -66,7 +61,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
   for (const field of outputType.fields) {
     const { isList, location, type } = field.outputType;
-    const outputTypeName = getOutputTypeName(String(type));
+    const outputTypeName = getOutputTypeName(type);
     const settings = isCountOutput
       ? undefined
       : model && fieldSettings.get(model.name)?.get(field.name);
@@ -107,18 +102,19 @@ export function outputType(outputType: OutputType, args: EventArguments) {
 
     // Get graphql type
     let graphqlType: string;
-    const shouldHideField =
-      settings?.shouldHideField({
-        name: outputType.name,
-        output: true,
-      }) ||
-      config.decorate.some(
-        d =>
-          d.name === 'HideField' &&
-          d.from === '@nestjs/graphql' &&
-          d.isMatchField(field.name) &&
-          d.isMatchType(outputTypeName),
-      );
+    const fieldInfo: FieldInfo = {
+      location: location,
+      objectName: outputType.name,
+      propertyName: property.name,
+      propertyType: property.type as string,
+      typeName: outputTypeName,
+    };
+
+    const shouldHideField = config.shouldHideField({
+      ...fieldInfo,
+      output: true,
+      settings,
+    });
 
     const fieldType = settings?.getFieldType({
       name: outputType.name,

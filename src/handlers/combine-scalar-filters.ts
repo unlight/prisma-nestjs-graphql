@@ -33,16 +33,14 @@ function beforeInputType(
 
 function beforeGenerateField(
   field: SchemaArgument,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   args: { inputType: InputType },
 ): void {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { inputType } = args;
-
   for (const fieldInput of field.inputTypes) {
     if (fieldInput.location !== 'inputObjectTypes') {
       continue;
     }
-    const fieldInputType = String(fieldInput.type);
+    const fieldInputType = fieldInput.type;
 
     if (isContainBogus(fieldInputType)) {
       fieldInput.type = replaceBogus(fieldInputType);

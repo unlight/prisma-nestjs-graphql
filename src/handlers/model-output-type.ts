@@ -1,4 +1,5 @@
-import { ok } from 'assert';
+import assert from 'node:assert';
+
 import JSON5 from 'json5';
 import pupa from 'pupa';
 import type { PlainObject } from 'simplytyped';
@@ -11,6 +12,7 @@ import {
   StructureKind,
 } from 'ts-morph';
 
+import type { Configuration } from '../configuration.class.ts';
 import { createComment } from '../helpers/create-comment.ts';
 import { getGraphqlImport } from '../helpers/get-graphql-import.ts';
 import { getOutputTypeName } from '../helpers/get-output-type-name.ts';
@@ -27,7 +29,7 @@ import { castArray } from '../helpers/utils.ts';
 import type {
   EventArguments,
   Field,
-  GeneratorConfiguration,
+  FieldInfo,
   OutputType,
   SchemaField,
 } from '../types.ts';
@@ -47,7 +49,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   if (isManyAndReturnOutputType(outputType.name)) return;
 
   const model = models.get(outputType.name);
-  ok(model, `Cannot find model by name ${outputType.name}`);
+  assert.ok(model, `Cannot find model by name ${outputType.name}`);
 
   const sourceFile = getSourceFile({
     name: outputType.name,
@@ -75,11 +77,14 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
   (sourceFileStructure.statements as StatementStructures[]).push(
     classStructure,
   );
-  ok(classStructure.decorators, 'classStructure.decorators is undefined');
+  assert.ok(
+    classStructure.decorators,
+    'classStructure.decorators is undefined',
+  );
   const decorator = classStructure.decorators.find(
     d => d.name === 'ObjectType',
   );
-  ok(decorator, 'ObjectType decorator not found');
+  assert.ok(decorator, 'ObjectType decorator not found');
 
   let modelSettings: ObjectSettings | undefined;
   // Get model settings from documentation
@@ -108,7 +113,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
     let fileType = 'model';
     const { isList, location, namespace, type } = field.outputType;
 
-    let outputTypeName = String(type);
+    let outputTypeName = type;
     if (namespace !== 'model') {
       fileType = 'output';
       outputTypeName = getOutputTypeName(outputTypeName);
@@ -151,7 +156,6 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         getSourceFile,
         isId: modelField?.isId,
         location,
-        noTypeId: config.noTypeId,
         sourceFile,
         typeName: outputTypeName,
       });
@@ -191,19 +195,17 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
       propertyType: property.type as string,
     });
 
-    ok(property.decorators, 'property.decorators is undefined');
+    assert.ok(property.decorators, 'property.decorators is undefined');
 
-    const shouldHideField =
-      settings?.shouldHideField({ name: outputType.name, output: true }) ||
-      config.decorate.some(
-        d =>
-          d.name === 'HideField' &&
-          d.from === '@nestjs/graphql' &&
-          d.isMatchField(field.name) &&
-          d.isMatchType(outputTypeName),
-      );
+    const fieldInfo: FieldInfo = {
+      location,
+      objectName: outputType.name,
+      propertyName: property.name,
+      propertyType: property.type as string,
+      typeName: outputTypeName,
+    };
 
-    if (shouldHideField) {
+    if (config.shouldHideField({ ...fieldInfo, output: true, settings })) {
       importDeclarations.add('HideField', nestjsGraphql);
       property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
@@ -226,22 +228,24 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
             arguments: setting.arguments as string[],
             name: setting.name,
           });
-          ok(
+          assert.ok(
             setting.from,
             "Missed 'from' part in configuration or field setting",
           );
           importDeclarations.createFrom(setting);
         }
       }
+    }
 
-      for (const d of config.decorate) {
-        if (d.isMatchField(field.name) && d.isMatchType(outputTypeName)) {
-          property.decorators.push({
-            arguments: d.arguments?.map(x => pupa(x, { propertyType })),
-            name: d.name,
-          });
-          importDeclarations.createFrom(d);
-        }
+    // TODO: DRY
+    for (const decorator of config.getDecorators()) {
+      // eslint-disable-next-line unicorn/prefer-regexp-test
+      if (decorator.match(fieldInfo)) {
+        property.decorators.push({
+          arguments: decorator.arguments?.map(x => pupa(x, { propertyType })),
+          name: decorator.name,
+        });
+        importDeclarations.createFrom(decorator);
       }
     }
 
@@ -285,7 +289,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
  * Get structure for `@Field()` decorator
  */
 function generateFieldDecorator(args: {
-  config: GeneratorConfiguration;
+  config: Configuration;
   field: SchemaField;
   graphqlType: string;
   modelField?: Field;

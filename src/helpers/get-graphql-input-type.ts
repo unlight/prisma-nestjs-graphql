@@ -1,21 +1,21 @@
-import outmatch from 'outmatch';
-
-import type { DMMF } from '../types.ts';
-import { countBy, isEqual, uniqWith } from './utils.ts';
+import type { Configuration } from '../configuration.class.ts';
+import type { InputTypeRef, SchemaArg } from '../types.ts';
+import { chain, countBy, isEqual } from './utils.ts';
 
 /**
  * Find input type for graphql field decorator.
  */
 export function getGraphqlInputType(
-  inputTypes: DMMF.InputTypeRef[],
-  pattern?: string,
+  field: SchemaArg,
+  inputTypeName: string,
+  config: Configuration,
 ) {
-  let result: DMMF.InputTypeRef | undefined;
+  let result: InputTypeRef | undefined;
 
-  inputTypes = inputTypes.filter(
-    t => !['null', 'Null'].includes(String(t.type)),
-  );
-  inputTypes = uniqWith(inputTypes, isEqual);
+  const inputTypes = chain(field.inputTypes)
+    .filter(t => !['null', 'Null'].includes(String(t.type)))
+    .uniqWith(isEqual)
+    .value();
 
   if (inputTypes.length === 1) {
     return inputTypes[0];
@@ -31,19 +31,14 @@ export function getGraphqlInputType(
     }
   }
 
-  if (pattern) {
-    if (pattern.startsWith('matcher:') || pattern.startsWith('match:')) {
-      const { 1: patternValue } = pattern.split(':', 2);
-      const isMatch = outmatch(patternValue, { separator: false });
-      result = inputTypes.find(x => isMatch(String(x.type)));
-      if (result) {
-        return result;
-      }
-    }
-    result = inputTypes.find(x => String(x.type).includes(pattern));
-    if (result) {
-      return result;
-    }
+  result = config.getInputType({
+    fieldInputTypes: inputTypes,
+    fieldName: field.name,
+    inputTypeName,
+  });
+
+  if (result) {
+    return result;
   }
 
   result = inputTypes.find(x => x.location === 'inputObjectTypes');

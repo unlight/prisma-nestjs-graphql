@@ -1,8 +1,12 @@
-import { chain } from 'lodash';
 import { Project } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFile, testSourceFileLegacy } from './helpers.ts';
+import { chain } from '../helpers/utils.ts';
+import {
+  getFieldDecoratorType,
+  testSourceFile,
+  testSourceFileLegacy,
+} from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
@@ -12,16 +16,16 @@ describe('scalar field', () => {
     ({ project } = await testGenerate({
       options: [],
       schema: `
-                model User {
-                    id String @id
-                    /// Password1
-                    /// @TypeGraphQL.omit(output: true)
-                    password1 String
-                    /// Password2
-                    /// @HideField()
-                    password2 String
-                }
-        `,
+        model User {
+          id String @id
+          /// Password1
+          /// @TypeGraphQL.omit(output: true)
+          password1 String
+          /// Password2
+          /// @HideField()
+          password2 String
+        }
+      `,
     }));
   });
 
@@ -44,25 +48,11 @@ describe('scalar field', () => {
     });
   });
 
-  describe('other outputs', () => {
-    it('user-max-aggregate', () => {
-      const s = testSourceFileLegacy({
-        file: 'user-max-aggregate.output.ts',
-        project,
-      });
+  it('user-max-aggregate output', () => {
+    const s = testSourceFile({ file: 'user-max-aggregate.output.ts', project });
 
-      expect(
-        s.classFile.getProperty('password1')?.getStructure().decorators,
-      ).toContainEqual(
-        expect.objectContaining({ arguments: [], name: 'HideField' }),
-      );
-
-      expect(
-        s.classFile.getProperty('password2')?.getStructure().decorators,
-      ).toContainEqual(
-        expect.objectContaining({ arguments: [], name: 'HideField' }),
-      );
-    });
+    expect(s.hasHideFiled('password1')).toBeTruthy();
+    expect(s.hasHideFiled('password2')).toBeTruthy();
   });
 });
 
@@ -71,31 +61,23 @@ describe('hide on non scalar', () => {
     ({ project } = await testGenerate({
       options: [],
       schema: `
-                model User {
-                  id       String @id
-                  /// @HideField()
-                  secret   Secret @relation(fields: [secretId], references: [id])
-                  secretId String
-                }
-                model Secret {
-                  id    String @id
-                  users User[]
-                }
-        `,
+        model User {
+          id String @id
+          /// @HideField()
+          secret Secret @relation(fields: [secretId], references: [id])
+          secretId String
+        }
+        model Secret {
+          id String @id
+          users User[]
+        }
+      `,
     }));
   });
 
-  describe('model', () => {
-    it('type should be imported', () => {
-      const s = testSourceFileLegacy({
-        file: 'user.model.ts',
-        project,
-      });
-
-      expect(s.namedImports).toContainEqual(
-        expect.objectContaining({ name: 'Secret' }),
-      );
-    });
+  it('model type should be imported', () => {
+    const s = testSourceFile({ file: 'user.model.ts', project });
+    expect(s.getImportByName('Secret')).toBeTruthy();
   });
 });
 
@@ -104,27 +86,22 @@ describe('hide field using match', () => {
     ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
-                model User {
-                    id String @id
-                    /// @HideField({ match: '@(User|Comment)Create*Input' })
-                    createdAt DateTime @default(now())
-                    /// @HideField( { match: '*Update*Input' } )
-                    updatedAt DateTime @updatedAt
-                }
-                `,
+        model User {
+            id String @id
+            /// @HideField({ match: '@(User|Comment)Create*Input' })
+            createdAt DateTime @default(now())
+            /// @HideField( { match: '*Update*Input' } )
+            updatedAt DateTime @updatedAt
+        }
+      `,
     }));
   });
 
   it('in model nothing should be hidden', () => {
-    const s = testSourceFileLegacy({
-      file: 'user.model.ts',
-      project,
-      property: 'createdAt',
-    });
-
-    expect(s.propertyDecorators).toHaveLength(1);
-    expect(s.fieldDecorator).toEqual(
-      expect.objectContaining({ name: 'Field' }),
+    const s = testSourceFile({ file: 'user.model.ts', project });
+    expect(s.propertyMap.createdAt.decorators).toHaveLength(1);
+    expect(getFieldDecoratorType(s.propertyMap.createdAt)).toEqual(
+      '() => Date',
     );
   });
 
@@ -356,42 +333,32 @@ describe('hide with self reference', () => {
   });
 });
 
-describe('hide _count', () => {
-  beforeAll(async () => {
-    ({ project } = await testGenerate({
-      options: `
+it('should hide _count in model', async () => {
+  ({ project } = await testGenerate({
+    options: `
   outputFilePattern = "{name}.{type}.ts"
-  decorate_1_type = "ArticleCount"
+  decorate_1_type = "Article"
   decorate_1_field = "_count"
   decorate_1_name = "HideField"
   decorate_1_from = "@nestjs/graphql"
   decorate_1_arguments = "[]"
         `,
-      schema: `
-        model Article {
-          id             String    @id
-          comments       Comment[]
-        }
-        model Comment {
-          id        String   @id
-          article   Article? @relation(fields: [articleId], references: [id])
-          articleId String?
-        }
-        `,
-    }));
-  });
+    schema: `
+      model Article {
+        id String @id
+        comments Comment[]
+      }
+      model Comment {
+        id String @id
+        article Article? @relation(fields: [articleId], references: [id])
+        articleId String?
+      }
+    `,
+  }));
 
-  it('should hide _count in model', () => {
-    const s = testSourceFileLegacy({
-      class: 'Article',
-      project,
-      property: '_count',
-    });
+  const s = testSourceFile({ class: 'Article', project });
 
-    expect(s.propertyDecorators).toContainEqual(
-      expect.objectContaining({ name: 'HideField' }),
-    );
-  });
+  expect(s.hasHideFiled('_count')).toBeTruthy();
 });
 
 it('hide fields by decorators config with args', async () => {
@@ -413,10 +380,10 @@ it('hide fields by decorators config with args', async () => {
     `,
   }));
 
-  const userCreateInput = testSourceFile({ class: 'UserCreateInput', project });
+  const s = testSourceFile({ class: 'UserCreateInput', project });
 
-  expect(userCreateInput.propertyMap.createdAt.decorators).toHaveLength(1);
-  expect(userCreateInput.propertyMap.createdAt.decorators?.[0]).toMatchObject({
+  expect(s.propertyMap.createdAt.decorators).toHaveLength(1);
+  expect(s.propertyMap.createdAt.decorators?.[0]).toMatchObject({
     arguments: [],
     name: 'HideField',
   });

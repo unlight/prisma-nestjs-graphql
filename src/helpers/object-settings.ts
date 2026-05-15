@@ -2,7 +2,7 @@ import JSON5 from 'json5';
 import outmatch from 'outmatch';
 import type { PlainObject } from 'simplytyped';
 
-import type { GeneratorConfiguration } from '../types.ts';
+import type { Configuration } from '../configuration.class.ts';
 import { isObject, merge, omit, trim } from './utils.ts';
 
 export type ObjectSetting = {
@@ -29,6 +29,7 @@ interface ObjectSettingsFilterArgs {
   output?: boolean;
 }
 
+// TODO: Should move to config
 export class ObjectSettings extends Array<ObjectSetting> {
   shouldHideField({
     input = false,
@@ -120,7 +121,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
 
 export function createObjectSettings(args: {
   text: string;
-  config: GeneratorConfiguration;
+  config: Configuration;
 }) {
   const { config, text } = args;
   const result = new ObjectSettings();
@@ -167,7 +168,7 @@ function createSettingElement({
   match,
 }: {
   line: string;
-  config: GeneratorConfiguration;
+  config: Configuration;
   fieldElement: ObjectSetting;
   match: RegExpExecArray | null;
 }) {
@@ -212,8 +213,12 @@ function createSettingElement({
 
   result.element = element;
 
-  // TODO: Deprecate
   if (name === 'TypeGraphQL.omit' || name === 'HideField') {
+    if (name === 'TypeGraphQL.omit') {
+      console.warn(
+        'prisma-nestjs-graphql: TypeGraphQL.omit deprecated use HideField instead',
+      );
+    }
     Object.assign(element, hideFieldDecorator(match));
 
     return result;
@@ -221,14 +226,9 @@ function createSettingElement({
 
   if (['FieldType', 'PropertyType'].includes(name) && match.groups?.args) {
     const options = customType(match.groups.args);
-    merge(
-      element,
-      options.namespace && config.fields[options.namespace],
-      options,
-      {
-        kind: name,
-      },
-    );
+    merge(element, config.getField(options.namespace), options, {
+      kind: name,
+    });
     return result;
   }
 
@@ -272,7 +272,7 @@ function createSettingElement({
       .filter(Boolean),
     name,
   };
-  merge(element, namespace && config.fields[namespace], options);
+  merge(element, config.getField(namespace), options);
 
   return result;
 }

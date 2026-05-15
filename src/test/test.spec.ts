@@ -42,31 +42,27 @@ const setSourceFile = (name: string) => {
   );
 };
 
-describe.skip('user test', () => {
+describe('user test', () => {
   beforeAll(async () => {
     ({ project, sourceFiles } = await testGenerate({
-      options: [
-        `outputFilePattern = "{name}.{type}.ts"`,
-        `useInputType_WhereInput_ALL = "WhereInput"`,
-        `useInputType_CreateOne_ALL = "UncheckedCreate"`,
-      ],
+      options: [],
       schema: `
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
+        model User {
+          id    Int     @id @default(autoincrement())
+          email String  @unique
+          name  String?
+          posts Post[]
+        }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
-}
-            `,
+        model Post {
+          id        Int      @id @default(autoincrement())
+          title     String
+          content   String?
+          published Boolean  @default(false)
+          author    User?    @relation(fields: [authorId], references: [id])
+          authorId  Int?
+        }
+      `,
     }));
   });
 

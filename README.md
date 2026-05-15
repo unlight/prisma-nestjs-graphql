@@ -20,20 +20,46 @@ npm install --save-dev prisma-nestjs-graphql @prisma/generator-helper identity-t
 
 ```prisma
 generator nestgraphql {
-    provider = "prisma-nestjs-graphql"
-    // Or explicit node execution
-    provider = "node node_modules/prisma-nestjs-graphql/bin.mjs"
-    output = "../src/@generated"
+  provider = "prisma-nestjs-graphql"
+  // Or explicit node execution
+  provider = "node node_modules/prisma-nestjs-graphql/bin.mjs"
+  output = "../src/@generated"
 }
 ```
 
-2. Run prisma generate
+2. Add a configuration file
+
+Create `prisma/nestgraphql.config.mjs` and reference it in your schema:
+
+```prisma
+generator nestgraphql {
+  provider = "prisma-nestjs-graphql"
+  configFile = "./nestgraphql.config.mjs"
+}
+```
+
+```js
+// prisma/nestgraphql.config.mjs
+/**
+ * @type {import('prisma-nestjs-graphql').ExternalConfig}
+ */
+export default {
+  output: '../src/@generated',
+};
+```
+
+All generator options—including `decorators`, `fields`, `useInputType`, `customImport`,
+and `graphqlScalars`—are defined as **structured JavaScript objects** in the config file
+instead of using underscore-delimited keys (`decorate_1_*`, `fields_Validator_*`, etc.)
+directly in the schema.
+
+3. Run prisma generate
 
 ```sh
 npx prisma generate
 ```
 
-3. If your models have `Decimal` and `Json` types, you need install:
+4. If your models have `Decimal` and `Json` types, you need install:
 
 ```sh
 npm install graphql-type-json prisma-graphql-type-decimal
@@ -45,11 +71,54 @@ npm install graphql-type-json prisma-graphql-type-decimal
 
 Or write you own graphql scalar types, [read more on docs.nestjs.com](https://docs.nestjs.com/graphql/scalars).
 
+## Configuration File
+
+Instead of defining all options as flat keys in `schema.prisma`, you can use a structured JavaScript config file
+for better readability, validation, and IDE autocompletion.
+
+### Migration from flatten-style keys
+
+**Before** (underscore-delimited keys in `schema.prisma`):
+
+```
+fields_Validator_from = "class-validator"
+fields_Validator_input = true
+decorate_1_type = "CreateOneUserArgs"
+decorate_1_field = data
+decorate_1_from = "class-validator"
+decorate_1_name = ValidateNested
+decorate_1_arguments = "[]"
+```
+
+**After** (structured objects in `nestgraphql.config.mjs`):
+
+```js
+fields: {
+  Validator: { from: 'class-validator', input: true },
+},
+decorators: [
+  {
+    match: ({ objectName, propertyName }) =>
+      objectName === 'CreateOneUserArgs' && propertyName === 'data',
+    from: 'class-validator',
+    name: 'ValidateNested',
+    arguments: [],
+    namedImport: true,
+  },
+],
+```
+
+### Backward compatibility
+
+The old flatten-style keys still work if no `configFile` is specified.
+Options from the config file take precedence.
+
 ## Generator options
 
 #### `output`
 
-Output folder relative to this schema file  
+Output folder, if path relative and defined in schema it will be relative to schema,
+if defined in config file it will be relative to this config file.
 Type: `string`
 
 #### `outputFilePattern`
@@ -122,9 +191,7 @@ Default: `false`
 
 #### `emitCompiled`
 
-Emit compiled JavaScript and definitions instead of TypeScript sources,
-files will be compiled with `emitDecoratorMetadata:false`, because there is a problem
-with temporal dead zone when generating merged file.  
+Emit compiled JavaScript and definitions instead of TypeScript sources.
 Type: `boolean`  
 Default: `false`
 
@@ -174,25 +241,51 @@ See [#177](https://github.com/unlight/prisma-nestjs-graphql/issues/177) for more
 Type: `boolean`  
 Default: `false`
 
-#### `useInputType`
+#### `inputType`
 
 Since GraphQL does not support input union type, this setting map
 allow to choose which input type is preferable.
 
-```sh
-generator nestgraphql {
-    useInputType_{typeName}_{property} = "{pattern}"
-}
+**New (config file)**:
+
+```js
+/**
+ * Input type mapping.
+ * Select which input type should be exposed when multiple candidates exist.
+ * Since GraphQL does not support input unions, this setting can resolve
+ * ambiguous fields (e.g. `UserRelationFilter` vs `UserWhereInput`).
+ *
+ * Supports two variants:
+ * - object map: `{ [inputTypeName]: { [fieldName|'*']: pattern } }`
+ * - function: return either an `InputTypeRef` or a string pattern
+ *   (same matching behavior as map patterns, including `match:` syntax)
+ * @example
+ * // Force all WhereInput relation properties to use the plain WhereInput type:
+ * { WhereInput: { '*': 'WhereInput' } }
+ * // Or for a specific property in a specific type:
+ * { PostCreateInput: { author: 'UserCreateNestedOneWithoutPostsInput' } }
+ * // Function variant returning a pattern:
+ * ({ inputTypeName, fieldName }) =>
+ *   inputTypeName.includes('CreateOne') && fieldName === 'data'
+ *     ? 'UncheckedCreate'
+ *     : undefined
+ */
+inputType: GetInputTypeFunction | ConfigInputTypeMap;
 ```
 
 Where:
 
-- `typeName` Full name or partial name of the class where need to choose input type.  
-  Example: `UserCreateInput` full name, `WhereInput` partial name, matches `UserWhereInput`, `PostWhereInput`, etc.
-- `property` Property of the class for which need to choose type. Special case name `ALL` means any / all properties.
-- `pattern` Part of name (or full) of type which should be chosen, you can use
-  wild card or negate symbols, in this case pattern should starts with `match:`,
-  e.g. `match:*UncheckedCreateInput` see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+- `typeName` — Full or partial name of the class where need to choose input type
+- `property` — Property of the class. Special case `ALL` means any/all properties
+- `pattern` — Part of name (or full) of type to choose; use `match:*UncheckedCreateInput` for wildcard/negation matching
+
+**Legacy (schema.prisma, flatten-style)**:
+
+```sh
+generator nestgraphql {
+  useInputType_{typeName}_{property} = "{pattern}"
+}
+```
 
 Example:
 
@@ -215,7 +308,7 @@ export type UserWhereInput = {
 ```
 
 We have generated types above, by default property `author` will be decorated as `UserRelationFilter`,
-to set `UserWhereInput` need to configure generator the following way:
+to set `UserWhereInput` need to configure generator the following way (legacy way):
 
 ```prisma
 generator nestgraphql {
@@ -233,63 +326,85 @@ export class PostWhereInput {
 }
 ```
 
-#### `decorate`
+#### `decorators`
 
-Allow to attach multiple decorators to any field of any type.
+Modern way to attach custom decorators in config file (`decorators: DecoratorItem[]`).
 
-```sh
-generator nestgraphql {
-    decorate_{key}_type = "outmatch pattern"
-    decorate_{key}_field = "outmatch pattern"
-    decorate_{key}_from = "module specifier"
-    decorate_{key}_name = "import name"
-    decorate_{key}_arguments = "[argument1, argument2]"
-    decorate_{key}_defaultImport = "default import name" | true
-    decorate_{key}_namespaceImport = "namespace import name"
-    decorate_{key}_namedImport = "import name" | true
-}
+```js
+decorators: [
+  {
+    match: ({ objectName, propertyName }) =>
+      objectName === 'CreateOneUserArgs' && propertyName === 'data',
+    from: 'class-validator',
+    name: 'ValidateNested',
+    arguments: [],
+    namedImport: true,
+  },
+  {
+    match: ({ objectName, propertyName }) =>
+      objectName === 'CreateOneUserArgs' && propertyName === 'data',
+    from: 'class-transformer',
+    name: 'Type',
+    arguments: ['() => {propertyType.0}'],
+    namedImport: true,
+  },
+];
 ```
 
-Where `{key}` any identifier to group values (written in [flatten](https://github.com/hughsk/flat) style)
-
-- `decorate_{key}_type` - outmatch pattern to match class name
-- `decorate_{key}_field` - outmatch pattern to match field name
-- `decorate_{key}_from` - module specifier to import from (e.g `class-validator`)
-- `decorate_{key}_name` - import name or name with namespace
-- `decorate_{key}_defaultImport` - import as default
-- `decorate_{key}_namespaceImport` - use this name as import namespace
-- `decorate_{key}_namedImport` - named import (without namespace)
-- `decorate_{key}_arguments` - arguments for decorator (if decorator need to be called as function)  
-  Special tokens can be used:
-  - `{propertyType.0}` - field's type (TypeScript type annotation)
-
-Example of generated class:
+`match` receives one argument `FieldInfo`:
 
 ```ts
-@ArgsType()
-export class CreateOneUserArgs {
-  @Field(() => UserCreateInput, { nullable: false })
-  data!: UserCreateInput;
-}
+type FieldInfo = {
+  /**
+   * Prisma DMMF field location type
+   * Can be: 'scalar', 'inputObjectTypes', 'outputObjectTypes', 'enumTypes', 'fieldRefTypes'
+   */
+  location: FieldLocation;
+  /**
+   * Class name
+   */
+  objectName: string;
+  /**
+   * Property name
+   */
+  propertyName: string;
+  /**
+   * Property type (may contain TypeScript elements, like parameters for generics, etc.)
+   */
+  propertyType: string;
+  /**
+   * GraphQL/Prisma type name
+   */
+  typeName: string;
+};
 ```
 
-To make it validateable (assuming `UserCreateInput` already contains validation decorators from `class-validator`),
-it is necessary to add `@ValidateNested()` and `@Type()` from `class-transformer`.
+Decorator item type:
 
-```sh
-decorate_1_type = "CreateOneUserArgs"
-decorate_1_field = data
-decorate_1_name = ValidateNested
-decorate_1_from = "class-validator"
-decorate_1_arguments = "[]"
-decorate_2_type = "CreateOneUserArgs"
-decorate_2_field = data
-decorate_2_from = "class-transformer"
-decorate_2_arguments = "['() => {propertyType.0}']"
-decorate_2_name = Type
+```ts
+type DecoratorItem = {
+  /** Return `true` to apply this decorator to the current field. */
+  match: (args: FieldInfo) => boolean;
+  /** Arguments passed to the decorator call.
+   * Supports templates like `{propertyType.0}`. */
+  arguments?: string[];
+  /** Module specifier to import from (e.g. 'class-validator') */
+  from: string;
+  /** Decorator name. Can include namespace, e.g. `Transform.Type`. */
+  name: string;
+  /** Import as a named export. */
+  namedImport: boolean;
+  /** Import as default export.
+   * Use `true` to import by decorator name. */
+  defaultImport?: string | true;
+  /** Import entire module under this namespace. */
+  namespaceImport?: string;
+};
 ```
 
-Result:
+Special token in arguments: `{propertyType.0}` resolves to the field's TypeScript type.
+
+Example result:
 
 ```ts
 import { ValidateNested } from 'class-validator';
@@ -304,48 +419,38 @@ export class CreateOneUserArgs {
 }
 ```
 
-Another example:
+**Legacy (`decorate` / `decorate_*`)**
+
+Legacy flatten-style keys in `schema.prisma` are still supported for backward compatibility:
 
 ```sh
-decorate_2_namespaceImport = "Transform"
-decorate_2_name = "Transform.Type"
+generator nestgraphql {
+  decorate_{key}_type = "outmatch pattern"
+  decorate_{key}_field = "outmatch pattern"
+  decorate_{key}_from = "module specifier"
+  decorate_{key}_name = "import name"
+  decorate_{key}_arguments = "[argument1, argument2]"
+  decorate_{key}_defaultImport = "default import name" | true
+  decorate_{key}_namespaceImport = "namespace import name"
+  decorate_{key}_namedImport = "import name" | true
+}
 ```
 
-```ts
-import * as Transform from 'class-transformer';
-
-@Transform.Type(() => UserCreateInput)
-data!: UserCreateInput;
-
-```
-
-Add `@HideField()` decorator to nested types:
-
-```
-decorate_3_type = "*CreateNestedOneWithoutUserInput"
-decorate_3_field = "!(create)"
-decorate_3_name = "HideField"
-decorate_3_from = "@nestjs/graphql"
-decorate_3_arguments = "[]"
-```
-
-May generate following class:
-
-```ts
-@Field(() => ProfileCreateWithoutUserInput, { nullable: true })
-create?: ProfileCreateWithoutUserInput;
-
-@HideField()
-connectOrCreate?: ProfileCreateOrConnectWithoutUserInput;
-
-@HideField()
-connect?: ProfileWhereUniqueInput;
-```
+Prefer `decorators` in `nestgraphql.config.*` for new configuration.
 
 #### `graphqlScalars`
 
 Allow to set custom graphql type for Prisma scalar type.
-Format:
+
+**New (config file)**:
+
+```js
+graphqlScalars: {
+  BigInt: { name: 'GraphQLBigInt', specifier: 'graphql-scalars' },
+}
+```
+
+**Legacy (schema.prisma, flatten-style)**:
 
 ```
 graphqlScalars_{type}_name = "string"
@@ -374,17 +479,28 @@ export class BigIntFilter {
 
 It will affect all inputs and outputs types (including models).
 
-#### `customImport`
+#### `customImports`
 
 Allow to declare custom import statements. (Only works with emitSingle = true)
 
+**New (config file)**:
+
+```js
+customImports: [
+  { from: 'nestjs-i18n', name: 'I18n', defaultImport: true },
+  { from: 'class-transformer', name: 'Transform', namedImport: true },
+];
+```
+
+**Legacy (schema.prisma, flatten-style)**:
+
 ```sh
 generator nestgraphql {
-    customImport_{key}_from = "module specifier"
-    customImport_{key}_name = "import name"
-    customImport_{key}_defaultImport = "default import name" | true
-    customImport_{key}_namespaceImport = "namespace import name"
-    customImport_{key}_namedImport = "import name" | true
+  customImport_{key}_from = "module specifier"
+  customImport_{key}_name = "import name"
+  customImport_{key}_defaultImport = "default import name" | true
+  customImport_{key}_namespaceImport = "namespace import name"
+  customImport_{key}_namedImport = "import name" | true
 }
 ```
 
@@ -437,12 +553,24 @@ Special directives in triple slash comments for more precise code generation.
 #### @HideField()
 
 Removes field from GraphQL schema.  
-Alias: `@TypeGraphQL.omit(output: true)`
-
 By default (without arguments) field will be decorated for hide only in output types (type in schema).  
 To hide field in input types add `input: true`.  
 To hide field in specific type you can use glob pattern `match: string | string[]`
 see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
+
+For config-file based rules, use `shouldHideField`:
+
+```js
+export default {
+  shouldHideField: ({ location, objectName, propertyName }) =>
+    location === 'inputObjectTypes' &&
+    objectName.endsWith('CreateInput') &&
+    ['id', 'createdAt', 'updatedAt'].includes(propertyName),
+};
+```
+
+The callback receives `FieldInfo` (`location`, `objectName`, `propertyName`, `propertyType`, `typeName`).  
+When `shouldHideField` is defined, it overrides `@HideField(...)` settings from field comments and legacy `decorate` rules.
 
 Examples:
 
@@ -452,13 +580,13 @@ Examples:
 
 ```prisma
 model User {
-    id String @id @default(cuid())
-    /// @HideField()
-    password String
-    /// @HideField({ output: true, input: true })
-    secret String
-    /// @HideField({ match: '@(User|Comment)Create*Input' })
-    createdAt DateTime @default(now())
+  id String @id @default(cuid())
+  /// @HideField()
+  password String
+  /// @HideField({ output: true, input: true })
+  secret String
+  /// @HideField({ match: '@(User|Comment)Create*Input' })
+  createdAt DateTime @default(now())
 }
 ```
 
@@ -492,15 +620,16 @@ export class UserCreateInput {
 
 Applying custom decorators requires configuration of generator.
 
-```sh
+```prisma
+// Legacy configuration, prefer config file
 generator nestgraphql {
-    fields_{namespace}_from = "module specifier"
-    fields_{namespace}_input = true | false
-    fields_{namespace}_output = true | false
-    fields_{namespace}_model = true | false
-    fields_{namespace}_defaultImport = "default import name" | true
-    fields_{namespace}_namespaceImport = "namespace import name"
-    fields_{namespace}_namedImport = true | false
+  fields_{namespace}_from = "module specifier"
+  fields_{namespace}_input = true | false
+  fields_{namespace}_output = true | false
+  fields_{namespace}_model = true | false
+  fields_{namespace}_defaultImport = "default import name" | true
+  fields_{namespace}_namespaceImport = "namespace import name"
+  fields_{namespace}_namedImport = true | false
 }
 ```
 
@@ -555,14 +684,14 @@ Custom decorators example:
 
 ```prisma
 generator nestgraphql {
-    fields_Validator_from = "class-validator"
-    fields_Validator_input = true
+  fields_Validator_from = "class-validator"
+  fields_Validator_input = true
 }
 
 model User {
-    id Int @id
-    /// @Validator.MinLength(3)
-    name String
+  id Int @id
+  /// @Validator.MinLength(3)
+  name String
 }
 ```
 
@@ -586,14 +715,14 @@ Custom decorators can be applied on classes (models):
 /// @NG.Directive('@extends')
 /// @NG.Directive('@key(fields: "id")')
 model User {
-    /// @NG.Directive('@external')
-    id String @id
+  /// @NG.Directive('@external')
+  id String @id
 }
 
 generator nestgraphql {
-    fields_NG_from = "@nestjs/graphql"
-    fields_NG_output = false
-    fields_NG_model = true
+  fields_NG_from = "@nestjs/graphql"
+  fields_NG_output = false
+  fields_NG_model = true
 }
 ```
 
@@ -605,9 +734,9 @@ import * as NG from '@nestjs/graphql';
 @NG.Directive('@extends')
 @NG.Directive('@key(fields: "id")')
 export class User {
-    @Field(() => ID, { nullable: false })
-    @NG.Directive('@external')
-    id!: string;
+  @Field(() => ID, { nullable: false })
+  @NG.Directive('@external')
+  id!: string;
 ```
 
 #### @FieldType()
@@ -619,9 +748,9 @@ see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
 ```prisma
 model User {
-    id Int @id
-    /// @FieldType({ name: 'Scalars.GraphQLEmailAddress', from: 'graphql-scalars', input: true })
-    email String
+  id Int @id
+  /// @FieldType({ name: 'Scalars.GraphQLEmailAddress', from: 'graphql-scalars', input: true })
+  email String
 }
 ```
 
@@ -644,7 +773,7 @@ And following GraphQL schema:
 scalar EmailAddress
 
 input UserCreateInput {
-    email: EmailAddress!
+  email: EmailAddress!
 }
 ```
 
@@ -653,15 +782,15 @@ There is a shortcut:
 
 ```grapqhl
 generator nestgraphql {
-    fields_Scalars_from = "graphql-scalars"
-    fields_Scalars_input = true
-    fields_Scalars_output = true
+  fields_Scalars_from = "graphql-scalars"
+  fields_Scalars_input = true
+  fields_Scalars_output = true
 }
 
 model User {
-    id Int @id
-    /// @FieldType('Scalars.GraphQLEmailAddress')
-    email String
+  id Int @id
+  /// @FieldType('Scalars.GraphQLEmailAddress')
+  email String
 }
 ```
 
@@ -679,13 +808,13 @@ Example:
 
 ```
 generator nestgraphql {
-    fields_TF_from = "type-fest"
+  fields_TF_from = "type-fest"
 }
 
 model User {
-    id String @id
-    /// @PropertyType('TF.JsonObject')
-    data Json
+  id String @id
+  /// @PropertyType('TF.JsonObject')
+  data Json
 }
 ```
 
@@ -711,8 +840,8 @@ GraphQL federation example:
 /// @Directive({ arguments: ['@extends'] })
 /// @Directive({ arguments: ['@key(fields: "id")'] })
 model User {
-    /// @Directive({ arguments: ['@external'] })
-    id String @id
+  /// @Directive({ arguments: ['@external'] })
+  id String @id
 }
 ```
 
@@ -739,7 +868,7 @@ Example 1:
 // schema.prisma
 /// @ObjectType({ isAbstract: true })
 model User {
-    id Int @id
+  id Int @id
 }
 ```
 
@@ -754,7 +883,7 @@ Example 2:
 // schema.prisma
 /// @ObjectType('Human', { isAbstract: true })
 model User {
-    id Int @id
+  id Int @id
 }
 ```
 
@@ -795,11 +924,11 @@ import { generate } from 'prisma-nestjs-graphql';
 
 ## TODO
 
-- noAtomicOperations = 1, IntFieldUpdateOperationsInput exists
 - CommentUncheckedUpdateManyWithoutAuthorNestedInput and CommentUpdateManyWithoutAuthorNestedInput are same
 - Add logic to detect view models and skip generation of mutation inputs/args for them https://github.com/unlight/prisma-nestjs-graphql/issues/248
 - dummy-createfriends.input.ts -> `create-friends`
 - check 'TODO FIXME'
+- rework test, use setup file
 
 ## License
 

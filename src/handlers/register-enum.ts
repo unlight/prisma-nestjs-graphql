@@ -7,7 +7,7 @@ import { extractEnumValueDocs } from './prisma-enum-doc.ts';
 export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   const { config, enums, getSourceFile } = args;
 
-  if (!config.emitBlocks.prismaEnums && !enums[enumType.name]) return;
+  if (!config.emitBlocksPrismaEnums && !enums[enumType.name]) return;
 
   const dataModelEnum = enums[enumType.name];
   const enumTypesData = dataModelEnum?.values || [];
@@ -34,7 +34,7 @@ export function registerEnum(enumType: SchemaEnum, args: EventArguments) {
   // Format only if needed
   const hasValuesMap = Object.keys(filteredValuesMap).length > 0;
   const formattedValuesMap = hasValuesMap
-    ? JSON.stringify(filteredValuesMap, null, 2).replaceAll(
+    ? JSON.stringify(filteredValuesMap, undefined, 2).replaceAll(
         /"([^"]+)":/g,
         '$1:',
       )

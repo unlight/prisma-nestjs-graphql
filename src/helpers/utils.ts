@@ -3,9 +3,12 @@ import lodash from 'lodash';
 export const {
   camelCase,
   castArray,
+  chain,
   cloneDeep,
   countBy,
+  find,
   first,
+  isEmpty,
   isEqual,
   isObject,
   kebabCase,
@@ -15,6 +18,7 @@ export const {
   memoize,
   merge,
   omit,
+  once,
   partition,
   remove,
   startCase,
@@ -25,4 +29,8 @@ export const {
 
 export function pascalCase(string: string) {
   return startCase(camelCase(string)).replaceAll(' ', '');
+}
+
+export function toBoolean(value: unknown) {
+  return ['true', '1', 'on'].includes(String(value));
 }

@@ -1,5 +1,4 @@
 import JSON5 from 'json5';
-import { chain } from 'lodash';
 import {
   ClassDeclaration,
   type ImportDeclarationStructure,
@@ -11,7 +10,7 @@ import {
 } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { trim } from '../helpers/utils.ts';
+import { chain, trim } from '../helpers/utils.ts';
 import type { EventArguments } from '../types.ts';
 import {
   getFieldDecoratorOptions,
@@ -1734,7 +1733,7 @@ describe('select input type', () => {
     expect(propertyMap.user.type).toEqual('Identity<UserWhereInput>');
   });
 
-  it('select input type usercreateargs', async () => {
+  it('select input type usercreateargs legacy config', async () => {
     ({ project, sourceFiles } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
@@ -1751,6 +1750,70 @@ describe('select input type', () => {
                     authorId       String?
                 }
             `,
+    }));
+
+    const { propertyMap } = testSourceFile({
+      file: 'create-one-user.args.ts',
+      project,
+    });
+
+    expect(propertyMap.data.type).toEqual('Identity<UserUncheckedCreateInput>');
+    expect(getFieldDecoratorType(propertyMap.data)).toEqual(
+      '() => UserUncheckedCreateInput',
+    );
+  });
+
+  it('select input type usercreateargs via config file', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      externalConfig: {
+        inputType: {
+          CreateOne: { '*': 'UncheckedCreate' },
+        },
+      },
+      schema: `
+        model User {
+          userId String @id
+          articles Article[] @relation("ArticleAuthor")
+        }
+        model Article {
+          articleId String @id @default(cuid())
+          author User? @relation(name: "ArticleAuthor", fields: [authorId], references: [userId])
+          authorId String?
+        }
+      `,
+    }));
+
+    const { propertyMap } = testSourceFile({
+      file: 'create-one-user.args.ts',
+      project,
+    });
+
+    expect(propertyMap.data.type).toEqual('Identity<UserUncheckedCreateInput>');
+    expect(getFieldDecoratorType(propertyMap.data)).toEqual(
+      '() => UserUncheckedCreateInput',
+    );
+  });
+
+  it('select input type usercreateargs via config file function variant', async () => {
+    ({ project, sourceFiles } = await testGenerate({
+      externalConfig: {
+        inputType: ({ fieldName, inputTypeName }) => {
+          if (inputTypeName.includes('CreateOne') && fieldName === 'data') {
+            return 'UncheckedCreate';
+          }
+        },
+      },
+      schema: `
+        model User {
+          userId String @id
+          articles Article[] @relation("ArticleAuthor")
+        }
+        model Article {
+          articleId String @id @default(cuid())
+          author User? @relation(name: "ArticleAuthor", fields: [authorId], references: [userId])
+          authorId String?
+        }
+      `,
     }));
 
     const { propertyMap } = testSourceFile({
@@ -2226,38 +2289,51 @@ describe('property type', () => {
   });
 });
 
-describe('hidefield on groupby output', () => {
-  beforeAll(async () => {
-    ({ project, sourceFiles } = await testGenerate({
-      options: [`outputFilePattern = "{name}.{type}.ts"`],
-      schema: `
-            model User {
-                id Int @id
-                /// @HideField({ match: '*GroupBy' })
-                /// @FieldType({ name: 'GraphQLJSONObject', from: 'graphql-scalars', namedImport: true, input: true, output: true })
-                /// @PropertyType({ name: 'JsonObject', from: 'type-fest', namedImport: true, input: true, output: true })
-                profile Json
-            }
-            `,
-    }));
-    setSourceFile('user-group-by.output.ts');
-  });
+it('hidefield no graphqljsonobject', async () => {
+  ({ project, sourceFiles } = await testGenerate({
+    options: [`outputFilePattern = "{name}.{type}.ts"`],
+    schema: `
+      model User {
+        id Int @id
+        /// @HideField({ match: '*GroupBy' })
+        /// @FieldType({ name: 'GraphQLJSONObject', from: 'graphql-scalars', namedImport: true, input: true, output: true })
+        /// @PropertyType({ name: 'JsonObject', from: 'type-fest', namedImport: true, input: true, output: true })
+        profile Json
+      }
+      `,
+  }));
 
-  it('no graphqljsonobject', () => {
-    expect(imports).not.toContainEqual(
-      expect.objectContaining({
-        name: 'GraphQLJSONObject',
-      }),
-    );
-  });
+  const { getNamedImports, importDeclarations, propertyMap, sourceText } =
+    testSourceFile({
+      file: 'user-group-by.output.ts',
+      project,
+    });
 
-  it('no graphqljson', () => {
-    expect(imports).not.toContainEqual(
-      expect.objectContaining({
-        name: 'GraphQLJSON',
-      }),
-    );
-  });
+  expect(
+    propertyMap.profile.decorators?.some(d => d.name === 'Field'),
+    'No @Field decorator',
+  ).toBeFalsy();
+
+  expect(
+    propertyMap.profile.decorators?.some(d => d.name === 'HideField'),
+    'Has @Field decorator',
+  ).toBeTruthy();
+
+  const namedImports = importDeclarations.flatMap(i => i.namedImports ?? []);
+
+  expect(namedImports.find(i => i['name'] === 'HideField')).toBeTruthy();
+
+  expect(namedImports).not.toContainEqual(
+    expect.objectContaining({
+      name: 'GraphQLJSONObject',
+    }),
+  );
+
+  expect(namedImports).not.toContainEqual(
+    expect.objectContaining({
+      name: 'GraphQLJSON',
+    }),
+  );
 });
 
 describe('non list optional properties should be nullable', () => {

@@ -1,7 +1,7 @@
-import { chain } from 'lodash';
 import { ImportSpecifierStructure, Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
+import { chain } from '../helpers/utils.ts';
 import {
   getPropertyStructure,
   testSourceFile,

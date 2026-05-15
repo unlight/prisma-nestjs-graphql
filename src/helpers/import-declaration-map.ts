@@ -5,7 +5,7 @@ import type {
 } from 'ts-morph';
 import { StructureKind } from 'ts-morph';
 
-import type { GeneratorConfiguration } from '../types.ts';
+import type { Configuration } from '../configuration.class.ts';
 import type { ObjectSetting } from './object-settings.ts';
 
 export class ImportDeclarationMap extends Map<
@@ -29,7 +29,7 @@ export class ImportDeclarationMap extends Map<
   }
 
   create(args: {
-    config: GeneratorConfiguration;
+    config: Configuration;
     propertySettings?: ObjectSetting;
     propertyType: string;
   }) {

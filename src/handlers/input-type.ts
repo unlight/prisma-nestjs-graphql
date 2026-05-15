@@ -12,7 +12,7 @@ import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { isWhereUniqueInputType } from '../helpers/is-where-unique-input-type.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import { castArray, last } from '../helpers/utils.ts';
-import type { EventArguments, InputType } from '../types.ts';
+import type { EventArguments, FieldInfo, InputType } from '../types.ts';
 
 export function inputType(
   args: EventArguments & {
@@ -70,15 +70,10 @@ export function inputType(
       namedImports: [{ name: classDecoratorName }],
     });
 
-  const useInputType = config.useInputType.find(x =>
-    inputType.name.includes(x.typeName),
-  );
   const isWhereUnique = isWhereUniqueInputType(inputType.name);
 
   for (const field of inputType.fields) {
-    field.inputTypes = field.inputTypes.filter(
-      t => !removeTypes.has(String(t.type)),
-    );
+    field.inputTypes = field.inputTypes.filter(t => !removeTypes.has(t.type));
 
     eventEmitter.emitSync(BeforeGenerateField, field, args);
 
@@ -89,10 +84,9 @@ export function inputType(
       continue;
     }
 
-    const usePattern = useInputType?.ALL || useInputType?.[name];
-    const graphqlInputType = getGraphqlInputType(inputTypes, usePattern);
+    const graphqlInputType = getGraphqlInputType(field, inputType.name, config);
     const { isList, location, type } = graphqlInputType;
-    const typeName = String(type);
+    const typeName = type;
     const settings = modelFieldSettings?.get(name);
     const propertySettings = settings?.getPropertyType({
       input: true,
@@ -141,26 +135,27 @@ export function inputType(
       propertyType: property.type as string,
     });
 
-    // Get graphql type
-    let graphqlType: string;
-    const shouldHideField =
-      settings?.shouldHideField({
-        input: true,
-        name: inputType.name,
-      }) ||
-      config.decorate.some(
-        d =>
-          d.name === 'HideField' &&
-          d.from === moduleSpecifier &&
-          d.isMatchField(name) &&
-          d.isMatchType(inputType.name),
-      );
+    const fieldInfo: FieldInfo = {
+      location,
+      objectName: inputType.name,
+      propertyName: property.name,
+      propertyType: property.type as string,
+      typeName,
+    };
+
+    const shouldHideField = config.shouldHideField({
+      ...fieldInfo,
+      input: true,
+      settings,
+    });
 
     const fieldType = settings?.getFieldType({
       input: true,
       name: inputType.name,
     });
 
+    // Get graphql type
+    let graphqlType: string;
     if (fieldType && isCustomsApplicable && !shouldHideField) {
       graphqlType = fieldType.name;
       importDeclarations.createFrom({ ...fieldType });
@@ -287,16 +282,15 @@ export function inputType(
         }
       }
 
-      for (const decorate of config.decorate) {
-        if (
-          decorate.isMatchField(name) &&
-          decorate.isMatchType(inputType.name)
-        ) {
+      // TODO: DRY
+      for (const decorator of config.getDecorators()) {
+        // eslint-disable-next-line unicorn/prefer-regexp-test
+        if (decorator.match(fieldInfo)) {
           property.decorators.push({
-            arguments: decorate.arguments?.map(x => pupa(x, { propertyType })),
-            name: decorate.name,
+            arguments: decorator.arguments?.map(x => pupa(x, { propertyType })),
+            name: decorator.name,
           });
-          importDeclarations.createFrom(decorate);
+          importDeclarations.createFrom(decorator);
         }
       }
     }

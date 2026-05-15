@@ -51,18 +51,6 @@ export default [
     },
   },
   {
-    rules: {
-      'unicorn/prevent-abbreviations': [
-        'warn',
-        {
-          replacements: {
-            args: false,
-          },
-        },
-      ],
-    },
-  },
-  {
     plugins: {
       perfectionist,
     },
@@ -91,7 +79,7 @@ export default [
       'consistent-return': [0, { treatUndefinedAsUnspecified: false }],
       quotes: [1, 'single', { allowTemplateLiterals: true, avoidEscape: true }],
       semi: [1, 'always'],
-      'max-lines': [1, { max: 400 }],
+      'max-lines': [1, { max: 500 }],
       'max-params': [1, { max: 5 }],
       'no-unneeded-ternary': [1],
       // wix-editor
@@ -106,18 +94,7 @@ export default [
       'unicorn/prefer-spread': 0,
       'unicorn/catch-error-name': 0,
       'unicorn/prefer-node-protocol': 0,
-      'unicorn/prevent-abbreviations': [
-        1,
-        {
-          replacements: {
-            args: false,
-            err: false,
-            prod: false,
-            ref: false,
-            params: false,
-          },
-        },
-      ],
+      'unicorn/prevent-abbreviations': 'off',
       // simple-import-sort with recomended settings
       'simple-import-sort/imports': 1,
       'sort-imports': 'off',

@@ -1,6 +1,6 @@
-import type { DMMF } from '../types.ts';
+import type { Model } from '../types.ts';
 
-export function getWhereUniqueAtLeastKeys(model: DMMF.Model) {
+export function getWhereUniqueAtLeastKeys(model: Model) {
   const names = model.fields
     .filter(field => field.isUnique || field.isId)
     .map(field => field.name);
