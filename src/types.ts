@@ -223,6 +223,8 @@ export type DecoratorItem = {
   defaultImport?: string | true;
   /** Import entire module under this namespace. */
   namespaceImport?: string;
+  // TODO: Replace namedImport defaultImport namespaceImport by one enum
+  // importAs: 'name' | 'default' | 'ns';
 };
 
 export type ExternalConfig = Partial<{

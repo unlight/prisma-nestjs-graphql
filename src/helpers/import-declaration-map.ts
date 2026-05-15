@@ -65,10 +65,11 @@ export class ImportDeclarationMap extends Map<
     defaultImport?: string | true;
     namespaceImport?: string;
     namedImport?: boolean;
+    // importAs: 'name' | 'default' | 'ns';
   }) {
     const { defaultImport, from, namedImport, namespaceImport } = args;
     let name = args.name;
-    const value = {
+    const value: OptionalKind<ImportDeclarationStructure> = {
       defaultImport: undefined as string | undefined,
       moduleSpecifier: from,
       namedImports: [] as OptionalKind<ImportSpecifierStructure>[],
