@@ -160,6 +160,9 @@ export function outputType(outputType: OutputType, args: EventArguments) {
       importDeclarations.add('HideField', nestjsGraphql);
       property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
+      // Get field overrides from config
+      const fieldOverride = config.getFieldOverride(fieldInfo);
+
       // Generate `@Field()` decorator
       property.decorators.push({
         arguments: [
@@ -167,6 +170,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
           JSON5.stringify({
             ...settings?.fieldArguments(),
             nullable: Boolean(field.isNullable),
+            ...fieldOverride,
           }),
         ],
         name: 'Field',

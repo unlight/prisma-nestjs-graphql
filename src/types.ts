@@ -227,6 +227,37 @@ export type DecoratorItem = {
   // importAs: 'name' | 'default' | 'ns';
 };
 
+/**
+ * Arguments passed to the `@Field()` decorator.
+ * These are merged into the generated `@Field()` options object.
+ */
+export type FieldDecoratorArguments = {
+  /** Mark field as nullable in GraphQL schema. */
+  nullable?: boolean;
+  /** Default value for the field. */
+  defaultValue?: unknown;
+  /** Description shown in GraphQL schema. */
+  description?: string;
+  /** Mark field as deprecated with optional reason. */
+  deprecationReason?: string;
+  /** Complexity for query complexity analysis. */
+  complexity?: number;
+};
+
+/**
+ * Rule for overriding `@Field()` decorator arguments on generated fields.
+ * Use this to customize pagination fields (take, skip) or other generated Args fields.
+ */
+export type FieldOverrideItem = {
+  /** Return `true` to apply this override to the current field. */
+  match: (args: FieldInfo) => boolean;
+  /**
+   * Arguments to merge into the `@Field()` decorator options.
+   * These are merged with existing arguments (nullable, etc.).
+   */
+  fieldArguments: FieldDecoratorArguments;
+};
+
 export type ExternalConfig = Partial<{
   /**
    * Output folder for generated files.
@@ -429,4 +460,26 @@ export type ExternalConfig = Partial<{
    */
 
   decorators: DecoratorItem[];
+
+  /**
+   * Override `@Field()` decorator arguments for specific fields.
+   * Use this to customize pagination fields (take, skip, cursor) or other
+   * generated Args fields that don't come from your Prisma schema.
+   *
+   * Each rule is evaluated against generated field metadata (`FieldInfo`) and
+   * applied when `match` returns `true`.
+   *
+   * @example
+   * fieldOverrides: [
+   *   {
+   *     match: ({ objectName, propertyName }) =>
+   *       objectName.endsWith('Args') && propertyName === 'take',
+   *     fieldArguments: {
+   *       defaultValue: 10,
+   *       description: 'Number of records to return',
+   *     },
+   *   },
+   * ]
+   */
+  fieldOverrides: FieldOverrideItem[];
 }>;

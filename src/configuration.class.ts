@@ -441,6 +441,31 @@ export class Configuration {
   }
 
   /**
+   * Get field override arguments for a specific field.
+   * Returns merged fieldArguments from all matching overrides.
+   */
+  getFieldOverride(args: {
+    objectName: string;
+    propertyName: string;
+    propertyType: string;
+    location: FieldLocation;
+    typeName: string;
+  }): Record<string, unknown> | undefined {
+    const overrides = this.externalConfig?.fieldOverrides;
+    if (!overrides?.length) return;
+
+    let result: Record<string, unknown> | undefined;
+
+    for (const override of overrides) {
+      if (override.match(args)) {
+        result = { ...result, ...override.fieldArguments };
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * @deprecated Should be replaced by decorators
    */
   get decorate() {

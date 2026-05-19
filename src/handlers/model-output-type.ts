@@ -213,6 +213,7 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
         generateFieldDecorator({
           config,
           field,
+          fieldInfo,
           graphqlType,
           modelField,
           settings,
@@ -291,11 +292,12 @@ export function modelOutputType(outputType: OutputType, args: EventArguments) {
 function generateFieldDecorator(args: {
   config: Configuration;
   field: SchemaField;
+  fieldInfo: FieldInfo;
   graphqlType: string;
   modelField?: Field;
   settings?: ObjectSettings;
 }): OptionalKind<DecoratorStructure> {
-  const { config, field, graphqlType, modelField, settings } = args;
+  const { config, field, fieldInfo, graphqlType, modelField, settings } = args;
   const { isList, namespace } = field.outputType;
   const { typeListNullable } = config;
   const { isNullable } = field;
@@ -317,11 +319,15 @@ function generateFieldDecorator(args: {
     ? modelField?.default
     : undefined;
 
+  // Get field overrides from config
+  const fieldOverride = config.getFieldOverride(fieldInfo);
+
   const secondArgumentOptions = JSON5.stringify({
     ...settings?.fieldArguments(),
     defaultValue,
     description: modelField?.documentation,
     nullable: getNullable(),
+    ...fieldOverride,
   });
 
   return {

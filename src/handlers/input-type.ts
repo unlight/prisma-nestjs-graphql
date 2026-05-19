@@ -195,6 +195,9 @@ export function inputType(
       importDeclarations.add('HideField', moduleSpecifier);
       property.decorators.push({ arguments: [], name: 'HideField' });
     } else {
+      // Get field overrides from config
+      const fieldOverride = config.getFieldOverride(fieldInfo);
+
       // Generate `@Field()` decorator
       property.decorators.push({
         arguments: [
@@ -202,6 +205,7 @@ export function inputType(
           JSON5.stringify({
             ...settings?.fieldArguments(),
             nullable: !isRequired,
+            ...fieldOverride,
           }),
         ],
         name: 'Field',
