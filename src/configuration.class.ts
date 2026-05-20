@@ -451,14 +451,14 @@ export class Configuration {
     location: FieldLocation;
     typeName: string;
   }): Record<string, unknown> | undefined {
-    const overrides = this.externalConfig?.fieldOverrides;
+    const overrides = this.externalConfig?.fieldDecoratorArguments;
     if (!overrides?.length) return;
 
     let result: Record<string, unknown> | undefined;
 
     for (const override of overrides) {
       if (override.match(args)) {
-        result = { ...result, ...override.fieldArguments };
+        result = { ...result, ...override.decoratorArguments };
       }
     }
 

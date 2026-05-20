@@ -153,24 +153,24 @@ Default: `''` (empty string)
 
 #### `combineScalarFilters`
 
-Combine nested/nullable scalar filters to single  
-Type: `boolean`  
+Combine nested/nullable scalar filters to single
+Type: `boolean`
 Default: `true`
 
 #### `noAtomicOperations`
 
-Remove input types for atomic operations  
-Type: `boolean`  
+Remove input types for atomic operations
+Type: `boolean`
 Default: `true`
 
 #### `reExport`
 
-Create `index.ts` file with re-export  
-Type: `enum`  
-Values:  
-`None` Default, create nothing  
-`Directories` Create index file in all root directories  
-`Single` Create single index file in output directory  
+Create `index.ts` file with re-export
+Type: `enum`
+Values:
+`None` Default, create nothing
+`Directories` Create index file in all root directories
+`Single` Create single index file in output directory
 `All` Create index file in all root directories and in output directory
 
 Example configuration:
@@ -185,60 +185,60 @@ generator nestgraphql {
 
 #### `emitSingle`
 
-Generate single file with merged classes and enums.  
-Type: `boolean`  
+Generate single file with merged classes and enums.
+Type: `boolean`
 Default: `false`
 
 #### `emitCompiled`
 
 Emit compiled JavaScript and definitions instead of TypeScript sources.
-Type: `boolean`  
+Type: `boolean`
 Default: `false`
 
 #### `emitBlocks`
 
-Emit only selected blocks. Be aware, that some blocks do depend on others, e.g. one can't emit `models` without emitting `enums`.  
-Type: `("args" | "inputs" | "outputs" | "models" | "enums")[]`  
+Emit only selected blocks. Be aware, that some blocks do depend on others, e.g. one can't emit `models` without emitting `enums`.
+Type: `("args" | "inputs" | "outputs" | "models" | "enums")[]`
 Default: `["args", "inputs", "outputs", "models", "enums"]`
 
 #### `omitModelsCount`
 
-Omit `_count` field from models.  
-Type: `boolean`  
+Omit `_count` field from models.
+Type: `boolean`
 Default: `false`
 
 #### `purgeOutput`
 
-Delete all files in `output` folder.  
-Type: `boolean`  
+Delete all files in `output` folder.
+Type: `boolean`
 Default: `false`
 
 #### `noTypeId`
 
-Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.  
-Type: `boolean`  
+Disable usage of graphql `ID` type and use `Int/Float` for fields marked as `@id` in schema.
+Type: `boolean`
 Default: `false`
 
 #### `typeListNullable`
 
 Adds `nullable: true` for relation list properties out output models,
 it makes graphql field looks like `[Type!]`, default `[Type!]!`
-Type: `boolean`  
+Type: `boolean`
 Default: `false`
 
 #### `requireSingleFieldsInWhereUniqueInput`
 
-When a model `*WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).  
-See [#58](https://github.com/unlight/prisma-nestjs-graphql/issues/58) for more details.  
-Type: `boolean`  
-Default: `false`  
+When a model `*WhereUniqueInput` class has only a single field, mark that field as **required** (TypeScript) and **not nullable** (GraphQL).
+See [#58](https://github.com/unlight/prisma-nestjs-graphql/issues/58) for more details.
+Type: `boolean`
+Default: `false`
 **Note**: It will break compatiblity between Prisma types and generated classes.
 
 #### `unsafeCompatibleWhereUniqueInput`
 
 Set TypeScript property type as non optional for all fields in `*WhereUniqueInput` classes.
-See [#177](https://github.com/unlight/prisma-nestjs-graphql/issues/177) for more details.  
-Type: `boolean`  
+See [#177](https://github.com/unlight/prisma-nestjs-graphql/issues/177) for more details.
+Type: `boolean`
 Default: `false`
 
 #### `inputType`
@@ -481,7 +481,7 @@ It will affect all inputs and outputs types (including models).
 
 #### `customImports`
 
-Allow to declare custom import statements.  
+Allow to declare custom import statements.
 **Note**: Only works with `emitSingle = true`
 
 **New (config file)**:
@@ -512,6 +512,55 @@ Where `{key}` any identifier to group values (written in [flatten](https://githu
 - `customImport_{key}_defaultImport` - import as default
 - `customImport_{key}_namespaceImport` - use this name as import namespace
 - `customImport_{key}_namedImport` - named import (without namespace)
+
+#### `fieldDecoratorArguments`
+
+Override `@Field()` decorator arguments for specific fields. Use this to customize pagination fields (take, skip, cursor) or other generated Args fields that don't come from your Prisma schema.
+
+Each rule is evaluated against generated field metadata and applied when the `match` function returns `true`. Multiple matching rules are merged in order.
+
+**New (config file)**:
+
+```js
+fieldDecoratorArguments: [
+  {
+    match: ({ objectName, propertyName }) =>
+      objectName.endsWith('Args') && propertyName === 'take',
+    decoratorArguments: {
+      name: 'first',
+      defaultValue: 10,
+      description: 'Number of records to return',
+    },
+  },
+  {
+    match: ({ objectName, propertyName }) =>
+      objectName.endsWith('Args') && propertyName === 'skip',
+    decoratorArguments: {
+      name: 'offset',
+      defaultValue: 0,
+      description: 'Number of records to skip',
+    },
+  },
+]
+```
+
+**Available `decoratorArguments` options:**
+- `nullable` — Mark field as nullable in GraphQL schema
+- `defaultValue` — Default value for the field
+- `description` — Description shown in GraphQL schema
+- `deprecationReason` — Mark field as deprecated
+- `name` — Custom name for the field in GraphQL schema (TypeScript property name stays the same)
+- `complexity` — Complexity value for query cost analysis
+- `middleware` — Array of field middleware functions
+
+**Note:** When using the `name` option to override a field name in GraphQL, ensure you understand Prisma field mapping. For example, if you override the `take` field name to `first`, you must update any Prisma query logic that references the field by its original name. Consider using a mapping helper if doing this across multiple queries.
+
+The `match` function receives `FieldInfo` with:
+- `objectName` — Class name (e.g., 'FindManyUserArgs')
+- `propertyName` — Property name (e.g., 'take', 'skip')
+- `propertyType` — TypeScript property type
+- `typeName` — GraphQL/Prisma type name
+- `location` — Prisma field location ('scalar', 'inputObjectTypes', etc.)
 
 ## Documentation and field options
 
@@ -553,9 +602,9 @@ Special directives in triple slash comments for more precise code generation.
 
 #### @HideField()
 
-Removes field from GraphQL schema.  
-By default (without arguments) field will be decorated for hide only in output types (type in schema).  
-To hide field in input types add `input: true`.  
+Removes field from GraphQL schema.
+By default (without arguments) field will be decorated for hide only in output types (type in schema).
+To hide field in input types add `input: true`.
 To hide field in specific type you can use glob pattern `match: string | string[]`
 see [outmatch](https://github.com/axtgr/outmatch#usage) for details.
 
@@ -570,7 +619,7 @@ export default {
 };
 ```
 
-The callback receives `FieldInfo` (`location`, `objectName`, `propertyName`, `propertyType`, `typeName`).  
+The callback receives `FieldInfo` (`location`, `objectName`, `propertyName`, `propertyType`, `typeName`).
 When `shouldHideField` is defined, it overrides `@HideField(...)` settings from field comments and legacy `decorate` rules.
 
 Examples:
@@ -634,51 +683,51 @@ generator nestgraphql {
 }
 ```
 
-Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{namespace}`.  
+Create configuration map in [flatten](https://github.com/hughsk/flat) style for `{namespace}`.
 Where `{namespace}` is a namespace used in field triple slash comment.
 
 ##### `fields_{namespace}_from`
 
-Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)  
+Required. Name of the module, which will be used in import (`class-validator`, `graphql-scalars`, etc.)
 Type: `string`
 
 ##### `fields_{namespace}_input`
 
-Means that it will be applied on input types (classes decorated by `InputType`)  
-Type: `boolean`  
+Means that it will be applied on input types (classes decorated by `InputType`)
+Type: `boolean`
 Default: `false`
 
 ##### `fields_{namespace}_output`
 
 Means that it will be applied on output types (classes decorated by `ObjectType`),
-including models  
-Type: `boolean`  
+including models
+Type: `boolean`
 Default: `false`
 
 ##### `fields_{namespace}_model`
 
-Means that it will be applied only on model types (classes decorated by `ObjectType`)  
-Type: `boolean`  
+Means that it will be applied only on model types (classes decorated by `ObjectType`)
+Type: `boolean`
 Default: `false`
 
 ##### `fields_{namespace}_defaultImport`
 
-Default import name, if module have no namespace.  
-Type: `undefined | string | true`  
-Default: `undefined`  
+Default import name, if module have no namespace.
+Type: `undefined | string | true`
+Default: `undefined`
 If defined as `true` then import name will be same as `{namespace}`
 
 ##### `fields_{namespace}_namespaceImport`
 
-Import all as this namespace from module  
-Type: `undefined | string`  
+Import all as this namespace from module
+Type: `undefined | string`
 Default: Equals to `{namespace}`
 
 ##### `fields_{namespace}_namedImport`
 
-If imported module has internal namespace, this allow to generate named import,  
-imported name will be equal to `{namespace}`, see [example of usage](#propertytype)  
-Type: `boolean`  
+If imported module has internal namespace, this allow to generate named import,
+imported name will be equal to `{namespace}`, see [example of usage](#propertytype)
+Type: `boolean`
 Default: `false`
 
 Custom decorators example:

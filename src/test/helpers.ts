@@ -52,12 +52,15 @@ export function testSourceFile(args: {
     }
   };
 
-  const fieldDecoratorOptionsString = property ? getFieldDecoratorOptions(propertyMap[property]) : undefined;
-  const fieldDecoratorOptions = fieldDecoratorOptionsString 
-    ? JSON5.parse(fieldDecoratorOptionsString as string) 
+  const fieldDecoratorOptionsString = property
+    ? getFieldDecoratorOptions(propertyMap[property])
+    : undefined;
+  const fieldDecoratorOptions = fieldDecoratorOptionsString
+    ? JSON5.parse(fieldDecoratorOptionsString as string)
     : undefined;
 
   return {
+    fieldDecoratorOptions,
     getImportByName,
     getNamedImports: getNamedImportsFactory(importDeclarations),
     hasHideFiled,
@@ -65,7 +68,6 @@ export function testSourceFile(args: {
     propertyMap,
     sourceClass,
     sourceText: sourceFile.getText(),
-    fieldDecoratorOptions,
   };
 }
 

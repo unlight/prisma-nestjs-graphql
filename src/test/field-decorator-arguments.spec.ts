@@ -4,51 +4,52 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import { testSourceFile } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
-describe('fieldOverrides', () => {
+describe('fieldDecoratorArguments', () => {
   let project: Project;
 
   describe('override take field in Args classes', () => {
     beforeAll(async () => {
       ({ project } = await testGenerate({
-        schema: `
-          model User {
-            id    String @id @default(cuid())
-            name  String
-          }
-        `,
         externalConfig: {
-          fieldOverrides: [
+          fieldDecoratorArguments: [
             {
               match: ({ objectName, propertyName }) =>
                 objectName.endsWith('Args') && propertyName === 'take',
-              fieldArguments: {
+              decoratorArguments: {
                 defaultValue: 10,
                 description: 'Number of records to return',
               },
             },
           ],
         },
+        schema: `
+          model User {
+            id    String @id @default(cuid())
+            name  String
+          }
+        `,
       }));
     });
 
     it('should have defaultValue and description on take field', () => {
       const s = testSourceFile({
-        project,
         file: 'find-many-user.args.ts',
+        project,
         property: 'take',
       });
 
       expect(s.fieldDecoratorOptions).toMatchObject({
-        nullable: true,
         defaultValue: 10,
         description: 'Number of records to return',
+        nullable: true,
       });
+      expect(s.fieldDecoratorOptions).not.toHaveProperty('name');
     });
 
     it('skip field should not have override', () => {
       const s = testSourceFile({
-        project,
         file: 'find-many-user.args.ts',
+        project,
         property: 'skip',
       });
 
@@ -63,18 +64,12 @@ describe('fieldOverrides', () => {
   describe('override multiple fields', () => {
     beforeAll(async () => {
       ({ project } = await testGenerate({
-        schema: `
-          model Post {
-            id      String @id @default(cuid())
-            title   String
-          }
-        `,
         externalConfig: {
-          fieldOverrides: [
+          fieldDecoratorArguments: [
             {
               match: ({ objectName, propertyName }) =>
                 objectName.endsWith('Args') && propertyName === 'take',
-              fieldArguments: {
+              decoratorArguments: {
                 defaultValue: 20,
                 description: 'Limit results',
               },
@@ -82,20 +77,27 @@ describe('fieldOverrides', () => {
             {
               match: ({ objectName, propertyName }) =>
                 objectName.endsWith('Args') && propertyName === 'skip',
-              fieldArguments: {
+              decoratorArguments: {
+                name: 'offset',
                 defaultValue: 0,
                 description: 'Skip records',
               },
             },
           ],
         },
+        schema: `
+          model Post {
+            id      String @id @default(cuid())
+            title   String
+          }
+        `,
       }));
     });
 
     it('take should have override', () => {
       const s = testSourceFile({
-        project,
         file: 'find-many-post.args.ts',
+        project,
         property: 'take',
       });
 
@@ -103,16 +105,18 @@ describe('fieldOverrides', () => {
         defaultValue: 20,
         description: 'Limit results',
       });
+      expect(s.fieldDecoratorOptions).not.toHaveProperty('name');
     });
 
     it('skip should have override', () => {
       const s = testSourceFile({
-        project,
         file: 'find-many-post.args.ts',
+        project,
         property: 'skip',
       });
 
       expect(s.fieldDecoratorOptions).toMatchObject({
+        name: 'offset',
         defaultValue: 0,
         description: 'Skip records',
       });
@@ -122,35 +126,97 @@ describe('fieldOverrides', () => {
   describe('override fields in output types', () => {
     beforeAll(async () => {
       ({ project } = await testGenerate({
+        externalConfig: {
+          fieldDecoratorArguments: [
+            {
+              match: ({ objectName, propertyName }) =>
+                objectName === 'Item' && propertyName === 'count',
+              decoratorArguments: {
+                description: 'Item count override',
+              },
+            },
+          ],
+        },
         schema: `
           model Item {
             id    String @id @default(cuid())
             count Int
           }
         `,
-        externalConfig: {
-          fieldOverrides: [
-            {
-              match: ({ objectName, propertyName }) =>
-                objectName === 'Item' && propertyName === 'count',
-              fieldArguments: {
-                description: 'Item count override',
-              },
-            },
-          ],
-        },
       }));
     });
 
     it('should have description on model output type', () => {
       const s = testSourceFile({
-        project,
         file: 'item.model.ts',
+        project,
         property: 'count',
       });
 
       expect(s.fieldDecoratorOptions).toMatchObject({
         description: 'Item count override',
+      });
+    });
+  });
+
+  describe('deprecationReason, name and middleware', () => {
+    beforeAll(async () => {
+      ({ project } = await testGenerate({
+        externalConfig: {
+          fieldDecoratorArguments: [
+            {
+              match: ({ objectName, propertyName }) =>
+                objectName === 'User' && propertyName === 'createdAt',
+              decoratorArguments: {
+                name: 'createdAt',
+                deprecationReason: 'Use timestamp instead',
+                description: 'Field creation timestamp',
+              },
+            },
+            {
+              match: ({ objectName, propertyName }) =>
+                objectName === 'User' && propertyName === 'id',
+              decoratorArguments: {
+                middleware: [],
+                description: 'User identifier',
+              },
+            },
+          ],
+        },
+        schema: `
+          model User {
+            id        String @id @default(cuid())
+            createdAt DateTime @default(now())
+            name      String
+          }
+        `,
+      }));
+    });
+
+    it('should have name and deprecationReason on field', () => {
+      const s = testSourceFile({
+        file: 'user.model.ts',
+        project,
+        property: 'createdAt',
+      });
+
+      expect(s.fieldDecoratorOptions).toMatchObject({
+        name: 'createdAt',
+        deprecationReason: 'Use timestamp instead',
+        description: 'Field creation timestamp',
+      });
+    });
+
+    it('should have middleware on field', () => {
+      const s = testSourceFile({
+        file: 'user.model.ts',
+        project,
+        property: 'id',
+      });
+
+      expect(s.fieldDecoratorOptions).toMatchObject({
+        description: 'User identifier',
+        middleware: [],
       });
     });
   });
