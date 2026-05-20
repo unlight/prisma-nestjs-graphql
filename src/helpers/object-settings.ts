@@ -57,10 +57,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
     }
 
     if (fieldType.match) {
-      const matcher = fieldType.match;
-      if (!matcher(name)) {
-        return undefined;
-      }
+      return fieldType.match(name) ? fieldType : undefined;
     }
 
     if (input && !fieldType.input) {
@@ -86,10 +83,7 @@ export class ObjectSettings extends Array<ObjectSetting> {
     }
 
     if (propertyType.match) {
-      const matcher = propertyType.match;
-      if (!matcher(name)) {
-        return undefined;
-      }
+      return propertyType.match(name) ? propertyType : undefined;
     }
 
     if (input && !propertyType.input) {
