@@ -1,6 +1,5 @@
 import type { DMMF } from '@prisma/generator-helper';
 import type AwaitEventEmitter from 'await-event-emitter';
-import type { Complexity, FieldMiddleware } from '@nestjs/graphql';
 import type { Project, SourceFile } from 'ts-morph';
 import type { WritableDeep } from 'type-fest';
 
@@ -281,9 +280,9 @@ export type FieldDecoratorArguments = {
   /** Mark field as deprecated with optional reason. */
   deprecationReason?: string;
   /** Complexity for query complexity analysis. */
-  complexity?: Complexity;
+  complexity?: unknown;
   /** Array of middleware to apply to the field. */
-  middleware?: FieldMiddleware[];
+  middleware?: unknown[];
   /** Mark field as nullable in GraphQL schema. */
   nullable?: boolean;
   /** Default value for the field. */
