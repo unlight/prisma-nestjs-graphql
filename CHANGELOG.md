@@ -1,3 +1,9 @@
+## [23.2.1](https://github.com/unlight/prisma-nestjs-graphql/compare/v23.2.0...v23.2.1) (2026-05-30)
+
+### Bug Fixes
+
+* Emit middleware as identifier references instead of string literals ([472e860](https://github.com/unlight/prisma-nestjs-graphql/commit/472e8606516deff4a5cdb080861c958787e32155)), closes [#220](https://github.com/unlight/prisma-nestjs-graphql/issues/220) [#115](https://github.com/unlight/prisma-nestjs-graphql/issues/115) [#137](https://github.com/unlight/prisma-nestjs-graphql/issues/137) [#257](https://github.com/unlight/prisma-nestjs-graphql/issues/257)
+
 ## [23.2.0](https://github.com/unlight/prisma-nestjs-graphql/compare/v23.1.0...v23.2.0) (2026-05-23)
 
 ### Features
