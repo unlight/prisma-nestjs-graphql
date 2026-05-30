@@ -1,15 +1,14 @@
 import { Project, SourceFile } from 'ts-morph';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import { testSourceFileLegacy } from './helpers.ts';
+import { testSourceFile } from './helpers.ts';
 import { testGenerate } from './test-generate.ts';
 
 let project: Project;
-let sourceFiles: SourceFile[];
 
 describe('compound index', () => {
   beforeAll(async () => {
-    ({ project, sourceFiles } = await testGenerate({
+    ({ project } = await testGenerate({
       options: [
         `outputFilePattern = "{name}.{type}.ts"`,
         `fields_Validator_from = "class-validator"`,
@@ -33,25 +32,31 @@ describe('compound index', () => {
   });
 
   it('user unique input compound', () => {
-    const s = testSourceFileLegacy({
+    const s = testSourceFile({
       class: 'UserEmailNameCompoundUniqueInput',
       project,
     });
 
-    const minLength = s.classFile
-      .getProperty('name')
-      ?.getDecorator('MinLength');
-    expect(minLength?.getText()).toEqual('@Validator.MinLength(3)');
+    const minLength = s.propertyMap.name.decorators?.find(
+      d => d.name === 'MinLength',
+    );
+
+    expect(minLength).toBeTruthy();
+    expect(minLength).toEqual({
+      arguments: ['3'],
+      kind: 7,
+      name: 'MinLength',
+      typeArguments: [],
+    });
   });
 
   it('compound uniq where must be wrapped to prisma atleast', () => {
-    const s = testSourceFileLegacy({
+    const s = testSourceFile({
       class: 'FindManyUserArgs',
       project,
-      property: 'cursor',
     });
 
-    expect(s.property?.type).toEqual(
+    expect(s.propertyMap.cursor.type).toEqual(
       `Prisma.AtLeast<UserWhereUniqueInput, 'id' | 'email_name'>`,
     );
   });
@@ -59,7 +64,7 @@ describe('compound index', () => {
 
 describe('compound primary key', () => {
   beforeAll(async () => {
-    ({ project, sourceFiles } = await testGenerate({
+    ({ project } = await testGenerate({
       options: [`outputFilePattern = "{name}.{type}.ts"`],
       schema: `
                 model User {
@@ -74,13 +79,12 @@ describe('compound primary key', () => {
   });
 
   it('compound primary key atleast keys', () => {
-    const s = testSourceFileLegacy({
+    const s = testSourceFile({
       class: 'FindFirstUserArgs',
       project,
-      property: 'cursor',
     });
 
-    expect(s.property?.type).toEqual(
+    expect(s.propertyMap.cursor.type).toEqual(
       "Prisma.AtLeast<UserWhereUniqueInput, 'firstname_surname'>",
     );
   });
