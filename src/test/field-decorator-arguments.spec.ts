@@ -13,12 +13,12 @@ describe('fieldDecoratorArguments', () => {
         externalConfig: {
           fieldDecoratorArguments: [
             {
-              match: ({ objectName, propertyName }) =>
-                objectName.endsWith('Args') && propertyName === 'take',
               decoratorArguments: {
                 defaultValue: 10,
                 description: 'Number of records to return',
               },
+              match: ({ objectName, propertyName }) =>
+                objectName.endsWith('Args') && propertyName === 'take',
             },
           ],
         },
@@ -67,21 +67,21 @@ describe('fieldDecoratorArguments', () => {
         externalConfig: {
           fieldDecoratorArguments: [
             {
-              match: ({ objectName, propertyName }) =>
-                objectName.endsWith('Args') && propertyName === 'take',
               decoratorArguments: {
                 defaultValue: 20,
                 description: 'Limit results',
               },
+              match: ({ objectName, propertyName }) =>
+                objectName.endsWith('Args') && propertyName === 'take',
             },
             {
-              match: ({ objectName, propertyName }) =>
-                objectName.endsWith('Args') && propertyName === 'skip',
               decoratorArguments: {
-                name: 'offset',
                 defaultValue: 0,
                 description: 'Skip records',
+                name: 'offset',
               },
+              match: ({ objectName, propertyName }) =>
+                objectName.endsWith('Args') && propertyName === 'skip',
             },
           ],
         },
@@ -116,9 +116,9 @@ describe('fieldDecoratorArguments', () => {
       });
 
       expect(s.fieldDecoratorOptions).toMatchObject({
-        name: 'offset',
         defaultValue: 0,
         description: 'Skip records',
+        name: 'offset',
       });
     });
   });
@@ -129,11 +129,11 @@ describe('fieldDecoratorArguments', () => {
         externalConfig: {
           fieldDecoratorArguments: [
             {
-              match: ({ objectName, propertyName }) =>
-                objectName === 'Item' && propertyName === 'count',
               decoratorArguments: {
                 description: 'Item count override',
               },
+              match: ({ objectName, propertyName }) =>
+                objectName === 'Item' && propertyName === 'count',
             },
           ],
         },
@@ -165,21 +165,21 @@ describe('fieldDecoratorArguments', () => {
         externalConfig: {
           fieldDecoratorArguments: [
             {
-              match: ({ objectName, propertyName }) =>
-                objectName === 'User' && propertyName === 'createdAt',
               decoratorArguments: {
-                name: 'createdAt',
                 deprecationReason: 'Use timestamp instead',
                 description: 'Field creation timestamp',
+                name: 'createdAt',
               },
+              match: ({ objectName, propertyName }) =>
+                objectName === 'User' && propertyName === 'createdAt',
             },
             {
+              decoratorArguments: {
+                description: 'User identifier',
+                middleware: [],
+              },
               match: ({ objectName, propertyName }) =>
                 objectName === 'User' && propertyName === 'id',
-              decoratorArguments: {
-                middleware: [],
-                description: 'User identifier',
-              },
             },
           ],
         },
@@ -201,9 +201,9 @@ describe('fieldDecoratorArguments', () => {
       });
 
       expect(s.fieldDecoratorOptions).toMatchObject({
-        name: 'createdAt',
         deprecationReason: 'Use timestamp instead',
         description: 'Field creation timestamp',
+        name: 'createdAt',
       });
     });
 
@@ -218,6 +218,56 @@ describe('fieldDecoratorArguments', () => {
         description: 'User identifier',
         middleware: [],
       });
+    });
+  });
+
+  describe('custom middleware with customImports', () => {
+    beforeAll(async () => {
+      ({ project } = await testGenerate({
+        externalConfig: {
+          customImports: [
+            {
+              defaultImport: true,
+              from: './field-middleware',
+              name: 'loggerMiddleware',
+            },
+          ],
+          fieldDecoratorArguments: [
+            {
+              decoratorArguments: {
+                description: 'User name with logger',
+                middleware: ['loggerMiddleware'],
+              },
+              match: ({ objectName, propertyName }) =>
+                objectName === 'User' && propertyName === 'name',
+            },
+          ],
+        },
+        schema: `
+          model User {
+            id    String @id @default(cuid())
+            name  String
+          }
+        `,
+      }));
+    });
+
+    it('should have middleware on field with custom imports', () => {
+      const sourceFile = project.getSourceFileOrThrow(sf =>
+        sf.getFilePath().endsWith('user.model.ts'),
+      );
+      const userClass = sourceFile.getClass('User');
+      const nameProperty = userClass?.getProperty('name');
+      const fieldDecorator = nameProperty
+        ?.getDecorators()
+        .find(d => d.getFullName() === 'Field');
+      const decoratorText = fieldDecorator?.getText();
+
+      // Middleware should be included as identifier reference, not string literal
+      expect(decoratorText).toContain('middleware:[loggerMiddleware]');
+      // Should NOT be a string literal
+      expect(decoratorText).not.toContain("'loggerMiddleware'");
+      expect(decoratorText).toContain("description:'User name with logger'");
     });
   });
 });

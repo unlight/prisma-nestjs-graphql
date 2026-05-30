@@ -1,5 +1,4 @@
 import { ok } from 'assert';
-import JSON5 from 'json5';
 import { type ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
 import { getEnumName } from '../helpers/get-enum-name.ts';
@@ -8,7 +7,7 @@ import { getOutputTypeName } from '../helpers/get-output-type-name.ts';
 import { getPropertyType } from '../helpers/get-property-type.ts';
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
-import { castArray } from '../helpers/utils.ts';
+import { castArray, stringifyFieldOptions } from '../helpers/utils.ts';
 import type { EventArguments, FieldInfo, OutputType } from '../types.ts';
 
 const nestjsGraphql = '@nestjs/graphql';
@@ -167,7 +166,7 @@ export function outputType(outputType: OutputType, args: EventArguments) {
       property.decorators.push({
         arguments: [
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
-          JSON5.stringify({
+          stringifyFieldOptions({
             ...settings?.fieldArguments(),
             nullable: Boolean(field.isNullable),
             ...fieldOverride,

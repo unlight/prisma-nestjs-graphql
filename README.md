@@ -551,7 +551,40 @@ fieldDecoratorArguments: [
 - `deprecationReason` — Mark field as deprecated
 - `name` — Custom name for the field in GraphQL schema (TypeScript property name stays the same)
 - `complexity` — Complexity value for query cost analysis
-- `middleware` — Array of field middleware functions
+- `middleware` — Middleware function name(s) to apply to the field
+
+**Middleware Example:**
+
+To use field middleware, combine `customImports` with `fieldDecoratorArguments`. Middleware values are emitted as identifier references (not string literals), allowing them to reference your imported middleware functions:
+
+```js
+export default {
+  customImports: [
+    { from: './middleware/logger', name: 'loggerMiddleware', defaultImport: true },
+    { from: './middleware/auth', name: 'authMiddleware', defaultImport: true },
+  ],
+  fieldDecoratorArguments: [
+    {
+      match: ({ objectName, propertyName }) =>
+        objectName === 'User' && propertyName === 'email',
+      decoratorArguments: {
+        middleware: ['loggerMiddleware', 'authMiddleware'],
+        description: 'User email with logging and auth',
+      },
+    },
+  ],
+};
+```
+
+This generates:
+
+```ts
+@Field(() => String, {
+  description: 'User email with logging and auth',
+  middleware: [loggerMiddleware, authMiddleware]
+})
+email: string;
+```
 
 **Note:** When using the `name` option to override a field name in GraphQL, ensure you understand Prisma field mapping. For example, if you override the `take` field name to `first`, you must update any Prisma query logic that references the field by its original name. Consider using a mapping helper if doing this across multiple queries.
 

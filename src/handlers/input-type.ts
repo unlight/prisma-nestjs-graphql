@@ -1,5 +1,4 @@
 import { ok } from 'assert';
-import JSON5 from 'json5';
 import pupa from 'pupa';
 import { type ClassDeclarationStructure, StructureKind } from 'ts-morph';
 
@@ -11,7 +10,7 @@ import { getWhereUniqueAtLeastKeys } from '../helpers/get-where-unique-at-least-
 import { ImportDeclarationMap } from '../helpers/import-declaration-map.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import { isWhereUniqueInputType } from '../helpers/type-checkers.ts';
-import { castArray, last } from '../helpers/utils.ts';
+import { castArray, last, stringifyFieldOptions } from '../helpers/utils.ts';
 import type { EventArguments, FieldInfo, InputType } from '../types.ts';
 
 export function inputType(
@@ -202,7 +201,7 @@ export function inputType(
       property.decorators.push({
         arguments: [
           isList ? `() => [${graphqlType}]` : `() => ${graphqlType}`,
-          JSON5.stringify({
+          stringifyFieldOptions({
             ...settings?.fieldArguments(),
             nullable: !isRequired,
             ...fieldOverride,

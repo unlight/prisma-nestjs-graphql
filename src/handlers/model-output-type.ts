@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 
-import JSON5 from 'json5';
 import pupa from 'pupa';
 import type { PlainObject } from 'simplytyped';
 import {
@@ -25,6 +24,7 @@ import {
 } from '../helpers/object-settings.ts';
 import { propertyStructure } from '../helpers/property-structure.ts';
 import { isManyAndReturnOutputType } from '../helpers/type-checkers.ts';
+import { stringifyFieldOptions } from '../helpers/utils.ts';
 import { castArray } from '../helpers/utils.ts';
 import type {
   EventArguments,
@@ -322,7 +322,7 @@ function generateFieldDecorator(args: {
   // Get field overrides from config
   const fieldOverride = config.getFieldOverride(fieldInfo);
 
-  const secondArgumentOptions = JSON5.stringify({
+  const secondArgumentOptions = stringifyFieldOptions({
     ...settings?.fieldArguments(),
     defaultValue,
     description: modelField?.documentation,

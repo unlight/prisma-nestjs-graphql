@@ -281,8 +281,20 @@ export type FieldDecoratorArguments = {
   deprecationReason?: string;
   /** Complexity for query complexity analysis. */
   complexity?: unknown;
-  /** Array of middleware to apply to the field. */
-  middleware?: unknown[];
+  /**
+   * Middleware function name(s) to apply to the field.
+   * These are emitted as identifier references, not strings.
+   * Make sure to add corresponding customImports for the middleware.
+   *
+   * @example
+   * // Single middleware
+   * middleware: 'loggerMiddleware'
+   *
+   * @example
+   * // Multiple middleware
+   * middleware: ['loggerMiddleware', 'authMiddleware']
+   */
+  middleware?: string | string[];
   /** Mark field as nullable in GraphQL schema. */
   nullable?: boolean;
   /** Default value for the field. */
