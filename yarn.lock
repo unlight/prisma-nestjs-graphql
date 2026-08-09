@@ -5927,9 +5927,9 @@ highlight.js@^10.7.1:
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
 
 hono@^4.12.8:
-  version "4.12.16"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.12.16.tgz#90fcc63caa713199703bda08d8518f654e98b516"
-  integrity sha512-jN0ZewiNAWSe5khM3EyCmBb250+b40wWbwNILNfEvq84VREWwOIkuUsFONk/3i3nqkz7Oe1PcpM2mwQEK2L9Kg==
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.13.1.tgz#d4a606b792954d07a6215d12c01b7cf59da03cbc"
+  integrity sha512-kdJoFVv2xmayw6cY09H7AbMJMt8Jn5jdlEdXsP7AGBdF2DIptVlKlOLKXP41yPip4/a3yQPv9gVcJYI8YY04dw==
 
 hook-std@^4.0.0:
   version "4.0.0"
